@@ -27,7 +27,7 @@
     <ClCompile Include="VectorTemplated.cpp">
       <Filter>Source Files\TemplatedExample</Filter>
     </ClCompile>
-    <ClCompile Include="Vector4.cpp">
+    <ClCompile Include="Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Matrix4.cpp">

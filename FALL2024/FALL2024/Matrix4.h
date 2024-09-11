@@ -7,11 +7,19 @@
 #include "Vector3.h"
 
 class Matrix4 {
+/*
+    We will store matrix as:
+      i=0  [ x0, x1, x2, x3,
+      i=1    y0, y1, y2, y3,
+      i=2    z0, z1, z2, z3,
+      i=3    w0, w1, w2, w3 ]
+*/
 private:
     float data[4][4];
 
 public:
     Matrix4();
+    Matrix4(float x0, float y0, float z0, float w0, float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2, float x3, float y3, float z3, float w3);
 
     // Multiplication: * Operator Overloads
     Matrix4 operator*(const Matrix4& other);

@@ -5,42 +5,43 @@
 
 Vector3 Vector3::operator+(const Vector3& other) const
 {
-    // Write implementation here
+    return Vector3(x + other.x, y + other.y, z + other.z);
 }
 
 Vector3 Vector3::operator-(const Vector3& other) const
 {
-    // Write implementation here
+    return Vector3(x - other.x, y - other.y, z - other.z);
 }
 
 Vector3 Vector3::operator*(float scalar) const
 {
-    // Write implementation here
+    return Vector3(x * scalar, y * scalar, z * scalar);
 }
 
 float Vector3::dot(const Vector3& other) const
 {
-    // Write implementation here
+    return ((x * other.x) + (y * other.y) + (z * other.z));
 }
 
 float Vector3::magnitude() const
 {
-    // Write implementation here
+    return (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)));
 }
 
 float Vector3::magnitudSquared() const
 {
-    // Write implementation here
+    return (pow(x, 2) + pow(y, 2) + pow(z, 2));
 }
 
 Vector3 Vector3::normalized() const
 {
-    // Write implementation here
+    float magnitude_val = magnitude();
+    return Vector3(x / magnitude_val, y / magnitude_val, z / magnitude_val);
 }
 
 Vector3 Vector3::cross(const Vector3& other) const
 {
-    // Write implementation here
+    return Vector3((y * other.z - z * other.y), (z * other.x - x * other.z), (x * other.y - y * other.x));
 }
 
 std::ostream& operator<<(std::ostream& os, const Vector3& v) {
