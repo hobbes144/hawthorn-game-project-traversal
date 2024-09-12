@@ -4,7 +4,7 @@ Matrix4::Matrix4()
 {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
-            data[i][j] = 0;
+            data[i][j] = i == j ? 1.0f : 0.0f;
         }
     }
 }
@@ -44,6 +44,7 @@ Matrix4 Matrix4::operator*(const Matrix4& other)
     Matrix4 result;
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
+            result.updateElement(i, j, 0.0f);
             for (int k = 0; k < 4; k++) {
                 result.updateElement(i, j, result.getElement(i, j) + data[i][k] * other.getElement(k, j));
             }
@@ -66,13 +67,13 @@ Vector3 Matrix4::operator*(const Vector3& vec) const
 Matrix4 Matrix4::translation(float tx, float ty, float tz)
 {
     Matrix4 result;
-    result.updateElement(0, 0, 1);
-    result.updateElement(0, 3, tx);
-    result.updateElement(1, 1, 1);
-    result.updateElement(1, 3, ty);
-    result.updateElement(2, 2, 1);
-    result.updateElement(2, 3, tz);
-    result.updateElement(3, 3, 1);
+    result.data[0][0] = 1;
+    result.data[0][3] = tx;
+    result.data[1][1] = 1;
+    result.data[1][3] = ty;
+    result.data[2][2] = 1.0f;
+    result.data[2][3] = tz;
+    result.data[3][3] = 1.0f;
 
     return result;
 }
@@ -80,10 +81,10 @@ Matrix4 Matrix4::translation(float tx, float ty, float tz)
 Matrix4 Matrix4::scale(float sx, float sy, float sz)
 {
     Matrix4 result;
-    result.updateElement(0, 0, sx);
-    result.updateElement(1, 1, sy);
-    result.updateElement(2, 2, sz);
-    result.updateElement(3, 3, 1);
+    result.data[0][0] = sx;
+    result.data[1][1] = sy;
+    result.data[2][2] = sz;
+    result.data[3][3] = 1.0f;
 	
     return result;
 }
@@ -92,12 +93,10 @@ const float pi = 3.14159f;
 Matrix4 Matrix4::rotationX(float angle)
 {
     Matrix4 result;
-    result.updateElement(0, 0, 1);
-    result.updateElement(1, 1, cos(angle));
-    result.updateElement(1, 2, -sin(angle));
-    result.updateElement(2, 1, sin(angle));
-    result.updateElement(2, 2, cos(angle));
-    result.updateElement(3, 3, 1);
+    result.data[1][1] = cos(angle);
+    result.data[1][2] = -sin(angle);
+    result.data[2][1] = sin(angle);
+    result.data[2][2] = cos(angle);
 	
     return result;
 }
@@ -105,12 +104,10 @@ Matrix4 Matrix4::rotationX(float angle)
 Matrix4 Matrix4::rotationY(float angle)
 {
     Matrix4 result;
-    result.updateElement(0, 2, sin(angle));
-    result.updateElement(0, 0, cos(angle));
-    result.updateElement(1, 1, 1);
-    result.updateElement(2, 2, cos(angle));
-    result.updateElement(2, 0, -sin(angle));
-    result.updateElement(3, 3, 1);
+    result.data[0][2] = sin(angle);
+    result.data[0][0] = cos(angle);
+    result.data[2][2] = cos(angle);
+    result.data[2][0] = -sin(angle);
 	
     return result;
 }
@@ -118,12 +115,10 @@ Matrix4 Matrix4::rotationY(float angle)
 Matrix4 Matrix4::rotationZ(float angle)
 {
     Matrix4 result;
-    result.updateElement(0, 0, cos(angle));
-    result.updateElement(0, 1, -sin(angle));
-    result.updateElement(2, 2, 1);
-    result.updateElement(1, 0, sin(angle));
-    result.updateElement(1, 1, cos(angle));
-    result.updateElement(3, 3, 1);
+    result.data[0][0]= cos(angle);
+    result.data[0][1]=-sin(angle);
+    result.data[1][0]= sin(angle);
+    result.data[1][1]= cos(angle);
 	
     return result;
 }

@@ -36,6 +36,7 @@ float Vector3::magnitudSquared() const
 Vector3 Vector3::normalized() const
 {
     float magnitude_val = magnitude();
+    if (magnitude_val == 0) throw std::runtime_error("Cannot normalize zero vector");
     return Vector3(x / magnitude_val, y / magnitude_val, z / magnitude_val);
 }
 
