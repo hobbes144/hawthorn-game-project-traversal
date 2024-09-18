@@ -119,50 +119,50 @@ void runTest(void (*testFunction)(), const std::string& testName) {
     }
 }
 
-int main() {
-    std::vector<std::pair<void (*)(), std::string>> tests = {
-        {testMatrixMultiplication, "Matrix Multiplication"},
-        {testVectorTransformation, "Vector Transformation"},
-        {testTranslationMatrix, "Translation Matrix"},
-        {testScaleMatrix, "Scale Matrix"},
-        {testRotationMatrices, "Rotation Matrices"}
-    };
-
-    int passedTests = 0;
-    for (const auto& test : tests) {
-        runTest(test.first, test.second);
-        passedTests++;
-    }
-
-    std::cout << "\nTest summary: " << passedTests << " out of " << tests.size() << " tests passed." << std::endl;
-
-    return 0;
-
-
-    //
-    //Vector3 position{ 0.0f, 0.0f, 0.0f };
-    //Vector3 direction{ 10.0f, 0.0f, 0.0f };
-
-    //Matrix4 translate = Matrix4::translation(5.0f, 0.0f, 0.0f);
-    //Matrix4 rotation = Matrix4::rotationZ(M_PI * 0.25f);
-
-    //std::cout << direction << std::endl;
-    //// Infinite loop
-    //while (true)
-    //{
-    //    position = translate * position;
-    //    Sleep(700);
-    //    if (position.x >= 50.0f)
-    //        break;
-    //    std::cout << position << std::endl;
-
-    //    direction = rotation * direction;
-    //    std::cout << direction << std::endl;
-    //    Sleep(700);
-    //    if (direction.y <= 0.0f && direction.x >= 0.0f)
-    //        break;
-    //}
-
-    //return 0;
-
-}
+//int main() {
+//    std::vector<std::pair<void (*)(), std::string>> tests = {
+//        {testMatrixMultiplication, "Matrix Multiplication"},
+//        {testVectorTransformation, "Vector Transformation"},
+//        {testTranslationMatrix, "Translation Matrix"},
+//        {testScaleMatrix, "Scale Matrix"},
+//        {testRotationMatrices, "Rotation Matrices"}
+//    };
+//
+//    int passedTests = 0;
+//    for (const auto& test : tests) {
+//        runTest(test.first, test.second);
+//        passedTests++;
+//    }
+//
+//    std::cout << "\nTest summary: " << passedTests << " out of " << tests.size() << " tests passed." << std::endl;
+//
+//    return 0;
+//
+//
+//    //
+//    //Vector3 position{ 0.0f, 0.0f, 0.0f };
+//    //Vector3 direction{ 10.0f, 0.0f, 0.0f };
+//
+//    //Matrix4 translate = Matrix4::translation(5.0f, 0.0f, 0.0f);
+//    //Matrix4 rotation = Matrix4::rotationZ(M_PI * 0.25f);
+//
+//    //std::cout << direction << std::endl;
+//    //// Infinite loop
+//    //while (true)
+//    //{
+//    //    position = translate * position;
+//    //    Sleep(700);
+//    //    if (position.x >= 50.0f)
+//    //        break;
+//    //    std::cout << position << std::endl;
+//
+//    //    direction = rotation * direction;
+//    //    std::cout << direction << std::endl;
+//    //    Sleep(700);
+//    //    if (direction.y <= 0.0f && direction.x >= 0.0f)
+//    //        break;
+//    //}
+//
+//    //return 0;
+//
+//}
