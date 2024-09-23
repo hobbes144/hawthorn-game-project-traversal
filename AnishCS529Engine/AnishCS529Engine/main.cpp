@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include <window.h>
+#include <GameWindow.h>
 
 void processInput(GLFWwindow* window)
 {
@@ -16,17 +16,17 @@ int main(void) {
 	glfwInit();
 
 	try {
-		Window w;
+		GameWindow window;
 
-		while (!glfwWindowShouldClose(w.getWindow()))
+		while (!glfwWindowShouldClose(window.getWindow()))
 		{
-			processInput(w.getWindow());
-
+			processInput(window.getWindow());
+			
 
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glfwSwapBuffers(w.getWindow());
+			glfwSwapBuffers(window.getWindow());
 			glfwPollEvents();
 		}
 	}

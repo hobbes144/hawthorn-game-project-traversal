@@ -4,14 +4,14 @@
 
 #include <iostream>
 
-class Window {
+class GameWindow {
 private:
 	GLFWwindow* window;
 
 public:
-	Window();
+	GameWindow();
 	GLFWwindow* getWindow();
-	~Window();
+	~GameWindow();
 };
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);

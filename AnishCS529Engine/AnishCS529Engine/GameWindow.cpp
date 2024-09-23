@@ -1,7 +1,7 @@
-#include <window.h>
+#include "GameWindow.h"
 
 
-Window::Window() {
+GameWindow::GameWindow() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -32,10 +32,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-GLFWwindow* Window::getWindow() {
+GLFWwindow* GameWindow::getWindow() {
     return window;
 }
 
-Window::~Window() {
+GameWindow::~GameWindow() {
     // destroy window
 }
