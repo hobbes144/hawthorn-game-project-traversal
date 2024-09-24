@@ -1,30 +1,26 @@
 #include "GameWindow.h"
 
 
-GameWindow::GameWindow() {
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+//GameWindow::GameWindow(int width, int height, std::string& title) : width(width), height(height), title(title) {
+//    initialize();
+//}
 
-    window = glfwCreateWindow(800, 600, "AnishCS529Engine", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        throw std::exception("Failed to create GLFW window");
+/* Private functions */
+
+/* Initialization subfunctions */
+GLFWwindow* GameWindow::createWindow() {
+    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", NULL, NULL);
+    if (!window) {
+        return nullptr;
     }
-    glfwMakeContextCurrent(window);
+    return window;
+}
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        throw std::exception("Failed to initialize GLAD");
-    }
 
-    glViewport(0, 0, 800, 600);
+/* Destruction subfunctions */
 
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+void GameWindow::shutdownWindow() {
+    glfwDestroyWindow(window);
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -32,10 +28,18 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-GLFWwindow* GameWindow::getWindow() {
+
+/* Public functions */
+
+GLFWwindow* GameWindow::getGLFWWindow() {
     return window;
 }
 
-GameWindow::~GameWindow() {
-    // destroy window
+bool GameWindow::shouldClose() const {
+    return glfwWindowShouldClose(window);
 }
+
+void GameWindow::swapBuffers() {
+    glfwSwapBuffers(window);
+}
+
