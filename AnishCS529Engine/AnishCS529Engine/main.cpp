@@ -25,8 +25,8 @@ bool initializeLibraries() {
 	return true;
 }
 
-bool setupGraphicsContext(GLFWwindow* window) {
-	glfwMakeContextCurrent(window);
+bool setupGraphicsContext(GLFWwindow* pWindow) {
+	glfwMakeContextCurrent(pWindow);
 	return true;
 }
 
@@ -38,13 +38,13 @@ bool loadGraphicsAPIFunctions() {
 	return true;
 }
 
-void pollEvents() {
-	glfwPollEvents();
-}
-
 void clear(float r, float g, float b, float a) {
 	glClearColor(r, g, b, a);
 	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void swapBuffers(GLFWwindow* window) {
+	glfwSwapBuffers(window);
 }
 
 void shutdownLibraries() {
@@ -61,7 +61,7 @@ int main(void) {
 	try {
 		GameWindow window(800, 600, "Assignment 2");
 
-		if (!setupGraphicsContext(window.getGLFWWindow())) {
+		if (!setupGraphicsContext(window.getNativeWindow())) {
 			std::cout << "Failed to set graphics context" << std::endl;
 			throw std::runtime_error("Failed to set graphics context");
 		}
@@ -73,12 +73,12 @@ int main(void) {
 
 		while (!window.shouldClose())
 		{
-			pollEvents();
+			window.pollEvents();
 
-			processInput(window.getGLFWWindow());
+			processInput(window.getNativeWindow());
 			
 			clear(0.2f, 0.3f, 0.3f, 1.0f);
-			window.swapBuffers();
+			swapBuffers(window.getNativeWindow());
 		}
 	}
 	catch (std::exception& e) {

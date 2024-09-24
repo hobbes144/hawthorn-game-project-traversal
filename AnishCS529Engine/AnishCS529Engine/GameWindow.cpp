@@ -1,45 +1,62 @@
 #include "GameWindow.h"
 
 
-//GameWindow::GameWindow(int width, int height, std::string& title) : width(width), height(height), title(title) {
-//    initialize();
-//}
+GameWindow::GameWindow(int width, int height, std::string title) : width(width), height(height), title(title), pWindow(nullptr) {
+    initialize();
+}
 
 /* Private functions */
 
-/* Initialization subfunctions */
-GLFWwindow* GameWindow::createWindow() {
-    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", NULL, NULL);
-    if (!window) {
-        return nullptr;
+/* Initializer */
+void GameWindow::initialize() {
+    if (!glfwInit()) {
+        throw std::runtime_error("Failed to initialize GLFW");
     }
-    return window;
+    pWindow = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+    if (!pWindow)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        throw std::runtime_error("Failed to create GLFW window");
+    }
 }
 
-
-/* Destruction subfunctions */
-
-void GameWindow::shutdownWindow() {
-    glfwDestroyWindow(window);
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
+/* Destroyer */
+void GameWindow::shutdown() {
+    if (pWindow) {
+        glfwDestroyWindow(pWindow);
+    }
 }
 
 
 /* Public functions */
 
-GLFWwindow* GameWindow::getGLFWWindow() {
-    return window;
-}
-
 bool GameWindow::shouldClose() const {
-    return glfwWindowShouldClose(window);
+    return glfwWindowShouldClose(pWindow);
 }
 
-void GameWindow::swapBuffers() {
-    glfwSwapBuffers(window);
+void GameWindow::pollEvents() {
+    glfwPollEvents();
 }
 
+GLFWwindow* GameWindow::getNativeWindow() const {
+    return pWindow;
+}
+
+int GameWindow::getWidth() {
+    return width;
+}
+
+int GameWindow::getHeight() {
+    return height;
+}
+
+void GameWindow::setWindowHints(const std::function<void()>& hintSetter) {
+    hintSetter();
+}
+
+//void GameWindow::setResizeCallback(std::function<void(GLFWwindow*, int, int)> callback) {
+//    resizeCallback = std::move(callback);
+//    glfwSetFramebufferSizeCallback(pWindow, resizeCallbackWrapper);
+//    glfwSetWindowUserPointer(pWindow, this);
+//}

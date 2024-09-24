@@ -4,51 +4,43 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
+#include <functional>
+
+
 
 class GameWindow {
 private:
-	int width, height;
-	std::string title;
-	GLFWwindow* window;
-
-    /* Initialization subfunctions */
-    GLFWwindow* createWindow();
-
-    /* Destuction subfunctions */
-    void shutdownWindow();
+    int width, height;
+    std::string title;
+    GLFWwindow* pWindow;
+    std::function<void(GLFWwindow*, int, int)> resizeCallback;
 
     /* Initializer called by Constructor */
-	void initialize() {
-        window = createWindow();
-        if (window == NULL)
-        {
-            std::cout << "Failed to create GLFW window" << std::endl;
-            throw std::runtime_error("Failed to create GLFW window");
-        }        
-	}
+    void initialize();
 
     /* Destroyer called by Destructor */
-    void destroy() {
-        if (window) {
-            shutdownWindow();
-        }
-    }
+    void shutdown();
+
+    static void resizeCallbackWrapper(GLFWwindow* pWindow, int width, int height);
 
 public:
     /* Constructor */
-	GameWindow(int width, int height, std::string title) : width(width), height(height), title(title) {
-        initialize();
-    };
+    GameWindow(int width, int height, std::string title);
 
     /* Public functions */
-	GLFWwindow* getGLFWWindow();
+    GLFWwindow* getNativeWindow() const;
+    int getWidth();
+    int getHeight();
+
     bool shouldClose() const;
-    void swapBuffers();
+    void pollEvents();
+
+    void setWindowHints(const std::function<void()>& hintSetter);
+
+    void setResizeCallback(std::function<void(GLFWwindow*, int, int)> callback);
 
     /* Destructor */
     ~GameWindow() {
-        destroy();
+        shutdown();
     }
 };
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
