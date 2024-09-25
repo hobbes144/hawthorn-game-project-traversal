@@ -25,6 +25,15 @@ void GameWindow::initialize() {
 void GameWindow::shutdown() {
     if (pWindow) {
         glfwDestroyWindow(pWindow);
+        glfwTerminate();
+    }
+}
+
+void GameWindow::resizeCallbackWrapper(GLFWwindow* pWindow, int width, int height) {
+    auto* gameWindow = static_cast<GameWindow*>(glfwGetWindowUserPointer(pWindow));
+    if (gameWindow && gameWindow->resizeCallback) {
+        gameWindow->resizeCallback(pWindow, width, height);
+        std::cout << "Window size : (" << width << ", " << height << ")" << std::endl;
     }
 }
 
@@ -36,7 +45,7 @@ bool GameWindow::shouldClose() const {
 }
 
 void GameWindow::pollEvents() {
-    glfwPollEvents();
+    glfwPollEvents(); /* Todo: Why is this a part of window? */
 }
 
 GLFWwindow* GameWindow::getNativeWindow() const {
@@ -55,8 +64,8 @@ void GameWindow::setWindowHints(const std::function<void()>& hintSetter) {
     hintSetter();
 }
 
-//void GameWindow::setResizeCallback(std::function<void(GLFWwindow*, int, int)> callback) {
-//    resizeCallback = std::move(callback);
-//    glfwSetFramebufferSizeCallback(pWindow, resizeCallbackWrapper);
-//    glfwSetWindowUserPointer(pWindow, this);
-//}
+void GameWindow::setResizeCallback(std::function<void(GLFWwindow*, int, int)> callback) {
+    resizeCallback = std::move(callback);
+    glfwSetFramebufferSizeCallback(pWindow, resizeCallbackWrapper);
+    glfwSetWindowUserPointer(pWindow, this);
+}

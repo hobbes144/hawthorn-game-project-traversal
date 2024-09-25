@@ -138,12 +138,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Matrix4.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="VectorTemplated.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Matrix4.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="VectorTemplated.h" />
   </ItemGroup>
