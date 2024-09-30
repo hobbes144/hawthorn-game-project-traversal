@@ -26,7 +26,9 @@ public:
 	void createVertexShader(const char* vertexShaderSource);
 	void createFragmentShader(const char* fragmentShaderSource);
 	void initializeShaders();
+	unsigned int getShaderProgramId();
 	void drawTriangle(Vector3 a, Vector3 b, Vector3 c);
+	unsigned int addTriangle(Vector3 a, Vector3 aColor, Vector3 b, Vector3 bColor, Vector3 c, Vector3 cColor);
 	unsigned int addTriangle(Vector3 a, Vector3 b, Vector3 c);
 	void drawTriangle(unsigned int triangleVaoId);
 };

@@ -108,6 +108,10 @@ void Renderer::initializeShaders() {
 	glDeleteShader(fragmentShaderId);
 }
 
+unsigned int Renderer::getShaderProgramId() {
+	return shaderProgramId;
+}
+
 void Renderer::drawTriangle(Vector3 a, Vector3 b, Vector3 c) {
 	float vertices[] = {
 		a.x, a.y, a.z,
@@ -130,12 +134,40 @@ void Renderer::drawTriangle(Vector3 a, Vector3 b, Vector3 c) {
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
+unsigned int Renderer::addTriangle(Vector3 a, Vector3 aColor, Vector3 b, Vector3 bColor, Vector3 c, Vector3 cColor) {
+	float vertices[] = {
+		a.x, a.y, a.z, aColor.x, aColor.y, aColor.z,
+		b.x, b.y, b.z, bColor.x, bColor.y, bColor.z,
+		c.x, c.y, c.z, cColor.x, cColor.y, cColor.z
+	};
+
+	unsigned int vaoId, vboId;
+	glGenVertexArrays(1, &vaoId);
+	glGenBuffers(1, &vboId);
+
+	glBindVertexArray(vaoId);
+	glBindBuffer(GL_ARRAY_BUFFER, vboId);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	// color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	return vaoId;
+}
+
 unsigned int Renderer::addTriangle(Vector3 a, Vector3 b, Vector3 c) {
 	float vertices[] = {
 		a.x, a.y, a.z,
 		b.x, b.y, b.z,
 		c.x, c.y, c.z
 	};
+
 	unsigned int vaoId, vboId;
 	glGenVertexArrays(1, &vaoId);
 	glGenBuffers(1, &vboId);
