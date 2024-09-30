@@ -27,4 +27,6 @@ public:
 	void createFragmentShader(const char* fragmentShaderSource);
 	void initializeShaders();
 	void drawTriangle(Vector3 a, Vector3 b, Vector3 c);
+	unsigned int addTriangle(Vector3 a, Vector3 b, Vector3 c);
+	void drawTriangle(unsigned int triangleVaoId);
 };

@@ -20,40 +20,11 @@ void shutdownLibraries() {
 	glfwTerminate();
 }
 
-int createTriangleVAO() {
-	float vertices[] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
-	};
-
-	unsigned int vaoId, vboId;
-	glGenVertexArrays(1, &vaoId);
-	glGenBuffers(1, &vboId);
-
-	glBindVertexArray(vaoId);
-	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	return vaoId;
-}
-
-void drawObject(int objectVaoID) {
-	glBindVertexArray(objectVaoID);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-}
-
 int main(void) {
 
 	try {
 		GameWindow window(800, 600, "Assignment 2");
 		Renderer renderer(window);
-		unsigned int shaderProgramId;
 		unsigned int triangleVaoId;
 
 		const char* vertexShaderSource = "#version 330 core\n"
@@ -73,8 +44,11 @@ int main(void) {
 		renderer.createVertexShader(vertexShaderSource);
 		renderer.createFragmentShader(fragmentShaderSource);
 		renderer.initializeShaders();
-		// triangleVaoId = createTriangleVAO();
-
+		triangleVaoId = renderer.addTriangle(
+			Vector3(-0.5f, -0.5f, 0.0f),
+			Vector3(0.5f, -0.5f, 0.0f),
+			Vector3(0.0f, 0.5f, 0.0f)
+		);
 
 		while (!window.shouldClose())
 		{
@@ -84,14 +58,13 @@ int main(void) {
 			
 			renderer.clear(0.2f, 0.3f, 0.3f, 1.0f);
 
-			/*glUseProgram(shaderProgramId);
-			drawObject(triangleVaoId);*/
+			renderer.drawTriangle(triangleVaoId);
 
-			renderer.drawTriangle(
+			/*renderer.drawTriangle(
 				Vector3(-0.5f, -0.5f, 0.0f),
 				Vector3(0.5f, -0.5f, 0.0f),
 				Vector3(0.0f, 0.5f, 0.0f)
-			);
+			);*/
 
 			renderer.swapBuffers();
 		}

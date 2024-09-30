@@ -129,3 +129,30 @@ void Renderer::drawTriangle(Vector3 a, Vector3 b, Vector3 c) {
 	glBindVertexArray(vaoId);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
+
+unsigned int Renderer::addTriangle(Vector3 a, Vector3 b, Vector3 c) {
+	float vertices[] = {
+		a.x, a.y, a.z,
+		b.x, b.y, b.z,
+		c.x, c.y, c.z
+	};
+	unsigned int vaoId, vboId;
+	glGenVertexArrays(1, &vaoId);
+	glGenBuffers(1, &vboId);
+
+	glBindVertexArray(vaoId);
+	glBindBuffer(GL_ARRAY_BUFFER, vboId);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	return vaoId;
+}
+
+void Renderer::drawTriangle(unsigned int triangleVaoId) {
+	glBindVertexArray(triangleVaoId);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+}
