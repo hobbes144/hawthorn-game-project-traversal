@@ -2,11 +2,22 @@
 
 Matrix4::Matrix4()
 {
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            data[i][j] = i == j ? 1.0f : 0.0f;
-        }
-    }
+    data[0][0] = 1.0f;
+    data[0][1] = 0.0f;
+    data[0][2] = 0.0f;
+    data[0][3] = 0.0f;
+    data[1][0] = 0.0f;
+    data[1][1] = 1.0f;
+    data[1][2] = 0.0f;
+    data[1][3] = 0.0f;
+    data[2][0] = 0.0f;
+    data[2][1] = 0.0f;
+    data[2][2] = 1.0f;
+    data[2][3] = 0.0f;
+    data[3][0] = 0.0f;
+    data[3][1] = 0.0f;
+    data[3][2] = 0.0f;
+    data[3][3] = 1.0f;
 }
 
 Matrix4::Matrix4(float x0, float y0, float z0, float w0, float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2, float x3, float y3, float z3, float w3)
