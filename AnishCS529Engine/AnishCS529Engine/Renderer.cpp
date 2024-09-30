@@ -52,6 +52,80 @@ void Renderer::swapBuffers() {
 	glfwSwapBuffers(gameWindow.getNativeWindow());
 }
 
-//glViewport(0, 0, 800, 600);
-//
-//glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+void Renderer::createVertexShader(const char* vertexShaderSource) {
+	int  success;
+	char infoLog[512];
+
+	vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShaderId, 1, &vertexShaderSource, NULL);
+	glCompileShader(vertexShaderId);
+
+	glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(vertexShaderId, 512, NULL, infoLog);
+		std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
+}
+
+
+void Renderer::createFragmentShader(const char* fragmentShaderSource) {
+	int  success;
+	char infoLog[512];
+
+	fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShaderId, 1, &fragmentShaderSource, NULL);
+	glCompileShader(fragmentShaderId);
+
+	glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(fragmentShaderId, 512, NULL, infoLog);
+		std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
+}
+
+void Renderer::initializeShaders() {
+	int  success;
+	char infoLog[512];
+
+	shaderProgramId = glCreateProgram();
+
+	glAttachShader(shaderProgramId, vertexShaderId);
+	glAttachShader(shaderProgramId, fragmentShaderId);
+	glLinkProgram(shaderProgramId);
+
+	glGetProgramiv(shaderProgramId, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(shaderProgramId, 512, NULL, infoLog);
+		std::cerr << "ERROR::SHADER::PROGRAM::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
+	
+
+	glUseProgram(shaderProgramId);
+
+	glDeleteShader(vertexShaderId);
+	glDeleteShader(fragmentShaderId);
+}
+
+void Renderer::drawTriangle(Vector3 a, Vector3 b, Vector3 c) {
+	float vertices[] = {
+		a.x, a.y, a.z,
+		b.x, b.y, b.z,
+		c.x, c.y, c.z
+	};
+	unsigned int vaoId, vboId;
+	glGenVertexArrays(1, &vaoId);
+	glGenBuffers(1, &vboId);
+
+	glBindVertexArray(vaoId);
+	glBindBuffer(GL_ARRAY_BUFFER, vboId);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glUseProgram(shaderProgramId);
+	glBindVertexArray(vaoId);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+}

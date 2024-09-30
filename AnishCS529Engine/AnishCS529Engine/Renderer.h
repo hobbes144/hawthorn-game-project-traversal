@@ -4,10 +4,14 @@
 #include <GLFW/glfw3.h>
 
 #include "GameWindow.h"
+#include "Vector3.h"
 
 class Renderer {
 private:
 	GameWindow& gameWindow;
+	unsigned int vertexShaderId;
+	unsigned int fragmentShaderId;
+	unsigned int shaderProgramId;
 
 	void initialize();
 	bool loadGraphicsAPIFunctions();
@@ -19,4 +23,8 @@ public:
 
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
+	void createVertexShader(const char* vertexShaderSource);
+	void createFragmentShader(const char* fragmentShaderSource);
+	void initializeShaders();
+	void drawTriangle(Vector3 a, Vector3 b, Vector3 c);
 };
