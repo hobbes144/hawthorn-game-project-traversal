@@ -160,9 +160,10 @@ Matrix4 Matrix4::perspective(const float fov, const float aspectRatio,
     result.data[0][0] = 1.0f / (aspectRatio * tanHalfFov);
     result.data[1][1] = 1.0f / tanHalfFov;
     result.data[2][2] = -(far + near) / (far - near);
-    result.data[2][3] = -(2.0f * far * near) / (far - near);
-    result.data[3][2] = -1.0f;
+    result.data[2][3] = -1.0f;
+    result.data[3][2] = -(2.0f * far * near) / (far - near);
     result.data[3][3] = 0.0f;
+
     return result;
 }
 
