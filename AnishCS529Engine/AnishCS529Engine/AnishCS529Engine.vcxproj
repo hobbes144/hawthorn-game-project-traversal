@@ -18,6 +18,22 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GameWindow.cpp" />
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Matrix4.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Vector3.cpp" />
+    <ClCompile Include="src\VectorTemplated.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\Matrix4.h" />
+    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Vector3.h" />
+    <ClInclude Include="src\VectorTemplated.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -133,22 +149,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="Matrix4.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Vector3.cpp" />
-    <ClCompile Include="VectorTemplated.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GameWindow.h" />
-    <ClInclude Include="Matrix4.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="VectorTemplated.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
