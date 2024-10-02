@@ -33,6 +33,8 @@ void GameWindow::resizeCallbackWrapper(GLFWwindow* pWindow, int width, int heigh
     auto* gameWindow = static_cast<GameWindow*>(glfwGetWindowUserPointer(pWindow));
     if (gameWindow && gameWindow->resizeCallback) {
         gameWindow->resizeCallback(pWindow, width, height);
+        gameWindow->width = width;
+        gameWindow->height = height;
         std::cout << "Window size : (" << width << ", " << height << ")" << std::endl;
     }
 }

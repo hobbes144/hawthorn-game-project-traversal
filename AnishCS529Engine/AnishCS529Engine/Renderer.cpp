@@ -1,5 +1,6 @@
 #include "Renderer.h"
 
+const float pi = 3.14159f;
 
 /* Private functions */
 void Renderer::initialize() {
@@ -106,6 +107,19 @@ void Renderer::initializeShaders() {
 
 	glDeleteShader(vertexShaderId);
 	glDeleteShader(fragmentShaderId);
+
+	initializeBasicUniforms();
+}
+
+void Renderer::initializeBasicUniforms() {
+	modelMatrixLoc = glGetUniformLocation(shaderProgramId, "modelMatrix");
+	viewMatrixLoc = glGetUniformLocation(shaderProgramId, "viewMatrix");
+	perspectiveMatrixLoc = glGetUniformLocation(shaderProgramId, "perspectiveMatrix");
+	orthographicMatrixLoc = glGetUniformLocation(shaderProgramId, "orthographicMatrix");
+	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, Matrix4().getData());
+	glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, Matrix4::lookAt(Vector3(0.0f, 0.0f, 3.0f), Vector3(), Vector3(0.0f, 1.0f, 0.0f)).getData());
+	glUniformMatrix4fv(perspectiveMatrixLoc, 1, GL_FALSE, Matrix4::perspective(90.0f * pi / 180, gameWindow.getWidth() / gameWindow.getHeight(), 0.1f, 100.0f).getData());
+	glUniformMatrix4fv(orthographicMatrixLoc, 1, GL_FALSE, Matrix4::orthographic(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f).getData());
 }
 
 unsigned int Renderer::getShaderProgramId() {
@@ -182,6 +196,20 @@ unsigned int Renderer::addTriangle(Vector3 a, Vector3 b, Vector3 c) {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	return vaoId;
+}
+
+void Renderer::UpdateTriangle(Matrix4 modelMatrix) {
+	glUniformMatrix4fv(viewMatrixLoc, 
+		1, 
+		GL_FALSE, 
+		Matrix4::lookAt(Vector3(0.0f, 0.0f, 3.0f), Vector3(), Vector3(0.0f, 1.0f, 0.0f)).getData()
+	);
+	glUniformMatrix4fv(perspectiveMatrixLoc, 
+		1, 
+		GL_FALSE, 
+		Matrix4::perspective(45.0f * pi / 180, gameWindow.getWidth() / gameWindow.getHeight(), 0.5f, 100.0f).getData()
+	);
+	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());
 }
 
 void Renderer::drawTriangle(unsigned int triangleVaoId) {
