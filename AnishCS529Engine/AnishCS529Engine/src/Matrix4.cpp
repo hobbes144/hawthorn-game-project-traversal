@@ -41,8 +41,7 @@ Matrix4::Matrix4(float x0, float y0, float z0, float w0, float x1, float y1, flo
 }
 
 float* Matrix4::getData() {
-    float result[] = { data[0][0], data[0][1], data[0][2], data[0][3], data[1][0], data[1][1], data[1][2], data[1][3], data[2][0], data[2][1], data[2][2], data[2][3], data[3][0], data[3][1], data[3][2], data[3][3] };
-    return result;
+    return &data[0][0];
 }
 
 void Matrix4::updateElement(int row, int col, float value)
@@ -83,12 +82,12 @@ Vector3 Matrix4::operator*(const Vector3& vec) const
 Matrix4 Matrix4::translation(float tx, float ty, float tz)
 {
     Matrix4 result;
-    result.data[0][0] = 1;
-    result.data[0][3] = tx;
-    result.data[1][1] = 1;
-    result.data[1][3] = ty;
+    result.data[0][0] = 1.0f;
+    result.data[1][1] = 1.0f;
     result.data[2][2] = 1.0f;
-    result.data[2][3] = tz;
+    result.data[3][0] = tx;
+    result.data[3][1] = ty;
+    result.data[3][2] = tz;
     result.data[3][3] = 1.0f;
 
     return result;
