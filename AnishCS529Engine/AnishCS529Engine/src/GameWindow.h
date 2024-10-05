@@ -1,46 +1,71 @@
+/*!****************************************************************************
+ * \file GameWindow.h
+ * \author Anish Murthy
+ * \par **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par **Course**
+ *    CS525
+ * \version 0.1
+ * \date 10-05-2024
+ * \brief File containing GameWindow Object and associated logic
+ *
+ *****************************************************************************/
 #pragma once
 #define GLFW_INCLUDE_NONE
-#include <glad/glad.h> 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
 #include <functional>
 
-
-
-class GameWindow {
+/*!****************************************************************************
+ * \brief Class that sets up the GLFW window and associated
+ * logic
+ *
+ *****************************************************************************/
+class GameWindow
+{
 private:
-    int width, height;
-    std::string title;
-    GLFWwindow* pWindow;
-    std::function<void(GLFWwindow*, int, int)> resizeCallback;
+  /** Width of the window */
+  int width;
+  /** Height of the window */
+  int height;
+  /** Window title */
+  std::string title;
+  /** GLFW Window object */
+  GLFWwindow *pWindow;
+  /** Resize callback function pointer */
+  std::function<void(GLFWwindow *, int, int)> resizeCallback;
 
-    /* Initializer called by Constructor */
-    void initialize();
+  /* Initializer called by Constructor */
+  void initialize();
 
-    /* Destroyer called by Destructor */
-    void shutdown();
+  /* Destroyer called by Destructor */
+  void shutdown();
 
-    static void resizeCallbackWrapper(GLFWwindow* pWindow, int width, int height);
+  static void resizeCallbackWrapper(GLFWwindow *pWindow, int width,
+                                    int height);
 
 public:
-    /* Constructor */
-    GameWindow(int width, int height, std::string title);
+  /* Constructor */
+  GameWindow(int width, int height, std::string title);
 
-    /* Public functions */
-    GLFWwindow* getNativeWindow() const;
-    int getWidth();
-    int getHeight();
+  /* Public functions */
+  GLFWwindow *getNativeWindow() const;
+  int getWidth();
+  int getHeight();
 
-    bool shouldClose() const;
-    void pollEvents();
+  bool shouldClose() const;
+  void pollEvents();
 
-    void setWindowHints(const std::function<void()>& hintSetter);
+  void setWindowHints(const std::function<void()> &hintSetter);
 
-    void setResizeCallback(std::function<void(GLFWwindow*, int, int)> callback);
+  void setResizeCallback(
+      std::function<void(GLFWwindow *, int, int)> callback);
 
-    /* Destructor */
-    ~GameWindow() {
-        shutdown();
-    }
+  /* Destructor */
+  ~GameWindow()
+  {
+    shutdown();
+  }
 };
