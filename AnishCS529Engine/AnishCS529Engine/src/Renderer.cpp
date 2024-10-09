@@ -258,7 +258,7 @@ void Renderer::UpdateTriangle(Matrix4 modelMatrix) {
 	glUniformMatrix4fv(perspectiveMatrixLoc, 
 		1, 
 		GL_FALSE, 
-		Matrix4::perspective(45.0f * pi / 180, gameWindow.getWidth() / gameWindow.getHeight(), 0.1f, 100.0f).getData()
+		Matrix4::perspective(45.0f * pi / 180, (float)gameWindow.getWidth() / (float)gameWindow.getHeight(), 0.1f, 100.0f).getData()
 	);
 	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, modelMatrix.getData());
 }

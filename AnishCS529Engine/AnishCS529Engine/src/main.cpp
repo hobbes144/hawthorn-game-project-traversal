@@ -114,8 +114,8 @@ int main(void)
 
     renderer.initializeShaders();
     triangleVaoId = renderer.addTriangle(
-      Vector3(-0.5f, -0.5f, 0.0f), Vector3(1.0f, 0.0f, 0.0f),
-      Vector3(0.5f, -0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f),
+      Vector3(0.5f, -0.5f, 0.0f), Vector3(1.0f, 0.0f, 0.0f),
+      Vector3(-0.5f, -0.5f, 0.0f), Vector3(0.0f, 1.0f, 0.0f),
       Vector3(0.0f, 0.5f, 0.0f), Vector3(0.0f, 0.0f, 1.0f));
     // int vertexColorLocation = glGetUniformLocation(
     //	renderer.getShaderProgramId(), "ourColor");
@@ -137,7 +137,7 @@ int main(void)
       glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f); */
 
       renderer.UpdateTriangle(Matrix4::translation(0.0f, 0.0f, 0.0f) *
-                              Matrix4::rotationY(rotation) *
+                              Matrix4::rotationZ(rotation) *
                               Matrix4::scale(1.0f, 1.0f, 1.0f));
       renderer.drawTriangle(triangleVaoId);
 

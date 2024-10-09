@@ -61,20 +61,20 @@ Matrix4::Matrix4(
     float x3, float y3, float z3, float w3)
 {
   data[0][0] = x0;
-  data[0][1] = x1;
-  data[0][2] = x2;
-  data[0][3] = x3;
-  data[1][0] = y0;
+  data[0][1] = y0;
+  data[0][2] = z0;
+  data[0][3] = w0;
+  data[1][0] = x1;
   data[1][1] = y1;
-  data[1][2] = y2;
-  data[1][3] = y3;
-  data[2][0] = z0;
-  data[2][1] = z1;
+  data[1][2] = z1;
+  data[1][3] = w1;
+  data[2][0] = x2;
+  data[2][1] = y2;
   data[2][2] = z2;
-  data[2][3] = z3;
-  data[3][0] = w0;
-  data[3][1] = w1;
-  data[3][2] = w2;
+  data[2][3] = w2;
+  data[3][0] = x3;
+  data[3][1] = y3;
+  data[3][2] = z3;
   data[3][3] = w3;
 }
 
@@ -162,14 +162,11 @@ Vector3 Matrix4::operator*(const Vector3 &vec) const
  *****************************************************************************/
 Matrix4 Matrix4::translation(float tx, float ty, float tz)
 {
-  Matrix4 result;
-  result.data[0][0] = 1.0f;
-  result.data[1][1] = 1.0f;
-  result.data[2][2] = 1.0f;
-  result.data[3][0] = tx;
-  result.data[3][1] = ty;
-  result.data[3][2] = tz;
-  result.data[3][3] = 1.0f;
+  Matrix4 result = Matrix4(
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    tx, ty, tz, 1.0f);
 
   return result;
 }
@@ -184,11 +181,11 @@ Matrix4 Matrix4::translation(float tx, float ty, float tz)
  *****************************************************************************/
 Matrix4 Matrix4::scale(float sx, float sy, float sz)
 {
-  Matrix4 result;
-  result.data[0][0] = sx;
-  result.data[1][1] = sy;
-  result.data[2][2] = sz;
-  result.data[3][3] = 1.0f;
+  Matrix4 result = Matrix4(
+    sx,   0.0f, 0.0f, 0.0f,
+    0.0f, sy,   0.0f, 0.0f,
+    0.0f, 0.0f, sz,   0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
 
   return result;
 }
@@ -204,11 +201,11 @@ const float pi = 3.14159f;
  *****************************************************************************/
 Matrix4 Matrix4::rotationX(float angle)
 {
-  Matrix4 result;
-  result.data[1][1] = cos(angle);
-  result.data[1][2] = -sin(angle);
-  result.data[2][1] = sin(angle);
-  result.data[2][2] = cos(angle);
+  Matrix4 result = Matrix4(
+    1.0f, 0.0f,       0.0f,       0.0f,
+    0.0f, cos(angle), sin(angle), 0.0f,
+    0.0f,-sin(angle), cos(angle), 0.0f,
+    0.0f, 0.0f,       0.0f,       1.0f);
 
   return result;
 }
@@ -221,11 +218,11 @@ Matrix4 Matrix4::rotationX(float angle)
  *****************************************************************************/
 Matrix4 Matrix4::rotationY(float angle)
 {
-  Matrix4 result;
-  result.data[0][2] = sin(angle);
-  result.data[0][0] = cos(angle);
-  result.data[2][2] = cos(angle);
-  result.data[2][0] = -sin(angle);
+  Matrix4 result = Matrix4(
+    cos(angle), 0.0f,-sin(angle), 0.0f,
+    0.0f,       1.0f, 0.0f,       0.0f,
+    sin(angle), 0.0f, cos(angle), 0.0f,
+    0.0f,       0.0f, 0.0f,       1.0);
 
   return result;
 }
@@ -238,11 +235,11 @@ Matrix4 Matrix4::rotationY(float angle)
  *****************************************************************************/
 Matrix4 Matrix4::rotationZ(float angle)
 {
-  Matrix4 result;
-  result.data[0][0] = cos(angle);
-  result.data[0][1] = -sin(angle);
-  result.data[1][0] = sin(angle);
-  result.data[1][1] = cos(angle);
+  Matrix4 result = Matrix4(
+    cos(angle),   sin(angle), 0.0f, 0.0f,
+   -sin(angle),   cos(angle), 0.0f, 0.0f,
+    0.0f,         0.0f,       1.0f, 0.0f,
+    0.0f,         0.0f,       0.0f, 1.0f);
 
   return result;
 }
@@ -289,15 +286,13 @@ Matrix4 Matrix4::orthographic(
 Matrix4 Matrix4::perspective(const float fov, const float aspectRatio,
                              const float near, const float far)
 {
-  Matrix4 result;
-
   float tanHalfFov = tan(fov / 2.0f);
-  result.data[0][0] = 1.0f / (aspectRatio * tanHalfFov);
-  result.data[1][1] = 1.0f / tanHalfFov;
-  result.data[2][2] = -(far + near) / (far - near);
-  result.data[2][3] = -1.0f;
-  result.data[3][2] = -(2.0f * far * near) / (far - near);
-  result.data[3][3] = 0.0f;
+    
+  Matrix4 result = Matrix4(
+    1.0f / (aspectRatio * tanHalfFov),  0.0f,               0.0f,                               0.0f,
+    0.0f,                               1.0f / tanHalfFov,  0.0f,                               0.0f,
+    0.0f,                               0.0f,              -(far + near) / (far - near),       -1.0f,
+    0.0f,                               0.0f,              -(2.0f * far * near) / (far - near), 0.0f);
 
   return result;
 }
@@ -313,25 +308,15 @@ Matrix4 Matrix4::perspective(const float fov, const float aspectRatio,
 Matrix4 Matrix4::lookAt(const Vector3 &eye, const Vector3 &center,
                         const Vector3 &up)
 {
-  Vector3 f = (center - eye).normalized();
-  Vector3 s = f.cross(up.normalized());
-  Vector3 u = s.cross(f);
+  Vector3 f = (eye - center).normalized();
+  Vector3 s = f.cross(up).normalized();
+  Vector3 u = s.cross(f).normalized();
 
-  Matrix4 result;
-
-  result.data[0][0] = s.x;
-  result.data[1][0] = s.y;
-  result.data[2][0] = s.z;
-  result.data[0][1] = u.x;
-  result.data[1][1] = u.y;
-  result.data[2][1] = u.z;
-  result.data[0][2] = -f.x;
-  result.data[1][2] = -f.y;
-  result.data[2][2] = -f.z;
-  result.data[3][0] = -s.dot(eye);
-  result.data[3][1] = -u.dot(eye);
-  result.data[3][2] = f.dot(eye);
-  result.data[3][3] = 1.0f;
+  Matrix4 result = Matrix4(
+    s.x,          u.x,        f.x,        0.0f,
+    s.y,          u.y,        f.y,        0.0f,
+    s.z,          u.z,        f.z,        0.0f,
+   -s.dot(eye),  -u.dot(eye),-f.dot(eye), 1.0f);
 
   return result;
 }

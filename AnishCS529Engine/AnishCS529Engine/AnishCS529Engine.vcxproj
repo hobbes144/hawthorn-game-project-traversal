@@ -28,6 +28,8 @@
     <ClCompile Include="src\VectorTemplated.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GeometryBuffer.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\Matrix4.h" />
     <ClInclude Include="src\Renderer.h" />
