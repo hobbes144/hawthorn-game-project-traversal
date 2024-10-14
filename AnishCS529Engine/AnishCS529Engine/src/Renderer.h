@@ -1,3 +1,18 @@
+/*!****************************************************************************
+ * \file   Renderer.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   10-14-2024
+ * \brief  Renderer implementation to initialize the OpenGL libraries
+ * and libraries.
+ * 
+ *****************************************************************************/
+#ifndef RENDERER_H
+#define RENDERER_H
+
 #pragma once
 
 #include <glad/glad.h> 
@@ -8,6 +23,17 @@
 #include "Matrix4.h"
 
 class Renderer {
+public:
+	Renderer(GameWindow& gameWindow);
+
+	void clear(float r, float g, float b, float a);
+	void swapBuffers();
+	void drawTriangle(Vector3 a, Vector3 b, Vector3 c);
+	unsigned int addTriangle(Vector3 a, Vector3 aColor, Vector3 b, Vector3 bColor, Vector3 c, Vector3 cColor);
+	unsigned int addTriangle(Vector3 a, Vector3 b, Vector3 c);
+	void UpdateTriangle(Matrix4 modelMatrix);
+	void drawTriangle(unsigned int triangleVaoId);
+
 private:
 	GameWindow& gameWindow;
 	unsigned int vertexShaderId;
@@ -23,19 +49,6 @@ private:
 	void setupCallbacks();
 	void framebufferSizeCallback(GLFWwindow* pWindow, int width, int height);
 
-public:
-	Renderer(GameWindow& gameWindow);
-
-	void clear(float r, float g, float b, float a);
-	void swapBuffers();
-	void createVertexShader(const char* vertexShaderSource);
-	void createFragmentShader(const char* fragmentShaderSource);
-	void initializeShaders();
-	void initializeBasicUniforms();
-	unsigned int getShaderProgramId();
-	void drawTriangle(Vector3 a, Vector3 b, Vector3 c);
-	unsigned int addTriangle(Vector3 a, Vector3 aColor, Vector3 b, Vector3 bColor, Vector3 c, Vector3 cColor);
-	unsigned int addTriangle(Vector3 a, Vector3 b, Vector3 c);
-	void UpdateTriangle(Matrix4 modelMatrix);
-	void drawTriangle(unsigned int triangleVaoId);
 };
+
+#endif // RENDERER_H

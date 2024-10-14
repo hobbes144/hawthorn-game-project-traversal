@@ -1,3 +1,18 @@
+/*!****************************************************************************
+ * \file   Vector3.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   10-14-2024
+ * \brief  File conatining the custom Vector3 implementation for use with
+ * OpenGL functions and other game logic.
+ * 
+ *****************************************************************************/
+#ifndef VECTOR3_H
+#define VECTOR3_H
+
 #pragma once
 
 #include <cmath>
@@ -27,3 +42,5 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Vector3& v);
 };
+
+#endif // VECTOR3_H

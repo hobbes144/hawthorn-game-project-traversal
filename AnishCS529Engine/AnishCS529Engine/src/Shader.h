@@ -1,3 +1,18 @@
+/*!****************************************************************************
+ * \file   Shader.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   10-14-2024
+ * \brief  Shader class to create and manage shaders and set up
+ * uniforms.
+ * 
+ *****************************************************************************/
+#ifndef SHADER_H
+#define SHADER_H
+
 #pragma once
 
 #include "Matrix4.h"
@@ -6,13 +21,13 @@
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <unordered_map>
 #include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include <stdexcept>
+#include <string>
+#include <unordered_map>
 
 
 class Shader {
@@ -48,3 +63,5 @@ private:
   std::string toLowerCase(const std::string& str);
 
 };
+
+#endif // SHADER_H

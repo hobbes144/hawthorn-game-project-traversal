@@ -1,3 +1,13 @@
+/*!****************************************************************************
+ * \file   Renderer.cpp
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   10-14-2024
+ * 
+ *****************************************************************************/
 #include "Renderer.h"
 
 const float pi = 3.14159f;

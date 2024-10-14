@@ -1,16 +1,18 @@
 /*!****************************************************************************
- * \file Matrix4.h
+ * \file   Matrix4.h
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
- * \par **DigiPen Email**
+ * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
- * \par **Course**
- *    CS525
- * \version 0.1
- * \date 10-05-2024
- * \brief File conatining the custom Matrix4 implementation for use with
+ * \par    **Course**
+ *    CS529
+ * \date   10-05-2024
+ * \brief  File conatining the custom Matrix4 implementation for use with
  * OpenGL functions and other game logic.
- *
+ * 
  *****************************************************************************/
+#ifndef MATRIX4_H
+#define MATRIX4_H
+
 #pragma once
 
 #include <cmath>
@@ -76,3 +78,5 @@ public:
                         const Vector3 &up);
   // I encourage to implement the Euler Angles formula: Removes the gimball lock problem
 };
+
+#endif // MATRIX4_H

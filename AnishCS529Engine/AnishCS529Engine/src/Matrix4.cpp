@@ -1,12 +1,12 @@
 /*!****************************************************************************
- * \file Matrix4.cpp
+ * \file   Matrix4.cpp
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
- * \par **DigiPen Email**
+ * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
- * \par **Course**
- *    CS525
- * \version 0.1
- * \date 10-05-2024
+ * \par    **Course**
+ *    CS529
+ * \date   10-05-2024
+ * 
  *****************************************************************************/
 #include "Matrix4.h"
 

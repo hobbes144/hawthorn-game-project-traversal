@@ -1,14 +1,13 @@
 /*!****************************************************************************
- * \file main.cpp
- * \author Anish Murthy
- * \par **DigiPen Email**
+ * \file   main.cpp
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
- * \par **Course**
+ * \par    **Course**
  *    CS529
- * \version 0.1
- * \date 10-05-2024
- * \brief Main logic controller for the Engine
- *
+ * \date   10-05-2024
+ * \brief  Main logic controller for the Engine
+ * 
  *****************************************************************************/
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

@@ -1,3 +1,19 @@
+/*!****************************************************************************
+ * \file   VectorTemplated.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   10-14-2024
+ * \brief  Templated Vector object for use with OpenGL functionality.
+ * 
+ *****************************************************************************/
+#ifndef VECTOR_TEMPLATED_H
+#define VECTOR_TEMPLATED_H
+
+#pragma once
+
 #include <array>
 #include <cmath>
 #include <stdexcept>
@@ -89,3 +105,5 @@ public:
         return VectorTemplated((data[1] * other.data[2] - data[2] * other.data[1]), (data[2] * other.data[0] - data[0] * other.data[2]), (data[0] * other.data[1] - data[1] * other.data[0]));
     }
 };
+
+#endif // VECTOR_TEMPLATED_H

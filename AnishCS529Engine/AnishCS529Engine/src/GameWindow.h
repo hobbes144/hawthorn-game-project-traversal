@@ -1,15 +1,17 @@
 /*!****************************************************************************
- * \file GameWindow.h
- * \author Anish Murthy
- * \par **DigiPen Email**
+ * \file   GameWindow.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
- * \par **Course**
- *    CS525
- * \version 0.1
- * \date 10-05-2024
- * \brief File containing GameWindow Object and associated logic
- *
+ * \par    **Course**
+ *    CS529
+ * \date   10-05-2024
+ * \brief  File containing GameWindow Object and associated logic
+ * 
  *****************************************************************************/
+#ifndef GAME_WINDOW_H
+#define GAME_WINDOW_H
+
 #pragma once
 #define GLFW_INCLUDE_NONE
 #include <glad/glad.h>
@@ -69,3 +71,5 @@ public:
     shutdown();
   }
 };
+
+#endif // GAME_WINDOW_H
