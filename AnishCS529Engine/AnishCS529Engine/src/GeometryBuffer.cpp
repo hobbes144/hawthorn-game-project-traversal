@@ -10,12 +10,24 @@
  *****************************************************************************/
 #include "GeometryBuffer.h"
 
+
+static std::shared_ptr<GeometryBuffer> CreateBuffer(std::string name) {
+
+}
+
+/*!****************************************************************************
+ * \brief Destructor which runs cleanup
+ * 
+ *****************************************************************************/
 GeometryBuffer::~GeometryBuffer() {
   cleanupBuffers();
 }
 
 /*!****************************************************************************
  * \brief Move Constructor
+ * 
+ * We do not cleanup other's buffers since this object will now control the
+ * existing ones.
  * 
  * \param other GeometryBuffer object to be moved from.
  *****************************************************************************/
@@ -53,6 +65,26 @@ GeometryBuffer& GeometryBuffer::operator=(GeometryBuffer&& other) noexcept {
   return *this;
 }
 
+/*!****************************************************************************
+ * \brief Bind the VAO, making it the current AO for draw calls
+ * 
+ *****************************************************************************/
+void GeometryBuffer::bind() const {
+  glBindVertexArray(vao);
+}
+
+/*!****************************************************************************
+ * \brief Unbind the VAO, resetting the current AO to 0
+ * 
+ *****************************************************************************/
+void GeometryBuffer::unbind() const {
+  glBindVertexArray(0);
+}
+
+/*!****************************************************************************
+ * \brief Delete all VAO, VBO and EBO
+ * 
+ *****************************************************************************/
 void GeometryBuffer::cleanupBuffers() {
   if (vao != 0) {
     glDeleteVertexArrays(1, &vao);
