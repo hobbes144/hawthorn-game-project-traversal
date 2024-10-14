@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\main.cpp" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <ClInclude Include="GeometryBuffer.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\Matrix4.h" />
     <ClInclude Include="src\Renderer.h" />
@@ -128,6 +130,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
