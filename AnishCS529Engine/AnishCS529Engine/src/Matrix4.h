@@ -50,7 +50,7 @@ public:
   Vector3 operator*(const Vector3 &vec) const;
 
   // Matrix-specific functions
-  float *getData();
+  const float * getData() const;
   void updateElement(int row, int col, float value);
   float getElement(int row, int col) const;
 

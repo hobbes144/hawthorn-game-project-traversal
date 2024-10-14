@@ -8,14 +8,14 @@
  * 
  * \param shaderFilePaths String with shader file paths separated by newline.
  *****************************************************************************/
-Shader::Shader(std::string& shaderFilePaths) {
+Shader::Shader(const std::string& shaderFilePaths) {
 	std::istringstream pathsStream(shaderFilePaths);
 	std::string shaderFilePath;
 
 	while (std::getline(pathsStream, shaderFilePath)) {
 		GLenum type = readShaderType(shaderFilePath);
-		const GLchar* source = readShaderFile(shaderFilePath).c_str();
-		shaderIDs[type] = loadShader(type, source);
+		std::string source = readShaderFile(shaderFilePath);
+		shaderIDs[type] = loadShader(type, source.c_str());
 	}
 
 	linkShaders();
@@ -26,6 +26,10 @@ Shader::Shader(std::string& shaderFilePaths) {
 
 }
 
+/*!****************************************************************************
+ * \brief Shader destructor
+ * 
+ *****************************************************************************/
 Shader::~Shader() {
 	glDeleteProgram(programID);
 }
@@ -71,7 +75,7 @@ GLenum Shader::readShaderType(std::string path) {
 std::string Shader::readShaderFile(std::string path) {
 	std::ifstream shaderFile(path);
 	if (!shaderFile.is_open()) {
-		std::cerr << "ERROR::SHADER::FILE::FILE_OPEN_FAILED: " << path <<
+		std::cerr << "ERROR::SHADER::FILE::FILE_OPEN_FAILED::" << path <<
 			std::endl;
 		throw "ERROR::SHADER::FILE::FILE_OPEN_FAILED";
 	}
@@ -115,7 +119,7 @@ GLuint Shader::loadShader(GLenum type, const GLchar* source) {
 /*!****************************************************************************
  * \brief Delete glShader object
  * 
- * \param id
+ * \param id ID of the shader to be deleted.
  *****************************************************************************/
 void Shader::deleteShader(GLuint id) {
 	glDeleteShader(id);
@@ -156,13 +160,105 @@ void Shader::use() {
 	glUseProgram(programID);
 }
 
-void Shader::initializeBasicUniforms() {
-	modelMatrixLoc = glGetUniformLocation(shaderProgramId, "modelMatrix");
-	viewMatrixLoc = glGetUniformLocation(shaderProgramId, "viewMatrix");
-	perspectiveMatrixLoc = glGetUniformLocation(shaderProgramId, "perspectiveMatrix");
-	orthographicMatrixLoc = glGetUniformLocation(shaderProgramId, "orthographicMatrix");
-	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, Matrix4().getData());
-	glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, Matrix4::lookAt(Vector3(0.0f, 0.0f, 3.0f), Vector3(), Vector3(0.0f, 1.0f, 0.0f)).getData());
-	glUniformMatrix4fv(perspectiveMatrixLoc, 1, GL_FALSE, Matrix4::perspective(90.0f * pi / 180, gameWindow.getWidth() / gameWindow.getHeight(), 0.1f, 100.0f).getData());
-	glUniformMatrix4fv(orthographicMatrixLoc, 1, GL_FALSE, Matrix4::orthographic(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f).getData());
+/*!****************************************************************************
+ * \brief Cache and fetch for Uniform locations
+ * 
+ * \param name Name of the uniform.
+ * \return \b GLint Uniform ID.
+ *****************************************************************************/
+GLint Shader::getUniformLocation(const std::string& name) const {
+	auto it = uniformLocationCache.find(name);
+
+	if (it != uniformLocationCache.end()) {
+		return it->second;
+	}
+	std::cout << "getting shader loc" << std::endl;
+	GLint location = glGetUniformLocation(programID, name.c_str());
+	uniformLocationCache[name] = location;
+	std::cout << "shader loc: " << location << std::endl;
+	if (location == -1) {
+		std::cerr << "ERROR::SHADER::UNIFORM::NOT_EXISTS::" << name << std::endl;
+	}
+
+	return location;
+}
+
+/*!****************************************************************************
+ * \brief Set UInt Uniform
+ * 
+ * \param name Name of the uniform.
+ * \param value Value of the uniform
+ *****************************************************************************/
+void Shader::setUInt(const std::string& name, unsigned int value) const {
+	glUniform1ui(getUniformLocation(name), value);
+}
+
+/*!****************************************************************************
+ * \brief Set Int Uniform
+ *
+ * \param name Name of the uniform.
+ * \param value Value of the uniform
+ *****************************************************************************/
+void Shader::setInt(const std::string& name, int value) const {
+	glUniform1i(getUniformLocation(name), value);
+}
+
+/*!****************************************************************************
+ * \brief Set 2Int Uniform
+ *
+ * \param name Name of the uniform.
+ * \param value Value of the uniform
+ *****************************************************************************/
+void Shader::set2Int(const std::string& name, int v0, int v1) const {
+	glUniform2i(getUniformLocation(name), v0, v1);
+}
+
+/*!****************************************************************************
+ * \brief Set Float Uniform
+ *
+ * \param name Name of the uniform.
+ * \param value Value of the uniform
+ *****************************************************************************/
+void Shader::setFloat(const std::string& name, float value) const {
+	glUniform1f(getUniformLocation(name), value);
+}
+
+/*!****************************************************************************
+ * \brief Set 2Float Uniform
+ *
+ * \param name Name of the uniform.
+ * \param value Value of the uniform
+ *****************************************************************************/
+void Shader::setVec2(const std::string& name, float x, float y) const {
+	glUniform2f(getUniformLocation(name), x, y);
+}
+
+/*!****************************************************************************
+ * \brief Set Vector3 Uniform
+ *
+ * \param name Name of the uniform.
+ * \param value Value of the uniform
+ *****************************************************************************/
+void Shader::setVec3(const std::string& name, const Vector3& value) const {
+	glUniform3f(getUniformLocation(name), value.x, value.y, value.z);
+}
+
+/*!****************************************************************************
+ * \brief Set Vector4 Uniform
+ *
+ * \param name Name of the uniform.
+ * \param value Value of the uniform
+ *****************************************************************************/
+void Shader::setVec4(const std::string& name, float x, float y, float z, float w) const {
+	glUniform4f(getUniformLocation(name), x, y, z, w);
+}
+
+/*!****************************************************************************
+ * \brief Set MMatrix4 Uniform
+ *
+ * \param name Name of the uniform.
+ * \param value Value of the uniform
+ *****************************************************************************/
+void Shader::setMat4(const std::string& name, const Matrix4& value) const {
+	glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, value.getData());
 }

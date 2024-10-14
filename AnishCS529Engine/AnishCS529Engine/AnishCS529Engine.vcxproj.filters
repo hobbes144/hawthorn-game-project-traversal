@@ -19,6 +19,9 @@
     <Filter Include="Header Files\Math">
       <UniqueIdentifier>{6b6cba17-9eed-4894-b002-9eb32a06b958}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{b20874b9-9397-423b-8562-417be9e8be03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameWindow.cpp">
@@ -42,7 +45,7 @@
     <ClCompile Include="src\VectorTemplated.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="src\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,14 +65,22 @@
     <ClInclude Include="src\VectorTemplated.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
+    <ClInclude Include="src\GeometryBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeometryBuffer.h">
+    <ClInclude Include="src\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="src\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\main_vertex_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\main_fragment_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

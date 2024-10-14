@@ -19,24 +19,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Matrix4.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="src\VectorTemplated.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeometryBuffer.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Shader.h" />
     <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\GeometryBuffer.h" />
     <ClInclude Include="src\Matrix4.h" />
+    <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Vector3.h" />
     <ClInclude Include="src\VectorTemplated.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\main_fragment_shader.glsl" />
+    <None Include="shaders\main_vertex_shader.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

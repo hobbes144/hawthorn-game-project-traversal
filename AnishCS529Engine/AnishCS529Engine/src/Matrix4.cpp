@@ -83,7 +83,7 @@ Matrix4::Matrix4(
  *
  * \return \b float* Address of the Matrix data.
  *****************************************************************************/
-float *Matrix4::getData()
+const float * Matrix4::getData() const
 {
   return &data[0][0];
 }
