@@ -6,7 +6,8 @@
  * \par    **Course**
  *    CS529
  * \date   10-14-2024
- * \brief  Geometry Buffer factory class that manages OpenGL buffers and their data.
+ * \brief  Geometry Buffer factory class that manages OpenGL buffers and their
+ * data.
  * 
  *****************************************************************************/
 #ifndef GEOMETRY_BUFFER_H
@@ -29,30 +30,34 @@ public:
     Color
   };
 
+  /* Todo: Implement EBO and add indices as a list here */
+
+  /*
+    AttributeInfo stores:
+      Data: 1D vector of size (Dimension * numpoints)
+      elementSize: Number of dimensions
+      Type: GL type
+      Normalized: If should normalize
+  */
   struct AttributeInfo {
-    GLint       size;
-    GLenum      type;
-    GLboolean   normalized;
-    GLsizei     stride;
+    std::vector<float>  data;
+    GLint               elementSize;
+    GLenum              type;
+    GLboolean           normalized;
   };
 
   /*
     Attribute stores:
       Type (position or color, etc)
-      Pair:
-        Data (as 1D vector of Dimension * numpoints)
-        AttributeInfo:
-          Size: Number of dimensions
-          Type: GL type
-          Normalized: If should normalize
-          Stride: Num bytes between each element
+      AttributeInfo:
+        Data: 1D vector of size (Dimension * numpoints)
+        elementSize: Number of dimensions
+        Type: GL type
+        Normalized: If should normalize
   */
   using Attribute = const std::unordered_map<
-    AttributeType, 
-    std::pair<
-      std::vector<float>, 
-      AttributeInfo
-    >
+    AttributeType,
+    AttributeInfo
   >;
   
   ~GeometryBuffer();
@@ -65,11 +70,15 @@ public:
   GeometryBuffer(GeometryBuffer&&) noexcept;
   GeometryBuffer& operator=(GeometryBuffer&&) noexcept;
 
-  static std::shared_ptr<GeometryBuffer> CreateBuffer(std::string name);
+  static std::shared_ptr<GeometryBuffer> CreateBuffer(Attribute& attributeData, std::string name);
 
   void bind() const;
   void unbind() const;
 
+  /* Todo: Add update methods here for attributes and indices */
+
+  GLsizei getVertexCount() const { return vertexCount; }
+  GLsizei getIndexCount() const { return indexCount; }
   GLuint getVAO() const { return vao; }
   GLuint getVBO() const { return vbo; }
   GLuint getEBO() const { return ebo; }
@@ -78,8 +87,13 @@ private:
   GLuint vao;
   GLuint vbo;
   GLuint ebo;
-  int vertexCount;
-  int indexCount;
+
+  /* Todo: Figure out why this is here. */
+  GLsizei vertexCount;
+  GLsizei indexCount;
+
+  std::unordered_map<AttributeType, GLsizei> attributeOffsets;
+  std::unordered_map<AttributeType, GLsizei> attributeStrides;
 
   std::string name;
 
