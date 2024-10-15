@@ -70,7 +70,7 @@ public:
   GeometryBuffer(GeometryBuffer&&) noexcept;
   GeometryBuffer& operator=(GeometryBuffer&&) noexcept;
 
-  static std::shared_ptr<GeometryBuffer> CreateBuffer(Attribute& attributeData, std::string name);
+  static std::shared_ptr<GeometryBuffer> create(Attribute& attributeData, std::string name);
 
   void bind() const;
   void unbind() const;

@@ -17,7 +17,7 @@
  * \param name Name of the Buffer.
  * \return \b std::shared_ptr<GeometryBuffer> Initialized GeometryBuffer object
  *****************************************************************************/
-std::shared_ptr<GeometryBuffer> GeometryBuffer::CreateBuffer(
+std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
   Attribute& attributeData,  std::string name) {
 
   auto buffer = std::shared_ptr<GeometryBuffer>(new GeometryBuffer(name));
@@ -160,8 +160,20 @@ void GeometryBuffer::initializeBuffers(Attribute& attributeData) {
 
   GLuint index = 0;
   for (const auto& [type, info] : attributeData) {
-    glBufferSubData(GL_ARRAY_BUFFER, attributeOffsets[type], info.data.size() * sizeof(float), info.data.data());
-    glVertexAttribPointer(index, info.elementSize, info.type, info.normalized, info.elementSize * sizeof(float), (void*)attributeOffsets[type]);
+    glBufferSubData(
+      GL_ARRAY_BUFFER, 
+      attributeOffsets[type], 
+      info.data.size() * sizeof(float), 
+      info.data.data());
+
+    glVertexAttribPointer(
+      index, 
+      info.elementSize, 
+      info.type, 
+      info.normalized, 
+      info.elementSize * sizeof(float), 
+      (void*)attributeOffsets[type]);
+
     glEnableVertexAttribArray(index);
     index++;
   }
