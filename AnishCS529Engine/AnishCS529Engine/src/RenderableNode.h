@@ -20,6 +20,7 @@
 #include "Mesh.h"
 #include "Node.h"
 #include "Renderer.h"
+#include "Transform.h"
 
 class RenderableNode : public Node {
 public:
@@ -27,17 +28,14 @@ public:
     const std::string& name,
     std::shared_ptr<Mesh> mesh,
     std::shared_ptr<Material> material,
-    Renderer* render) : Node(name), mesh(mesh), material(material), renderer(renderer), isVisible(true) {}
+    Renderer* render) : Node(name), mesh(mesh), material(material), 
+                        renderer(renderer), isVisible(true) {}
   virtual ~RenderableNode() = default;
 
   std::shared_ptr<Mesh> getMesh() const { return mesh; }
   std::shared_ptr<Material> getMaterial() const { return material; }
-  Matrix4 getModelMatrix() const { return modelMatrix; }
   bool getVisible() const { return isVisible; }
 
-  /* Todo: instead use a Transform object and take rotation, scale and
-  position as input instead to modify Transform. */
-  void setModelMatrix(const Matrix4& newModelMatrix);
   void setVisible(const bool visible) { isVisible = visible; }
 
   void update(float deltaTime) override;
@@ -46,10 +44,6 @@ public:
 protected:
   std::shared_ptr<Mesh> mesh;
   std::shared_ptr<Material> material;
-  /* Todo: Create separate world and local transform objects */
-  /*Transform localTransform;
-  Transform worldTransform;*/
-  Matrix4 modelMatrix;
   bool isVisible;
 
 private:

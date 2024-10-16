@@ -172,6 +172,23 @@ Matrix4 Matrix4::translation(float tx, float ty, float tz)
 }
 
 /*!****************************************************************************
+ * \brief Static function to create a Translation matrix
+ * 
+ * \param translationVec Vector3 of Translation in each axis.
+ * \return \b Matrix4 The resulting Translation matrix.
+ *****************************************************************************/
+Matrix4 Matrix4::translation(const Vector3& translationVec) {
+  Matrix4 result = Matrix4(
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    translationVec.x, translationVec.y, translationVec.z, 1.0f);
+
+  return result;
+}
+
+
+/*!****************************************************************************
  * \brief Static function to create a Scaling matrix
  *
  * \param sx Scaling in the x axis.
@@ -185,6 +202,23 @@ Matrix4 Matrix4::scale(float sx, float sy, float sz)
     sx,   0.0f, 0.0f, 0.0f,
     0.0f, sy,   0.0f, 0.0f,
     0.0f, 0.0f, sz,   0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
+
+  return result;
+}
+
+/*!****************************************************************************
+ * \brief Static function to create a Scaling matrix
+ * 
+ * \param scaling Vector3 of Scaling in each axis.
+ * \return \b Matrix4 The resulting Scaling matrix.
+ *****************************************************************************/
+Matrix4 Matrix4::scale(const Vector3& scaling)
+{
+  Matrix4 result = Matrix4(
+    scaling.x, 0.0f, 0.0f, 0.0f,
+    0.0f, scaling.y, 0.0f, 0.0f,
+    0.0f, 0.0f, scaling.z, 0.0f,
     0.0f, 0.0f, 0.0f, 1.0f);
 
   return result;
@@ -240,6 +274,38 @@ Matrix4 Matrix4::rotationZ(float angle)
    -sin(angle),   cos(angle), 0.0f, 0.0f,
     0.0f,         0.0f,       1.0f, 0.0f,
     0.0f,         0.0f,       0.0f, 1.0f);
+
+  return result;
+}
+
+/*!****************************************************************************
+ * \brief Static function to create a Rotation matrix in all 3 axis
+ * 
+ * \param angleX Angle of rotation in the x axis.
+ * \param angleY Angle of rotation in the y axis.
+ * \param angleZ Angle of rotation in the z axis.
+ * \return \b Matrix4 The resulting Rotation matrix.
+ *****************************************************************************/
+Matrix4 Matrix4::rotationXYZ(float angleX, float angleY, float angleZ) {
+  Matrix4 result = 
+    rotationX(angleX) * 
+    rotationY(angleY) * 
+    rotationZ(angleZ);
+
+  return result;
+}
+
+/*!****************************************************************************
+ * \brief Static function to create a Rotation matrix in all 3 axis
+ * 
+ * \param rotation Vector3 of Rotation in each axis.
+ * \return \b Matrix4 The resulting Rotation matrix.
+ *****************************************************************************/
+Matrix4 Matrix4::rotationXYZ(const Vector3 rotation) {
+  Matrix4 result = 
+    rotationX(rotation.x) * 
+    rotationY(rotation.y) * 
+    rotationZ(rotation.z);
 
   return result;
 }

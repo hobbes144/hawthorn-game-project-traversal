@@ -56,15 +56,17 @@ public:
   void updateElement(int row, int col, float value);
   float getElement(int row, int col) const;
 
-  // Transformation utilities based on matrix
-  // For practicity, I added these in the Matrix API,
-  // however, these might be better candidates for a Transform class (think about it)
-  // ... That's your homework!
+  // Todo: Figure out how many of these need to be const inputs and how it'll 
+  // affect the program.
   static Matrix4 translation(float tx, float ty, float tz);
+  static Matrix4 translation(const Vector3& translationVec);
   static Matrix4 scale(float sx, float sy, float sz);
+  static Matrix4 scale(const Vector3& scaling);
   static Matrix4 rotationX(float angle);
   static Matrix4 rotationY(float angle);
   static Matrix4 rotationZ(float angle);
+  static Matrix4 rotationXYZ(float angleX, float angleY, float angleZ);
+  static Matrix4 rotationXYZ(const Vector3 rotation);
   static Matrix4 orthographic(
       const float left,
       const float right,

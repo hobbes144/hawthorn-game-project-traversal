@@ -126,3 +126,15 @@ void Node::update(float deltaTime) {
     child->update(deltaTime);
   }
 }
+
+void Node::setLocalPosition(const Vector3& position) {
+  localTransform.setPosition(position);
+}
+
+void Node::setLocalRotation(const Vector3& rotation) {
+  localTransform.setRotation(rotation);
+}
+
+void Node::setLocalScale(const Vector3& scale) {
+  localTransform.setScaling(scale);
+}

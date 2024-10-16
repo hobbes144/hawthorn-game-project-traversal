@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "Matrix4.h"
+#include "Transform.h"
 
 class Node : public std::enable_shared_from_this<Node> {
 protected:
@@ -34,6 +35,12 @@ protected:
   Node* parent;
   unsigned int siblingNumber;
   ChildrenContainer children;
+
+  /* Todo: Find a way to kick these down to the RenderableNode. */
+  Transform localTransform;
+  Transform worldTransform;
+  Matrix4 modelMatrix;
+  bool isLocalSpace;
 
   void updateSiblingNumbers(unsigned int removedIndex);
 
@@ -53,6 +60,19 @@ public:
   std::string getName() const { return name; }
   Node* getParent() const { return parent; }
   const ChildrenContainer& getChildren() const { return children; }
+
+  Matrix4 getTransformMatrix() const { 
+    return isLocalSpace ?
+      localTransform.getLocalMatrix() : 
+      worldTransform.getLocalMatrix();
+  }
+  Transform getLocalTransform() const { return localTransform; }
+  Transform getWorldTransform() const { return worldTransform; }
+
+  void setLocalPosition(const Vector3& position);
+  void setLocalRotation(const Vector3& rotation);
+  void setLocalScale(const Vector3& scale);
+
 };
 
 #endif // NODE_H

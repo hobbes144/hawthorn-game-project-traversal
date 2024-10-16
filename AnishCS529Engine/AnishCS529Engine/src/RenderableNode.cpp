@@ -10,19 +10,14 @@
  *****************************************************************************/
 #include "RenderableNode.h"
 
-/*!****************************************************************************
- * \brief Set model matrix to be used by node
- *
- * Todo: Move this to RenderableNode.
- *
- * \param newModelMatrix New model matrix.
- *****************************************************************************/
-void RenderableNode::setModelMatrix(const Matrix4& newModelMatrix) {
-  modelMatrix = newModelMatrix;
-}
-
 void RenderableNode::update(float deltaTime) {
   /* Todo: figure out logic here. Maybe a callback to a behaviour controller?*/
+  if (!parent) std::runtime_error("ERROR::RENDERABLENODE::UPDATE::NOPARENT");
+
+  if (isLocalSpace) {
+    Matrix4 parentWorld = parent->getTransformMatrix();
+  }
+
   Node::update(deltaTime);
 }
 
@@ -32,7 +27,7 @@ void RenderableNode::draw(const Matrix4& view, const Matrix4& projection) {
 
   material->setProperty("viewMatrix", view);
   material->setProperty("projectionMatrix", projection);
-  material->setProperty("modelMatrix", modelMatrix);
+  material->setProperty("modelMatrix", localTransform.getLocalMatrix());
   material->apply();
 
   auto geometryBuffer = mesh->getGeometryBuffer();

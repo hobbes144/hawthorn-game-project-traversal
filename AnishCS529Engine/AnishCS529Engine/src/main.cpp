@@ -143,17 +143,26 @@ int main(void)
 
       float timeValue = glfwGetTime();
       float rotation = (float)glfwGetTime() * 50.0f * pi / 180;
-      Matrix4 perspectiveMatrix = Matrix4::perspective(45.0f * pi / 180, (float)window.getWidth() / (float)window.getHeight(), 0.1f, 100.0f);
-      Matrix4 viewMatrix = Matrix4::lookAt(Vector3(0.0f, 0.0f, 3.0f), Vector3(), Vector3(0.0f, 1.0f, 0.0f));
+      Matrix4 perspectiveMatrix = 
+        Matrix4::perspective(
+          45.0f * pi / 180, 
+          (float)window.getWidth() / (float)window.getHeight(), 
+          0.1f, 
+          100.0f);
+      Matrix4 viewMatrix = 
+        Matrix4::lookAt(
+          Vector3(0.0f, 0.0f, 3.0f), 
+          Vector3(), 
+          Vector3(0.0f, 1.0f, 0.0f));
 
-      Matrix4 modelMatrix = Matrix4::translation(0.0f, 0.0f, 0.0f) *
+      /*Matrix4 modelMatrix = Matrix4::translation(0.0f, 0.0f, 0.0f) *
         Matrix4::rotationY(rotation) *
         Matrix4::scale(1.0f, 1.0f, 1.0f);
       Matrix4 modelMatrix2 = Matrix4::translation(1.0f, 0.0f, 0.0f) *
         Matrix4::rotationY(-rotation) *
-        Matrix4::scale(1.0f, 1.0f, 1.0f);
-      triangle->setModelMatrix(modelMatrix);
-      triangle2->setModelMatrix(modelMatrix2);
+        Matrix4::scale(1.0f, 1.0f, 1.0f);*/
+      triangle->setLocalRotation(Vector3(rotation, 0.0f, 0.0f));
+      triangle2->setLocalRotation(Vector3(rotation, 1.0f, 0.0f));
       scene.draw(viewMatrix, perspectiveMatrix);
 
       renderer.swapBuffers();

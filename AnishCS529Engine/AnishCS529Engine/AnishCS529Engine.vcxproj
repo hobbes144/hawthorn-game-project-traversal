@@ -45,6 +45,7 @@
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\SceneGraph.h" />
     <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Vector3.h" />
     <ClInclude Include="src\VectorTemplated.h" />
   </ItemGroup>
