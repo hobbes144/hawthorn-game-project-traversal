@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['operator_2a_14',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
-  ['orthographic_15',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
+  ['findnode_4',['findNode',['../classNode.html#a691ba30b6e37963ca0ca4d427704bec8',1,'Node']]],
+  ['findnodefast_5',['findNodeFast',['../classNode.html#a1e819182e60d3c24c8e8105980ba227f',1,'Node']]]
 ];

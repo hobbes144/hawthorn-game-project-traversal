@@ -22,7 +22,6 @@
 #include <unordered_map>
 #include <vector>
 
-
 class GeometryBuffer {
 public:
   enum class AttributeType {
@@ -47,6 +46,7 @@ public:
   };
 
   /*
+    Modifiable version:
     Attribute stores:
       Type (position or color, etc)
       AttributeInfo:
@@ -55,7 +55,22 @@ public:
         Type: GL type
         Normalized: If should normalize
   */
-  using Attribute = const std::unordered_map<
+  using ModifiableAttributes = std::unordered_map<
+    AttributeType,
+    AttributeInfo
+  >;
+
+  /*
+    Non-modifiable version:
+    Attribute stores:
+      Type (position or color, etc)
+      AttributeInfo:
+        Data: 1D vector of size (Dimension * numpoints)
+        elementSize: Number of dimensions
+        Type: GL type
+        Normalized: If should normalize
+  */
+  using Attributes = const std::unordered_map<
     AttributeType,
     AttributeInfo
   >;
@@ -70,7 +85,8 @@ public:
   GeometryBuffer(GeometryBuffer&&) noexcept;
   GeometryBuffer& operator=(GeometryBuffer&&) noexcept;
 
-  static std::shared_ptr<GeometryBuffer> create(Attribute& attributeData, std::string name);
+  static std::shared_ptr<GeometryBuffer> create(Attributes& attributeData,
+                                                std::string name);
 
   void bind() const;
   void unbind() const;
@@ -97,55 +113,12 @@ private:
 
   std::string name;
 
-  GeometryBuffer(std::string name) : vao(0), vbo(0), ebo(0), vertexCount(0), indexCount(0), name(name) {};
+  GeometryBuffer(std::string name) : 
+    vao(0), vbo(0), ebo(0), vertexCount(0), indexCount(0), name(name) {};
 
-  void initializeBuffers(Attribute& attributeData);
+  void initializeBuffers(Attributes& attributeData);
   void cleanupBuffers();
 
 };
-//class GeometryBuffer {
-//public:
-//	// We define in this class each attribute as vector.
-//	enum class Attribute {
-//		Position,
-//		Normal,
-//		TexCoord,
-//		Color,
-//		Tangent,
-//		Bitangent
-//	};
-//
-//	struct AttributeInfo {
-//		GLint				size;
-//		GLenum			type;
-//		GLboolean		normalized;
-//		GLsizei			stride;
-//	};
-//
-//	static std::shared_ptr<GeometryBuffer> create(
-//		const std::unordered_map<Attribute, std::pair<std::vector<float>, AttributeInfo>>& attrinbuteData,
-//		const std::vector<unsigned int>& indices,
-//		const 
-//	)
-//
-//	~GeometryBuffer();
-//
-//	// Prevent copying
-//	GeometryBuffer(const GeometryBuffer&) = delete;
-//	GeometryBuffer& operator=(const GeometryBuffer&) = delete;
-//
-//private:
-//	GeometryBuffer();
-//
-//	void initializeBuffers()
-//};
-//
-//GeometryBuffer ::GeometryBuffer()
-//{
-//}
-//
-//GeometryBuffer ::~GeometryBuffer()
-//{
-//}
 
 #endif // GEOMETRY_BUFFER_H

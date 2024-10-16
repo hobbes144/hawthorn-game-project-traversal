@@ -15,9 +15,6 @@
 
 #pragma once
 
-#include "Matrix4.h"
-#include "Vector3.h"
-
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 
@@ -29,6 +26,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "Matrix4.h"
+#include "Vector3.h"
 
 class Shader {
 public:
@@ -37,6 +36,7 @@ public:
 
   void use();
 
+  /* Todo: figure out if we can make this generic using std::variant? */
   void setUInt(const std::string& name, unsigned int value) const;
   void setInt(const std::string& name, int value) const;
   void set2Int(const std::string& name, int v0, int v1) const;

@@ -28,21 +28,10 @@ public:
 
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
-	void drawTriangle(Vector3 a, Vector3 b, Vector3 c);
-	unsigned int addTriangle(Vector3 a, Vector3 aColor, Vector3 b, Vector3 bColor, Vector3 c, Vector3 cColor);
-	unsigned int addTriangle(Vector3 a, Vector3 b, Vector3 c);
-	void UpdateTriangle(Matrix4 modelMatrix);
-	void drawTriangle(unsigned int triangleVaoId);
+	void draw(GLenum mode, GLint count);
 
 private:
 	GameWindow& gameWindow;
-	unsigned int vertexShaderId;
-	unsigned int fragmentShaderId;
-	unsigned int shaderProgramId;
-	unsigned int modelMatrixLoc;
-	unsigned int viewMatrixLoc;
-	unsigned int perspectiveMatrixLoc;
-	unsigned int orthographicMatrixLoc;
 
 	void initialize();
 	bool loadGraphicsAPIFunctions();

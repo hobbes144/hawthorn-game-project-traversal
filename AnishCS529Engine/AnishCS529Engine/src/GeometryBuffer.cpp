@@ -18,7 +18,7 @@
  * \return \b std::shared_ptr<GeometryBuffer> Initialized GeometryBuffer object
  *****************************************************************************/
 std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
-  Attribute& attributeData,  std::string name) {
+  Attributes& attributeData,  std::string name) {
 
   auto buffer = std::shared_ptr<GeometryBuffer>(new GeometryBuffer(name));
   /* This is because using just std::make_shared<GeometryBuffer>(name) fails.
@@ -141,7 +141,7 @@ void GeometryBuffer::unbind() const {
  * \param attributeData Attribute data for each attribute. Refer to Attribute
  *  type for more info.
  *****************************************************************************/
-void GeometryBuffer::initializeBuffers(Attribute& attributeData) {
+void GeometryBuffer::initializeBuffers(Attributes& attributeData) {
   glGenVertexArrays(1, &vao);
   glGenBuffers(1, &vbo);
   glBindVertexArray(vao);

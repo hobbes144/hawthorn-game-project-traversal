@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['matrix4_35',['Matrix4',['../classMatrix4.html',1,'']]]
+  ['gamewindow_78',['GameWindow',['../classGameWindow.html',1,'']]],
+  ['geometrybuffer_79',['GeometryBuffer',['../classGeometryBuffer.html',1,'']]]
 ];

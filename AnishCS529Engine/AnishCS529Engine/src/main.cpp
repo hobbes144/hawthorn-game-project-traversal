@@ -18,6 +18,9 @@
 #include "Renderer.h"
 #include "Shader.h"
 #include "GeometryBuffer.h"
+#include "Node.h"
+#include "Material.h"
+#include "Mesh.h"
 
 /** Pi constant for maths */
 const float pi = 3.14159f;
@@ -67,22 +70,20 @@ int main(void)
     Renderer renderer(window);
     unsigned int triangleVaoId;
 
-    Shader shader("shaders/main_vertex_shader.glsl\nshaders/main_fragment_shader.glsl");
+    auto shader = std::make_shared<Shader>("shaders/main_vertex_shader.glsl\nshaders/main_fragment_shader.glsl");
 
-    shader.use();
+    auto material = std::make_shared<Material>(shader);
 
-    std::unordered_map<GeometryBuffer::AttributeType, GeometryBuffer::AttributeInfo> triangleBufferData;
+    Mesh::Attributes triangleMeshData;
 
     std::vector<float> vertices = {
         -0.5f, -0.5f, 0.0f,
          0.5f, -0.5f, 0.0f,
          0.0f,  0.5f, 0.0f
     };
-    triangleBufferData[GeometryBuffer::AttributeType::Position] = {
+    triangleMeshData[GeometryBuffer::AttributeType::Position] = {
       vertices,
-      3,
-      GL_FLOAT,
-      GL_FALSE
+      3
     };
 
     std::vector<float> colors = {
@@ -90,16 +91,33 @@ int main(void)
          0.0f,  1.0f, 0.0f,
          0.0f,  0.0f, 1.0f
     };
-    triangleBufferData[GeometryBuffer::AttributeType::Color] = {
+    triangleMeshData[GeometryBuffer::AttributeType::Color] = {
       colors,
-      3,
-      GL_FLOAT,
-      GL_FALSE
+      3
     };
 
 
-    auto buffer = GeometryBuffer::create(triangleBufferData, "triangle");
-    buffer->bind();
+    // auto buffer = GeometryBuffer::create(triangleBufferData, "triangle");
+    // buffer->bind();
+
+    auto mesh = std::make_shared<Mesh>(triangleMeshData, "Triangle");
+    mesh->getGeometryBuffer()->bind();
+
+    /*auto root = std::make_shared<Node>("root");
+    auto node = std::make_shared<Node>("test");
+    unsigned int nodeId = node->getID();
+
+    std::cout << "Root node ID: " << root->getID() << std::endl;
+    std::cout << "Child node ID: " << node->getID() << std::endl;
+
+    root->addChild(node);
+    auto foundNode = root->findNodeFast(nodeId);
+    std::cout << "Found node ID: " << foundNode->getID() << std::endl;
+    root->removeNode(node);*/
+
+    
+    
+    // Matrix4 orthographicMatrix = Matrix4::orthographic(0.0f, window.getWidth(), 0.0f, window.getHeight(), 0.1f, 100.0);
 
     /**
      * Main loop
@@ -114,13 +132,19 @@ int main(void)
 
       float timeValue = glfwGetTime();
       float rotation = (float)glfwGetTime() * 50.0f * pi / 180;
-      shader.setMat4("viewMatrix", Matrix4::lookAt(Vector3(0.0f, 0.0f, 3.0f), Vector3(), Vector3(0.0f, 1.0f, 0.0f)));
-      shader.setMat4("perspectiveMatrix", Matrix4::perspective(45.0f * pi / 180, (float)window.getWidth() / (float)window.getHeight(), 0.1f, 100.0f));
-      shader.setMat4("modelMatrix", Matrix4::translation(0.0f, 0.0f, 0.0f) *
-        Matrix4::rotationZ(rotation) *
-        Matrix4::scale(1.0f, 1.0f, 1.0f));
+      Matrix4 perspectiveMatrix = Matrix4::perspective(45.0f * pi / 180, (float)window.getWidth() / (float)window.getHeight(), 0.1f, 100.0f);
 
-      renderer.drawTriangle(buffer->getVAO());
+      Matrix4 viewMatrix = Matrix4::lookAt(Vector3(0.0f, 0.0f, 3.0f), Vector3(), Vector3(0.0f, 1.0f, 0.0f));
+      Matrix4 modelMatrix = Matrix4::translation(0.0f, 0.0f, 0.0f) *
+        Matrix4::rotationZ(rotation) *
+        Matrix4::scale(1.0f, 1.0f, 1.0f);
+
+      material->setProperty("viewMatrix", viewMatrix);
+      material->setProperty("projectionMatrix", perspectiveMatrix);
+      material->setProperty("modelMatrix", modelMatrix);
+      material->apply();
+
+      renderer.draw(GL_TRIANGLES, mesh->getGeometryBuffer()->getVertexCount());
 
       renderer.swapBuffers();
     }
