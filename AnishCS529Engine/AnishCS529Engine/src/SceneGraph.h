@@ -33,22 +33,12 @@ private:
       throw std::runtime_error("ERROR::SCENEGRAPHvoid::ROOTNODE::REPARENTNODE::FORBIDDEN");
     }*/
 
-    Matrix4 getModelMatrix() const { return modelMatrix; }
-    /* Todo: instead use a Transform object and take rotation, scale and
-    position as input instead to modify Transform. */
-    void setModelMatrix(const Matrix4& newModelMatrix) { 
-      modelMatrix = newModelMatrix;
-    }
-
     void update(float deltaTime) override {
-      //worldTranslate = localTranslate;
-      Node::update(deltaTime);
+      localTransform = localTransform;
+      for (auto& child : children) {
+        child->update(deltaTime);
+      }
     }
-  private:
-    /* Todo: Create separate world and local transform objects */
-    /*Transform localTransform;
-    Transform worldTransform;*/
-    Matrix4 modelMatrix;
   };
 
   std::shared_ptr<RootNode> root;
@@ -68,12 +58,13 @@ public:
   void update(float deltaTime);
   void draw(const Matrix4& view, const Matrix4& projection) const;
 
-  void setRootModelMatrix(const Matrix4& newModelMatrix) {
-    root->setModelMatrix(newModelMatrix);
-  }
-  Matrix4 getRootModelMatrix() {
-    return root->getModelMatrix();
-  }
+  Vector3 getRootPosition() const { return root->getLocalPosition(); }
+  Vector3 getRootRotation() const { return root->getLocalRotation(); }
+  Vector3 getRootScaling() const { return root->getLocalScaling(); }
+
+  void setRootPosition(const Vector3& position) { root->setLocalPosition(position); }
+  void setRootRotation(const Vector3& rotation) { root->setLocalRotation(rotation); }
+  void setRootScaling(const Vector3& scaling) { root->setLocalScaling(scaling); }
 
 };
 

@@ -12,11 +12,6 @@
 
 void RenderableNode::update(float deltaTime) {
   /* Todo: figure out logic here. Maybe a callback to a behaviour controller?*/
-  if (!parent) std::runtime_error("ERROR::RENDERABLENODE::UPDATE::NOPARENT");
-
-  if (isLocalSpace) {
-    Matrix4 parentWorld = parent->getTransformMatrix();
-  }
 
   Node::update(deltaTime);
 }
@@ -27,7 +22,7 @@ void RenderableNode::draw(const Matrix4& view, const Matrix4& projection) {
 
   material->setProperty("viewMatrix", view);
   material->setProperty("projectionMatrix", projection);
-  material->setProperty("modelMatrix", localTransform.getLocalMatrix());
+  material->setProperty("modelMatrix", worldTransform.getLocalMatrix());//getTransformMatrix());
   material->apply();
 
   auto geometryBuffer = mesh->getGeometryBuffer();

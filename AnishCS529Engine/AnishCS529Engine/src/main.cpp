@@ -111,8 +111,8 @@ int main(void)
     auto triangle = std::make_shared<RenderableNode>("triangle1", mesh, material, &renderer);
     auto triangle2 = std::make_shared<RenderableNode>("triangle2", mesh, material, &renderer);
 
+    triangle->addChild(triangle2);
     scene.addNode(triangle);
-    scene.addNode(triangle2);
 
     /*auto root = std::make_shared<Node>("root");
     auto node = std::make_shared<Node>("test");
@@ -161,8 +161,10 @@ int main(void)
       Matrix4 modelMatrix2 = Matrix4::translation(1.0f, 0.0f, 0.0f) *
         Matrix4::rotationY(-rotation) *
         Matrix4::scale(1.0f, 1.0f, 1.0f);*/
+      triangle->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
       triangle->setLocalRotation(Vector3(rotation, 0.0f, 0.0f));
-      triangle2->setLocalRotation(Vector3(rotation, 1.0f, 0.0f));
+      triangle2->setLocalRotation(Vector3(rotation, 0.0f, 0.0f));
+      scene.update(0.0f);
       scene.draw(viewMatrix, perspectiveMatrix);
 
       renderer.swapBuffers();

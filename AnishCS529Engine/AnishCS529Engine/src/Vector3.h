@@ -32,6 +32,7 @@ public:
     Vector3 operator+(const Vector3& other) const;
     Vector3 operator-(const Vector3& other) const;
     Vector3 operator*(float scalar) const;
+    Vector3 operator*(const Vector3& other) const;
 
     // Main mathematical operations
     float dot(const Vector3& other) const;
@@ -39,6 +40,7 @@ public:
     float magnitudSquared() const;
     Vector3 normalized() const;
     Vector3 cross(const Vector3& other) const;
+    Vector3 reciprocal() const;
 
     friend std::ostream& operator<<(std::ostream& os, const Vector3& v);
 };

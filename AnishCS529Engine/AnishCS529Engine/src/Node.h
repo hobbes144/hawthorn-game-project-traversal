@@ -52,6 +52,8 @@ public:
   /* Todo: implement reparent */
   // virtual void reparent(SharedNode node);
   virtual void update(float deltaTime);
+  void worldToLocalSpace();
+  void localToWorldSpace();
   void addChild(SharedNode node);
   SharedNode findNode(unsigned int id);
   SharedNode findNodeFast(unsigned int id);
@@ -69,9 +71,13 @@ public:
   Transform getLocalTransform() const { return localTransform; }
   Transform getWorldTransform() const { return worldTransform; }
 
+  Vector3 getLocalPosition() const { return localTransform.getPosition(); }
+  Vector3 getLocalRotation() const { return localTransform.getRotation(); }
+  Vector3 getLocalScaling() const { return localTransform.getScaling(); }
+
   void setLocalPosition(const Vector3& position);
   void setLocalRotation(const Vector3& rotation);
-  void setLocalScale(const Vector3& scale);
+  void setLocalScaling(const Vector3& scaling);
 
 };
 

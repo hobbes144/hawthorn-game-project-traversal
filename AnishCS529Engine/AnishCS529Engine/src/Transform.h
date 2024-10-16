@@ -22,6 +22,10 @@ class Transform {
 public:
   Transform() : position(0, 0, 0), rotation(0, 0, 0), scaling(1, 1, 1) {}
 
+  Vector3 getPosition() const { return position; }
+  Vector3 getRotation() const { return rotation; }
+  Vector3 getScaling() const { return scaling; }
+
   void setPosition(const Vector3& newPosition) { position = newPosition; }
   void setRotation(const Vector3& newRotation) { rotation = newRotation; }
   void setScaling(const Vector3& newScaling) { scaling = newScaling; }
@@ -42,12 +46,14 @@ public:
       Matrix4::translation(invTranslation);
   }
 
-  void translate(const Vector3& translation) { position = position + translation; }
-  void rotate(const Vector3 rotationDelta) { rotation = rotation + rotationDelta; }
+  void translate(const Vector3& translation) { 
+    position = position + translation;
+  }
+  void rotate(const Vector3 rotationDelta) { 
+    rotation = rotation + rotationDelta;
+  }
   void scale(const Vector3& scaleMult) {
-    scaling.x *= scaleMult.x;
-    scaling.y *= scaleMult.y;
-    scaling.z *= scaleMult.z;
+    scaling = scaling * scaleMult;
   }
 
 private:

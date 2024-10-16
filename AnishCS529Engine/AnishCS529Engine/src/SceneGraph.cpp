@@ -13,16 +13,19 @@
 
 void SceneGraph::addNode(std::shared_ptr<Node> node) {
   if (!node) 
-    std::invalid_argument("ERROR::SCENEGRAPH::ADDNODE::INVALID::NULL");
+    throw std::invalid_argument(
+      "ERROR::SCENEGRAPH::ADDNODE::INVALID::NULL");
 
   root->addChild(node);
 }
 
 void SceneGraph::removeNode(std::shared_ptr<Node> node) {
   if (!node) 
-    std::invalid_argument("ERROR::SCENEGRAPH::REMOVENODE::INVALID::NULL");
+    throw std::invalid_argument(
+      "ERROR::SCENEGRAPH::REMOVENODE::INVALID::NULL");
   if (node == root)
-    std::invalid_argument("ERROR::SCENEGRAPH::REMOVENODE::INVALID::ROOT");
+    throw std::invalid_argument(
+      "ERROR::SCENEGRAPH::REMOVENODE::INVALID::ROOT");
   root->removeNode(node);
 }
 

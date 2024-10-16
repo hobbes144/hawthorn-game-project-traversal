@@ -20,7 +20,7 @@ unsigned int Node::nextID = 0;
  * \param name Name of the node.
  *****************************************************************************/
 Node::Node(std::string name) : 
-  id(nextID++), name(name), parent(nullptr), siblingNumber(0) {}
+  id(nextID++), name(name), parent(nullptr), siblingNumber(0), isLocalSpace(true) {}
 
 /*!****************************************************************************
  * \brief Add a passed node as a child to the current node
@@ -122,9 +122,38 @@ void Node::removeNode(SharedNode node) {
  *****************************************************************************/
 void Node::update(float deltaTime) {
   /* Todo: add other update logic here? */
+  if (!parent) throw std::runtime_error("ERROR::NODE::UPDATE::NOPARENT");
+
+  if (isLocalSpace) {
+    Matrix4 parentWorld = parent->getTransformMatrix();
+    worldTransform.setPosition(parentWorld * localTransform.getPosition());
+    worldTransform.setRotation(parent->worldTransform.getRotation() + 
+                               localTransform.getRotation());
+    worldTransform.setScaling(parent->worldTransform.getScaling() * localTransform.getScaling());
+  }
+  else {
+    Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
+    localTransform.setPosition(
+      parentWorldInv * worldTransform.getPosition());
+    localTransform.setRotation(
+      worldTransform.getRotation() - parent->worldTransform.getRotation());
+    localTransform.setScaling(
+      worldTransform.getScaling() * 
+      parent->worldTransform.getScaling().reciprocal());
+  }
+
+
   for (auto& child : children) {
     child->update(deltaTime);
   }
+}
+
+void Node::worldToLocalSpace() {
+  isLocalSpace = true;
+}
+
+void Node::localToWorldSpace() {
+  isLocalSpace = false;
 }
 
 void Node::setLocalPosition(const Vector3& position) {
@@ -135,6 +164,6 @@ void Node::setLocalRotation(const Vector3& rotation) {
   localTransform.setRotation(rotation);
 }
 
-void Node::setLocalScale(const Vector3& scale) {
-  localTransform.setScaling(scale);
+void Node::setLocalScaling(const Vector3& scaling) {
+  localTransform.setScaling(scaling);
 }

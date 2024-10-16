@@ -87,7 +87,7 @@ std::string Shader::readShaderFile(std::string path) {
 	if (!shaderFile.is_open()) {
 		std::cerr << "ERROR::SHADER::FILE::FILE_OPEN_FAILED::" << path <<
 			std::endl;
-		throw "ERROR::SHADER::FILE::FILE_OPEN_FAILED";
+		throw std::runtime_error("ERROR::SHADER::FILE::FILE_OPEN_FAILED");
 	}
 
 	std::stringstream buffer;
