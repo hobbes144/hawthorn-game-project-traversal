@@ -21,6 +21,7 @@
 #include "Node.h"
 #include "Material.h"
 #include "Mesh.h"
+#include "RenderableNode.h"
 
 /** Pi constant for maths */
 const float pi = 3.14159f;
@@ -97,11 +98,15 @@ int main(void)
     };
 
 
+
     // auto buffer = GeometryBuffer::create(triangleBufferData, "triangle");
     // buffer->bind();
 
     auto mesh = std::make_shared<Mesh>(triangleMeshData, "Triangle");
     mesh->getGeometryBuffer()->bind();
+
+    auto triangle = std::make_shared<RenderableNode>("triangle1", mesh, material, &renderer);
+    auto triangle2 = std::make_shared<RenderableNode>("triangle2", mesh, material, &renderer);
 
     /*auto root = std::make_shared<Node>("root");
     auto node = std::make_shared<Node>("test");
@@ -136,15 +141,15 @@ int main(void)
 
       Matrix4 viewMatrix = Matrix4::lookAt(Vector3(0.0f, 0.0f, 3.0f), Vector3(), Vector3(0.0f, 1.0f, 0.0f));
       Matrix4 modelMatrix = Matrix4::translation(0.0f, 0.0f, 0.0f) *
-        Matrix4::rotationZ(rotation) *
+        Matrix4::rotationY(rotation) *
         Matrix4::scale(1.0f, 1.0f, 1.0f);
-
-      material->setProperty("viewMatrix", viewMatrix);
-      material->setProperty("projectionMatrix", perspectiveMatrix);
-      material->setProperty("modelMatrix", modelMatrix);
-      material->apply();
-
-      renderer.draw(GL_TRIANGLES, mesh->getGeometryBuffer()->getVertexCount());
+      Matrix4 modelMatrix2 = Matrix4::translation(0.0f, 0.0f, 0.0f) *
+        Matrix4::rotationY(-rotation) *
+        Matrix4::scale(1.0f, 1.0f, 1.0f);
+      triangle->setModelMatrix(modelMatrix);
+      triangle2->setModelMatrix(modelMatrix2);
+      triangle->draw(viewMatrix, perspectiveMatrix);
+      triangle2->draw(viewMatrix, perspectiveMatrix);
 
       renderer.swapBuffers();
     }
