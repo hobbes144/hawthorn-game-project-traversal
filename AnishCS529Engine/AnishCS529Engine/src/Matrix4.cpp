@@ -60,6 +60,13 @@ Matrix4::Matrix4(
     float x2, float y2, float z2, float w2,
     float x3, float y3, float z3, float w3)
 {
+  /*data = [
+    [x0, y0, z0, w0],
+    [x1, y1, z1, w1],
+    [x2, y2, z2, w2],
+    [x3, y3, z3, w3],
+  ];*/
+
   data[0][0] = x0;
   data[0][1] = y0;
   data[0][2] = z0;
@@ -128,7 +135,7 @@ Matrix4 Matrix4::operator*(const Matrix4 &other)
       result.updateElement(i, j, 0.0f);
       for (int k = 0; k < 4; k++)
       {
-        result.updateElement(i, j, result.getElement(i, j) + data[i][k] * other.getElement(k, j));
+        result.updateElement(i, j, result.getElement(i, j) + data[k][i] * other.getElement(j, k));
       }
     }
   }
@@ -144,10 +151,17 @@ Matrix4 Matrix4::operator*(const Matrix4 &other)
  *****************************************************************************/
 Vector3 Matrix4::operator*(const Vector3 &vec) const
 {
-  float x, y, z;
+  float x, y, z, w;
   x = vec.x * data[0][0] + vec.y * data[1][0] + vec.z * data[2][0] + 1 * data[3][0];
   y = vec.x * data[0][1] + vec.y * data[1][1] + vec.z * data[2][1] + 1 * data[3][1];
   z = vec.x * data[0][2] + vec.y * data[1][2] + vec.z * data[2][2] + 1 * data[3][2];
+  w = vec.x * data[0][3] + vec.y * data[1][3] + vec.z * data[2][3] + data[3][3];
+
+  if (w != 0) {
+    x /= w;
+    y /= w;
+    z /= w;
+  }
 
   return Vector3(x, y, z);
 }
@@ -374,15 +388,15 @@ Matrix4 Matrix4::perspective(const float fov, const float aspectRatio,
 Matrix4 Matrix4::lookAt(const Vector3 &eye, const Vector3 &center,
                         const Vector3 &up)
 {
-  Vector3 f = (eye - center).normalized();
+  Vector3 f = (center - eye).normalized();
   Vector3 s = f.cross(up).normalized();
   Vector3 u = s.cross(f).normalized();
 
   Matrix4 result = Matrix4(
-    s.x,          u.x,        f.x,        0.0f,
-    s.y,          u.y,        f.y,        0.0f,
-    s.z,          u.z,        f.z,        0.0f,
-   -s.dot(eye),  -u.dot(eye),-f.dot(eye), 1.0f);
+    s.x,          u.x,       -f.x,        0.0f,
+    s.y,          u.y,       -f.y,        0.0f,
+    s.z,          u.z,       -f.z,        0.0f,
+   -s.dot(eye),  -u.dot(eye), f.dot(eye), 1.0f);
 
   return result;
 }

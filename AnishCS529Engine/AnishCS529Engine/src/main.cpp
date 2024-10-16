@@ -162,8 +162,8 @@ int main(void)
         Matrix4::rotationY(-rotation) *
         Matrix4::scale(1.0f, 1.0f, 1.0f);*/
       triangle->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
-      triangle->setLocalRotation(Vector3(rotation, 0.0f, 0.0f));
-      triangle2->setLocalRotation(Vector3(rotation, 0.0f, 0.0f));
+      triangle->setLocalRotation(Vector3(rotation, 1.0f, 0.0f));
+      triangle2->setLocalRotation(Vector3(rotation, 1.0f, 0.0f));
       scene.update(0.0f);
       scene.draw(viewMatrix, perspectiveMatrix);
 
