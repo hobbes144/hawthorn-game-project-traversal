@@ -18,15 +18,15 @@ std::shared_ptr<Shader> Material::getShader() const {
   return shader;
 }
 
-void Material::setProperty(const std::string& name, float value) {
+void Material::setProperty(const std::string& name, const float value) {
   properties[name] = value;
 }
 
-void Material::setProperty(const std::string& name, Vector3& value) {
+void Material::setProperty(const std::string& name, const Vector3& value) {
   properties[name] = value;
 }
 
-void Material::setProperty(const std::string& name, Matrix4& value) {
+void Material::setProperty(const std::string& name, const Matrix4& value) {
   properties[name] = value;
 }
 

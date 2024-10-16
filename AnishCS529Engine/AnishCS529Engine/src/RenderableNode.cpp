@@ -26,7 +26,7 @@ void RenderableNode::update(float deltaTime) {
   Node::update(deltaTime);
 }
 
-void RenderableNode::draw(Matrix4& view, Matrix4& projection) {
+void RenderableNode::draw(const Matrix4& view, const Matrix4& projection) {
   if (!isVisible)
     return;
 

@@ -22,6 +22,7 @@
 #include "Material.h"
 #include "Mesh.h"
 #include "RenderableNode.h"
+#include "SceneGraph.h"
 
 /** Pi constant for maths */
 const float pi = 3.14159f;
@@ -75,6 +76,8 @@ int main(void)
 
     auto material = std::make_shared<Material>(shader);
 
+    SceneGraph scene = SceneGraph();
+
     Mesh::Attributes triangleMeshData;
 
     std::vector<float> vertices = {
@@ -108,6 +111,9 @@ int main(void)
     auto triangle = std::make_shared<RenderableNode>("triangle1", mesh, material, &renderer);
     auto triangle2 = std::make_shared<RenderableNode>("triangle2", mesh, material, &renderer);
 
+    scene.addNode(triangle);
+    scene.addNode(triangle2);
+
     /*auto root = std::make_shared<Node>("root");
     auto node = std::make_shared<Node>("test");
     unsigned int nodeId = node->getID();
@@ -138,18 +144,17 @@ int main(void)
       float timeValue = glfwGetTime();
       float rotation = (float)glfwGetTime() * 50.0f * pi / 180;
       Matrix4 perspectiveMatrix = Matrix4::perspective(45.0f * pi / 180, (float)window.getWidth() / (float)window.getHeight(), 0.1f, 100.0f);
-
       Matrix4 viewMatrix = Matrix4::lookAt(Vector3(0.0f, 0.0f, 3.0f), Vector3(), Vector3(0.0f, 1.0f, 0.0f));
+
       Matrix4 modelMatrix = Matrix4::translation(0.0f, 0.0f, 0.0f) *
         Matrix4::rotationY(rotation) *
         Matrix4::scale(1.0f, 1.0f, 1.0f);
-      Matrix4 modelMatrix2 = Matrix4::translation(0.0f, 0.0f, 0.0f) *
+      Matrix4 modelMatrix2 = Matrix4::translation(1.0f, 0.0f, 0.0f) *
         Matrix4::rotationY(-rotation) *
         Matrix4::scale(1.0f, 1.0f, 1.0f);
       triangle->setModelMatrix(modelMatrix);
       triangle2->setModelMatrix(modelMatrix2);
-      triangle->draw(viewMatrix, perspectiveMatrix);
-      triangle2->draw(viewMatrix, perspectiveMatrix);
+      scene.draw(viewMatrix, perspectiveMatrix);
 
       renderer.swapBuffers();
     }

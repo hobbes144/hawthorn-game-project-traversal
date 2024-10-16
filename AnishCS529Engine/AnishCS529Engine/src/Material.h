@@ -29,9 +29,9 @@ public:
   void setShader(std::shared_ptr<Shader> shader);
   std::shared_ptr<Shader> getShader() const;
 
-  void setProperty(const std::string& name, float value);
-  void setProperty(const std::string& name, Vector3& value);
-  void setProperty(const std::string& name, Matrix4& value);
+  void setProperty(const std::string& name, const float value);
+  void setProperty(const std::string& name, const Vector3& value);
+  void setProperty(const std::string& name, const Matrix4& value);
 
   virtual void apply() const;
 

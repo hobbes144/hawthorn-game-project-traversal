@@ -1,0 +1,58 @@
+/*!****************************************************************************
+ * \file   SceneGraph.cpp
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   10-15-2024
+ * 
+ *****************************************************************************/
+#include "SceneGraph.h"
+
+
+void SceneGraph::addNode(std::shared_ptr<Node> node) {
+  if (!node) 
+    std::invalid_argument("ERROR::SCENEGRAPH::ADDNODE::INVALID::NULL");
+
+  root->addChild(node);
+}
+
+void SceneGraph::removeNode(std::shared_ptr<Node> node) {
+  if (!node) 
+    std::invalid_argument("ERROR::SCENEGRAPH::REMOVENODE::INVALID::NULL");
+  if (node == root)
+    std::invalid_argument("ERROR::SCENEGRAPH::REMOVENODE::INVALID::ROOT");
+  root->removeNode(node);
+}
+
+std::shared_ptr<Node> SceneGraph::findNode(unsigned int id) {
+  return root->findNode(id);
+}
+
+std::shared_ptr<Node> SceneGraph::findNodeFast(unsigned int id) {
+  return root->findNode(id);
+}
+
+void SceneGraph::update(float deltaTime) {
+  root->update(deltaTime);
+}
+
+void SceneGraph::drawNode(const std::shared_ptr<Node>& node,
+  const Matrix4& view, const Matrix4& projection) const {
+  auto renderableNode = std::dynamic_pointer_cast<RenderableNode>(node);
+  if (renderableNode) {
+    renderableNode->draw(view, projection);
+  }
+  else {
+    for (const auto& child : node->getChildren()) {
+      drawNode(child, view, projection);
+    }
+  }
+}
+
+void SceneGraph::draw(const Matrix4& view, const Matrix4& projection) const {
+  drawNode(root, view, projection);
+}
+
+

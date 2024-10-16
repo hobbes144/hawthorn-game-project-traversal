@@ -41,14 +41,14 @@ public:
   void setVisible(const bool visible) { isVisible = visible; }
 
   void update(float deltaTime) override;
-  void draw(Matrix4& view, Matrix4& projection);
+  void draw(const Matrix4& view, const Matrix4& projection);
 
 protected:
+  std::shared_ptr<Mesh> mesh;
+  std::shared_ptr<Material> material;
   /* Todo: Create separate world and local transform objects */
   /*Transform localTransform;
   Transform worldTransform;*/
-  std::shared_ptr<Mesh> mesh;
-  std::shared_ptr<Material> material;
   Matrix4 modelMatrix;
   bool isVisible;
 
