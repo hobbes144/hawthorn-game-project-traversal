@@ -44,3 +44,6 @@ private:
 };
 
 #endif // MATERIAL_H
+
+// Challenge for you: Can you think of a way to templetize the setProperty() function?
+// What about the properties map? Instead of a variant, could you use a template parameter? In that case, how would you handle setting the uniforms?

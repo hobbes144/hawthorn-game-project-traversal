@@ -57,6 +57,9 @@ void shutdownLibraries()
   glfwTerminate();
 }
 
+// All the functions above would be better to be part of an object with that responsibility
+// It's fine for now, but consider that. Could be the renderer, input, gameengine, etc.
+
 /*!****************************************************************************
  * \brief Main logic function
  *
