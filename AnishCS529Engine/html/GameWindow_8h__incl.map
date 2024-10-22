@@ -1,5 +1,5 @@
-<map id="GameWindow.h" name="GameWindow.h">
-<area shape="rect" id="node1" title="File containing GameWindow Object and associated logic." alt="" coords="227,5,351,32"/>
+<map id="src/GameWindow.h" name="src/GameWindow.h">
+<area shape="rect" id="node1" title="File containing GameWindow Object and associated logic." alt="" coords="215,5,362,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,100,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="124,80,235,107"/>
 <area shape="rect" id="node4" title=" " alt="" coords="259,80,318,107"/>

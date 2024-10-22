@@ -1,12 +1,6 @@
 var searchData=
 [
-  ['removenode_38',['removeNode',['../classNode.html#a9d3a897b1240b4cd8fc7e37ad5e30fcb',1,'Node']]],
-  ['renderable_2eh_39',['Renderable.h',['../Renderable_8h.html',1,'']]],
-  ['renderablenode_40',['RenderableNode',['../classRenderableNode.html',1,'']]],
-  ['renderer_41',['Renderer',['../classRenderer.html',1,'']]],
-  ['renderer_2ecpp_42',['Renderer.cpp',['../Renderer_8cpp.html',1,'']]],
-  ['renderer_2eh_43',['Renderer.h',['../Renderer_8h.html',1,'']]],
-  ['rotationx_44',['rotationX',['../classMatrix4.html#a048be771f8129b58fb0d8cd88eeac1a8',1,'Matrix4']]],
-  ['rotationy_45',['rotationY',['../classMatrix4.html#a9a3cd14d7170a3ee4aa5f63cf11a1721',1,'Matrix4']]],
-  ['rotationz_46',['rotationZ',['../classMatrix4.html#a19174edae2b8d9f241841ee80f903ed1',1,'Matrix4']]]
+  ['operator_2a_38',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
+  ['operator_3d_39',['operator=',['../classGeometryBuffer.html#a8e5835acbaf1ceac2139101c69cdf46c',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
+  ['orthographic_40',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
 ];

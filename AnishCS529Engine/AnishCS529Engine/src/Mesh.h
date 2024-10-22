@@ -33,6 +33,12 @@ public:
     std::pair<std::vector<float>, GLint>>;
 
   Mesh(Attributes attrData, std::string name);
+  Mesh(Attributes attrData, const std::vector<unsigned int>& indices, std::string name);
+
+  void setAttributeData(
+    GeometryBuffer::AttributeType& type,
+    const std::vector<float>& data,
+    int componentsPerVertex);
 
   std::shared_ptr<GeometryBuffer> getGeometryBuffer() const { return geometryBuffer; }
   std::unique_ptr<Mesh> clone() const;
@@ -47,6 +53,7 @@ private:
     GeometryBuffer::ModifiableAttributes& triangleBufferData,
     const Mesh::Attributes& attrData);
 
+  std::string name;
 };
 
 #endif // MESH_H

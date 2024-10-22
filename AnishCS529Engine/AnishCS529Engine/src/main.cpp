@@ -19,8 +19,7 @@
 #include "Shader.h"
 #include "GeometryBuffer.h"
 #include "Node.h"
-#include "Material.h"
-#include "Mesh.h"
+#include "TrianglePrimitive.h"
 #include "RenderableNode.h"
 #include "SceneGraph.h"
 
@@ -72,63 +71,19 @@ int main(void)
     Renderer renderer(window);
     unsigned int triangleVaoId;
 
-    auto shader = std::make_shared<Shader>("shaders/main_vertex_shader.glsl\nshaders/main_fragment_shader.glsl");
-
-    auto material = std::make_shared<Material>(shader);
-
     SceneGraph scene = SceneGraph();
 
-    Mesh::Attributes triangleMeshData;
+    auto triangle = std::make_shared<TrianglePrimitive>("triangle1", &renderer);
+    auto triangle2 = std::make_shared<TrianglePrimitive>("triangle2", &renderer);
+    auto triangle3 = std::make_shared<TrianglePrimitive>("triangle3", &renderer);
 
-    std::vector<float> vertices = {
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
-    };
-    triangleMeshData[GeometryBuffer::AttributeType::Position] = {
-      vertices,
-      3
-    };
-
-    std::vector<float> colors = {
-         1.0f,  0.0f, 0.0f,
-         0.0f,  1.0f, 0.0f,
-         0.0f,  0.0f, 1.0f
-    };
-    triangleMeshData[GeometryBuffer::AttributeType::Color] = {
-      colors,
-      3
-    };
-
-
-
-    // auto buffer = GeometryBuffer::create(triangleBufferData, "triangle");
-    // buffer->bind();
-
-    auto mesh = std::make_shared<Mesh>(triangleMeshData, "Triangle");
-    mesh->getGeometryBuffer()->bind();
-
-    auto triangle = std::make_shared<RenderableNode>("triangle1", mesh, material, &renderer);
-    auto triangle2 = std::make_shared<RenderableNode>("triangle2", mesh, material, &renderer);
-    auto triangle3 = std::make_shared<RenderableNode>("triangle3", mesh, material, &renderer);
-    auto triangle4 = std::make_shared<RenderableNode>("triangle4", mesh, material, &renderer);
+    triangle->setColor({ 1.0f, 0.0f, 0.0f });
+    triangle2->setColor({ 0.0f, 1.0f, 0.0f });
+    triangle3->setColor({ 0.0f, 0.0f, 1.0f });
 
     scene.addNode(triangle);
     triangle->addChild(triangle2);
     triangle2->addChild(triangle3);
-    triangle3->addChild(triangle4);
-
-    /*auto root = std::make_shared<Node>("root");
-    auto node = std::make_shared<Node>("test");
-    unsigned int nodeId = node->getID();
-
-    std::cout << "Root node ID: " << root->getID() << std::endl;
-    std::cout << "Child node ID: " << node->getID() << std::endl;
-
-    root->addChild(node);
-    auto foundNode = root->findNodeFast(nodeId);
-    std::cout << "Found node ID: " << foundNode->getID() << std::endl;
-    root->removeNode(node);*/
 
     /**
      * Main loop
@@ -159,12 +114,6 @@ int main(void)
           Vector3(), 
           Vector3(0.0f, 1.0f, 0.0f));
 
-      /*Matrix4 modelMatrix = Matrix4::translation(0.0f, 0.0f, 0.0f) *
-        Matrix4::rotationY(rotation) *
-        Matrix4::scale(1.0f, 1.0f, 1.0f);
-      Matrix4 modelMatrix2 = Matrix4::translation(1.0f, 0.0f, 0.0f) *
-        Matrix4::rotationY(-rotation) *
-        Matrix4::scale(1.0f, 1.0f, 1.0f);*/
       triangle->setLocalPosition(Vector3(0.0f, 1.0f, 0.0f));
       triangle->setLocalScaling(Vector3(0.25f, 0.25f, 0.25f));
       triangle->setLocalRotation(Vector3(0.0f, rotation, 0.0f));

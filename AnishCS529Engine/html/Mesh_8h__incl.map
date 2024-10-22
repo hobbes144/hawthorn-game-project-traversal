@@ -1,9 +1,10 @@
-<map id="Mesh.h" name="Mesh.h">
-<area shape="rect" id="node1" title="Mesh class." alt="" coords="221,5,290,32"/>
-<area shape="rect" id="node2" href="$GeometryBuffer_8h.html" title="Geometry Buffer factory class that manages OpenGL buffers and their data." alt="" coords="187,80,324,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,155,100,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="125,155,202,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="226,155,285,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="309,155,433,181"/>
-<area shape="rect" id="node7" title=" " alt="" coords="457,155,520,181"/>
+<map id="src/Mesh.h" name="src/Mesh.h">
+<area shape="rect" id="node1" title="Mesh class." alt="" coords="165,5,257,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,155,100,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="124,155,248,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="272,155,335,181"/>
+<area shape="rect" id="node5" href="$GeometryBuffer_8h.html" title="Geometry Buffer factory class that manages OpenGL buffers and their data." alt="" coords="275,80,412,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="359,155,439,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="463,155,541,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="565,155,623,181"/>
 </map>

@@ -42,7 +42,7 @@ std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
   // because even though std::make_shared is not restricted by the 
   // fact that create is static, it internally tries to access the 
   // constructor, and since the constructor is private, it can't.
-  //buffer->initializeBuffers(attributeData, indices);
+  buffer->initializeBuffers(attributeData, indices);
   return buffer;
 }
 
@@ -57,8 +57,8 @@ GeometryBuffer::~GeometryBuffer() {
 /*!****************************************************************************
  * \brief Move Constructor
  * 
- * We do not cleanup other's buffers since this object will now control the
- * existing ones.
+ * \note We do not cleanup other's buffers since this object will now control
+ * them. No new buffers are created in this object.
  * 
  * \param other GeometryBuffer object to be moved from.
  *****************************************************************************/
@@ -144,6 +144,50 @@ void GeometryBuffer::unbind() const {
 //  }
 //}
 
+void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
+  glGenBuffers(1, &vbo);
+  glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+  GLsizei totalSize = 0;
+  for (const auto& [type, info] : attributeData) {
+    attributeOffsets[type] = totalSize;
+    totalSize += (info.data.size() * sizeof(float));
+  }
+
+  auto it = attributeData.begin();
+  vertexCount = it->second.data.size() / it->second.elementSize;
+
+  glBufferData(GL_ARRAY_BUFFER, totalSize, nullptr, GL_STATIC_DRAW);
+
+  GLuint index = 0;
+  for (const auto& [type, info] : attributeData) {
+    glBufferSubData(
+      GL_ARRAY_BUFFER,
+      attributeOffsets[type],
+      info.data.size() * sizeof(float),
+      info.data.data());
+
+    glVertexAttribPointer(
+      index,
+      info.elementSize,
+      info.type,
+      info.normalized,
+      info.elementSize * sizeof(float),
+      (void*)attributeOffsets[type]);
+
+    glEnableVertexAttribArray(index);
+    index++;
+  }
+}
+
+void GeometryBuffer::initializeElementBuffers(const std::vector<unsigned int>& indices) {
+  indexCount = indices.size();
+
+  glGenBuffers(1, &ebo);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+}
+
 /*!****************************************************************************
  * \brief Initialize the Buffers
  * 
@@ -155,45 +199,42 @@ void GeometryBuffer::unbind() const {
  * \param attributeData Attribute data for each attribute. Refer to Attribute
  *  type for more info.
  *****************************************************************************/
-void GeometryBuffer::initializeBuffers(Attributes& attributeData) {
+void GeometryBuffer::initializeBuffers(
+  Attributes& attributeData) {
   glGenVertexArrays(1, &vao);
-  glGenBuffers(1, &vbo);
   glBindVertexArray(vao);
-  glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-  GLsizei totalSize = 0;
-  for (const auto& [type, info] : attributeData) {
-    attributeOffsets[type] = totalSize;
-    totalSize += (info.data.size() * sizeof(float));
-  }
-  
-  auto it = attributeData.begin();
-  vertexCount = it->second.data.size() / it->second.elementSize;
-
-  glBufferData(GL_ARRAY_BUFFER, totalSize, nullptr, GL_STATIC_DRAW);
-
-  GLuint index = 0;
-  for (const auto& [type, info] : attributeData) {
-    glBufferSubData(
-      GL_ARRAY_BUFFER, 
-      attributeOffsets[type], 
-      info.data.size() * sizeof(float), 
-      info.data.data());
-
-    glVertexAttribPointer(
-      index, 
-      info.elementSize, 
-      info.type, 
-      info.normalized, 
-      info.elementSize * sizeof(float), 
-      (void*)attributeOffsets[type]);
-
-    glEnableVertexAttribArray(index);
-    index++;
-  }
+  initializeVertexBuffers(attributeData);
 
   glBindVertexArray(0);
 
+}
+
+void GeometryBuffer::initializeBuffers(
+  Attributes& attributeData,
+  const std::vector<unsigned int>& indices) {
+  glGenVertexArrays(1, &vao);
+  glBindVertexArray(vao);
+  initializeVertexBuffers(attributeData);
+  initializeElementBuffers(indices);
+
+  glBindVertexArray(0);
+
+}
+
+void GeometryBuffer::updateVertexAttribute(const AttributeType& type, const std::vector<float>& data) {
+  if (!hasAttribute(type)) {
+    throw std::runtime_error("Attribute not found in buffer");
+  }
+
+  glBufferSubData(
+    GL_ARRAY_BUFFER,
+    attributeOffsets[type],
+    data.size() * sizeof(float),
+    data.data());
+}
+
+bool GeometryBuffer::hasAttribute(AttributeType type) {
+  return attributeOffsets.find(type) != attributeOffsets.end();
 }
 
 /*!****************************************************************************

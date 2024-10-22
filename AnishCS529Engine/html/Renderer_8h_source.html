@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>AnishCS529Engine: Renderer.h Source File</title>
+<title>AnishCS529Engine: src/Renderer.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,7 +46,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,6 +60,11 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Renderer.h</div>  </div>
@@ -96,37 +100,24 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> clear(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> a);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> swapBuffers();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> drawTriangle(<a class="code" href="classVector3.html">Vector3</a> a, <a class="code" href="classVector3.html">Vector3</a> b, <a class="code" href="classVector3.html">Vector3</a> c);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> addTriangle(<a class="code" href="classVector3.html">Vector3</a> a, <a class="code" href="classVector3.html">Vector3</a> aColor, <a class="code" href="classVector3.html">Vector3</a> b, <a class="code" href="classVector3.html">Vector3</a> bColor, <a class="code" href="classVector3.html">Vector3</a> c, <a class="code" href="classVector3.html">Vector3</a> cColor);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> addTriangle(<a class="code" href="classVector3.html">Vector3</a> a, <a class="code" href="classVector3.html">Vector3</a> b, <a class="code" href="classVector3.html">Vector3</a> c);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> UpdateTriangle(<a class="code" href="classMatrix4.html">Matrix4</a> modelMatrix);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> drawTriangle(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> triangleVaoId);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classGameWindow.html">GameWindow</a>&amp; gameWindow;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vertexShaderId;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> fragmentShaderId;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> shaderProgramId;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> modelMatrixLoc;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> viewMatrixLoc;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> perspectiveMatrixLoc;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> orthographicMatrixLoc;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> initialize();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> loadGraphicsAPIFunctions();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> setupCallbacks();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> framebufferSizeCallback(GLFWwindow* pWindow, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// RENDERER_H</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> draw(GLenum mode, GLint count);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classGameWindow.html">GameWindow</a>&amp; gameWindow;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> initialize();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">bool</span> loadGraphicsAPIFunctions();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> setupCallbacks();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> framebufferSizeCallback(GLFWwindow* pWindow, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// RENDERER_H</span></div>
 <div class="ttc" id="aGameWindow_8h_html"><div class="ttname"><a href="GameWindow_8h.html">GameWindow.h</a></div><div class="ttdoc">File containing GameWindow Object and associated logic.</div></div>
 <div class="ttc" id="aMatrix4_8h_html"><div class="ttname"><a href="Matrix4_8h.html">Matrix4.h</a></div><div class="ttdoc">File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic.</div></div>
 <div class="ttc" id="aVector3_8h_html"><div class="ttname"><a href="Vector3_8h.html">Vector3.h</a></div><div class="ttdoc">File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic.</div></div>
-<div class="ttc" id="aclassGameWindow_html"><div class="ttname"><a href="classGameWindow.html">GameWindow</a></div><div class="ttdoc">Class that sets up the GLFW window and associated logic.</div><div class="ttdef"><b>Definition:</b> GameWindow.h:29</div></div>
-<div class="ttc" id="aclassMatrix4_html"><div class="ttname"><a href="classMatrix4.html">Matrix4</a></div><div class="ttdoc">Class that implements a custom 4x4 Matrix for use with OpenGL functions and game logic.</div><div class="ttdef"><b>Definition:</b> Matrix4.h:30</div></div>
+<div class="ttc" id="aclassGameWindow_html"><div class="ttname"><a href="classGameWindow.html">GameWindow</a></div><div class="ttdoc">Class that sets up the GLFW window and associated logic.</div><div class="ttdef"><b>Definition:</b> GameWindow.h:32</div></div>
 <div class="ttc" id="aclassRenderer_html"><div class="ttname"><a href="classRenderer.html">Renderer</a></div><div class="ttdef"><b>Definition:</b> Renderer.h:25</div></div>
-<div class="ttc" id="aclassVector3_html"><div class="ttname"><a href="classVector3.html">Vector3</a></div><div class="ttdef"><b>Definition:</b> Vector3.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

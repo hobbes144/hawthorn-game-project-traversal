@@ -72,21 +72,32 @@ $(function() {
 <div class="title">GeometryBuffer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class that sets up the OpenGL buffers.  
+ <a href="classGeometryBuffer.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="GeometryBuffer_8h_source.html">GeometryBuffer.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structGeometryBuffer_1_1AttributeInfo.html">AttributeInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Info on Attributes to be stored in the buffers.  <a href="structGeometryBuffer_1_1AttributeInfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a7ecf2c875787c70671a1acbb67ada63f"><td class="memItemLeft" align="right" valign="top"><a id="a7ecf2c875787c70671a1acbb67ada63f"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>AttributeType</b> { <b>Position</b>
+<tr class="memitem:a7ecf2c875787c70671a1acbb67ada63f"><td class="memItemLeft" align="right" valign="top"><a id="a7ecf2c875787c70671a1acbb67ada63f"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">AttributeType</a> { <b>Position</b>
 , <b>Color</b>
  }</td></tr>
+<tr class="memdesc:a7ecf2c875787c70671a1acbb67ada63f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute types supported by the code. <br /></td></tr>
 <tr class="separator:a7ecf2c875787c70671a1acbb67ada63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e63c9a444854bb58d199d05a637a451"><td class="memItemLeft" align="right" valign="top"><a id="a6e63c9a444854bb58d199d05a637a451"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Attribute</b> = const std::unordered_map&lt; AttributeType, <a class="el" href="structGeometryBuffer_1_1AttributeInfo.html">AttributeInfo</a> &gt;</td></tr>
-<tr class="separator:a6e63c9a444854bb58d199d05a637a451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eb4084b0096f55827157e01d3d9f74a"><td class="memItemLeft" align="right" valign="top"><a id="a6eb4084b0096f55827157e01d3d9f74a"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#a6eb4084b0096f55827157e01d3d9f74a">ModifiableAttributes</a> = std::unordered_map&lt; <a class="el" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">AttributeType</a>, <a class="el" href="structGeometryBuffer_1_1AttributeInfo.html">AttributeInfo</a> &gt;</td></tr>
+<tr class="memdesc:a6eb4084b0096f55827157e01d3d9f74a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifiable version of <a class="el" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4" title="Attribute input data structure.">GeometryBuffer::Attributes</a>. <br /></td></tr>
+<tr class="separator:a6eb4084b0096f55827157e01d3d9f74a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5e66037b17c6194f8eeda2161dc09b4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a> = const std::unordered_map&lt; <a class="el" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">AttributeType</a>, <a class="el" href="structGeometryBuffer_1_1AttributeInfo.html">AttributeInfo</a> &gt;</td></tr>
+<tr class="memdesc:ae5e66037b17c6194f8eeda2161dc09b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute input data structure.  <a href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">More...</a><br /></td></tr>
+<tr class="separator:ae5e66037b17c6194f8eeda2161dc09b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -94,10 +105,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af723ec288aad9b2efad704d5a95a1549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor which runs cleanup.  <a href="classGeometryBuffer.html#af723ec288aad9b2efad704d5a95a1549">More...</a><br /></td></tr>
 <tr class="separator:af723ec288aad9b2efad704d5a95a1549"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01f92aed0d0d0415038d92fd63e77c33"><td class="memItemLeft" align="right" valign="top"><a id="a01f92aed0d0d0415038d92fd63e77c33"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GeometryBuffer</b> (const <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;)=delete</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#a01f92aed0d0d0415038d92fd63e77c33">GeometryBuffer</a> (const <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a01f92aed0d0d0415038d92fd63e77c33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy constructor to prevent copying. <br /></td></tr>
 <tr class="separator:a01f92aed0d0d0415038d92fd63e77c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e5835acbaf1ceac2139101c69cdf46c"><td class="memItemLeft" align="right" valign="top"><a id="a8e5835acbaf1ceac2139101c69cdf46c"></a>
-<a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;)=delete</td></tr>
+<a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#a8e5835acbaf1ceac2139101c69cdf46c">operator=</a> (const <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a8e5835acbaf1ceac2139101c69cdf46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy assignment to prevent copying. <br /></td></tr>
 <tr class="separator:a8e5835acbaf1ceac2139101c69cdf46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a682bca4d4ec83e9ae5e9b5ed216cdb3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#a682bca4d4ec83e9ae5e9b5ed216cdb3f">GeometryBuffer</a> (<a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;&amp;) noexcept</td></tr>
 <tr class="memdesc:a682bca4d4ec83e9ae5e9b5ed216cdb3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move Constructor.  <a href="classGeometryBuffer.html#a682bca4d4ec83e9ae5e9b5ed216cdb3f">More...</a><br /></td></tr>
@@ -105,6 +118,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae30293d2749dc918f4208fadadf39bf5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5">operator=</a> (<a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &amp;&amp;) noexcept</td></tr>
 <tr class="memdesc:ae30293d2749dc918f4208fadadf39bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator.  <a href="classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5">More...</a><br /></td></tr>
 <tr class="separator:ae30293d2749dc918f4208fadadf39bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e7be90d2ca7bfa992eae45e9b300572"><td class="memItemLeft" align="right" valign="top"><a id="a7e7be90d2ca7bfa992eae45e9b300572"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>updateVertexAttribute</b> (const <a class="el" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">AttributeType</a> &amp;type, const std::vector&lt; float &gt; &amp;data)</td></tr>
+<tr class="separator:a7e7be90d2ca7bfa992eae45e9b300572"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37773a483500df1ca67192c9dcf4c259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#a37773a483500df1ca67192c9dcf4c259">bind</a> () const</td></tr>
 <tr class="memdesc:a37773a483500df1ca67192c9dcf4c259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind the VAO, making it the current AO for draw calls.  <a href="classGeometryBuffer.html#a37773a483500df1ca67192c9dcf4c259">More...</a><br /></td></tr>
 <tr class="separator:a37773a483500df1ca67192c9dcf4c259"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,10 +145,43 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><b>getEBO</b> () const
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a04cd56dbcc86a60954f7466972b65e97"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#a04cd56dbcc86a60954f7466972b65e97">create</a> (Attribute &amp;attributeData, std::string name)</td></tr>
-<tr class="memdesc:a04cd56dbcc86a60954f7466972b65e97"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> Object Factory.  <a href="classGeometryBuffer.html#a04cd56dbcc86a60954f7466972b65e97">More...</a><br /></td></tr>
-<tr class="separator:a04cd56dbcc86a60954f7466972b65e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43ac2b3c5cc7ee8a4d0962b2f499c4ae"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGeometryBuffer.html#a43ac2b3c5cc7ee8a4d0962b2f499c4ae">create</a> (<a class="el" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a> &amp;attributeData, const std::string &amp;name)</td></tr>
+<tr class="memdesc:a43ac2b3c5cc7ee8a4d0962b2f499c4ae"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classGeometryBuffer.html" title="Class that sets up the OpenGL buffers.">GeometryBuffer</a> Object Factory.  <a href="classGeometryBuffer.html#a43ac2b3c5cc7ee8a4d0962b2f499c4ae">More...</a><br /></td></tr>
+<tr class="separator:a43ac2b3c5cc7ee8a4d0962b2f499c4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38d92002222d0629afe81292a5fa002d"><td class="memItemLeft" align="right" valign="top"><a id="a38d92002222d0629afe81292a5fa002d"></a>
+static std::shared_ptr&lt; <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (<a class="el" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a> &amp;attributeData, const std::vector&lt; unsigned int &gt; &amp;indices, const std::string &amp;name)</td></tr>
+<tr class="separator:a38d92002222d0629afe81292a5fa002d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class that sets up the OpenGL buffers. </p>
+<hr  />
+ </div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ae5e66037b17c6194f8eeda2161dc09b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5e66037b17c6194f8eeda2161dc09b4">&#9670;&nbsp;</a></span>Attributes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">GeometryBuffer::Attributes</a> =  const std::unordered_map&lt; <a class="el" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">AttributeType</a>, <a class="el" href="structGeometryBuffer_1_1AttributeInfo.html">AttributeInfo</a> &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attribute input data structure. </p>
+<p>Attributes stores:</p><ul>
+<li><a class="el" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f" title="Attribute types supported by the code.">GeometryBuffer::AttributeType</a> (position or color, etc)</li>
+<li><a class="el" href="structGeometryBuffer_1_1AttributeInfo.html" title="Info on Attributes to be stored in the buffers.">GeometryBuffer::AttributeInfo</a>:<ul>
+<li>std::vector&lt;float&gt; data: 1D vector of size (Dimension * numpoints)</li>
+<li>GLint elementSize: Number of dimensions</li>
+<li>GLenum type: GL type</li>
+<li>GLboolean normalized: If should normalize </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af723ec288aad9b2efad704d5a95a1549"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af723ec288aad9b2efad704d5a95a1549">&#9670;&nbsp;</a></span>~GeometryBuffer()</h2>
@@ -180,10 +229,10 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Move Constructor. </p>
 <hr  />
-<p>We do not cleanup other's buffers since this object will now control the existing ones.</p>
+<dl class="section note"><dt>Note</dt><dd>We do not cleanup other's buffers since this object will now control the existing ones.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td><a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> object to be moved from. </td></tr>
+    <tr><td class="paramname">other</td><td><a class="el" href="classGeometryBuffer.html" title="Class that sets up the OpenGL buffers.">GeometryBuffer</a> object to be moved from. </td></tr>
   </table>
   </dd>
 </dl>
@@ -211,8 +260,8 @@ Static Public Member Functions</h2></td></tr>
  
 </div>
 </div>
-<a id="a04cd56dbcc86a60954f7466972b65e97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04cd56dbcc86a60954f7466972b65e97">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a43ac2b3c5cc7ee8a4d0962b2f499c4ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43ac2b3c5cc7ee8a4d0962b2f499c4ae">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,13 +272,13 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">std::shared_ptr&lt; <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &gt; GeometryBuffer::create </td>
           <td>(</td>
-          <td class="paramtype">Attribute &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a> &amp;&#160;</td>
           <td class="paramname"><em>attributeData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>&#160;</td>
         </tr>
         <tr>
@@ -245,7 +294,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> Object Factory. </p>
+<p><a class="el" href="classGeometryBuffer.html" title="Class that sets up the OpenGL buffers.">GeometryBuffer</a> Object Factory. </p>
 <hr  />
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -254,7 +303,7 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;GeometryBuffer&gt;</b> Initialized <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> object </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;GeometryBuffer&gt;</b> Initialized <a class="el" href="classGeometryBuffer.html" title="Class that sets up the OpenGL buffers.">GeometryBuffer</a> object </dd></dl>
 
 </div>
 </div>
@@ -287,11 +336,11 @@ Static Public Member Functions</h2></td></tr>
 <p>This is used when existing object is already instanciated, but we are moving another object's data into it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td><a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> object to be moved from. </td></tr>
+    <tr><td class="paramname">other</td><td><a class="el" href="classGeometryBuffer.html" title="Class that sets up the OpenGL buffers.">GeometryBuffer</a> object to be moved from. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><b><a class="el" href="classGeometryBuffer.html">GeometryBuffer</a>&amp;</b> this </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><b><a class="el" href="classGeometryBuffer.html" title="Class that sets up the OpenGL buffers.">GeometryBuffer</a>&amp;</b> this </dd></dl>
 
 </div>
 </div>
@@ -316,8 +365,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="GeometryBuffer_8h_source.html">GeometryBuffer.h</a></li>
-<li><a class="el" href="GeometryBuffer_8cpp.html">GeometryBuffer.cpp</a></li>
+<li>src/<a class="el" href="GeometryBuffer_8h_source.html">GeometryBuffer.h</a></li>
+<li>src/<a class="el" href="GeometryBuffer_8cpp.html">GeometryBuffer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

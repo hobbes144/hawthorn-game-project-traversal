@@ -22,18 +22,33 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{b20874b9-9397-423b-8562-417be9e8be03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\OpenGL">
+      <UniqueIdentifier>{105f078f-7c32-4cb1-b37d-f61c2a97614a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ObjectResources">
+      <UniqueIdentifier>{8f6252f2-c818-4654-9270-1e77844120df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{a545e6e7-5f05-4b97-aeba-5d55ad4e94c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{c2ad7f39-d75e-43bd-aac4-613c55ed24c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{e4a66632-9f60-4f58-8144-f62bd60921ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems">
+      <UniqueIdentifier>{1c5475f8-3819-4306-ad68-4b14ddd209d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OpenGL">
+      <UniqueIdentifier>{3e00e1d2-b733-452c-a5bc-e2d6fd40b0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ObjectResources">
+      <UniqueIdentifier>{90dcd5e3-d0e2-40ce-8411-01aee9c817fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Matrix4.cpp">
@@ -45,35 +60,41 @@
     <ClCompile Include="src\VectorTemplated.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
-    <ClCompile Include="src\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GeometryBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Node.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderableNode.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\TrianglePrimitive.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="src\SceneGraph.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameWindow.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GeometryBuffer.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Material.cpp">
+      <Filter>Source Files\ObjectResources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Source Files\ObjectResources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Node.cpp">
+      <Filter>Source Files\ObjectResources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderableNode.cpp">
+      <Filter>Source Files\ObjectResources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Matrix4.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
@@ -84,28 +105,37 @@
       <Filter>Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\GeometryBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Node.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderableNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SceneGraph.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Transform.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameWindow.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Material.h">
+      <Filter>Header Files\ObjectResources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh.h">
+      <Filter>Header Files\ObjectResources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Node.h">
+      <Filter>Header Files\ObjectResources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderableNode.h">
+      <Filter>Header Files\ObjectResources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SceneGraph.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TrianglePrimitive.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

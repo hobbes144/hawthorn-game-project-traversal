@@ -19,8 +19,17 @@ Mesh::Mesh(Attributes attrData, std::string name) {
     geometryBuffer->updateVertexAttribute(attr, data);
 
   else*/
+  this->name = name;
   geometryBuffer = GeometryBuffer::create(geometryBufferAttr, name);
 
+}
+
+Mesh::Mesh(Attributes attrData, const std::vector<unsigned int>& indices, std::string name) {
+  GeometryBuffer::ModifiableAttributes geometryBufferAttr;
+  prepareAttributeData(geometryBufferAttr, attrData);
+
+  this->name = name;
+  geometryBuffer = GeometryBuffer::create(geometryBufferAttr, indices, name);
 }
 
 void Mesh::prepareAttributeData(
@@ -34,6 +43,23 @@ void Mesh::prepareAttributeData(
       GL_FLOAT,
       GL_FALSE
     };
+  }
+}
+
+void Mesh::setAttributeData(
+  GeometryBuffer::AttributeType& type,
+  const std::vector<float>& data,
+  int componentsPerVertex) {
+
+  if (geometryBuffer)
+    geometryBuffer->updateVertexAttribute(type, data);
+
+  else {
+    GeometryBuffer::ModifiableAttributes attributeMap;
+    Mesh::Attributes attrData;
+    attrData[type] = { data , componentsPerVertex };
+    prepareAttributeData(attributeMap, attrData);
+    geometryBuffer = GeometryBuffer::create(attributeMap, name);
   }
 }
 

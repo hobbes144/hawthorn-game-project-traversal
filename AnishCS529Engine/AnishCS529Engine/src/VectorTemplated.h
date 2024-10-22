@@ -8,6 +8,8 @@
  * \date   10-14-2024
  * \brief  Templated Vector object for use with OpenGL functionality.
  * 
+ * Currently not in use. To be updated when ready to use.
+ * 
  *****************************************************************************/
 #ifndef VECTOR_TEMPLATED_H
 #define VECTOR_TEMPLATED_H

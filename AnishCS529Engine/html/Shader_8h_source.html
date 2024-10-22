@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>AnishCS529Engine: Shader.h Source File</title>
+<title>AnishCS529Engine: src/Shader.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -46,7 +46,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,6 +60,11 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Shader.h</div>  </div>
@@ -83,61 +87,60 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Matrix4_8h.html">Matrix4.h</a>&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Vector3_8h.html">Vector3.h</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;glad/glad.h&gt;</span> </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;glad/glad.h&gt;</span> </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Matrix4_8h.html">Matrix4.h</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Vector3_8h.html">Vector3.h</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classShader.html">   33</a></span>&#160;<span class="keyword">class </span><a class="code" href="classShader.html">Shader</a> {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="classShader.html#ae2eb2eb69c34ce583359758ec0cbc084">Shader</a>(<span class="keyword">const</span> std::string&amp; shaderFilePaths);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="classShader.html#aff01df87e8a102f270b5b135a295e59d">~Shader</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a870fa9f13d69e558815d6fd351a469dc">use</a>();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="comment">/* Todo: figure out if we can make this generic using std::variant? */</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a1a4bc50d5f12828bd04b0ec98babc05c">setUInt</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> value) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#ad362e2b654cd95a3574cd505411e41fd">setInt</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a85e41ac5c5c264973c5e2c8555664a64">set2Int</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> v0, <span class="keywordtype">int</span> v1) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#afe7367621f74c2d26431d8ac15252bf3">setFloat</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> value) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#afb91bc9e954bf590857c96ab1331b0ec">setVec2</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a48c5f1d5bd6f8e27e2c654c826f600a2">setVec3</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code" href="classVector3.html">Vector3</a>&amp; value) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#ad7906b3a47e6f2d62ec79f4c871aadb1">setVec4</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z, <span class="keywordtype">float</span> w) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a93df51cf3edafbc0bde31e49e62e8956">setMat4</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code" href="classMatrix4.html">Matrix4</a>&amp; value) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getId() { <span class="keywordflow">return</span> programID; };</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  std::unordered_map&lt;GLenum, GLuint&gt; shaderIDs;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">mutable</span> std::unordered_map&lt;std::string, GLint&gt; uniformLocationCache; <span class="comment">// Todo: Why is this mutable?</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  GLuint programID;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  GLenum readShaderType(std::string path);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  std::string readShaderFile(std::string path);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  GLuint loadShader(GLenum type, <span class="keyword">const</span> GLchar* source);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> deleteShader(GLuint <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> linkShaders();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  GLint getUniformLocation(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  std::string toLowerCase(<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// SHADER_H</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classShader.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="classShader.html">Shader</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="classShader.html#ae2eb2eb69c34ce583359758ec0cbc084">Shader</a>(<span class="keyword">const</span> std::string&amp; shaderFilePaths);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="classShader.html#aff01df87e8a102f270b5b135a295e59d">~Shader</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a870fa9f13d69e558815d6fd351a469dc">use</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="comment">/* Todo: figure out if we can make this generic using std::variant? */</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a1a4bc50d5f12828bd04b0ec98babc05c">setUInt</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> value) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#ad362e2b654cd95a3574cd505411e41fd">setInt</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> value) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a85e41ac5c5c264973c5e2c8555664a64">set2Int</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">int</span> v0, <span class="keywordtype">int</span> v1) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#afe7367621f74c2d26431d8ac15252bf3">setFloat</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> value) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#afb91bc9e954bf590857c96ab1331b0ec">setVec2</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a48c5f1d5bd6f8e27e2c654c826f600a2">setVec3</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code" href="classVector3.html">Vector3</a>&amp; value) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#ad7906b3a47e6f2d62ec79f4c871aadb1">setVec4</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z, <span class="keywordtype">float</span> w) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classShader.html#a93df51cf3edafbc0bde31e49e62e8956">setMat4</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> <a class="code" href="classMatrix4.html">Matrix4</a>&amp; value) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getId() { <span class="keywordflow">return</span> programID; };</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::unordered_map&lt;GLenum, GLuint&gt; shaderIDs;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">mutable</span> std::unordered_map&lt;std::string, GLint&gt; uniformLocationCache; <span class="comment">// Todo: Why is this mutable?</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  GLuint programID;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  GLenum readShaderType(std::string path);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  std::string readShaderFile(std::string path);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  GLuint loadShader(GLenum type, <span class="keyword">const</span> GLchar* source);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">void</span> deleteShader(GLuint <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> linkShaders();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  GLint getUniformLocation(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  std::string toLowerCase(<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// SHADER_H</span></div>
 <div class="ttc" id="aMatrix4_8h_html"><div class="ttname"><a href="Matrix4_8h.html">Matrix4.h</a></div><div class="ttdoc">File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic.</div></div>
 <div class="ttc" id="aVector3_8h_html"><div class="ttname"><a href="Vector3_8h.html">Vector3.h</a></div><div class="ttdoc">File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic.</div></div>
 <div class="ttc" id="aclassMatrix4_html"><div class="ttname"><a href="classMatrix4.html">Matrix4</a></div><div class="ttdoc">Class that implements a custom 4x4 Matrix for use with OpenGL functions and game logic.</div><div class="ttdef"><b>Definition:</b> Matrix4.h:30</div></div>
-<div class="ttc" id="aclassShader_html"><div class="ttname"><a href="classShader.html">Shader</a></div><div class="ttdef"><b>Definition:</b> Shader.h:33</div></div>
+<div class="ttc" id="aclassShader_html"><div class="ttname"><a href="classShader.html">Shader</a></div><div class="ttdef"><b>Definition:</b> Shader.h:32</div></div>
 <div class="ttc" id="aclassShader_html_a1a4bc50d5f12828bd04b0ec98babc05c"><div class="ttname"><a href="classShader.html#a1a4bc50d5f12828bd04b0ec98babc05c">Shader::setUInt</a></div><div class="ttdeci">void setUInt(const std::string &amp;name, unsigned int value) const</div><div class="ttdoc">Set UInt Uniform.</div><div class="ttdef"><b>Definition:</b> Shader.cpp:202</div></div>
 <div class="ttc" id="aclassShader_html_a48c5f1d5bd6f8e27e2c654c826f600a2"><div class="ttname"><a href="classShader.html#a48c5f1d5bd6f8e27e2c654c826f600a2">Shader::setVec3</a></div><div class="ttdeci">void setVec3(const std::string &amp;name, const Vector3 &amp;value) const</div><div class="ttdoc">Set Vector3 Uniform.</div><div class="ttdef"><b>Definition:</b> Shader.cpp:252</div></div>
 <div class="ttc" id="aclassShader_html_a85e41ac5c5c264973c5e2c8555664a64"><div class="ttname"><a href="classShader.html#a85e41ac5c5c264973c5e2c8555664a64">Shader::set2Int</a></div><div class="ttdeci">void set2Int(const std::string &amp;name, int v0, int v1) const</div><div class="ttdoc">Set 2Int Uniform.</div><div class="ttdef"><b>Definition:</b> Shader.cpp:222</div></div>

@@ -1,6 +1,13 @@
-<map id="GeometryBuffer.h" name="GeometryBuffer.h">
-<area shape="rect" id="node1" title="Geometry Buffer factory class that manages OpenGL buffers and their data." alt="" coords="154,5,291,32"/>
-<area shape="rect" id="node2" href="$GeometryBuffer_8cpp.html" title=" " alt="" coords="5,80,157,107"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="181,80,264,107"/>
-<area shape="rect" id="node4" href="$Mesh_8h.html" title="Mesh class." alt="" coords="288,80,357,107"/>
+<map id="src/GeometryBuffer.h" name="src/GeometryBuffer.h">
+<area shape="rect" id="node1" title="Geometry Buffer factory class that manages OpenGL buffers and their data." alt="" coords="223,5,383,32"/>
+<area shape="rect" id="node2" href="$GeometryBuffer_8cpp.html" title=" " alt="" coords="5,80,180,107"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="459,304,564,331"/>
+<area shape="rect" id="node4" href="$Mesh_8h.html" title="Mesh class." alt="" coords="300,80,392,107"/>
+<area shape="rect" id="node10" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="179,229,345,256"/>
+<area shape="rect" id="node5" href="$Mesh_8cpp.html" title=" " alt="" coords="495,155,602,181"/>
+<area shape="rect" id="node6" href="$RenderableNode_8h.html" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="306,155,471,181"/>
+<area shape="rect" id="node7" href="$RenderableNode_8cpp.html" title=" " alt="" coords="421,229,601,256"/>
+<area shape="rect" id="node8" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="677,229,812,256"/>
+<area shape="rect" id="node9" href="$SceneGraph_8cpp.html" title=" " alt="" coords="669,304,820,331"/>
+<area shape="rect" id="node11" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="171,304,353,331"/>
 </map>

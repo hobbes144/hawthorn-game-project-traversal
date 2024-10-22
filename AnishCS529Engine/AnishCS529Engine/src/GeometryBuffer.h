@@ -18,57 +18,58 @@
 #include <glad/glad.h>
 
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+/*!****************************************************************************
+ * \brief Class that sets up the OpenGL buffers
+ * 
+ *****************************************************************************/
 class GeometryBuffer {
 public:
+
+  /**
+    \brief Attribute types supported by the code
+  */
   enum class AttributeType {
     Position,
     Color
   };
 
-  /* Todo: Implement EBO and add indices as a list here */
-
-  /*
-    AttributeInfo stores:
-      Data: 1D vector of size (Dimension * numpoints)
-      elementSize: Number of dimensions
-      Type: GL type
-      Normalized: If should normalize
+  /**
+    \brief Info on Attributes to be stored in the buffers
   */
   struct AttributeInfo {
-    std::vector<float>  data;
+    /** 1D vector of size (Dimension * Num Points) */
+    std::vector<float>  data; 
+    /** Number of dimensions */
     GLint               elementSize;
+    /** GL type */
     GLenum              type;
+    /** If should normalize */
     GLboolean           normalized;
   };
 
-  /*
-    Modifiable version:
-    Attribute stores:
-      Type (position or color, etc)
-      AttributeInfo:
-        Data: 1D vector of size (Dimension * numpoints)
-        elementSize: Number of dimensions
-        Type: GL type
-        Normalized: If should normalize
+  /**
+    \brief Modifiable version of GeometryBuffer::Attributes
   */
   using ModifiableAttributes = std::unordered_map<
     AttributeType,
     AttributeInfo
   >;
 
-  /*
-    Non-modifiable version:
-    Attribute stores:
-      Type (position or color, etc)
-      AttributeInfo:
-        Data: 1D vector of size (Dimension * numpoints)
-        elementSize: Number of dimensions
-        Type: GL type
-        Normalized: If should normalize
+  /**
+    \brief Attribute input data structure
+    
+    Attributes stores:
+    - GeometryBuffer::AttributeType (position or color, etc)
+    - GeometryBuffer::AttributeInfo:
+      - std::vector<float>  data: 1D vector of size (Dimension * numpoints)
+      - GLint               elementSize: Number of dimensions
+      - GLenum              type: GL type
+      - GLboolean           normalized: If should normalize
   */
   using Attributes = const std::unordered_map<
     AttributeType,
@@ -77,8 +78,9 @@ public:
   
   ~GeometryBuffer();
 
-  // Prevent copying
+  /** \brief Deleted copy constructor to prevent copying */
   GeometryBuffer(const GeometryBuffer&) = delete;
+  /** \brief Deleted copy assignment to prevent copying */
   GeometryBuffer& operator=(const GeometryBuffer&) = delete;
 
   // Allow moving
@@ -90,6 +92,8 @@ public:
   static std::shared_ptr<GeometryBuffer> create(Attributes& attributeData,
     const std::vector<unsigned int>& indices,
     const std::string& name);
+
+  void updateVertexAttribute(const AttributeType& type, const std::vector<float>& data);
 
   void bind() const;
   void unbind() const;
@@ -119,7 +123,13 @@ private:
   GeometryBuffer(std::string name) : 
     vao(0), vbo(0), ebo(0), vertexCount(0), indexCount(0), name(name) {};
 
+  void initializeVertexBuffers(Attributes& attributeData);
+  void initializeElementBuffers(const std::vector<unsigned int>& indices);
   void initializeBuffers(Attributes& attributeData);
+  void initializeBuffers(Attributes& attributeData, const std::vector<unsigned int>& indices);
+
+  bool hasAttribute(AttributeType type);
+
   void cleanupBuffers();
 
 };

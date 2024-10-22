@@ -63,13 +63,47 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classMesh-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Mesh Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="Mesh_8h_source.html">Mesh.h</a></li>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a5040e3bc7a891e179874a86cbbf63b59"><td class="memItemLeft" align="right" valign="top"><a id="a5040e3bc7a891e179874a86cbbf63b59"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Attributes</b> = std::unordered_map&lt; <a class="el" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">GeometryBuffer::AttributeType</a>, std::pair&lt; std::vector&lt; float &gt;, GLint &gt; &gt;</td></tr>
+<tr class="separator:a5040e3bc7a891e179874a86cbbf63b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5c68a2dd54202e9d196e67d2c0632219"><td class="memItemLeft" align="right" valign="top"><a id="a5c68a2dd54202e9d196e67d2c0632219"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Mesh</b> (Attributes attrData, std::string name)</td></tr>
+<tr class="separator:a5c68a2dd54202e9d196e67d2c0632219"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc666c0be8f5f49bfac4737f5558c0e"><td class="memItemLeft" align="right" valign="top"><a id="a1bc666c0be8f5f49bfac4737f5558c0e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Mesh</b> (Attributes attrData, const std::vector&lt; unsigned int &gt; &amp;indices, std::string name)</td></tr>
+<tr class="separator:a1bc666c0be8f5f49bfac4737f5558c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca7a8022d11ddbb6f9201d8eb52e0bc4"><td class="memItemLeft" align="right" valign="top"><a id="aca7a8022d11ddbb6f9201d8eb52e0bc4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setAttributeData</b> (<a class="el" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">GeometryBuffer::AttributeType</a> &amp;type, const std::vector&lt; float &gt; &amp;data, int componentsPerVertex)</td></tr>
+<tr class="separator:aca7a8022d11ddbb6f9201d8eb52e0bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0554271c305f5d77e677316f6935bc29"><td class="memItemLeft" align="right" valign="top"><a id="a0554271c305f5d77e677316f6935bc29"></a>
+std::shared_ptr&lt; <a class="el" href="classGeometryBuffer.html">GeometryBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getGeometryBuffer</b> () const</td></tr>
+<tr class="separator:a0554271c305f5d77e677316f6935bc29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af422cb1668beb657556d31869b61afc3"><td class="memItemLeft" align="right" valign="top"><a id="af422cb1668beb657556d31869b61afc3"></a>
+std::unique_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> () const</td></tr>
+<tr class="separator:af422cb1668beb657556d31869b61afc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cfacf6e0b44f441707967c5aa39c9cf"><td class="memItemLeft" align="right" valign="top"><a id="a1cfacf6e0b44f441707967c5aa39c9cf"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getVertexCount</b> () const</td></tr>
+<tr class="separator:a1cfacf6e0b44f441707967c5aa39c9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36bf2713aab12245656211ccffa3c62d"><td class="memItemLeft" align="right" valign="top"><a id="a36bf2713aab12245656211ccffa3c62d"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getIndexCount</b> () const</td></tr>
+<tr class="separator:a36bf2713aab12245656211ccffa3c62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/<a class="el" href="Mesh_8h_source.html">Mesh.h</a></li>
+<li>src/<a class="el" href="Mesh_8cpp.html">Mesh.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

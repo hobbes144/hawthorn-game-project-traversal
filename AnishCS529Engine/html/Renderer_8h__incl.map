@@ -1,5 +1,5 @@
-<map id="Renderer.h" name="Renderer.h">
-<area shape="rect" id="node1" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="243,5,335,32"/>
+<map id="src/Renderer.h" name="src/Renderer.h">
+<area shape="rect" id="node1" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="231,5,346,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,155,100,181"/>
 <area shape="rect" id="node3" title=" " alt="" coords="124,155,235,181"/>
 <area shape="rect" id="node4" href="$GameWindow_8h.html" title="File containing GameWindow Object and associated logic." alt="" coords="227,80,351,107"/>

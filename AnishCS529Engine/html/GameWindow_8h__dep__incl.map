@@ -1,7 +1,13 @@
-<map id="GameWindow.h" name="GameWindow.h">
-<area shape="rect" id="node1" title="File containing GameWindow Object and associated logic." alt="" coords="119,5,243,32"/>
-<area shape="rect" id="node2" href="$GameWindow_8cpp.html" title=" " alt="" coords="5,80,144,107"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="140,155,223,181"/>
-<area shape="rect" id="node4" href="$Renderer_8h.html" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="219,80,311,107"/>
-<area shape="rect" id="node5" href="$Renderer_8cpp.html" title=" " alt="" coords="247,155,353,181"/>
+<map id="src/GameWindow.h" name="src/GameWindow.h">
+<area shape="rect" id="node1" title="File containing GameWindow Object and associated logic." alt="" coords="132,5,279,32"/>
+<area shape="rect" id="node2" href="$GameWindow_8cpp.html" title=" " alt="" coords="5,80,168,107"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="567,304,673,331"/>
+<area shape="rect" id="node4" href="$Renderer_8h.html" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="303,80,417,107"/>
+<area shape="rect" id="node5" href="$RenderableNode_8h.html" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="584,155,749,181"/>
+<area shape="rect" id="node11" href="$Renderer_8cpp.html" title=" " alt="" coords="243,155,373,181"/>
+<area shape="rect" id="node6" href="$RenderableNode_8cpp.html" title=" " alt="" coords="449,229,629,256"/>
+<area shape="rect" id="node7" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="705,229,839,256"/>
+<area shape="rect" id="node9" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="863,229,1030,256"/>
+<area shape="rect" id="node8" href="$SceneGraph_8cpp.html" title=" " alt="" coords="697,304,847,331"/>
+<area shape="rect" id="node10" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="871,304,1054,331"/>
 </map>
