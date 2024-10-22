@@ -110,9 +110,13 @@ int main(void)
 
     auto triangle = std::make_shared<RenderableNode>("triangle1", mesh, material, &renderer);
     auto triangle2 = std::make_shared<RenderableNode>("triangle2", mesh, material, &renderer);
+    auto triangle3 = std::make_shared<RenderableNode>("triangle3", mesh, material, &renderer);
+    auto triangle4 = std::make_shared<RenderableNode>("triangle4", mesh, material, &renderer);
 
-    triangle->addChild(triangle2);
     scene.addNode(triangle);
+    triangle->addChild(triangle2);
+    triangle2->addChild(triangle3);
+    triangle3->addChild(triangle4);
 
     /*auto root = std::make_shared<Node>("root");
     auto node = std::make_shared<Node>("test");
@@ -125,10 +129,6 @@ int main(void)
     auto foundNode = root->findNodeFast(nodeId);
     std::cout << "Found node ID: " << foundNode->getID() << std::endl;
     root->removeNode(node);*/
-
-    
-    
-    // Matrix4 orthographicMatrix = Matrix4::orthographic(0.0f, window.getWidth(), 0.0f, window.getHeight(), 0.1f, 100.0);
 
     /**
      * Main loop
@@ -149,6 +149,10 @@ int main(void)
           (float)window.getWidth() / (float)window.getHeight(), 
           0.1f, 
           100.0f);
+      Matrix4 orthographicMatrix = Matrix4::orthographic(
+        -window.getWidth() / 2000.0f, window.getWidth() / 2000.0f, 
+        -window.getHeight() / 2000.0f, window.getHeight() / 2000.0f, 
+        0.1f, 100.0f);
       Matrix4 viewMatrix = 
         Matrix4::lookAt(
           Vector3(0.0f, 0.0f, 3.0f), 
@@ -161,9 +165,13 @@ int main(void)
       Matrix4 modelMatrix2 = Matrix4::translation(1.0f, 0.0f, 0.0f) *
         Matrix4::rotationY(-rotation) *
         Matrix4::scale(1.0f, 1.0f, 1.0f);*/
-      triangle->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
-      triangle->setLocalRotation(Vector3(rotation, 1.0f, 0.0f));
-      triangle2->setLocalRotation(Vector3(rotation, 1.0f, 0.0f));
+      triangle->setLocalPosition(Vector3(0.0f, 1.0f, 0.0f));
+      triangle->setLocalScaling(Vector3(0.25f, 0.25f, 0.25f));
+      triangle->setLocalRotation(Vector3(0.0f, rotation, 0.0f));
+      triangle2->setLocalScaling(Vector3(1.5f, 1.5f, 1.5f));
+      triangle2->setLocalPosition(Vector3(0.0f, -1.5f, 0.0f));
+      triangle3->setLocalPosition(Vector3(0.0f, -1.5f, 0.0f));
+      triangle3->setLocalScaling(Vector3(1.5f, 1.5f, 1.5f));
       scene.update(0.0f);
       scene.draw(viewMatrix, perspectiveMatrix);
 

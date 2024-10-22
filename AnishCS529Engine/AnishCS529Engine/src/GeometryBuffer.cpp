@@ -18,7 +18,7 @@
  * \return \b std::shared_ptr<GeometryBuffer> Initialized GeometryBuffer object
  *****************************************************************************/
 std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
-  Attributes& attributeData,  std::string name) {
+  Attributes& attributeData, const std::string& name) {
 
   auto buffer = std::shared_ptr<GeometryBuffer>(new GeometryBuffer(name));
   /* This is because using just std::make_shared<GeometryBuffer>(name) fails.
@@ -29,6 +29,20 @@ std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
   */
 
   buffer->initializeBuffers(attributeData);
+  return buffer;
+}
+
+std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
+  Attributes& attributeData,
+  const std::vector<unsigned int>& indices,
+  const std::string& name) {
+  // factory implementation
+  auto buffer = std::shared_ptr<GeometryBuffer>(new GeometryBuffer(name));
+  // std::make_shared<GeometryBuffer>(name); <- this won't work
+  // because even though std::make_shared is not restricted by the 
+  // fact that create is static, it internally tries to access the 
+  // constructor, and since the constructor is private, it can't.
+  //buffer->initializeBuffers(attributeData, indices);
   return buffer;
 }
 

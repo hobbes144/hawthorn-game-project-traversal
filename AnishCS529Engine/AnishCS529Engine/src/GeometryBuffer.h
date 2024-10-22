@@ -86,7 +86,10 @@ public:
   GeometryBuffer& operator=(GeometryBuffer&&) noexcept;
 
   static std::shared_ptr<GeometryBuffer> create(Attributes& attributeData,
-                                                std::string name);
+                                                const std::string& name);
+  static std::shared_ptr<GeometryBuffer> create(Attributes& attributeData,
+    const std::vector<unsigned int>& indices,
+    const std::string& name);
 
   void bind() const;
   void unbind() const;

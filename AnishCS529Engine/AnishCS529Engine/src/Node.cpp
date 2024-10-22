@@ -125,16 +125,15 @@ void Node::update(float deltaTime) {
   if (!parent) throw std::runtime_error("ERROR::NODE::UPDATE::NOPARENT");
 
   if (isLocalSpace) {
-    Matrix4 parentWorld = parent->getTransformMatrix();
-    worldTransform.setPosition(parentWorld * localTransform.getPosition());
+    /* Todo: Move this to Renderable node again and use static cast. */
+    worldTransform.setPosition(parent->worldTransform.getPosition() + localTransform.getPosition());
     worldTransform.setRotation(parent->worldTransform.getRotation() + 
                                localTransform.getRotation());
     worldTransform.setScaling(parent->worldTransform.getScaling() * localTransform.getScaling());
   }
   else {
-    Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
     localTransform.setPosition(
-      parentWorldInv * worldTransform.getPosition());
+      worldTransform.getPosition() - parent->worldTransform.getPosition());
     localTransform.setRotation(
       worldTransform.getRotation() - parent->worldTransform.getRotation());
     localTransform.setScaling(
