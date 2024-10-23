@@ -60,7 +60,8 @@ public:
   int getWidth();
   int getHeight();
 
-  bool shouldClose() const;
+  bool getShouldClose() const;
+  void setShouldClose() const;
   void pollEvents();
 
   void setWindowHints(const std::function<void()> &hintSetter);

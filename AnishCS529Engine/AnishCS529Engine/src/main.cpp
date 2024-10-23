@@ -16,12 +16,8 @@
 
 #include "GameWindow.h"
 #include "Renderer.h"
-#include "Shader.h"
-#include "GeometryBuffer.h"
-#include "Node.h"
-#include "TrianglePrimitive.h"
-#include "RenderableNode.h"
 #include "SceneGraph.h"
+#include "TrianglePrimitive.h"
 
 /** Pi constant for maths */
 const float pi = 3.14159f;
@@ -32,20 +28,10 @@ const float pi = 3.14159f;
  *
  * \param window Window in which the commands are read.
  *****************************************************************************/
-void processInput(GLFWwindow *window)
+void processInput(GameWindow& window)
 {
-  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, true);
-}
-
-/*!****************************************************************************
- * \brief Swap window buffers
- *
- * \param window Window whose buffers should be swapped.
- *****************************************************************************/
-void swapBuffers(GLFWwindow *window)
-{
-  glfwSwapBuffers(window);
+  if (glfwGetKey(window.getNativeWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    window.setShouldClose();
 }
 
 /*!****************************************************************************
@@ -91,11 +77,11 @@ int main(void)
     /**
      * Main loop
      */
-    while (!window.shouldClose())
+    while (!window.getShouldClose())
     {
 
       window.pollEvents();
-      processInput(window.getNativeWindow());
+      processInput(window);
 
       renderer.clear(0.2f, 0.3f, 0.3f, 1.0f);
 

@@ -21,27 +21,37 @@ std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
   Attributes& attributeData, const std::string& name) {
 
   auto buffer = std::shared_ptr<GeometryBuffer>(new GeometryBuffer(name));
-  /* This is because using just std::make_shared<GeometryBuffer>(name) fails.
-   * The above calls the constructor from external object make_shared which
-   * fails since it is private.
-   * This specifically calls the private constructor here and then sends the
-   * object to the shared_ptr instead.
+  /*
+  * The above calls the constructor from external object make_shared which
+  * fails since it is private.
+  * This specifically calls the private constructor here and then sends the
+  * object to the shared_ptr instead.
   */
 
   buffer->initializeBuffers(attributeData);
   return buffer;
 }
 
+/*!****************************************************************************
+ * \brief GeometryBuffer Object Factory
+ * 
+ * \param attribute Data Attribute type information used to construct the VAO.
+ * \param indices Indices to be used to construct the EBO.
+ * \param name Name of the Buffer.
+ * \return \b std::shared_ptr<GeometryBuffer> Initialized GeometryBuffer object
+ *****************************************************************************/
 std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
   Attributes& attributeData,
   const std::vector<unsigned int>& indices,
   const std::string& name) {
   // factory implementation
   auto buffer = std::shared_ptr<GeometryBuffer>(new GeometryBuffer(name));
-  // std::make_shared<GeometryBuffer>(name); <- this won't work
-  // because even though std::make_shared is not restricted by the 
-  // fact that create is static, it internally tries to access the 
-  // constructor, and since the constructor is private, it can't.
+  /*
+  * std::make_shared<GeometryBuffer>(name); <-this won't work
+  * because even though std::make_shared is not restricted by the 
+  * fact that create is static, it internally tries to access the 
+  * constructor, and since the constructor is private, it can't.
+  */
   buffer->initializeBuffers(attributeData, indices);
   return buffer;
 }
@@ -144,6 +154,11 @@ void GeometryBuffer::unbind() const {
 //  }
 //}
 
+/*!****************************************************************************
+ * \brief Initialize the VBOs with the attributeData
+ * 
+ * \param attributeData Attributes object that contains the VBO info.
+ *****************************************************************************/
 void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -159,6 +174,10 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
 
   glBufferData(GL_ARRAY_BUFFER, totalSize, nullptr, GL_STATIC_DRAW);
 
+  /**
+  * We are storing the data as blocks of each attribute. We are not using the
+  * interleaved data approach.
+  */
   GLuint index = 0;
   for (const auto& [type, info] : attributeData) {
     glBufferSubData(
@@ -180,18 +199,28 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
   }
 }
 
-void GeometryBuffer::initializeElementBuffers(const std::vector<unsigned int>& indices) {
+/*!****************************************************************************
+ * \brief Initialize the EBO with the indices
+ * 
+ * \param indices The indices to be used for the EBO.
+ *****************************************************************************/
+void GeometryBuffer::initializeElementBuffers(
+  const std::vector<unsigned int>& indices) {
   indexCount = indices.size();
 
   glGenBuffers(1, &ebo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+  glBufferData(
+    GL_ELEMENT_ARRAY_BUFFER, 
+    indices.size() * sizeof(unsigned int), 
+    indices.data(), 
+    GL_STATIC_DRAW);
 }
 
 /*!****************************************************************************
  * \brief Initialize the Buffers
  * 
- * We are creating the VAO, VBO here (EBO to be added later).
+ * We are creating the VAO and VBO here.
  * We are storing the vertexes and color as blocks instead of interleaved.
  * Each block has all the vectors next to each other with no extra stride.
  * (Stride = sizeof(vector))
@@ -209,6 +238,18 @@ void GeometryBuffer::initializeBuffers(
 
 }
 
+/*!****************************************************************************
+ * \brief Initialize the Buffers
+ * 
+ * We are creating the VAO, VBO and EBO here.
+ * We are storing the vertexes and color as blocks instead of interleaved.
+ * Each block has all the vectors next to each other with no extra stride.
+ * (Stride = sizeof(vector))
+ * 
+ * \param attributeData Attribute data for each attribute. Refer to Attribute
+ *  type for more info.
+ * \param indices
+ *****************************************************************************/
 void GeometryBuffer::initializeBuffers(
   Attributes& attributeData,
   const std::vector<unsigned int>& indices) {
@@ -221,7 +262,16 @@ void GeometryBuffer::initializeBuffers(
 
 }
 
-void GeometryBuffer::updateVertexAttribute(const AttributeType& type, const std::vector<float>& data) {
+/*!****************************************************************************
+ * \brief Update the vertex attributes used in the VBO
+ * 
+ * \param type Type of attribute to be modified.
+ * \param data Data of the attribute to be updated.
+ *****************************************************************************/
+void GeometryBuffer::updateVertexAttribute(
+  const AttributeType& type, 
+  const std::vector<float>& data) {
+
   if (!hasAttribute(type)) {
     throw std::runtime_error("Attribute not found in buffer");
   }
@@ -233,6 +283,26 @@ void GeometryBuffer::updateVertexAttribute(const AttributeType& type, const std:
     data.data());
 }
 
+/*!****************************************************************************
+ * \brief Update the EBO indices
+ * 
+ * \param indices Indices to be used in the EBO.
+ *****************************************************************************/
+void GeometryBuffer::updateIndices(const std::vector<unsigned int>& indices) {
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+  glBufferData(
+    GL_ELEMENT_ARRAY_BUFFER, 
+    indices.size() * sizeof(unsigned int), 
+    indices.data(), 
+    GL_STATIC_DRAW);
+}
+
+/*!****************************************************************************
+ * \brief If an attribute has been set in the VBOs
+ * 
+ * \param type Attrinbute type.
+ * \return \b bool True if attribute exists in VBO.
+ *****************************************************************************/
 bool GeometryBuffer::hasAttribute(AttributeType type) {
   return attributeOffsets.find(type) != attributeOffsets.end();
 }

@@ -21,6 +21,11 @@
 #include "Shader.h"
 #include "Vector3.h"
 
+/*!****************************************************************************
+ * \brief Class to manage Materials used by objects
+ * 
+ * This class handles creation of shaders and setting parameters for them.
+ *****************************************************************************/
 class Material {
 public:
   Material(std::shared_ptr<Shader> shader) : shader(shader) {}
@@ -29,17 +34,19 @@ public:
   void setShader(std::shared_ptr<Shader> shader);
   std::shared_ptr<Shader> getShader() const;
 
-  void setProperty(const std::string& name, const float value);
-  void setProperty(const std::string& name, const Vector3& value);
-  void setProperty(const std::string& name, const Matrix4& value);
+  template<typename T>
+  void setProperty(const std::string& name, const T& value) {
+    properties[name] = value;
+  }
 
   virtual void apply() const;
 
 private:
   std::shared_ptr<Shader> shader;
-  std::unordered_map<std::string, std::variant<unsigned int, int, float, Vector3, Matrix4>> properties;
-
-
+  std::unordered_map<
+    std::string, 
+    std::variant<unsigned int, int, float, Vector3, Matrix4>
+  > properties;
 
 };
 

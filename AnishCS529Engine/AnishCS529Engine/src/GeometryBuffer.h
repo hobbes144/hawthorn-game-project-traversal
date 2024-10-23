@@ -93,17 +93,47 @@ public:
     const std::vector<unsigned int>& indices,
     const std::string& name);
 
-  void updateVertexAttribute(const AttributeType& type, const std::vector<float>& data);
+  void updateVertexAttribute(
+    const AttributeType& type, 
+    const std::vector<float>& data);
+  void updateIndices(const std::vector<unsigned int>& indices);
 
   void bind() const;
   void unbind() const;
 
-  /* Todo: Add update methods here for attributes and indices */
-
+  /**
+  * \brief Getter for vertexCount
+  * 
+  * \return \b GLsizei vertexCount.
+  */
   GLsizei getVertexCount() const { return vertexCount; }
+
+  /**
+  * \brief Getter for indexCount
+  * 
+  * \return \b GLsizei indexCount.
+  */
   GLsizei getIndexCount() const { return indexCount; }
+
+  /**
+  * \brief Getter for VAO
+  *
+  * \return \b GLuint VAO ID.
+  */
   GLuint getVAO() const { return vao; }
+
+  /**
+  * \brief Getter for VBO
+  *
+  * \return \b GLuint VBO ID.
+  */
   GLuint getVBO() const { return vbo; }
+
+  /**
+  * \brief Getter for EBO
+  *
+  * \return \b GLuint EBO ID.
+  */
   GLuint getEBO() const { return ebo; }
 
 private:
@@ -126,7 +156,9 @@ private:
   void initializeVertexBuffers(Attributes& attributeData);
   void initializeElementBuffers(const std::vector<unsigned int>& indices);
   void initializeBuffers(Attributes& attributeData);
-  void initializeBuffers(Attributes& attributeData, const std::vector<unsigned int>& indices);
+  void initializeBuffers(
+    Attributes& attributeData, 
+    const std::vector<unsigned int>& indices);
 
   bool hasAttribute(AttributeType type);
 
