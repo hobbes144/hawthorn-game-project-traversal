@@ -15,6 +15,7 @@
 #include <iostream>
 
 #include "GameWindow.h"
+#include "Input.h"
 #include "Renderer.h"
 #include "SceneGraph.h"
 #include "TrianglePrimitive.h"
@@ -28,9 +29,9 @@ const float pi = 3.14159f;
  *
  * \param window Window in which the commands are read.
  *****************************************************************************/
-void processInput(GameWindow& window)
+void processInput(GameWindow& window, Input& input)
 {
-  if (glfwGetKey(window.getNativeWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+  if (input.isKeyDown(KEY_ESCAPE))
     window.setShouldClose();
 }
 
@@ -58,6 +59,7 @@ int main(void)
   {
     GameWindow window(800, 600, "Assignment 2");
     Renderer renderer(window);
+    Input input(window);
     unsigned int triangleVaoId;
 
     SceneGraph scene = SceneGraph();
@@ -81,7 +83,8 @@ int main(void)
     {
 
       window.pollEvents();
-      processInput(window);
+      input.update();
+      processInput(window, input);
 
       renderer.clear(0.2f, 0.3f, 0.3f, 1.0f);
 

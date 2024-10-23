@@ -69,6 +69,11 @@ $(function() {
 <div class="title">Material Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class to manage Materials used by objects.  
+ <a href="classMaterial.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Material_8h_source.html">Material.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -81,20 +86,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setShader</b> (std::s
 <tr class="memitem:a4035dad0f51eb13be79a8fc4a68f3e8f"><td class="memItemLeft" align="right" valign="top"><a id="a4035dad0f51eb13be79a8fc4a68f3e8f"></a>
 std::shared_ptr&lt; <a class="el" href="classShader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getShader</b> () const</td></tr>
 <tr class="separator:a4035dad0f51eb13be79a8fc4a68f3e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7447dd331467fcfbd7c9fb953c0a4a45"><td class="memItemLeft" align="right" valign="top"><a id="a7447dd331467fcfbd7c9fb953c0a4a45"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperty</b> (const std::string &amp;name, const float value)</td></tr>
-<tr class="separator:a7447dd331467fcfbd7c9fb953c0a4a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfb9351724cbd87e6b547613b44c0b7d"><td class="memItemLeft" align="right" valign="top"><a id="adfb9351724cbd87e6b547613b44c0b7d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperty</b> (const std::string &amp;name, const <a class="el" href="classVector3.html">Vector3</a> &amp;value)</td></tr>
-<tr class="separator:adfb9351724cbd87e6b547613b44c0b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31bbdc1a333186fe4aac7e2c0ce5200f"><td class="memItemLeft" align="right" valign="top"><a id="a31bbdc1a333186fe4aac7e2c0ce5200f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperty</b> (const std::string &amp;name, const <a class="el" href="classMatrix4.html">Matrix4</a> &amp;value)</td></tr>
-<tr class="separator:a31bbdc1a333186fe4aac7e2c0ce5200f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07ff3e892b12b34d4d984202edf03f1d"><td class="memTemplParams" colspan="2"><a id="a07ff3e892b12b34d4d984202edf03f1d"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a07ff3e892b12b34d4d984202edf03f1d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>setProperty</b> (const std::string &amp;name, const T &amp;value)</td></tr>
+<tr class="separator:a07ff3e892b12b34d4d984202edf03f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab8fd35ae9d69c0e88976a8210576a72"><td class="memItemLeft" align="right" valign="top"><a id="aab8fd35ae9d69c0e88976a8210576a72"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>apply</b> () const</td></tr>
 <tr class="separator:aab8fd35ae9d69c0e88976a8210576a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class to manage Materials used by objects. </p>
+<hr  />
+<p>This class handles creation of shaders and setting parameters for them. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="Material_8h_source.html">Material.h</a></li>
 <li>src/<a class="el" href="Material_8cpp.html">Material.cpp</a></li>
 </ul>

@@ -1,0 +1,10 @@
+<map id="src/Input.h" name="src/Input.h">
+<area shape="rect" id="node1" title="Input system to handle window inputs." alt="" coords="129,5,219,32"/>
+<area shape="rect" id="node2" href="$GameWindow_8h.html" title="File containing GameWindow Object and associated logic." alt="" coords="203,80,327,107"/>
+<area shape="rect" id="node8" href="$InputKeys_8h.html" title="Key references to set up supported key constexpr." alt="" coords="57,80,155,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="140,155,235,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,155,116,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="259,155,318,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="342,155,422,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="447,155,533,181"/>
+</map>

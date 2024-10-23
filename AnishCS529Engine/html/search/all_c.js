@@ -1,14 +1,6 @@
 var searchData=
 [
-  ['removenode_51',['removeNode',['../classNode.html#a9d3a897b1240b4cd8fc7e37ad5e30fcb',1,'Node']]],
-  ['renderablenode_52',['RenderableNode',['../classRenderableNode.html',1,'']]],
-  ['renderablenode_2ecpp_53',['RenderableNode.cpp',['../RenderableNode_8cpp.html',1,'']]],
-  ['renderablenode_2eh_54',['RenderableNode.h',['../RenderableNode_8h.html',1,'']]],
-  ['renderer_55',['Renderer',['../classRenderer.html',1,'']]],
-  ['renderer_2ecpp_56',['Renderer.cpp',['../Renderer_8cpp.html',1,'']]],
-  ['renderer_2eh_57',['Renderer.h',['../Renderer_8h.html',1,'']]],
-  ['rotationx_58',['rotationX',['../classMatrix4.html#a048be771f8129b58fb0d8cd88eeac1a8',1,'Matrix4']]],
-  ['rotationxyz_59',['rotationXYZ',['../classMatrix4.html#a55b9e4d0b4ec57a81d76234d62231a69',1,'Matrix4::rotationXYZ(float angleX, float angleY, float angleZ)'],['../classMatrix4.html#ab3213354aaeb9178e31f8d5e4c8e1ed5',1,'Matrix4::rotationXYZ(const Vector3 rotation)']]],
-  ['rotationy_60',['rotationY',['../classMatrix4.html#a9a3cd14d7170a3ee4aa5f63cf11a1721',1,'Matrix4']]],
-  ['rotationz_61',['rotationZ',['../classMatrix4.html#a19174edae2b8d9f241841ee80f903ed1',1,'Matrix4']]]
+  ['operator_2a_55',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
+  ['operator_3d_56',['operator=',['../classGeometryBuffer.html#a8e5835acbaf1ceac2139101c69cdf46c',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
+  ['orthographic_57',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
 ];

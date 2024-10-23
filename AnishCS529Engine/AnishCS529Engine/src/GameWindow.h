@@ -17,7 +17,11 @@
 #define GLFW_INCLUDE_NONE
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+
+#ifndef ENGINE_GLFW_H
+#define ENGINE_GLFW_H
+#include "GLFW/glfw3.h"
+#endif // ENGINE_GLFW_H
 
 #include <string>
 #include <iostream>

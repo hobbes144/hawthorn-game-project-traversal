@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['perspective_169',['perspective',['../classMatrix4.html#a1d2fb29604676dd0c374244e947d034f',1,'Matrix4']]],
-  ['pollevents_170',['pollEvents',['../classGameWindow.html#a301edc61885bf6ef5e3e7c1951ea6230',1,'GameWindow']]],
-  ['processinput_171',['processInput',['../main_8cpp.html#a1fc6eb7736e68aa156dcba0e87287fc3',1,'main.cpp']]]
+  ['operator_2a_188',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
+  ['operator_3d_189',['operator=',['../classGeometryBuffer.html#a8e5835acbaf1ceac2139101c69cdf46c',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
+  ['orthographic_190',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
 ];
