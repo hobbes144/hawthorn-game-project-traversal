@@ -142,11 +142,13 @@ private:
   GLuint ebo;
 
   /* Todo: Figure out why this is here. */
-  GLsizei vertexCount;
-  GLsizei indexCount;
+  unsigned int vertexCount;
+  unsigned int indexCount;
 
-  std::unordered_map<AttributeType, GLsizei> attributeOffsets;
-  std::unordered_map<AttributeType, GLsizei> attributeStrides;
+  std::unordered_map<AttributeType, size_t> attributeOffsets;
+
+  /* Todo: Convert to interleaved and use the below */
+  //std::unordered_map<AttributeType, GLsizei> attributeStrides;
 
   std::string name;
 

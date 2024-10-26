@@ -163,14 +163,14 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-  GLsizei totalSize = 0;
+  size_t totalSize = 0;
   for (const auto& [type, info] : attributeData) {
     attributeOffsets[type] = totalSize;
     totalSize += (info.data.size() * sizeof(float));
   }
 
   auto it = attributeData.begin();
-  vertexCount = it->second.data.size() / it->second.elementSize;
+  vertexCount = (unsigned int)(it->second.data.size() / it->second.elementSize);
 
   glBufferData(GL_ARRAY_BUFFER, totalSize, nullptr, GL_STATIC_DRAW);
 
@@ -206,7 +206,7 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
  *****************************************************************************/
 void GeometryBuffer::initializeElementBuffers(
   const std::vector<unsigned int>& indices) {
-  indexCount = indices.size();
+  indexCount = (unsigned int)indices.size();
 
   glGenBuffers(1, &ebo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);

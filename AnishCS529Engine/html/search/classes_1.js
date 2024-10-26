@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['gamewindow_114',['GameWindow',['../classGameWindow.html',1,'']]],
-  ['geometrybuffer_115',['GeometryBuffer',['../classGeometryBuffer.html',1,'']]]
+  ['frameratecontroller_130',['FramerateController',['../classFramerateController.html',1,'']]]
 ];

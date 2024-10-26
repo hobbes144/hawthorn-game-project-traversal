@@ -9,6 +9,9 @@
  * \brief  Main logic controller for the Engine
  * 
  *****************************************************************************/
+// define ENABLE_RATE_CONTROLLERS
+// define ENABLE_ADDITIONAL_ACCUMULATORS
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -20,6 +23,7 @@
 #include "SceneGraph.h"
 #include "TrianglePrimitive.h"
 #include "FramerateController.h"
+
 
 extern "C"
 {
@@ -43,18 +47,6 @@ void processInput(GameWindow& window, Input& input)
 }
 
 /*!****************************************************************************
- * \brief Shutdown GLFW Library
- *
- *****************************************************************************/
-void shutdownLibraries()
-{
-  glfwTerminate();
-}
-
-// All the functions above would be better to be part of an object with that responsibility
-// It's fine for now, but consider that. Could be the renderer, input, gameengine, etc.
-
-/*!****************************************************************************
  * \brief Main logic function
  *
  * \return \b int 0 on Success, 1 on failure.
@@ -70,11 +62,17 @@ int main(void)
     Input input(window);
     SceneGraph scene = SceneGraph();
     FramerateController::getController().setTargetFramerate(120);
-    unsigned int testRateController = FramerateController::getController().createRateController(24);
+#ifdef ENABLE_RATE_CONTROLLERS
+    const unsigned int testRateController = 
+      FramerateController::getController().createRateController(24);
+#endif
 
-    auto triangle = std::make_shared<TrianglePrimitive>("triangle1", &renderer);
-    auto triangle2 = std::make_shared<TrianglePrimitive>("triangle2", &renderer);
-    auto triangle3 = std::make_shared<TrianglePrimitive>("triangle3", &renderer);
+    auto triangle = 
+      std::make_shared<TrianglePrimitive>("triangle1", &renderer);
+    auto triangle2 = 
+      std::make_shared<TrianglePrimitive>("triangle2", &renderer);
+    auto triangle3 = 
+      std::make_shared<TrianglePrimitive>("triangle3", &renderer);
 
     triangle->setColor({ 1.0f, 0.0f, 0.0f });
     triangle2->setColor({ 0.0f, 1.0f, 0.0f });
@@ -89,17 +87,22 @@ int main(void)
      */
     while (!window.getShouldClose())
     {
-      FramerateController::getController().frameStart();
+      FramerateController::getController().startFrame();
       window.pollEvents();
 
-      std::cout << "Test Rate Controller should fire: " << FramerateController::getController().rateControllerShouldFire(testRateController) << std::endl;
+#ifdef ENABLE_RATE_CONTROLLERS
+      std::cout << "Test Rate Controller should fire: "
+        << FramerateController::getController().rateControllerShouldFire(
+            testRateController)
+        << std::endl;
+#endif // ENABLE_RATE_CONTROLLERS
 
       input.update();
       processInput(window, input);
 
       renderer.clear(0.2f, 0.3f, 0.3f, 1.0f);
 
-      float timeValue = glfwGetTime();
+      float timeValue = (float)glfwGetTime();
       float rotation = (float)glfwGetTime() * 50.0f * pi / 180.0f;
       Matrix4 perspectiveMatrix = 
         Matrix4::perspective(
@@ -127,9 +130,13 @@ int main(void)
       scene.update(0.0f);
       scene.draw(viewMatrix, perspectiveMatrix);
 
-      FramerateController::getController().frameEnd();
-      std::cout << "FPS: " << FramerateController::getController().getFPS() << std::endl;
-      //std::cout << "RenderTime: " << FramerateController::getController().getRenderTime() << std::endl;
+      FramerateController::getController().endFrame();
+      std::cout << "FPS: " 
+        << FramerateController::getController().getFPS() 
+        << std::endl;
+      //std::cout << "RenderTime: " 
+      // << FramerateController::getController().getRenderTime() 
+      // << std::endl;
       renderer.swapBuffers();
     }
   }
@@ -140,6 +147,5 @@ int main(void)
     return 1;
   }
 
-  shutdownLibraries();
   return 0;
 }
