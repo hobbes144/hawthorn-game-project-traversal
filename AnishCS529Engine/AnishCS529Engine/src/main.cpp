@@ -19,6 +19,13 @@
 #include "Renderer.h"
 #include "SceneGraph.h"
 #include "TrianglePrimitive.h"
+#include "FramerateController.h"
+
+extern "C"
+{
+  __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
+  __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+}
 
 /** Pi constant for maths */
 const float pi = 3.14159f;
@@ -58,11 +65,11 @@ int main(void)
   try
   {
     GameWindow window(800, 600, "Assignment 2");
+    window.setVsync(true);
     Renderer renderer(window);
     Input input(window);
-    unsigned int triangleVaoId;
-
     SceneGraph scene = SceneGraph();
+    FramerateController::getController().setTargetFramerate(120);
 
     auto triangle = std::make_shared<TrianglePrimitive>("triangle1", &renderer);
     auto triangle2 = std::make_shared<TrianglePrimitive>("triangle2", &renderer);
@@ -81,7 +88,7 @@ int main(void)
      */
     while (!window.getShouldClose())
     {
-
+      FramerateController::getController().frameStart();
       window.pollEvents();
       input.update();
       processInput(window, input);
@@ -89,10 +96,10 @@ int main(void)
       renderer.clear(0.2f, 0.3f, 0.3f, 1.0f);
 
       float timeValue = glfwGetTime();
-      float rotation = (float)glfwGetTime() * 50.0f * pi / 180;
+      float rotation = (float)glfwGetTime() * 50.0f * pi / 180.0f;
       Matrix4 perspectiveMatrix = 
         Matrix4::perspective(
-          45.0f * pi / 180, 
+          45.0f * pi / 180.0f, 
           (float)window.getWidth() / (float)window.getHeight(), 
           0.1f, 
           100.0f);
@@ -116,6 +123,9 @@ int main(void)
       scene.update(0.0f);
       scene.draw(viewMatrix, perspectiveMatrix);
 
+      FramerateController::getController().frameEnd();
+      std::cout << "FPS: " << FramerateController::getController().getFPS() << std::endl;
+      //std::cout << "RenderTime: " << FramerateController::getController().getRenderTime() << std::endl;
       renderer.swapBuffers();
     }
   }

@@ -74,6 +74,8 @@ GLenum Shader::readShaderType(std::string path) {
 		return GL_GEOMETRY_SHADER;
 	if (lowercasePath.find("compute") != std::string::npos) 
 		return GL_COMPUTE_SHADER;
+	else
+		return GL_VERTEX_SHADER;
 }
 
 /*!****************************************************************************

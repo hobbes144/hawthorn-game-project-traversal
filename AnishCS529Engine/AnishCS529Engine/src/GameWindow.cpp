@@ -183,3 +183,10 @@ void GameWindow::setResizeCallback(
   glfwSetFramebufferSizeCallback(pWindow, resizeCallbackWrapper);
   glfwSetWindowUserPointer(pWindow, this);
 }
+
+void GameWindow::setVsync(bool flag) {
+  if (flag)
+    glfwSwapInterval(1);
+  else
+    glfwSwapInterval(0);
+}

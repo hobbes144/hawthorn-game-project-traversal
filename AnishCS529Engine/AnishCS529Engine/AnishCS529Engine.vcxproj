@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\FramerateController.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\GeometryBuffer.cpp" />
     <ClCompile Include="src\glad.c" />
@@ -37,6 +38,7 @@
     <ClCompile Include="src\VectorTemplated.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\FramerateController.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\GeometryBuffer.h" />
     <ClInclude Include="src\Input.h" />

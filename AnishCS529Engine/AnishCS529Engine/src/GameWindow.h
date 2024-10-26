@@ -73,6 +73,8 @@ public:
   void setResizeCallback(
       std::function<void(GLFWwindow *, int, int)> callback);
 
+  void setVsync(bool flag);
+
   /* Destructor */
   ~GameWindow()
   {
