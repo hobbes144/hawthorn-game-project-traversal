@@ -16,6 +16,7 @@
 
 #include "GLFW/glfw3.h"
 #include <thread>
+#include <vector>
 
 class FramerateController {
 public:
@@ -24,7 +25,7 @@ public:
     return controller;
   }
 
-  void setTargetFramerate(const unsigned int frametime);
+  void setTargetFramerate(const unsigned int framerate);
 
   void frameStart();
   void frameEnd();
@@ -32,6 +33,9 @@ public:
   double getRenderTime();
   double getTime();
   double getSeconds();
+
+  unsigned int createRateController(const unsigned int rate);
+  bool rateControllerShouldFire(const unsigned int rateControllerId);
 
 private:
   FramerateController();
@@ -45,6 +49,10 @@ private:
   long int frameCount;
   long int framesSinceLastFPSQuery;
   double timeOfLastFPSQuery;
+
+  unsigned int rateControllersRegistered;
+  std::vector<double> rateControllerTargetTimes;
+  std::vector<double> rateControllerTimes;
 
 };
 

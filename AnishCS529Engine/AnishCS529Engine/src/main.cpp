@@ -70,6 +70,7 @@ int main(void)
     Input input(window);
     SceneGraph scene = SceneGraph();
     FramerateController::getController().setTargetFramerate(120);
+    unsigned int testRateController = FramerateController::getController().createRateController(24);
 
     auto triangle = std::make_shared<TrianglePrimitive>("triangle1", &renderer);
     auto triangle2 = std::make_shared<TrianglePrimitive>("triangle2", &renderer);
@@ -90,6 +91,9 @@ int main(void)
     {
       FramerateController::getController().frameStart();
       window.pollEvents();
+
+      std::cout << "Test Rate Controller should fire: " << FramerateController::getController().rateControllerShouldFire(testRateController) << std::endl;
+
       input.update();
       processInput(window, input);
 

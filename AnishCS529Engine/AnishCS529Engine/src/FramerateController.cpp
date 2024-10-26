@@ -57,3 +57,28 @@ double FramerateController::getTime() {
 double FramerateController::getSeconds() {
   return glfwGetTime() - timeAtProgramStart;
 }
+
+unsigned int FramerateController::createRateController(const unsigned int rate) {
+  unsigned int rateControllerId = rateControllersRegistered;
+  rateControllersRegistered++;
+  rateControllerTimes.push_back(glfwGetTime());
+  rateControllerTimes[rateControllerId] = glfwGetTime();
+  rateControllerTargetTimes.push_back(1.0 / rate);
+  rateControllerTargetTimes[rateControllerId] = (1.0 / rate);
+
+  return rateControllerId;
+}
+
+bool FramerateController::rateControllerShouldFire(const unsigned int rateControllerId) {
+  if (rateControllerId >= rateControllersRegistered) {
+    return true;
+  }
+  double currentTime = glfwGetTime();
+  if ((currentTime - rateControllerTimes[rateControllerId]) > rateControllerTargetTimes[rateControllerId]) {
+    rateControllerTimes[rateControllerId] = currentTime;
+    return true;
+  }
+  return false;
+}
+
+
