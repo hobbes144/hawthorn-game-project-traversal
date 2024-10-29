@@ -96,6 +96,9 @@
     <ClCompile Include="src\Input.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="src\FramerateController.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\InputKeys.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FramerateController.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>

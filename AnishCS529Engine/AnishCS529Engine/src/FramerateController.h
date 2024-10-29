@@ -105,4 +105,4 @@ private:
   /*@}*/
 };
 
-#endif // !FRAMERATE_CONTROLLER_H
+#endif // FRAMERATE_CONTROLLER_H
