@@ -99,6 +99,9 @@
     <ClCompile Include="src\FramerateController.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="src\EventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -152,6 +155,15 @@
     <ClInclude Include="src\FramerateController.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="src\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -159,6 +171,9 @@
     </None>
     <None Include="shaders\main_fragment_shader.glsl">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\EventListener.inl">
+      <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
 </Project>

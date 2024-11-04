@@ -9,8 +9,9 @@
  * \brief  Main logic controller for the Engine
  * 
  *****************************************************************************/
-// define ENABLE_RATE_CONTROLLERS
-// define ENABLE_ADDITIONAL_ACCUMULATORS
+// Preprocessor definitions supported:
+// ENABLE_ADDITIONAL_ACCUMULATORS
+// ENABLE_RATE_CONTROLLERS
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
