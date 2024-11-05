@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['operator_2a_80',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
-  ['operator_3d_81',['operator=',['../classGeometryBuffer.html#a8e5835acbaf1ceac2139101c69cdf46c',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
-  ['orthographic_82',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
+  ['href_20https_3a_20github_20com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_0',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md_manual_2CHANGELOG.html#autotoc_md1',1,'']]],
+  ['https_3a_20github_20com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_1',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md_manual_2CHANGELOG.html#autotoc_md1',1,'']]]
 ];

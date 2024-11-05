@@ -1,14 +1,31 @@
 <map id="AnishCS529Engine/src/Renderer.h" name="AnishCS529Engine/src/Renderer.h">
-<area shape="rect" id="node1" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="205,5,372,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,169,100,196"/>
-<area shape="rect" id="node3" title=" " alt="" coords="124,169,235,196"/>
-<area shape="rect" id="node4" href="$GameWindow_8h.html" title="File containing GameWindow Object and associated logic." alt="" coords="227,95,351,121"/>
-<area shape="rect" id="node8" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="659,169,742,196"/>
-<area shape="rect" id="node12" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="579,95,663,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="259,169,318,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="342,169,422,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="447,169,533,196"/>
-<area shape="rect" id="node9" title=" " alt="" coords="744,244,807,271"/>
-<area shape="rect" id="node10" title=" " alt="" coords="659,244,715,271"/>
-<area shape="rect" id="node11" title=" " alt="" coords="541,244,628,271"/>
+<area shape="rect" id="Node000001" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="205,5,372,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,100,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,48,84,161,81,157,258,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="124,167,235,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,48,239,69,216,95,200,124,189,154,184,152,195,122,212,92,235,65,260,44"/>
+<area shape="rect" id="Node000004" href="$GameWindow_8h.html" title="File containing GameWindow Object and associated logic." alt="" coords="227,93,351,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="291,46,291,79,286,79,286,46"/>
+<area shape="rect" id="Node000008" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="659,167,742,192"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="372,28,456,35,545,47,624,66,655,77,677,91,688,105,696,120,703,152,697,153,691,122,684,108,674,95,653,82,623,71,544,53,455,41,372,34"/>
+<area shape="rect" id="Node000012" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="579,93,663,119"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="369,43,566,89,565,94,368,48"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="252,121,105,165,103,160,250,116"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="273,121,210,161,207,157,270,116"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="259,167,318,192"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="291,119,291,153,286,153,286,119"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="342,167,422,192"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="305,117,358,156,354,160,302,121"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="447,167,533,192"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="322,116,445,159,444,165,320,121"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="744,240,807,265"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="714,190,755,229,751,232,711,194"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="659,240,715,265"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="701,193,695,227,689,226,696,192"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="541,240,628,265"/>
+<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="683,194,617,235,614,230,681,190"/>
+<area shape="poly" id="edge17_Node000012_Node000008" title=" " alt="" coords="635,117,679,156,676,160,632,121"/>
+<area shape="poly" id="edge14_Node000012_Node000009" title=" " alt="" coords="664,113,712,132,736,146,756,165,771,195,777,225,772,226,766,196,752,168,733,150,710,137,662,118"/>
+<area shape="poly" id="edge15_Node000012_Node000010" title=" " alt="" coords="626,118,635,151,650,191,672,227,668,230,645,193,630,153,621,119"/>
+<area shape="poly" id="edge16_Node000012_Node000011" title=" " alt="" coords="620,120,606,167,592,227,587,226,601,166,614,118"/>
 </map>

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['vector3_135',['Vector3',['../classVector3.html',1,'']]],
-  ['vector3_2eh_136',['Vector3.h',['../Vector3_8h.html',1,'']]],
-  ['vectortemplated_137',['VectorTemplated',['../classVectorTemplated.html',1,'']]],
-  ['vectortemplated_2eh_138',['VectorTemplated.h',['../VectorTemplated_8h.html',1,'']]],
-  ['vertexdata_139',['VertexData',['../structVertexData.html',1,'']]]
+  ['operator_2a_0',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
+  ['operator_3d_1',['operator=',['../classGeometryBuffer.html#acca6fbf2a11e18aede705580ec5fab51',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
+  ['orthographic_2',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
 ];

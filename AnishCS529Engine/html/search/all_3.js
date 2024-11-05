@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['data_12',['data',['../structGeometryBuffer_1_1AttributeInfo.html#ab1e865ea0df91f6e2374e3a20cd942cd',1,'GeometryBuffer::AttributeInfo']]]
+  ['6_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_0',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md_manual_2CHANGELOG.html#autotoc_md1',1,'']]]
 ];

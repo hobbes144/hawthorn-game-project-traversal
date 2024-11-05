@@ -1,7 +1,13 @@
 <map id="AnishCS529Engine/src/EventManager.h" name="AnishCS529Engine/src/EventManager.h">
-<area shape="rect" id="node1" title="Event Manager system that allows components to interact with each other." alt="" coords="65,5,232,47"/>
-<area shape="rect" id="node2" href="$Event_8h.html" title="Event class that stores specific event actions that get triggered." alt="" coords="5,169,76,196"/>
-<area shape="rect" id="node3" href="$EventListener_8h.html" title="Event listener object that contains logic to trigger an event." alt="" coords="29,95,151,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="176,95,239,121"/>
-<area shape="rect" id="node4" href="$EventListener_8inl.html" title="Event listener implementation for templated functionality." alt="" coords="155,169,286,196"/>
+<area shape="rect" id="Node000001" title="Event Manager system that allows components to interact with each other." alt="" coords="65,5,232,45"/>
+<area shape="rect" id="Node000002" href="$Event_8h.html" title="Event class that stores specific event actions that get triggered." alt="" coords="5,167,76,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,48,45,67,31,80,19,95,14,109,15,124,27,154,22,156,10,125,9,108,14,92,27,76,42,62,77,43"/>
+<area shape="rect" id="Node000003" href="$EventListener_8h.html" title="Event listener object that contains logic to trigger an event." alt="" coords="29,93,151,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,47,109,84,105,80,132,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="176,93,239,119"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="165,44,192,80,188,84,161,47"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="84,121,59,157,54,154,80,117"/>
+<area shape="rect" id="Node000004" href="$EventListener_8inl.html" title="Event listener implementation for templated functionality." alt="" coords="155,167,286,192"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="112,116,189,158,186,162,110,121"/>
+<area shape="poly" id="edge5_Node000004_Node000001" title=" " alt="" coords="228,165,249,132,253,113,249,94,231,72,207,54,210,50,235,68,254,92,258,113,254,134,233,168"/>
 </map>

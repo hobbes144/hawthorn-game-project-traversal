@@ -1,11 +1,22 @@
 <map id="AnishCS529Engine/src/Mesh.cpp" name="AnishCS529Engine/src/Mesh.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="128,5,295,47"/>
-<area shape="rect" id="node2" href="$Mesh_8h.html" title="Mesh class." alt="" coords="177,95,246,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,244,100,271"/>
-<area shape="rect" id="node4" title=" " alt="" coords="124,244,248,271"/>
-<area shape="rect" id="node5" title=" " alt="" coords="272,244,335,271"/>
-<area shape="rect" id="node6" href="$GeometryBuffer_8h.html" title="Geometry Buffer factory class that manages OpenGL buffers and their data." alt="" coords="275,169,412,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="359,244,437,271"/>
-<area shape="rect" id="node8" title=" " alt="" coords="461,244,548,271"/>
-<area shape="rect" id="node9" title=" " alt="" coords="573,244,631,271"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="128,5,295,45"/>
+<area shape="rect" id="Node000002" href="$Mesh_8h.html" title="Mesh class." alt="" coords="177,93,246,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,46,214,79,209,79,209,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,240,100,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="200,121,77,232,74,228,197,117"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="124,240,248,265"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="212,120,193,227,188,226,207,119"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="272,240,335,265"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="221,118,266,191,290,227,285,230,261,193,216,120"/>
+<area shape="rect" id="Node000006" href="$GeometryBuffer_8h.html" title="Geometry Buffer factory class that manages OpenGL buffers and their data." alt="" coords="275,167,412,192"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="234,116,311,158,309,162,231,121"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="297,195,113,239,112,234,296,189"/>
+<area shape="poly" id="edge10_Node000006_Node000004" title=" " alt="" coords="319,194,225,237,223,232,317,190"/>
+<area shape="poly" id="edge11_Node000006_Node000005" title=" " alt="" coords="339,194,319,229,314,227,334,191"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="359,240,437,265"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="354,191,383,228,379,231,350,194"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="461,240,548,265"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="370,190,467,232,465,237,368,194"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="573,240,631,265"/>
+<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="386,189,560,237,559,242,384,195"/>
 </map>

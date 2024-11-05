@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['ieventlistener_52',['IEventListener',['../classIEventListener.html',1,'']]],
-  ['input_53',['Input',['../classInput.html',1,'Input'],['../classInput.html#a45f6e02d61accc3f7076f25fc554625e',1,'Input::Input(GameWindow &amp;window, std::vector&lt; Key &gt; &amp;keysToMonitor)'],['../classInput.html#a5b2477399fc10bb410ddec1eb27ff79b',1,'Input::Input(GameWindow &amp;window)']]],
-  ['input_2ecpp_54',['Input.cpp',['../Input_8cpp.html',1,'']]],
-  ['input_2eh_55',['Input.h',['../Input_8h.html',1,'']]],
-  ['inputkeys_2eh_56',['InputKeys.h',['../InputKeys_8h.html',1,'']]],
-  ['iskeydown_57',['isKeyDown',['../classInput.html#a3591a1242b6f814bb491928db5072bb6',1,'Input']]],
-  ['iskeyheld_58',['isKeyHeld',['../classInput.html#ab50ff02222781f087c64b00b8d2e0bde',1,'Input']]],
-  ['iskeypressed_59',['isKeyPressed',['../classInput.html#a6b130a9d04af7707df438d92daeb6893',1,'Input']]],
-  ['iskeyreleased_60',['isKeyReleased',['../classInput.html#a4ae8434732980b6c5d787848b5bd40eb',1,'Input']]],
-  ['iskeyup_61',['isKeyUp',['../classInput.html#a3c40aed5966c181eb8e98e0164894cce',1,'Input']]]
+  ['changelog_0',['Changelog',['../md_manual_2CHANGELOG.html',1,'']]],
+  ['com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_1',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md_manual_2CHANGELOG.html#autotoc_md1',1,'']]],
+  ['compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_2',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md_manual_2CHANGELOG.html#autotoc_md1',1,'']]],
+  ['consumeaccumulator_3',['consumeAccumulator',['../classFramerateController.html#a52cbdde529b02d66146946b909172518',1,'FramerateController']]],
+  ['consumephysicstime_4',['consumePhysicsTime',['../classFramerateController.html#a5d0db052001f839f821ad9159eff7383',1,'FramerateController']]],
+  ['contributing_5',['Contributing',['../index.html#autotoc_md13',1,'']]],
+  ['create_6',['create',['../classGeometryBuffer.html#a43ac2b3c5cc7ee8a4d0962b2f499c4ae',1,'GeometryBuffer::create(Attributes &amp;attributeData, const std::string &amp;name)'],['../classGeometryBuffer.html#a38d92002222d0629afe81292a5fa002d',1,'GeometryBuffer::create(Attributes &amp;attributeData, const std::vector&lt; unsigned int &gt; &amp;indices, const std::string &amp;name)']]],
+  ['createaccumulator_7',['createAccumulator',['../classFramerateController.html#ac56110633fe07c4447dd4d2b38a47001',1,'FramerateController']]],
+  ['createratecontroller_8',['createRateController',['../classFramerateController.html#abc627019756a77c7ce1208c8e27ce7ac',1,'FramerateController']]]
 ];

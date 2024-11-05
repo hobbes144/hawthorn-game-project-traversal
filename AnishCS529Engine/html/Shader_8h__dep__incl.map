@@ -1,13 +1,24 @@
 <map id="AnishCS529Engine/src/Shader.h" name="AnishCS529Engine/src/Shader.h">
-<area shape="rect" id="node1" title="Shader class to create and manage shaders and set up uniforms." alt="" coords="195,5,361,47"/>
-<area shape="rect" id="node2" href="$Material_8h.html" title="Material class." alt="" coords="100,95,267,136"/>
-<area shape="rect" id="node11" href="$Shader_8cpp.html" title=" " alt="" coords="291,95,457,136"/>
-<area shape="rect" id="node3" href="$Material_8cpp.html" title=" " alt="" coords="5,184,172,225"/>
-<area shape="rect" id="node4" href="$RenderableNode_8h.html" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="196,184,363,225"/>
-<area shape="rect" id="node5" href="$RenderableNode_8cpp.html" title=" " alt="" coords="5,273,172,315"/>
-<area shape="rect" id="node6" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="196,273,363,315"/>
-<area shape="rect" id="node9" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="387,273,553,315"/>
-<area shape="rect" id="node7" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="291,363,457,404"/>
-<area shape="rect" id="node8" href="$SceneGraph_8cpp.html" title=" " alt="" coords="100,363,267,404"/>
-<area shape="rect" id="node10" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="481,363,648,404"/>
+<area shape="rect" id="Node000001" title="Shader class to create and manage shaders and set up uniforms." alt="" coords="195,5,361,45"/>
+<area shape="rect" id="Node000002" href="$Material_8h.html" title="Material class." alt="" coords="100,93,267,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,57,206,95,202,91,245,53"/>
+<area shape="rect" id="Node000011" href="$Shader_8cpp.html" title=" " alt="" coords="291,93,457,133"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="311,53,355,91,351,95,308,57"/>
+<area shape="rect" id="Node000003" href="$Material_8cpp.html" title=" " alt="" coords="5,181,172,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="154,145,111,183,108,179,150,141"/>
+<area shape="rect" id="Node000004" href="$RenderableNode_8h.html" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="196,181,363,221"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="217,141,260,179,256,183,213,145"/>
+<area shape="rect" id="Node000005" href="$RenderableNode_8cpp.html" title=" " alt="" coords="5,269,172,309"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="226,229,132,272,129,267,224,225"/>
+<area shape="rect" id="Node000006" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="196,269,363,309"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="282,235,282,269,277,269,277,235"/>
+<area shape="rect" id="Node000009" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="387,269,553,309"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="335,225,429,267,427,272,333,229"/>
+<area shape="rect" id="Node000007" href="$SceneGraph_8cpp.html" title=" " alt="" coords="100,357,267,397"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="249,321,206,359,203,355,246,317"/>
+<area shape="rect" id="Node000008" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="291,357,457,397"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="312,317,355,355,351,359,309,321"/>
+<area shape="poly" id="edge10_Node000009_Node000008" title=" " alt="" coords="440,321,397,359,393,355,437,317"/>
+<area shape="rect" id="Node000010" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="481,357,648,397"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="503,317,546,355,542,359,499,321"/>
 </map>

@@ -1,9 +1,16 @@
 <map id="AnishCS529Engine/src/RenderableNode.h" name="AnishCS529Engine/src/RenderableNode.h">
-<area shape="rect" id="node1" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="196,5,363,47"/>
-<area shape="rect" id="node2" href="$RenderableNode_8cpp.html" title=" " alt="" coords="5,95,172,136"/>
-<area shape="rect" id="node3" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="196,95,363,136"/>
-<area shape="rect" id="node6" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="387,95,553,136"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="291,184,457,225"/>
-<area shape="rect" id="node5" href="$SceneGraph_8cpp.html" title=" " alt="" coords="100,184,267,225"/>
-<area shape="rect" id="node7" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="481,184,648,225"/>
+<area shape="rect" id="Node000001" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="196,5,363,45"/>
+<area shape="rect" id="Node000002" href="$RenderableNode_8cpp.html" title=" " alt="" coords="5,93,172,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,53,132,96,129,91,224,49"/>
+<area shape="rect" id="Node000003" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="196,93,363,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="282,59,282,93,277,93,277,59"/>
+<area shape="rect" id="Node000006" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="387,93,553,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="335,49,429,91,427,96,333,53"/>
+<area shape="rect" id="Node000004" href="$SceneGraph_8cpp.html" title=" " alt="" coords="100,181,267,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="249,145,206,183,203,179,246,141"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="291,181,457,221"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="312,141,355,179,351,183,309,145"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="440,145,397,183,393,179,437,141"/>
+<area shape="rect" id="Node000007" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="481,181,648,221"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="503,141,546,179,542,183,499,145"/>
 </map>

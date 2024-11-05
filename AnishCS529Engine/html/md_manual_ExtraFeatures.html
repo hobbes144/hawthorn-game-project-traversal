@@ -67,25 +67,28 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The engine supports extra features that are being experimented on and aren't enabled by default.</p>
-<h2><a class="anchor" id="autotoc_md1"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Enabling extra features</h2>
 <p>To enable these features, you must make use of preprocessor definitions.</p>
 <p>You can find these under Project -&gt; Properties -&gt; C/C++ -&gt; Preprocessor -&gt; Preprocessor Definitions</p>
 <p><img src="../manual/PreprocessorDefinitions.png" alt="PreprocessorDefinitions" width="800" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md2"></a>
+<hr  />
+<h2><a class="anchor" id="autotoc_md7"></a>
 Supported Features</h2>
-<h3><a class="anchor" id="autotoc_md3"></a>
+<hr  />
+<h3><a class="anchor" id="autotoc_md9"></a>
 ENABLE_ADDITIONAL_ACCUMULATORS</h3>
 <p>This enables creation of any number of extra accumulators.</p>
 <p>Accumulators get updated on every endFrame() call. It can be used when we need to know the number of times some logic should run asyncronously.</p>
 <p>Enabling additional accumulators adds additional code to the endFrame() logic and should be used only if needed.</p>
-<h3><a class="anchor" id="autotoc_md4"></a>
+<hr  />
+<h3><a class="anchor" id="autotoc_md11"></a>
 ENABLE_RATE_CONTROLLERS</h3>
 <p>This enables creation of any number of rate controllers.</p>
 <p>Rate controllers are separate timers that are used to check if at least the designated rate has elapsed since last successful fire.</p>
 <p>This is low budget since it does not get updated every frame, and instead only calculates when asked.</p>
-<p>This can be expanded to have the functionality of an accumulator. Tradeoff: This method has longer calc time during checking, but it has lesser impact on endFrame().</p>
-<p>Possible direction: We could extend this to have a callback function that we can trigger in the endFrame() loop. </p>
+<p>Tradeoff: This method has longer calc time during checking, but it has lesser impact on endFrame().</p>
+<p>Possible future development: We could extend this to have a callback function that we can trigger in the endFrame() loop. This would be very heavy and will likely interfere with regular functioning of the framerate controller. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
