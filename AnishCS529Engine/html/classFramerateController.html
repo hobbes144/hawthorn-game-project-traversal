@@ -94,6 +94,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4c7dd2bcef2aaa9ff329e92006af95e5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFramerateController.html#a4c7dd2bcef2aaa9ff329e92006af95e5">getTime</a> ()</td></tr>
 <tr class="memdesc:a4c7dd2bcef2aaa9ff329e92006af95e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get time.  <a href="classFramerateController.html#a4c7dd2bcef2aaa9ff329e92006af95e5">More...</a><br /></td></tr>
 <tr class="separator:a4c7dd2bcef2aaa9ff329e92006af95e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a93c0b9e6398a658ec58a64eb54addf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFramerateController.html#a1a93c0b9e6398a658ec58a64eb54addf">setPhysicsTimestep</a> (double timestep)</td></tr>
+<tr class="memdesc:a1a93c0b9e6398a658ec58a64eb54addf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the timestep for the Physics Accumulator.  <a href="classFramerateController.html#a1a93c0b9e6398a658ec58a64eb54addf">More...</a><br /></td></tr>
+<tr class="separator:a1a93c0b9e6398a658ec58a64eb54addf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a405f20ef436434aa7c136e6c5884513b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFramerateController.html#a405f20ef436434aa7c136e6c5884513b">shouldUpdatePhysics</a> () const</td></tr>
+<tr class="memdesc:a405f20ef436434aa7c136e6c5884513b"><td class="mdescLeft">&#160;</td><td class="mdescRight">If physics should update.  <a href="classFramerateController.html#a405f20ef436434aa7c136e6c5884513b">More...</a><br /></td></tr>
+<tr class="separator:a405f20ef436434aa7c136e6c5884513b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d0db052001f839f821ad9159eff7383"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFramerateController.html#a5d0db052001f839f821ad9159eff7383">consumePhysicsTime</a> ()</td></tr>
+<tr class="memdesc:a5d0db052001f839f821ad9159eff7383"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consume one Physics timestep from accumulator.  <a href="classFramerateController.html#a5d0db052001f839f821ad9159eff7383">More...</a><br /></td></tr>
+<tr class="separator:a5d0db052001f839f821ad9159eff7383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a460df215414dfa614b9e19cab62cf966"><td class="memItemLeft" align="right" valign="top"><a id="a460df215414dfa614b9e19cab62cf966"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>getAccumulatorAlpha</b> () const</td></tr>
+<tr class="separator:a460df215414dfa614b9e19cab62cf966"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -177,6 +189,26 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+</div>
+</div>
+<a id="a5d0db052001f839f821ad9159eff7383"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d0db052001f839f821ad9159eff7383">&#9670;&nbsp;</a></span>consumePhysicsTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FramerateController::consumePhysicsTime </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Consume one Physics timestep from accumulator. </p>
+<hr  />
+ 
 </div>
 </div>
 <a id="ac56110633fe07c4447dd4d2b38a47001"></a>
@@ -434,6 +466,33 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a1a93c0b9e6398a658ec58a64eb54addf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a93c0b9e6398a658ec58a64eb54addf">&#9670;&nbsp;</a></span>setPhysicsTimestep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FramerateController::setPhysicsTimestep </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>timestep</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the timestep for the Physics Accumulator. </p>
+<hr  />
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timestep</td><td>Timestep of the accumulator. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a2f3f80acaa0a67e917acc3d54eddb306"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2f3f80acaa0a67e917acc3d54eddb306">&#9670;&nbsp;</a></span>setTargetFramerate()</h2>
 
@@ -462,6 +521,27 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a405f20ef436434aa7c136e6c5884513b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a405f20ef436434aa7c136e6c5884513b">&#9670;&nbsp;</a></span>shouldUpdatePhysics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FramerateController::shouldUpdatePhysics </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>If physics should update. </p>
+<hr  />
+<dl class="section return"><dt>Returns</dt><dd><b>bool</b> True if accumulated at least one timestep. </dd></dl>
+
+</div>
+</div>
 <a id="a9a328f6361400fc8a052d98daa605853"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9a328f6361400fc8a052d98daa605853">&#9670;&nbsp;</a></span>startFrame()</h2>
 
@@ -484,8 +564,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/<a class="el" href="FramerateController_8h_source.html">FramerateController.h</a></li>
-<li>src/<a class="el" href="FramerateController_8cpp.html">FramerateController.cpp</a></li>
+<li>AnishCS529Engine/src/<a class="el" href="FramerateController_8h_source.html">FramerateController.h</a></li>
+<li>AnishCS529Engine/src/<a class="el" href="FramerateController_8cpp.html">FramerateController.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

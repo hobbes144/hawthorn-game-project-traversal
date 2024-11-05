@@ -1,5 +1,5 @@
-<map id="src/TrianglePrimitive.h" name="src/TrianglePrimitive.h">
-<area shape="rect" id="node1" title="Triangle Primitive object to create basic triangles with color." alt="" coords="59,5,225,32"/>
-<area shape="rect" id="node2" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="5,80,111,107"/>
-<area shape="rect" id="node3" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="135,80,317,107"/>
+<map id="AnishCS529Engine/src/TrianglePrimitive.h" name="AnishCS529Engine/src/TrianglePrimitive.h">
+<area shape="rect" id="node1" title="Triangle Primitive object to create basic triangles with color." alt="" coords="100,5,267,47"/>
+<area shape="rect" id="node2" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="5,95,172,136"/>
+<area shape="rect" id="node3" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="196,95,363,136"/>
 </map>

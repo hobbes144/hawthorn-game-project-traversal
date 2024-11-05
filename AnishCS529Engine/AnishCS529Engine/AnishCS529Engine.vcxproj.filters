@@ -46,6 +46,9 @@
     <Filter Include="Source Files\ObjectResources">
       <UniqueIdentifier>{90dcd5e3-d0e2-40ce-8411-01aee9c817fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manual">
+      <UniqueIdentifier>{2e048e46-9dff-4c83-8216-b6db8feeb4e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

@@ -1,5 +1,5 @@
-<map id="src/SceneGraph.h" name="src/SceneGraph.h">
-<area shape="rect" id="node1" title="Scene Graph to control all nodes in the scene." alt="" coords="67,5,201,32"/>
-<area shape="rect" id="node2" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="5,80,111,107"/>
-<area shape="rect" id="node3" href="$SceneGraph_8cpp.html" title=" " alt="" coords="135,80,285,107"/>
+<map id="AnishCS529Engine/src/SceneGraph.h" name="AnishCS529Engine/src/SceneGraph.h">
+<area shape="rect" id="node1" title="Scene Graph to control all nodes in the scene." alt="" coords="100,5,267,47"/>
+<area shape="rect" id="node2" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="5,95,172,136"/>
+<area shape="rect" id="node3" href="$SceneGraph_8cpp.html" title=" " alt="" coords="196,95,363,136"/>
 </map>

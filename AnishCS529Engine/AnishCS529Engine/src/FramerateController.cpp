@@ -37,12 +37,16 @@ FramerateController::FramerateController() :
   timeOfLastFPSQuery(glfwGetTime()),
   physicsAccumulatorTimestep(1.0/120.0),
   physicsAccumulator(0.0)
+#ifdef ENABLE_ADDITIONAL_ACCUMULATORS
   ,rateControllersRegistered(0),
   rateControllerTargetRates({}),
   rateControllerTimes({})
+#endif // ENABLE_ADDITIONAL_ACCUMULATORS
+#ifdef ENABLE_ADDITIONAL_ACCUMULATORS
   ,accumulatorsRegistered(0),
   accumulatorTimesteps({}),
   accumulatorTimes({})
+#endif // ENABLE_ADDITIONAL_ACCUMULATORS
 {}
 
 /*!****************************************************************************
@@ -150,7 +154,7 @@ void FramerateController::setPhysicsTimestep(double timestep) {
  * 
  * \return \b bool True if accumulated at least one timestep.
  *****************************************************************************/
-bool FramerateController::ShouldUpdatePhysics() const
+bool FramerateController::shouldUpdatePhysics() const
 {
   return physicsAccumulator >= physicsAccumulatorTimestep;
 }
@@ -159,14 +163,19 @@ bool FramerateController::ShouldUpdatePhysics() const
  * \brief Consume one Physics timestep from accumulator
  * 
  *****************************************************************************/
-void FramerateController::ConsumePhysicsTime()
+void FramerateController::consumePhysicsTime()
 {
   physicsAccumulator -= physicsAccumulatorTimestep;
+}
+
+double FramerateController::getAccumulatorAlpha() const {
+  return physicsAccumulator / physicsAccumulatorTimestep;
 }
 
 
 /* Optional features */
 
+#ifdef ENABLE_RATE_CONTROLLERS
 /*!****************************************************************************
  * \brief Creates a rate controller
  * 
@@ -226,7 +235,9 @@ bool FramerateController::rateControllerShouldFire(
   }
   return false;
 }
+#endif // ENABLE_RATE_CONTROLLERS
 
+#ifdef ENABLE_ADDITIONAL_ACCUMULATORS
 /*!****************************************************************************
  * \brief Create an accumulator
  * 
@@ -275,3 +286,5 @@ void FramerateController::consumeAccumulator(const unsigned int accumulatorId) {
 double FramerateController::getAccumulatorAlpha(const unsigned int accumulatorId) const {
   return accumulatorTimes[accumulatorId] / accumulatorTimesteps[accumulatorId];
 }
+#endif // ENABLE_ADDITIONAL_ACCUMULATORS
+

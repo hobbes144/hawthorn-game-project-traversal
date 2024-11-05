@@ -1,0 +1,7 @@
+<map id="AnishCS529Engine/src/EventManager.h" name="AnishCS529Engine/src/EventManager.h">
+<area shape="rect" id="node1" title="Event Manager system that allows components to interact with each other." alt="" coords="65,5,232,47"/>
+<area shape="rect" id="node2" href="$Event_8h.html" title="Event class that stores specific event actions that get triggered." alt="" coords="5,169,76,196"/>
+<area shape="rect" id="node3" href="$EventListener_8h.html" title="Event listener object that contains logic to trigger an event." alt="" coords="29,95,151,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="176,95,239,121"/>
+<area shape="rect" id="node4" href="$EventListener_8inl.html" title="Event listener implementation for templated functionality." alt="" coords="155,169,286,196"/>
+</map>

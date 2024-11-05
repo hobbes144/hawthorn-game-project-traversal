@@ -1,13 +1,13 @@
-<map id="src/Node.h" name="src/Node.h">
-<area shape="rect" id="node1" title="Node class used for the Scene Graph." alt="" coords="219,5,309,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,85,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="110,80,167,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="192,80,251,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="275,80,338,107"/>
-<area shape="rect" id="node6" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="341,155,425,181"/>
-<area shape="rect" id="node11" href="$Transform_8h.html" title="Transform object, used to store the rotation, scale and translation info of an object,..." alt="" coords="413,80,512,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="403,304,466,331"/>
-<area shape="rect" id="node8" title=" " alt="" coords="316,304,372,331"/>
-<area shape="rect" id="node9" title=" " alt="" coords="493,304,579,331"/>
-<area shape="rect" id="node10" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="420,229,503,256"/>
+<map id="AnishCS529Engine/src/Node.h" name="AnishCS529Engine/src/Node.h">
+<area shape="rect" id="node1" title="Node class used for the Scene Graph." alt="" coords="181,5,347,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,85,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="110,95,167,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="192,95,251,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="275,95,338,121"/>
+<area shape="rect" id="node6" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="341,169,425,196"/>
+<area shape="rect" id="node11" href="$Transform_8h.html" title="Transform object, used to store the rotation, scale and translation info of an object,..." alt="" coords="413,95,512,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="403,319,466,345"/>
+<area shape="rect" id="node8" title=" " alt="" coords="316,319,372,345"/>
+<area shape="rect" id="node9" title=" " alt="" coords="493,319,579,345"/>
+<area shape="rect" id="node10" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="420,244,503,271"/>
 </map>

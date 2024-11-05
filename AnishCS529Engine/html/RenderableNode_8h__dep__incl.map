@@ -1,9 +1,9 @@
-<map id="src/RenderableNode.h" name="src/RenderableNode.h">
-<area shape="rect" id="node1" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="194,5,359,32"/>
-<area shape="rect" id="node2" href="$RenderableNode_8cpp.html" title=" " alt="" coords="5,80,185,107"/>
-<area shape="rect" id="node3" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="209,80,344,107"/>
-<area shape="rect" id="node6" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="368,80,535,107"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="303,155,408,181"/>
-<area shape="rect" id="node5" href="$SceneGraph_8cpp.html" title=" " alt="" coords="128,155,279,181"/>
-<area shape="rect" id="node7" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="432,155,615,181"/>
+<map id="AnishCS529Engine/src/RenderableNode.h" name="AnishCS529Engine/src/RenderableNode.h">
+<area shape="rect" id="node1" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="196,5,363,47"/>
+<area shape="rect" id="node2" href="$RenderableNode_8cpp.html" title=" " alt="" coords="5,95,172,136"/>
+<area shape="rect" id="node3" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="196,95,363,136"/>
+<area shape="rect" id="node6" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="387,95,553,136"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="291,184,457,225"/>
+<area shape="rect" id="node5" href="$SceneGraph_8cpp.html" title=" " alt="" coords="100,184,267,225"/>
+<area shape="rect" id="node7" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="481,184,648,225"/>
 </map>

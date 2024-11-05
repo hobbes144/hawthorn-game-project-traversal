@@ -1,5 +1,5 @@
-<map id="src/Input.h" name="src/Input.h">
-<area shape="rect" id="node1" title="Input system to handle window inputs." alt="" coords="77,5,167,32"/>
-<area shape="rect" id="node2" href="$Input_8cpp.html" title=" " alt="" coords="5,80,111,107"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="135,80,240,107"/>
+<map id="AnishCS529Engine/src/Input.h" name="AnishCS529Engine/src/Input.h">
+<area shape="rect" id="node1" title="Input system to handle window inputs." alt="" coords="100,5,267,47"/>
+<area shape="rect" id="node2" href="$Input_8cpp.html" title=" " alt="" coords="5,95,172,136"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="196,95,363,136"/>
 </map>

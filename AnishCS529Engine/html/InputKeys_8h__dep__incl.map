@@ -1,6 +1,6 @@
-<map id="src/InputKeys.h" name="src/InputKeys.h">
-<area shape="rect" id="node1" title="Key references to set up supported key constexpr." alt="" coords="61,5,183,32"/>
-<area shape="rect" id="node2" href="$Input_8h.html" title="Input system to handle window inputs." alt="" coords="77,80,167,107"/>
-<area shape="rect" id="node3" href="$Input_8cpp.html" title=" " alt="" coords="5,155,111,181"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="135,155,240,181"/>
+<map id="AnishCS529Engine/src/InputKeys.h" name="AnishCS529Engine/src/InputKeys.h">
+<area shape="rect" id="node1" title="Key references to set up supported key constexpr." alt="" coords="100,5,267,47"/>
+<area shape="rect" id="node2" href="$Input_8h.html" title="Input system to handle window inputs." alt="" coords="100,95,267,136"/>
+<area shape="rect" id="node3" href="$Input_8cpp.html" title=" " alt="" coords="5,184,172,225"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="196,184,363,225"/>
 </map>

@@ -1,21 +1,21 @@
-<map id="src/Vector3.h" name="src/Vector3.h">
-<area shape="rect" id="node1" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="323,5,430,32"/>
-<area shape="rect" id="node2" href="$Material_8h.html" title="Material class." alt="" coords="145,229,256,256"/>
-<area shape="rect" id="node11" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="323,80,430,107"/>
-<area shape="rect" id="node15" href="$Renderer_8h.html" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="659,155,774,181"/>
-<area shape="rect" id="node17" href="$Shader_8h.html" title="Shader class to create and manage shaders and set up uniforms." alt="" coords="38,155,139,181"/>
-<area shape="rect" id="node19" href="$Transform_8h.html" title="Transform object, used to store the rotation, scale and translation info of an object,..." alt="" coords="513,155,635,181"/>
-<area shape="rect" id="node3" href="$Material_8cpp.html" title=" " alt="" coords="91,304,217,331"/>
-<area shape="rect" id="node4" href="$RenderableNode_8h.html" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="423,304,589,331"/>
-<area shape="rect" id="node5" href="$RenderableNode_8cpp.html" title=" " alt="" coords="416,379,596,405"/>
-<area shape="rect" id="node6" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="257,379,392,405"/>
-<area shape="rect" id="node9" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="620,379,787,405"/>
-<area shape="rect" id="node7" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="711,453,816,480"/>
-<area shape="rect" id="node8" href="$SceneGraph_8cpp.html" title=" " alt="" coords="249,453,400,480"/>
-<area shape="rect" id="node10" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="504,453,687,480"/>
-<area shape="rect" id="node12" href="$Matrix4_8cpp.html" title=" " alt="" coords="315,155,438,181"/>
-<area shape="rect" id="node13" href="$Node_8h.html" title="Node class used for the Scene Graph." alt="" coords="341,229,431,256"/>
-<area shape="rect" id="node14" href="$Node_8cpp.html" title=" " alt="" coords="242,304,349,331"/>
-<area shape="rect" id="node16" href="$Renderer_8cpp.html" title=" " alt="" coords="651,229,782,256"/>
-<area shape="rect" id="node18" href="$Shader_8cpp.html" title=" " alt="" coords="5,229,121,256"/>
+<map id="AnishCS529Engine/src/Vector3.h" name="AnishCS529Engine/src/Vector3.h">
+<area shape="rect" id="node1" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="387,5,553,47"/>
+<area shape="rect" id="node2" href="$Material_8h.html" title="Material class." alt="" coords="196,273,363,315"/>
+<area shape="rect" id="node11" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="387,95,553,136"/>
+<area shape="rect" id="node15" href="$Renderer_8h.html" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="820,184,987,225"/>
+<area shape="rect" id="node17" href="$Shader_8h.html" title="Shader class to create and manage shaders and set up uniforms." alt="" coords="43,184,209,225"/>
+<area shape="rect" id="node19" href="$Transform_8h.html" title="Transform object, used to store the rotation, scale and translation info of an object,..." alt="" coords="629,184,796,225"/>
+<area shape="rect" id="node3" href="$Material_8cpp.html" title=" " alt="" coords="192,363,359,404"/>
+<area shape="rect" id="node4" href="$RenderableNode_8h.html" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="625,363,792,404"/>
+<area shape="rect" id="node5" href="$RenderableNode_8cpp.html" title=" " alt="" coords="625,452,792,493"/>
+<area shape="rect" id="node6" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="435,452,601,493"/>
+<area shape="rect" id="node9" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="816,452,983,493"/>
+<area shape="rect" id="node7" href="$main_8cpp.html" title="Main logic controller for the Engine." alt="" coords="876,541,1043,583"/>
+<area shape="rect" id="node8" href="$SceneGraph_8cpp.html" title=" " alt="" coords="435,541,601,583"/>
+<area shape="rect" id="node10" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="685,541,852,583"/>
+<area shape="rect" id="node12" href="$Matrix4_8cpp.html" title=" " alt="" coords="387,184,553,225"/>
+<area shape="rect" id="node13" href="$Node_8h.html" title="Node class used for the Scene Graph." alt="" coords="387,273,553,315"/>
+<area shape="rect" id="node14" href="$Node_8cpp.html" title=" " alt="" coords="383,363,549,404"/>
+<area shape="rect" id="node16" href="$Renderer_8cpp.html" title=" " alt="" coords="816,273,983,315"/>
+<area shape="rect" id="node18" href="$Shader_8cpp.html" title=" " alt="" coords="5,273,172,315"/>
 </map>

@@ -1,16 +1,16 @@
-<map id="src/Shader.h" name="src/Shader.h">
-<area shape="rect" id="node1" title="Shader class to create and manage shaders and set up uniforms." alt="" coords="558,5,659,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,100,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="124,80,235,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="259,80,345,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="369,80,443,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="467,80,547,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="571,80,646,107"/>
-<area shape="rect" id="node8" title=" " alt="" coords="691,229,777,256"/>
-<area shape="rect" id="node9" title=" " alt="" coords="881,80,939,107"/>
-<area shape="rect" id="node10" title=" " alt="" coords="964,80,1088,107"/>
-<area shape="rect" id="node11" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="721,80,805,107"/>
-<area shape="rect" id="node14" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="822,155,905,181"/>
-<area shape="rect" id="node12" title=" " alt="" coords="903,229,965,256"/>
-<area shape="rect" id="node13" title=" " alt="" coords="815,229,871,256"/>
+<map id="AnishCS529Engine/src/Shader.h" name="AnishCS529Engine/src/Shader.h">
+<area shape="rect" id="node1" title="Shader class to create and manage shaders and set up uniforms." alt="" coords="525,5,692,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,100,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="124,95,235,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="259,95,345,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="369,95,443,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="467,95,547,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="571,95,646,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="691,244,777,271"/>
+<area shape="rect" id="node9" title=" " alt="" coords="881,95,939,121"/>
+<area shape="rect" id="node10" title=" " alt="" coords="964,95,1088,121"/>
+<area shape="rect" id="node11" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="721,95,805,121"/>
+<area shape="rect" id="node14" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="822,169,905,196"/>
+<area shape="rect" id="node12" title=" " alt="" coords="903,244,965,271"/>
+<area shape="rect" id="node13" title=" " alt="" coords="815,244,871,271"/>
 </map>

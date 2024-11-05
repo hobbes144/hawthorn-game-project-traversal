@@ -32,13 +32,14 @@ public:
   double getTime();
 
   void setPhysicsTimestep(double timestep);
-  bool ShouldUpdatePhysics() const;
-  void ConsumePhysicsTime();
-  double GetAccumulatorAlpha() const;
+  bool shouldUpdatePhysics() const;
+  void consumePhysicsTime();
+  double getAccumulatorAlpha() const;
 
 
   /* Optional features */
 
+#ifdef ENABLE_RATE_CONTROLLERS
   /* ToDo: Need to decide if we need this. */
   /*! \name Rate Controllers
    * @{
@@ -46,7 +47,9 @@ public:
   const unsigned int createRateController(const unsigned int rate);
   bool rateControllerShouldFire(const unsigned int rateControllerId);
   /*@}*/
+#endif // ENABLE_RATE_CONTROLLERS
 
+#ifdef ENABLE_ADDITIONAL_ACCUMULATORS
   /*! \name Additional Accumulators
    * @{
    */
@@ -55,6 +58,7 @@ public:
   void consumeAccumulator(const unsigned int accumulatorId);
   double getAccumulatorAlpha(const unsigned int accumulatorId) const;
   /*@}*/
+#endif // ENABLE_ADDITIONAL_ACCUMULATORS
 
 private:
   FramerateController();
@@ -82,6 +86,7 @@ private:
   /** Accumulated Physics accumulator time */
   double physicsAccumulator;
 
+#ifdef ENABLE_RATE_CONTROLLERS
   /*! \name Rate Controllers
    * @{
    */
@@ -92,7 +97,9 @@ private:
   /** Time at last fire of rate controller */
   std::vector<double> rateControllerTimes;
   /*@}*/
+#endif // ENABLE_RATE_CONTROLLERS
 
+#ifdef ENABLE_ADDITIONAL_ACCUMULATORS
   /*! \name Additional Accumulators
    * @{
    */
@@ -103,6 +110,7 @@ private:
   /** Accumulated time of the accumulators */
   std::vector<double> accumulatorTimes;
   /*@}*/
+#endif // ENABLE_ADDITIONAL_ACCUMULATORS
 };
 
 #endif // FRAMERATE_CONTROLLER_H

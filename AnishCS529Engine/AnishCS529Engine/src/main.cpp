@@ -26,11 +26,11 @@
 #include "FramerateController.h"
 
 
-extern "C"
-{
-  __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
-  __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
-}
+//extern "C"
+//{
+//  __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
+//  __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+//}
 
 /** Pi constant for maths */
 const float pi = 3.14159f;
@@ -62,7 +62,7 @@ int main(void)
     Renderer renderer(window);
     Input input(window);
     SceneGraph scene = SceneGraph();
-    FramerateController::getController().setTargetFramerate(120);
+    FramerateController::getController().setTargetFramerate(60);
 #ifdef ENABLE_RATE_CONTROLLERS
     const unsigned int testRateController = 
       FramerateController::getController().createRateController(24);

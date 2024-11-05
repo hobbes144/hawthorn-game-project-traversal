@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>AnishCS529Engine: src/GeometryBuffer.h Source File</title>
+<title>AnishCS529Engine: AnishCS529Engine/src/GeometryBuffer.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_776072b7f443e26b0e05486a70510205.html">AnishCS529Engine</a></li><li class="navelem"><a class="el" href="dir_d93426193a533a0197f3f1e0132df37a.html">src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -158,36 +158,38 @@ $(function() {
 <div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="classGeometryBuffer.html#a53e4973dd9e44e32890a56e6764e99af">  137</a></span>&#160;  GLuint <a class="code" href="classGeometryBuffer.html#a53e4973dd9e44e32890a56e6764e99af">getEBO</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> ebo; }</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  GLuint vao;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  GLuint vbo;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  GLuint ebo;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <span class="comment">/* Todo: Figure out why this is here. */</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  GLsizei vertexCount;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  GLsizei indexCount;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  std::unordered_map&lt;AttributeType, GLsizei&gt; attributeOffsets;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  std::unordered_map&lt;AttributeType, GLsizei&gt; attributeStrides;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  std::string name;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  GLuint vao;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  GLuint vbo;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  GLuint ebo;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="comment">/* Todo: Figure out why this is here. */</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vertexCount;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> indexCount;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <a class="code" href="classGeometryBuffer.html#a01f92aed0d0d0415038d92fd63e77c33">GeometryBuffer</a>(std::string name) : </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    vao(0), vbo(0), ebo(0), vertexCount(0), indexCount(0), name(name) {};</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  <span class="keywordtype">void</span> initializeVertexBuffers(<a class="code" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a>&amp; attributeData);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="keywordtype">void</span> initializeElementBuffers(<span class="keyword">const</span> std::vector&lt;unsigned int&gt;&amp; indices);</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="keywordtype">void</span> initializeBuffers(<a class="code" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a>&amp; attributeData);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <span class="keywordtype">void</span> initializeBuffers(</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a>&amp; attributeData, </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keyword">const</span> std::vector&lt;unsigned int&gt;&amp; indices);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="keywordtype">bool</span> hasAttribute(<a class="code" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">AttributeType</a> type);</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  <span class="keywordtype">void</span> cleanupBuffers();</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  std::unordered_map&lt;AttributeType, size_t&gt; attributeOffsets;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="comment">/* Todo: Convert to interleaved and use the below */</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  <span class="comment">//std::unordered_map&lt;AttributeType, GLsizei&gt; attributeStrides;</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  std::string name;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;};</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GEOMETRY_BUFFER_H</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <a class="code" href="classGeometryBuffer.html#a01f92aed0d0d0415038d92fd63e77c33">GeometryBuffer</a>(std::string name) : </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    vao(0), vbo(0), ebo(0), vertexCount(0), indexCount(0), name(name) {};</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="keywordtype">void</span> initializeVertexBuffers(<a class="code" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a>&amp; attributeData);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <span class="keywordtype">void</span> initializeElementBuffers(<span class="keyword">const</span> std::vector&lt;unsigned int&gt;&amp; indices);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="keywordtype">void</span> initializeBuffers(<a class="code" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a>&amp; attributeData);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <span class="keywordtype">void</span> initializeBuffers(</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="classGeometryBuffer.html#ae5e66037b17c6194f8eeda2161dc09b4">Attributes</a>&amp; attributeData, </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">const</span> std::vector&lt;unsigned int&gt;&amp; indices);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="keywordtype">bool</span> hasAttribute(<a class="code" href="classGeometryBuffer.html#a7ecf2c875787c70671a1acbb67ada63f">AttributeType</a> type);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="keywordtype">void</span> cleanupBuffers();</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;};</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GEOMETRY_BUFFER_H</span></div>
 <div class="ttc" id="aclassGeometryBuffer_html"><div class="ttname"><a href="classGeometryBuffer.html">GeometryBuffer</a></div><div class="ttdoc">Class that sets up the OpenGL buffers.</div><div class="ttdef"><b>Definition:</b> GeometryBuffer.h:30</div></div>
 <div class="ttc" id="aclassGeometryBuffer_html_a01f92aed0d0d0415038d92fd63e77c33"><div class="ttname"><a href="classGeometryBuffer.html#a01f92aed0d0d0415038d92fd63e77c33">GeometryBuffer::GeometryBuffer</a></div><div class="ttdeci">GeometryBuffer(const GeometryBuffer &amp;)=delete</div><div class="ttdoc">Deleted copy constructor to prevent copying.</div></div>
 <div class="ttc" id="aclassGeometryBuffer_html_a19c37bbe5001f95c7fb8ac4eb363129d"><div class="ttname"><a href="classGeometryBuffer.html#a19c37bbe5001f95c7fb8ac4eb363129d">GeometryBuffer::getVBO</a></div><div class="ttdeci">GLuint getVBO() const</div><div class="ttdoc">Getter for VBO.</div><div class="ttdef"><b>Definition:</b> GeometryBuffer.h:130</div></div>
