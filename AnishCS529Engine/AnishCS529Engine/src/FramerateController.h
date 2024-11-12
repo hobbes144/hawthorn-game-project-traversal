@@ -20,7 +20,7 @@
 
 class FramerateController {
 public:
-  static FramerateController& getController();
+  static FramerateController * getController();
 
   void setTargetFramerate(const unsigned int framerate);
 

@@ -88,7 +88,8 @@ GeometryBuffer::~GeometryBuffer() {
  *****************************************************************************/
 GeometryBuffer::GeometryBuffer(GeometryBuffer&& other) noexcept : 
   vao(other.vao), vbo(other.vbo), ebo(other.ebo), 
-  vertexCount(other.vertexCount), indexCount(other.indexCount) {
+  vertexCount(other.vertexCount), indexCount(other.indexCount),
+  indexData(other.indexData), bufferAttributeData(other.bufferAttributeData) {
   other.vao = other.vbo = other.ebo = 0;
   other.vertexCount = other.indexCount = 0;
 }
@@ -178,17 +179,19 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-  size_t totalSize = 0;
-  for (const auto& [type, info] : attributeData) {
-    attributeOffsets[type] = totalSize;
-    totalSize += (info.data.size() * sizeof(float));
-  }
-
-
   // When data is given in interleaved format.
   if (isInterleaved) {
+    GLsizeiptr totalSize = 0;
+    unsigned int offset = 0;
+    for (const auto& [type, info] : attributeData) {
+      attributeOffsets[type] = offset;
+      offset += info.elementSize * sizeof(float);
+      totalSize += info.data.size() * sizeof(float);
+      bufferAttributeData[type] = info;
+    }
+
     auto it = attributeData.at(AttributeType::Position);
-    vertexCount = (unsigned int)(it.data.size() / it.stride);
+    vertexCount = (unsigned int)(it.data.size() / it.elementSize);
 
     // When in interleaved format, only the first attribute needs to have data.
     // Position is assumed to be the first attribute, which has the data.
@@ -210,6 +213,13 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
   }
   // When data is given in block format
   else {
+    size_t totalSize = 0;
+    for (const auto& [type, info] : attributeData) {
+      attributeOffsets[type] = totalSize;
+      totalSize += (info.data.size() * sizeof(float));
+      bufferAttributeData[type] = info;
+    }
+
     auto it = attributeData.begin();
     vertexCount = (unsigned int)(it->second.data.size() / it->second.elementSize);
 
@@ -253,11 +263,14 @@ void GeometryBuffer::initializeElementBuffers(
 
   glGenBuffers(1, &ebo);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+
   glBufferData(
     GL_ELEMENT_ARRAY_BUFFER, 
     indices.size() * sizeof(unsigned int), 
     indices.data(), 
     GL_STATIC_DRAW);
+
+  this->indexData = indices;
 }
 
 /*!****************************************************************************
@@ -276,6 +289,7 @@ void GeometryBuffer::initializeBuffers(
 
   glGenVertexArrays(1, &vao);
   glBindVertexArray(vao);
+
   initializeVertexBuffers(attributeData);
 
   glBindVertexArray(0);
@@ -351,7 +365,9 @@ void GeometryBuffer::updateIndices(const std::vector<unsigned int>& indices) {
     GL_STATIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
   indexCount = indices.size();
+  this->indexData = indices;
 }
 
 /*!****************************************************************************

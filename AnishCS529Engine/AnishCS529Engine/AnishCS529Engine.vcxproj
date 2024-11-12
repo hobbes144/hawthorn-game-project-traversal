@@ -33,11 +33,14 @@
     <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\FramerateController.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\GeometryBuffer.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\PhysicsTest.cpp" />
+    <ClCompile Include="src\RectanglePrimitive.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TriangleTest.cpp" />
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Matrix4.cpp" />
@@ -65,6 +68,7 @@
     <ClInclude Include="src\EventListener.h" />
     <ClInclude Include="src\EventManager.h" />
     <ClInclude Include="src\FramerateController.h" />
+    <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\GeometryBuffer.h" />
     <ClInclude Include="src\Input.h" />
@@ -76,11 +80,13 @@
     <ClInclude Include="src\OBB.h" />
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\PhysicsManager.h" />
+    <ClInclude Include="src\RectanglePrimitive.h" />
     <ClInclude Include="src\RenderableNode.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\SceneGraph.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Shape.h" />
+    <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\TrianglePrimitive.h" />
     <ClInclude Include="src\Vector3.h" />
@@ -89,6 +95,8 @@
   <ItemGroup>
     <None Include="shaders\main_fragment_shader.glsl" />
     <None Include="shaders\main_vertex_shader.glsl" />
+    <None Include="shaders\physics_test_fragment_shader.glsl" />
+    <None Include="shaders\physics_test_vertex_shader.glsl" />
     <None Include="src\EventListener.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

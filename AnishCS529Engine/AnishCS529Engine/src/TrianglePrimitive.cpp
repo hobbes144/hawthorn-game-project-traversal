@@ -31,19 +31,21 @@ Vector3 TrianglePrimitive::getColor() const
 
 void TrianglePrimitive::createMesh()
 {
-  Mesh::Attributes triangleMeshData;
-
   std::vector<float> vertices = {
       -0.5f, -0.5f, 0.0f,
        0.5f, -0.5f, 0.0f,
        0.0f,  0.5f, 0.0f
   };
+
+  std::vector<unsigned int> indices = { 0, 1, 2 };
+  
+  Mesh::Attributes triangleMeshData;
+  
   triangleMeshData[GeometryBuffer::AttributeType::Position] = {
     vertices,
     3
   };
 
-  std::vector<unsigned int> indices = { 0, 1, 2 };
 
   mesh = std::make_shared<Mesh>(getName() + "_Mesh", triangleMeshData, indices);
 }

@@ -9,8 +9,10 @@ class PhysicsManager {
 public:
     static PhysicsManager& Instance();
 
-    void removeBody(PhysicsBody* body);
+    void addBody(PhysicsBody * body);
+    void removeBody(PhysicsBody * body);
 
+    void update(const float deltaTime);
 
     const std::vector<PhysicsBody*>& getBodies() const { return bodies; }
 

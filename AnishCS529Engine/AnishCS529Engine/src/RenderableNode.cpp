@@ -20,17 +20,18 @@ void RenderableNode::draw(const Matrix4& view, const Matrix4& projection) {
   if (!isVisible)
     return;
 
-  material->setProperty("viewMatrix", view);
-  material->setProperty("projectionMatrix", projection);
-  material->setProperty("modelMatrix", worldTransform.getLocalMatrix());//getTransformMatrix());
+  material->setProperty("ViewMatrix", view);
+  material->setProperty("ProjectionMatrix", projection);
+  material->setProperty("ModelMatrix", getTransformMatrix());
   material->apply();
 
   auto geometryBuffer = mesh->getGeometryBuffer();
+  if (!geometryBuffer) return;
   geometryBuffer->bind();
 
-
-  renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), isIndexed);
-
+  if (mesh->hasAttribute(GeometryBuffer::AttributeType::Position)) {
+    renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), isIndexed);
+  }
   geometryBuffer->unbind();
 
   for (auto& child : getChildren()) {

@@ -15,10 +15,10 @@
  * 
  * \return \b FramerateController& The Framerate Controller obejct.
  *****************************************************************************/
-FramerateController& FramerateController::getController() {
+FramerateController * FramerateController::getController() {
   {
     static FramerateController controller;
-    return controller;
+    return &controller;
   }
 }
 

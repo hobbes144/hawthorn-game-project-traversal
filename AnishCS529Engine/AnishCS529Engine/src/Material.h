@@ -16,10 +16,12 @@
 
 #include <unordered_map>
 #include <variant>
+#include <optional>
 
 #include "Matrix4.h"
 #include "Shader.h"
 #include "Vector3.h"
+#include "Texture.h"
 
 /*!****************************************************************************
  * \brief Class to manage Materials used by objects
@@ -39,6 +41,8 @@ public:
     properties[name] = value;
   }
 
+  void setTexture(const std::string& name, std::shared_ptr<Texture> texture, unsigned int unit);
+
   virtual void apply() const;
 
 private:
@@ -47,6 +51,13 @@ private:
     std::string, 
     std::variant<unsigned int, int, float, Vector3, Matrix4>
   > properties;
+
+  struct TextureInfo {
+    std::shared_ptr<Texture> texture;
+    unsigned int unit;
+  };
+
+  std::optional<std::unordered_map<std::string, TextureInfo>> textureData;
 
 };
 

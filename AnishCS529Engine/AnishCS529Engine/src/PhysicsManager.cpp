@@ -6,12 +6,22 @@ PhysicsManager& PhysicsManager::Instance() {
   return instance;
 }
 
+void PhysicsManager::addBody(PhysicsBody* body) {
+  bodies.push_back(body);
+}
 
 void PhysicsManager::removeBody(PhysicsBody* body) {
   bodies.erase(
       std::remove(bodies.begin(), bodies.end(), body),
       bodies.end()
   );
+}
+
+void PhysicsManager::update(const float deltaTime) {
+  for (size_t i = 0; i < bodies.size(); i++) {
+    bodies[i]->integrate(deltaTime);
+  }
+  checkCollisions();
 }
 
 

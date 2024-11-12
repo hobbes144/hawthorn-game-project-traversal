@@ -18,6 +18,13 @@ std::shared_ptr<Shader> Material::getShader() const {
   return shader;
 }
 
+void Material::setTexture(const std::string& name, std::shared_ptr<Texture> texture, unsigned int unit) {
+  if (!textureData) {
+    textureData = std::unordered_map<std::string, TextureInfo>();
+  }
+  (*textureData)[name] = { texture, unit };
+}
+
 void Material::apply() const {
   shader->use();
 
@@ -27,6 +34,12 @@ void Material::apply() const {
     std::visit(
       [this, &name](auto&& arg) {
         using T = std::decay_t<decltype(arg)>;
+        if constexpr (std::is_same_v<T, unsigned int>) {
+          shader->setUInt(name, arg);
+        }
+        else if constexpr (std::is_same_v<T, int>) {
+          shader->setInt(name, arg);
+        }
         if constexpr (std::is_same_v<T, float>) {
           shader->setFloat(name, arg);
         }
@@ -39,5 +52,19 @@ void Material::apply() const {
       },
       value
     );
+  }
+  // Texture samplers
+  if (textureData) {
+    for (const auto& [name, texInfo] : *textureData) {
+      if (texInfo.texture) {
+        texInfo.texture->bind();
+        shader->setInt(name, texInfo.unit);
+      }
+      else {
+        // You might not want to use textures in your shader 
+        // and/or your vertex data doesn't support it
+        std::cerr << "Warning: Null texture for uniform " << name << std::endl;
+      }
+    }
   }
 }

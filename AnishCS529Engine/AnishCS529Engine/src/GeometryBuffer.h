@@ -108,6 +108,8 @@ public:
     const std::vector<float>& data);
   void updateIndices(const std::vector<unsigned int>& indices);
 
+  bool hasAttribute(AttributeType type);
+
   void bind() const;
   void unbind() const;
 
@@ -124,6 +126,13 @@ public:
   * \return \b GLsizei indexCount.
   */
   GLsizei getIndexCount() const { return indexCount; }
+
+  /**
+  * \brief Getter for index data
+  *
+  * \return \b std::vector<unsigned int> indexData.
+  */
+  std::vector<unsigned int> getIndexData()  const { return indexData; }
 
   /**
   * \brief Getter for VAO
@@ -176,6 +185,12 @@ private:
   /** Buffer name */
   std::string name;
 
+  /** Attribute data */
+  ModifiableAttributes bufferAttributeData;
+
+  /** Indices */
+  std::vector<unsigned int> indexData;
+
   /** Private constructor to enforce factory */
   GeometryBuffer(std::string name) : 
     vao(0), vbo(0), ebo(0), vertexCount(0), indexCount(0), name(name) {};
@@ -189,8 +204,6 @@ private:
   void initializeBuffers(
     Attributes& attributeData, 
     const std::vector<unsigned int>& indices);
-
-  bool hasAttribute(AttributeType type);
 
   void cleanupBuffers();
 

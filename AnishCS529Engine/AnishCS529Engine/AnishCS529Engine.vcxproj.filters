@@ -141,6 +141,15 @@
     <ClCompile Include="src\PhysicsTest.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="src\RectanglePrimitive.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files\ObjectResources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -233,6 +242,15 @@
     <ClInclude Include="src\PhysicsManager.h">
       <Filter>Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
+    <ClInclude Include="src\RectanglePrimitive.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Header Files\ObjectResources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -243,6 +261,12 @@
     </None>
     <None Include="src\EventListener.inl">
       <Filter>Header Files\Systems\EventSystem</Filter>
+    </None>
+    <None Include="shaders\physics_test_vertex_shader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\physics_test_fragment_shader.glsl">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

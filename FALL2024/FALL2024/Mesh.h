@@ -29,7 +29,7 @@ public:
 	size_t getVertexCount() const;
 	size_t getIndexCount() const;
 	bool hasAttribute(GeometryBuffer::Attribute attr) const;
-	const std::string& getName() const;
+		const std::string& getName() const;
 
 private:
 	std::string name;

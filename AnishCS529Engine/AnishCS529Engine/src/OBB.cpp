@@ -106,7 +106,7 @@ void OBB::initializeDebugDraw(Renderer* renderer) {
 	debugMesh = std::make_shared<Mesh>("OBB_Debug_Mesh", debugMeshData, indices, static_cast<GLsizei>(5 * sizeof(float)));
 
 	// Create and setup material
-	auto shader = std::make_shared<Shader>("vertex_shader.glsl\nfragment_shader.glsl");
+	auto shader = std::make_shared<Shader>("shaders/physics_test_vertex_shader.glsl\nshaders/physics_test_fragment_shader.glsl");
 	debugMaterial = std::make_shared<Material>(shader);
 	debugMaterial->setProperty("useTexture", 0);
 	debugMaterial->setProperty("isTransparent", 0);
@@ -135,7 +135,7 @@ void OBB::drawDebugLines(Matrix4& view, Matrix4& projection) {
 
 		// Draw box outline
 		glLineWidth(2.0f);
-		renderer->draw(8, GL_LINES, true);  // First 8 indices for box
+		renderer->draw(GL_LINES, 8, true);  // First 8 indices for box
 
 		// Draw direction vectors
 		// For these, we use a different scale matrix that keeps them unit length

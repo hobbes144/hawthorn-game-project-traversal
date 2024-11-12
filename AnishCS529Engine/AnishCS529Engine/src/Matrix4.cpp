@@ -347,9 +347,9 @@ Matrix4 Matrix4::orthographic(
   result.data[0][0] = 2.0f / (right - left);
   result.data[1][1] = 2.0f / (top - bottom);
   result.data[2][2] = -2.0f / (far - near);
-  result.data[0][3] = -(right + left) / (right - left);
-  result.data[1][3] = -(top + bottom) / (top - bottom);
-  result.data[2][3] = -(far + near) / (far - near);
+  result.data[3][0] = -(right + left) / (right - left);
+  result.data[3][1] = -(top + bottom) / (top - bottom);
+  result.data[3][2] = -(far + near) / (far - near);
   result.data[3][3] = 1.0f;
   return result;
 }

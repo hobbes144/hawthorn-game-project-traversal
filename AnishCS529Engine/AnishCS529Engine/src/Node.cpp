@@ -125,20 +125,26 @@ void Node::update(float deltaTime) {
   if (!parent) throw std::runtime_error("ERROR::NODE::UPDATE::NOPARENT");
 
   if (isLocalSpace) {
-    /* Todo: Move this to Renderable node again and use static cast. */
-    worldTransform.setPosition(parent->worldTransform.getPosition() + localTransform.getPosition());
-    worldTransform.setRotation(parent->worldTransform.getRotation() + 
-                               localTransform.getRotation());
-    worldTransform.setScaling(parent->worldTransform.getScaling() * localTransform.getScaling());
+    if (parent) {
+      Matrix4 parentWorld = parent->getTransformMatrix();
+      worldTransform.setPosition(parentWorld * localTransform.getPosition());
+      worldTransform.setRotation(parent->worldTransform.getRotation() + localTransform.getRotation());
+      worldTransform.setScaling(parent->worldTransform.getScaling() * localTransform.getScaling());
+    }
+    else {
+      worldTransform = localTransform;
+    }
   }
   else {
-    localTransform.setPosition(
-      worldTransform.getPosition() - parent->worldTransform.getPosition());
-    localTransform.setRotation(
-      worldTransform.getRotation() - parent->worldTransform.getRotation());
-    localTransform.setScaling(
-      worldTransform.getScaling() * 
-      parent->worldTransform.getScaling().reciprocal());
+    if (parent) {
+      Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
+      localTransform.setPosition(parentWorldInv * worldTransform.getPosition());
+      localTransform.setRotation(worldTransform.getRotation() - parent->worldTransform.getRotation());
+      localTransform.setScaling(worldTransform.getScaling() * parent->worldTransform.getScaling().reciprocal());
+    }
+    else {
+      localTransform = worldTransform;
+    }
   }
 
 
@@ -157,12 +163,15 @@ void Node::localToWorldSpace() {
 
 void Node::setLocalPosition(const Vector3& position) {
   localTransform.setPosition(position);
+  isLocalSpace = true;  // Ensure we're in local space after this operation
 }
 
 void Node::setLocalRotation(const Vector3& rotation) {
   localTransform.setRotation(rotation);
+  isLocalSpace = true;  // Ensure we're in local space after this operation
 }
 
 void Node::setLocalScaling(const Vector3& scaling) {
   localTransform.setScaling(scaling);
+  isLocalSpace = true;  // Ensure we're in local space after this operation
 }

@@ -13,9 +13,9 @@
 Mesh::Mesh(const std::string& name) : name(name) {}
 
 Mesh::Mesh(
-  const std::string& name,
-  Attributes attrData,
-  const GLsizei interleavedStride) {
+    const std::string& name,
+    Attributes attrData,
+    const GLsizei interleavedStride) {
 
   GeometryBuffer::ModifiableAttributes geometryBufferAttr;
   prepareAttributeData(geometryBufferAttr, attrData, interleavedStride);
@@ -29,15 +29,16 @@ Mesh::Mesh(
 }
 
 Mesh::Mesh(
-  const std::string& name,
-  Attributes attrData,
-  const std::vector<unsigned int>& indices,
-  const GLsizei interleavedStride) {
+    const std::string& name,
+    Attributes attrData,
+    const std::vector<unsigned int>& indices,
+    const GLsizei interleavedStride) {
 
   GeometryBuffer::ModifiableAttributes geometryBufferAttr;
   prepareAttributeData(geometryBufferAttr, attrData, interleavedStride);
 
   this->name = name;
+  this->indices = indices;
   geometryBuffer = GeometryBuffer::create(
     geometryBufferAttr,
     indices,
@@ -46,9 +47,9 @@ Mesh::Mesh(
 }
 
 void Mesh::prepareAttributeData(
-  GeometryBuffer::ModifiableAttributes& triangleBufferData,
-  const Mesh::Attributes& attrData,
-  const GLsizei stride) {
+    GeometryBuffer::ModifiableAttributes& triangleBufferData,
+    const Mesh::Attributes& attrData,
+    const GLsizei stride) {
 
   for (const auto& [attr, info] : attrData) {
     triangleBufferData[attr] = {
@@ -62,10 +63,10 @@ void Mesh::prepareAttributeData(
 }
 
 void Mesh::setAttributeData(
-  GeometryBuffer::AttributeType& type,
-  const std::vector<float>& data,
-  int componentsPerVertex,
-  const GLsizei interleavedStride = 0) {
+    GeometryBuffer::AttributeType& type,
+    const std::vector<float>& data,
+    int componentsPerVertex,
+    const GLsizei interleavedStride = 0) {
 
   if (geometryBuffer)
     geometryBuffer->updateVertexAttribute(type, data);
@@ -77,6 +78,17 @@ void Mesh::setAttributeData(
     prepareAttributeData(attributeMap, attrData, interleavedStride);
     geometryBuffer = GeometryBuffer::create(attributeMap, name, false);
   }
+}
+
+void Mesh::setVertexData(
+    const std::shared_ptr<GeometryBuffer>& geometryBuffer) {
+  this->geometryBuffer = geometryBuffer;
+  this->indices = geometryBuffer->getIndexData();
+}
+
+void Mesh::setIndices(const std::vector<unsigned int>& newIndices) {
+  this->geometryBuffer->updateIndices(newIndices);
+  this->indices = newIndices;
 }
 
 std::unique_ptr<Mesh> Mesh::clone() const {
@@ -91,3 +103,10 @@ size_t Mesh::getIndexCount() const {
   return geometryBuffer ? geometryBuffer->getIndexCount() : 0;
 }
 
+bool Mesh::hasAttribute(GeometryBuffer::AttributeType attr) const {
+  return geometryBuffer && geometryBuffer->hasAttribute(attr);
+}
+
+const std::string& Mesh::getName() const {
+  return name;
+}

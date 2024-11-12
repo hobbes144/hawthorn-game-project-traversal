@@ -21,6 +21,7 @@
 
 #include "GeometryBuffer.h"
 
+/** Struct VertexData not in use. */
 struct VertexData {
   GeometryBuffer::AttributeType attribute;
   std::vector<float> data;
@@ -49,11 +50,14 @@ public:
     const std::vector<unsigned int>& indices,
     const GLsizei interleavedStride = 0);
 
+  void setVertexData(const std::shared_ptr<GeometryBuffer>& geometryBuffer);
+
   void setAttributeData(
     GeometryBuffer::AttributeType& type,
     const std::vector<float>& data,
     int componentsPerVertex,
     const GLsizei interleavedStride);
+  void setIndices(const std::vector<unsigned int>& newIndices);
 
   std::shared_ptr<GeometryBuffer> getGeometryBuffer() const { 
     return geometryBuffer;
@@ -64,8 +68,12 @@ public:
   size_t getVertexCount() const;
   size_t getIndexCount() const;
 
+  bool hasAttribute(GeometryBuffer::AttributeType attr) const;
+  const std::string& getName() const;
+
 private:
   std::shared_ptr<GeometryBuffer> geometryBuffer;
+  std::vector<unsigned int> indices;
 
   void prepareAttributeData(
     GeometryBuffer::ModifiableAttributes& triangleBufferData,

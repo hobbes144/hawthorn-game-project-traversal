@@ -1,16 +1,20 @@
 #pragma once
 
+#include "CollisionEvent.h"
 #include "CollisionGenerator.h"
 #include "EventManager.h"
-#include "CollisionEvent.h"
+#include "PhysicsBody.h"
+
 #include <vector>
 
 class PhysicsManager {
 public:
   static PhysicsManager& Instance();
 
+  void addBody(PhysicsBody* body);
   void removeBody(PhysicsBody* body);
 
+  void update(const float deltaTime);
 
   const std::vector<PhysicsBody*>& getBodies() const { return bodies; }
 
