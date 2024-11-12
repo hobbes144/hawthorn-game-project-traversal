@@ -10,14 +10,13 @@
  *****************************************************************************/
 #include "EventManager.h"
 
-void EventManager::addListener(IEventListener* listener) {
-  //listeners.push_back(listener);
+void EventManager::AddListener(IEventListener* listener) {
+  listeners.push_back(listener);
 }
 
-void EventManager::removeListener(IEventListener* listener) {
-  //auto it = std::find(listeners.begin(), listeners.end(), listener);
-  //if (it != listeners.end()) {
-  //  listeners.erase(it);
-  //}
+void EventManager::RemoveListener(IEventListener* listener) {
+  listeners.erase(
+      std::remove(listeners.begin(), listeners.end(), listener),
+      listeners.end()
+  );
 }
-

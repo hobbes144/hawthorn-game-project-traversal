@@ -29,7 +29,7 @@ void RenderableNode::draw(const Matrix4& view, const Matrix4& projection) {
   geometryBuffer->bind();
 
 
-  renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount());
+  renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), isIndexed);
 
   geometryBuffer->unbind();
 

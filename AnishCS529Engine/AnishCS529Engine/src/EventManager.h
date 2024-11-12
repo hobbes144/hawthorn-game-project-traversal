@@ -10,7 +10,6 @@
  * other.
  * 
  *****************************************************************************/
-#ifndef EVENT_MANAGER_H
 #pragma once
 
 #include "Event.h"
@@ -18,6 +17,7 @@
 
 #include <vector>
 
+ // Event Manager - Singleton pattern
 class EventManager {
 public:
   static EventManager& Instance() {
@@ -25,14 +25,18 @@ public:
     return instance;
   }
 
-  void addListener(IEventListener* listener);
+  // Simple version - just store all listeners in a vector
+  //void AddListener(EventListener<Event>* listener);
+  void AddListener(IEventListener* listener);
 
-  void removeListener(IEventListener* listener);
+  //void RemoveListener(EventListener<Event>* listener);
+  void RemoveListener(IEventListener* listener);
 
-  template <typename T>
-  void broadcastEvent(const T& event) {
+  // Broadcast event to interested listeners
+  template<typename T>
+  void BroadcastEvent(const T& event) {
     for (auto listener : listeners) {
-      listener->handleEvent(event);
+      listener->HandleEvent(event);
     }
   }
 
@@ -40,5 +44,3 @@ private:
   EventManager() = default;
   std::vector<IEventListener*> listeners;
 };
-
-#endif // EVENT_MANAGER_H

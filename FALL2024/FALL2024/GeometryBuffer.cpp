@@ -68,8 +68,10 @@ void GeometryBuffer::initializeBuffers(
     // Since we don't know how many attributes, we have to calculate 
     // the total buffer size and attribute offsets
     GLsizeiptr totalSize = 0;
+    unsigned int offset = 0;
     for (const auto& [attr, data] : attributeData) {
-        attributeOffsets[attr] = totalSize;
+        attributeOffsets[attr] = offset;
+        offset += data.second.size * sizeof(float);
         totalSize += data.first.size() * sizeof(float);
         attributeInfos[attr] = data.second;
     }
@@ -88,15 +90,15 @@ void GeometryBuffer::initializeBuffers(
 
     // 4. Allocate the VBO. All setup below will be store in this VBO
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, totalSize, nullptr, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, totalSize, it->second.first.data(), GL_STATIC_DRAW);
 
     // 5. Filling out the VBO. Each attribute at a time
     GLuint attrLocation = 0;
     for (const auto& [attr, data] : attributeData) {
         const auto& [attrData, attrInfo] = data;
         // subdata because we have sections of data (for positions, colors, etc)
-        glBufferSubData(GL_ARRAY_BUFFER, attributeOffsets[attr], 
-            attrData.size() * sizeof(float), attrData.data());
+       /* glBufferSubData(GL_ARRAY_BUFFER, attributeOffsets[attr], 
+            attrData.size() * sizeof(float), attrData.data());*/
         glVertexAttribPointer(attrLocation, attrInfo.size, attrInfo.type,
             attrInfo.normalized, attrInfo.stride, (void*)attributeOffsets[attr]);
         glEnableVertexAttribArray(attrLocation);
@@ -109,6 +111,9 @@ void GeometryBuffer::initializeBuffers(
     
     // 7. UnBind everything
     glBindVertexArray(0);
+
+    // 8. store the index data to allow share the geometrybuffer completely
+    this->indexData = indices;
 }
 
 // update the data in the vertex buffer in a specific attribute

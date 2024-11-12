@@ -1,6 +1,4 @@
 #include "Material.h"
-#include "Shader.h"
-#include "Texture.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -42,10 +40,10 @@ void Material::setTexture(const std::string& name, std::shared_ptr<Texture> text
 }
 
 void Material::apply() const {
+    // Making sure shader exists
     if (!shader) {
         throw std::runtime_error("Shader not set for material");
     }
-
     shader->use();
 
     // Generic uniforms
@@ -74,6 +72,7 @@ void Material::apply() const {
     if (textureData) {
         for (const auto& [name, texInfo] : *textureData) {
             if (texInfo.texture) {
+                texInfo.texture->bind();
                 shader->setInt(name, texInfo.unit);
             }
             else {

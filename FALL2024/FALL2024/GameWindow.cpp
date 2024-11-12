@@ -46,6 +46,7 @@ void GameWindow::initialize() {
         throw std::runtime_error("Failed to initialize GLFW");
     }
     pWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+    glfwSwapInterval(1); // Enable V-Sync
     if (!pWindow) {
         glfwTerminate();
         throw std::runtime_error("Failed to create GLFW window");

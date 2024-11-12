@@ -5,7 +5,7 @@ to learn Game Engine development and OpenGL rendering.
 
 ## Manual
 
-Refer to the webpage linked in AnishCS529Engine/manual for more information.
+Refer to the documentation webpage at [AnishCS529Engine/manual](https://github.com/murthyanish/DigiPenCS529/blob/main/AnishCS529Engine/manual/AnishCS529Engine%20Documentation.lnk) for more information.
 
 ## Note
 

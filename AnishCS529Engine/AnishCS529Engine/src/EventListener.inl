@@ -9,26 +9,27 @@
  * \brief  Event listener implementation for templated functionality.
  * 
  *****************************************************************************/
+ // EventListener template implementations (after EventManager definition)
 #ifndef EVENT_LISTENER_INL
 #define EVENT_LISTENER_INL
 
 #include "EventManager.h"
 
-template <typename T>
+template<typename T>
 EventListener<T>::~EventListener() {
-  EventManager::Instance().removeListener(this);
+  EventManager::Instance().RemoveListener(this);
 }
 
-template <typename T>
-void EventListener<T>::registerListener() {
-  EventManager::Instance().addListener(this);
+template<typename T>
+void EventListener<T>::RegisterListener() {
+  EventManager::Instance().AddListener(this);
 }
 
-template <typename T>
-void EventListener<T>::handleEvent(const Event& event) {
+template<typename T>
+void EventListener<T>::HandleEvent(const Event& event) {
   if (auto* specificEvent = dynamic_cast<const T*>(&event)) {
-    runEventAction(*specificEvent);
+    OnEvent(*specificEvent);
   }
 }
 
-#endif // EVENT_LISTENER_INL
+#endif

@@ -114,6 +114,11 @@ void Renderer::swapBuffers() {
 	glfwSwapBuffers(gameWindow.getNativeWindow());
 }
 
-void Renderer::draw(GLenum mode, GLint count) {
-	glDrawArrays(mode, 0, count);
+void Renderer::draw(GLenum mode, GLint count, bool indexed) {
+	if (indexed) {
+		glDrawElements(mode, count, GL_UNSIGNED_INT, 0);
+	}
+	else {
+		glDrawArrays(mode, 0, count);
+	}
 }

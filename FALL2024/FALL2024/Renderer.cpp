@@ -75,9 +75,9 @@ void Renderer::initialize() {
     }
 
     // Enable debug
-    glEnable(GL_DEBUG_OUTPUT);
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); // Makes sure errors are reported immediately
-    glDebugMessageCallback(openglCallbackFunction, nullptr);
+    //glEnable(GL_DEBUG_OUTPUT);
+    //glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); // Makes sure errors are reported immediately
+    //glDebugMessageCallback(openglCallbackFunction, nullptr);
 
     // Enable blending
     glEnable(GL_BLEND);

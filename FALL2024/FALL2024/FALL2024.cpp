@@ -1,140 +1,150 @@
-//#include "Renderer.h"
-//#include "GameWindow.h"
-//#include <iostream>
-//#include <chrono>
-//#include <thread>
-//#include "Tests.h"
-//
-//int main() {
-//
-//    //testNodeObjects();
-//
-//    try {
-//        GameWindow window(800, 600, "OpenGL Window");
-//        Renderer renderer(window);
-//
-//        float angle = 0.0f;
-//        float scaleAmount = 10.0f;
-//        float scaleSpeed = 20.0f;
-//
-//        while (!window.shouldClose()) {
-//            window.pollEvents();
-//
-//            renderer.clear(0.2f, 0.3f, 0.3f, 1.0f);
-//            // Render your 3D scene here
-//            
-//            // Update transformations
-//            angle += 0.01f;
-//            scaleAmount = 1.0f + 0.5f * std::sin(scaleSpeed * glfwGetTime());
-//            
-//            //std::this_thread::sleep_for(std::chrono::milliseconds(500));
-//            // Create model matrix with all transformations
-//            Matrix4 translation = Matrix4::translation(angle, 0.0f, 0.0f);
-//            Matrix4 rotation = Matrix4::rotationY(angle*-10);
-//            Matrix4 scale = Matrix4::scale(scaleAmount, scaleAmount, scaleAmount);
-//            
-//            Matrix4 modelMatrix = rotation;//rotation * scale;
-//            
-//            Vector3 v1(-0.5f, -0.5f, 0.0f);
-//            Vector3 v2(0.5f, -0.5f, 0.0f);
-//            Vector3 v3(0.0f, 0.5f, 0.0f);
-//
-//            renderer.drawTriangle(v1, v2, v3, modelMatrix);
-//
-//            GLenum error = glGetError();
-//            if (error != GL_NO_ERROR) {
-//                std::cout << "OpenGL error: " << error << std::endl;
-//            }
-//
-//            renderer.swapBuffers();
-//        }
-//    }
-//    catch (const std::exception& e) {
-//        std::cerr << "Error: " << e.what() << std::endl;
-//        return -1;
-//    }
-//
-//    return 0;
-//}
+#include <windows.h>
 
-#include <iostream>
-#include <memory>
-#include <vector>
 #include "Renderer.h"
 #include "GameWindow.h"
+#include "Input.h"
 #include "SceneGraph.h"
 #include "RenderableNode.h"
-#include "Mesh.h"
-#include "Material.h"
-#include "Shader.h"
-#include "Vector3.h"
-#include "Matrix4.h"
 #include "TrianglePrimitive.h"
+#include "RectanglePrimitive.h"
+#include "FramerateController.h"
+#include "EventManager.h"
+#include "GameObject.h"
+#include "PhysicsBody.h"
+#include "AABB.h"
+#include "OBB.h"
+#include "Circle.h"
+#include "PhysicsManager.h"
+
 
 int main() {
-    try {
-        // Create window and renderer
-        GameWindow window(800, 600, "Triangle Rotation Test");
+        // Create window, renderer and input systems
+        GameWindow window(800, 600, "2D Example");
         Renderer renderer(window);
+        Input input(window);
+        FramerateController* framerateController = FramerateController::GetInstance();
 
         // Create scene graph
         SceneGraph sceneGraph;
 
-        // Create 3 triangles in different positions
-        auto triangle1 = std::make_shared<TrianglePrimitive>("RedTriangle", &renderer);
-        triangle1->setColor(Vector3(1.0f, 0.0f, 0.0f));
-        triangle1->setLocalPosition(Vector3(-1.0f, 0.0f, 0.0f));
-        triangle1->setLocalScale(Vector3(0.5f, 0.5f, 0.5f));
-        sceneGraph.addNode(triangle1);
-
-        auto triangle2 = std::make_shared<TrianglePrimitive>("GreenTriangle", &renderer);
-        triangle2->setColor(Vector3(0.0f, 1.0f, 0.0f));
-        triangle2->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
-        triangle2->setLocalScale(Vector3(0.5f, 0.5f, 0.5f));
-        sceneGraph.addNode(triangle2);
-
-        /*auto triangle3 = std::make_shared<TrianglePrimitive>("BlueTriangle", &renderer);
-        triangle1->setColor(Vector3(0.0f, 0.0f, 1.0f));
-        triangle3->setPosition(Vector3(1.0f, 0.0f, 0.0f));
-        sceneGraph.addNode(triangle3);*/
-
-        // TODO: complete the main!
-        
-
         // Set up camera (view and projection matrices)
-        Vector3 cameraPos(0.0f, 0.0f, 2.0);
+        Vector3 cameraPos(0.0f, 0.0f, 1.0);
         Vector3 cameraTarget = cameraPos + Vector3(0.0f, 0.0f, -1.0f);
         Vector3 upVector(0.0f, 1.0f, 0.0f);
         Matrix4 viewMatrix = Matrix4::lookAt(cameraPos, cameraTarget, upVector);
         float aspectRatio = static_cast<float>(window.getWidth()) / window.getHeight();
-        Matrix4 projectionMatrix = Matrix4::perspective(45.0f * 3.14159f / 180.0f, aspectRatio, 0.1f, 100.0f);
+        float bottom = -window.getWidth() * 0.5f;
+        float top = window.getHeight() * 0.5f;
+        float left = -window.getWidth() * 0.5f;
+        float right = window.getWidth() * 0.5f;
+        Matrix4 projectionMatrix = Matrix4::orthographic(left, right, bottom, top, 0.1f, 1000.0f);
 
-        // Main loop
-        float rotationAngle = 0.0f;
-        float deltaTime = 1.0f / 60.0f; // Assume 60 FPS
+        // Drawable objects
+        auto box1 = std::make_shared<GameObject>("Icon1", &renderer);
+        box1->setLocalPosition(Vector3(-1.0f, 0.0f, 0.0f));
+        box1->setLocalScale(Vector3(100.0f, 100.f, 1.0f));
+
+        auto box2 = std::make_shared<GameObject>("Icon2", &renderer);
+        box2->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
+        box2->setLocalScale(Vector3(100.0f, 100.f, 1.0f));
+
+        sceneGraph.addNode(box1);
+        sceneGraph.addNode(box2);
+
+        // Create instances of bodies for boxes
+        auto body1 = std::make_unique<PhysicsBody>(box1.get());
+        auto body2 = std::make_unique<PhysicsBody>(box2.get());
+
+        // Create OBBs
+        auto shape1 = std::make_shared<OBB>(
+            Vector3(-0.0f, -0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+            Vector3(0.5f, 0.5f, 0.0f));
+        auto shape2 = std::make_shared<OBB>(
+            Vector3(-0.0f, -0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+            Vector3(0.5f, 0.5f, 0.0f));
+        shape1->initializeDebugDraw(&renderer);
+        shape2->initializeDebugDraw(&renderer);
+
+        // Create AABB shapes
+        body1->setShape(shape1);
+        body2->setShape(shape2);
+
+        // Add bodies to physics system
+        PhysicsManager::Instance().addBody(body1.get());
+        PhysicsManager::Instance().addBody(body2.get());
+        
+
+        float angle = 0.0f;
+        float speed = 10.0f;
+        float deltaTime = 0.0f;
+        int expectedFrameRate = 60; // 1000;
+        framerateController->SetTargetFramerate(expectedFrameRate);
+
+        
         while (!window.shouldClose()) {
-            renderer.clear(0.2f, 0.3f, 0.3f, 1.0f);
 
-            // Update rotation for the triangle node
-            rotationAngle += 1.0f * deltaTime * 0.05;
-            sceneGraph.setRootRotation(Vector3(0.0f, rotationAngle, 0.0f));
+            renderer.clear(0.2f, 0.3f, 0.3f, 1.0f);
+            framerateController->FrameStart();              // record the time from frame start
+
+            
+            // Input for box1
+            Vector3 velocity(0.0f, 0.0f, 0.0f);
+            if (input.isKeyHeld(k_D)) 
+                velocity.x = speed;
+            if (input.isKeyHeld(k_A)) 
+                velocity.x = -speed;
+            if (input.isKeyHeld(k_W)) 
+                velocity.y = speed;
+            if (input.isKeyHeld(k_S))
+                velocity.y = -speed;
+            body1->setVelocity(velocity);
+
+            if(input.isKeyHeld(A_LEFT))
+                box1->setLocalRotation(Vector3(0.0f, 0.0f, (angle -= 0.01f)));
+            if (input.isKeyHeld(A_RIGHT))
+                box1->setLocalRotation(Vector3(0.0f, 0.0f, (angle += 0.01f)));
+
+            
+
+            // Physics update deltaTime
+            //objectDelta.Update(deltaTime);
+            
+            //// Physics update loop fixedStepTime
+            //while (framerateController->ShouldUpdatePhysics()) {
+            //    PhysicsManager::Instance().update(FramerateController::DEFAULT_FIXED_TIME_STEP);
+            //    framerateController->ConsumePhysicsTime();
+            //}
+            PhysicsManager::Instance().update(deltaTime);
+            
+            input.update(); 
+            if (input.isKeyHeld(K_ESCAPE))
+                break;
+
             sceneGraph.update(deltaTime);
 
-            // Draw scene
-            triangle1->localToWorldSpace();
-            triangle2->localToWorldSpace();
-            sceneGraph.draw(viewMatrix, projectionMatrix);
-            triangle1->worldToLocalSpace();
-            triangle2->worldToLocalSpace();
+            // draw debug lines for all bodies
+            // In your render loop, after sceneGraph.draw:
+            //std::cout << "Number of physics bodies: " << PhysicsManager::Instance().getBodies().size() << "\n";
+            for (auto body : PhysicsManager::Instance().getBodies()) {
+                if (auto obb = dynamic_cast<OBB*>(body->getShape())) {
+                    //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
+                    //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
+                    obb->drawDebugLines(viewMatrix, projectionMatrix);
+                }
+            }
 
+
+            sceneGraph.draw(viewMatrix, projectionMatrix);
+
+            //std::cout << "Angle for box1: " << angle << std::endl;
+            //std::cout << "========================" << std::endl;
             renderer.swapBuffers();
             window.pollEvents();
-        }
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return -1;
-    }
 
-    return 0;
+            framerateController->FrameEnd();
+            deltaTime = framerateController->DeltaTime;
+
+        }
+
+        return 0;
 }

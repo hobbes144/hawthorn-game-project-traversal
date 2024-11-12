@@ -9,8 +9,8 @@
 #include "Vector3.h"
 #include "Matrix4.h"
 
-class Shader;
-class Texture;
+#include "Shader.h"
+#include "Texture.h"
 
 class Material {
 public:

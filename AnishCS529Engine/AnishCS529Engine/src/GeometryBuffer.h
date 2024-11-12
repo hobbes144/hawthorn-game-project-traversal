@@ -35,7 +35,11 @@ public:
   */
   enum class AttributeType {
     Position,
-    Color
+    Normal,
+    TexCoord,
+    Color,
+    Tangent,
+    Bitangent
   };
 
   /**
@@ -43,13 +47,15 @@ public:
   */
   struct AttributeInfo {
     /** 1D vector of size (Dimension * Num Points) */
-    std::vector<float>  data; 
+    std::vector<float>  data;
     /** Number of dimensions */
     GLint               elementSize;
     /** GL type */
     GLenum              type;
     /** If should normalize */
     GLboolean           normalized;
+    /** */
+    GLsizei              stride;
   };
 
   /**
@@ -87,11 +93,15 @@ public:
   GeometryBuffer(GeometryBuffer&&) noexcept;
   GeometryBuffer& operator=(GeometryBuffer&&) noexcept;
 
-  static std::shared_ptr<GeometryBuffer> create(Attributes& attributeData,
-                                                const std::string& name);
-  static std::shared_ptr<GeometryBuffer> create(Attributes& attributeData,
+  static std::shared_ptr<GeometryBuffer> create(
+    Attributes& attributeData,
+    const std::string& name,
+    bool bufferIsInterleaved = true);
+  static std::shared_ptr<GeometryBuffer> create(
+    Attributes& attributeData,
     const std::vector<unsigned int>& indices,
-    const std::string& name);
+    const std::string& name,
+    bool bufferIsInterleaved = true);
 
   void updateVertexAttribute(
     const AttributeType& type, 
@@ -144,7 +154,9 @@ private:
   /** EBO ID */
   GLuint ebo;
 
-  /* Todo: Figure out why this is here. */
+  /** If data is interleaved*/
+  bool isInterleaved;
+  
   /** Number of Vertices */
   unsigned int vertexCount;
   /** Number of Indices */
@@ -168,9 +180,12 @@ private:
   GeometryBuffer(std::string name) : 
     vao(0), vbo(0), ebo(0), vertexCount(0), indexCount(0), name(name) {};
 
-  void initializeVertexBuffers(Attributes& attributeData);
+  void initializeVertexBuffers(
+    Attributes& attributeData);
   void initializeElementBuffers(const std::vector<unsigned int>& indices);
-  void initializeBuffers(Attributes& attributeData);
+
+  void initializeBuffers(
+    Attributes& attributeData);
   void initializeBuffers(
     Attributes& attributeData, 
     const std::vector<unsigned int>& indices);

@@ -28,8 +28,10 @@ public:
     const std::string& name,
     std::shared_ptr<Mesh> mesh,
     std::shared_ptr<Material> material,
-    Renderer* render) : Node(name), mesh(mesh), material(material), 
-                        renderer(renderer), isVisible(true) {}
+    Renderer* render,
+    bool isIndexed = true) : Node(name), mesh(mesh), material(material),
+                             renderer(renderer), isVisible(true),
+                             isIndexed(isIndexed) {}
   virtual ~RenderableNode() = default;
 
   std::shared_ptr<Mesh> getMesh() const { return mesh; }
@@ -45,6 +47,7 @@ protected:
   std::shared_ptr<Mesh> mesh;
   std::shared_ptr<Material> material;
   bool isVisible;
+  bool isIndexed;
 
 private:
   Renderer* renderer;

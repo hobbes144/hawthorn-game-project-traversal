@@ -46,11 +46,23 @@
     <Filter Include="Source Files\ObjectResources">
       <UniqueIdentifier>{90dcd5e3-d0e2-40ce-8411-01aee9c817fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Systems\EventSystem">
+      <UniqueIdentifier>{e68e4713-d63d-45a5-bfa7-673fd71c2a8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems\EventSystem">
+      <UniqueIdentifier>{a32370ec-75bd-4092-ab83-a3dfc1f4e91b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems\PhysicsSystem">
+      <UniqueIdentifier>{3ffc5d6a-2e8e-4fef-a713-f4d10d8e3133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems\PhysicsSystem">
+      <UniqueIdentifier>{fab069bc-abf6-4653-a575-51ce7c3b3d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{9cc0f04c-c641-445a-8618-98b45b698ccc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Matrix4.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
@@ -100,7 +112,34 @@
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="src\EventManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Systems\EventSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AABB.cpp">
+      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Circle.cpp">
+      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionGenerator.cpp">
+      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionListener.cpp">
+      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OBB.cpp">
+      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsBody.cpp">
+      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsManager.cpp">
+      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TriangleTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsTest.cpp">
+      <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,13 +195,43 @@
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\Event.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Systems\EventSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\EventListener.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Systems\EventSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\EventManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Systems\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shape.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AABB.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionGenerator.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Circle.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionEvent.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionListener.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Contact.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OBB.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsBody.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsManager.h">
+      <Filter>Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,7 +242,7 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="src\EventListener.inl">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Systems\EventSystem</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ public:
 
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
-	void draw(GLenum mode, GLint count);
+	void draw(GLenum mode, GLint count, bool indexed);
 
 private:
 	GameWindow& gameWindow;

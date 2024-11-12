@@ -15,13 +15,16 @@ public:
 	std::unique_ptr<Geometry> clone() const override;
 
 	// Mesh-specific functions
+	void setVertexData(const std::shared_ptr<GeometryBuffer>& geometryBuffer);
 	void setVertexData(
-		const std::vector<VertexData>& vertexData, 
+		const std::vector<VertexData>& vertexData,
+		const GLsizei stride,
 		const std::vector<unsigned int>& indices);
 	void setAttributeData(
 		GeometryBuffer::Attribute attr, 
 		const std::vector<float>& data, 
-		int componentsPerVertex);
+		int componentsPerVertex,
+		const GLsizei stride);
 	void setIndices(const std::vector<unsigned int>& newIndices);
 	size_t getVertexCount() const;
 	size_t getIndexCount() const;

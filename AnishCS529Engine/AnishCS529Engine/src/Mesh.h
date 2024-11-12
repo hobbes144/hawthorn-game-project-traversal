@@ -29,18 +29,36 @@ struct VertexData {
 
 class Mesh {
 public:
-  using Attributes = std::unordered_map<GeometryBuffer::AttributeType,
-    std::pair<std::vector<float>, GLint>>;
+  using Attributes = 
+    std::unordered_map<
+      GeometryBuffer::AttributeType,
+      std::pair<
+        std::vector<float>,
+        GLint
+      >
+    >;
 
-  Mesh(Attributes attrData, std::string name);
-  Mesh(Attributes attrData, const std::vector<unsigned int>& indices, std::string name);
+  Mesh(const std::string& name);
+  Mesh(
+    const std::string& name,
+    Attributes attrData,
+    const GLsizei interleavedStride = 0);
+  Mesh(
+    const std::string& name,
+    Attributes attrData,
+    const std::vector<unsigned int>& indices,
+    const GLsizei interleavedStride = 0);
 
   void setAttributeData(
     GeometryBuffer::AttributeType& type,
     const std::vector<float>& data,
-    int componentsPerVertex);
+    int componentsPerVertex,
+    const GLsizei interleavedStride);
 
-  std::shared_ptr<GeometryBuffer> getGeometryBuffer() const { return geometryBuffer; }
+  std::shared_ptr<GeometryBuffer> getGeometryBuffer() const { 
+    return geometryBuffer;
+  }
+
   std::unique_ptr<Mesh> clone() const;
 
   size_t getVertexCount() const;
@@ -51,7 +69,8 @@ private:
 
   void prepareAttributeData(
     GeometryBuffer::ModifiableAttributes& triangleBufferData,
-    const Mesh::Attributes& attrData);
+    const Mesh::Attributes& attrData,
+    const GLsizei stride = 0);
 
   std::string name;
 };

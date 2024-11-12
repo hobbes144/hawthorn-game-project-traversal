@@ -27,12 +27,15 @@ protected:
     std::shared_ptr<GeometryBuffer> geometryBuffer;
 
     // Helper function to prepare attribute data for GeometryBuffer
-    void prepareAttributeData(std::unordered_map<GeometryBuffer::Attribute, std::pair<std::vector<float>, GeometryBuffer::AttributeInfo>>& attributeMap,
-        const std::vector<VertexData>& vertexData) {
+    void prepareAttributeData(
+        std::unordered_map
+        <GeometryBuffer::Attribute, std::pair<std::vector<float>, GeometryBuffer::AttributeInfo>>& attributeMap,
+        const std::vector<VertexData>& vertexData,
+        const GLsizei stride) {
         for (const auto& vda : vertexData) {
             attributeMap[vda.attribute] = {
                 vda.data,
-                {vda.componentsPerVertex, GL_FLOAT, GL_FALSE, 0}
+                {vda.componentsPerVertex, GL_FLOAT, GL_FALSE, stride}
             };
         }
     }

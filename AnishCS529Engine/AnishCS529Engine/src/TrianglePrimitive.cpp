@@ -45,7 +45,7 @@ void TrianglePrimitive::createMesh()
 
   std::vector<unsigned int> indices = { 0, 1, 2 };
 
-  mesh = std::make_shared<Mesh>(triangleMeshData, indices, getName() + "_Mesh");
+  mesh = std::make_shared<Mesh>(getName() + "_Mesh", triangleMeshData, indices);
 }
 
 void TrianglePrimitive::createMaterial()

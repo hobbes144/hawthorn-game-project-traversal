@@ -9,6 +9,7 @@ std::shared_ptr<Texture> Texture::create(const std::string& filepath, Type type)
 
 Texture::Texture(const std::string& filepath, Type type)
     : textureID(0), width(0), height(0), channels(0), format(GL_RGB), type(type) {
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     loadTexture(filepath);
     setupTextureParameters();
 }
@@ -64,10 +65,10 @@ void Texture::loadTexture(const std::string& filepath) {
 
 void Texture::setupTextureParameters() {
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glGenerateMipmap(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, 0);
 }

@@ -2,11 +2,18 @@
 
 Mesh::Mesh(const std::string& name) : name(name) {}
 
+void Mesh::setVertexData( 
+    const std::shared_ptr<GeometryBuffer>& geometryBuffer){
+    this->geometryBuffer = geometryBuffer;
+    this->indices = geometryBuffer->getIndexData();
+}
+
 void Mesh::setVertexData(
-    const std::vector<VertexData>& vertexData, 
+    const std::vector<VertexData>& vertexData,
+    const GLsizei stride,
     const std::vector<unsigned int>& indices) {
     std::unordered_map<GeometryBuffer::Attribute, std::pair<std::vector<float>, GeometryBuffer::AttributeInfo>> attributeMap;
-    prepareAttributeData(attributeMap, vertexData);
+    prepareAttributeData(attributeMap, vertexData, stride);
     geometryBuffer = GeometryBuffer::create(attributeMap, indices, name);
     this->indices = indices;
 }
@@ -16,10 +23,11 @@ void Mesh::setVertexData(
 void Mesh::setAttributeData(
     GeometryBuffer::Attribute attr, 
     const std::vector<float>& data, 
-    int componentsPerVertex) {
+    int componentsPerVertex,
+    const GLsizei stride) {
     VertexData vertexData{ attr, data, componentsPerVertex };
     std::unordered_map<GeometryBuffer::Attribute, std::pair<std::vector<float>, GeometryBuffer::AttributeInfo>> attributeMap;
-    prepareAttributeData(attributeMap, { vertexData });
+    prepareAttributeData(attributeMap, { vertexData }, stride);
 
     if (geometryBuffer) 
         geometryBuffer->updateVertexAttribute(attr, data);

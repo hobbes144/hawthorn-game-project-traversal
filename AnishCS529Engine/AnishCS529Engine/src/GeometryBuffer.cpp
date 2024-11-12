@@ -15,10 +15,16 @@
  * 
  * \param attributeData Attribute type information used to construct the VAO.
  * \param name Name of the Buffer.
+ * \param bufferIsInterleaved Set to true if the data is in a single block with
+ *  interleaved data. If false, each attribute is considered to have its own
+ *  data that needs to be stored in buffer as blocks.
+ *  Defaults to true.
  * \return \b std::shared_ptr<GeometryBuffer> Initialized GeometryBuffer object
  *****************************************************************************/
 std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
-  Attributes& attributeData, const std::string& name) {
+  Attributes& attributeData,
+  const std::string& name,
+  bool bufferIsInterleaved) {
 
   auto buffer = std::shared_ptr<GeometryBuffer>(new GeometryBuffer(name));
   /*
@@ -27,7 +33,7 @@ std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
   * This specifically calls the private constructor here and then sends the
   * object to the shared_ptr instead.
   */
-
+  buffer->isInterleaved = bufferIsInterleaved;
   buffer->initializeBuffers(attributeData);
   return buffer;
 }
@@ -38,12 +44,17 @@ std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
  * \param attribute Data Attribute type information used to construct the VAO.
  * \param indices Indices to be used to construct the EBO.
  * \param name Name of the Buffer.
+ * \param bufferIsInterleaved Set to true if the data is in a single block with
+ *  interleaved data. If false, each attribute is considered to have its own
+ *  data that needs to be stored in buffer as blocks.
+ *  Defaults to true.
  * \return \b std::shared_ptr<GeometryBuffer> Initialized GeometryBuffer object
  *****************************************************************************/
 std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
   Attributes& attributeData,
   const std::vector<unsigned int>& indices,
-  const std::string& name) {
+  const std::string& name,
+  bool bufferIsInterleaved) {
   // factory implementation
   auto buffer = std::shared_ptr<GeometryBuffer>(new GeometryBuffer(name));
   /*
@@ -52,7 +63,10 @@ std::shared_ptr<GeometryBuffer> GeometryBuffer::create(
   * fact that create is static, it internally tries to access the 
   * constructor, and since the constructor is private, it can't.
   */
-  buffer->initializeBuffers(attributeData, indices);
+  buffer->isInterleaved = bufferIsInterleaved;
+  buffer->initializeBuffers(
+    attributeData,
+    indices);
   return buffer;
 }
 
@@ -160,6 +174,7 @@ void GeometryBuffer::unbind() const {
  * \param attributeData Attributes object that contains the VBO info.
  *****************************************************************************/
 void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
+
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
@@ -169,33 +184,60 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
     totalSize += (info.data.size() * sizeof(float));
   }
 
-  auto it = attributeData.begin();
-  vertexCount = (unsigned int)(it->second.data.size() / it->second.elementSize);
 
-  glBufferData(GL_ARRAY_BUFFER, totalSize, nullptr, GL_STATIC_DRAW);
+  // When data is given in interleaved format.
+  if (isInterleaved) {
+    auto it = attributeData.at(AttributeType::Position);
+    vertexCount = (unsigned int)(it.data.size() / it.stride);
 
-  /**
-  * We are storing the data as blocks of each attribute. We are not using the
-  * interleaved data approach.
-  */
-  GLuint index = 0;
-  for (const auto& [type, info] : attributeData) {
-    glBufferSubData(
-      GL_ARRAY_BUFFER,
-      attributeOffsets[type],
-      info.data.size() * sizeof(float),
-      info.data.data());
+    // When in interleaved format, only the first attribute needs to have data.
+    // Position is assumed to be the first attribute, which has the data.
+    glBufferData(GL_ARRAY_BUFFER, totalSize, it.data.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(
-      index,
-      info.elementSize,
-      info.type,
-      info.normalized,
-      info.elementSize * sizeof(float),
-      (void*)attributeOffsets[type]);
+    GLuint index = 0;
+    for (const auto& [type, info] : attributeData) {
+      glVertexAttribPointer(
+        index,
+        info.elementSize,
+        info.type,
+        info.normalized,
+        info.stride,
+        (void*)attributeOffsets[type]);
 
-    glEnableVertexAttribArray(index);
-    index++;
+      glEnableVertexAttribArray(index);
+      index++;
+    }
+  }
+  // When data is given in block format
+  else {
+    auto it = attributeData.begin();
+    vertexCount = (unsigned int)(it->second.data.size() / it->second.elementSize);
+
+    glBufferData(GL_ARRAY_BUFFER, totalSize, nullptr, GL_STATIC_DRAW);
+
+    /**
+    * We are storing the data as blocks of each attribute. We are not using the
+    * interleaved data approach.
+    */
+    GLuint index = 0;
+    for (const auto& [type, info] : attributeData) {
+      glBufferSubData(
+        GL_ARRAY_BUFFER,
+        attributeOffsets[type],
+        info.data.size() * sizeof(float),
+        info.data.data());
+
+      glVertexAttribPointer(
+        index,
+        info.elementSize,
+        info.type,
+        info.normalized,
+        info.elementSize * sizeof(float),
+        (void*)attributeOffsets[type]);
+
+      glEnableVertexAttribArray(index);
+      index++;
+    }
   }
 }
 
@@ -206,6 +248,7 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
  *****************************************************************************/
 void GeometryBuffer::initializeElementBuffers(
   const std::vector<unsigned int>& indices) {
+
   indexCount = (unsigned int)indices.size();
 
   glGenBuffers(1, &ebo);
@@ -230,6 +273,7 @@ void GeometryBuffer::initializeElementBuffers(
  *****************************************************************************/
 void GeometryBuffer::initializeBuffers(
   Attributes& attributeData) {
+
   glGenVertexArrays(1, &vao);
   glBindVertexArray(vao);
   initializeVertexBuffers(attributeData);
@@ -253,8 +297,10 @@ void GeometryBuffer::initializeBuffers(
 void GeometryBuffer::initializeBuffers(
   Attributes& attributeData,
   const std::vector<unsigned int>& indices) {
+
   glGenVertexArrays(1, &vao);
   glBindVertexArray(vao);
+
   initializeVertexBuffers(attributeData);
   initializeElementBuffers(indices);
 
@@ -272,15 +318,22 @@ void GeometryBuffer::updateVertexAttribute(
   const AttributeType& type, 
   const std::vector<float>& data) {
 
+  if (isInterleaved) {
+    throw std::runtime_error("Invalid Attribute update");
+  }
+
   if (!hasAttribute(type)) {
     throw std::runtime_error("Attribute not found in buffer");
   }
+  glBindVertexArray(vbo);
 
   glBufferSubData(
     GL_ARRAY_BUFFER,
     attributeOffsets[type],
     data.size() * sizeof(float),
     data.data());
+
+  glBindVertexArray(0);
 }
 
 /*!****************************************************************************
@@ -290,11 +343,15 @@ void GeometryBuffer::updateVertexAttribute(
  *****************************************************************************/
 void GeometryBuffer::updateIndices(const std::vector<unsigned int>& indices) {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+
   glBufferData(
     GL_ELEMENT_ARRAY_BUFFER, 
     indices.size() * sizeof(unsigned int), 
     indices.data(), 
     GL_STATIC_DRAW);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+  indexCount = indices.size();
 }
 
 /*!****************************************************************************

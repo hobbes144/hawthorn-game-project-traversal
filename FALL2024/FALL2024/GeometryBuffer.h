@@ -57,9 +57,10 @@ public:
 
     // Utility methods
     bool    hasAttribute(Attribute attr) const;
-    GLuint  getVAO() const { return vao; }
-    GLuint  getVBO() const { return vbo; }
-    GLuint  getEBO() const { return ebo; }
+    auto    getIndexData()  const { return indexData; }
+    GLuint  getVAO()        const { return vao; }
+    GLuint  getVBO()        const { return vbo; }
+    GLuint  getEBO()        const { return ebo; }
 
 private:
     GeometryBuffer(const std::string& name);
@@ -75,4 +76,5 @@ private:
     std::unordered_map<Attribute, GLuint> attributeOffsets; // To track when each attribute starts
     std::unordered_map<Attribute, AttributeInfo> attributeInfos;
     std::string name;  // For debugging and resource management
+    std::vector<unsigned int> indexData;
 };

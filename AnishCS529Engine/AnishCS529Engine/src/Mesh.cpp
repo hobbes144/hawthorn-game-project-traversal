@@ -10,38 +10,53 @@
  *****************************************************************************/
 #include "Mesh.h"
 
-Mesh::Mesh(Attributes attrData, std::string name) {
-  GeometryBuffer::ModifiableAttributes geometryBufferAttr;
-  prepareAttributeData(geometryBufferAttr, attrData);
-  
-  /* Todo: Allow for modifications? */
-  /*if (geometryBuffer)
-    geometryBuffer->updateVertexAttribute(attr, data);
+Mesh::Mesh(const std::string& name) : name(name) {}
 
-  else*/
+Mesh::Mesh(
+  const std::string& name,
+  Attributes attrData,
+  const GLsizei interleavedStride) {
+
+  GeometryBuffer::ModifiableAttributes geometryBufferAttr;
+  prepareAttributeData(geometryBufferAttr, attrData, interleavedStride);
+
   this->name = name;
-  geometryBuffer = GeometryBuffer::create(geometryBufferAttr, name);
+  geometryBuffer = GeometryBuffer::create(
+    geometryBufferAttr, 
+    name, 
+    (interleavedStride != 0));
 
 }
 
-Mesh::Mesh(Attributes attrData, const std::vector<unsigned int>& indices, std::string name) {
+Mesh::Mesh(
+  const std::string& name,
+  Attributes attrData,
+  const std::vector<unsigned int>& indices,
+  const GLsizei interleavedStride) {
+
   GeometryBuffer::ModifiableAttributes geometryBufferAttr;
-  prepareAttributeData(geometryBufferAttr, attrData);
+  prepareAttributeData(geometryBufferAttr, attrData, interleavedStride);
 
   this->name = name;
-  geometryBuffer = GeometryBuffer::create(geometryBufferAttr, indices, name);
+  geometryBuffer = GeometryBuffer::create(
+    geometryBufferAttr,
+    indices,
+    name,
+    (interleavedStride != 0));
 }
 
 void Mesh::prepareAttributeData(
   GeometryBuffer::ModifiableAttributes& triangleBufferData,
-  const Mesh::Attributes& attrData) {
+  const Mesh::Attributes& attrData,
+  const GLsizei stride) {
 
   for (const auto& [attr, info] : attrData) {
     triangleBufferData[attr] = {
       info.first,
       info.second,
       GL_FLOAT,
-      GL_FALSE
+      GL_FALSE,
+      stride
     };
   }
 }
@@ -49,7 +64,8 @@ void Mesh::prepareAttributeData(
 void Mesh::setAttributeData(
   GeometryBuffer::AttributeType& type,
   const std::vector<float>& data,
-  int componentsPerVertex) {
+  int componentsPerVertex,
+  const GLsizei interleavedStride = 0) {
 
   if (geometryBuffer)
     geometryBuffer->updateVertexAttribute(type, data);
@@ -58,8 +74,8 @@ void Mesh::setAttributeData(
     GeometryBuffer::ModifiableAttributes attributeMap;
     Mesh::Attributes attrData;
     attrData[type] = { data , componentsPerVertex };
-    prepareAttributeData(attributeMap, attrData);
-    geometryBuffer = GeometryBuffer::create(attributeMap, name);
+    prepareAttributeData(attributeMap, attrData, interleavedStride);
+    geometryBuffer = GeometryBuffer::create(attributeMap, name, false);
   }
 }
 
