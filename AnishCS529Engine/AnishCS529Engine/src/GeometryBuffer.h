@@ -167,9 +167,9 @@ private:
   bool isInterleaved;
   
   /** Number of Vertices */
-  unsigned int vertexCount;
+  GLsizei vertexCount;
   /** Number of Indices */
-  unsigned int indexCount;
+  GLsizei indexCount;
 
   /**
    * Offsets for each attribute
@@ -177,7 +177,7 @@ private:
    * Since we are using blocked attributes, this is start of each attribute
    * block
    */
-  std::unordered_map<AttributeType, size_t> attributeOffsets;
+  std::unordered_map<AttributeType, GLsizeiptr> attributeOffsets;
 
   /* Todo: Convert to interleaved and use the below */
   //std::unordered_map<AttributeType, GLsizei> attributeStrides;
@@ -193,7 +193,8 @@ private:
 
   /** Private constructor to enforce factory */
   GeometryBuffer(std::string name) : 
-    vao(0), vbo(0), ebo(0), vertexCount(0), indexCount(0), name(name) {};
+    vao(0), vbo(0), ebo(0), vertexCount(0), 
+    indexCount(0), name(name), isInterleaved(true) {};
 
   void initializeVertexBuffers(
     Attributes& attributeData);

@@ -29,7 +29,7 @@ Node::Node(std::string name) :
  *****************************************************************************/
 void Node::addChild(SharedNode child) {
   children.push_back(child);
-  child->siblingNumber = children.size() - 1;
+  child->siblingNumber = static_cast<unsigned int>(children.size()) - 1;
   child->parent = this;
 }
 
@@ -74,6 +74,8 @@ Node::SharedNode Node::findNodeFast(unsigned int id) {
     }
 
   }
+
+  return nullptr;
 }
 
 /*!****************************************************************************
@@ -99,17 +101,52 @@ void Node::updateSiblingNumbers(unsigned int removedIndex) {
  * \param node
  *****************************************************************************/
 void Node::removeNode(SharedNode node) {
-  Node* parent = node->getParent();
-  unsigned int removedIndex = node->siblingNumber;
+  auto foundNode = findNode(node->getID());
+  // no node found, nothing to do
+  if (!foundNode)
+    return;
 
+  // node found
+  // 0. node will always have a parent (root is overrided)
+  Node* parent = foundNode->getParent();
+
+  // 1. erase the found node from parent's children vector and update
+  // sibling numbers
+  unsigned int removedIndex = foundNode->siblingNumber;
+  // still have a reference shared in foundNode variable
   parent->children.erase(parent->children.begin() + removedIndex);
   parent->updateSiblingNumbers(removedIndex);
 
-  for (auto& child : node->getChildren()) parent->addChild(child);
+  // 2. foundNode has children, and now that we reset the children of parent,
+  // let's just push back the new children
+  for (auto& child : foundNode->getChildren()) parent->addChild(child);
 
-  node->children.clear();
-  node->parent = nullptr;
-  node->siblingNumber = 0;
+  // 3. clear foundNode
+  foundNode->children.clear();
+  foundNode->parent = nullptr;
+  foundNode->siblingNumber = 0;
+
+  // foundNode will be automatically destroyed here since all references are
+  // deleted.
+}
+
+/*!****************************************************************************
+ * \brief Reparent a node to a new node
+ * 
+ * \param dstNode
+ *****************************************************************************/
+void Node::reparent(SharedNode dstNode) {
+  //auto thisNode = shared_from_this(); // sasafe usage of 'this'
+
+  Node* parent = getParent();
+  // 1. erase the found node from parent's children vector and update sibling numbers
+  unsigned int removedIndex = siblingNumber;
+  parent->children.erase(parent->children.begin() + removedIndex); 
+  // still have a reference shared in foundNode variable
+  parent->updateSiblingNumbers(removedIndex);
+
+  // 2. attach this to dstNode
+  dstNode->addChild(shared_from_this());
 }
 
 /*!****************************************************************************
@@ -174,4 +211,40 @@ void Node::setLocalRotation(const Vector3& rotation) {
 void Node::setLocalScaling(const Vector3& scaling) {
   localTransform.setScaling(scaling);
   isLocalSpace = true;  // Ensure we're in local space after this operation
+}
+
+/*!****************************************************************************
+ * \brief Debugging printing
+ * 
+ * \param os Stream to output to.
+ * \param node Node to start with.
+ * \param depth Depth to which nodes are printed.
+ *****************************************************************************/
+void Node::printNodeRecursive(std::ostream& os, Node* node, int depth) {
+  if (!node) return;
+
+  // Print indentation
+  for (int i = 0; i < depth; ++i) {
+    os << "  ";
+  }
+
+  // Print current node
+  os << "+-" << node->getName() << std::endl;
+
+  // Print children
+  for (const auto& child : node->getChildren()) {
+    printNodeRecursive(os, child.get(), depth + 1);
+  }
+}
+
+/*!****************************************************************************
+ * \brief Debugging printing
+ * 
+ * \param os Stream to output to.
+ * \param node Node to start with.
+ * \return \b std::ostream& The output stream.
+ *****************************************************************************/
+std::ostream& operator<<(std::ostream& os, Node& node) {
+  Node::printNodeRecursive(os, &node, 0);
+  return os;
 }

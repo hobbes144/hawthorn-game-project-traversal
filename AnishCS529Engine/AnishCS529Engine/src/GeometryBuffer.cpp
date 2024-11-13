@@ -182,16 +182,16 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
   // When data is given in interleaved format.
   if (isInterleaved) {
     GLsizeiptr totalSize = 0;
-    unsigned int offset = 0;
+    GLsizeiptr offset = 0;
     for (const auto& [type, info] : attributeData) {
       attributeOffsets[type] = offset;
-      offset += info.elementSize * sizeof(float);
+      offset += static_cast<GLsizeiptr>(info.elementSize * sizeof(float));
       totalSize += info.data.size() * sizeof(float);
       bufferAttributeData[type] = info;
     }
 
     auto it = attributeData.at(AttributeType::Position);
-    vertexCount = (unsigned int)(it.data.size() / it.elementSize);
+    vertexCount = static_cast<GLsizei>(it.data.size() / it.elementSize);
 
     // When in interleaved format, only the first attribute needs to have data.
     // Position is assumed to be the first attribute, which has the data.
@@ -213,7 +213,7 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
   }
   // When data is given in block format
   else {
-    size_t totalSize = 0;
+    GLsizeiptr totalSize = 0;
     for (const auto& [type, info] : attributeData) {
       attributeOffsets[type] = totalSize;
       totalSize += (info.data.size() * sizeof(float));
@@ -221,7 +221,7 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
     }
 
     auto it = attributeData.begin();
-    vertexCount = (unsigned int)(it->second.data.size() / it->second.elementSize);
+    vertexCount = static_cast<GLsizei>(it->second.data.size() / it->second.elementSize);
 
     glBufferData(GL_ARRAY_BUFFER, totalSize, nullptr, GL_STATIC_DRAW);
 
@@ -366,7 +366,7 @@ void GeometryBuffer::updateIndices(const std::vector<unsigned int>& indices) {
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-  indexCount = indices.size();
+  indexCount = static_cast<GLsizei>(indices.size());
   this->indexData = indices;
 }
 

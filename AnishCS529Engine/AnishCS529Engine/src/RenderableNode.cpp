@@ -30,8 +30,14 @@ void RenderableNode::draw(const Matrix4& view, const Matrix4& projection) {
   geometryBuffer->bind();
 
   if (mesh->hasAttribute(GeometryBuffer::AttributeType::Position)) {
-    renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), isIndexed);
+    if (isIndexed) {
+      renderer->draw(GL_TRIANGLES, geometryBuffer->getIndexCount(), isIndexed);
+    }
+    else {
+      renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), isIndexed);
+    }
   }
+
   geometryBuffer->unbind();
 
   for (auto& child : getChildren()) {

@@ -43,14 +43,16 @@ protected:
   bool isLocalSpace;
 
   void updateSiblingNumbers(unsigned int removedIndex);
+  static void printNodeRecursive(std::ostream& os, Node* node, int depth);
+
+  friend std::ostream& operator<<(std::ostream& os, Node& node);
 
 public:
   Node(std::string name);
   virtual ~Node() { std::cout << "Node " << name << " destroyed\n"; }//= default;
 
   virtual void removeNode(SharedNode node);
-  /* Todo: implement reparent */
-  // virtual void reparent(SharedNode node);
+  virtual void reparent(SharedNode node);
   virtual void update(float deltaTime);
   void worldToLocalSpace();
   void localToWorldSpace();

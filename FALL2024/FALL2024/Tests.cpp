@@ -246,3 +246,7 @@ void testNodeObjects() {
 
     return;
 }
+
+//void main() {
+//  runTests();
+//}

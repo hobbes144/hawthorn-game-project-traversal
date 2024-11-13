@@ -58,7 +58,7 @@ public:
     // Draw the entire scene graph if and only if Node is an instance of RenderableNode
     void draw(const Matrix4& view, const Matrix4& projection) const;
 
-    
+    void printSceneTree();
 
     // inline functions to get data from root, if needed
     // Root node transform getters

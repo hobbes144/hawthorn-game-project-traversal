@@ -79,6 +79,7 @@ int main() {
         float deltaTime = 0.0f;
         int expectedFrameRate = 60; // 1000;
         framerateController->SetTargetFramerate(expectedFrameRate);
+        sceneGraph.printSceneTree();
 
         
         while (!window.shouldClose()) {

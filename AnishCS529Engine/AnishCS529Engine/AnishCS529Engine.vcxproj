@@ -31,6 +31,7 @@
     <ClCompile Include="src\Circle.cpp" />
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
+    <ClCompile Include="src\EngineTests.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\FramerateController.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="src\CollisionGenerator.h" />
     <ClInclude Include="src\CollisionListener.h" />
     <ClInclude Include="src\Contact.h" />
+    <ClInclude Include="src\EngineTests.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventListener.h" />
     <ClInclude Include="src\EventManager.h" />

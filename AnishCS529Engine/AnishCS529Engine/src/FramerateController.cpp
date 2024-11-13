@@ -27,16 +27,16 @@ FramerateController * FramerateController::getController() {
  * 
  *****************************************************************************/
 FramerateController::FramerateController() : 
-  targetFrameTime(1.0 / 60.0),
-  timeAtFrameStart(glfwGetTime()),
-  timeAtFrameEnd(glfwGetTime()),
-  renderTime(0.0),
-  lastFrameTime(0.0),
+  targetFrameTime(1.0f / 60.0f),
+  timeAtFrameStart(static_cast<float>(glfwGetTime())),
+  timeAtFrameEnd(static_cast<float>(glfwGetTime())),
+  renderTime(0.0f),
+  lastFrameTime(0.0f),
   frameCount(0),
   framesSinceLastFPSQuery(0),
-  timeOfLastFPSQuery(glfwGetTime()),
-  physicsAccumulatorTimestep(1.0/120.0),
-  physicsAccumulator(0.0)
+  timeOfLastFPSQuery(static_cast<float>(glfwGetTime())),
+  physicsAccumulatorTimestep(1.0f/120.0f),
+  physicsAccumulator(0.0f)
 #ifdef ENABLE_ADDITIONAL_ACCUMULATORS
   ,rateControllersRegistered(0),
   rateControllerTargetRates({}),
@@ -57,7 +57,7 @@ FramerateController::FramerateController() :
  * \param framerate The target framerate in frames per second.
  *****************************************************************************/
 void FramerateController::setTargetFramerate(const unsigned int framerate) {
-  targetFrameTime = 1.0/framerate;
+  targetFrameTime = 1.0f/framerate;
 }
 
 /*!****************************************************************************
@@ -67,7 +67,7 @@ void FramerateController::setTargetFramerate(const unsigned int framerate) {
  * 
  *****************************************************************************/
 void FramerateController::startFrame() {
-  timeAtFrameStart = glfwGetTime();
+  timeAtFrameStart = static_cast<float>(glfwGetTime());
 }
 
 /*!****************************************************************************
@@ -78,15 +78,15 @@ void FramerateController::startFrame() {
  * 
  *****************************************************************************/
 void FramerateController::endFrame() {
-  renderTime = glfwGetTime() - timeAtFrameStart;
+  renderTime = static_cast<float>(glfwGetTime()) - timeAtFrameStart;
   frameCount++; framesSinceLastFPSQuery++;
-  /*double remainingTime = targetFrameTime - renderTime;
+  /*float remainingTime = targetFrameTime - renderTime;
   if (remainingTime > 0) {
     std::this_thread::sleep_for(
-      std::chrono::duration<double>(remainingTime * 0.9));
+      std::chrono::duration<float>(remainingTime * 0.9));
   }*/
-  while ((glfwGetTime() - timeAtFrameStart) < targetFrameTime);
-  timeAtFrameEnd = glfwGetTime();
+  while ((static_cast<float>(glfwGetTime()) - timeAtFrameStart) < targetFrameTime);
+  timeAtFrameEnd = static_cast<float>(glfwGetTime());
   lastFrameTime = timeAtFrameEnd - timeAtFrameStart;
   physicsAccumulator += lastFrameTime;
 
@@ -103,41 +103,41 @@ void FramerateController::endFrame() {
  * This is calculated as the average of frames created per second since the
  * last getFPS() call.
  * 
- * \return \b double Current frames per second.
+ * \return \b float Current frames per second.
  *****************************************************************************/
-double FramerateController::getFPS() {
-  double lastQuery = timeOfLastFPSQuery;
+float FramerateController::getFPS() {
+  float lastQuery = timeOfLastFPSQuery;
   long int numFrames = framesSinceLastFPSQuery;
-  timeOfLastFPSQuery = glfwGetTime();
+  timeOfLastFPSQuery = static_cast<float>(glfwGetTime());
   framesSinceLastFPSQuery = 0;
-  return (numFrames / (glfwGetTime() - lastQuery));
+  return (numFrames / (static_cast<float>(glfwGetTime()) - lastQuery));
 }
 
 /*!****************************************************************************
  * \brief Get last frame's render time
  * 
- * \return \b double Render time for last frame.
+ * \return \b float Render time for last frame.
  *****************************************************************************/
-double FramerateController::getRenderTime() {
+float FramerateController::getRenderTime() {
   return renderTime;
 }
 
 /*!****************************************************************************
  * \brief Get frame time
  * 
- * \return \b double Time between start and end of last frame.
+ * \return \b float Time between start and end of last frame.
  *****************************************************************************/
-double FramerateController::getFrameTime() {
+float FramerateController::getFrameTime() {
   return lastFrameTime;
 }
 
 /*!****************************************************************************
  * \brief Get time
  * 
- * \return \b double Time.
+ * \return \b float Time.
  *****************************************************************************/
-double FramerateController::getTime() {
-  return glfwGetTime(); 
+float FramerateController::getTime() {
+  return static_cast<float>(glfwGetTime());
 }
 
 /*!****************************************************************************
@@ -145,7 +145,7 @@ double FramerateController::getTime() {
  * 
  * \param timestep Timestep of the accumulator.
  *****************************************************************************/
-void FramerateController::setPhysicsTimestep(double timestep) {
+void FramerateController::setPhysicsTimestep(float timestep) {
   physicsAccumulatorTimestep = timestep;
 }
 
@@ -168,7 +168,7 @@ void FramerateController::consumePhysicsTime()
   physicsAccumulator -= physicsAccumulatorTimestep;
 }
 
-double FramerateController::getAccumulatorAlpha() const {
+float FramerateController::getAccumulatorAlpha() const {
   return physicsAccumulator / physicsAccumulatorTimestep;
 }
 
@@ -203,8 +203,8 @@ const unsigned int FramerateController::createRateController(
 
   unsigned int rateControllerId = rateControllersRegistered;
   rateControllersRegistered++;
-  rateControllerTimes.push_back(glfwGetTime());
-  rateControllerTimes[rateControllerId] = glfwGetTime();
+  rateControllerTimes.push_back(static_cast<float>(glfwGetTime()));
+  rateControllerTimes[rateControllerId] = static_cast<float>(glfwGetTime());
   rateControllerTargetRates.push_back(1.0 / rate);
   rateControllerTargetRates[rateControllerId] = (1.0 / rate);
 
@@ -226,7 +226,7 @@ bool FramerateController::rateControllerShouldFire(
   if (rateControllerId >= rateControllersRegistered) {
     return true;
   }
-  double currentTime = glfwGetTime();
+  float currentTime = static_cast<float>(glfwGetTime());
   if ((currentTime - rateControllerTimes[rateControllerId]) > 
     rateControllerTargetRates[rateControllerId]) {
 
@@ -250,7 +250,7 @@ bool FramerateController::rateControllerShouldFire(
  * \param timestep
  * \return \b 
  *****************************************************************************/
-const unsigned int FramerateController::createAccumulator(const double timestep) {
+const unsigned int FramerateController::createAccumulator(const float timestep) {
   unsigned int accumulatorId = accumulatorsRegistered;
   accumulatorsRegistered++;
   accumulatorTimesteps.push_back(timestep);
@@ -281,9 +281,9 @@ void FramerateController::consumeAccumulator(const unsigned int accumulatorId) {
  * \brief Get the number of accumulated timesteps
  * 
  * \param accumulatorId ID of the accumulator.
- * \return \b double Number of accumulated timesteps.
+ * \return \b float Number of accumulated timesteps.
  *****************************************************************************/
-double FramerateController::getAccumulatorAlpha(const unsigned int accumulatorId) const {
+float FramerateController::getAccumulatorAlpha(const unsigned int accumulatorId) const {
   return accumulatorTimes[accumulatorId] / accumulatorTimesteps[accumulatorId];
 }
 #endif // ENABLE_ADDITIONAL_ACCUMULATORS

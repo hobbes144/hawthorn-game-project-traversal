@@ -57,29 +57,32 @@ Shape* PhysicsBody::getShape()          const { return collisionShape.get(); }
 RenderableNode* PhysicsBody::getOwner() const { return owner; }
 
 void PhysicsBody::integrate(float dt) {
-    if (isStatic) return;
+  if ( isStatic ) return;
 
-    // TODO: Semi-implicit Euler integration
+  // TODO: Semi-implicit Euler integration
+  // implement here ->:
+  acceleration = force * (1/mass);
+  velocity = velocity + ( acceleration * dt );
+
+  // TODO: Update position through the owner's transform
+  Vector3 newPosition = owner->getLocalPosition() + ( velocity * dt );
+  owner->setLocalPosition(newPosition);
+
+  // Update collision shape
+  if ( collisionShape ) {
+    // Since we don't have direct access to transform,
+    // we'll create a Transform object with the current state
+    Transform currentTransform;
+    currentTransform.setPosition(owner->getLocalPosition());
+    currentTransform.setRotation(owner->getLocalRotation());
+    currentTransform.setScale(owner->getLocalScale());
+
+    // TODO: What else do you have to update during the integration
+    // besides the owner's position?
     // implement here ->:
+    collisionShape->update(currentTransform);
+  }
 
-    // TODO: Update position through the owner's transform
-    Vector3 newPosition = Vector3();// <- how do you get this new value :) ??? 
-    owner->setLocalPosition(newPosition);
-
-    // Update collision shape
-    if (collisionShape) {
-        // Since we don't have direct access to transform,
-        // we'll create a Transform object with the current state
-        Transform currentTransform;
-        currentTransform.setPosition(owner->getLocalPosition());
-        currentTransform.setRotation(owner->getLocalRotation());
-        currentTransform.setScale(owner->getLocalScale());
-
-        // TODO: What else do you have to update during the integration
-        // besides the owner's position?
-        // implement here ->:
-    }
-
-    // Reset force accumulator
-    force = Vector3(0, 0, 0);
+  // Reset force accumulator
+  force = Vector3(0, 0, 0);
 }

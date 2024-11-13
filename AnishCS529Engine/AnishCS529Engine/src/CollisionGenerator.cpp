@@ -29,7 +29,7 @@ bool CollisionGenerator::generateContact(PhysicsBody* body1, PhysicsBody* body2,
 
 bool CollisionGenerator::AABBvsAABB(const Shape* a, const Shape* b, Contact& contact) {
   //TODO: Implement your algorithm here
-
+  
   return true;
 }
 

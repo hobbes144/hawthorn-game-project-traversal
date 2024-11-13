@@ -29,11 +29,14 @@
 class Matrix4
 {
   /*
-    We will store matrix as:
-      i=0  [ x0, x1, x2, x3,
-      i=1    y0, y1, y2, y3,
-      i=2    z0, z1, z2, z3,
-      i=3    w0, w1, w2, w3 ]
+    We will store matrix in column major:
+               [
+    right    =   x0, y0, z0, w0,
+    up       =   x1, y1, z1, w1,
+    forward  =   x2, y2, z2, w2,
+    position =   x3, y3, z3, w3,
+               ]
+    Note that this is transposed form of a regular matrix.
   */
 private:
   /** Data of the Matrix4 object */

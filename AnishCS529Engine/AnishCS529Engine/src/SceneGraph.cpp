@@ -44,13 +44,12 @@ void SceneGraph::update(float deltaTime) {
 void SceneGraph::drawNode(const std::shared_ptr<Node>& node,
   const Matrix4& view, const Matrix4& projection) const {
   auto renderableNode = std::dynamic_pointer_cast<RenderableNode>(node);
-  if (renderableNode) {
+  if (renderableNode != nullptr) {
     renderableNode->draw(view, projection);
   }
-  else {
-    for (const auto& child : node->getChildren()) {
-      drawNode(child, view, projection);
-    }
+
+  for (const auto& child : node->getChildren()) {
+    drawNode(child, view, projection);
   }
 }
 
@@ -58,4 +57,6 @@ void SceneGraph::draw(const Matrix4& view, const Matrix4& projection) const {
   drawNode(root, view, projection);
 }
 
-
+void SceneGraph::printSceneTree() {
+  std::cout << *root << std::endl;
+}

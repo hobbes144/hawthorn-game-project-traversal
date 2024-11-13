@@ -118,7 +118,7 @@ void GameWindow::setShouldClose() const
  *****************************************************************************/
 void GameWindow::pollEvents()
 {
-  glfwPollEvents(); /* Todo: Why is this a part of window? */
+  glfwPollEvents();
 }
 
 /*!****************************************************************************

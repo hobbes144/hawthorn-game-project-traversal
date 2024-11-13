@@ -28,10 +28,9 @@ private:
       throw std::runtime_error("ERROR::SCENEGRAPH::ROOTNODE::REMOVENODE::FORBIDDEN");
     }
 
-    /* Todo: Implement this when reparent is implented in Node. */
-    /*void reparent(SharedNode node) override {
+    void reparent(SharedNode node) override {
       throw std::runtime_error("ERROR::SCENEGRAPHvoid::ROOTNODE::REPARENTNODE::FORBIDDEN");
-    }*/
+    }
 
     void update(float deltaTime) override {
       localTransform = localTransform;
@@ -57,6 +56,7 @@ public:
 
   void update(float deltaTime);
   void draw(const Matrix4& view, const Matrix4& projection) const;
+  void printSceneTree();
 
   Vector3 getRootPosition() const { return root->getLocalPosition(); }
   Vector3 getRootRotation() const { return root->getLocalRotation(); }

@@ -48,37 +48,37 @@ int main() {
 
   // Drawable objects
   auto box1 = std::make_shared<GameObject>("Icon1", &renderer);
-  box1->setLocalPosition(Vector3(-1.0f, 0.0f, 0.0f));
+  box1->setLocalPosition(Vector3(0.25f, 0.0f, 0.0f));
   box1->setLocalScaling(Vector3(100.0f, 100.f, 1.0f));
 
   auto box2 = std::make_shared<GameObject>("Icon2", &renderer);
-  box2->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
+  box2->setLocalPosition(Vector3(0.75f, 0.0f, 0.0f));
   box2->setLocalScaling(Vector3(100.0f, 100.f, 1.0f));
 
   sceneGraph.addNode(box1);
   sceneGraph.addNode(box2);
 
-  //// Create instances of bodies for boxes
-  //auto body1 = std::make_unique<PhysicsBody>(box1.get());
-  //auto body2 = std::make_unique<PhysicsBody>(box2.get());
+  // Create instances of bodies for boxes
+  auto body1 = std::make_unique<PhysicsBody>(box1.get());
+  auto body2 = std::make_unique<PhysicsBody>(box2.get());
 
-  //// Create OBBs
-  //auto shape1 = std::make_shared<OBB>(
-  //    Vector3(-0.0f, -0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-  //    Vector3(0.5f, 0.5f, 0.0f));
-  //auto shape2 = std::make_shared<OBB>(
-  //    Vector3(-0.0f, -0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-  //    Vector3(0.5f, 0.5f, 0.0f));
-  ////shape1->initializeDebugDraw(&renderer);
-  ////shape2->initializeDebugDraw(&renderer);
+  // Create OBBs
+  auto shape1 = std::make_shared<OBB>(
+      Vector3(-0.0f, -0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+      Vector3(0.5f, 0.5f, 0.0f));
+  auto shape2 = std::make_shared<OBB>(
+      Vector3(-0.0f, -0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+      Vector3(0.5f, 0.5f, 0.0f));
+  shape1->initializeDebugDraw(&renderer);
+  shape2->initializeDebugDraw(&renderer);
 
-  //// Create AABB shapes
-  //body1->setShape(shape1);
-  //body2->setShape(shape2);
+  // Create AABB shapes
+  body1->setShape(shape1);
+  body2->setShape(shape2);
 
-  //// Add bodies to physics system
-  //PhysicsManager::Instance().addBody(body1.get());
-  //PhysicsManager::Instance().addBody(body2.get());
+  // Add bodies to physics system
+  PhysicsManager::Instance().addBody(body1.get());
+  PhysicsManager::Instance().addBody(body2.get());
 
 
   float angle = 0.0f;
@@ -86,7 +86,7 @@ int main() {
   float deltaTime = 0.0f;
   int expectedFrameRate = 60; // 1000;
   framerateController->setTargetFramerate(expectedFrameRate);
-
+  sceneGraph.printSceneTree();
 
   while (!window.getShouldClose()) {
 
@@ -104,7 +104,7 @@ int main() {
       velocity.y = speed;
     if (input.isKeyHeld(KEY_S))
       velocity.y = -speed;
-    //body1->setVelocity(velocity);
+    body1->setVelocity(velocity);
 
     if (input.isKeyHeld(KEY_LEFT))
       box1->setLocalRotation(Vector3(0.0f, 0.0f, (angle -= 0.01f)));
@@ -121,7 +121,7 @@ int main() {
     //    PhysicsManager::Instance().update(FramerateController::DEFAULT_FIXED_TIME_STEP);
     //    framerateController->ConsumePhysicsTime();
     //}
-    //PhysicsManager::Instance().update(deltaTime);
+    PhysicsManager::Instance().update(deltaTime);
 
     input.update();
     if (input.isKeyHeld(KEY_ESCAPE))
@@ -132,13 +132,13 @@ int main() {
     // draw debug lines for all bodies
     // In your render loop, after sceneGraph.draw:
     //std::cout << "Number of physics bodies: " << PhysicsManager::Instance().getBodies().size() << "\n";
-    //for (auto body : PhysicsManager::Instance().getBodies()) {
-    //  if (auto obb = dynamic_cast<OBB*>(body->getShape())) {
-    //    //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
-    //    //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
-    //    obb->drawDebugLines(viewMatrix, projectionMatrix);
-    //  }
-    //}
+    for (auto body : PhysicsManager::Instance().getBodies()) {
+      if (auto obb = dynamic_cast<OBB*>(body->getShape())) {
+        //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
+        //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
+        obb->drawDebugLines(viewMatrix, projectionMatrix);
+      }
+    }
 
 
     sceneGraph.draw(viewMatrix, projectionMatrix);

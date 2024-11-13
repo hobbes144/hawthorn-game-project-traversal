@@ -61,9 +61,11 @@ void PhysicsBody::integrate(float dt) {
 
   // TODO: Semi-implicit Euler integration
   // implement here ->:
+  acceleration = force / mass;
+  velocity = velocity + (acceleration * dt);
 
   // TODO: Update position through the owner's transform
-  Vector3 newPosition = Vector3();// <- how do you get this new value :) ??? 
+  Vector3 newPosition = owner->getLocalPosition() + (velocity * dt);
   owner->setLocalPosition(newPosition);
 
   // Update collision shape
@@ -78,6 +80,7 @@ void PhysicsBody::integrate(float dt) {
     // TODO: What else do you have to update during the integration
     // besides the owner's position?
     // implement here ->:
+    collisionShape->update(currentTransform);
   }
 
   // Reset force accumulator

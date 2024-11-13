@@ -54,3 +54,7 @@ void SceneGraph::drawNode(const std::shared_ptr<Node>& node, const Matrix4& view
         drawNode(child, view, projection);
     }
 }
+
+void SceneGraph::printSceneTree() {
+  std::cout << *root << std::endl;
+}
