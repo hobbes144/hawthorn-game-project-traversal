@@ -108,7 +108,7 @@
     <ClCompile Include="src\Input.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="src\FramerateController.cpp">
+    <ClCompile Include="src\FramerateController.inl">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="src\EventManager.cpp">

@@ -27,7 +27,7 @@ int main() {
   GameWindow window(800, 600, "2D Example");
   Renderer renderer(window);
   Input input(window);
-  FramerateController * framerateController = FramerateController::getController();
+  FFramerateController* framerateController = FFramerateController::getController();
 
   // Create scene graph
   SceneGraph sceneGraph;

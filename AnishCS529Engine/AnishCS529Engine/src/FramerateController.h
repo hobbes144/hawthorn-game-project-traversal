@@ -18,6 +18,7 @@
 #include <thread>
 #include <vector>
 
+template<typename T = float>
 class FramerateController {
 public:
   static FramerateController * getController();
@@ -26,15 +27,15 @@ public:
 
   void startFrame();
   void endFrame();
-  float getFPS();
-  float getRenderTime();
-  float getFrameTime();
-  float getTime();
+  T getFPS();
+  T getRenderTime();
+  T getFrameTime();
+  T getTime();
 
-  void setPhysicsTimestep(float timestep);
+  void setPhysicsTimestep(T timestep);
   bool shouldUpdatePhysics() const;
   void consumePhysicsTime();
-  float getAccumulatorAlpha() const;
+  T getAccumulatorAlpha() const;
 
 
   /* Optional features */
@@ -53,10 +54,10 @@ public:
   /*! \name Additional Accumulators
    * @{
    */
-  const unsigned int createAccumulator(const float timestep);
+  const unsigned int createAccumulator(const T timestep);
   bool accumulatorShouldFire(const unsigned int accumulatorId) const;
   void consumeAccumulator(const unsigned int accumulatorId);
-  float getAccumulatorAlpha(const unsigned int accumulatorId) const;
+  T getAccumulatorAlpha(const unsigned int accumulatorId) const;
   /*@}*/
 #endif // ENABLE_ADDITIONAL_ACCUMULATORS
 
@@ -65,26 +66,26 @@ private:
   ~FramerateController() = default;
 
   /** Target frame time */
-  float targetFrameTime;
+  T targetFrameTime;
   /** Time at the start of current frame */
-  float timeAtFrameStart;
+  T timeAtFrameStart;
   /** Time at the end of current frame */
-  float timeAtFrameEnd;
+  T timeAtFrameEnd;
   /** Time taken for the last frame to render */
-  float renderTime;
+  T renderTime;
   /** Time between last frame start and frame end */
-  float lastFrameTime;
+  T lastFrameTime;
   /** Number of frames elapsed since start of program */
   long int frameCount;
   /** Frame counter for FPS query */
   long int framesSinceLastFPSQuery;
   /** Time when last FPS query occurred */
-  float timeOfLastFPSQuery;
+  T timeOfLastFPSQuery;
 
   /** Physics accumulator timestep */
-  float physicsAccumulatorTimestep;
+  T physicsAccumulatorTimestep;
   /** Accumulated Physics accumulator time */
-  float physicsAccumulator;
+  T physicsAccumulator;
 
 #ifdef ENABLE_RATE_CONTROLLERS
   /*! \name Rate Controllers
@@ -93,9 +94,9 @@ private:
   /** Number of registered rate controllers */
   unsigned int rateControllersRegistered;
   /** Target rate of controller */
-  std::vector<float> rateControllerTargetRates;
+  std::vector<T> rateControllerTargetRates;
   /** Time at last fire of rate controller */
-  std::vector<float> rateControllerTimes;
+  std::vector<T> rateControllerTimes;
   /*@}*/
 #endif // ENABLE_RATE_CONTROLLERS
 
@@ -106,11 +107,16 @@ private:
   /** Number of registered accumulators */
   unsigned int accumulatorsRegistered;
   /** Timestep for the accumulators */
-  std::vector<float> accumulatorTimesteps;
+  std::vector<T> accumulatorTimesteps;
   /** Accumulated time of the accumulators */
-  std::vector<float> accumulatorTimes;
+  std::vector<T> accumulatorTimes;
   /*@}*/
 #endif // ENABLE_ADDITIONAL_ACCUMULATORS
 };
+
+using FFramerateController = FramerateController<float>;
+using DFramerateController = FramerateController<double>;
+
+#include "FramerateController.inl"
 
 #endif // FRAMERATE_CONTROLLER_H

@@ -27,16 +27,83 @@ bool CollisionGenerator::generateContact(PhysicsBody* body1, PhysicsBody* body2,
     return false;
 }
 
-bool CollisionGenerator::AABBvsAABB(const Shape* a, const Shape* b, Contact& contact) {
-    //TODO: Implement your algorithm here
+bool CollisionGenerator::AABBvsAABB(
+  const Shape * a, const Shape * b, Contact & contact) {
+  //TODO: Implement your algorithm here
+  const AABB * boxA = static_cast<const AABB *>( a );
+  const AABB * boxB = static_cast<const AABB *>( b );
 
-    return true;
+  Vector3 minA = boxA->getMin();
+  Vector3 maxA = boxA->getMax();
+  Vector3 minB = boxB->getMin();
+  Vector3 maxB = boxB->getMax();
+
+  if (
+    ( minA.x > maxB.x || maxA.x < minB.x ) ||
+    ( minA.y > maxB.y || maxA.y < minB.y ) ||
+    ( minA.z > maxB.z || maxA.z < minB.z ) ) {
+    return false;
+  }
+
+  contact.point =
+    boxA->getCenter() + ( ( boxB->getCenter() - boxA->getCenter() ) * (1/2) );
+
+  return true;
 }
 
 bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
-    //TODO: Implement your algorithm here
+  //TODO: Implement your algorithm here
+  const OBB * boxA = static_cast<const OBB *>( a );
+  const OBB * boxB = static_cast<const OBB *>( b );
 
-    return true;
+  // Vector between two centers
+  Vector3 T = boxA->getCenter() - boxB->getCenter();
+
+  Vector3 aRight = boxA->getRight();
+  Vector3 aUp = boxA->getUp();
+  Vector3 bRight = boxB->getRight();
+  Vector3 bUp = boxB->getUp();
+  Vector3 aExtents = boxA->getHalfExtents();
+  Vector3 bExtents = boxB->getHalfExtents();
+
+  // T projected to A's axes:
+  T = Vector3(T.dot(aRight), T.dot(aUp), 1);
+
+  // Projections of B's axes on A:
+  Vector3 R[2];
+  R[0].x = abs(aRight.dot(bRight)) + 0.0000000001f;
+  R[0].y = abs(aRight.dot(bUp)) + 0.0000000001f;
+  R[1].x = abs(aUp.dot(bRight)) + 0.0000000001f;
+  R[1].y = abs(aUp.dot(bUp)) + 0.0000000001f;
+
+  // A axes
+  if ( abs(T.x) > ( aExtents.x +
+    (
+      bExtents.x * R[0].x +
+      bExtents.y * R[0].y
+      ) ) ) return false;
+  if ( abs(T.y) > ( aExtents.y +
+    (
+      bExtents.x * R[1].x +
+      bExtents.y * R[1].y
+      ) ) ) return false;
+
+  // B axes
+  if ( ( abs(T.x * R[0].x + T.y * R[1].x) ) >
+    ( bExtents.x +
+      (
+        aExtents.x * R[0].x +
+        aExtents.y * R[1].x
+        ) ) ) return false;
+  if ( ( abs(T.x * R[0].y + T.y * R[1].y) ) >
+    ( bExtents.y +
+      (
+        aExtents.x * R[0].y +
+        aExtents.y * R[1].y
+        ) ) ) return false;
+  // Todo: Finish this for 3D. This much will work for 2D.
+
+  return true;
 }
 
 bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& contact) {

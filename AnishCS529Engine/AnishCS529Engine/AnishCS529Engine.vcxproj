@@ -33,7 +33,7 @@
     <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\EngineTests.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
-    <ClCompile Include="src\FramerateController.cpp" />
+    <ClCompile Include="src\FramerateController.inl" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\GeometryBuffer.cpp" />

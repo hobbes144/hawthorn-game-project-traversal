@@ -7,44 +7,47 @@
 class OBB : public Shape
 {
 public:
-	OBB(const Vector3& center, const Vector3& halfExtents);
-	~OBB() = default;
+  OBB(const Vector3& center, const Vector3& halfExtents);
+  ~OBB() = default;
 
-	Type getType() const override;
+  Type getType() const override;
 
-	void update(Transform& transform) override;
+  void update(Transform& transform) override;
 
-	void getCorners(Vector3 corners[4]) const;
+  void getCorners(Vector3 corners[4]) const;
 
-	void project(const Vector3& axis, float& min, float& max) const;
+  void project(const Vector3& axis, float& min, float& max) const;
 
-	Vector3 getCenter()		 const;
-	Vector3 getHalfExtents() const;
-	Vector3 getRight()		 const;
-	Vector3 getUp()			 const;
+  Vector3 getCenter() const;
+  Vector3 getHalfExtents() const;
+  Vector3 getRight() const;
+  Vector3 getUp() const;
+  const Vector3* getAxes() const;
 
-	// debug functions
-	void initializeDebugDraw(Renderer* renderer); // Call this once when creating OBB
-	void drawDebugLines(Matrix4& view, Matrix4& projection); // Call this in your render loop
+  // debug functions
+  void initializeDebugDraw(Renderer* renderer); // Call this once when creating OBB
+  void drawDebugLines(Matrix4& view, Matrix4& projection); // Call this in your render loop
 
 
 private:
-	// Local space values (original, unchanged)
-	Vector3 localCenter;
-	Vector3 localHalfExtents;
-	Vector3 localRight;
-	Vector3 localUp;
+  // Local space values (original, unchanged)
+  Vector3 localCenter;
+  Vector3 localHalfExtents;
+  Vector3 localAxes[3];
+  Vector3 localRight;
+  Vector3 localUp;
 
-	// World space values (transformed)
-	Vector3 worldCenter;
-	Vector3 worldHalfExtents;
-	Vector3 worldRight;
-	Vector3 worldUp;
+  // World space values (transformed)
+  Vector3 worldCenter;
+  Vector3 worldHalfExtents;
+  Vector3 worldAxes[3];
+  Vector3 worldRight;
+  Vector3 worldUp;
 
-	// debug properties
-	std::shared_ptr<Mesh> debugMesh;
-	std::shared_ptr<Material> debugMaterial;
-	Renderer* renderer;
+  // debug properties
+  std::shared_ptr<Mesh> debugMesh;
+  std::shared_ptr<Material> debugMaterial;
+  Renderer* renderer;
 
 };
 

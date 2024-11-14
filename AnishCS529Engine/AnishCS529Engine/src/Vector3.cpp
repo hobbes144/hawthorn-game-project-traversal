@@ -33,6 +33,18 @@ Vector3 Vector3::operator/(const Vector3& other) const
   return Vector3(x / other.x, y / other.y, z / other.z);
 }
 
+float Vector3::operator[](int index) const {
+  if (index == 0) return x;
+  else if (index == 1) return y;
+  else return z;
+}
+
+float& Vector3::operator[](const int index) {
+  if (index == 0) return x;
+  else if (index == 1) return y;
+  else return z;
+}
+
 float Vector3::dot(const Vector3& other) const
 {
   return ((x * other.x) + (y * other.y) + (z * other.z));
