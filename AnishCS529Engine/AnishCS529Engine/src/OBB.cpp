@@ -2,8 +2,9 @@
 
 
 OBB::OBB(const Vector3& center = Vector3(0, 0, 0),
-  const Vector3& halfExtents = Vector3(0.5f, 0.5f, 0.0f))
+  const Vector3& halfExtents = Vector3(0.5f, 0.5f, 0.5f))
   : localCenter(center), localHalfExtents(halfExtents),
+  unscaledWorldCenter(center),
   worldCenter(center), worldHalfExtents(halfExtents) {
 
   // Initialize right and up vectors for 2D
@@ -20,12 +21,15 @@ Shape::Type OBB::getType() const {
 
 void OBB::update(Transform& transform) {
   // Get the transform matrix once
-  worldCenter = transform.getPosition();
+  unscaledWorldCenter = transform.getPosition();
+  worldCenter = transform.getPosition() * transform.getScaling();
 
   // Update orientation vectors using rotation only
   // We can get this directly from the transform's rotation
   Matrix4 transformMatrix = transform.getLocalMatrix();
-  float angle = transform.getRotation().z; // For 2D we only need Z rotation
+
+  // Todo: Figure out what this is for:
+  //float angle = transform.getRotation().z; // For 2D we only need Z rotation
   
   worldAxes[0] = Vector3(transformMatrix.getElement(0, 0), transformMatrix.getElement(1, 0), transformMatrix.getElement(2, 0)).normalized();
   worldAxes[1] = Vector3(transformMatrix.getElement(0, 1), transformMatrix.getElement(1, 1), transformMatrix.getElement(2, 1)).normalized();
@@ -49,23 +53,25 @@ void OBB::getCorners(Vector3 corners[4]) const {
     worldAxes[2] * worldHalfExtents.z
   };
 
-  corners[0] = worldCenter - offsets[0] - offsets[1]; // Bottom-left
-  corners[1] = worldCenter + offsets[0] - offsets[1]; // Bottom-right
-  corners[2] = worldCenter + offsets[0] + offsets[1]; // Top-right
-  corners[3] = worldCenter - offsets[0] + offsets[1]; // Top-left
-  // ToDo: Add the calcs for 3rd dimension. Right now, this is a 
-  // plane from the center in the left and up axes.
+  corners[0] = worldCenter - offsets[0] - offsets[1] - offsets[2]; // Bottom-left-Front
+  corners[1] = worldCenter + offsets[0] - offsets[1] - offsets[2]; // Bottom-right-Front
+  corners[2] = worldCenter + offsets[0] + offsets[1] - offsets[2]; // Top-right-Front
+  corners[3] = worldCenter - offsets[0] + offsets[1] - offsets[2]; // Top-left-Front
+  corners[0] = worldCenter - offsets[0] - offsets[1] + offsets[2]; // Bottom-left-Back
+  corners[1] = worldCenter + offsets[0] - offsets[1] + offsets[2]; // Bottom-right-Back
+  corners[2] = worldCenter + offsets[0] + offsets[1] + offsets[2]; // Top-right-Back
+  corners[3] = worldCenter - offsets[0] + offsets[1] + offsets[2]; // Top-left-Back
 }
 
 void OBB::project(const Vector3& axis, float& min, float& max) const {
   // Get absolute position of corners in world space
-  Vector3 corners[4];
+  Vector3 corners[8];
   getCorners(corners);
 
   // Project directly onto axis
   min = max = corners[0].dot(axis);
 
-  for (int i = 1; i < 4; i++) {
+  for (int i = 1; i < 8; i++) {
     float proj = corners[i].dot(axis);
     min = std::min(min, proj);
     max = std::max(max, proj);
@@ -85,25 +91,40 @@ void OBB::initializeDebugDraw(Renderer* renderer) {
   // Define vertices in normalized coordinates
   std::vector<float> vertices = {
     // Box corners in normalized coordinates (-0.5 to 0.5)
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,  // Bottom-left
-     0.5f, -0.5f, 0.0f,   0.0f, 0.0f,  // Bottom-right
-     0.5f,  0.5f, 0.0f,   0.0f, 0.0f,  // Top-right
-    -0.5f,  0.5f, 0.0f,   0.0f, 0.0f,  // Top-left
+    -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,  // Bottom-left-Front    //  0
+     0.5f, -0.5f, -0.5f,   0.0f, 0.0f,  // Bottom-right-Front   //  1
+     0.5f,  0.5f, -0.5f,   0.0f, 0.0f,  // Top-right-Front      //  2
+    -0.5f,  0.5f, -0.5f,   0.0f, 0.0f,  // Top-left-Front       //  3
+    -0.5f, -0.5f, 0.5f,   0.0f, 0.0f,  // Bottom-left-Back      //  4
+     0.5f, -0.5f, 0.5f,   0.0f, 0.0f,  // Bottom-right-Back     //  5
+     0.5f,  0.5f, 0.5f,   0.0f, 0.0f,  // Top-right-Back        //  6
+    -0.5f,  0.5f, 0.5f,   0.0f, 0.0f,  // Top-left-Back         //  7
     // Center point
-     0.0f,  0.0f, 0.0f,   0.0f, 0.0f,
-     // Right axis endpoint (unit vector)
-      1.0f,  0.0f, 0.0f,   0.0f, 0.0f,
-      // Up axis endpoint (unit vector)
-       0.0f,  1.0f, 0.0f,   0.0f, 0.0f
+     0.0f,  0.0f, 0.0f,   0.0f, 0.0f,                           //  8
+    // Right axis endpoint (unit vector)
+     1.0f,  0.0f, 0.0f,   0.0f, 0.0f,                           //  9
+    // Up axis endpoint (unit vector)
+     0.0f,  1.0f, 0.0f,   0.0f, 0.0f,                           // 10
+    // Up axis endpoint (unit vector)
+     0.0f,  0.0f, 1.0f,   0.0f, 0.0f                            // 11
   };
 
   std::vector<unsigned int> indices = {
-    0, 1,  // Bottom edge
-    1, 2,  // Right edge
-    2, 3,  // Top edge
-    3, 0,  // Left edge
-    4, 5,  // Right vector
-    4, 6   // Up vector
+    0, 1,  // Bottom Front edge         // 2
+    1, 2,  // Right Front edge          // 4
+    2, 3,  // Top Front edge            // 6
+    3, 0,  // Left Front edge           // 8
+    4, 5,  // Bottom Back edge          // 10
+    5, 6,  // Right Back edge           // 12
+    6, 7,  // Top Back edge             // 14
+    7, 4,  // Left Back edge            // 16
+    0, 4,  // Bottom Left Z Axis edge   // 18
+    1, 5,  // Bottom Right Z Axis edge  // 20
+    2, 6,  // Top Right Z Axis edge     // 22
+    3, 7,  // Top Left Z Axis edge      // 24
+    8, 9,  // Right vector              // 26
+    8, 10,  // Up vector                // 28
+    8, 11,  // Front vector             // 30
   };
   
   Mesh::Attributes debugMeshData;
@@ -130,9 +151,15 @@ void OBB::drawDebugLines(Matrix4& view, Matrix4& projection) {
   if (!debugMesh || !debugMaterial) return;
 
   // Create model matrix that will transform our normalized box to the OBB's position and orientation
-  Matrix4 scale = Matrix4::scale(worldHalfExtents.x * 2, worldHalfExtents.y * 2, 1.0f);
-  Matrix4 rotation = Matrix4::rotationZ(std::atan2(worldRight.y, worldRight.x));
-  Matrix4 translation = Matrix4::translation(worldCenter.x, worldCenter.y, worldCenter.z);
+  Matrix4 scale = Matrix4::scale(worldHalfExtents.x * 2, worldHalfExtents.y * 2, worldHalfExtents.z * 2);
+  Matrix4 rotation = Matrix4(
+    worldAxes[0].x, worldAxes[0].y, worldAxes[0].z, 0.0f,
+    worldAxes[1].x, worldAxes[1].y, worldAxes[1].z, 0.0f,
+    worldAxes[2].x, worldAxes[2].y, worldAxes[2].z, 0.0f,
+    0.0f,  0.0f,  0.0f,  1.0f
+    );
+  Matrix4 translation = Matrix4::translation(
+    unscaledWorldCenter.x, unscaledWorldCenter.y, unscaledWorldCenter.z);
   Matrix4 model = translation * rotation * scale;
 
   // Draw box outline in green
@@ -148,11 +175,11 @@ void OBB::drawDebugLines(Matrix4& view, Matrix4& projection) {
 
     // Draw box outline
     glLineWidth(2.0f);
-    renderer->draw(GL_LINES, 8, true);  // First 8 indices for box
+    renderer->draw(GL_LINES, 24, true);  // First 8 indices for box
 
     // Draw direction vectors
     // For these, we use a different scale matrix that keeps them unit length
-    Matrix4 vectorScale = Matrix4::scale(worldHalfExtents.x, worldHalfExtents.y, 1.0f);
+    Matrix4 vectorScale = Matrix4::scale(worldHalfExtents.x, worldHalfExtents.y, worldHalfExtents.z);
     Matrix4 vectorModel = model;// translation* rotation* vectorScale;
 
     // Draw right vector in red
@@ -160,12 +187,17 @@ void OBB::drawDebugLines(Matrix4& view, Matrix4& projection) {
     debugMaterial->setProperty("ModelMatrix", vectorModel);
     debugMaterial->apply();
     glLineWidth(3.0f);
-    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(8 * sizeof(unsigned int)));
+    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(24 * sizeof(unsigned int)));
 
     // Draw up vector in blue
     debugMaterial->setProperty("Color", Vector3(0.0f, 0.0f, 1.0f));
     debugMaterial->apply();
-    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(10 * sizeof(unsigned int)));
+    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(26 * sizeof(unsigned int)));
+
+    // Draw front vector in yellow
+    debugMaterial->setProperty("Color", Vector3(1.0f, 1.0f, 0.0f));
+    debugMaterial->apply();
+    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (void*)(28 * sizeof(unsigned int)));
 
     glLineWidth(1.0f);
     geomBuffer->unbind();

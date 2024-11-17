@@ -54,9 +54,12 @@ bool CollisionGenerator::AABBvsAABB(
 bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
   const OBB* boxA = static_cast<const OBB*>(a);
   const OBB* boxB = static_cast<const OBB*>(b);
+
+  float minPenDepth = 0.0f;
+  float penDepth = 0.0f;
   
-  // Vector between two centers
-  Vector3 T = boxA->getCenter() - boxB->getCenter();
+  // Vector between two centers (scaled up appropriately)
+  Vector3 T = (boxA->getCenter() - boxB->getCenter());
 
   const Vector3* aAxes = boxA->getAxes();
   const Vector3* bAxes = boxB->getAxes();
@@ -74,28 +77,117 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
     }
   }
 
-  // A axes
-  for (int i = 0; i < 3; i++) {
-    if (abs(T[i]) >(aExtents[i] +
+  // A0 axis
+  // We calculate this separately so we can get the initial pen depth
+  minPenDepth = penDepth = (aExtents[0] +
       (
-        bExtents[0] * R[i][0] + 
-        bExtents[1] * R[i][1] + 
+        bExtents[0] * R[0][0] +
+        bExtents[1] * R[0][1] +
+        bExtents[2] * R[0][2]
+        )) - T[0];
+  if (penDepth <= 0) return false;
+
+  // A1 and A2 axes
+  for (int i = 1; i < 3; i++) {
+    penDepth = (aExtents[i] +
+      (
+        bExtents[0] * R[i][0] +
+        bExtents[1] * R[i][1] +
         bExtents[2] * R[i][2]
-      ))) return false;
+        )) - T[0];
+    if (penDepth <= 0) return false;
+    minPenDepth = std::min(minPenDepth, penDepth);
   }
 
   // B axes
   for (int i = 0; i < 3; i++) {
-    if (
-      (abs(T[0]*R[0][i] + T[1]*R[1][i] + T[2]*R[2][i])) > 
-      (bExtents[i] +
+    penDepth = (bExtents[i] +
         (
           aExtents[0] * R[0][i] +
           aExtents[1] * R[1][i] +
           aExtents[2] * R[2][i]
-        ))) return false;
+          )) - abs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i]);
+    if (penDepth <= 0) return false;
+    minPenDepth = std::min(minPenDepth, penDepth);
   }
-  // Todo: Finish this for 3D. This much will work for 2D.
+
+  // A0xB0 axis
+  penDepth = (
+      aExtents[1] * R[2][0] + aExtents[2] * R[1][0] +
+      bExtents[1] * R[0][2] + bExtents[2] * R[0][1]
+    ) - abs(T[2] * R[1][0] - T[1] * R[2][0]);
+  if (penDepth <= 0) return false;
+  minPenDepth = std::min(minPenDepth, penDepth);
+
+  // A0xB1 axis
+  penDepth = (
+      aExtents[1] * R[2][1] + aExtents[2] * R[1][1] +
+      bExtents[0] * R[0][2] + bExtents[2] * R[0][0]
+    ) - abs(T[2] * R[1][1] - T[1] * R[2][1]);
+  if (penDepth <= 0) return false;
+  minPenDepth = std::min(minPenDepth, penDepth);
+
+  // A0xB2 axis
+  penDepth = (
+      aExtents[1] * R[2][2] + aExtents[2] * R[1][2] +
+      bExtents[0] * R[0][1] + bExtents[1] * R[0][0]
+    ) - abs(T[2] * R[1][2] - T[1] * R[2][2]);
+  if (penDepth <= 0) return false;
+  minPenDepth = std::min(minPenDepth, penDepth);
+
+  // A1xB0 axis
+  if (
+    abs(T[0] * R[2][0] - T[2] * R[0][0]) >
+    (
+      aExtents[0] * R[2][0] + aExtents[2] * R[0][0] +
+      bExtents[1] * R[1][2] + bExtents[2] * R[1][1]
+      )
+  ) return false;
+
+  // A1xB1 axis
+  if (
+    abs(T[0] * R[2][1] - T[2] * R[0][1]) >
+    (
+      aExtents[0] * R[2][1] + aExtents[2] * R[0][1] +
+      bExtents[0] * R[1][2] + bExtents[2] * R[1][0]
+      )
+  ) return false;
+
+  // A1xB2 axis
+  if (
+    abs(T[0] * R[2][2] - T[2] * R[0][2]) >
+    (
+      aExtents[0] * R[2][2] + aExtents[2] * R[0][2] +
+      bExtents[0] * R[1][1] + bExtents[1] * R[1][0]
+      )
+  ) return false;
+
+  // A2xB0 axis
+  if (
+    abs(T[1] * R[0][0] - T[0] * R[1][0]) >
+    (
+      aExtents[0] * R[1][0] + aExtents[1] * R[0][0] +
+      bExtents[1] * R[2][2] + bExtents[2] * R[2][1]
+      )
+  ) return false;
+
+  // A2xB1 axis
+  if (
+    abs(T[1] * R[0][1] - T[0] * R[1][1]) >
+    (
+      aExtents[0] * R[1][1] + aExtents[1] * R[0][1] +
+      bExtents[0] * R[2][2] + bExtents[2] * R[2][0]
+      )
+  ) return false;
+
+  // A2xB2 axis
+  if (
+    abs(T[1] * R[0][2] - T[0] * R[1][2]) >
+    (
+      aExtents[0] * R[1][2] + aExtents[1] * R[0][2] +
+      bExtents[0] * R[2][1] + bExtents[1] * R[2][0]
+      )
+  ) return false;
 
   // Todo: find point of contact
 
@@ -107,17 +199,145 @@ bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& cont
   const AABB* boxA = static_cast<const AABB*>(a);
   const OBB* boxB = static_cast<const OBB*>(b);
   
-  Vector3 minA = boxA->getMin();
-  Vector3 maxA = boxA->getMax();
+  //Vector3 minA = boxA->getMin();
+  //Vector3 maxA = boxA->getMax();
 
-  // Finding intersection in X
-  Vector3 minB;
-  Vector3 maxB;
-  boxB->project(Vector3(1.0f, 0.0f, 0.0f), minB.x, maxB.x);
-  boxB->project(Vector3(0.0f, 1.0f, 0.0f), minB.y, maxB.y);
+  //// Finding intersection in X
+  //Vector3 minB;
+  //Vector3 maxB;
+  //boxB->project(Vector3(1.0f, 0.0f, 0.0f), minB.x, maxB.x);
+  //boxB->project(Vector3(0.0f, 1.0f, 0.0f), minB.y, maxB.y);
+  //boxB->project(Vector3(0.0f, 0.0f, 0.1f), minB.z, maxB.z);
 
-  if (minA.x > maxB.x || maxA.x < minB.x) return false;
-  if (minA.y > maxB.y || maxA.y < minB.y) return false;
+  //if (minA.x > maxB.x || maxA.x < minB.x) return false;
+  //if (minA.y > maxB.y || maxA.y < minB.y) return false;
+  //if (minA.z > maxB.z || maxA.z < minB.z) return false;
+
+  // Vector between two centers (scaled up appropriately)
+  Vector3 T = (boxA->getCenter() - boxB->getCenter());
+
+  const Vector3 aAxes[3] = {
+    Vector3(1.0f, 0.0f, 0.0f),
+    Vector3(0.0f, 1.0f, 0.0f),
+    Vector3(0.0f, 0.0f, 1.0f),
+  };
+  const Vector3* bAxes = boxB->getAxes();
+  Vector3 aExtents = boxA->getHalfExtents();
+  Vector3 bExtents = boxB->getHalfExtents();
+
+  // T projected to A's axes:
+  T = Vector3(T.dot(aAxes[0]), T.dot(aAxes[1]), T.dot(aAxes[2]));
+
+  // Projections of B's axes on A:
+  Vector3 R[3];
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      R[i][j] = abs(aAxes[i].dot(bAxes[j])) + 0.0000000001f;
+    }
+  }
+
+  // A axes
+  for (int i = 0; i < 3; i++) {
+    if (abs(T[i]) > (aExtents[i] +
+      (
+        bExtents[0] * R[i][0] +
+        bExtents[1] * R[i][1] +
+        bExtents[2] * R[i][2]
+        ))) return false;
+  }
+
+  // B axes
+  for (int i = 0; i < 3; i++) {
+    if (
+      (abs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i])) >
+      abs(bExtents[i] +
+        (
+          aExtents[0] * R[0][i] +
+          aExtents[1] * R[1][i] +
+          aExtents[2] * R[2][i]
+          ))) return false;
+  }
+
+  // A0xB0 axis
+  if (
+    abs(T[2] * R[1][0] - T[1] * R[2][0]) >
+    abs(
+      aExtents[1] * R[2][0] + aExtents[2] * R[1][0] +
+      bExtents[1] * R[0][2] + bExtents[2] * R[0][1]
+    )
+  ) return false;
+
+  // A0xB1 axis
+  if (
+    abs(T[2] * R[1][1] - T[1] * R[2][1]) >
+    abs(
+      aExtents[1] * R[2][1] + aExtents[2] * R[1][1] +
+      bExtents[0] * R[0][2] + bExtents[2] * R[0][0]
+    )
+  ) return false;
+
+  // A0xB2 axis
+  if (
+    abs(T[2] * R[1][2] - T[1] * R[2][2]) >
+    abs(
+      aExtents[1] * R[2][2] + aExtents[2] * R[1][2] +
+      bExtents[0] * R[0][1] + bExtents[1] * R[0][0]
+    )
+  ) return false;
+
+  // A1xB0 axis
+  if (
+    abs(T[0] * R[2][0] - T[2] * R[0][0]) >
+    abs(
+      aExtents[0] * R[2][0] + aExtents[2] * R[0][0] +
+      bExtents[1] * R[1][2] + bExtents[2] * R[1][1]
+    )
+  ) return false;
+
+  // A1xB1 axis
+  if (
+    abs(T[0] * R[2][1] - T[2] * R[0][1]) >
+    abs(
+      aExtents[0] * R[2][1] + aExtents[2] * R[0][1] +
+      bExtents[0] * R[1][2] + bExtents[2] * R[1][0]
+    )
+  ) return false;
+
+  // A1xB2 axis
+  if (
+    abs(T[0] * R[2][2] - T[2] * R[0][2]) >
+    abs(
+      aExtents[0] * R[2][2] + aExtents[2] * R[0][2] +
+      bExtents[0] * R[1][1] + bExtents[1] * R[1][0]
+    )
+  ) return false;
+
+  // A2xB0 axis
+  if (
+    abs(T[1] * R[0][0] - T[0] * R[1][0]) >
+    abs(
+      aExtents[0] * R[1][0] + aExtents[1] * R[0][0] +
+      bExtents[1] * R[2][2] + bExtents[2] * R[2][1]
+    )
+  ) return false;
+
+  // A2xB1 axis
+  if (
+    abs(T[1] * R[0][1] - T[0] * R[1][1]) >
+    abs(
+      aExtents[0] * R[1][1] + aExtents[1] * R[0][1] +
+      bExtents[0] * R[2][2] + bExtents[2] * R[2][0]
+    )
+  ) return false;
+
+  // A2xB2 axis
+  if (
+    abs(T[1] * R[0][2] - T[0] * R[1][2]) >
+    abs(
+      aExtents[0] * R[1][2] + aExtents[1] * R[0][2] +
+      bExtents[0] * R[2][1] + bExtents[1] * R[2][0]
+    )
+  ) return false;
 
   return true;
 }
@@ -127,10 +347,16 @@ bool CollisionGenerator::OBBvsAABB(const Shape* a, const Shape* b, Contact& cont
 }
 
 void CollisionGenerator::initializeCollisionMatrix() {
-  // Initialize all to nullptr
-  for (auto& row : collisionTests)
-    for (auto& test : row)
-      test = nullptr;
+  collisionTests[0][0] = AABBvsAABB;
+  collisionTests[0][1] = AABBvsOBB;
+  collisionTests[0][2] = AABBvsCircle;
+  collisionTests[1][0] = OBBvsAABB;
+  collisionTests[1][1] = OBBvsOBB;
+  collisionTests[1][2] = OBBvsCircle;
+  collisionTests[2][0] = CirclevsAABB;
+  collisionTests[2][1] = CirclevsOBB;
+  collisionTests[2][2] = CirclevsCircle;
+
 
   // Set up existing collision tests
   // TODO: register all the collision functions in the test table

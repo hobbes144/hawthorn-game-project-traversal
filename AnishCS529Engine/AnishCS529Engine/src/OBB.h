@@ -39,6 +39,7 @@ private:
 
   // World space values (transformed)
   Vector3 worldCenter;
+  Vector3 unscaledWorldCenter;
   Vector3 worldHalfExtents;
   Vector3 worldAxes[3];
   Vector3 worldRight;
