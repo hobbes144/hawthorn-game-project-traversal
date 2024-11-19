@@ -26,6 +26,7 @@ int main() {
   // Create window, renderer and input systems
   GameWindow window(800, 600, "2D Example");
   Renderer renderer(window);
+  renderer.enableDepth(false);
   Input input(window);
   FFramerateController* framerateController = FFramerateController::getController();
 

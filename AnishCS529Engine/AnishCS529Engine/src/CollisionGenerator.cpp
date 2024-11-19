@@ -55,8 +55,25 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
   const OBB* boxA = static_cast<const OBB*>(a);
   const OBB* boxB = static_cast<const OBB*>(b);
 
+  // PenDepth is used to find the point of contact
+  // We find axis of minimum penetration depth's normal
+  // This is called the collision normal
+  // We then find all points that intersect and calculate the avg to
+  // find point of contact.
+  // We then find which faces are the most perpendicular to the axis to find the
+  // reference plane and incident plane of each object.
+  // We project the 
   float minPenDepth = 0.0f;
   float penDepth = 0.0f;
+  // Axis of minimum penetration depth
+  int minPenAxis = 0;
+  // Values for minPenAxis:
+  // A0 = 0, A1 = 1, A2 = 2,
+  // B0 = 3, B1 = 4, B2 = 5,
+  // A0xB0 =  6, A0xB1 =  7, A0xB2 =  8,
+  // A1xB0 =  9, A1xB1 = 10, A1xB2 = 11,
+  // A2xB0 = 12, A2xB1 = 13, A2xB2 = 14
+
   
   // Vector between two centers (scaled up appropriately)
   Vector3 T = (boxA->getCenter() - boxB->getCenter());
@@ -96,7 +113,10 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
         bExtents[2] * R[i][2]
         )) - T[0];
     if (penDepth <= 0) return false;
-    minPenDepth = std::min(minPenDepth, penDepth);
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      minPenAxis = i;
+    }
   }
 
   // B axes
@@ -108,7 +128,11 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
           aExtents[2] * R[2][i]
           )) - abs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i]);
     if (penDepth <= 0) return false;
-    minPenDepth = std::min(minPenDepth, penDepth);
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // B0 = 3, B1 = 4, B2 = 5
+      minPenAxis = i+3;
+    }
   }
 
   // A0xB0 axis
@@ -117,7 +141,11 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
       bExtents[1] * R[0][2] + bExtents[2] * R[0][1]
     ) - abs(T[2] * R[1][0] - T[1] * R[2][0]);
   if (penDepth <= 0) return false;
-  minPenDepth = std::min(minPenDepth, penDepth);
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A0xB0 = 6
+    minPenAxis = 6;
+  }
 
   // A0xB1 axis
   penDepth = (
@@ -125,7 +153,11 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
       bExtents[0] * R[0][2] + bExtents[2] * R[0][0]
     ) - abs(T[2] * R[1][1] - T[1] * R[2][1]);
   if (penDepth <= 0) return false;
-  minPenDepth = std::min(minPenDepth, penDepth);
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A0xB1 = 7
+    minPenAxis = 6;
+  }
 
   // A0xB2 axis
   penDepth = (
@@ -133,61 +165,79 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
       bExtents[0] * R[0][1] + bExtents[1] * R[0][0]
     ) - abs(T[2] * R[1][2] - T[1] * R[2][2]);
   if (penDepth <= 0) return false;
-  minPenDepth = std::min(minPenDepth, penDepth);
-
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A0xB2 = 8
+    minPenAxis = 6;
+  }
   // A1xB0 axis
-  if (
-    abs(T[0] * R[2][0] - T[2] * R[0][0]) >
-    (
+  penDepth = (
       aExtents[0] * R[2][0] + aExtents[2] * R[0][0] +
       bExtents[1] * R[1][2] + bExtents[2] * R[1][1]
-      )
-  ) return false;
+    ) - abs(T[0] * R[2][0] - T[2] * R[0][0]);
+  if (penDepth <= 0) return false;
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A1xB0 = 9
+    minPenAxis = 6;
+  }
 
   // A1xB1 axis
-  if (
-    abs(T[0] * R[2][1] - T[2] * R[0][1]) >
-    (
+  penDepth = (
       aExtents[0] * R[2][1] + aExtents[2] * R[0][1] +
       bExtents[0] * R[1][2] + bExtents[2] * R[1][0]
-      )
-  ) return false;
-
+    ) - abs(T[0] * R[2][1] - T[2] * R[0][1]);
+  if (penDepth <= 0) return false;
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A1xB1 = 10
+    minPenAxis = 6;
+  }
   // A1xB2 axis
-  if (
-    abs(T[0] * R[2][2] - T[2] * R[0][2]) >
-    (
+  penDepth = (
       aExtents[0] * R[2][2] + aExtents[2] * R[0][2] +
       bExtents[0] * R[1][1] + bExtents[1] * R[1][0]
-      )
-  ) return false;
-
+    ) - abs(T[0] * R[2][2] - T[2] * R[0][2]);
+  if (penDepth <= 0) return false;
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A1xB2 = 11
+    minPenAxis = 6;
+  }
   // A2xB0 axis
-  if (
-    abs(T[1] * R[0][0] - T[0] * R[1][0]) >
-    (
+  penDepth = (
       aExtents[0] * R[1][0] + aExtents[1] * R[0][0] +
       bExtents[1] * R[2][2] + bExtents[2] * R[2][1]
-      )
-  ) return false;
-
+    ) - abs(T[1] * R[0][0] - T[0] * R[1][0]);
+  if (penDepth <= 0) return false;
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A2xB0 = 12
+    minPenAxis = 6;
+  }
   // A2xB1 axis
-  if (
-    abs(T[1] * R[0][1] - T[0] * R[1][1]) >
-    (
+  penDepth = (
       aExtents[0] * R[1][1] + aExtents[1] * R[0][1] +
       bExtents[0] * R[2][2] + bExtents[2] * R[2][0]
-      )
-  ) return false;
-
+    ) - abs(T[1] * R[0][1] - T[0] * R[1][1]);
+  if (penDepth <= 0) return false;
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A2xB1 = 13
+    minPenAxis = 6;
+  }
   // A2xB2 axis
-  if (
-    abs(T[1] * R[0][2] - T[0] * R[1][2]) >
-    (
+  penDepth = (
       aExtents[0] * R[1][2] + aExtents[1] * R[0][2] +
       bExtents[0] * R[2][1] + bExtents[1] * R[2][0]
-      )
-  ) return false;
+    ) - abs(T[1] * R[0][2] - T[0] * R[1][2]);
+  if (penDepth <= 0) return false;
+  if (penDepth < minPenDepth) {
+    minPenDepth = penDepth;
+    // A2xB2 = 14
+    minPenAxis = 6;
+  }
+
 
   // Todo: find point of contact
 

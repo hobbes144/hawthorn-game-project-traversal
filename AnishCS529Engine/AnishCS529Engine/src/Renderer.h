@@ -29,6 +29,7 @@ public:
 	void clear(float r, float g, float b, float a);
 	void swapBuffers();
 	void draw(GLenum mode, GLint count, bool indexed);
+	void enableDepth(bool enable = true);
 
 private:
 	GameWindow& gameWindow;
