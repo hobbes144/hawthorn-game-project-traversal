@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0.0] - 11-24-2024
+
+### Added
+
+- Added 3D object collision system. The following collision objects are now usable:
+  - AABB
+  - Sphere
+  - OBB
+
+### Notes
+
+- 2D objects are not currently supported, will be considered for a future version.
+- Capsules and Hulls will be considered for a future version.
+
 ## [0.7.0.1] - 11-04-2024
 
 ### Fixed

@@ -22,6 +22,7 @@ public:
   Vector3 getHalfExtents() const;
   Vector3 getRight() const;
   Vector3 getUp() const;
+  Vector3 getFront() const;
   const Vector3* getAxes() const;
 
   // debug functions
@@ -36,6 +37,7 @@ private:
   Vector3 localAxes[3];
   Vector3 localRight;
   Vector3 localUp;
+  Vector3 localFront;
 
   // World space values (transformed)
   Vector3 worldCenter;
@@ -44,6 +46,7 @@ private:
   Vector3 worldAxes[3];
   Vector3 worldRight;
   Vector3 worldUp;
+  Vector3 worldFront;
 
   // debug properties
   std::shared_ptr<Mesh> debugMesh;

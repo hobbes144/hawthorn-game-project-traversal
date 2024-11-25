@@ -13,6 +13,7 @@ OBB::OBB(const Vector3& center = Vector3(0, 0, 0),
   localAxes[2] = worldAxes[2] = Vector3(0, 0, 1);
   localRight = worldRight = localAxes[0];
   localUp = worldUp = localAxes[1];
+  localFront = worldFront = localAxes[2];
 }
 
 Shape::Type OBB::getType() const {
@@ -79,11 +80,12 @@ void OBB::project(const Vector3& axis, float& min, float& max) const {
 
 }
 
-Vector3 OBB::getCenter()	  const { return worldCenter; }
-Vector3 OBB::getHalfExtents() const { return worldHalfExtents; }
-Vector3 OBB::getRight()		  const { return worldRight; }
-Vector3 OBB::getUp()		  const { return worldUp; }
-const Vector3* OBB::getAxes() const { return worldAxes; }
+Vector3 OBB::getCenter()	      const { return worldCenter; }
+Vector3 OBB::getHalfExtents()   const { return worldHalfExtents; }
+Vector3 OBB::getRight()		      const { return worldRight; }
+Vector3 OBB::getUp()		        const { return worldUp; }
+Vector3 OBB::getFront()		      const { return worldFront; }
+const Vector3* OBB::getAxes()   const { return worldAxes; }
 
 void OBB::initializeDebugDraw(Renderer* renderer) {
   this->renderer = renderer;

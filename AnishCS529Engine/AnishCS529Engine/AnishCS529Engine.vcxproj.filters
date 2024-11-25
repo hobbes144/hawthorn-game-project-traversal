@@ -117,7 +117,7 @@
     <ClCompile Include="src\AABB.cpp">
       <Filter>Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Circle.cpp">
+    <ClCompile Include="src\Sphere.cpp">
       <Filter>Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionGenerator.cpp">
@@ -224,7 +224,7 @@
     <ClInclude Include="src\CollisionGenerator.h">
       <Filter>Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="src\Circle.h">
+    <ClInclude Include="src\Sphere.h">
       <Filter>Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionEvent.h">

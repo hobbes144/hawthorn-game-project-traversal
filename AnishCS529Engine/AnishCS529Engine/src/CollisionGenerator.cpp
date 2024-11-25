@@ -1,7 +1,7 @@
 #include "CollisionGenerator.h"
 #include "AABB.h"
 #include "OBB.h"
-#include "Circle.h"
+#include "Sphere.h"
 
 CollisionGenerator::CollisionGenerator() {
   initializeCollisionMatrix();
@@ -391,13 +391,13 @@ bool CollisionGenerator::OBBvsAABB(const Shape* a, const Shape* b, Contact& cont
 void CollisionGenerator::initializeCollisionMatrix() {
   collisionTests[0][0] = AABBvsAABB;
   collisionTests[0][1] = AABBvsOBB;
-  collisionTests[0][2] = AABBvsCircle;
+  collisionTests[0][2] = AABBvsSphere;
   collisionTests[1][0] = OBBvsAABB;
   collisionTests[1][1] = OBBvsOBB;
-  collisionTests[1][2] = OBBvsCircle;
-  collisionTests[2][0] = CirclevsAABB;
-  collisionTests[2][1] = CirclevsOBB;
-  collisionTests[2][2] = CirclevsCircle;
+  collisionTests[1][2] = OBBvsSphere;
+  collisionTests[2][0] = SpherevsAABB;
+  collisionTests[2][1] = SpherevsOBB;
+  collisionTests[2][2] = SpherevsSphere;
 
 
   // Set up existing collision tests
@@ -405,61 +405,62 @@ void CollisionGenerator::initializeCollisionMatrix() {
 
 }
 
-bool CollisionGenerator::CirclevsCircle(const Shape* a, const Shape* b, Contact& contact) {
-  const Circle* circle1 = static_cast<const Circle*>(a);
-  const Circle* circle2 = static_cast<const Circle*>(b);
+bool CollisionGenerator::SpherevsSphere(const Shape* a, const Shape* b, Contact& contact) {
+  const Sphere* sphere1 = static_cast<const Sphere*>(a);
+  const Sphere* sphere2 = static_cast<const Sphere*>(b);
 
-  Vector3 diff = circle2->getCenter() - circle1->getCenter();
+  Vector3 diff = sphere2->getCenter() - sphere1->getCenter();
   float distSquared = diff.magnitudSquared();
-  float radiusSum = circle1->getRadius() + circle2->getRadius();
+  float radiusSum = sphere1->getRadius() + sphere2->getRadius();
 
   if (distSquared <= radiusSum * radiusSum) {
     // Todo: update this to use the middle of colliding geometry
-    contact.point = circle1->getCenter() + diff * 0.5f;
+    contact.point = sphere1->getCenter() + diff * 0.5f;
     return true;
   }
   return false;
 }
 
-bool CollisionGenerator::CirclevsAABB(const Shape* a, const Shape* b, Contact& contact) {
-  const Circle* circle = static_cast<const Circle*>(a);
+bool CollisionGenerator::SpherevsAABB(const Shape* a, const Shape* b, Contact& contact) {
+  const Sphere* sphere = static_cast<const Sphere*>(a);
   const AABB* aabb = static_cast<const AABB*>(b);
 
-  // Find closest point on AABB to circle center
+  // Find closest point on AABB to Sphere center
   Vector3 closestPoint;
-  Vector3 circleCenter = circle->getCenter();
+  Vector3 sphereCenter = sphere->getCenter();
 
-  // For each axis, clamp circle center to AABB bounds
-  closestPoint.x = std::max(aabb->getMin().x, std::min(circleCenter.x, aabb->getMax().x));
-  closestPoint.y = std::max(aabb->getMin().y, std::min(circleCenter.y, aabb->getMax().y));
+  // For each axis, clamp sphere center to AABB bounds
+  closestPoint.x = std::max(aabb->getMin().x, std::min(sphereCenter.x, aabb->getMax().x));
+  closestPoint.y = std::max(aabb->getMin().y, std::min(sphereCenter.y, aabb->getMax().y));
+  closestPoint.z = std::max(aabb->getMin().z, std::min(sphereCenter.z, aabb->getMax().z));
 
-  // Check if closest point is within circle's radius
-  Vector3 diff = circleCenter - closestPoint;
+  // Check if closest point is within Sphere's radius
+  Vector3 diff = sphereCenter - closestPoint;
   float distSquared = diff.magnitudSquared();
 
-  if (distSquared <= circle->getRadius() * circle->getRadius()) {
+  if (distSquared <= sphere->getRadius() * sphere->getRadius()) {
     contact.point = closestPoint;
     return true;
   }
   return false;
 }
 
-bool CollisionGenerator::AABBvsCircle(const Shape* a, const Shape* b, Contact& contact) {
-  return CirclevsAABB(b, a, contact);
+bool CollisionGenerator::AABBvsSphere(const Shape* a, const Shape* b, Contact& contact) {
+  return SpherevsAABB(b, a, contact);
 }
 
-bool CollisionGenerator::CirclevsOBB(const Shape* a, const Shape* b, Contact& contact) {
-  const Circle* circle = static_cast<const Circle*>(a);
+bool CollisionGenerator::SpherevsOBB(const Shape* a, const Shape* b, Contact& contact) {
+  const Sphere* sphere = static_cast<const Sphere*>(a);
   const OBB* obb = static_cast<const OBB*>(b);
 
-  // Convert circle center to OBB's local space
-  Vector3 circleCenter = circle->getCenter() - obb->getCenter();
+  // Convert sphere center to OBB's local space
+  Vector3 sphereCenter = sphere->getCenter() - obb->getCenter();
 
   // Get local space position using OBB's axes
   Vector3 localCenter(
-      circleCenter.dot(obb->getRight()),
-      circleCenter.dot(obb->getUp()),
-      0.0f
+      sphereCenter.dot(obb->getRight()),
+      sphereCenter.dot(obb->getUp()),
+      sphereCenter.dot(obb->getFront())
   );
 
   // Find closest point in local space (clamp to OBB bounds)
@@ -468,23 +469,26 @@ bool CollisionGenerator::CirclevsOBB(const Shape* a, const Shape* b, Contact& co
       std::min(localCenter.x, obb->getHalfExtents().x));
   closestPoint.y = std::max(-obb->getHalfExtents().y,
       std::min(localCenter.y, obb->getHalfExtents().y));
+  closestPoint.z = std::max(-obb->getHalfExtents().z,
+      std::min(localCenter.z, obb->getHalfExtents().z));
 
   // Convert back to world space
   Vector3 worldClosest = obb->getCenter() +
     obb->getRight() * closestPoint.x +
-    obb->getUp() * closestPoint.y;
+    obb->getUp() * closestPoint.y +
+    obb->getFront() * closestPoint.z;
 
-  // Check if closest point is within circle's radius
-  Vector3 diff = circle->getCenter() - worldClosest;
+  // Check if closest point is within sphere's radius
+  Vector3 diff = sphere->getCenter() - worldClosest;
   float distSquared = diff.magnitudSquared();
 
-  if (distSquared <= circle->getRadius() * circle->getRadius()) {
+  if (distSquared <= sphere->getRadius() * sphere->getRadius()) {
     contact.point = worldClosest;
     return true;
   }
   return false;
 }
 
-bool CollisionGenerator::OBBvsCircle(const Shape* a, const Shape* b, Contact& contact) {
-  return CirclevsOBB(b, a, contact);
+bool CollisionGenerator::OBBvsSphere(const Shape* a, const Shape* b, Contact& contact) {
+  return SpherevsOBB(b, a, contact);
 }

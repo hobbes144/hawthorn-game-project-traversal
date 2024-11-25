@@ -3,9 +3,9 @@
 #include "Shape.h"
 #include "Transform.h"
 
-class Circle : public Shape {
+class Sphere : public Shape {
 public:
-  Circle(const Vector3& center = Vector3(0, 0, 0), float radius = 0.5f);
+  Sphere(const Vector3& center = Vector3(0, 0, 0), float radius = 0.5f);
 
   Type getType() const override;
   void update(Transform& transform) override;

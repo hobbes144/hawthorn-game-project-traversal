@@ -13,7 +13,7 @@
 #include "PhysicsBody.h"
 #include "AABB.h"
 #include "OBB.h"
-#include "Circle.h"
+#include "Sphere.h"
 #include "PhysicsManager.h"
 
 extern "C"

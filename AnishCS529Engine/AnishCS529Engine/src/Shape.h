@@ -7,7 +7,7 @@ public:
   enum class Type {
     AABB,
     OBB,
-    Circle
+    Sphere
   };
 
   virtual ~Shape() = default;
