@@ -4,6 +4,7 @@
 OBB::OBB(const Vector3& center = Vector3(0, 0, 0),
 	const Vector3& halfExtents = Vector3(0.5f, 0.5f, 0.0f))
 	: localCenter(center), localHalfExtents(halfExtents),
+	unscaledWorldCenter(center),
 	worldCenter(center), worldHalfExtents(halfExtents) {
 
 	// Initialize right and up vectors for 2D
@@ -17,7 +18,8 @@ Shape::Type OBB::getType() const{
 
 void OBB::update(Transform& transform) {
 	// Get the transform matrix once
-	worldCenter = transform.getPosition();
+	unscaledWorldCenter = transform.getPosition();
+	worldCenter = transform.getPosition() * transform.getScale();
 
 	// Update orientation vectors using rotation only
 	// We can get this directly from the transform's rotation
@@ -113,7 +115,7 @@ void OBB::drawDebugLines(Matrix4& view, Matrix4& projection) {
 	// Create model matrix that will transform our normalized box to the OBB's position and orientation
 	Matrix4 scale = Matrix4::scale(worldHalfExtents.x * 2, worldHalfExtents.y * 2, 1.0f);
 	Matrix4 rotation = Matrix4::rotationZ(std::atan2(worldRight.y, worldRight.x));
-	Matrix4 translation = Matrix4::translation(worldCenter.x, worldCenter.y, worldCenter.z);
+	Matrix4 translation = Matrix4::translation(unscaledWorldCenter.x, unscaledWorldCenter.y, unscaledWorldCenter.z);
 	Matrix4 model = translation * rotation * scale;
 
 	// Draw box outline in green

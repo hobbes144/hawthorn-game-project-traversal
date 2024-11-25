@@ -77,6 +77,81 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
   R[1].y = abs(aUp.dot(bUp)) + 0.0000000001f;
 
   // A axes
+  float testA0 = aExtents.x +
+    (
+      bExtents.x * R[0].x +
+      bExtents.y * R[0].y
+      );
+  if ( abs(T.x) > ( aExtents.x +
+    (
+      bExtents.x * R[0].x +
+      bExtents.y * R[0].y
+      ) ) ) return false;
+  float testA1 = aExtents.x +
+    (
+      bExtents.x * R[0].x +
+      bExtents.y * R[0].y
+      );
+  if ( abs(T.y) > ( aExtents.y +
+    (
+      bExtents.x * R[1].x +
+      bExtents.y * R[1].y
+      ) ) ) return false;
+
+  // B axes
+  float testB0 = aExtents.x +
+    (
+      bExtents.x * R[0].x +
+      bExtents.y * R[0].y
+      );
+  if ( ( abs(T.x * R[0].x + T.y * R[1].x) ) >
+    ( bExtents.x +
+      (
+        aExtents.x * R[0].x +
+        aExtents.y * R[1].x
+        ) ) ) return false;
+  float testB1 = aExtents.x +
+    (
+      bExtents.x * R[0].x +
+      bExtents.y * R[0].y
+      );
+  if ( ( abs(T.x * R[0].y + T.y * R[1].y) ) >
+    ( bExtents.y +
+      (
+        aExtents.x * R[0].y +
+        aExtents.y * R[1].y
+        ) ) ) return false;
+  // Todo: Finish this for 3D. This much will work for 2D.
+
+  return true;
+}
+
+bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
+  //TODO: Implement your algorithm here
+  const AABB * boxA = static_cast<const AABB *>( a );
+  const OBB * boxB = static_cast<const OBB *>( b );
+
+  Vector3 aRight = Vector3(1.0f, 0.0f, 0.0f);
+  Vector3 aUp = Vector3(0.0f, 1.0f, 0.0f);
+  Vector3 bRight = boxB->getRight();
+  Vector3 bUp = boxB->getUp();
+  Vector3 aExtents = boxA->getHalfExtents();
+  Vector3 bExtents = boxB->getHalfExtents();
+
+  // Vector between two centers (scaled up appropriately)
+  Vector3 T = ( boxA->getCenter() - boxB->getCenter() );
+
+  // T projected to A's axes:
+  T = Vector3(T.dot(aRight), T.dot(aUp), 1);
+
+  // Projections of B's axes on A:
+  Vector3 R[2];
+  R[0].x = abs(aRight.dot(bRight)) + 0.0000000001f;
+  R[0].y = abs(aRight.dot(bUp)) + 0.0000000001f;
+  R[1].x = abs(aUp.dot(bRight)) + 0.0000000001f;
+  R[1].y = abs(aUp.dot(bUp)) + 0.0000000001f;
+
+  // A axes
   if ( abs(T.x) > ( aExtents.x +
     (
       bExtents.x * R[0].x +
@@ -101,15 +176,8 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
         aExtents.x * R[0].y +
         aExtents.y * R[1].y
         ) ) ) return false;
-  // Todo: Finish this for 3D. This much will work for 2D.
-
+  
   return true;
-}
-
-bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
-    //TODO: Implement your algorithm here
-
-    return true;
 }
 
 bool CollisionGenerator::OBBvsAABB(const Shape* a, const Shape* b, Contact& contact) {
@@ -117,13 +185,15 @@ bool CollisionGenerator::OBBvsAABB(const Shape* a, const Shape* b, Contact& cont
 }
 
 void CollisionGenerator::initializeCollisionMatrix() {
-    // Initialize all to nullptr
-    for (auto& row : collisionTests)
-        for (auto& test : row)
-            test = nullptr;
-
-    // Set up existing collision tests
-    // TODO: register all the collision functions in the test table
+  collisionTests[0][0] = AABBvsAABB;
+  collisionTests[0][1] = AABBvsOBB;
+  collisionTests[0][2] = AABBvsCircle;
+  collisionTests[1][0] = OBBvsAABB;
+  collisionTests[1][1] = OBBvsOBB;
+  collisionTests[1][2] = OBBvsCircle;
+  collisionTests[2][0] = CirclevsAABB;
+  collisionTests[2][1] = CirclevsOBB;
+  collisionTests[2][2] = CirclevsCircle;
 
 }
 

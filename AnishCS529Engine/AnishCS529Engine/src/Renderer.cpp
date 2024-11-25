@@ -72,9 +72,12 @@ void Renderer::initialize() {
   glfwMakeContextCurrent(gameWindow.getNativeWindow());
   setupCallbacks();
 
+
   if (!loadGraphicsAPIFunctions()) {
     throw std::runtime_error("Failed to load Graphics API Functions");
   }
+
+  enableDepth(depthEnabled);
 }
 
 bool Renderer::loadGraphicsAPIFunctions() {
@@ -102,20 +105,27 @@ void Renderer::framebufferSizeCallback(GLFWwindow* pWindow, int width, int heigh
 }
 
 /* Public functions */
-Renderer::Renderer(GameWindow& gameWindow) : gameWindow(gameWindow) {
+Renderer::Renderer(GameWindow& gameWindow) : gameWindow(gameWindow), depthEnabled(false) {
   initialize();
 }
 
 void Renderer::enableDepth(bool enable) {
-  if (enable)
+  depthEnabled = enable;
+  if (enable) {
+    glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+  }
   else
     glDisable(GL_DEPTH_TEST);
 }
 
 void Renderer::clear(float r, float g, float b, float a) {
   glClearColor(r, g, b, a);
-  glClear(GL_COLOR_BUFFER_BIT);
+  if (depthEnabled)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  else
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Renderer::swapBuffers() {

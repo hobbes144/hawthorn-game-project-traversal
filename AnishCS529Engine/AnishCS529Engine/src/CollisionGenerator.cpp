@@ -240,6 +240,8 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
 
 
   // Todo: find point of contact
+  // Temporarily adding this:
+  contact.point = boxA->getCenter() + T/2;
 
   return true;
 }
@@ -248,20 +250,6 @@ bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& cont
   //TODO: Implement your algorithm here
   const AABB* boxA = static_cast<const AABB*>(a);
   const OBB* boxB = static_cast<const OBB*>(b);
-  
-  //Vector3 minA = boxA->getMin();
-  //Vector3 maxA = boxA->getMax();
-
-  //// Finding intersection in X
-  //Vector3 minB;
-  //Vector3 maxB;
-  //boxB->project(Vector3(1.0f, 0.0f, 0.0f), minB.x, maxB.x);
-  //boxB->project(Vector3(0.0f, 1.0f, 0.0f), minB.y, maxB.y);
-  //boxB->project(Vector3(0.0f, 0.0f, 0.1f), minB.z, maxB.z);
-
-  //if (minA.x > maxB.x || maxA.x < minB.x) return false;
-  //if (minA.y > maxB.y || maxA.y < minB.y) return false;
-  //if (minA.z > maxB.z || maxA.z < minB.z) return false;
 
   // Vector between two centers (scaled up appropriately)
   Vector3 T = (boxA->getCenter() - boxB->getCenter());
@@ -389,6 +377,10 @@ bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& cont
     )
   ) return false;
 
+  // Todo: find point of contact
+  // Temporarily adding this:
+  contact.point = boxA->getCenter() + T/2;
+
   return true;
 }
 
@@ -422,6 +414,7 @@ bool CollisionGenerator::CirclevsCircle(const Shape* a, const Shape* b, Contact&
   float radiusSum = circle1->getRadius() + circle2->getRadius();
 
   if (distSquared <= radiusSum * radiusSum) {
+    // Todo: update this to use the middle of colliding geometry
     contact.point = circle1->getCenter() + diff * 0.5f;
     return true;
   }

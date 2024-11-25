@@ -33,6 +33,7 @@ public:
 
 private:
 	GameWindow& gameWindow;
+	bool depthEnabled;
 
 	void initialize();
 	bool loadGraphicsAPIFunctions();

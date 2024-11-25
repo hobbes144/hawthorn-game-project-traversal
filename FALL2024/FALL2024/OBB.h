@@ -36,6 +36,7 @@ private:
 	Vector3 localUp;
 
 	// World space values (transformed)
+	Vector3 unscaledWorldCenter;
 	Vector3 worldCenter;
 	Vector3 worldHalfExtents;
 	Vector3 worldRight;
