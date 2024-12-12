@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['_7eevent_0',['~Event',['../classEvent.html#a105223995bbf1a1e4714d0c77f91cf0b',1,'Event']]],
-  ['_7egeometrybuffer_1',['~GeometryBuffer',['../classGeometryBuffer.html#af723ec288aad9b2efad704d5a95a1549',1,'GeometryBuffer']]],
-  ['_7eshader_2',['~Shader',['../classShader.html#aff01df87e8a102f270b5b135a295e59d',1,'Shader']]]
+  ['translation_0',['translation',['../classMatrix4.html#a91d781a496d7877175ec0f2f34dc438c',1,'Matrix4::translation(float tx, float ty, float tz)'],['../classMatrix4.html#a15db4dd4ae780b215d71e7d4a976350a',1,'Matrix4::translation(const Vector3 &amp;translationVec)']]]
 ];

@@ -102,46 +102,99 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * \date   10-14-2024</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * \brief  Renderer implementation to initialize the OpenGL libraries</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * and libraries.</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> *****************************************************************************/</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#ifndef RENDERER_H</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define RENDERER_H</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;glad/glad.h&gt;</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="GameWindow_8h.html">GameWindow.h</a>&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="Vector3_8h.html">Vector3.h</a>&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="Matrix4_8h.html">Matrix4.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">/* OpenGL imports */</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;glad/glad.h&gt;</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">/* Base class */</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="Component_8h.html">Component.h</a>&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classRenderer.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="classRenderer.html">Renderer</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_class" href="classRenderer.html">Renderer</a>(<a class="code hl_class" href="classGameWindow.html">GameWindow</a>&amp; gameWindow);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> clear(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> a);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> swapBuffers();</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> draw(GLenum mode, GLint count);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="classGameWindow.html">GameWindow</a>&amp; gameWindow;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> initialize();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">bool</span> loadGraphicsAPIFunctions();</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> setupCallbacks();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">void</span> framebufferSizeCallback(GLFWwindow* pWindow, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">/* Used classes */</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="GameWindow_8h.html">GameWindow.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/*!****************************************************************************</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * \brief Class Renderer that implements an OpenGL renderer</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * ## Usage:</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * Renderer is needed to render objects onto the screen. This needs to be</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> * initialized to work with a window, and the draw call must be made to draw</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * objects to the screen.</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"> * ## Pre-initialization calls:</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> * - setGameWindow(GameWindow* _gameWindow)</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> * - setIs3D(bool is3D)</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"> * - setClearColor(float r, float g, float b, float a)</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"> * ## General lifecycle of a Renderer:</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * - Init GameWindow object.</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> * - Init Renderer</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> * - Call clear() to empty the window buffer.</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> * - Run all your game logic</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> * - Run draw() calls for each of the objects to be rendered.</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> * - Call swapBuffers() to render the window buffer to the screen.</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * ## Notes:</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> * Renderer class is specific to a window. It is possible to have multiple</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> * renderers, one for each window you have.</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> *****************************************************************************/</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classRenderer.html">   57</a></span><span class="keyword">class </span><a class="code hl_class" href="classRenderer.html">Renderer</a> : <span class="keyword">public</span> <a class="code hl_class" href="classComponent.html">Component</a> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <a class="code hl_class" href="classRenderer.html">Renderer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <a class="code hl_class" href="classRenderer.html">~Renderer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="comment">/* Component functions */</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#af0cf13596dfb5e7c40f58b5dbad6e74c">initialize</a>();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#af39230ac153ec5e1b0e5f078ebe351e1">update</a>(); <span class="comment">// Dummy</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#a9960b06d65c5e659408296e1dbd59ba4">shutdown</a>(); <span class="comment">// Dummy</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="comment">/* Pre-initialization functions */</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#ae42452dca03e136328ded3ad27b2af23">setGameWindow</a>(<a class="code hl_class" href="classGameWindow.html">GameWindow</a>* _gameWindow);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#a52702eccb3bab85dec05a1b32a3a8d0d">setIs3D</a>(<span class="keywordtype">bool</span> is3D);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#a10bc806b430cc279b81fbc22cc5e8f08">setClearColor</a>(<span class="keywordtype">float</span> r, <span class="keywordtype">float</span> g, <span class="keywordtype">float</span> b, <span class="keywordtype">float</span> a);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="comment">/* Utility functions */</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#ac46720b3fc0dbb2fc37674766490a8c4">clear</a>();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#afebd47ef1e1cee08c95a7b8e19158180">swapBuffers</a>();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classRenderer.html#a747ba137f6a153544579595af0e05ac3">draw</a>(GLenum mode, GLint count, <span class="keywordtype">bool</span> indexed);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <a class="code hl_class" href="classGameWindow.html">GameWindow</a>* gameWindow;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  GLbitfield glClearMask;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <span class="keywordtype">bool</span> loadGraphicsAPIFunctions();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  <span class="keywordtype">void</span> setupCallbacks();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="keywordtype">void</span> framebufferSizeCallback(GLFWwindow* pWindow, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>};</div>
 </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#endif </span><span class="comment">// RENDERER_H</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#endif </span><span class="comment">// RENDERER_H</span></div>
+<div class="ttc" id="aComponent_8h_html"><div class="ttname"><a href="Component_8h.html">Component.h</a></div><div class="ttdoc">Component Class used as the base of the Entity Component System.</div></div>
 <div class="ttc" id="aGameWindow_8h_html"><div class="ttname"><a href="GameWindow_8h.html">GameWindow.h</a></div><div class="ttdoc">File containing GameWindow Object and associated logic.</div></div>
-<div class="ttc" id="aMatrix4_8h_html"><div class="ttname"><a href="Matrix4_8h.html">Matrix4.h</a></div><div class="ttdoc">File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic.</div></div>
-<div class="ttc" id="aVector3_8h_html"><div class="ttname"><a href="Vector3_8h.html">Vector3.h</a></div><div class="ttdoc">File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic.</div></div>
-<div class="ttc" id="aclassGameWindow_html"><div class="ttname"><a href="classGameWindow.html">GameWindow</a></div><div class="ttdoc">Class that sets up the GLFW window and associated logic.</div><div class="ttdef"><b>Definition</b> GameWindow.h:36</div></div>
-<div class="ttc" id="aclassRenderer_html"><div class="ttname"><a href="classRenderer.html">Renderer</a></div><div class="ttdef"><b>Definition</b> Renderer.h:25</div></div>
+<div class="ttc" id="aclassComponent_html"><div class="ttname"><a href="classComponent.html">Component</a></div><div class="ttdoc">Component is the base class of all components.</div><div class="ttdef"><b>Definition</b> Component.h:44</div></div>
+<div class="ttc" id="aclassGameWindow_html"><div class="ttname"><a href="classGameWindow.html">GameWindow</a></div><div class="ttdoc">Class that sets up the GLFW window and associated logic.</div><div class="ttdef"><b>Definition</b> GameWindow.h:40</div></div>
+<div class="ttc" id="aclassRenderer_html"><div class="ttname"><a href="classRenderer.html">Renderer</a></div><div class="ttdoc">Class Renderer that implements an OpenGL renderer.</div><div class="ttdef"><b>Definition</b> Renderer.h:57</div></div>
+<div class="ttc" id="aclassRenderer_html_a10bc806b430cc279b81fbc22cc5e8f08"><div class="ttname"><a href="classRenderer.html#a10bc806b430cc279b81fbc22cc5e8f08">Renderer::setClearColor</a></div><div class="ttdeci">void setClearColor(float r, float g, float b, float a)</div><div class="ttdoc">Set the clear color of the screen.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:195</div></div>
+<div class="ttc" id="aclassRenderer_html_a52702eccb3bab85dec05a1b32a3a8d0d"><div class="ttname"><a href="classRenderer.html#a52702eccb3bab85dec05a1b32a3a8d0d">Renderer::setIs3D</a></div><div class="ttdeci">void setIs3D(bool is3D)</div><div class="ttdoc">Set if the renderer should render in 3D.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:170</div></div>
+<div class="ttc" id="aclassRenderer_html_a747ba137f6a153544579595af0e05ac3"><div class="ttname"><a href="classRenderer.html#a747ba137f6a153544579595af0e05ac3">Renderer::draw</a></div><div class="ttdeci">void draw(GLenum mode, GLint count, bool indexed)</div><div class="ttdoc">Draw objects in buffers.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:248</div></div>
+<div class="ttc" id="aclassRenderer_html_a9960b06d65c5e659408296e1dbd59ba4"><div class="ttname"><a href="classRenderer.html#a9960b06d65c5e659408296e1dbd59ba4">Renderer::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Renderer Shutdown is a dummy call.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:302</div></div>
+<div class="ttc" id="aclassRenderer_html_ac46720b3fc0dbb2fc37674766490a8c4"><div class="ttname"><a href="classRenderer.html#ac46720b3fc0dbb2fc37674766490a8c4">Renderer::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clear the window.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:216</div></div>
+<div class="ttc" id="aclassRenderer_html_ae42452dca03e136328ded3ad27b2af23"><div class="ttname"><a href="classRenderer.html#ae42452dca03e136328ded3ad27b2af23">Renderer::setGameWindow</a></div><div class="ttdeci">void setGameWindow(GameWindow *_gameWindow)</div><div class="ttdoc">Setter for game window.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:150</div></div>
+<div class="ttc" id="aclassRenderer_html_af0cf13596dfb5e7c40f58b5dbad6e74c"><div class="ttname"><a href="classRenderer.html#af0cf13596dfb5e7c40f58b5dbad6e74c">Renderer::initialize</a></div><div class="ttdeci">void initialize()</div><div class="ttdoc">Initialize the renderer.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:270</div></div>
+<div class="ttc" id="aclassRenderer_html_af39230ac153ec5e1b0e5f078ebe351e1"><div class="ttname"><a href="classRenderer.html#af39230ac153ec5e1b0e5f078ebe351e1">Renderer::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Renderer Update is a dummy call.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:294</div></div>
+<div class="ttc" id="aclassRenderer_html_afebd47ef1e1cee08c95a7b8e19158180"><div class="ttname"><a href="classRenderer.html#afebd47ef1e1cee08c95a7b8e19158180">Renderer::swapBuffers</a></div><div class="ttdeci">void swapBuffers()</div><div class="ttdoc">Swap window buffers.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:233</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

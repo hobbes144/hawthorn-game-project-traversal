@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['operator_2a_0',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
-  ['operator_3d_1',['operator=',['../classGeometryBuffer.html#acca6fbf2a11e18aede705580ec5fab51',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
-  ['orthographic_2',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
+  ['node_0',['Node',['../classNode.html',1,'Node'],['../classNode.html#afceb8877cfab44e0eda5ae3a88513242',1,'Node::Node()']]],
+  ['node_2ecpp_1',['Node.cpp',['../Node_8cpp.html',1,'']]],
+  ['node_2eh_2',['Node.h',['../Node_8h.html',1,'']]],
+  ['normalized_3',['normalized',['../structGeometryBuffer_1_1AttributeInfo.html#af3c5b99a8187c87f2cb890449795c067',1,'GeometryBuffer::AttributeInfo']]],
+  ['note_4',['Note',['../index.html#autotoc_md41',1,'']]],
+  ['notes_5',['Notes',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md47',1,'']]],
+  ['notes_3a_6',['Notes:',['../classRenderer.html#autotoc_md30',1,'']]]
 ];

@@ -87,6 +87,7 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classGameWindow-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">GameWindow Class Reference</div></div>
 </div><!--header-->
@@ -96,15 +97,63 @@ $(function(){ initResizable(false); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="GameWindow_8h_source.html">GameWindow.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for GameWindow:</div>
+<div class="dyncontent">
+<div class="center"><img src="classGameWindow__inherit__graph.png" border="0" usemap="#aGameWindow_inherit__map" alt="Inheritance graph"/></div>
+<map name="aGameWindow_inherit__map" id="aGameWindow_inherit__map">
+<area shape="rect" title="Class that sets up the GLFW window and associated logic." alt="" coords="23,240,140,265"/>
+<area shape="rect" href="classComponent.html" title="Component is the base class of all components." alt="" coords="30,167,133,192"/>
+<area shape="poly" title=" " alt="" coords="84,206,84,240,79,240,79,206"/>
+<area shape="rect" href="classNode.html" title=" " alt="" coords="52,93,111,119"/>
+<area shape="poly" title=" " alt="" coords="84,132,84,167,79,167,79,132"/>
+<area shape="rect" title=" " alt="" coords="5,5,157,45"/>
+<area shape="poly" title=" " alt="" coords="84,59,84,93,79,93,79,59"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for GameWindow:</div>
+<div class="dyncontent">
+<div class="center"><img src="classGameWindow__coll__graph.png" border="0" usemap="#aGameWindow_coll__map" alt="Collaboration graph"/></div>
+<map name="aGameWindow_coll__map" id="aGameWindow_coll__map">
+<area shape="rect" title="Class that sets up the GLFW window and associated logic." alt="" coords="164,272,281,297"/>
+<area shape="rect" href="classComponent.html" title="Component is the base class of all components." alt="" coords="171,197,274,223"/>
+<area shape="poly" title=" " alt="" coords="225,237,225,272,220,272,220,237"/>
+<area shape="rect" href="classNode.html" title=" " alt="" coords="193,123,252,148"/>
+<area shape="poly" title=" " alt="" coords="225,162,225,197,220,197,220,162"/>
+<area shape="poly" title=" " alt="" coords="267,127,275,129,279,136,270,143,252,145,252,140,268,138,273,135,272,134,265,132"/>
+<area shape="rect" title=" " alt="" coords="5,5,157,45"/>
+<area shape="poly" title=" " alt="" coords="119,52,209,120,206,125,115,56"/>
+<area shape="rect" href="classTransform.html" title=" " alt="" coords="181,13,264,38"/>
+<area shape="poly" title=" " alt="" coords="225,52,225,122,220,122,220,52"/>
+<area shape="rect" href="classMatrix4.html" title="Class that implements a custom 4x4 Matrix for use with OpenGL functions and game logic." alt="" coords="318,13,386,38"/>
+<area shape="poly" title=" " alt="" coords="350,52,341,77,325,101,308,113,289,122,253,133,252,128,288,117,305,108,321,97,336,75,345,50"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1ee1e3bdd7446519d5afd50b5958dd5c" id="r_a1ee1e3bdd7446519d5afd50b5958dd5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ee1e3bdd7446519d5afd50b5958dd5c">GameWindow</a> (int width, int height, std::string title)</td></tr>
-<tr class="memdesc:a1ee1e3bdd7446519d5afd50b5958dd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Game Window object.  <br /></td></tr>
-<tr class="separator:a1ee1e3bdd7446519d5afd50b5958dd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8f37f8fd6225c4cfb60e76d13d04c9d" id="r_af8f37f8fd6225c4cfb60e76d13d04c9d"><td class="memItemLeft" align="right" valign="top">GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8f37f8fd6225c4cfb60e76d13d04c9d">getNativeWindow</a> () const</td></tr>
-<tr class="memdesc:af8f37f8fd6225c4cfb60e76d13d04c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for GLFW window object.  <br /></td></tr>
-<tr class="separator:af8f37f8fd6225c4cfb60e76d13d04c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae52c762a33fbf9473d0ad94591e547df" id="r_ae52c762a33fbf9473d0ad94591e547df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae52c762a33fbf9473d0ad94591e547df">initialize</a> ()</td></tr>
+<tr class="memdesc:ae52c762a33fbf9473d0ad94591e547df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializer for GLFW and the GLFW window.  <br /></td></tr>
+<tr class="separator:ae52c762a33fbf9473d0ad94591e547df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91e9584fa74547af5f20243bd4a13459" id="r_a91e9584fa74547af5f20243bd4a13459"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91e9584fa74547af5f20243bd4a13459">update</a> ()</td></tr>
+<tr class="memdesc:a91e9584fa74547af5f20243bd4a13459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update function.  <br /></td></tr>
+<tr class="separator:a91e9584fa74547af5f20243bd4a13459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dfbc3c96f68dd4bc9303fe0542be69b" id="r_a5dfbc3c96f68dd4bc9303fe0542be69b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dfbc3c96f68dd4bc9303fe0542be69b">shutdown</a> ()</td></tr>
+<tr class="memdesc:a5dfbc3c96f68dd4bc9303fe0542be69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shutdown function to terminate the window and GLFW.  <br /></td></tr>
+<tr class="separator:a5dfbc3c96f68dd4bc9303fe0542be69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad95695e08d19c0dfe01aa72815fce3f7" id="r_ad95695e08d19c0dfe01aa72815fce3f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad95695e08d19c0dfe01aa72815fce3f7">setTitle</a> (std::string _title)</td></tr>
+<tr class="memdesc:ad95695e08d19c0dfe01aa72815fce3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the window title.  <br /></td></tr>
+<tr class="separator:ad95695e08d19c0dfe01aa72815fce3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9f34807e61eecb6a9512ad7d410a415" id="r_ad9f34807e61eecb6a9512ad7d410a415"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9f34807e61eecb6a9512ad7d410a415">setWidth</a> (int _width)</td></tr>
+<tr class="memdesc:ad9f34807e61eecb6a9512ad7d410a415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the width of the window.  <br /></td></tr>
+<tr class="separator:ad9f34807e61eecb6a9512ad7d410a415"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f2c25f8e46d489e892050b68948ee86" id="r_a3f2c25f8e46d489e892050b68948ee86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f2c25f8e46d489e892050b68948ee86">setHeight</a> (int _height)</td></tr>
+<tr class="memdesc:a3f2c25f8e46d489e892050b68948ee86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for the height of the window.  <br /></td></tr>
+<tr class="separator:a3f2c25f8e46d489e892050b68948ee86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad74372bb8d5d33d71b8f7831c1d533c4" id="r_ad74372bb8d5d33d71b8f7831c1d533c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad74372bb8d5d33d71b8f7831c1d533c4">setVsync</a> (bool flag)</td></tr>
+<tr class="memdesc:ad74372bb8d5d33d71b8f7831c1d533c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for if Vsync should be used.  <br /></td></tr>
+<tr class="separator:ad74372bb8d5d33d71b8f7831c1d533c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed5ecd56b1d93217320055a1ff8f025e" id="r_aed5ecd56b1d93217320055a1ff8f025e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed5ecd56b1d93217320055a1ff8f025e">getWidth</a> ()</td></tr>
 <tr class="memdesc:aed5ecd56b1d93217320055a1ff8f025e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the width of the window.  <br /></td></tr>
 <tr class="separator:aed5ecd56b1d93217320055a1ff8f025e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,61 +166,163 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afed0b4fae85eff218e3171657822f547" id="r_afed0b4fae85eff218e3171657822f547"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afed0b4fae85eff218e3171657822f547">setShouldClose</a> () const</td></tr>
 <tr class="memdesc:afed0b4fae85eff218e3171657822f547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to set the window should close signal.  <br /></td></tr>
 <tr class="separator:afed0b4fae85eff218e3171657822f547"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a301edc61885bf6ef5e3e7c1951ea6230" id="r_a301edc61885bf6ef5e3e7c1951ea6230"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a301edc61885bf6ef5e3e7c1951ea6230">pollEvents</a> ()</td></tr>
-<tr class="memdesc:a301edc61885bf6ef5e3e7c1951ea6230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to poll window events.  <br /></td></tr>
-<tr class="separator:a301edc61885bf6ef5e3e7c1951ea6230"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accaf8b939694d07c08530f75eef43cc7" id="r_accaf8b939694d07c08530f75eef43cc7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accaf8b939694d07c08530f75eef43cc7">setWindowHints</a> (const std::function&lt; void()&gt; &amp;hintSetter)</td></tr>
-<tr class="memdesc:accaf8b939694d07c08530f75eef43cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that calls the provided hint setter function.  <br /></td></tr>
-<tr class="separator:accaf8b939694d07c08530f75eef43cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af90a4bd6c1e7c958115c2cf028687fcc" id="r_af90a4bd6c1e7c958115c2cf028687fcc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af90a4bd6c1e7c958115c2cf028687fcc">setResizeCallback</a> (std::function&lt; void(GLFWwindow *, int, int)&gt; callback)</td></tr>
-<tr class="memdesc:af90a4bd6c1e7c958115c2cf028687fcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that sets the resize callback to the resize callback wrapper.  <br /></td></tr>
-<tr class="separator:af90a4bd6c1e7c958115c2cf028687fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad74372bb8d5d33d71b8f7831c1d533c4" id="r_ad74372bb8d5d33d71b8f7831c1d533c4"><td class="memItemLeft" align="right" valign="top"><a id="ad74372bb8d5d33d71b8f7831c1d533c4" name="ad74372bb8d5d33d71b8f7831c1d533c4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setVsync</b> (bool flag)</td></tr>
-<tr class="separator:ad74372bb8d5d33d71b8f7831c1d533c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f37f8fd6225c4cfb60e76d13d04c9d" id="r_af8f37f8fd6225c4cfb60e76d13d04c9d"><td class="memItemLeft" align="right" valign="top">GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8f37f8fd6225c4cfb60e76d13d04c9d">getNativeWindow</a> () const</td></tr>
+<tr class="memdesc:af8f37f8fd6225c4cfb60e76d13d04c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for GLFW window object.  <br /></td></tr>
+<tr class="separator:af8f37f8fd6225c4cfb60e76d13d04c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classComponent"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classComponent')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classComponent.html">Component</a></td></tr>
+<tr class="memitem:a7e63a4b118bc00de247466c3c128e7bc inherit pub_methods_classComponent" id="r_a7e63a4b118bc00de247466c3c128e7bc"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>Component</b> (std::string name)</td></tr>
+<tr class="separator:a7e63a4b118bc00de247466c3c128e7bc inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b3bee5d55446124842e5f2e229e1384 inherit pub_methods_classComponent" id="r_a3b3bee5d55446124842e5f2e229e1384"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#a3b3bee5d55446124842e5f2e229e1384">update</a> (float deltaTime)</td></tr>
+<tr class="memdesc:a3b3bee5d55446124842e5f2e229e1384 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main update function.  <br /></td></tr>
+<tr class="separator:a3b3bee5d55446124842e5f2e229e1384 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent" id="r_af659603312b1770279f3722f8ea303a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#af659603312b1770279f3722f8ea303a4">enable</a> ()</td></tr>
+<tr class="memdesc:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the component.  <br /></td></tr>
+<tr class="separator:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent" id="r_a5944c18d0e1de53f2842149ca364b672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#a5944c18d0e1de53f2842149ca364b672">disable</a> ()</td></tr>
+<tr class="memdesc:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the component.  <br /></td></tr>
+<tr class="separator:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa22ebfe0829ab3f1609fd139ddd0ff54 inherit pub_methods_classComponent" id="r_aa22ebfe0829ab3f1609fd139ddd0ff54"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#aa22ebfe0829ab3f1609fd139ddd0ff54">isEnabled</a> ()</td></tr>
+<tr class="memdesc:aa22ebfe0829ab3f1609fd139ddd0ff54 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is component enabled.  <br /></td></tr>
+<tr class="separator:aa22ebfe0829ab3f1609fd139ddd0ff54 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa636ded12690664af716560cc6bf240f inherit pub_methods_classComponent" id="r_aa636ded12690664af716560cc6bf240f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#aa636ded12690664af716560cc6bf240f">markForDeletion</a> ()</td></tr>
+<tr class="memdesc:aa636ded12690664af716560cc6bf240f inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark component for deletion.  <br /></td></tr>
+<tr class="separator:aa636ded12690664af716560cc6bf240f inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa764e81ae2cbcf511ec8f0cf742ce7a5 inherit pub_methods_classComponent" id="r_aa764e81ae2cbcf511ec8f0cf742ce7a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#aa764e81ae2cbcf511ec8f0cf742ce7a5">isMarkedForDeletion</a> ()</td></tr>
+<tr class="memdesc:aa764e81ae2cbcf511ec8f0cf742ce7a5 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is component marked for deletion.  <br /></td></tr>
+<tr class="separator:aa764e81ae2cbcf511ec8f0cf742ce7a5 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classNode')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classNode.html">Node</a></td></tr>
+<tr class="memitem:afceb8877cfab44e0eda5ae3a88513242 inherit pub_methods_classNode" id="r_afceb8877cfab44e0eda5ae3a88513242"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#afceb8877cfab44e0eda5ae3a88513242">Node</a> (std::string name)</td></tr>
+<tr class="memdesc:afceb8877cfab44e0eda5ae3a88513242 inherit pub_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classNode.html">Node</a> Constructor.  <br /></td></tr>
+<tr class="separator:afceb8877cfab44e0eda5ae3a88513242 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d3a897b1240b4cd8fc7e37ad5e30fcb inherit pub_methods_classNode" id="r_a9d3a897b1240b4cd8fc7e37ad5e30fcb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a9d3a897b1240b4cd8fc7e37ad5e30fcb">removeNode</a> (SharedNode node)</td></tr>
+<tr class="memdesc:a9d3a897b1240b4cd8fc7e37ad5e30fcb inherit pub_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a node from the tree.  <br /></td></tr>
+<tr class="separator:a9d3a897b1240b4cd8fc7e37ad5e30fcb inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70630771eb579ea03658d83385489a47 inherit pub_methods_classNode" id="r_a70630771eb579ea03658d83385489a47"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a70630771eb579ea03658d83385489a47">reparent</a> (SharedNode node)</td></tr>
+<tr class="memdesc:a70630771eb579ea03658d83385489a47 inherit pub_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reparent a node to a new node.  <br /></td></tr>
+<tr class="separator:a70630771eb579ea03658d83385489a47 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c325ce0bc5843638d3749cda02d501b inherit pub_methods_classNode" id="r_a2c325ce0bc5843638d3749cda02d501b"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>worldToLocalSpace</b> ()</td></tr>
+<tr class="separator:a2c325ce0bc5843638d3749cda02d501b inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee12b173b884a07318ab7cadf37d57a inherit pub_methods_classNode" id="r_a4ee12b173b884a07318ab7cadf37d57a"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>localToWorldSpace</b> ()</td></tr>
+<tr class="separator:a4ee12b173b884a07318ab7cadf37d57a inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a875f20fdcca5c929635053b012ffbd10 inherit pub_methods_classNode" id="r_a875f20fdcca5c929635053b012ffbd10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a875f20fdcca5c929635053b012ffbd10">addChild</a> (SharedNode node)</td></tr>
+<tr class="memdesc:a875f20fdcca5c929635053b012ffbd10 inherit pub_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a passed node as a child to the current node.  <br /></td></tr>
+<tr class="separator:a875f20fdcca5c929635053b012ffbd10 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a691ba30b6e37963ca0ca4d427704bec8 inherit pub_methods_classNode" id="r_a691ba30b6e37963ca0ca4d427704bec8"><td class="memItemLeft" align="right" valign="top">SharedNode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a691ba30b6e37963ca0ca4d427704bec8">findNode</a> (unsigned int id)</td></tr>
+<tr class="memdesc:a691ba30b6e37963ca0ca4d427704bec8 inherit pub_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a node by passing the node id to be found.  <br /></td></tr>
+<tr class="separator:a691ba30b6e37963ca0ca4d427704bec8 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e819182e60d3c24c8e8105980ba227f inherit pub_methods_classNode" id="r_a1e819182e60d3c24c8e8105980ba227f"><td class="memItemLeft" align="right" valign="top">SharedNode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a1e819182e60d3c24c8e8105980ba227f">findNodeFast</a> (unsigned int id)</td></tr>
+<tr class="memdesc:a1e819182e60d3c24c8e8105980ba227f inherit pub_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a node by passing the node id to be found, but fast.  <br /></td></tr>
+<tr class="separator:a1e819182e60d3c24c8e8105980ba227f inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39fc52a092dd0ea31ee6253f5ddbbf8b inherit pub_methods_classNode" id="r_a39fc52a092dd0ea31ee6253f5ddbbf8b"><td class="memItemLeft" align="right" valign="top">
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getID</b> () const</td></tr>
+<tr class="separator:a39fc52a092dd0ea31ee6253f5ddbbf8b inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74c1599164111ab218858bbe0748a812 inherit pub_methods_classNode" id="r_a74c1599164111ab218858bbe0748a812"><td class="memItemLeft" align="right" valign="top">
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const</td></tr>
+<tr class="separator:a74c1599164111ab218858bbe0748a812 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cad655320d50751c43c5cec9356dcf3 inherit pub_methods_classNode" id="r_a3cad655320d50751c43c5cec9356dcf3"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getParent</b> () const</td></tr>
+<tr class="separator:a3cad655320d50751c43c5cec9356dcf3 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7abede8edd1fcf3a8aabc0456f46b86 inherit pub_methods_classNode" id="r_ac7abede8edd1fcf3a8aabc0456f46b86"><td class="memItemLeft" align="right" valign="top">
+const ChildrenContainer &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getChildren</b> () const</td></tr>
+<tr class="separator:ac7abede8edd1fcf3a8aabc0456f46b86 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7537edc5741aa27dc3202429a0f46824 inherit pub_methods_classNode" id="r_a7537edc5741aa27dc3202429a0f46824"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classMatrix4.html">Matrix4</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTransformMatrix</b> () const</td></tr>
+<tr class="separator:a7537edc5741aa27dc3202429a0f46824 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45370e4bd2543db367850ade64d81da1 inherit pub_methods_classNode" id="r_a45370e4bd2543db367850ade64d81da1"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classTransform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getLocalTransform</b> () const</td></tr>
+<tr class="separator:a45370e4bd2543db367850ade64d81da1 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a525a1af93631d1f490aee2f2ff5bf90e inherit pub_methods_classNode" id="r_a525a1af93631d1f490aee2f2ff5bf90e"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classTransform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getWorldTransform</b> () const</td></tr>
+<tr class="separator:a525a1af93631d1f490aee2f2ff5bf90e inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65503264d6cd1edec999fbd175208a11 inherit pub_methods_classNode" id="r_a65503264d6cd1edec999fbd175208a11"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getLocalPosition</b> () const</td></tr>
+<tr class="separator:a65503264d6cd1edec999fbd175208a11 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aa9f667fd3fbcb5c802e6946b2378fe inherit pub_methods_classNode" id="r_a8aa9f667fd3fbcb5c802e6946b2378fe"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getLocalRotation</b> () const</td></tr>
+<tr class="separator:a8aa9f667fd3fbcb5c802e6946b2378fe inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cdbc1ae53edb5afc1354531466ac47b inherit pub_methods_classNode" id="r_a4cdbc1ae53edb5afc1354531466ac47b"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getLocalScaling</b> () const</td></tr>
+<tr class="separator:a4cdbc1ae53edb5afc1354531466ac47b inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4151a67c4ad33a29bb3ba5bfb4cb3598 inherit pub_methods_classNode" id="r_a4151a67c4ad33a29bb3ba5bfb4cb3598"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setLocalPosition</b> (const <a class="el" href="classVector3.html">Vector3</a> &amp;position)</td></tr>
+<tr class="separator:a4151a67c4ad33a29bb3ba5bfb4cb3598 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6086c7b1e90576eb1ca49f91ee89d1 inherit pub_methods_classNode" id="r_a2c6086c7b1e90576eb1ca49f91ee89d1"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setLocalRotation</b> (const <a class="el" href="classVector3.html">Vector3</a> &amp;rotation)</td></tr>
+<tr class="separator:a2c6086c7b1e90576eb1ca49f91ee89d1 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf39cc60ac764227c5bc43934c81b4ca inherit pub_methods_classNode" id="r_acf39cc60ac764227c5bc43934c81b4ca"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setLocalScaling</b> (const <a class="el" href="classVector3.html">Vector3</a> &amp;scaling)</td></tr>
+<tr class="separator:acf39cc60ac764227c5bc43934c81b4ca inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a70538530bc36e033e360880ef311df61" id="r_a70538530bc36e033e360880ef311df61"><td class="memItemLeft" align="right" valign="top"><a id="a70538530bc36e033e360880ef311df61" name="a70538530bc36e033e360880ef311df61"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Renderer</b></td></tr>
+<tr class="separator:a70538530bc36e033e360880ef311df61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_types_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_types_classNode')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="classNode.html">Node</a></td></tr>
+<tr class="memitem:ac3ec8a2974f66ef17d19b563202839d9 inherit pro_types_classNode" id="r_ac3ec8a2974f66ef17d19b563202839d9"><td class="memItemLeft" align="right" valign="top">
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ChildrenContainer</b> = std::vector&lt;std::shared_ptr&lt;<a class="el" href="classNode.html">Node</a>&gt;&gt;</td></tr>
+<tr class="separator:ac3ec8a2974f66ef17d19b563202839d9 inherit pro_types_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a991a0246450669e7093bd59b73ed05d4 inherit pro_types_classNode" id="r_a991a0246450669e7093bd59b73ed05d4"><td class="memItemLeft" align="right" valign="top">
+using&#160;</td><td class="memItemRight" valign="bottom"><b>SharedNode</b> = std::shared_ptr&lt;<a class="el" href="classNode.html">Node</a>&gt;</td></tr>
+<tr class="separator:a991a0246450669e7093bd59b73ed05d4 inherit pro_types_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classNode')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classNode.html">Node</a></td></tr>
+<tr class="memitem:afa0400212bba81a38a8c30358e8d159a inherit pro_methods_classNode" id="r_afa0400212bba81a38a8c30358e8d159a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#afa0400212bba81a38a8c30358e8d159a">updateSiblingNumbers</a> (unsigned int removedIndex)</td></tr>
+<tr class="memdesc:afa0400212bba81a38a8c30358e8d159a inherit pro_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update sibling numbers of the children when one child is removed.  <br /></td></tr>
+<tr class="separator:afa0400212bba81a38a8c30358e8d159a inherit pro_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_methods_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_methods_classNode')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classNode.html">Node</a></td></tr>
+<tr class="memitem:a056d062eb29724b02a75fe7c11c9068d inherit pro_static_methods_classNode" id="r_a056d062eb29724b02a75fe7c11c9068d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a056d062eb29724b02a75fe7c11c9068d">printNodeRecursive</a> (std::ostream &amp;os, <a class="el" href="classNode.html">Node</a> *node, int depth)</td></tr>
+<tr class="memdesc:a056d062eb29724b02a75fe7c11c9068d inherit pro_static_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debugging printing.  <br /></td></tr>
+<tr class="separator:a056d062eb29724b02a75fe7c11c9068d inherit pro_static_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classComponent"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classComponent')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classComponent.html">Component</a></td></tr>
+<tr class="memitem:afa65bb278f1e9256d34d6ea008e654ab inherit pro_attribs_classComponent" id="r_afa65bb278f1e9256d34d6ea008e654ab"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b></td></tr>
+<tr class="separator:afa65bb278f1e9256d34d6ea008e654ab inherit pro_attribs_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfed40142d7b94906283eccf45c7dff9 inherit pro_attribs_classComponent" id="r_adfed40142d7b94906283eccf45c7dff9"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b></td></tr>
+<tr class="separator:adfed40142d7b94906283eccf45c7dff9 inherit pro_attribs_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classNode')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classNode.html">Node</a></td></tr>
+<tr class="memitem:adb90577d9d796c4ccbccf41ce2efc6c9 inherit pro_attribs_classNode" id="r_adb90577d9d796c4ccbccf41ce2efc6c9"><td class="memItemLeft" align="right" valign="top">
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
+<tr class="separator:adb90577d9d796c4ccbccf41ce2efc6c9 inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa829edc37a2c92dacdab95bcef248175 inherit pro_attribs_classNode" id="r_aa829edc37a2c92dacdab95bcef248175"><td class="memItemLeft" align="right" valign="top">
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
+<tr class="separator:aa829edc37a2c92dacdab95bcef248175 inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8184598cdea70e4bbdfd76f2b0f9e85 inherit pro_attribs_classNode" id="r_ad8184598cdea70e4bbdfd76f2b0f9e85"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
+<tr class="separator:ad8184598cdea70e4bbdfd76f2b0f9e85 inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55965a8298e93f8a1d2b5feded707d38 inherit pro_attribs_classNode" id="r_a55965a8298e93f8a1d2b5feded707d38"><td class="memItemLeft" align="right" valign="top">
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>siblingNumber</b></td></tr>
+<tr class="separator:a55965a8298e93f8a1d2b5feded707d38 inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b7375a35d93edaa39402d64f90aab0e inherit pro_attribs_classNode" id="r_a3b7375a35d93edaa39402d64f90aab0e"><td class="memItemLeft" align="right" valign="top">
+ChildrenContainer&#160;</td><td class="memItemRight" valign="bottom"><b>children</b></td></tr>
+<tr class="separator:a3b7375a35d93edaa39402d64f90aab0e inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a127ffc49878d32949887de1e7c4bfe37 inherit pro_attribs_classNode" id="r_a127ffc49878d32949887de1e7c4bfe37"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classTransform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><b>localTransform</b></td></tr>
+<tr class="separator:a127ffc49878d32949887de1e7c4bfe37 inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90e05841bcbb6d834c623a21f0188f84 inherit pro_attribs_classNode" id="r_a90e05841bcbb6d834c623a21f0188f84"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classTransform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><b>worldTransform</b></td></tr>
+<tr class="separator:a90e05841bcbb6d834c623a21f0188f84 inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a83583b3b40ecb3674100b059a5fe13 inherit pro_attribs_classNode" id="r_a1a83583b3b40ecb3674100b059a5fe13"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classMatrix4.html">Matrix4</a>&#160;</td><td class="memItemRight" valign="bottom"><b>modelMatrix</b></td></tr>
+<tr class="separator:a1a83583b3b40ecb3674100b059a5fe13 inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d942d8f63022ba06d0ae79d1e46c11b inherit pro_attribs_classNode" id="r_a8d942d8f63022ba06d0ae79d1e46c11b"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isLocalSpace</b></td></tr>
+<tr class="separator:a8d942d8f63022ba06d0ae79d1e46c11b inherit pro_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_attribs_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_attribs_classNode')"><img src="closed.png" alt="-"/>&#160;Static Protected Attributes inherited from <a class="el" href="classNode.html">Node</a></td></tr>
+<tr class="memitem:a02df5f2880faf1b2dd49ccf91a964b0a inherit pro_static_attribs_classNode" id="r_a02df5f2880faf1b2dd49ccf91a964b0a"><td class="memItemLeft" align="right" valign="top">
+static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nextID</b> = 0</td></tr>
+<tr class="separator:a02df5f2880faf1b2dd49ccf91a964b0a inherit pro_static_attribs_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that sets up the GLFW window and associated logic. </p>
 <hr  />
-  </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1ee1e3bdd7446519d5afd50b5958dd5c" name="a1ee1e3bdd7446519d5afd50b5958dd5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ee1e3bdd7446519d5afd50b5958dd5c">&#9670;&#160;</a></span>GameWindow()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">GameWindow::GameWindow </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>title</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new Game Window object. </p>
-<hr  />
- <dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">width</td><td>Width of the window. </td></tr>
-    <tr><td class="paramname">height</td><td>Height of the window. </td></tr>
-    <tr><td class="paramname">title</td><td>Window title. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+  </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="abdad624ef7e198adaf13f5d0d9d7aaa6" name="abdad624ef7e198adaf13f5d0d9d7aaa6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abdad624ef7e198adaf13f5d0d9d7aaa6">&#9670;&#160;</a></span>getHeight()</h2>
 
@@ -231,7 +382,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setVsync</b> (bool fl
 
 <p>Function to receive the window should close signal. </p>
 <hr  />
- <p>This is typically called in the main loop to check for end of loop or if program shutdown procedures should be run.</p>
+ <p>Usage:</p>
+<p>This is typically called in the main loop to check for end of loop or if program shutdown procedures should be run.</p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> Window is about to close. </dd>
 <dd>
 <b>false</b> GLFW failure occured when closing the window. </dd></dl>
@@ -259,51 +411,66 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setVsync</b> (bool fl
 
 </div>
 </div>
-<a id="a301edc61885bf6ef5e3e7c1951ea6230" name="a301edc61885bf6ef5e3e7c1951ea6230"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a301edc61885bf6ef5e3e7c1951ea6230">&#9670;&#160;</a></span>pollEvents()</h2>
+<a id="ae52c762a33fbf9473d0ad94591e547df" name="ae52c762a33fbf9473d0ad94591e547df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52c762a33fbf9473d0ad94591e547df">&#9670;&#160;</a></span>initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void GameWindow::pollEvents </td>
+          <td class="memname">void GameWindow::initialize </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Function to poll window events. </p>
+<p>Initializer for GLFW and the GLFW window. </p>
 <hr  />
- <p>Polled events include all mouse, keyboard and other input device signals as long as the window is in focus. </p>
+ <h2><a class="anchor" id="autotoc_md7"></a>
+Required calls before init:</h2>
+<ul>
+<li><a class="el" href="#ad95695e08d19c0dfe01aa72815fce3f7" title="Setter for the window title.">setTitle(std::string _title)</a></li>
+<li><a class="el" href="#ad9f34807e61eecb6a9512ad7d410a415" title="Setter for the width of the window.">setWidth(int _width)</a></li>
+<li><a class="el" href="#a3f2c25f8e46d489e892050b68948ee86" title="Setter for the height of the window.">setHeight(int _height)</a></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Usage:</h2>
+<p>This must be called at the start of the program to create the game window. </p>
+
+<p>Reimplemented from <a class="el" href="classComponent.html">Component</a>.</p>
 
 </div>
 </div>
-<a id="af90a4bd6c1e7c958115c2cf028687fcc" name="af90a4bd6c1e7c958115c2cf028687fcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af90a4bd6c1e7c958115c2cf028687fcc">&#9670;&#160;</a></span>setResizeCallback()</h2>
+<a id="a3f2c25f8e46d489e892050b68948ee86" name="a3f2c25f8e46d489e892050b68948ee86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2c25f8e46d489e892050b68948ee86">&#9670;&#160;</a></span>setHeight()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void GameWindow::setResizeCallback </td>
+          <td class="memname">void GameWindow::setHeight </td>
           <td>(</td>
-          <td class="paramtype">std::function&lt; void(GLFWwindow *, int, int)&gt;</td>          <td class="paramname"><span class="paramname"><em>callback</em></span></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>_height</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function that sets the resize callback to the resize callback wrapper. </p>
+<p>Setter for the height of the window. </p>
 <hr  />
- <p>This is used to setup the callback function that performs the following when the user resizes the window:</p><ul>
-<li>Update the window's width and height.</li>
-<li>Update the drawable width and height area in the <a class="el" href="classRenderer.html">Renderer</a> class.</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
+ <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">callback</td><td>The callback function sent by the <a class="el" href="classRenderer.html">Renderer</a>, which needs to be registered to glfwSetFramebufferSizeCallback. </td></tr>
+    <tr><td class="paramname">_height</td><td>Height of the window. </td></tr>
   </table>
   </dd>
 </dl>
@@ -327,37 +494,156 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setVsync</b> (bool fl
 
 <p>Function to set the window should close signal. </p>
 <hr  />
- <p>This is typically called to close the window and end the rendering.</p>
+ <h2><a class="anchor" id="autotoc_md6"></a>
+Usage:</h2>
+<p>Use this at the end of game loop to close the window and end the rendering.</p>
 <dl class="section return"><dt>Returns</dt><dd><b>true</b> Window is about to close. </dd>
 <dd>
 <b>false</b> GLFW failure occured when closing the window. </dd></dl>
 
 </div>
 </div>
-<a id="accaf8b939694d07c08530f75eef43cc7" name="accaf8b939694d07c08530f75eef43cc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#accaf8b939694d07c08530f75eef43cc7">&#9670;&#160;</a></span>setWindowHints()</h2>
+<a id="ad95695e08d19c0dfe01aa72815fce3f7" name="ad95695e08d19c0dfe01aa72815fce3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad95695e08d19c0dfe01aa72815fce3f7">&#9670;&#160;</a></span>setTitle()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void GameWindow::setWindowHints </td>
+          <td class="memname">void GameWindow::setTitle </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void()&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>hintSetter</em></span></td><td>)</td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>_title</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function that calls the provided hint setter function. </p>
+<p>Setter for the window title. </p>
 <hr  />
- <p>This is used to setup OpenGL window hints so that the renderer can properly bind to the window.</p>
+ <h2><a class="anchor" id="autotoc_md3"></a>
+Usage:</h2>
+<p>This is used to label and identify windows. Multiple windows must have different titles.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hintSetter</td><td>Hint setter function that is called by this function. </td></tr>
+    <tr><td class="paramname">_title</td><td>Title of the window. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ad74372bb8d5d33d71b8f7831c1d533c4" name="ad74372bb8d5d33d71b8f7831c1d533c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad74372bb8d5d33d71b8f7831c1d533c4">&#9670;&#160;</a></span>setVsync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameWindow::setVsync </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>flag</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setter for if Vsync should be used. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md4"></a>
+Usage:</h2>
+<p>THIS FUNCTION MUST ONLY BE CALLED AFTER <code>Renderer::init()</code>! Calling this function before initializing the renderer will lead to a <code>GLFW_NO_CURRENT_CONTEXT</code> error.</p>
+<p>This sets up OpenGL to wait for the screen to fully update before swapping the buffers.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Explanation:</h2>
+<p>Default behaviour for buffer swapping varies by device, so setting this ensures vsync behaviour. If set to false, buffer swapping occurs acyncronouosly as soon as the frame is ready. If set to true, buffer will wait for screen update before swapping.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad9f34807e61eecb6a9512ad7d410a415" name="ad9f34807e61eecb6a9512ad7d410a415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9f34807e61eecb6a9512ad7d410a415">&#9670;&#160;</a></span>setWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameWindow::setWidth </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>_width</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setter for the width of the window. </p>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_width</td><td>Width of the window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5dfbc3c96f68dd4bc9303fe0542be69b" name="a5dfbc3c96f68dd4bc9303fe0542be69b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dfbc3c96f68dd4bc9303fe0542be69b">&#9670;&#160;</a></span>shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameWindow::shutdown </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Shutdown function to terminate the window and GLFW. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md10"></a>
+Usage:</h2>
+<p>This function destroys the game window and terminates OpenGL. </p>
+
+<p>Reimplemented from <a class="el" href="classComponent.html">Component</a>.</p>
+
+</div>
+</div>
+<a id="a91e9584fa74547af5f20243bd4a13459" name="a91e9584fa74547af5f20243bd4a13459"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e9584fa74547af5f20243bd4a13459">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameWindow::update </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update function. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md9"></a>
+Usage:</h2>
+<p>This function must be called at the end/beginning of the game loop to read window events. This includes all mouse, keyboard and other input device signals as long as the window is in focus. </p>
 
 </div>
 </div>

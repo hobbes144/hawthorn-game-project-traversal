@@ -89,8 +89,10 @@ $(function(){ initResizable(false); });
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classNode-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Node Class Reference</div></div>
 </div><!--header-->
@@ -100,13 +102,23 @@ Inheritance diagram for Node:</div>
 <div class="dyncontent">
 <div class="center"><img src="classNode__inherit__graph.png" border="0" usemap="#aNode_inherit__map" alt="Inheritance graph"/></div>
 <map name="aNode_inherit__map" id="aNode_inherit__map">
-<area shape="rect" title=" " alt="" coords="55,93,111,119"/>
-<area shape="rect" href="classRenderableNode.html" title=" " alt="" coords="17,167,148,192"/>
-<area shape="poly" title=" " alt="" coords="85,132,85,167,80,167,80,132"/>
-<area shape="rect" title=" " alt="" coords="5,5,160,45"/>
-<area shape="poly" title=" " alt="" coords="85,59,85,93,80,93,80,59"/>
-<area shape="rect" href="classTrianglePrimitive.html" title=" " alt="" coords="17,240,149,265"/>
-<area shape="poly" title=" " alt="" coords="85,206,85,240,80,240,80,206"/>
+<area shape="rect" title=" " alt="" coords="229,93,288,119"/>
+<area shape="rect" href="classComponent.html" title="Component is the base class of all components." alt="" coords="135,167,238,192"/>
+<area shape="poly" title=" " alt="" coords="239,131,200,168,196,165,235,127"/>
+<area shape="rect" href="classRenderableNode.html" title=" " alt="" coords="263,167,399,192"/>
+<area shape="poly" title=" " alt="" coords="282,127,321,165,317,168,279,131"/>
+<area shape="rect" title=" " alt="" coords="183,5,335,45"/>
+<area shape="poly" title=" " alt="" coords="261,59,261,93,256,93,256,59"/>
+<area shape="rect" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="5,240,123,265"/>
+<area shape="poly" title=" " alt="" coords="157,201,85,242,83,237,154,196"/>
+<area shape="rect" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="147,240,229,265"/>
+<area shape="poly" title=" " alt="" coords="190,206,190,240,185,240,184,206"/>
+<area shape="rect" href="classRectanglePrimitive.html" title=" " alt="" coords="257,240,402,265"/>
+<area shape="poly" title=" " alt="" coords="333,206,332,240,327,240,328,206"/>
+<area shape="rect" href="classTrianglePrimitive.html" title=" " alt="" coords="426,240,553,265"/>
+<area shape="poly" title=" " alt="" coords="369,195,464,237,462,242,367,200"/>
+<area shape="rect" href="classGameObject.html" title=" " alt="" coords="273,313,385,339"/>
+<area shape="poly" title=" " alt="" coords="332,279,332,313,327,313,327,279"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -133,6 +145,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9d3a897b1240b4cd8fc7e37ad5e30fcb" id="r_a9d3a897b1240b4cd8fc7e37ad5e30fcb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d3a897b1240b4cd8fc7e37ad5e30fcb">removeNode</a> (SharedNode node)</td></tr>
 <tr class="memdesc:a9d3a897b1240b4cd8fc7e37ad5e30fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a node from the tree.  <br /></td></tr>
 <tr class="separator:a9d3a897b1240b4cd8fc7e37ad5e30fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70630771eb579ea03658d83385489a47" id="r_a70630771eb579ea03658d83385489a47"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70630771eb579ea03658d83385489a47">reparent</a> (SharedNode node)</td></tr>
+<tr class="memdesc:a70630771eb579ea03658d83385489a47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reparent a node to a new node.  <br /></td></tr>
+<tr class="separator:a70630771eb579ea03658d83385489a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11534136b486a3bf87130d4983a56bfb" id="r_a11534136b486a3bf87130d4983a56bfb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11534136b486a3bf87130d4983a56bfb">update</a> (float deltaTime)</td></tr>
 <tr class="memdesc:a11534136b486a3bf87130d4983a56bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main update function.  <br /></td></tr>
 <tr class="separator:a11534136b486a3bf87130d4983a56bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,6 +221,12 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:afa0400212bba81a38a8c30358e8d159a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update sibling numbers of the children when one child is removed.  <br /></td></tr>
 <tr class="separator:afa0400212bba81a38a8c30358e8d159a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:a056d062eb29724b02a75fe7c11c9068d" id="r_a056d062eb29724b02a75fe7c11c9068d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a056d062eb29724b02a75fe7c11c9068d">printNodeRecursive</a> (std::ostream &amp;os, <a class="el" href="classNode.html">Node</a> *node, int depth)</td></tr>
+<tr class="memdesc:a056d062eb29724b02a75fe7c11c9068d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debugging printing.  <br /></td></tr>
+<tr class="separator:a056d062eb29724b02a75fe7c11c9068d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:adb90577d9d796c4ccbccf41ce2efc6c9" id="r_adb90577d9d796c4ccbccf41ce2efc6c9"><td class="memItemLeft" align="right" valign="top"><a id="adb90577d9d796c4ccbccf41ce2efc6c9" name="adb90577d9d796c4ccbccf41ce2efc6c9"></a>
@@ -241,6 +262,12 @@ Static Protected Attributes</h2></td></tr>
 <tr class="memitem:a02df5f2880faf1b2dd49ccf91a964b0a" id="r_a02df5f2880faf1b2dd49ccf91a964b0a"><td class="memItemLeft" align="right" valign="top"><a id="a02df5f2880faf1b2dd49ccf91a964b0a" name="a02df5f2880faf1b2dd49ccf91a964b0a"></a>
 static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nextID</b> = 0</td></tr>
 <tr class="separator:a02df5f2880faf1b2dd49ccf91a964b0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a2d3d26656e15be37b759d3e0f7696b47" id="r_a2d3d26656e15be37b759d3e0f7696b47"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d3d26656e15be37b759d3e0f7696b47">operator&lt;&lt;</a> (std::ostream &amp;os, <a class="el" href="classNode.html">Node</a> &amp;node)</td></tr>
+<tr class="memdesc:a2d3d26656e15be37b759d3e0f7696b47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debugging printing.  <br /></td></tr>
+<tr class="separator:a2d3d26656e15be37b759d3e0f7696b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afceb8877cfab44e0eda5ae3a88513242" name="afceb8877cfab44e0eda5ae3a88513242"></a>
@@ -350,6 +377,51 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nextID
 
 </div>
 </div>
+<a id="a056d062eb29724b02a75fe7c11c9068d" name="a056d062eb29724b02a75fe7c11c9068d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a056d062eb29724b02a75fe7c11c9068d">&#9670;&#160;</a></span>printNodeRecursive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::printNodeRecursive </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;</td>          <td class="paramname"><span class="paramname"><em>os</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classNode.html">Node</a> *</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>depth</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Debugging printing. </p>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Stream to output to. </td></tr>
+    <tr><td class="paramname">node</td><td><a class="el" href="classNode.html">Node</a> to start with. </td></tr>
+    <tr><td class="paramname">depth</td><td>Depth to which nodes are printed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a9d3a897b1240b4cd8fc7e37ad5e30fcb" name="a9d3a897b1240b4cd8fc7e37ad5e30fcb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9d3a897b1240b4cd8fc7e37ad5e30fcb">&#9670;&#160;</a></span>removeNode()</h2>
 
@@ -379,6 +451,40 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nextID
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">node</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a70630771eb579ea03658d83385489a47" name="a70630771eb579ea03658d83385489a47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70630771eb579ea03658d83385489a47">&#9670;&#160;</a></span>reparent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::reparent </td>
+          <td>(</td>
+          <td class="paramtype">SharedNode</td>          <td class="paramname"><span class="paramname"><em>dstNode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reparent a node to a new node. </p>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dstNode</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -418,7 +524,7 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nextID
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="classRenderableNode.html#a5379c0ee2f7e4d4d4a6dd53c90700d26">RenderableNode</a>.</p>
+<p>Reimplemented in <a class="el" href="classComponent.html#a3b3bee5d55446124842e5f2e229e1384">Component</a>, <a class="el" href="classGameObject.html#ae94b6af53231734853ec79dd9101a36a">GameObject</a>, and <a class="el" href="classRenderableNode.html#a5379c0ee2f7e4d4d4a6dd53c90700d26">RenderableNode</a>.</p>
 
 </div>
 </div>
@@ -454,6 +560,47 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nextID
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a2d3d26656e15be37b759d3e0f7696b47" name="a2d3d26656e15be37b759d3e0f7696b47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d3d26656e15be37b759d3e0f7696b47">&#9670;&#160;</a></span>operator&lt;&lt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;</td>          <td class="paramname"><span class="paramname"><em>os</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classNode.html">Node</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>node</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Debugging printing. </p>
+<hr  />
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Stream to output to. </td></tr>
+    <tr><td class="paramname">node</td><td><a class="el" href="classNode.html">Node</a> to start with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::ostream&amp;</b> The output stream. </dd></dl>
 
 </div>
 </div>

@@ -1,31 +1,46 @@
 <map id="AnishCS529Engine/src/Renderer.h" name="AnishCS529Engine/src/Renderer.h">
-<area shape="rect" id="Node000001" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="205,5,372,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,100,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,48,84,161,81,157,258,43"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="124,167,235,192"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,48,239,69,216,95,200,124,189,154,184,152,195,122,212,92,235,65,260,44"/>
-<area shape="rect" id="Node000004" href="$GameWindow_8h.html" title="File containing GameWindow Object and associated logic." alt="" coords="227,93,351,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="291,46,291,79,286,79,286,46"/>
-<area shape="rect" id="Node000008" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="659,167,742,192"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="372,28,456,35,545,47,624,66,655,77,677,91,688,105,696,120,703,152,697,153,691,122,684,108,674,95,653,82,623,71,544,53,455,41,372,34"/>
-<area shape="rect" id="Node000012" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="579,93,663,119"/>
-<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="369,43,566,89,565,94,368,48"/>
-<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="252,121,105,165,103,160,250,116"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="273,121,210,161,207,157,270,116"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="259,167,318,192"/>
-<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="291,119,291,153,286,153,286,119"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="342,167,422,192"/>
-<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="305,117,358,156,354,160,302,121"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="447,167,533,192"/>
-<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="322,116,445,159,444,165,320,121"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="744,240,807,265"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="714,190,755,229,751,232,711,194"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="659,240,715,265"/>
-<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="701,193,695,227,689,226,696,192"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="541,240,628,265"/>
-<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="683,194,617,235,614,230,681,190"/>
-<area shape="poly" id="edge17_Node000012_Node000008" title=" " alt="" coords="635,117,679,156,676,160,632,121"/>
-<area shape="poly" id="edge14_Node000012_Node000009" title=" " alt="" coords="664,113,712,132,736,146,756,165,771,195,777,225,772,226,766,196,752,168,733,150,710,137,662,118"/>
-<area shape="poly" id="edge15_Node000012_Node000010" title=" " alt="" coords="626,118,635,151,650,191,672,227,668,230,645,193,630,153,621,119"/>
-<area shape="poly" id="edge16_Node000012_Node000011" title=" " alt="" coords="620,120,606,167,592,227,587,226,601,166,614,118"/>
+<area shape="rect" id="Node000001" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="177,5,341,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,107,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,48,84,160,81,156,232,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="131,167,243,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="252,47,200,155,196,153,247,45"/>
+<area shape="rect" id="Node000004" href="$Component_8h.html" title="Component Class used as the base of the Entity Component System." alt="" coords="480,167,595,192"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="297,43,388,91,507,157,504,162,385,96,295,48"/>
+<area shape="rect" id="Node000016" href="$GameWindow_8h.html" title="File containing GameWindow Object and associated logic." alt="" coords="247,93,375,119"/>
+<area shape="poly" id="edge21_Node000001_Node000016" title=" " alt="" coords="273,44,298,80,293,83,269,47"/>
+<area shape="rect" id="Node000005" href="$Node_8h.html" title="Node class used for the Scene Graph." alt="" coords="531,240,602,265"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="545,191,559,226,554,228,540,193"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="456,313,512,339"/>
+<area shape="poly" id="edge20_Node000004_Node000008" title=" " alt="" coords="535,193,495,301,490,300,530,192"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="353,313,431,339"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="540,268,434,310,432,306,538,263"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="707,313,763,339"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="595,263,696,305,694,310,593,268"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="555,267,510,306,506,302,552,263"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="787,313,851,339"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="603,261,774,309,773,315,602,267"/>
+<area shape="rect" id="Node000010" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="516,387,596,412"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="568,266,561,373,555,373,563,266"/>
+<area shape="rect" id="Node000015" href="$Transform_8h.html" title="Transform object, used to store the rotation, scale and translation info of an object,..." alt="" coords="587,313,682,339"/>
+<area shape="poly" id="edge17_Node000005_Node000015" title=" " alt="" coords="580,264,616,301,612,305,576,268"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="573,533,640,559"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="561,412,583,484,597,520,593,522,577,486,556,413"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="489,533,543,559"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="554,413,539,461,524,521,519,519,533,459,549,412"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="667,533,754,559"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="597,406,646,424,671,439,691,458,707,488,713,519,707,520,702,490,687,462,667,443,644,429,595,411"/>
+<area shape="rect" id="Node000014" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="592,460,677,485"/>
+<area shape="poly" id="edge13_Node000010_Node000014" title=" " alt="" coords="570,410,614,449,610,453,567,414"/>
+<area shape="poly" id="edge14_Node000014_Node000011" title=" " alt="" coords="633,487,619,522,614,520,628,485"/>
+<area shape="poly" id="edge15_Node000014_Node000012" title=" " alt="" coords="617,488,549,528,546,524,614,483"/>
+<area shape="poly" id="edge16_Node000014_Node000013" title=" " alt="" coords="649,483,690,522,686,526,645,487"/>
+<area shape="poly" id="edge18_Node000015_Node000010" title=" " alt="" coords="624,341,581,379,577,376,620,337"/>
+<area shape="poly" id="edge19_Node000015_Node000014" title=" " alt="" coords="637,339,637,446,632,446,632,339"/>
+<area shape="poly" id="edge22_Node000016_Node000002" title=" " alt="" coords="270,121,111,166,109,160,269,116"/>
+<area shape="poly" id="edge23_Node000016_Node000003" title=" " alt="" coords="292,121,220,162,217,157,289,116"/>
+<area shape="poly" id="edge24_Node000016_Node000004" title=" " alt="" coords="348,116,488,160,487,165,346,121"/>
+<area shape="poly" id="edge26_Node000016_Node000006" title=" " alt="" coords="327,117,349,138,369,165,382,200,390,237,395,299,390,300,385,238,377,202,364,168,345,141,324,121"/>
+<area shape="poly" id="edge25_Node000016_Node000008" title=" " alt="" coords="332,117,362,137,393,165,420,199,443,236,476,299,471,302,438,238,415,202,389,168,359,142,329,121"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="267,167,355,192"/>
+<area shape="poly" id="edge27_Node000016_Node000017" title=" " alt="" coords="313,119,313,153,308,153,308,119"/>
 </map>

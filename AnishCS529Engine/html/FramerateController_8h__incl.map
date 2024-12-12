@@ -1,9 +1,12 @@
 <map id="AnishCS529Engine/src/FramerateController.h" name="AnishCS529Engine/src/FramerateController.h">
-<area shape="rect" id="Node000001" title="Framerate Controller." alt="" coords="89,5,257,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,116,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,48,90,87,87,83,144,43"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="141,93,205,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,46,175,79,170,79,170,46"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="229,93,292,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="196,44,239,82,235,86,192,48"/>
+<area shape="rect" id="Node000001" title="Framerate Controller." alt="" coords="178,5,350,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,117,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,48,105,91,103,86,214,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="141,93,208,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,48,200,86,196,82,241,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="232,93,296,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="267,46,267,79,261,79,261,46"/>
+<area shape="rect" id="Node000005" href="$FramerateController_8inl_source.html" title=" " alt="" coords="320,93,491,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="291,43,367,85,365,89,289,48"/>
+<area shape="poly" id="edge5_Node000005_Node000001" title=" " alt="" coords="390,95,316,54,319,49,392,91"/>
 </map>

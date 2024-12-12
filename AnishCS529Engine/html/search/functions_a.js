@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['operator_2a_0',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
-  ['operator_3d_1',['operator=',['../classGeometryBuffer.html#acca6fbf2a11e18aede705580ec5fab51',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
-  ['orthographic_2',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
+  ['markfordeletion_0',['markForDeletion',['../classComponent.html#aa636ded12690664af716560cc6bf240f',1,'Component']]],
+  ['matrix4_1',['Matrix4',['../classMatrix4.html#a21e70a74447b9b05cf9a06400bc9c661',1,'Matrix4::Matrix4()'],['../classMatrix4.html#a09eab6d413ad9d6302003f9285859677',1,'Matrix4::Matrix4(float x0, float y0, float z0, float w0, float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2, float x3, float y3, float z3, float w3)']]]
 ];

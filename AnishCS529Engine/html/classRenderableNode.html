@@ -97,13 +97,17 @@ Inheritance diagram for RenderableNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classRenderableNode__inherit__graph.png" border="0" usemap="#aRenderableNode_inherit__map" alt="Inheritance graph"/></div>
 <map name="aRenderableNode_inherit__map" id="aRenderableNode_inherit__map">
-<area shape="rect" title=" " alt="" coords="17,167,148,192"/>
-<area shape="rect" href="classTrianglePrimitive.html" title=" " alt="" coords="17,240,149,265"/>
-<area shape="poly" title=" " alt="" coords="85,206,85,240,80,240,80,206"/>
-<area shape="rect" href="classNode.html" title=" " alt="" coords="55,93,111,119"/>
-<area shape="poly" title=" " alt="" coords="85,132,85,167,80,167,80,132"/>
-<area shape="rect" title=" " alt="" coords="5,5,160,45"/>
-<area shape="poly" title=" " alt="" coords="85,59,85,93,80,93,80,59"/>
+<area shape="rect" title=" " alt="" coords="90,167,226,192"/>
+<area shape="rect" href="classRectanglePrimitive.html" title=" " alt="" coords="5,240,151,265"/>
+<area shape="poly" title=" " alt="" coords="137,203,93,242,89,238,133,199"/>
+<area shape="rect" href="classTrianglePrimitive.html" title=" " alt="" coords="175,240,301,265"/>
+<area shape="poly" title=" " alt="" coords="183,199,227,238,223,242,179,203"/>
+<area shape="rect" href="classNode.html" title=" " alt="" coords="129,93,187,119"/>
+<area shape="poly" title=" " alt="" coords="161,132,161,167,155,167,155,132"/>
+<area shape="rect" title=" " alt="" coords="82,5,234,45"/>
+<area shape="poly" title=" " alt="" coords="161,59,161,93,155,93,155,59"/>
+<area shape="rect" href="classGameObject.html" title=" " alt="" coords="22,313,134,339"/>
+<area shape="poly" title=" " alt="" coords="81,279,81,313,75,313,75,279"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -126,9 +130,9 @@ Collaboration diagram for RenderableNode:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a326982f8d3f1fbc0e2c63438d9a8ef8d" id="r_a326982f8d3f1fbc0e2c63438d9a8ef8d"><td class="memItemLeft" align="right" valign="top"><a id="a326982f8d3f1fbc0e2c63438d9a8ef8d" name="a326982f8d3f1fbc0e2c63438d9a8ef8d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RenderableNode</b> (const std::string &amp;name, std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt; mesh, std::shared_ptr&lt; <a class="el" href="classMaterial.html">Material</a> &gt; material, <a class="el" href="classRenderer.html">Renderer</a> *render)</td></tr>
-<tr class="separator:a326982f8d3f1fbc0e2c63438d9a8ef8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a9302be7ee8b2286aad0e9677f7dc86" id="r_a3a9302be7ee8b2286aad0e9677f7dc86"><td class="memItemLeft" align="right" valign="top"><a id="a3a9302be7ee8b2286aad0e9677f7dc86" name="a3a9302be7ee8b2286aad0e9677f7dc86"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RenderableNode</b> (const std::string &amp;name, std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt; mesh, std::shared_ptr&lt; <a class="el" href="classMaterial.html">Material</a> &gt; material, <a class="el" href="classRenderer.html">Renderer</a> *render, bool isIndexed=true)</td></tr>
+<tr class="separator:a3a9302be7ee8b2286aad0e9677f7dc86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e141476d55b0ff3e8f7a383e3b840ab" id="r_a8e141476d55b0ff3e8f7a383e3b840ab"><td class="memItemLeft" align="right" valign="top"><a id="a8e141476d55b0ff3e8f7a383e3b840ab" name="a8e141476d55b0ff3e8f7a383e3b840ab"></a>
 std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getMesh</b> () const</td></tr>
 <tr class="separator:a8e141476d55b0ff3e8f7a383e3b840ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +158,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (const <a cl
 <tr class="memitem:a9d3a897b1240b4cd8fc7e37ad5e30fcb inherit pub_methods_classNode" id="r_a9d3a897b1240b4cd8fc7e37ad5e30fcb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a9d3a897b1240b4cd8fc7e37ad5e30fcb">removeNode</a> (SharedNode node)</td></tr>
 <tr class="memdesc:a9d3a897b1240b4cd8fc7e37ad5e30fcb inherit pub_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a node from the tree.  <br /></td></tr>
 <tr class="separator:a9d3a897b1240b4cd8fc7e37ad5e30fcb inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70630771eb579ea03658d83385489a47 inherit pub_methods_classNode" id="r_a70630771eb579ea03658d83385489a47"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a70630771eb579ea03658d83385489a47">reparent</a> (SharedNode node)</td></tr>
+<tr class="memdesc:a70630771eb579ea03658d83385489a47 inherit pub_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reparent a node to a new node.  <br /></td></tr>
+<tr class="separator:a70630771eb579ea03658d83385489a47 inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c325ce0bc5843638d3749cda02d501b inherit pub_methods_classNode" id="r_a2c325ce0bc5843638d3749cda02d501b"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><b>worldToLocalSpace</b> ()</td></tr>
 <tr class="separator:a2c325ce0bc5843638d3749cda02d501b inherit pub_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,6 +227,9 @@ std::shared_ptr&lt; <a class="el" href="classMaterial.html">Material</a> &gt;&#1
 <tr class="memitem:acec22dc8fc31d88c168029a5b245d6b9" id="r_acec22dc8fc31d88c168029a5b245d6b9"><td class="memItemLeft" align="right" valign="top"><a id="acec22dc8fc31d88c168029a5b245d6b9" name="acec22dc8fc31d88c168029a5b245d6b9"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isVisible</b></td></tr>
 <tr class="separator:acec22dc8fc31d88c168029a5b245d6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6116a16754211923b96f157b5f57647c" id="r_a6116a16754211923b96f157b5f57647c"><td class="memItemLeft" align="right" valign="top"><a id="a6116a16754211923b96f157b5f57647c" name="a6116a16754211923b96f157b5f57647c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isIndexed</b></td></tr>
+<tr class="separator:a6116a16754211923b96f157b5f57647c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classNode')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classNode.html">Node</a></td></tr>
 <tr class="memitem:adb90577d9d796c4ccbccf41ce2efc6c9 inherit pro_attribs_classNode" id="r_adb90577d9d796c4ccbccf41ce2efc6c9"><td class="memItemLeft" align="right" valign="top">
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
@@ -262,6 +272,10 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>SharedNode</b> = std
 <tr class="memitem:afa0400212bba81a38a8c30358e8d159a inherit pro_methods_classNode" id="r_afa0400212bba81a38a8c30358e8d159a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#afa0400212bba81a38a8c30358e8d159a">updateSiblingNumbers</a> (unsigned int removedIndex)</td></tr>
 <tr class="memdesc:afa0400212bba81a38a8c30358e8d159a inherit pro_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update sibling numbers of the children when one child is removed.  <br /></td></tr>
 <tr class="separator:afa0400212bba81a38a8c30358e8d159a inherit pro_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_methods_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_methods_classNode')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classNode.html">Node</a></td></tr>
+<tr class="memitem:a056d062eb29724b02a75fe7c11c9068d inherit pro_static_methods_classNode" id="r_a056d062eb29724b02a75fe7c11c9068d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNode.html#a056d062eb29724b02a75fe7c11c9068d">printNodeRecursive</a> (std::ostream &amp;os, <a class="el" href="classNode.html">Node</a> *node, int depth)</td></tr>
+<tr class="memdesc:a056d062eb29724b02a75fe7c11c9068d inherit pro_static_methods_classNode"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debugging printing.  <br /></td></tr>
+<tr class="separator:a056d062eb29724b02a75fe7c11c9068d inherit pro_static_methods_classNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_static_attribs_classNode"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_attribs_classNode')"><img src="closed.png" alt="-"/>&#160;Static Protected Attributes inherited from <a class="el" href="classNode.html">Node</a></td></tr>
 <tr class="memitem:a02df5f2880faf1b2dd49ccf91a964b0a inherit pro_static_attribs_classNode" id="r_a02df5f2880faf1b2dd49ccf91a964b0a"><td class="memItemLeft" align="right" valign="top">
 static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nextID</b> = 0</td></tr>

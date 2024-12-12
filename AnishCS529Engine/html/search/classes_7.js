@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['node_0',['Node',['../classNode.html',1,'']]]
+  ['material_0',['Material',['../classMaterial.html',1,'']]],
+  ['matrix4_1',['Matrix4',['../classMatrix4.html',1,'']]],
+  ['mesh_2',['Mesh',['../classMesh.html',1,'']]]
 ];

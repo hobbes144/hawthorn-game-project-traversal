@@ -1,18 +1,8 @@
 var searchData=
 [
-  ['elementsize_0',['elementSize',['../structGeometryBuffer_1_1AttributeInfo.html#a787dce0689d950c2f8937eb5c9aff8f4',1,'GeometryBuffer::AttributeInfo']]],
-  ['enable_5fadditional_5faccumulators_1',['ENABLE_ADDITIONAL_ACCUMULATORS',['../md_manual_2ExtraFeatures.html#autotoc_md5',1,'']]],
-  ['enable_5frate_5fcontrollers_2',['ENABLE_RATE_CONTROLLERS',['../md_manual_2ExtraFeatures.html#autotoc_md7',1,'']]],
-  ['enabling_20extra_20features_3',['Enabling extra features',['../md_manual_2ExtraFeatures.html#autotoc_md1',1,'']]],
-  ['endframe_4',['endFrame',['../classFramerateController.html#a0646c92be3d265db48385fe076b314ea',1,'FramerateController']]],
-  ['event_5',['Event',['../classEvent.html',1,'']]],
-  ['event_2eh_6',['Event.h',['../Event_8h.html',1,'']]],
-  ['eventlistener_7',['EventListener',['../classEventListener.html',1,'']]],
-  ['eventlistener_2eh_8',['EventListener.h',['../EventListener_8h.html',1,'']]],
-  ['eventlistener_2einl_9',['EventListener.inl',['../EventListener_8inl.html',1,'']]],
-  ['eventmanager_10',['EventManager',['../classEventManager.html',1,'']]],
-  ['eventmanager_2ecpp_11',['EventManager.cpp',['../EventManager_8cpp.html',1,'']]],
-  ['eventmanager_2eh_12',['EventManager.h',['../EventManager_8h.html',1,'']]],
-  ['extra_20features_13',['Extra Features',['../md_manual_2ExtraFeatures.html',1,'']]],
-  ['extra_20features_14',['Enabling extra features',['../md_manual_2ExtraFeatures.html#autotoc_md1',1,'']]]
+  ['data_0',['data',['../structGeometryBuffer_1_1AttributeInfo.html#ab1e865ea0df91f6e2374e3a20cd942cd',1,'GeometryBuffer::AttributeInfo']]],
+  ['digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_1',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md50',1,'']]],
+  ['digipencs529_20compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_2',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md48',1,'']]],
+  ['disable_3',['disable',['../classComponent.html#a5944c18d0e1de53f2842149ca364b672',1,'Component']]],
+  ['draw_4',['draw',['../classRenderer.html#a747ba137f6a153544579595af0e05ac3',1,'Renderer']]]
 ];

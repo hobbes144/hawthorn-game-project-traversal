@@ -61,6 +61,27 @@
     <Filter Include="Tests">
       <UniqueIdentifier>{9cc0f04c-c641-445a-8618-98b45b698ccc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SphereJump">
+      <UniqueIdentifier>{64aa87d5-7ef0-49c5-9cc5-96b1672fcc16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems\Components">
+      <UniqueIdentifier>{ba637f49-c48f-45b1-9249-01136ca52996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems\Components">
+      <UniqueIdentifier>{5df04128-1ff1-47a7-985c-74f81df7ab1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Deprecated">
+      <UniqueIdentifier>{116e4ef2-acb9-4842-b212-4d74b6674224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Deprecated">
+      <UniqueIdentifier>{53683385-0148-45a9-878e-5e6e8802b12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OpenGL\Components">
+      <UniqueIdentifier>{144c4afd-18cb-41ba-b4fe-bb5c335ce092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OpenGL\Components">
+      <UniqueIdentifier>{44e89a6b-2764-41f7-ba04-ed33d474d34d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -78,13 +99,10 @@
     <ClCompile Include="src\SceneGraph.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameWindow.cpp">
+    <ClCompile Include="src\GameWindowOld.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\GeometryBuffer.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Shader.cpp">
@@ -150,8 +168,20 @@
     <ClCompile Include="src\GameObject.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="src\EngineTests.cpp">
-      <Filter>Tests</Filter>
+    <ClCompile Include="src\SphereJump.cpp">
+      <Filter>SphereJump</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files\Systems\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Component.cpp">
+      <Filter>Source Files\Systems\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererOld.cpp">
+      <Filter>Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameWindow.cpp">
+      <Filter>Source Files\OpenGL\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,7 +203,7 @@
     <ClInclude Include="src\Transform.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameWindow.h">
+    <ClInclude Include="src\GameWindowOld.h">
       <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Material.h">
@@ -193,9 +223,6 @@
     </ClInclude>
     <ClInclude Include="src\TrianglePrimitive.h">
       <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer.h">
-      <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Input.h">
       <Filter>Header Files\Systems</Filter>
@@ -256,6 +283,18 @@
     </ClInclude>
     <ClInclude Include="src\EngineTests.h">
       <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Header Files\Systems\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Component.h">
+      <Filter>Header Files\Systems\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererOld.h">
+      <Filter>Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameWindow.h">
+      <Filter>Header Files\OpenGL\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

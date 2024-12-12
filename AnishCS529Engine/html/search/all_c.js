@@ -1,5 +1,31 @@
 var searchData=
 [
-  ['href_20https_3a_20github_20com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_0',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md12',1,'']]],
-  ['https_3a_20github_20com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_1',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md12',1,'']]]
+  ['gameobject_0',['GameObject',['../classGameObject.html',1,'']]],
+  ['gamewindow_1',['GameWindow',['../classGameWindow.html',1,'']]],
+  ['gamewindow_2ecpp_2',['GameWindow.cpp',['../GameWindow_8cpp.html',1,'']]],
+  ['gamewindow_2eh_3',['GameWindow.h',['../GameWindow_8h.html',1,'']]],
+  ['general_20lifecycle_20of_20a_20renderer_3a_4',['General lifecycle of a Renderer:',['../classRenderer.html#autotoc_md29',1,'']]],
+  ['geometrybuffer_5',['GeometryBuffer',['../classGeometryBuffer.html',1,'GeometryBuffer'],['../classGeometryBuffer.html#a01f92aed0d0d0415038d92fd63e77c33',1,'GeometryBuffer::GeometryBuffer(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#a682bca4d4ec83e9ae5e9b5ed216cdb3f',1,'GeometryBuffer::GeometryBuffer(GeometryBuffer &amp;&amp;) noexcept']]],
+  ['geometrybuffer_2ecpp_6',['GeometryBuffer.cpp',['../GeometryBuffer_8cpp.html',1,'']]],
+  ['geometrybuffer_2eh_7',['GeometryBuffer.h',['../GeometryBuffer_8h.html',1,'']]],
+  ['getaccumulatoralpha_8',['getAccumulatorAlpha',['../classFramerateController.html#acd33fe36aa1cf5853d9eb015ac1fce30',1,'FramerateController']]],
+  ['getcontroller_9',['getController',['../classFramerateController.html#a73e354dc1f8a815fa7d4025de2d65643',1,'FramerateController']]],
+  ['getdata_10',['getData',['../classMatrix4.html#ac39f3d57185bd83487c6b80622fe6d9c',1,'Matrix4']]],
+  ['getebo_11',['getEBO',['../classGeometryBuffer.html#a53e4973dd9e44e32890a56e6764e99af',1,'GeometryBuffer']]],
+  ['getelement_12',['getElement',['../classMatrix4.html#ae29562685d57b1de9b0335522e0cdafe',1,'Matrix4']]],
+  ['getfps_13',['getFPS',['../classFramerateController.html#a6773a649ff7f6787ea45d87e5b1bc486',1,'FramerateController']]],
+  ['getframetime_14',['getFrameTime',['../classFramerateController.html#a4b9747d964894fba98fbfd692ab64eb2',1,'FramerateController']]],
+  ['getheight_15',['getHeight',['../classGameWindow.html#abdad624ef7e198adaf13f5d0d9d7aaa6',1,'GameWindow']]],
+  ['getindexcount_16',['getIndexCount',['../classGeometryBuffer.html#a2700fc624da03d90ec1a888dbb04d2b1',1,'GeometryBuffer']]],
+  ['getindexdata_17',['getIndexData',['../classGeometryBuffer.html#a62d87d11d367efe84c8d9eada6be49bc',1,'GeometryBuffer']]],
+  ['getnativewindow_18',['getNativeWindow',['../classGameWindow.html#af8f37f8fd6225c4cfb60e76d13d04c9d',1,'GameWindow']]],
+  ['getrendertime_19',['getRenderTime',['../classFramerateController.html#afeada9cb45378ea9cef30ce71ea6d5f4',1,'FramerateController']]],
+  ['getshouldclose_20',['getShouldClose',['../classGameWindow.html#a151c05de9ba0804e3683dc65e24be097',1,'GameWindow']]],
+  ['gettime_21',['getTime',['../classFramerateController.html#ac5ed50fb9aaf5a490bc620d362b914a1',1,'FramerateController']]],
+  ['getvao_22',['getVAO',['../classGeometryBuffer.html#afa6502971c835f60055298ea1fdcc2ad',1,'GeometryBuffer']]],
+  ['getvbo_23',['getVBO',['../classGeometryBuffer.html#a19c37bbe5001f95c7fb8ac4eb363129d',1,'GeometryBuffer']]],
+  ['getvertexcount_24',['getVertexCount',['../classGeometryBuffer.html#a2f9ee2907b9219ea471e61c14a3006d4',1,'GeometryBuffer']]],
+  ['getwidth_25',['getWidth',['../classGameWindow.html#aed5ecd56b1d93217320055a1ff8f025e',1,'GameWindow']]],
+  ['github_20com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_26',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md50',1,'']]],
+  ['github_20com_20murthyanish_20digipencs529_20compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_27',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md48',1,'']]]
 ];

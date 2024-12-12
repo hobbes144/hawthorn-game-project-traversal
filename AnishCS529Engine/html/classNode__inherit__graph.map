@@ -1,9 +1,19 @@
 <map id="Node" name="Node">
-<area shape="rect" id="Node000001" title=" " alt="" coords="55,93,111,119"/>
-<area shape="rect" id="Node000003" href="$classRenderableNode.html" title=" " alt="" coords="17,167,148,192"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="85,132,85,167,80,167,80,132"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,160,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,59,85,93,80,93,80,59"/>
-<area shape="rect" id="Node000004" href="$classTrianglePrimitive.html" title=" " alt="" coords="17,240,149,265"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="85,206,85,240,80,240,80,206"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="229,93,288,119"/>
+<area shape="rect" id="Node000003" href="$classComponent.html" title="Component is the base class of all components." alt="" coords="135,167,238,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="239,131,200,168,196,165,235,127"/>
+<area shape="rect" id="Node000006" href="$classRenderableNode.html" title=" " alt="" coords="263,167,399,192"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="282,127,321,165,317,168,279,131"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="183,5,335,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,59,261,93,256,93,256,59"/>
+<area shape="rect" id="Node000004" href="$classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="5,240,123,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="157,201,85,242,83,237,154,196"/>
+<area shape="rect" id="Node000005" href="$classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="147,240,229,265"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="190,206,190,240,185,240,184,206"/>
+<area shape="rect" id="Node000007" href="$classRectanglePrimitive.html" title=" " alt="" coords="257,240,402,265"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="333,206,332,240,327,240,328,206"/>
+<area shape="rect" id="Node000009" href="$classTrianglePrimitive.html" title=" " alt="" coords="426,240,553,265"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="369,195,464,237,462,242,367,200"/>
+<area shape="rect" id="Node000008" href="$classGameObject.html" title=" " alt="" coords="273,313,385,339"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="332,279,332,313,327,313,327,279"/>
 </map>
