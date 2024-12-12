@@ -1,11 +1,9 @@
 <map id="Component" name="Component">
-<area shape="rect" id="Node000001" title="Component is the base class of all components." alt="" coords="74,167,177,192"/>
-<area shape="rect" id="Node000004" href="$classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="5,240,123,265"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="108,204,76,242,72,238,104,201"/>
-<area shape="rect" id="Node000005" href="$classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="147,240,229,265"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="147,201,180,238,176,242,143,204"/>
-<area shape="rect" id="Node000002" href="$classNode.html" title=" " alt="" coords="96,93,155,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,132,128,167,123,167,123,132"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="49,5,201,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="128,59,128,93,123,93,123,59"/>
+<area shape="rect" id="Node000001" title="Component is the base class of all components." alt="" coords="123,5,226,31"/>
+<area shape="rect" id="Node000002" href="$classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="5,79,123,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,40,84,81,81,76,144,36"/>
+<area shape="rect" id="Node000003" href="$classInput.html" title="Input class that handles storing and updating key press states." alt="" coords="147,79,202,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,44,177,79,172,79,172,44"/>
+<area shape="rect" id="Node000004" href="$classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="227,79,309,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="202,37,254,76,251,81,199,41"/>
 </map>

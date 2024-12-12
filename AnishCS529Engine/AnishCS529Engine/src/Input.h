@@ -14,11 +14,14 @@
 
 #pragma once
 
+/* Used classes */
 #include "GameWindow.h"
 #include "InputKeys.h"
 
 /*!****************************************************************************
  * \brief KeyState struct holds the state of each key.
+ * 
+ * ## Explanation:
  * 
  * The key's current state is handled by storing the previous and current key
  * state
@@ -45,27 +48,57 @@ struct KeyState {
 /*!****************************************************************************
  * \brief Input class that handles storing and updating key press states
  * 
+ * ## Usage:
+ * 
+ * The Input class is needed to read and manage user inputs to the game.
+ * 
+ * ## Pre-initialization calls:
+ * 
+ * - setGameWindow(GameWindow* _gameWindow)
+ * - setKeysToMonitor(std::vector<Key>& keysToMonitor)
+ * 
+ * ## General lifecycle of Input:
+ * 
+ * - Initialize GameWindow object.
+ * - Initialize Input.
+ * - Call update() to poll for input events (after GameWindow::update()).
+ * - Call the isKey_ functions to check if the required inputs were pressed.
+ * 
+ * ## Notes:
+ * 
+ * initialize() and shutdown() are not necessary to call.
+ * 
+ * ## Future:
+ * 
  * In the future, this will be expanded to also manage controller key states.
  * 
  *****************************************************************************/
-class Input {
+class Input : public Component {
 
 public:
-  Input(GameWindow& window, std::vector<Key>& keysToMonitor);
-  Input(GameWindow& window);
+  Input() = default;
+  ~Input() = default;
 
+  /* Component functions */
+  void initialize();
   void update();
+  void shutdown();
 
+  /* Pre-initialization functions */
+  Input* setGameWindow(GameWindow* _window);
+  Input* setKeysToMonitor();
+  Input* setKeysToMonitor(std::vector<Key>& keysToMonitor);
+
+  /* Utility functions */
   bool isKeyPressed(Key k);
   bool isKeyReleased(Key k);
   bool isKeyDown(Key k);
   bool isKeyUp(Key k);
   bool isKeyHeld(Key k);
 
-
 private:
   /** GameWindow object to read keys from */
-  GameWindow& window;
+  GameWindow* window;
   /** Map of key states for each registered key */
   std::unordered_map<Key, KeyState> keyStates;
 

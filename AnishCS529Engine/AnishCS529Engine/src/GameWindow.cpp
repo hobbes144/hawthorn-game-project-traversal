@@ -98,29 +98,35 @@ void GameWindow::setResizeCallback(
  * different titles.
  *
  * \param _title Title of the window.
+ * \return \b GameWindow* this
  *****************************************************************************/
-void GameWindow::setTitle(std::string _title) {
+GameWindow* GameWindow::setTitle(std::string _title) {
   title = _title;
+  return this;
 }
 
 /*!****************************************************************************
  * \brief Setter for the width of the window
  *
  * \param _width Width of the window
+ * \return \b GameWindow* this
  *****************************************************************************/
-void GameWindow::setWidth(int _width)
+GameWindow* GameWindow::setWidth(int _width)
 {
   width = _width;
+  return this;
 }
 
 /*!****************************************************************************
  * \brief Setter for the height of the window
  *
  * \param _height Height of the window.
+ * \return \b GameWindow* this
  *****************************************************************************/
-void GameWindow::setHeight(int _height)
+GameWindow* GameWindow::setHeight(int _height)
 {
   height = _height;
+  return this;
 }
 
 /*!****************************************************************************
@@ -144,12 +150,15 @@ void GameWindow::setHeight(int _height)
  * If set to true, buffer will wait for screen update before swapping.
  *
  * \param flag
+ * \return \b GameWindow* this
  *****************************************************************************/
-void GameWindow::setVsync(bool flag) {
+GameWindow* GameWindow::setVsync(bool flag) {
   if (flag)
     glfwSwapInterval(1);
   else
     glfwSwapInterval(0);
+
+  return this;
 }
 
 /*!****************************************************************************
@@ -159,8 +168,6 @@ void GameWindow::setVsync(bool flag) {
  *
  * Use this at the end of game loop to close the window and end the rendering.
  *
- * \return \b true Window is about to close.
- * \return \b false GLFW failure occured when closing the window.
  *****************************************************************************/
 void GameWindow::setShouldClose() const
 {

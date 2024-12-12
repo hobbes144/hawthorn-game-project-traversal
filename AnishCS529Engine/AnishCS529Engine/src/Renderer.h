@@ -35,6 +35,7 @@
  * objects to the screen.
  * 
  * ## Pre-initialization calls:
+ * 
  * - setGameWindow(GameWindow* _gameWindow)
  * - setIs3D(bool is3D)
  * - setClearColor(float r, float g, float b, float a)
@@ -42,9 +43,9 @@
  * ## General lifecycle of a Renderer:
  * 
  * - Init GameWindow object.
- * - Init Renderer
+ * - Init Renderer.
  * - Call clear() to empty the window buffer.
- * - Run all your game logic
+ * - Run all your game logic.
  * - Run draw() calls for each of the objects to be rendered.
  * - Call swapBuffers() to render the window buffer to the screen.
  * 
@@ -65,9 +66,9 @@ public:
   void shutdown(); // Dummy
 
   /* Pre-initialization functions */
-  void setGameWindow(GameWindow* _gameWindow);
-  void setIs3D(bool is3D);
-  void setClearColor(float r, float g, float b, float a);
+  Renderer* setGameWindow(GameWindow* _gameWindow);
+  Renderer* setIs3D(bool is3D);
+  Renderer* setClearColor(float r, float g, float b, float a);
 
   /* Utility functions */
   void clear();

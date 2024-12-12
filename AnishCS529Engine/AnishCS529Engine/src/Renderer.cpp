@@ -146,8 +146,9 @@ void Renderer::framebufferSizeCallback(GLFWwindow* pWindow, int width, int heigh
  * instances of renderer for multiple windows if needed.
  *
  * \param _gameWindow
+ * \return \b Renderer* this
  *****************************************************************************/
-void Renderer::setGameWindow(GameWindow* _gameWindow) {
+Renderer* Renderer::setGameWindow(GameWindow* _gameWindow) {
   gameWindow = _gameWindow;
 }
 
@@ -166,8 +167,9 @@ void Renderer::setGameWindow(GameWindow* _gameWindow) {
  * It enables depth in the rendering if set to `true`.
  * 
  * \param is3D True if rendering should be in 3D space
+ * \return \b Renderer* this
  *****************************************************************************/
-void Renderer::setIs3D(bool is3D) {
+Renderer* Renderer::setIs3D(bool is3D) {
   if (is3D) {
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glEnable(GL_DEPTH_TEST);
@@ -191,8 +193,9 @@ void Renderer::setIs3D(bool is3D) {
  * \param g Green
  * \param b Blue
  * \param a Alpha
+ * \return \b Renderer* this
  *****************************************************************************/
-void Renderer::setClearColor(float r, float g, float b, float a) {
+Renderer* Renderer::setClearColor(float r, float g, float b, float a) {
   glClearColor(r, g, b, a);
 }
 

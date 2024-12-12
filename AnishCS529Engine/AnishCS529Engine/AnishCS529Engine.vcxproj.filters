@@ -99,9 +99,6 @@
     <ClCompile Include="src\SceneGraph.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameWindowOld.cpp">
-      <Filter>Source Files\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="src\GeometryBuffer.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
@@ -171,9 +168,6 @@
     <ClCompile Include="src\SphereJump.cpp">
       <Filter>SphereJump</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
-      <Filter>Source Files\Systems\Components</Filter>
-    </ClCompile>
     <ClCompile Include="src\Component.cpp">
       <Filter>Source Files\Systems\Components</Filter>
     </ClCompile>
@@ -182,6 +176,15 @@
     </ClCompile>
     <ClCompile Include="src\GameWindow.cpp">
       <Filter>Source Files\OpenGL\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files\Systems\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameWindowOld.cpp">
+      <Filter>Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputOld.cpp">
+      <Filter>Source Files\Deprecated</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,9 +205,6 @@
     </ClInclude>
     <ClInclude Include="src\Transform.h">
       <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameWindowOld.h">
-      <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Material.h">
       <Filter>Header Files\ObjectResources</Filter>
@@ -284,9 +284,6 @@
     <ClInclude Include="src\EngineTests.h">
       <Filter>Tests</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer.h">
-      <Filter>Header Files\Systems\Components</Filter>
-    </ClInclude>
     <ClInclude Include="src\Component.h">
       <Filter>Header Files\Systems\Components</Filter>
     </ClInclude>
@@ -295,6 +292,15 @@
     </ClInclude>
     <ClInclude Include="src\GameWindow.h">
       <Filter>Header Files\OpenGL\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Header Files\Systems\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameWindowOld.h">
+      <Filter>Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InputOld.h">
+      <Filter>Header Files\Deprecated</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

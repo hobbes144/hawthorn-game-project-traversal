@@ -23,9 +23,6 @@
  * 
  * Component is a pure virtual class that is to be derived for each component.
  * 
- * Component is a derived class of Node to provide compatibility with Node's
- * traversal logic.
- * 
  * The components must implement the following functionality:
  * - initialize()
  * - update(float deltaTime)
@@ -41,9 +38,9 @@
  * deletion.
  * 
  *****************************************************************************/
-class Component : public Node {
+class Component {
 public:
-  Component(std::string name) : Node(name), enabled(true), markedForDeletion(false) {}
+  Component() : enabled(true), markedForDeletion(false) {}
   virtual ~Component();
   virtual void initialize();
   virtual void update(float deltaTime);

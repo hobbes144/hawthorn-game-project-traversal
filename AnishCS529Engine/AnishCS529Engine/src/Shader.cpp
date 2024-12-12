@@ -66,13 +66,13 @@ std::string Shader::toLowerCase(const std::string& str) {
 GLenum Shader::readShaderType(std::string path) {
 	std::string lowercasePath = toLowerCase(path);
 
-	if (lowercasePath.find("vertex") != std::string::npos) 
+	if (lowercasePath.find(".vert") != std::string::npos) 
 		return GL_VERTEX_SHADER;
-	if (lowercasePath.find("fragment") != std::string::npos) 
+	if (lowercasePath.find(".frag") != std::string::npos) 
 		return GL_FRAGMENT_SHADER;
-	if (lowercasePath.find("geometry") != std::string::npos) 
+	if (lowercasePath.find(".geom") != std::string::npos) 
 		return GL_GEOMETRY_SHADER;
-	if (lowercasePath.find("compute") != std::string::npos) 
+	if (lowercasePath.find(".comp") != std::string::npos) 
 		return GL_COMPUTE_SHADER;
 	else
 		return GL_VERTEX_SHADER;

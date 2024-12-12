@@ -10,32 +10,17 @@
  *****************************************************************************/
 #include"Input.h"
 
-/*!****************************************************************************
- * \brief Constructor to enable specific keys
- * 
- * \param window GameWindow object to poll for key states.
- * \param keysToMonitor Vector of all keys to be enabled.
- *****************************************************************************/
-Input::Input(GameWindow& window, std::vector<Key>& keysToMonitor) : 
-  window(window), keyStates{} {
-  for (Key& k : keysToMonitor) {
-    registerKey(k);
-  }
-}
-
-/*!****************************************************************************
- * \brief Constructor to enable all supported keys
- * 
- * \param window GameWindow object to poll for key states.
- *****************************************************************************/
-Input::Input(GameWindow& window) : window(window), keyStates{} {
-  for (Key& k : allKeys) {
-    registerKey(k);
-  }
-}
+/* Private functions */
 
 /*!****************************************************************************
  * \brief Register a key to be in the list of keys being polled
+ *
+ * ## Explanation:
+ * 
+ * Keys must be registered before they can be used. This registers supported
+ * keys so they are polled in the update() call.
+ * 
+ * InputKeys.h contains the list of all supported keys.
  * 
  * \param k Key code as defined in InputKeys.h
  *****************************************************************************/
@@ -44,23 +29,78 @@ void Input::registerKey(Key k) {
     keyStates[k] = KeyState();
 }
 
+
+
+/* Public functions */
+
 /*!****************************************************************************
- * \brief Update loop that polls the window for the state of each key
+ * \brief Seter GameWindow object that is being read from
  * 
- * Updates the previous state and stores the current state of the key.
+ * ## Usage:
  * 
+ * This function sets up the game window from which inputs should be read.
+ * 
+ * ## Explanation:
+ * 
+ * Inputs are read per window. The inputs are read every time the window calls
+ * a Window::update() call, when it polls for events.
+ * 
+ * \param _window
+ * \return \b Input* this
  *****************************************************************************/
-void Input::update() {
-  // Alternate way of doing this:
-  // for (
-  //  std::unordered_map<int, KeyState>::iterator it = keyStates.begin(); 
-  //  it != keyStates.end(); 
-  //  it++)
-  for (auto& [k, state] : keyStates) {
-    int newState = glfwGetKey(window.getNativeWindow(), k);
-    state.prevState = state.currentState;
-    state.currentState = newState;
+Input* Input::setGameWindow(GameWindow* _window) {
+  window = _window;
+}
+
+/*!****************************************************************************
+ * \brief Setter for the keys to be monitored
+ * 
+ * ## Usage:
+ * 
+ * Sets all supported keys to be polled.
+ * 
+ * ## Explanation:
+ * 
+ * This is to be used only during testing, as checking every key can introduce
+ * significant overhead.
+ * 
+ * For general use, make use of the function:
+ * setKeysToMonitor(std::vector<Key>& keysToMonitor)
+ * 
+ * \return \b Input* this
+ *****************************************************************************/
+Input* Input::setKeysToMonitor() {
+  for (Key& k : allKeys) {
+    registerKey(k);
   }
+}
+
+/*!****************************************************************************
+ * \brief Setter for the keys to be monitored
+ *
+ * ## Usage:
+ *
+ * Sets the list of provided keys to be polled.
+ * 
+ * ### Input example:
+ * 
+ * `std::vector<Key> keysToBeMonitored = { KEY_W, KEY_A, KEY_S, KEY_D };`
+ * `input->setKeysToMonitor(keysToBeMonitored);`
+ *
+ * ## Explanation:
+ *
+ * This sets up the list of keys that will be polled on each update() call.
+ * 
+ * Ensure that only the needed keys are set.
+ *
+ * \param keysToMonitor vector of Key codes to be monitored.
+ * \return \b Input* this
+ *****************************************************************************/
+Input* Input::setKeysToMonitor(std::vector<Key>& keysToMonitor) {
+  for (Key& k : keysToMonitor) {
+    registerKey(k);
+  }
+  std::vector<Key> monitored = { KEY_SPACE };
 }
 
 /*!****************************************************************************
@@ -125,3 +165,39 @@ bool Input::isKeyHeld(Key k) {
     return true;
   return false;
 }
+
+/*!****************************************************************************
+ * \brief Input initialize is a dummy function
+ * 
+ *****************************************************************************/
+void Input::initialize() {}
+
+/*!****************************************************************************
+ * \brief Update loop that polls the window for the state of each key
+ *
+ * ## Usage:
+ *
+ * Updates the previous state and stores the current state of the key.
+ *
+ * This should only be used after the GameWindow::update() call, as it relies
+ * on the game window having polled for events.
+ *
+ *****************************************************************************/
+void Input::update() {
+  // Alternate way of doing this:
+  // for (
+  //  std::unordered_map<int, KeyState>::iterator it = keyStates.begin(); 
+  //  it != keyStates.end(); 
+  //  it++)
+  for (auto& [k, state] : keyStates) {
+    int newState = glfwGetKey(window->getNativeWindow(), k);
+    state.prevState = state.currentState;
+    state.currentState = newState;
+  }
+}
+
+/*!****************************************************************************
+ * \brief Input shutdown is a dummy function
+ * 
+ *****************************************************************************/
+void Input::shutdown() {}

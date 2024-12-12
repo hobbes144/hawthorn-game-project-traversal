@@ -14,21 +14,24 @@
 
 #pragma once
 
-#define GLFW_INCLUDE_NONE
-
+/* OpenGL imports */
 #include <glad/glad.h>
 
 #ifndef ENGINE_GLFW_H
 #define ENGINE_GLFW_H
+#define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"
 #endif // ENGINE_GLFW_H
 
+/* Base class */
 #include "Component.h"
 
+/* Standard libraries */
 #include <string>
 #include <iostream>
 #include <functional>
 
+/* Forward declaration of class Renderer for friend */
 class Renderer;
 
 /*!****************************************************************************
@@ -40,7 +43,8 @@ class Renderer;
  * The Game Window is the window where all game related functions run. It is
  * where render calls are drawn, and where inputs are read from.
  *
- * ## Required calls before init:
+ * ## Pre-initialization calls:
+ * 
  * - setTitle(std::string _title)
  * - setWidth(int _width)
  * - setHeight(int _height)
@@ -69,12 +73,12 @@ public:
   void shutdown();
 
   /* Pre-initialization functions */
-  void setTitle(std::string _title);
-  void setWidth(int _width);
-  void setHeight(int _height);
+  GameWindow* setTitle(std::string _title);
+  GameWindow* setWidth(int _width);
+  GameWindow* setHeight(int _height);
 
   /* Post-initialization functions */
-  void setVsync(bool flag);
+  GameWindow* setVsync(bool flag);
 
   /* Utility functions */
   int getWidth();
