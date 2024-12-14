@@ -1,38 +1,42 @@
+/*!****************************************************************************
+ * \file   GameObject.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   12-13-2024
+ * \brief  Scene Object that represents a renderable object component
+ * 
+ *****************************************************************************/
+#ifndef SCENE_OBJECT_H
+#define SCENE_OBJECT_H
+
 #pragma once
 
+#include "Node.h"
+#include "Component.h"
 
-#include "EventListener.h"
-#include "RectanglePrimitive.h"
-#include "CollisionEvent.h"
-#include "CollisionListener.h"
+class GameObject : public Node {
+  GameObject(std::string& name) : Node(name ) {};
 
-class GameObject : public RectanglePrimitive
-{
-public:
-  GameObject(const std::string name, Renderer* renderer)
-    : RectanglePrimitive(name, renderer) {
+  void initialize();
+  virtual void update(float deltaTime);
+  void shutdown();
 
-    // Register GameObject in the list of collision listeners
-    collisionListener = new CollisionListener(this);
+  void addComponent(std::shared_ptr<Component> _component);
+  void removeComponent(Component* _component);
 
-    // set a callback
-    collisionListener->setCallback([this](RenderableNode* self, RenderableNode* other) {
-      std::cout << "Collision beteween " << self->getName() << " and " << other->getName() << std::endl;
-        });
-  }
+  template<typename T>
+  T* findComponent();
 
-  ~GameObject() {
-    delete collisionListener;
-  }
+  void markForDeletion();
+  bool isMarkedForDeletion();
+protected:
+  std::vector<std::shared_ptr<Component>> components;
 
-  void update(float deltaTime) override {
-    //std::cout << "Position of " << this->getName() << " is: " << this->getLocalPosition() << std::endl;
-    RenderableNode::update(deltaTime);
-  }
-
-
-private:
-  CollisionListener* collisionListener;
-
+  bool enabled;
+  bool markedForDeletion;
 };
 
+#endif // !SCENE_OBJECT_H

@@ -14,9 +14,9 @@
 
 #pragma once
 
-#include "Node.h"
-
 #include <string>
+
+#include "GameObject.h"
 
 /*!****************************************************************************
  * \brief Component is the base class of all components.
@@ -50,12 +50,16 @@ public:
   void disable();
   bool isEnabled();
 
+  void setParent(GameObject* _parent);
+  GameObject* getParent();
+
   void markForDeletion();
   bool isMarkedForDeletion();
 
 protected:
   bool enabled;
   bool markedForDeletion;
+  GameObject* parent;
 };
 
 #endif

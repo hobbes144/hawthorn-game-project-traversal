@@ -211,10 +211,6 @@ Renderer* Renderer::setClearColor(float r, float g, float b, float a) {
  * The window must be cleared after each draw to ensure we are starting with a
  * clean window.
  * 
- * \param r Red
- * \param g Green
- * \param b Blue
- * \param a Alpha
  *****************************************************************************/
 void Renderer::clear() {
   glClear(glClearMask);

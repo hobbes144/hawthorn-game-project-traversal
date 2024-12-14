@@ -32,12 +32,13 @@
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\InputOld.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\FramerateController.inl" />
-    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\GameObjectOld.cpp" />
     <ClCompile Include="src\GameWindowOld.cpp" />
     <ClCompile Include="src\GeometryBuffer.cpp" />
     <ClCompile Include="src\glad.c" />
@@ -67,6 +68,7 @@
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\InputOld.h" />
+    <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\CollisionEvent.h" />
@@ -78,7 +80,7 @@
     <ClInclude Include="src\EventListener.h" />
     <ClInclude Include="src\EventManager.h" />
     <ClInclude Include="src\FramerateController.h" />
-    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\GameObjectOld.h" />
     <ClInclude Include="src\GameWindowOld.h" />
     <ClInclude Include="src\GeometryBuffer.h" />
     <ClInclude Include="src\Input.h" />
@@ -96,6 +98,7 @@
     <ClInclude Include="src\SceneGraph.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Shape.h" />
+    <ClInclude Include="src\Tank.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\TrianglePrimitive.h" />

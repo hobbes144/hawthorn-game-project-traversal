@@ -26,6 +26,19 @@ bool Component::isEnabled() {
 }
 
 /*!****************************************************************************
+ * \brief Set component parent
+ * 
+ * \param _parent Parent of the component
+ *****************************************************************************/
+void Component::setParent(GameObject* _parent) {
+  parent = _parent;
+}
+
+GameObject* Component::getParent() {
+  return parent;
+}
+
+/*!****************************************************************************
  * \brief Mark component for deletion
  * 
  *****************************************************************************/
