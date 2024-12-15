@@ -21,7 +21,7 @@ void Component::disable() {
  * 
  * \return \b bool true if component enabled.
  *****************************************************************************/
-bool Component::isEnabled() {
+bool Component::isEnabled() const {
   return enabled;
 }
 
@@ -30,27 +30,10 @@ bool Component::isEnabled() {
  * 
  * \param _parent Parent of the component
  *****************************************************************************/
-void Component::setParent(GameObject* _parent) {
+void Component::setParent(std::shared_ptr<GameObject> _parent) {
   parent = _parent;
 }
 
-GameObject* Component::getParent() {
+std::shared_ptr<GameObject> Component::getParent() const {
   return parent;
-}
-
-/*!****************************************************************************
- * \brief Mark component for deletion
- * 
- *****************************************************************************/
-void Component::markForDeletion() {
-  markedForDeletion = true;
-}
-
-/*!****************************************************************************
- * \brief Is component marked for deletion
- * 
- * \return \b bool true if marked for deletion.
- *****************************************************************************/
-bool Component::isMarkedForDeletion() {
-  return markedForDeletion;
 }

@@ -113,81 +113,79 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="Matrix4_8h.html">Matrix4.h</a>&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="Transform_8h.html">Transform.h</a>&quot;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classNode.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="classNode.html">Node</a> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Node&gt; {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">using </span>ChildrenContainer = std::vector&lt;std::shared_ptr&lt;Node&gt;&gt;;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <span class="keyword">using </span>SharedNode = std::shared_ptr&lt;Node&gt;;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="comment">/* Static Next ID counter to ensure every node gets a unique ID. */</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nextID;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> id;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  std::string name;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <a class="code hl_class" href="classNode.html">Node</a>* parent;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> siblingNumber;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  ChildrenContainer children;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <span class="comment">/* Todo: Find a way to kick these down to the RenderableNode. */</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <a class="code hl_class" href="classTransform.html">Transform</a> localTransform;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <a class="code hl_class" href="classTransform.html">Transform</a> worldTransform;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <a class="code hl_class" href="classMatrix4.html">Matrix4</a> modelMatrix;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keywordtype">bool</span> isLocalSpace;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#afa0400212bba81a38a8c30358e8d159a">updateSiblingNumbers</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> removedIndex);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a056d062eb29724b02a75fe7c11c9068d">printNodeRecursive</a>(std::ostream&amp; os, <a class="code hl_class" href="classNode.html">Node</a>* node, <span class="keywordtype">int</span> depth);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keyword">friend</span> std::ostream&amp; <a class="code hl_friend" href="classNode.html#a2d3d26656e15be37b759d3e0f7696b47">operator&lt;&lt;</a>(std::ostream&amp; os, <a class="code hl_class" href="classNode.html">Node</a>&amp; node);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <a class="code hl_function" href="classNode.html#afceb8877cfab44e0eda5ae3a88513242">Node</a>(std::string name);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keyword">virtual</span> <a class="code hl_class" href="classNode.html">~Node</a>() { std::cout &lt;&lt; <span class="stringliteral">&quot;Node &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; destroyed\n&quot;</span>; }<span class="comment">//= default;</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a9d3a897b1240b4cd8fc7e37ad5e30fcb">removeNode</a>(SharedNode node);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a70630771eb579ea03658d83385489a47">reparent</a>(SharedNode node);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a11534136b486a3bf87130d4983a56bfb">update</a>(<span class="keywordtype">float</span> deltaTime);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keywordtype">void</span> worldToLocalSpace();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keywordtype">void</span> localToWorldSpace();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a875f20fdcca5c929635053b012ffbd10">addChild</a>(SharedNode node);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  SharedNode <a class="code hl_function" href="classNode.html#a691ba30b6e37963ca0ca4d427704bec8">findNode</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  SharedNode <a class="code hl_function" href="classNode.html#a1e819182e60d3c24c8e8105980ba227f">findNodeFast</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getID()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> id; }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  std::string getName()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> name; }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <a class="code hl_class" href="classNode.html">Node</a>* getParent()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> parent; }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keyword">const</span> ChildrenContainer&amp; getChildren()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> children; }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <a class="code hl_class" href="classMatrix4.html">Matrix4</a> getTransformMatrix()<span class="keyword"> const </span>{ </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> isLocalSpace ?</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>      localTransform.getLocalMatrix() : </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>      worldTransform.getLocalMatrix();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <a class="code hl_class" href="classTransform.html">Transform</a> getLocalTransform()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localTransform; }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <a class="code hl_class" href="classTransform.html">Transform</a> getWorldTransform()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> worldTransform; }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> getLocalPosition()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localTransform.getPosition(); }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> getLocalRotation()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localTransform.getRotation(); }</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> getLocalScaling()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localTransform.getScaling(); }</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keywordtype">void</span> setLocalPosition(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; position);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <span class="keywordtype">void</span> setLocalRotation(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; rotation);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  <span class="keywordtype">void</span> setLocalScaling(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; scaling);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>};</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="Transform_8h.html">Transform.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classNode.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="classNode.html">Node</a> : <span class="keyword">public</span> std::enable_shared_from_this&lt;Node&gt; {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keyword">using </span>ChildrenContainer = std::vector&lt;std::shared_ptr&lt;Node&gt;&gt;;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">using </span>SharedNode = std::shared_ptr&lt;Node&gt;;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="comment">/* Static Next ID counter to ensure every node gets a unique ID. */</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nextID;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> id;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  std::string name;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <a class="code hl_class" href="classNode.html">Node</a>* parent;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> siblingNumber;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  ChildrenContainer children;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="comment">/* Todo: Find a way to kick these down to the RenderableNode. */</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <a class="code hl_class" href="classTransform.html">Transform</a> localTransform;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <a class="code hl_class" href="classTransform.html">Transform</a> worldTransform;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <a class="code hl_class" href="classMatrix4.html">Matrix4</a> modelMatrix;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keywordtype">bool</span> isLocalSpace;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#afa0400212bba81a38a8c30358e8d159a">updateSiblingNumbers</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> removedIndex);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a056d062eb29724b02a75fe7c11c9068d">printNodeRecursive</a>(std::ostream&amp; os, <a class="code hl_class" href="classNode.html">Node</a>* node, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">friend</span> std::ostream&amp; <a class="code hl_friend" href="classNode.html#a2d3d26656e15be37b759d3e0f7696b47">operator&lt;&lt;</a>(std::ostream&amp; os, <a class="code hl_class" href="classNode.html">Node</a>&amp; node);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <a class="code hl_function" href="classNode.html#afceb8877cfab44e0eda5ae3a88513242">Node</a>(std::string name);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keyword">virtual</span> <a class="code hl_class" href="classNode.html">~Node</a>() { std::cout &lt;&lt; <span class="stringliteral">&quot;Node &quot;</span> &lt;&lt; name &lt;&lt; <span class="stringliteral">&quot; destroyed\n&quot;</span>; }<span class="comment">//= default;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a9d3a897b1240b4cd8fc7e37ad5e30fcb">removeNode</a>(SharedNode node);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a70630771eb579ea03658d83385489a47">reparent</a>(SharedNode node);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a11534136b486a3bf87130d4983a56bfb">update</a>(<span class="keywordtype">float</span> deltaTime);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keywordtype">void</span> worldToLocalSpace();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keywordtype">void</span> localToWorldSpace();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNode.html#a875f20fdcca5c929635053b012ffbd10">addChild</a>(SharedNode node);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  SharedNode <a class="code hl_function" href="classNode.html#a691ba30b6e37963ca0ca4d427704bec8">findNode</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  SharedNode <a class="code hl_function" href="classNode.html#a1e819182e60d3c24c8e8105980ba227f">findNodeFast</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getID()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> id; }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  std::string getName()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> name; }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <a class="code hl_class" href="classNode.html">Node</a>* getParent()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> parent; }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keyword">const</span> ChildrenContainer&amp; getChildren()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> children; }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <a class="code hl_class" href="classMatrix4.html">Matrix4</a> getTransformMatrix()<span class="keyword"> const </span>{ </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> isLocalSpace ?</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>      localTransform.getLocalMatrix() : </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>      worldTransform.getLocalMatrix();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <a class="code hl_class" href="classTransform.html">Transform</a> getLocalTransform()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localTransform; }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <a class="code hl_class" href="classTransform.html">Transform</a> getWorldTransform()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> worldTransform; }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> getLocalPosition()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localTransform.getPosition(); }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> getLocalRotation()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localTransform.getRotation(); }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> getLocalScaling()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> localTransform.getScaling(); }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keywordtype">void</span> setLocalPosition(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; position);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  <span class="keywordtype">void</span> setLocalRotation(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; rotation);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <span class="keywordtype">void</span> setLocalScaling(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; scaling);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
 </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#endif </span><span class="comment">// NODE_H</span></div>
-<div class="ttc" id="aMatrix4_8h_html"><div class="ttname"><a href="Matrix4_8h.html">Matrix4.h</a></div><div class="ttdoc">File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic.</div></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#endif </span><span class="comment">// NODE_H</span></div>
 <div class="ttc" id="aTransform_8h_html"><div class="ttname"><a href="Transform_8h.html">Transform.h</a></div><div class="ttdoc">Transform object, used to store the rotation, scale and translation info of an object,...</div></div>
-<div class="ttc" id="aclassMatrix4_html"><div class="ttname"><a href="classMatrix4.html">Matrix4</a></div><div class="ttdoc">Class that implements a custom 4x4 Matrix for use with OpenGL functions and game logic.</div><div class="ttdef"><b>Definition</b> Matrix4.h:30</div></div>
-<div class="ttc" id="aclassNode_html"><div class="ttname"><a href="classNode.html">Node</a></div><div class="ttdef"><b>Definition</b> Node.h:25</div></div>
-<div class="ttc" id="aclassNode_html_a056d062eb29724b02a75fe7c11c9068d"><div class="ttname"><a href="classNode.html#a056d062eb29724b02a75fe7c11c9068d">Node::printNodeRecursive</a></div><div class="ttdeci">static void printNodeRecursive(std::ostream &amp;os, Node *node, int depth)</div><div class="ttdoc">Debugging printing.</div><div class="ttdef"><b>Definition</b> Node.cpp:223</div></div>
+<div class="ttc" id="aclassMatrix4_html"><div class="ttname"><a href="classMatrix4.html">Matrix4</a></div><div class="ttdoc">Class that implements a custom 4x4 Matrix for use with OpenGL functions and game logic.</div><div class="ttdef"><b>Definition</b> Matrix4.h:31</div></div>
+<div class="ttc" id="aclassNode_html"><div class="ttname"><a href="classNode.html">Node</a></div><div class="ttdef"><b>Definition</b> Node.h:24</div></div>
+<div class="ttc" id="aclassNode_html_a056d062eb29724b02a75fe7c11c9068d"><div class="ttname"><a href="classNode.html#a056d062eb29724b02a75fe7c11c9068d">Node::printNodeRecursive</a></div><div class="ttdeci">static void printNodeRecursive(std::ostream &amp;os, Node *node, int depth)</div><div class="ttdoc">Debugging printing.</div><div class="ttdef"><b>Definition</b> Node.cpp:218</div></div>
 <div class="ttc" id="aclassNode_html_a11534136b486a3bf87130d4983a56bfb"><div class="ttname"><a href="classNode.html#a11534136b486a3bf87130d4983a56bfb">Node::update</a></div><div class="ttdeci">virtual void update(float deltaTime)</div><div class="ttdoc">Main update function.</div><div class="ttdef"><b>Definition</b> Node.cpp:160</div></div>
 <div class="ttc" id="aclassNode_html_a1e819182e60d3c24c8e8105980ba227f"><div class="ttname"><a href="classNode.html#a1e819182e60d3c24c8e8105980ba227f">Node::findNodeFast</a></div><div class="ttdeci">SharedNode findNodeFast(unsigned int id)</div><div class="ttdoc">Find a node by passing the node id to be found, but fast.</div><div class="ttdef"><b>Definition</b> Node.cpp:59</div></div>
-<div class="ttc" id="aclassNode_html_a2d3d26656e15be37b759d3e0f7696b47"><div class="ttname"><a href="classNode.html#a2d3d26656e15be37b759d3e0f7696b47">Node::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, Node &amp;node)</div><div class="ttdoc">Debugging printing.</div><div class="ttdef"><b>Definition</b> Node.cpp:247</div></div>
+<div class="ttc" id="aclassNode_html_a2d3d26656e15be37b759d3e0f7696b47"><div class="ttname"><a href="classNode.html#a2d3d26656e15be37b759d3e0f7696b47">Node::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, Node &amp;node)</div><div class="ttdoc">Debugging printing.</div><div class="ttdef"><b>Definition</b> Node.cpp:242</div></div>
 <div class="ttc" id="aclassNode_html_a691ba30b6e37963ca0ca4d427704bec8"><div class="ttname"><a href="classNode.html#a691ba30b6e37963ca0ca4d427704bec8">Node::findNode</a></div><div class="ttdeci">SharedNode findNode(unsigned int id)</div><div class="ttdoc">Find a node by passing the node id to be found.</div><div class="ttdef"><b>Definition</b> Node.cpp:42</div></div>
 <div class="ttc" id="aclassNode_html_a70630771eb579ea03658d83385489a47"><div class="ttname"><a href="classNode.html#a70630771eb579ea03658d83385489a47">Node::reparent</a></div><div class="ttdeci">virtual void reparent(SharedNode node)</div><div class="ttdoc">Reparent a node to a new node.</div><div class="ttdef"><b>Definition</b> Node.cpp:138</div></div>
 <div class="ttc" id="aclassNode_html_a875f20fdcca5c929635053b012ffbd10"><div class="ttname"><a href="classNode.html#a875f20fdcca5c929635053b012ffbd10">Node::addChild</a></div><div class="ttdeci">void addChild(SharedNode node)</div><div class="ttdoc">Add a passed node as a child to the current node.</div><div class="ttdef"><b>Definition</b> Node.cpp:30</div></div>

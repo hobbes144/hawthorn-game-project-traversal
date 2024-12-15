@@ -81,7 +81,7 @@ void APIENTRY openglCallbackFunction(
  * 
  * \return \b 
  *****************************************************************************/
-bool Renderer::loadGraphicsAPIFunctions() {
+bool Renderer::loadGraphicsAPIFunctions() const {
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     return false;
@@ -104,7 +104,7 @@ bool Renderer::loadGraphicsAPIFunctions() {
  * rendering viewport.
  * 
  *****************************************************************************/
-void Renderer::setupCallbacks() {
+void Renderer::setupCallbacks() const {
   gameWindow->setResizeCallback([this](GLFWwindow* pWindow, int width, int height) {
     this->framebufferSizeCallback(pWindow, width, height);
     });
@@ -123,7 +123,9 @@ void Renderer::setupCallbacks() {
  * \param width
  * \param height
  *****************************************************************************/
-void Renderer::framebufferSizeCallback(GLFWwindow* pWindow, int width, int height) {
+void Renderer::framebufferSizeCallback(
+  GLFWwindow* pWindow, int width, int height) const {
+
   glViewport(0, 0, width, height);
   // Additional rendering adjustments can be made here
 }
@@ -150,6 +152,8 @@ void Renderer::framebufferSizeCallback(GLFWwindow* pWindow, int width, int heigh
  *****************************************************************************/
 Renderer* Renderer::setGameWindow(GameWindow* _gameWindow) {
   gameWindow = _gameWindow;
+
+  return this;
 }
 
 /*!****************************************************************************
@@ -174,12 +178,14 @@ Renderer* Renderer::setIs3D(bool is3D) {
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glClearMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
+    clearMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
   }
   else {
     glDisable(GL_DEPTH_TEST);
-    glClearMask = GL_COLOR_BUFFER_BIT;
+    clearMask = GL_COLOR_BUFFER_BIT;
   }
+
+  return this;
 }
 
 /*!****************************************************************************
@@ -197,6 +203,8 @@ Renderer* Renderer::setIs3D(bool is3D) {
  *****************************************************************************/
 Renderer* Renderer::setClearColor(float r, float g, float b, float a) {
   glClearColor(r, g, b, a);
+
+  return this;
 }
 
 /*!****************************************************************************
@@ -212,8 +220,8 @@ Renderer* Renderer::setClearColor(float r, float g, float b, float a) {
  * clean window.
  * 
  *****************************************************************************/
-void Renderer::clear() {
-  glClear(glClearMask);
+void Renderer::clear() const {
+  glClear(clearMask);
 }
 
 /*!****************************************************************************
@@ -229,7 +237,7 @@ void Renderer::clear() {
  * called at the end of your rendering logic.
  * 
  *****************************************************************************/
-void Renderer::swapBuffers() {
+void Renderer::swapBuffers() const {
   glfwSwapBuffers(gameWindow->getNativeWindow());
 }
 
@@ -244,7 +252,7 @@ void Renderer::swapBuffers() {
  * \param count Number of vertices to be drawn
  * \param indexed If true, EBO will be used. Defaults to `true`.
  *****************************************************************************/
-void Renderer::draw(GLenum mode, GLint count, bool indexed = true) {
+void Renderer::draw(GLenum mode, GLint count, bool indexed = true) const {
   if (indexed) {
     glDrawElements(mode, count, GL_UNSIGNED_INT, 0);
   }

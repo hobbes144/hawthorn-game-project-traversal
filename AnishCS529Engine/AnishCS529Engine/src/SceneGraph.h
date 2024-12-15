@@ -55,6 +55,7 @@ public:
   std::shared_ptr<Node> findNodeFast(unsigned int id);
 
   void update(float deltaTime);
+  void updateNode(const std::shared_ptr<Node>& node, float deltaTime);
   void draw(const Matrix4& view, const Matrix4& projection) const;
   void printSceneTree();
 

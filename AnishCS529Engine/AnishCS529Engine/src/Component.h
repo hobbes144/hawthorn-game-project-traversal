@@ -14,9 +14,10 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 
-#include "GameObject.h"
+class GameObject;
 
 /*!****************************************************************************
  * \brief Component is the base class of all components.
@@ -33,33 +34,29 @@
  * Components may have an enabled or disabled state. Default constructor sets
  * component as enabled. This may be changed after construction.
  * 
- * Components can be marked for deletion, in which case the object should not
- * be used again. Default constructor sets component as not marked for
- * deletion.
- * 
  *****************************************************************************/
 class Component {
 public:
   Component() : enabled(true), markedForDeletion(false) {}
-  virtual ~Component();
-  virtual void initialize();
-  virtual void update(float deltaTime);
-  virtual void shutdown();
+  virtual ~Component() = default;
 
+  /* Component functions */
+  virtual void initialize() {};
+  virtual void update(float deltaTime) {};
+  virtual void shutdown() {};
+
+  /* Utility functions */
   void enable();
   void disable();
-  bool isEnabled();
+  bool isEnabled() const;
 
-  void setParent(GameObject* _parent);
-  GameObject* getParent();
-
-  void markForDeletion();
-  bool isMarkedForDeletion();
+  void setParent(std::shared_ptr<GameObject> _parent);
+  std::shared_ptr<GameObject> getParent() const;
 
 protected:
   bool enabled;
   bool markedForDeletion;
-  GameObject* parent;
+  std::shared_ptr<GameObject> parent;
 };
 
 #endif

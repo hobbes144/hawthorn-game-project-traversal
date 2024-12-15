@@ -19,7 +19,6 @@
 #include <string>
 #include <vector>
 
-#include "Matrix4.h"
 #include "Transform.h"
 
 class Node : public std::enable_shared_from_this<Node> {

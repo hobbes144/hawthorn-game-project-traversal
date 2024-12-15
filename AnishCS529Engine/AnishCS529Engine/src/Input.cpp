@@ -50,6 +50,8 @@ void Input::registerKey(Key k) {
  *****************************************************************************/
 Input* Input::setGameWindow(GameWindow* _window) {
   window = _window;
+
+  return this;
 }
 
 /*!****************************************************************************
@@ -73,6 +75,8 @@ Input* Input::setKeysToMonitor() {
   for (Key& k : allKeys) {
     registerKey(k);
   }
+
+  return this;
 }
 
 /*!****************************************************************************
@@ -100,7 +104,8 @@ Input* Input::setKeysToMonitor(std::vector<Key>& keysToMonitor) {
   for (Key& k : keysToMonitor) {
     registerKey(k);
   }
-  std::vector<Key> monitored = { KEY_SPACE };
+
+  return this;
 }
 
 /*!****************************************************************************

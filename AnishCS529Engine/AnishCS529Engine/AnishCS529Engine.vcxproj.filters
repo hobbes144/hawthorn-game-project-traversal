@@ -88,6 +88,9 @@
     <Filter Include="Header Files\Objects\Components">
       <UniqueIdentifier>{2870e2ae-cfad-4131-a6df-e902f6435c87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ObjectResources\Components">
+      <UniqueIdentifier>{4b01c2dd-d4a8-4cfa-999e-2a0a50d96a5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -193,6 +196,9 @@
       <Filter>Source Files\Deprecated</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject.cpp">
+      <Filter>Source Files\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
       <Filter>Source Files\Objects\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -317,6 +323,12 @@
     <ClInclude Include="src\GameObject.h">
       <Filter>Header Files\Objects\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\Render2D.h">
+      <Filter>Header Files\ObjectResources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>Header Files\Objects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -333,6 +345,9 @@
     </None>
     <None Include="shaders\physics_test_fragment_shader.glsl">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="src\GameObject.inl">
+      <Filter>Source Files\Objects\Components</Filter>
     </None>
   </ItemGroup>
 </Project>

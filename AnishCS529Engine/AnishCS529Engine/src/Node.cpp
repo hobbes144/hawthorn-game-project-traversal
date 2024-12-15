@@ -183,11 +183,6 @@ void Node::update(float deltaTime) {
       localTransform = worldTransform;
     }
   }
-
-
-  for (auto& child : children) {
-    child->update(deltaTime);
-  }
 }
 
 void Node::worldToLocalSpace() {

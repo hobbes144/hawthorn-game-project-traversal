@@ -408,3 +408,22 @@ Matrix4 Matrix4::lookAt(const Vector3 &eye, const Vector3 &center,
 
   return result;
 }
+
+std::ostream& operator<<(std::ostream& os, const Matrix4& m) {
+  const float* data = m.getData();
+
+  os << "[ ";
+
+  for (int i = 0; i < 4; ++i) {
+    if (i > 0) os << "  ";
+    os << "[ ";
+    for (int j = 0; j < 4; ++j) {
+      os << data[i * 4 + j] << " ";
+    }
+    os << "]";
+    if (i < 3) os << "\n";
+  }
+  os << " ]";
+
+  return os;
+}

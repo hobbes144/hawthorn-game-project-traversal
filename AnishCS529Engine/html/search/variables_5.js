@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type_0',['type',['../structGeometryBuffer_1_1AttributeInfo.html#a0b79572e19e360924c72059b600026bd',1,'GeometryBuffer::AttributeInfo']]]
+  ['normalized_0',['normalized',['../structGeometryBuffer_1_1AttributeInfo.html#af3c5b99a8187c87f2cb890449795c067',1,'GeometryBuffer::AttributeInfo']]]
 ];
