@@ -1,3 +1,4 @@
+#include "GameObject.h"
 /*!****************************************************************************
  * \file   GameObject.inl
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
@@ -16,30 +17,61 @@
 
 //#include "GameObject.h"
 
- /*!****************************************************************************
-  * \brief Add a component
-  *
-  * ## Usage:
-  *
-  * Game behaviour and properties are handled through components. This function
-  * adds components to the GameObject.
-  *
-  * ## Explanation:
-  *
-  * Components that can be added include Render components (requiring Mesh and
-  * Material components) and PhysicsBody components.
-  *
-  * ## Note:
-  *
-  * Adding duplicates of a Component type leads to undefined behaviour.
-  *
-  *****************************************************************************/
+/*!****************************************************************************
+ * \brief Add a component by creating
+ *
+ * ## Usage:
+ *
+ * Game behaviour and properties are handled through components. This function
+ * adds components to the GameObject by creating them.
+ *
+ * ## Explanation:
+ *
+ * Components that can be added include Render components (requiring Mesh and
+ * Material components) and PhysicsBody components.
+ *
+ * ## Note:
+ *
+ * Adding duplicates of a Component type leads to undefined behaviour.
+ *
+ * \return \b std::shared_ptr<T> Component created
+ *****************************************************************************/
 template<typename T>
 std::shared_ptr<T> GameObject::addComponent() {
+  static_assert(std::is_base_of<Component, T>::value,
+    "Component must be derived from component class");
+
   auto component = std::make_shared<T>();
-  component->setParent(shared_from_this());
+  component->setParent(std::static_pointer_cast<GameObject>(shared_from_this()));
   components.push_back(component);
   return component;
+}
+
+/*!****************************************************************************
+ * \brief Add a component by input
+ * 
+ * ## Usage:
+ * 
+ * Game behaviour and properties are handled through components. This function
+ * adds components to the GameObject by accepting a component as input.
+ *
+ * ## Explanation:
+ *
+ * Components that can be added include Render components (requiring Mesh and
+ * Material components) and PhysicsBody components.
+ *
+ * ## Note:
+ *
+ * Adding duplicates of a Component type leads to undefined behaviour.
+ * 
+ * \param _component Component to be added to the GameObject
+ * \return \b std::shared_ptr<T> Component added
+ *****************************************************************************/
+template<typename T>
+std::shared_ptr<T> GameObject::addComponent(std::shared_ptr<T> _component)
+{
+  _component->setParent(shared_from_this());
+  components.push_back(_component);
 }
 
 /*!****************************************************************************

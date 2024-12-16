@@ -32,6 +32,7 @@
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\InputOld.cpp" />
+    <ClCompile Include="src\Render2D.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
@@ -109,6 +110,8 @@
     <ClInclude Include="src\VectorTemplated.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\factory_frag_shader.frag.glsl" />
+    <None Include="shaders\factory_vertex_shader.vert.glsl" />
     <None Include="shaders\main_fragment_shader.glsl" />
     <None Include="shaders\main_vertex_shader.glsl" />
     <None Include="shaders\physics_test_fragment_shader.glsl" />

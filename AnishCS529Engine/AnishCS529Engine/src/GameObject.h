@@ -48,28 +48,31 @@
  * 
  *****************************************************************************/
 class GameObject : public Node {
-  GameObject(std::string& name) : Node(name) {};
+public:
+  GameObject(std::string name) : Node(name), enabled(true), markedForDeletion(false) {};
   ~GameObject() = default;
 
   /* Component functions */
-  void initialize();
+  virtual void initialize();
   virtual void update(float deltaTime);
-  void shutdown();
+  virtual void shutdown();
 
   /* Utility functions */
   template<typename T>
   std::shared_ptr<T> addComponent();
   template<typename T>
+  std::shared_ptr<T> addComponent(std::shared_ptr<T> _component);
+  template<typename T>
   void removeComponent();
   template<typename T>
   std::shared_ptr<T> findComponent();
 
-  void enable();
-  void disable();
+  std::shared_ptr<GameObject> enable();
+  std::shared_ptr<GameObject> disable();
   bool isEnabled() const;
 
   /* Lifecycle functions */
-  void markForDeletion();
+  std::shared_ptr<GameObject> markForDeletion();
   bool isMarkedForDeletion() const;
 protected:
   /** Vector of components attached to the GameObject */

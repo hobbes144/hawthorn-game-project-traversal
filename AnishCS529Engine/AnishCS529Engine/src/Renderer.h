@@ -15,10 +15,6 @@
 
 #pragma once
 
-/* OpenGL imports */
-#include <glad/glad.h> 
-#include <GLFW/glfw3.h>
-
 /* Base class */
 #include "Component.h"
 

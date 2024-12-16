@@ -45,14 +45,17 @@ void Camera::updateViewMatrix() {
  * \param aspectRatio Aspect Ratio of the camera
  * \param near Near plane of the camera
  * \param far Far plane of the camera
+ * \return \b std::shared_ptr<Camera> Self shared pointer to allow chaining.
  *****************************************************************************/
-void Camera::setPerspectiveProjection(
+std::shared_ptr<Camera> Camera::setPerspectiveProjection(
   const float fov,
   const float aspectRatio,
   const float near,
   const float far)
 {
   projectionMatrix = Matrix4::perspective(fov, aspectRatio, near, far);
+
+  return std::static_pointer_cast<Camera>(shared_from_this());
 }
 
 /*!****************************************************************************
@@ -68,8 +71,9 @@ void Camera::setPerspectiveProjection(
  * \param top Top extent of the view
  * \param near Near plane of the camera
  * \param far Far plane of the camera
+ * \return \b std::shared_ptr<Camera> Self shared pointer to allow chaining.
  *****************************************************************************/
-void Camera::setOrthographicProjection(
+std::shared_ptr<Camera> Camera::setOrthographicProjection(
   const float left,
   const float right,
   const float bottom,
@@ -80,6 +84,8 @@ void Camera::setOrthographicProjection(
   projectionMatrix = Matrix4::orthographic(
     left, right, bottom, top, near, far
   );
+
+  return std::static_pointer_cast<Camera>(shared_from_this());
 }
 
 /*!****************************************************************************
@@ -92,7 +98,7 @@ void Camera::setOrthographicProjection(
  * 
  * \return \b View matrix
  *****************************************************************************/
-const Matrix4& Camera::getViewMatrix()
+const Matrix4 Camera::getViewMatrix()
 {
   return viewMatrix.getLocalMatrix();
 }

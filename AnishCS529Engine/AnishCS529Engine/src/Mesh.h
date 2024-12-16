@@ -14,8 +14,6 @@
 
 #pragma once
 
-#include <glad/glad.h>
-
 #include <unordered_map>
 #include <vector>
 
@@ -49,6 +47,7 @@ public:
     Attributes attrData,
     const std::vector<unsigned int>& indices,
     const GLsizei interleavedStride = 0);
+  virtual ~Mesh() = default;
 
   void setVertexData(const std::shared_ptr<GeometryBuffer>& geometryBuffer);
 
@@ -82,6 +81,9 @@ private:
 
   std::string name;
 };
+
+std::shared_ptr<Mesh> createSquareMesh(const std::string name);
+std::shared_ptr<Mesh> createCubeMesh(const std::string name);
 
 #endif // MESH_H
 

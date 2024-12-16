@@ -61,6 +61,9 @@ private:
 
 };
 
+std::shared_ptr<Material> createSolidColorMaterial(const Vector3& color);
+std::shared_ptr<Material> createTextureMaterial(const std::string& textureFile);
+
 #endif // MATERIAL_H
 
 // Challenge for you: Can you think of a way to templetize the setProperty() function?

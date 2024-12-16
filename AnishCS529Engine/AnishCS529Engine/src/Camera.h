@@ -23,17 +23,17 @@ public:
   ~Camera() = default;
 
   /* Component functions */
-  void initialize();
-  void update(float deltaTime);
-  void shutdown();
+  virtual void initialize();
+  virtual void update(float deltaTime);
+  virtual void shutdown();
 
   /* Utility functions */
-  void setPerspectiveProjection(
+  std::shared_ptr<Camera> setPerspectiveProjection(
     const float fov,
     const float aspectRatio,
     const float near,
     const float far);
-  void setOrthographicProjection(
+  std::shared_ptr<Camera> setOrthographicProjection(
     const float left,
     const float right,
     const float bottom,
@@ -41,7 +41,7 @@ public:
     const float near,
     const float far);
 
-  const Matrix4& getViewMatrix();
+  const Matrix4 getViewMatrix();
   const Matrix4& getProjectionMatrix();
 
 private:

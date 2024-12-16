@@ -14,18 +14,47 @@
 
 /*!****************************************************************************
  * \brief Enable the GameObject
+ * 
+ * ## Usage:
+ * 
+ * This is to be used to "spawn" in an object that is already loaded in memory.
+ * To reduce object init calls, ensure objects that aren't immediately needed
+ * are initialized at the start of scene but disabled until in use.
+ * 
+ * ## Explanation:
+ * 
+ * This enables update calls for the GameObject, ensuring that all enabled
+ * Component objects are run. If further control is needed, Component also
+ * provides a Component::enable() call.
  *
+ * \return \b std::shared_ptr<GameObject> Self shared pointer to allow chaining.
  *****************************************************************************/
-void GameObject::enable() {
+std::shared_ptr<GameObject> GameObject::enable() {
   enabled = true;
+
+  return std::static_pointer_cast<GameObject>(shared_from_this());
 }
 
 /*!****************************************************************************
  * \brief Disable the GameObject
+ * 
+ * ## Usage:
+ * 
+ * This is used to disable or "Kill" a game object. This will ensure that the
+ * object is no longer processed even though it is still in memory.
+ * 
+ * ## Explanation:
+ * 
+ * This disables update calls for the GameObject, ensuring that all Component
+ * objects are not run. If further control is needed, Component also provides a
+ * Component::disable() call.
  *
+ * \return \b std::shared_ptr<GameObject> Self shared pointer to allow chaining.
  *****************************************************************************/
-void GameObject::disable() {
+std::shared_ptr<GameObject> GameObject::disable() {
   enabled = false;
+
+  return std::static_pointer_cast<GameObject>(shared_from_this());
 }
 
 /*!****************************************************************************
@@ -46,9 +75,12 @@ bool GameObject::isEnabled() const {
  * that ensures that objects are cleaned up when there are resources available
  * to do so.
  *
+ * \return \b std::shared_ptr<GameObject> Self shared pointer to allow chaining.
  *****************************************************************************/
-void GameObject::markForDeletion() {
+std::shared_ptr<GameObject> GameObject::markForDeletion() {
   markedForDeletion = true;
+
+  return std::static_pointer_cast<GameObject>(shared_from_this());
 }
 
 /*!****************************************************************************
