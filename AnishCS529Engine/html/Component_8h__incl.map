@@ -1,31 +1,7 @@
 <map id="AnishCS529Engine/src/Component.h" name="AnishCS529Engine/src/Component.h">
-<area shape="rect" id="Node000001" title="Component Class used as the base of the Entity Component System." alt="" coords="26,5,190,45"/>
-<area shape="rect" id="Node000002" href="$Node_8h.html" title="Node class used for the Scene Graph." alt="" coords="149,93,219,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,44,165,81,161,85,124,47"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="5,167,61,192"/>
-<area shape="poly" id="edge17_Node000001_Node000005" title=" " alt="" coords="101,47,47,155,43,153,96,45"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="255,167,334,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="203,116,266,157,263,161,200,121"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="359,167,415,192"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="217,116,346,161,345,166,216,121"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="161,121,72,163,69,158,159,116"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="439,167,503,192"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="220,113,426,164,425,169,219,118"/>
-<area shape="rect" id="Node000007" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="65,240,145,265"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="170,121,148,141,128,168,116,197,110,227,105,226,111,196,123,165,144,138,167,117"/>
-<area shape="rect" id="Node000012" href="$Transform_8h.html" title="Transform object, used to store the rotation, scale and translation info of an object,..." alt="" coords="137,167,231,192"/>
-<area shape="poly" id="edge14_Node000002_Node000012" title=" " alt="" coords="187,119,187,153,181,153,181,119"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="123,387,189,412"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="111,265,132,338,147,373,142,375,127,340,106,266"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="38,387,93,412"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="104,267,88,314,73,374,68,373,83,313,98,265"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="217,387,303,412"/>
-<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="146,259,196,278,220,292,241,312,256,341,262,372,257,373,251,343,237,315,217,297,193,282,145,264"/>
-<area shape="rect" id="Node000011" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="141,313,227,339"/>
-<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="120,263,163,302,159,306,116,267"/>
-<area shape="poly" id="edge11_Node000011_Node000008" title=" " alt="" coords="182,340,168,375,163,373,177,338"/>
-<area shape="poly" id="edge12_Node000011_Node000009" title=" " alt="" coords="166,341,98,382,95,377,164,336"/>
-<area shape="poly" id="edge13_Node000011_Node000010" title=" " alt="" coords="198,337,239,375,236,379,194,341"/>
-<area shape="poly" id="edge15_Node000012_Node000007" title=" " alt="" coords="173,194,130,233,126,229,170,190"/>
-<area shape="poly" id="edge16_Node000012_Node000011" title=" " alt="" coords="187,192,187,300,181,300,181,192"/>
+<area shape="rect" id="Node000001" title="Component Class used as the base of the Entity Component System." alt="" coords="7,5,171,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,83,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,47,60,83,55,80,76,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="107,93,163,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="103,44,123,80,119,83,98,47"/>
 </map>

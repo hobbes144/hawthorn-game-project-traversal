@@ -15,11 +15,11 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 #include <stack>
 #include <string>
 #include <vector>
 
-#include "Matrix4.h"
 #include "Transform.h"
 
 class Node : public std::enable_shared_from_this<Node> {
@@ -32,7 +32,7 @@ protected:
 
   unsigned int id;
   std::string name;
-  Node* parent;
+  SharedNode parent;
   unsigned int siblingNumber;
   ChildrenContainer children;
 
@@ -62,7 +62,7 @@ public:
 
   unsigned int getID() const { return id; }
   std::string getName() const { return name; }
-  Node* getParent() const { return parent; }
+  SharedNode getParent() const { return parent; }
   const ChildrenContainer& getChildren() const { return children; }
 
   Matrix4 getTransformMatrix() const { 
@@ -77,9 +77,9 @@ public:
   Vector3 getLocalRotation() const { return localTransform.getRotation(); }
   Vector3 getLocalScaling() const { return localTransform.getScaling(); }
 
-  void setLocalPosition(const Vector3& position);
-  void setLocalRotation(const Vector3& rotation);
-  void setLocalScaling(const Vector3& scaling);
+  SharedNode setLocalPosition(const Vector3& position);
+  SharedNode setLocalRotation(const Vector3& rotation);
+  SharedNode setLocalScaling(const Vector3& scaling);
 
 };
 

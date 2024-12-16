@@ -59,12 +59,9 @@ RenderableNode* PhysicsBody::getOwner() const { return owner; }
 void PhysicsBody::integrate(float dt) {
   if (isStatic) return;
 
-  // TODO: Semi-implicit Euler integration
-  // implement here ->:
   acceleration = force / mass;
   velocity = velocity + (acceleration * dt);
 
-  // TODO: Update position through the owner's transform
   Vector3 newPosition = owner->getLocalPosition() + (velocity * dt);
   owner->setLocalPosition(newPosition);
 

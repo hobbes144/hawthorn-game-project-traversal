@@ -38,7 +38,14 @@ std::shared_ptr<Node> SceneGraph::findNodeFast(unsigned int id) {
 }
 
 void SceneGraph::update(float deltaTime) {
-  root->update(deltaTime);
+  updateNode(root, deltaTime);
+}
+
+void SceneGraph::updateNode(const std::shared_ptr<Node>& node, float deltaTime) {
+  node->update(deltaTime);
+  for (auto child : node->getChildren()) {
+    updateNode(child, deltaTime);
+  }
 }
 
 void SceneGraph::drawNode(const std::shared_ptr<Node>& node,

@@ -30,7 +30,7 @@ Node::Node(std::string name) :
 void Node::addChild(SharedNode child) {
   children.push_back(child);
   child->siblingNumber = static_cast<unsigned int>(children.size()) - 1;
-  child->parent = this;
+  child->parent = shared_from_this();
 }
 
 /*!****************************************************************************
@@ -108,7 +108,7 @@ void Node::removeNode(SharedNode node) {
 
   // node found
   // 0. node will always have a parent (root is overrided)
-  Node* parent = foundNode->getParent();
+  SharedNode parent = foundNode->getParent();
 
   // 1. erase the found node from parent's children vector and update
   // sibling numbers
@@ -138,7 +138,7 @@ void Node::removeNode(SharedNode node) {
 void Node::reparent(SharedNode dstNode) {
   //auto thisNode = shared_from_this(); // sasafe usage of 'this'
 
-  Node* parent = getParent();
+  SharedNode parent = getParent();
   // 1. erase the found node from parent's children vector and update sibling numbers
   unsigned int removedIndex = siblingNumber;
   parent->children.erase(parent->children.begin() + removedIndex); 
@@ -183,11 +183,6 @@ void Node::update(float deltaTime) {
       localTransform = worldTransform;
     }
   }
-
-
-  for (auto& child : children) {
-    child->update(deltaTime);
-  }
 }
 
 void Node::worldToLocalSpace() {
@@ -198,19 +193,25 @@ void Node::localToWorldSpace() {
   isLocalSpace = false;
 }
 
-void Node::setLocalPosition(const Vector3& position) {
+std::shared_ptr<Node> Node::setLocalPosition(const Vector3& position) {
   localTransform.setPosition(position);
   isLocalSpace = true;  // Ensure we're in local space after this operation
+
+  return shared_from_this();
 }
 
-void Node::setLocalRotation(const Vector3& rotation) {
+std::shared_ptr<Node> Node::setLocalRotation(const Vector3& rotation) {
   localTransform.setRotation(rotation);
   isLocalSpace = true;  // Ensure we're in local space after this operation
+
+  return shared_from_this();
 }
 
-void Node::setLocalScaling(const Vector3& scaling) {
+std::shared_ptr<Node> Node::setLocalScaling(const Vector3& scaling) {
   localTransform.setScaling(scaling);
   isLocalSpace = true;  // Ensure we're in local space after this operation
+
+  return shared_from_this();
 }
 
 /*!****************************************************************************

@@ -15,10 +15,6 @@
 
 #pragma once
 
-/* OpenGL imports */
-#include <glad/glad.h> 
-#include <GLFW/glfw3.h>
-
 /* Base class */
 #include "Component.h"
 
@@ -37,6 +33,9 @@
  * ## Pre-initialization calls:
  * 
  * - setGameWindow(GameWindow* _gameWindow)
+ * 
+ * ## Post-initialization calls:
+ * 
  * - setIs3D(bool is3D)
  * - setClearColor(float r, float g, float b, float a)
  * 
@@ -71,19 +70,20 @@ public:
   Renderer* setClearColor(float r, float g, float b, float a);
 
   /* Utility functions */
-  void clear();
-  void swapBuffers();
-  void draw(GLenum mode, GLint count, bool indexed);
+  void clear() const;
+  void swapBuffers() const;
+  void draw(GLenum mode, GLint count, bool indexed) const;
 
 private:
   /** Game Window object */
   GameWindow* gameWindow;
   /** Clear mask for glClear */
-  GLbitfield glClearMask;
+  GLbitfield clearMask;
 
-  bool loadGraphicsAPIFunctions();
-  void setupCallbacks();
-  void framebufferSizeCallback(GLFWwindow* pWindow, int width, int height);
+  bool loadGraphicsAPIFunctions() const;
+  void setupCallbacks() const;
+  void framebufferSizeCallback(
+    GLFWwindow* pWindow, int width, int height) const;
 
 };
 

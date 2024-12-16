@@ -110,3 +110,95 @@ bool Mesh::hasAttribute(GeometryBuffer::AttributeType attr) const {
 const std::string& Mesh::getName() const {
   return name;
 }
+
+std::shared_ptr<Mesh> createSquareMesh(const std::string name)
+{
+  // Generate vertex data for a rectangle
+  // We'll use a unit rectangle centered at the origin
+  std::vector<float> vertices = {
+    // Position (x, y, z)
+    -0.5f, -0.5f, 0.0f,      0.0f, 0.0f,  // Bottom-left
+     0.5f, -0.5f, 0.0f,      1.0f, 0.0f,  // Bottom-right
+     0.5f,  0.5f, 0.0f,      1.0f, 1.0f,  // Top-right
+    -0.5f,  0.5f, 0.0f,      0.0f, 1.0f   // Top-left
+  };
+
+
+  // Generate indices for two triangles
+  std::vector<unsigned int> indices = {
+      0, 1, 2,  // First triangle
+      2, 3, 0   // Second triangle
+  };
+
+  Mesh::Attributes newMeshData;
+
+  newMeshData[GeometryBuffer::AttributeType::Position] = {
+    vertices,
+    3
+  };
+
+  newMeshData[GeometryBuffer::AttributeType::TexCoord] = {
+    vertices,
+    2
+  };
+
+  std::shared_ptr<Mesh> newMesh = std::make_shared<Mesh>(
+    name + "_Mesh",
+    newMeshData,
+    indices,
+    static_cast<GLsizei>(5 * sizeof(float)));
+  return newMesh;
+}
+
+std::shared_ptr<Mesh> createCubeMesh(const std::string name)
+{
+  // Generate vertex data for a rectangle
+  // We'll use a unit rectangle centered at the origin
+  std::vector<float> vertices = {
+    // Box corners in normalized coordinates (-0.5 to 0.5)
+    -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,  // Bottom-left-Front    //  0
+     0.5f, -0.5f, -0.5f,   0.0f, 0.0f,  // Bottom-right-Front   //  1
+     0.5f,  0.5f, -0.5f,   0.0f, 0.0f,  // Top-right-Front      //  2
+    -0.5f,  0.5f, -0.5f,   0.0f, 0.0f,  // Top-left-Front       //  3
+    -0.5f, -0.5f, 0.5f,   0.0f, 0.0f,  // Bottom-left-Back      //  4
+     0.5f, -0.5f, 0.5f,   0.0f, 0.0f,  // Bottom-right-Back     //  5
+     0.5f,  0.5f, 0.5f,   0.0f, 0.0f,  // Top-right-Back        //  6
+    -0.5f,  0.5f, 0.5f,   0.0f, 0.0f,  // Top-left-Back         //  7
+  };
+
+
+  // Generate indices for two triangles
+  std::vector<unsigned int> indices = {
+    0, 1,  // Bottom Front edge         // 0
+    1, 2,  // Right Front edge          // 2
+    2, 3,  // Top Front edge            // 4
+    3, 0,  // Left Front edge           // 6
+    4, 5,  // Bottom Back edge          // 8
+    5, 6,  // Right Back edge           // 10
+    6, 7,  // Top Back edge             // 12
+    7, 4,  // Left Back edge            // 14
+    0, 4,  // Bottom Left Z Axis edge   // 16
+    1, 5,  // Bottom Right Z Axis edge  // 18
+    2, 6,  // Top Right Z Axis edge     // 20
+    3, 7,  // Top Left Z Axis edge      // 22
+  };
+
+  Mesh::Attributes newMeshData;
+
+  newMeshData[GeometryBuffer::AttributeType::Position] = {
+    vertices,
+    3
+  };
+
+  newMeshData[GeometryBuffer::AttributeType::TexCoord] = {
+    vertices,
+    2
+  };
+
+  std::shared_ptr<Mesh> newMesh = std::make_shared<Mesh>(
+    name + "_Mesh",
+    newMeshData,
+    indices,
+    static_cast<GLsizei>(5 * sizeof(float)));
+  return newMesh;
+}

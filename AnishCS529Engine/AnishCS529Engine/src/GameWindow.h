@@ -103,7 +103,7 @@ private:
                                     int height);
 
   /* Renderer functions */
-  void setWindowHints(const std::function<void()>& hintSetter);
+  void setWindowHints(const std::function<void()>& hintSetter) const;
   void setResizeCallback(
       std::function<void(GLFWwindow*, int, int)> callback);
 

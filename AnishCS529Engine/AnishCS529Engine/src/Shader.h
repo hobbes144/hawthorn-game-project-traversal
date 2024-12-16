@@ -15,8 +15,13 @@
 
 #pragma once
 
-#include <glad/glad.h> 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
+#ifndef ENGINE_GLFW_H
+#define ENGINE_GLFW_H
+#define GLFW_INCLUDE_NONE
+#include "GLFW/glfw3.h"
+#endif // ENGINE_GLFW_H
 
 #include <algorithm>
 #include <fstream>

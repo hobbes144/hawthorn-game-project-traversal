@@ -1,17 +1,19 @@
 <map id="AnishCS529Engine/src/Transform.h" name="AnishCS529Engine/src/Transform.h">
-<area shape="rect" id="Node000001" title="Transform object, used to store the rotation, scale and translation info of an object,..." alt="" coords="57,5,224,45"/>
-<area shape="rect" id="Node000002" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="139,93,223,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,44,171,80,166,82,148,47"/>
-<area shape="rect" id="Node000006" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="61,167,143,192"/>
-<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="138,46,111,154,106,153,133,45"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,240,68,265"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="139,118,91,136,69,150,51,168,39,196,37,226,31,226,34,195,46,165,66,146,89,131,137,113"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="99,240,155,265"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="180,120,158,193,142,229,137,227,153,191,175,118"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="184,240,271,265"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="187,118,222,226,217,228,182,120"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="170,121,127,159,123,156,166,117"/>
-<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="93,194,58,232,55,228,89,191"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="109,191,121,226,116,228,104,193"/>
-<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="123,190,196,231,194,235,121,194"/>
+<area shape="rect" id="Node000001" title="Transform object, used to store the rotation, scale and translation info of an object,..." alt="" coords="100,5,264,45"/>
+<area shape="rect" id="Node000002" href="$Matrix4_8h.html" title="File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic." alt="" coords="103,93,183,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,47,158,82,153,80,170,44"/>
+<area shape="rect" id="Node000007" href="$Vector3_8h.html" title="File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic." alt="" coords="179,167,265,192"/>
+<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="190,45,218,153,213,154,184,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,240,60,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,116,55,134,33,148,15,168,10,182,10,197,21,227,16,229,5,198,5,181,10,165,29,144,53,129,102,111"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="254,240,321,265"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="185,112,235,130,259,145,279,165,291,195,293,226,288,226,286,196,274,168,255,149,232,135,183,117"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="25,167,104,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="132,121,89,159,86,156,129,117"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="113,240,200,265"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="147,119,157,226,152,227,142,119"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="158,117,201,156,197,159,154,121"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="193,195,74,239,72,234,191,190"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="235,191,269,228,266,232,231,194"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="213,194,178,232,175,228,209,191"/>
 </map>

@@ -1,62 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Math">
-      <UniqueIdentifier>{a0c172f8-4ddc-4e3c-9cee-3d62b5cfab44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Math">
-      <UniqueIdentifier>{6b6cba17-9eed-4894-b002-9eb32a06b958}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{b20874b9-9397-423b-8562-417be9e8be03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\OpenGL">
-      <UniqueIdentifier>{105f078f-7c32-4cb1-b37d-f61c2a97614a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ObjectResources">
-      <UniqueIdentifier>{8f6252f2-c818-4654-9270-1e77844120df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Systems">
-      <UniqueIdentifier>{a545e6e7-5f05-4b97-aeba-5d55ad4e94c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Objects">
-      <UniqueIdentifier>{c2ad7f39-d75e-43bd-aac4-613c55ed24c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Objects">
-      <UniqueIdentifier>{e4a66632-9f60-4f58-8144-f62bd60921ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Systems">
-      <UniqueIdentifier>{1c5475f8-3819-4306-ad68-4b14ddd209d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\OpenGL">
-      <UniqueIdentifier>{3e00e1d2-b733-452c-a5bc-e2d6fd40b0e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ObjectResources">
-      <UniqueIdentifier>{90dcd5e3-d0e2-40ce-8411-01aee9c817fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Systems\EventSystem">
-      <UniqueIdentifier>{e68e4713-d63d-45a5-bfa7-673fd71c2a8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Systems\EventSystem">
-      <UniqueIdentifier>{a32370ec-75bd-4092-ab83-a3dfc1f4e91b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Systems\PhysicsSystem">
-      <UniqueIdentifier>{3ffc5d6a-2e8e-4fef-a713-f4d10d8e3133}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Systems\PhysicsSystem">
-      <UniqueIdentifier>{fab069bc-abf6-4653-a575-51ce7c3b3d0a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tests">
       <UniqueIdentifier>{9cc0f04c-c641-445a-8618-98b45b698ccc}</UniqueIdentifier>
@@ -64,91 +11,177 @@
     <Filter Include="SphereJump">
       <UniqueIdentifier>{64aa87d5-7ef0-49c5-9cc5-96b1672fcc16}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Systems\Components">
-      <UniqueIdentifier>{ba637f49-c48f-45b1-9249-01136ca52996}</UniqueIdentifier>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{3da3fd5b-ae5e-4117-995e-c1b543a72a6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Systems\Components">
-      <UniqueIdentifier>{5df04128-1ff1-47a7-985c-74f81df7ab1a}</UniqueIdentifier>
+    <Filter Include="Engine\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Source Files\Deprecated">
-      <UniqueIdentifier>{116e4ef2-acb9-4842-b212-4d74b6674224}</UniqueIdentifier>
+    <Filter Include="Engine\Header Files\Math">
+      <UniqueIdentifier>{6b6cba17-9eed-4894-b002-9eb32a06b958}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Deprecated">
-      <UniqueIdentifier>{53683385-0148-45a9-878e-5e6e8802b12c}</UniqueIdentifier>
+    <Filter Include="Engine\Header Files\OpenGL">
+      <UniqueIdentifier>{105f078f-7c32-4cb1-b37d-f61c2a97614a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\OpenGL\Components">
+    <Filter Include="Engine\Header Files\OpenGL\Components">
       <UniqueIdentifier>{144c4afd-18cb-41ba-b4fe-bb5c335ce092}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\OpenGL\Components">
+    <Filter Include="Engine\Header Files\ObjectResources">
+      <UniqueIdentifier>{8f6252f2-c818-4654-9270-1e77844120df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\ObjectResources\Components">
+      <UniqueIdentifier>{4b01c2dd-d4a8-4cfa-999e-2a0a50d96a5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\ObjectResources\Meshes">
+      <UniqueIdentifier>{77d3f894-5434-46e6-96e0-c19653ac57cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\ObjectResources\Materials/Textures">
+      <UniqueIdentifier>{4d195d69-0fb3-4917-935d-b1229b2cf05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\ObjectResources\Nodes">
+      <UniqueIdentifier>{75e94ada-8833-44fc-8edc-dbdb31c68d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\Systems">
+      <UniqueIdentifier>{a545e6e7-5f05-4b97-aeba-5d55ad4e94c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\Systems\EventSystem">
+      <UniqueIdentifier>{e68e4713-d63d-45a5-bfa7-673fd71c2a8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\Systems\PhysicsSystem">
+      <UniqueIdentifier>{fab069bc-abf6-4653-a575-51ce7c3b3d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\Systems\Components">
+      <UniqueIdentifier>{ba637f49-c48f-45b1-9249-01136ca52996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\Objects">
+      <UniqueIdentifier>{c2ad7f39-d75e-43bd-aac4-613c55ed24c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\Objects\Components">
+      <UniqueIdentifier>{2870e2ae-cfad-4131-a6df-e902f6435c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\Deprecated">
+      <UniqueIdentifier>{53683385-0148-45a9-878e-5e6e8802b12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Engine\Source Files\Math">
+      <UniqueIdentifier>{a0c172f8-4ddc-4e3c-9cee-3d62b5cfab44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Objects">
+      <UniqueIdentifier>{e4a66632-9f60-4f58-8144-f62bd60921ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Objects\Components">
+      <UniqueIdentifier>{cf5bff79-b009-4a9d-a567-de5dc0704662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Systems">
+      <UniqueIdentifier>{1c5475f8-3819-4306-ad68-4b14ddd209d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Systems\EventSystem">
+      <UniqueIdentifier>{a32370ec-75bd-4092-ab83-a3dfc1f4e91b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Systems\PhysicsSystem">
+      <UniqueIdentifier>{3ffc5d6a-2e8e-4fef-a713-f4d10d8e3133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Systems\Components">
+      <UniqueIdentifier>{5df04128-1ff1-47a7-985c-74f81df7ab1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\OpenGL">
+      <UniqueIdentifier>{3e00e1d2-b733-452c-a5bc-e2d6fd40b0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\OpenGL\Components">
       <UniqueIdentifier>{44e89a6b-2764-41f7-ba04-ed33d474d34d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\ObjectResources">
+      <UniqueIdentifier>{90dcd5e3-d0e2-40ce-8411-01aee9c817fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\ObjectResources\Components">
+      <UniqueIdentifier>{b4ceb655-6890-4a3b-8cf3-174446e6c373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Deprecated">
+      <UniqueIdentifier>{116e4ef2-acb9-4842-b212-4d74b6674224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Header Files">
+      <UniqueIdentifier>{92781a5f-1548-4414-a124-5310285165d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Source Files">
+      <UniqueIdentifier>{bbd2025d-556a-4017-8ea6-2fe7731b8a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Header Files\Components">
+      <UniqueIdentifier>{63d2c7f9-fa6b-4200-b623-42d43074832a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
+      <UniqueIdentifier>{b20874b9-9397-423b-8562-417be9e8be03}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
-      <Filter>Source Files\Math</Filter>
+      <Filter>Engine\Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\Vector3.cpp">
-      <Filter>Source Files\Math</Filter>
+      <Filter>Engine\Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\VectorTemplated.cpp">
-      <Filter>Source Files\Math</Filter>
+      <Filter>Engine\Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\TrianglePrimitive.cpp">
-      <Filter>Source Files\Objects</Filter>
+      <Filter>Engine\Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="src\SceneGraph.cpp">
-      <Filter>Source Files\Systems</Filter>
+      <Filter>Engine\Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="src\GeometryBuffer.cpp">
-      <Filter>Source Files\OpenGL</Filter>
+      <Filter>Engine\Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Shader.cpp">
-      <Filter>Source Files\OpenGL</Filter>
+      <Filter>Engine\Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Material.cpp">
-      <Filter>Source Files\ObjectResources</Filter>
+      <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
     <ClCompile Include="src\Mesh.cpp">
-      <Filter>Source Files\ObjectResources</Filter>
+      <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
     <ClCompile Include="src\Node.cpp">
-      <Filter>Source Files\ObjectResources</Filter>
+      <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
     <ClCompile Include="src\RenderableNode.cpp">
-      <Filter>Source Files\ObjectResources</Filter>
+      <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
     <ClCompile Include="src\glad.c">
-      <Filter>Source Files\OpenGL</Filter>
+      <Filter>Engine\Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Input.cpp">
-      <Filter>Source Files\Systems</Filter>
+      <Filter>Engine\Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="src\FramerateController.inl">
-      <Filter>Source Files\Systems</Filter>
+      <Filter>Engine\Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="src\EventManager.cpp">
-      <Filter>Source Files\Systems\EventSystem</Filter>
+      <Filter>Engine\Source Files\Systems\EventSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\AABB.cpp">
-      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\Sphere.cpp">
-      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionGenerator.cpp">
-      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\CollisionListener.cpp">
-      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\OBB.cpp">
-      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\PhysicsBody.cpp">
-      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\PhysicsManager.cpp">
-      <Filter>Source Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\TriangleTest.cpp">
       <Filter>Tests</Filter>
@@ -157,167 +190,197 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="src\RectanglePrimitive.cpp">
-      <Filter>Source Files\Objects</Filter>
+      <Filter>Engine\Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="src\Texture.cpp">
-      <Filter>Source Files\ObjectResources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObject.cpp">
-      <Filter>Source Files\Objects</Filter>
+      <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
     <ClCompile Include="src\SphereJump.cpp">
       <Filter>SphereJump</Filter>
     </ClCompile>
     <ClCompile Include="src\Component.cpp">
-      <Filter>Source Files\Systems\Components</Filter>
+      <Filter>Engine\Source Files\Systems\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\RendererOld.cpp">
-      <Filter>Source Files\Deprecated</Filter>
+      <Filter>Engine\Source Files\Deprecated</Filter>
     </ClCompile>
     <ClCompile Include="src\GameWindow.cpp">
-      <Filter>Source Files\OpenGL\Components</Filter>
+      <Filter>Engine\Source Files\OpenGL\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer.cpp">
-      <Filter>Source Files\Systems\Components</Filter>
+      <Filter>Engine\Source Files\Systems\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\GameWindowOld.cpp">
-      <Filter>Source Files\Deprecated</Filter>
+      <Filter>Engine\Source Files\Deprecated</Filter>
     </ClCompile>
     <ClCompile Include="src\InputOld.cpp">
-      <Filter>Source Files\Deprecated</Filter>
+      <Filter>Engine\Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjectOld.cpp">
+      <Filter>Engine\Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>Engine\Source Files\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Engine\Source Files\Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Render2D.cpp">
+      <Filter>Engine\Source Files\ObjectResources\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
-      <Filter>Header Files\Math</Filter>
+      <Filter>Engine\Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\Vector3.h">
-      <Filter>Header Files\Math</Filter>
+      <Filter>Engine\Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\VectorTemplated.h">
-      <Filter>Header Files\Math</Filter>
+      <Filter>Engine\Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\GeometryBuffer.h">
-      <Filter>Header Files\OpenGL</Filter>
+      <Filter>Engine\Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader.h">
-      <Filter>Header Files\OpenGL</Filter>
+      <Filter>Engine\Header Files\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Transform.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Material.h">
-      <Filter>Header Files\ObjectResources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Mesh.h">
-      <Filter>Header Files\ObjectResources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Node.h">
-      <Filter>Header Files\ObjectResources</Filter>
+      <Filter>Engine\Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderableNode.h">
-      <Filter>Header Files\ObjectResources</Filter>
+      <Filter>Engine\Header Files\ObjectResources</Filter>
     </ClInclude>
     <ClInclude Include="src\SceneGraph.h">
-      <Filter>Header Files\Systems</Filter>
+      <Filter>Engine\Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\TrianglePrimitive.h">
-      <Filter>Header Files\Objects</Filter>
+      <Filter>Engine\Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="src\Input.h">
-      <Filter>Header Files\Systems</Filter>
+      <Filter>Engine\Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\InputKeys.h">
-      <Filter>Header Files\Systems</Filter>
+      <Filter>Engine\Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\FramerateController.h">
-      <Filter>Header Files\Systems</Filter>
+      <Filter>Engine\Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\Event.h">
-      <Filter>Header Files\Systems\EventSystem</Filter>
+      <Filter>Engine\Header Files\Systems\EventSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\EventListener.h">
-      <Filter>Header Files\Systems\EventSystem</Filter>
+      <Filter>Engine\Header Files\Systems\EventSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\EventManager.h">
-      <Filter>Header Files\Systems\EventSystem</Filter>
+      <Filter>Engine\Header Files\Systems\EventSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\Shape.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\AABB.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionGenerator.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\Sphere.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionEvent.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\CollisionListener.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\Contact.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\OBB.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\PhysicsBody.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\PhysicsManager.h">
-      <Filter>Header Files\Systems\PhysicsSystem</Filter>
+      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\RectanglePrimitive.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Texture.h">
-      <Filter>Header Files\ObjectResources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameObject.h">
-      <Filter>Header Files\Objects</Filter>
+      <Filter>Engine\Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="src\EngineTests.h">
       <Filter>Tests</Filter>
     </ClInclude>
     <ClInclude Include="src\Component.h">
-      <Filter>Header Files\Systems\Components</Filter>
+      <Filter>Engine\Header Files\Systems\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\RendererOld.h">
-      <Filter>Header Files\Deprecated</Filter>
+      <Filter>Engine\Header Files\Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="src\GameWindow.h">
-      <Filter>Header Files\OpenGL\Components</Filter>
+      <Filter>Engine\Header Files\OpenGL\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer.h">
-      <Filter>Header Files\Systems\Components</Filter>
+      <Filter>Engine\Header Files\Systems\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\GameWindowOld.h">
-      <Filter>Header Files\Deprecated</Filter>
+      <Filter>Engine\Header Files\Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="src\InputOld.h">
-      <Filter>Header Files\Deprecated</Filter>
+      <Filter>Engine\Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjectOld.h">
+      <Filter>Engine\Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject.h">
+      <Filter>Engine\Header Files\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Render2D.h">
+      <Filter>Engine\Header Files\ObjectResources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>Engine\Header Files\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh.h">
+      <Filter>Engine\Header Files\ObjectResources\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Material.h">
+      <Filter>Engine\Header Files\ObjectResources\Materials/Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Node.h">
+      <Filter>Engine\Header Files\ObjectResources\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Engine\Header Files\ObjectResources\Materials/Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tank.h">
+      <Filter>SphereJump\Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
-      <Filter>Shaders</Filter>
+      <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\main_fragment_shader.glsl">
-      <Filter>Shaders</Filter>
+      <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="src\EventListener.inl">
-      <Filter>Header Files\Systems\EventSystem</Filter>
+      <Filter>Engine\Header Files\Systems\EventSystem</Filter>
     </None>
     <None Include="shaders\physics_test_vertex_shader.glsl">
-      <Filter>Shaders</Filter>
+      <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\physics_test_fragment_shader.glsl">
-      <Filter>Shaders</Filter>
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="src\GameObject.inl">
+      <Filter>Engine\Source Files\Objects\Components</Filter>
+    </None>
+    <None Include="shaders\factory_vertex_shader.vert.glsl">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\factory_frag_shader.frag.glsl">
+      <Filter>Engine\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

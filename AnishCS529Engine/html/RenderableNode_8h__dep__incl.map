@@ -1,25 +1,21 @@
 <map id="AnishCS529Engine/src/RenderableNode.h" name="AnishCS529Engine/src/RenderableNode.h">
-<area shape="rect" id="Node000001" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="473,5,637,45"/>
-<area shape="rect" id="Node000002" href="$CollisionEvent_8h_source.html" title=" " alt="" coords="200,93,364,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="483,52,343,96,341,91,481,47"/>
-<area shape="rect" id="Node000006" href="$RectanglePrimitive_8h_source.html" title=" " alt="" coords="433,181,597,221"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="498,55,475,72,458,94,453,117,461,140,476,161,494,179,490,183,472,165,456,142,448,117,453,92,471,68,495,50"/>
-<area shape="rect" id="Node000007" href="$RenderableNode_8cpp.html" title=" " alt="" coords="468,93,643,133"/>
-<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="558,59,558,93,553,93,553,59"/>
-<area shape="rect" id="Node000008" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="667,93,831,133"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="611,49,707,91,705,96,609,53"/>
-<area shape="rect" id="Node000010" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="855,93,1019,133"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="651,45,855,91,854,96,650,51"/>
+<area shape="rect" id="Node000001" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="480,5,644,45"/>
+<area shape="rect" id="Node000002" href="$CollisionEvent_8h_source.html" title=" " alt="" coords="99,93,263,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="467,51,263,96,262,91,466,45"/>
+<area shape="rect" id="Node000005" href="$RectanglePrimitive_8h_source.html" title=" " alt="" coords="287,93,451,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="508,53,412,96,410,91,506,49"/>
+<area shape="rect" id="Node000006" href="$RenderableNode_8cpp.html" title=" " alt="" coords="475,93,649,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="565,59,565,93,559,93,559,59"/>
+<area shape="rect" id="Node000007" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="673,93,837,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="618,49,714,91,712,96,616,53"/>
+<area shape="rect" id="Node000009" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="861,93,1025,133"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="658,45,862,91,861,96,657,51"/>
 <area shape="rect" id="Node000003" href="$CollisionListener_8h_source.html" title=" " alt="" coords="5,181,169,221"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="228,141,131,184,129,179,226,136"/>
-<area shape="rect" id="Node000004" href="$GameObject_8h_source.html" title=" " alt="" coords="125,269,289,309"/>
-<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="258,146,235,182,220,229,212,270,207,269,215,227,230,180,254,143"/>
-<area shape="rect" id="Node000005" href="$PhysicsManager_8h_source.html" title=" " alt="" coords="245,181,409,221"/>
-<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="301,144,320,180,315,182,296,147"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="127,227,182,267,179,271,124,232"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="435,228,275,272,274,267,434,222"/>
-<area shape="rect" id="Node000009" href="$SceneGraph_8cpp.html" title=" " alt="" coords="667,181,831,221"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="751,147,751,181,746,181,746,147"/>
-<area shape="rect" id="Node000011" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="855,181,1021,221"/>
-<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="940,147,940,181,935,181,935,147"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="152,145,110,183,106,179,148,141"/>
+<area shape="rect" id="Node000004" href="$PhysicsManager_8h_source.html" title=" " alt="" coords="193,181,357,221"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="214,141,256,179,253,183,210,145"/>
+<area shape="rect" id="Node000008" href="$SceneGraph_8cpp.html" title=" " alt="" coords="672,181,836,221"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="757,147,757,181,752,181,752,147"/>
+<area shape="rect" id="Node000010" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="861,181,1026,221"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="946,147,946,181,941,181,941,147"/>
 </map>

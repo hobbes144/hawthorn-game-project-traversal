@@ -61,7 +61,7 @@ void GameWindow::resizeCallbackWrapper(GLFWwindow* pWindow, int width,
  *
  * \param hintSetter Hint setter function that is called by this function.
  *****************************************************************************/
-void GameWindow::setWindowHints(const std::function<void()>& hintSetter)
+void GameWindow::setWindowHints(const std::function<void()>& hintSetter) const
 {
   hintSetter();
 }
@@ -236,6 +236,9 @@ int GameWindow::getHeight()
  *****************************************************************************/
 void GameWindow::initialize()
 {
+  if (!width || !height || title == "") {
+    throw std::runtime_error("ERROR::GAMEWINDOW::INITIALIZE::PREINITFAILED");
+  }
   if (!glfwInit())
   {
     throw std::runtime_error("Failed to initialize GLFW");

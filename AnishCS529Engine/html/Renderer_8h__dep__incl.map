@@ -1,33 +1,31 @@
 <map id="AnishCS529Engine/src/Renderer.h" name="AnishCS529Engine/src/Renderer.h">
-<area shape="rect" id="Node000001" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="379,5,543,45"/>
-<area shape="rect" id="Node000002" href="$AABB_8h_source.html" title=" " alt="" coords="97,93,261,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="387,52,242,96,240,91,385,47"/>
-<area shape="rect" id="Node000003" href="$OBB_8h_source.html" title=" " alt="" coords="285,93,449,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="432,57,390,95,386,91,428,53"/>
-<area shape="rect" id="Node000004" href="$RenderableNode_8h.html" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="473,93,637,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="494,53,536,91,533,95,490,57"/>
-<area shape="rect" id="Node000015" href="$Renderer_8cpp.html" title=" " alt="" coords="661,93,825,133"/>
-<area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="537,47,682,91,681,96,535,52"/>
-<area shape="rect" id="Node000005" href="$CollisionEvent_8h_source.html" title=" " alt="" coords="200,181,364,221"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="483,140,343,184,341,179,481,135"/>
-<area shape="rect" id="Node000009" href="$RectanglePrimitive_8h_source.html" title=" " alt="" coords="433,269,597,309"/>
-<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="498,143,475,160,458,182,453,205,461,228,476,249,494,267,490,271,472,253,456,230,448,205,453,180,471,156,495,138"/>
-<area shape="rect" id="Node000010" href="$RenderableNode_8cpp.html" title=" " alt="" coords="468,181,643,221"/>
-<area shape="poly" id="edge11_Node000004_Node000010" title=" " alt="" coords="558,147,558,181,553,181,553,147"/>
-<area shape="rect" id="Node000011" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="667,181,831,221"/>
-<area shape="poly" id="edge12_Node000004_Node000011" title=" " alt="" coords="611,137,707,179,705,184,609,141"/>
-<area shape="rect" id="Node000013" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="855,181,1019,221"/>
-<area shape="poly" id="edge14_Node000004_Node000013" title=" " alt="" coords="651,133,855,179,854,184,650,139"/>
-<area shape="rect" id="Node000006" href="$CollisionListener_8h_source.html" title=" " alt="" coords="5,269,169,309"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="228,229,131,272,129,267,226,224"/>
-<area shape="rect" id="Node000007" href="$GameObject_8h_source.html" title=" " alt="" coords="125,357,289,397"/>
-<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="258,234,235,270,220,317,212,358,207,357,215,315,230,268,254,231"/>
-<area shape="rect" id="Node000008" href="$PhysicsManager_8h_source.html" title=" " alt="" coords="245,269,409,309"/>
-<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="301,232,320,268,315,270,296,235"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="127,315,182,355,179,359,124,320"/>
-<area shape="poly" id="edge10_Node000009_Node000007" title=" " alt="" coords="435,316,275,360,274,355,434,310"/>
-<area shape="rect" id="Node000012" href="$SceneGraph_8cpp.html" title=" " alt="" coords="667,269,831,309"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="751,235,751,269,746,269,746,235"/>
-<area shape="rect" id="Node000014" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="855,269,1021,309"/>
-<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="940,235,940,269,935,269,935,235"/>
+<area shape="rect" id="Node000001" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="381,5,545,45"/>
+<area shape="rect" id="Node000002" href="$AABB_8h_source.html" title=" " alt="" coords="5,93,169,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="369,51,170,96,169,91,368,46"/>
+<area shape="rect" id="Node000003" href="$OBB_8h_source.html" title=" " alt="" coords="193,93,357,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="411,53,318,96,315,91,409,49"/>
+<area shape="rect" id="Node000004" href="$Render2D_8h.html" title="Render component for 2D objects." alt="" coords="381,93,545,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="466,59,466,93,461,93,461,59"/>
+<area shape="rect" id="Node000005" href="$RenderableNode_8h.html" title="Renderable Node class used to represent renderable objects in the world." alt="" coords="569,93,733,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="518,49,611,91,609,96,516,53"/>
+<area shape="rect" id="Node000015" href="$Renderer_8cpp.html" title=" " alt="" coords="757,93,921,133"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="559,46,757,91,756,96,558,51"/>
+<area shape="rect" id="Node000006" href="$CollisionEvent_8h_source.html" title=" " alt="" coords="188,181,352,221"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="557,139,353,184,352,179,555,133"/>
+<area shape="rect" id="Node000009" href="$RectanglePrimitive_8h_source.html" title=" " alt="" coords="376,181,540,221"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="597,141,501,184,499,179,595,137"/>
+<area shape="rect" id="Node000010" href="$RenderableNode_8cpp.html" title=" " alt="" coords="564,181,739,221"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="654,147,654,181,649,181,649,147"/>
+<area shape="rect" id="Node000011" href="$SceneGraph_8h.html" title="Scene Graph to control all nodes in the scene." alt="" coords="763,181,927,221"/>
+<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="707,137,803,179,801,184,705,141"/>
+<area shape="rect" id="Node000013" href="$TrianglePrimitive_8h.html" title="Triangle Primitive object to create basic triangles with color." alt="" coords="951,181,1115,221"/>
+<area shape="poly" id="edge12_Node000005_Node000013" title=" " alt="" coords="747,133,951,179,950,184,746,139"/>
+<area shape="rect" id="Node000007" href="$CollisionListener_8h_source.html" title=" " alt="" coords="95,269,259,309"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="241,233,199,271,196,267,237,229"/>
+<area shape="rect" id="Node000008" href="$PhysicsManager_8h_source.html" title=" " alt="" coords="283,269,447,309"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="303,229,346,267,342,271,299,233"/>
+<area shape="rect" id="Node000012" href="$SceneGraph_8cpp.html" title=" " alt="" coords="761,269,925,309"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="847,235,846,269,841,269,841,235"/>
+<area shape="rect" id="Node000014" href="$TrianglePrimitive_8cpp.html" title=" " alt="" coords="950,269,1115,309"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="1035,235,1035,269,1030,269,1030,235"/>
 </map>

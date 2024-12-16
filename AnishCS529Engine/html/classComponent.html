@@ -102,13 +102,17 @@ Inheritance diagram for Component:</div>
 <div class="dyncontent">
 <div class="center"><img src="classComponent__inherit__graph.png" border="0" usemap="#aComponent_inherit__map" alt="Inheritance graph"/></div>
 <map name="aComponent_inherit__map" id="aComponent_inherit__map">
-<area shape="rect" title="Component is the base class of all components." alt="" coords="123,5,226,31"/>
+<area shape="rect" title="Component is the base class of all components." alt="" coords="218,5,321,31"/>
 <area shape="rect" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="5,79,123,104"/>
-<area shape="poly" title=" " alt="" coords="147,40,84,81,81,76,144,36"/>
+<area shape="poly" title=" " alt="" coords="224,38,98,81,96,76,223,33"/>
 <area shape="rect" href="classInput.html" title="Input class that handles storing and updating key press states." alt="" coords="147,79,202,104"/>
-<area shape="poly" title=" " alt="" coords="177,44,177,79,172,79,172,44"/>
-<area shape="rect" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="227,79,309,104"/>
-<area shape="poly" title=" " alt="" coords="202,37,254,76,251,81,199,41"/>
+<area shape="poly" title=" " alt="" coords="245,41,192,81,189,76,242,37"/>
+<area shape="rect" href="classRender2D.html" title=" " alt="" coords="226,79,313,104"/>
+<area shape="poly" title=" " alt="" coords="272,44,272,79,267,79,267,44"/>
+<area shape="rect" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="337,79,420,104"/>
+<area shape="poly" title=" " alt="" coords="300,36,362,76,359,81,297,40"/>
+<area shape="rect" href="classTank.html" title=" " alt="" coords="444,79,495,104"/>
+<area shape="poly" title=" " alt="" coords="315,33,445,78,443,83,313,38"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -127,15 +131,15 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (f
 <tr class="memitem:a5944c18d0e1de53f2842149ca364b672" id="r_a5944c18d0e1de53f2842149ca364b672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5944c18d0e1de53f2842149ca364b672">disable</a> ()</td></tr>
 <tr class="memdesc:a5944c18d0e1de53f2842149ca364b672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the component.  <br /></td></tr>
 <tr class="separator:a5944c18d0e1de53f2842149ca364b672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa22ebfe0829ab3f1609fd139ddd0ff54" id="r_aa22ebfe0829ab3f1609fd139ddd0ff54"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa22ebfe0829ab3f1609fd139ddd0ff54">isEnabled</a> ()</td></tr>
-<tr class="memdesc:aa22ebfe0829ab3f1609fd139ddd0ff54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is component enabled.  <br /></td></tr>
-<tr class="separator:aa22ebfe0829ab3f1609fd139ddd0ff54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa636ded12690664af716560cc6bf240f" id="r_aa636ded12690664af716560cc6bf240f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa636ded12690664af716560cc6bf240f">markForDeletion</a> ()</td></tr>
-<tr class="memdesc:aa636ded12690664af716560cc6bf240f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark component for deletion.  <br /></td></tr>
-<tr class="separator:aa636ded12690664af716560cc6bf240f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa764e81ae2cbcf511ec8f0cf742ce7a5" id="r_aa764e81ae2cbcf511ec8f0cf742ce7a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa764e81ae2cbcf511ec8f0cf742ce7a5">isMarkedForDeletion</a> ()</td></tr>
-<tr class="memdesc:aa764e81ae2cbcf511ec8f0cf742ce7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is component marked for deletion.  <br /></td></tr>
-<tr class="separator:aa764e81ae2cbcf511ec8f0cf742ce7a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a553dae3822f2c4a41808f64e27715878" id="r_a553dae3822f2c4a41808f64e27715878"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a553dae3822f2c4a41808f64e27715878">isEnabled</a> () const</td></tr>
+<tr class="memdesc:a553dae3822f2c4a41808f64e27715878"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is component enabled.  <br /></td></tr>
+<tr class="separator:a553dae3822f2c4a41808f64e27715878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab934884399c816afa73feefc84741113" id="r_ab934884399c816afa73feefc84741113"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab934884399c816afa73feefc84741113">setParent</a> (std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt; _parent)</td></tr>
+<tr class="memdesc:ab934884399c816afa73feefc84741113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set component parent.  <br /></td></tr>
+<tr class="separator:ab934884399c816afa73feefc84741113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66b9d2747399b75cbbd317bdab35e66d" id="r_a66b9d2747399b75cbbd317bdab35e66d"><td class="memItemLeft" align="right" valign="top"><a id="a66b9d2747399b75cbbd317bdab35e66d" name="a66b9d2747399b75cbbd317bdab35e66d"></a>
+std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getParent</b> () const</td></tr>
+<tr class="separator:a66b9d2747399b75cbbd317bdab35e66d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -145,6 +149,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b></td></tr>
 <tr class="memitem:adfed40142d7b94906283eccf45c7dff9" id="r_adfed40142d7b94906283eccf45c7dff9"><td class="memItemLeft" align="right" valign="top"><a id="adfed40142d7b94906283eccf45c7dff9" name="adfed40142d7b94906283eccf45c7dff9"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b></td></tr>
 <tr class="separator:adfed40142d7b94906283eccf45c7dff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16c5b5c52b594184a7bfb5023f9f962c" id="r_a16c5b5c52b594184a7bfb5023f9f962c"><td class="memItemLeft" align="right" valign="top"><a id="a16c5b5c52b594184a7bfb5023f9f962c" name="a16c5b5c52b594184a7bfb5023f9f962c"></a>
+std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
+<tr class="separator:a16c5b5c52b594184a7bfb5023f9f962c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> is the base class of all components. </p>
@@ -156,8 +163,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b>
 <li>shutdown()</li>
 </ul>
 <p>Constructor and destructor of child classes must be default.</p>
-<p>Components may have an enabled or disabled state. Default constructor sets component as enabled. This may be changed after construction.</p>
-<p>Components can be marked for deletion, in which case the object should not be used again. Default constructor sets component as not marked for deletion. </p>
+<p>Components may have an enabled or disabled state. Default constructor sets component as enabled. This may be changed after construction. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5944c18d0e1de53f2842149ca364b672" name="a5944c18d0e1de53f2842149ca364b672"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5944c18d0e1de53f2842149ca364b672">&#9670;&#160;</a></span>disable()</h2>
@@ -217,7 +223,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -226,8 +232,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b>
 
 </div>
 </div>
-<a id="aa22ebfe0829ab3f1609fd139ddd0ff54" name="aa22ebfe0829ab3f1609fd139ddd0ff54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa22ebfe0829ab3f1609fd139ddd0ff54">&#9670;&#160;</a></span>isEnabled()</h2>
+<a id="a553dae3822f2c4a41808f64e27715878" name="a553dae3822f2c4a41808f64e27715878"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a553dae3822f2c4a41808f64e27715878">&#9670;&#160;</a></span>isEnabled()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +242,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b>
           <td class="memname">bool Component::isEnabled </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -247,45 +253,30 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b>
 
 </div>
 </div>
-<a id="aa764e81ae2cbcf511ec8f0cf742ce7a5" name="aa764e81ae2cbcf511ec8f0cf742ce7a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa764e81ae2cbcf511ec8f0cf742ce7a5">&#9670;&#160;</a></span>isMarkedForDeletion()</h2>
+<a id="ab934884399c816afa73feefc84741113" name="ab934884399c816afa73feefc84741113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab934884399c816afa73feefc84741113">&#9670;&#160;</a></span>setParent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Component::isMarkedForDeletion </td>
+          <td class="memname">void Component::setParent </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>_parent</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Is component marked for deletion. </p>
+<p>Set component parent. </p>
 <hr  />
- <dl class="section return"><dt>Returns</dt><dd><b>bool</b> true if marked for deletion. </dd></dl>
+ <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_parent</td><td>Parent of the component </td></tr>
+  </table>
+  </dd>
+</dl>
 
-</div>
-</div>
-<a id="aa636ded12690664af716560cc6bf240f" name="aa636ded12690664af716560cc6bf240f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa636ded12690664af716560cc6bf240f">&#9670;&#160;</a></span>markForDeletion()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Component::markForDeletion </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Mark component for deletion. </p>
-<hr  />
-  
 </div>
 </div>
 <a id="a377c55ece43ad903ffb0de162ce05957" name="a377c55ece43ad903ffb0de162ce05957"></a>
@@ -306,7 +297,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

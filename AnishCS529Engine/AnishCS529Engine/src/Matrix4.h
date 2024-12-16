@@ -15,8 +15,9 @@
 
 #pragma once
 
-#include <cmath>
 #include <array>
+#include <cmath>
+#include <iostream>
 #include <stdexcept>
 
 #include "Vector3.h"
@@ -83,5 +84,7 @@ public:
                         const Vector3 &up);
   // I encourage to implement the Euler Angles formula: Removes the gimball lock problem
 };
+
+std::ostream& operator<<(std::ostream& os, const Matrix4& m);
 
 #endif // MATRIX4_H

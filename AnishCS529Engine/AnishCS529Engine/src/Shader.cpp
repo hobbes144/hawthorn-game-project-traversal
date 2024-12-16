@@ -24,6 +24,7 @@ Shader::Shader(const std::string& shaderFilePaths) {
 
 	while (std::getline(pathsStream, shaderFilePath)) {
 		GLenum type = readShaderType(shaderFilePath);
+		std::cout << "Read file, " << shaderFilePath << " as type " << type << std::endl;
 		std::string source = readShaderFile(shaderFilePath);
 		shaderIDs[type] = loadShader(type, source.c_str());
 	}
