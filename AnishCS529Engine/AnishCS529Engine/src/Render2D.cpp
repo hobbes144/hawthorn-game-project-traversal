@@ -122,6 +122,7 @@ void Render2D::update(float deltaTime)
 {
   if (!enabled) return;
 
+  std::cout << camera->getViewMatrix() << std::endl << camera->getProjectionMatrix() << std::endl << parent->getTransformMatrix();
   material->setProperty("ViewMatrix", camera->getViewMatrix());
   material->setProperty("ProjectionMatrix", camera->getProjectionMatrix());
   material->setProperty("ModelMatrix", parent->getTransformMatrix());
@@ -133,6 +134,7 @@ void Render2D::update(float deltaTime)
 
   if (mesh->hasAttribute(GeometryBuffer::AttributeType::Position)) {
     if (mesh->getIndexCount() > 0) {
+      std::cout << "calling render";
       renderer->draw(GL_TRIANGLES, geometryBuffer->getIndexCount(), true);
     }
     else {

@@ -23,8 +23,10 @@ int main() {
   const std::string GameTitle = "SphereJump";
 
   /* Game Window setup */
+  float windowWidth = 1280.0f;
+  float windowHeight = 720.0f;
   GameWindow* mainWindow = new GameWindow;
-  mainWindow->setTitle(GameTitle)->setHeight(720)->setWidth(1280);
+  mainWindow->setTitle(GameTitle)->setHeight(windowHeight)->setWidth(windowWidth);
   mainWindow->initialize();
 
   /* Renderer setup */
@@ -52,9 +54,9 @@ int main() {
   auto camera = std::make_shared<Camera>("mainCamera");
   camera->setPerspectiveProjection(
     45.0f * 3.14159f / 180.0f,
-    (800.0f / 600.0f),
+    (windowWidth / windowHeight),
     0.1f,
-    1000.0f)->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f));
+    1000.0f)->setLocalPosition(Vector3(0.0f, 0.0f, 10.0f));
   mainSceneGraph.addNode(camera);
 
   /* Create required meshes and materials */
@@ -64,7 +66,8 @@ int main() {
   /* GameObject setup */
   auto protag = std::make_shared<GameObject>("protag");
   auto protagRender = protag->addComponent<Render2D>();
-  protagRender->setRenderer(mainRenderer)->setCamera(camera);
+  protagRender->setRenderer(mainRenderer)->setCamera(camera)
+    ->setMaterial(protagMaterial)->setMesh(protagMesh);
   protag->setLocalPosition(Vector3(0.25f, 0.0f, 0.0f));
 
   mainSceneGraph.addNode(protag);
@@ -73,7 +76,6 @@ int main() {
     mainRenderer->clear();
     mainInput->update();
 
-    std::cout << camera->getViewMatrix();
     mainSceneGraph.update(0.0f);
 
     std::cout << "W: " << mainInput->isKeyDown(KEY_W) << std::endl;

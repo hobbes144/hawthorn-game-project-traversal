@@ -79,9 +79,9 @@ std::shared_ptr<Material> createSolidColorMaterial(const Vector3& color)
 {
   auto newShader = std::make_shared<Shader>("shaders/factory_vertex_shader.vert.glsl\nshaders/factory_frag_shader.frag.glsl");
   auto newMaterial = std::make_shared<Material>(newShader);
-  newMaterial->setProperty("color", color);
+  newMaterial->setProperty("Color", color);
   newMaterial->setProperty("useTexture", 0);
-  newMaterial->setProperty("isTransparent", 1);
+  newMaterial->setProperty("isTransparent", 0);
   return newMaterial;
 }
 
