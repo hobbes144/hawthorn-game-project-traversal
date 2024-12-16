@@ -59,35 +59,36 @@ int main() {
     1000.0f)->setLocalPosition(Vector3(0.0f, 0.0f, 10.0f));
   mainSceneGraph.addNode(camera);
 
-  /* Create required meshes and materials */
-  auto protagMesh = createSquareMesh("protag");
-  auto protagMaterial = createSolidColorMaterial(Vector3(0.5f,0.5f,0.5f));
 
   /* GameObject setup */
   auto protag = std::make_shared<GameObject>("protag");
-  auto protagRender = protag->addComponent<Render2D>();
-  protagRender->setRenderer(mainRenderer)->setCamera(camera)
-    ->setMaterial(protagMaterial)->setMesh(protagMesh);
-  protag->setLocalPosition(Vector3(0.25f, 0.0f, 0.0f));
-
+  protag->addComponent<Render2D>()
+    ->setRenderer(mainRenderer)->setCamera(camera)
+    ->setMaterial(createSolidColorMaterial(Vector3(0.25f, 0.25f, 1.0f)))
+    ->setMesh(createSquareMesh("protag"));
+  protag->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(protag);
 
+  auto enemy = std::make_shared<GameObject>("enemy1");
+  enemy->addComponent<Render2D>()
+    ->setRenderer(mainRenderer)->setCamera(camera)
+    ->setMaterial(createSolidColorMaterial(Vector3(1.0f, 0.25f, 0.25f)))
+    ->setMesh(createSquareMesh("enemy"));
+  enemy->setLocalPosition(Vector3(-1.0f, 0.0f, 0.0f));
+  mainSceneGraph.addNode(enemy);
+
+  /* Main loop */
   while (!mainWindow->getShouldClose()) {
     mainRenderer->clear();
     mainInput->update();
 
     mainSceneGraph.update(0.0f);
 
-    std::cout << "W: " << mainInput->isKeyDown(KEY_W) << std::endl;
-
     if (mainInput->isKeyDown(KEY_ESCAPE)) mainWindow->setShouldClose();
 
     mainRenderer->swapBuffers();
     mainWindow->update();
   }
-
-  camera->update(0.0f);
-  std::cout << camera->getViewMatrix() << camera->getProjectionMatrix();
 
   mainInput->shutdown();
   mainRenderer->shutdown();
