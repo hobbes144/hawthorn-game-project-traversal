@@ -30,7 +30,8 @@
  * 
  * 
  *****************************************************************************/
-class Render2D : public Component, public std::enable_shared_from_this<Render2D>{
+class Render2D : 
+  public Component, public std::enable_shared_from_this<Render2D> {
 public:
   Render2D() = default;
   ~Render2D() = default;

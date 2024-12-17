@@ -102,17 +102,25 @@ Inheritance diagram for Component:</div>
 <div class="dyncontent">
 <div class="center"><img src="classComponent__inherit__graph.png" border="0" usemap="#aComponent_inherit__map" alt="Inheritance graph"/></div>
 <map name="aComponent_inherit__map" id="aComponent_inherit__map">
-<area shape="rect" title="Component is the base class of all components." alt="" coords="218,5,321,31"/>
-<area shape="rect" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="5,79,123,104"/>
-<area shape="poly" title=" " alt="" coords="224,38,98,81,96,76,223,33"/>
-<area shape="rect" href="classInput.html" title="Input class that handles storing and updating key press states." alt="" coords="147,79,202,104"/>
-<area shape="poly" title=" " alt="" coords="245,41,192,81,189,76,242,37"/>
-<area shape="rect" href="classRender2D.html" title=" " alt="" coords="226,79,313,104"/>
-<area shape="poly" title=" " alt="" coords="272,44,272,79,267,79,267,44"/>
-<area shape="rect" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="337,79,420,104"/>
-<area shape="poly" title=" " alt="" coords="300,36,362,76,359,81,297,40"/>
-<area shape="rect" href="classTank.html" title=" " alt="" coords="444,79,495,104"/>
-<area shape="poly" title=" " alt="" coords="315,33,445,78,443,83,313,38"/>
+<area shape="rect" title="Component is the base class of all components." alt="" coords="5,203,108,228"/>
+<area shape="rect" href="classCollisionGenerator.html" title=" " alt="" coords="156,5,300,31"/>
+<area shape="poly" title=" " alt="" coords="63,189,76,155,95,115,121,75,154,40,173,28,176,33,158,44,126,78,100,118,81,157,68,191"/>
+<area shape="rect" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="169,55,287,80"/>
+<area shape="poly" title=" " alt="" coords="69,189,104,139,127,112,154,89,176,78,178,82,158,94,131,116,108,142,74,192"/>
+<area shape="rect" href="classInput.html" title="Input class that handles storing and updating key press states." alt="" coords="201,104,255,129"/>
+<area shape="poly" title=" " alt="" coords="80,192,114,164,155,138,200,121,202,126,157,143,117,169,83,196"/>
+<area shape="rect" href="classMovement.html" title="Simple movement component implementing 2D movement." alt="" coords="181,153,275,179"/>
+<area shape="poly" title=" " alt="" coords="114,196,182,176,184,181,116,201"/>
+<area shape="rect" href="classPhysicsBody.html" title="PhysicsBody class." alt="" coords="178,203,278,228"/>
+<area shape="poly" title=" " alt="" coords="122,213,178,213,178,218,122,218"/>
+<area shape="rect" href="classPhysicsManager.html" title=" " alt="" coords="165,252,291,277"/>
+<area shape="poly" title=" " alt="" coords="116,229,184,249,182,254,114,235"/>
+<area shape="rect" href="classRender2D.html" title="Render2D object that performs rendering to the screen." alt="" coords="185,301,271,327"/>
+<area shape="poly" title=" " alt="" coords="84,235,118,261,157,286,186,299,184,304,155,291,115,266,81,239"/>
+<area shape="rect" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="187,351,269,376"/>
+<area shape="poly" title=" " alt="" coords="74,238,108,288,131,313,157,336,188,351,185,356,155,340,128,317,104,291,70,241"/>
+<area shape="rect" href="classShoot.html" title="Simple movement component implementing 2D movement." alt="" coords="199,400,257,425"/>
+<area shape="poly" title=" " alt="" coords="69,240,82,273,101,312,126,351,158,385,178,397,199,405,198,410,175,402,154,389,122,355,96,315,77,275,64,242"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -120,8 +128,7 @@ Inheritance diagram for Component:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a90ae13f125d9337695ef6bb72e33afcb" id="r_a90ae13f125d9337695ef6bb72e33afcb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90ae13f125d9337695ef6bb72e33afcb">initialize</a> ()</td></tr>
 <tr class="separator:a90ae13f125d9337695ef6bb72e33afcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b3bee5d55446124842e5f2e229e1384" id="r_a3b3bee5d55446124842e5f2e229e1384"><td class="memItemLeft" align="right" valign="top"><a id="a3b3bee5d55446124842e5f2e229e1384" name="a3b3bee5d55446124842e5f2e229e1384"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (float deltaTime)</td></tr>
+<tr class="memitem:a3b3bee5d55446124842e5f2e229e1384" id="r_a3b3bee5d55446124842e5f2e229e1384"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b3bee5d55446124842e5f2e229e1384">update</a> (float deltaTime)</td></tr>
 <tr class="separator:a3b3bee5d55446124842e5f2e229e1384"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a377c55ece43ad903ffb0de162ce05957" id="r_a377c55ece43ad903ffb0de162ce05957"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a377c55ece43ad903ffb0de162ce05957">shutdown</a> ()</td></tr>
 <tr class="separator:a377c55ece43ad903ffb0de162ce05957"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,7 +235,7 @@ std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classGameWindow.html#ae52c762a33fbf9473d0ad94591e547df">GameWindow</a>, <a class="el" href="classInput.html#a4a86d2c4ada4b5917c799808eb3122e1">Input</a>, and <a class="el" href="classRenderer.html#af0cf13596dfb5e7c40f58b5dbad6e74c">Renderer</a>.</p>
+<p>Reimplemented in <a class="el" href="classCollisionGenerator.html#ab37474c8a6047b2694ae7a09420a2d4a">CollisionGenerator</a>, <a class="el" href="classGameWindow.html#ae52c762a33fbf9473d0ad94591e547df">GameWindow</a>, <a class="el" href="classInput.html#a4a86d2c4ada4b5917c799808eb3122e1">Input</a>, <a class="el" href="classPhysicsBody.html#a010914456b1f7ebeec18294a1a475df1">PhysicsBody</a>, <a class="el" href="classPhysicsManager.html#ae3ada0dbcac9f8d763225fb4aa07d93c">PhysicsManager</a>, <a class="el" href="classRender2D.html#a5b4f3649f4f8c6312bd6a8661660a1f6">Render2D</a>, and <a class="el" href="classRenderer.html#af0cf13596dfb5e7c40f58b5dbad6e74c">Renderer</a>.</p>
 
 </div>
 </div>
@@ -302,7 +309,34 @@ std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classGameWindow.html#a5dfbc3c96f68dd4bc9303fe0542be69b">GameWindow</a>, <a class="el" href="classInput.html#a38019b2111c789cfc6fff651b6ecfe19">Input</a>, and <a class="el" href="classRenderer.html#a9960b06d65c5e659408296e1dbd59ba4">Renderer</a>.</p>
+<p>Reimplemented in <a class="el" href="classCollisionGenerator.html#a6f84b6a6887acb2f113d94bc0f153902">CollisionGenerator</a>, <a class="el" href="classGameWindow.html#a5dfbc3c96f68dd4bc9303fe0542be69b">GameWindow</a>, <a class="el" href="classInput.html#a38019b2111c789cfc6fff651b6ecfe19">Input</a>, <a class="el" href="classPhysicsBody.html#aaedea3f640d96aa7592fb5a8a8efcb79">PhysicsBody</a>, <a class="el" href="classPhysicsManager.html#a768590a228cbd4fb653d50dfa7087b51">PhysicsManager</a>, <a class="el" href="classRender2D.html#ae66618df6b0b1567017afb7216411e95">Render2D</a>, and <a class="el" href="classRenderer.html#a9960b06d65c5e659408296e1dbd59ba4">Renderer</a>.</p>
+
+</div>
+</div>
+<a id="a3b3bee5d55446124842e5f2e229e1384" name="a3b3bee5d55446124842e5f2e229e1384"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b3bee5d55446124842e5f2e229e1384">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Component::update </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classCollisionGenerator.html#a9c5420917b34747be1c382af307e3bf6">CollisionGenerator</a>, <a class="el" href="classPhysicsBody.html#a78368ef0f63aa06cd4bf88959dd988c6">PhysicsBody</a>, <a class="el" href="classPhysicsManager.html#a3194bb39c4b55f7c217e60ae8edcfcfa">PhysicsManager</a>, and <a class="el" href="classRender2D.html#a01312d64cc0c1b3c0d471a1a4a93e771">Render2D</a>.</p>
 
 </div>
 </div>

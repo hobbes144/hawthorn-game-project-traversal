@@ -1,5 +1,7 @@
 <map id="Render2D" name="Render2D">
-<area shape="rect" id="Node000001" title=" " alt="" coords="13,79,100,104"/>
-<area shape="rect" id="Node000002" href="$classComponent.html" title="Component is the base class of all components." alt="" coords="5,5,108,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,44,59,79,54,79,54,44"/>
+<area shape="rect" id="Node000001" title="Render2D object that performs rendering to the screen." alt="" coords="96,93,183,119"/>
+<area shape="rect" id="Node000002" href="$classComponent.html" title="Component is the base class of all components." alt="" coords="5,13,108,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,46,129,91,125,95,77,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="133,5,311,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,57,154,95,150,91,190,53"/>
 </map>

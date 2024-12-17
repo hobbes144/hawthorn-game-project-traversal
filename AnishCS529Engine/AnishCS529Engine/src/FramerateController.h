@@ -19,6 +19,44 @@
 #include <thread>
 #include <vector>
 
+/*!****************************************************************************
+ * \brief Framerate Controller
+ * 
+ * ## Usage:
+ * 
+ * The framerate controller is responsible for all things time. Ensure that
+ * this is used to handle calculation of deltaTime, set up framerate limits,
+ * and for physics update handling.
+ * 
+ * ## Pre-initialization calls:
+ * 
+ * N/A
+ * 
+ * ## General lifecycle of a FramerateController:
+ * 
+ * - Create the FramerateController object.
+ * - Call setTargetFramerate() if a different framerate is required.
+ * - Call setPhysicsTimestep() if a different physics timestep is required.
+ * - In the main loop:
+ *  - Start the main loop by calling startFrame().
+ *  - Run physics update loop using shouldUpdatePhysics() as condition.
+ *  - Call getPhysicsTimestep() to get the deltaTime for physics update.
+ *  - Call consumePhysicsTime() in the physics update loop at the end of each
+ *   iteration.
+ *  - Call endFrame() at the end of the main loop iteration.
+ *  - (Optional) call getFrameTime() for debugging or other reasons.
+ * 
+ * ## Defaults:
+ * 
+ * - targetFrameTime: 1/60
+ * - physicsAccumulatorTimestep: 1/120
+ * 
+ * ## Notes:
+ * 
+ * Some optional features are available if needed, but documentation is not
+ * yet ready for them.
+ * 
+ *****************************************************************************/
 template<typename T = float>
 class FramerateController {
 public:
@@ -32,6 +70,7 @@ public:
   T getRenderTime();
   T getFrameTime();
   T getTime();
+  T getPhysicsTimestep();
 
   void setPhysicsTimestep(T timestep);
   bool shouldUpdatePhysics() const;

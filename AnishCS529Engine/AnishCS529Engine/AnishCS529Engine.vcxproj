@@ -28,13 +28,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AABB.cpp" />
+    <ClCompile Include="src\Bullet.cpp" />
+    <ClCompile Include="src\BulletHitListener.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\InputOld.cpp" />
+    <ClCompile Include="src\Movement.cpp" />
+    <ClCompile Include="src\PhysicsBody.cpp" />
     <ClCompile Include="src\Render2D.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Shoot.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
@@ -47,7 +52,8 @@
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\PhysicsTest.cpp" />
     <ClCompile Include="src\RectanglePrimitive.cpp" />
-    <ClCompile Include="src\SphereJump.cpp" />
+    <ClCompile Include="src\Tank.cpp" />
+    <ClCompile Include="src\TankBattle.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TriangleTest.cpp" />
     <ClCompile Include="src\Material.cpp" />
@@ -55,7 +61,7 @@
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\OBB.cpp" />
-    <ClCompile Include="src\PhysicsBody.cpp" />
+    <ClCompile Include="src\PhysicsBodyOld.cpp" />
     <ClCompile Include="src\PhysicsManager.cpp" />
     <ClCompile Include="src\RenderableNode.cpp" />
     <ClCompile Include="src\RendererOld.cpp" />
@@ -64,16 +70,23 @@
     <ClCompile Include="src\TrianglePrimitive.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="src\VectorTemplated.cpp" />
+    <ClCompile Include="src\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AABB.h" />
+    <ClInclude Include="src\Bullet.h" />
+    <ClInclude Include="src\BulletHitListener.h" />
+    <ClInclude Include="src\BulletSpawnEvent.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\InputOld.h" />
     <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\Movement.h" />
+    <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\Render2D.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Shoot.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\CollisionEvent.h" />
     <ClInclude Include="src\CollisionGenerator.h" />
@@ -94,7 +107,7 @@
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\OBB.h" />
-    <ClInclude Include="src\PhysicsBody.h" />
+    <ClInclude Include="src\PhysicsBodyOld.h" />
     <ClInclude Include="src\PhysicsManager.h" />
     <ClInclude Include="src\RectanglePrimitive.h" />
     <ClInclude Include="src\RenderableNode.h" />
@@ -108,6 +121,7 @@
     <ClInclude Include="src\TrianglePrimitive.h" />
     <ClInclude Include="src\Vector3.h" />
     <ClInclude Include="src\VectorTemplated.h" />
+    <ClInclude Include="src\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\factory_frag_shader.frag.glsl" />

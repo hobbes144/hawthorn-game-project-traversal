@@ -1,14 +1,13 @@
 <map id="TrianglePrimitive" name="TrianglePrimitive">
-<area shape="rect" id="Node000001" title=" " alt="" coords="162,272,294,297"/>
-<area shape="rect" id="Node000002" href="$classRenderableNode.html" title=" " alt="" coords="163,197,293,223"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,237,231,272,225,272,225,237"/>
-<area shape="rect" id="Node000003" href="$classNode.html" title=" " alt="" coords="200,123,256,148"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="231,162,231,197,225,197,225,162"/>
-<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="271,126,279,129,283,136,274,143,257,145,256,140,272,139,277,135,276,134,269,132"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,5,160,45"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="120,51,214,120,211,125,117,56"/>
-<area shape="rect" id="Node000005" href="$classTransform.html" title=" " alt="" coords="185,13,271,38"/>
-<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="231,52,231,122,225,122,225,52"/>
-<area shape="rect" id="Node000006" href="$classMatrix4.html" title="Class that implements a custom 4x4 Matrix for use with OpenGL functions and game logic." alt="" coords="324,13,396,38"/>
-<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="358,52,349,77,333,101,315,114,295,123,257,133,255,128,293,118,312,109,329,97,344,75,353,50"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="159,272,286,297"/>
+<area shape="rect" id="Node000002" href="$classRenderableNode.html" title=" " alt="" coords="155,197,291,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,237,225,272,220,272,220,237"/>
+<area shape="rect" id="Node000003" href="$classNode.html" title=" " alt="" coords="193,123,252,148"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="225,162,225,197,220,197,220,162"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,5,157,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="119,52,209,120,206,125,115,56"/>
+<area shape="rect" id="Node000005" href="$classTransform.html" title=" " alt="" coords="181,13,264,38"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="225,52,225,122,220,122,220,52"/>
+<area shape="rect" id="Node000006" href="$classMatrix4.html" title="Class that implements a custom 4x4 Matrix for use with OpenGL functions and game logic." alt="" coords="318,13,386,38"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="350,52,341,77,325,101,308,113,289,122,253,133,252,128,288,117,305,108,321,97,336,75,345,50"/>
 </map>

@@ -38,6 +38,8 @@
  * 
  * The held keystate is managed by the Input class and isn't an OpenGL feature.
  * 
+ * Refer to InputKeys.h for key reference.
+ * 
  *****************************************************************************/
 struct KeyState {
   bool currentState  = GLFW_RELEASE;

@@ -1,6 +1,8 @@
 #include "CollisionListener.h"
 
-CollisionListener::CollisionListener(RenderableNode* owner) : owner(owner) {
+CollisionListener::CollisionListener(std::shared_ptr<GameObject> owner) : 
+  owner(owner) {
+
   RegisterListener();
 }
 
@@ -8,11 +10,12 @@ CollisionListener::CollisionListener(RenderableNode* owner) : owner(owner) {
 void CollisionListener::OnEvent(const CollisionEvent& event) {
 
   if (event.object1 == owner || event.object2 == owner) {
-    std::cout << "Collision detected for " << owner->getName() << std::endl;
+    //std::cout << "Collision detected for " << owner->getName() << std::endl;
 
-    RenderableNode* other = (event.object1 == owner) ? event.object2 : event.object1;
+    std::shared_ptr<GameObject> other = 
+      (event.object1 == owner) ? event.object2 : event.object1;
     if (onCollisionCallback) {
-      onCollisionCallback(owner, other);
+      onCollisionCallback(owner, other, event.point);
     }
   }
 }

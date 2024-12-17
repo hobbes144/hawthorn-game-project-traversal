@@ -95,23 +95,25 @@ $(function(){ initResizable(false); });
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="Event_8h.html">Event.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="RenderableNode_8h.html">RenderableNode.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="GameObject_8h.html">GameObject.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="foldopen" id="foldopen00006" data-start="{" data-end="};">
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="classCollisionEvent.html">    6</a></span><span class="keyword">class </span><a class="code hl_class" href="classCollisionEvent.html">CollisionEvent</a> : <span class="keyword">public</span> <a class="code hl_class" href="classEvent.html">Event</a> {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <a class="code hl_class" href="classCollisionEvent.html">CollisionEvent</a>(<a class="code hl_class" href="classRenderableNode.html">RenderableNode</a>* obj1, <a class="code hl_class" href="classRenderableNode.html">RenderableNode</a>* obj2)</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    : object1(obj1), object2(obj2) {}</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <a class="code hl_class" href="classRenderableNode.html">RenderableNode</a>* object1;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  <a class="code hl_class" href="classRenderableNode.html">RenderableNode</a>* object2;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>};</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <a class="code hl_class" href="classCollisionEvent.html">CollisionEvent</a>(</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    std::shared_ptr&lt;GameObject&gt; obj1, std::shared_ptr&lt;GameObject&gt; obj2, <a class="code hl_class" href="classVector3.html">Vector3</a> pnt)</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    : object1(obj1), object2(obj2), point(pnt) {}</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  std::shared_ptr&lt;GameObject&gt; object1;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  std::shared_ptr&lt;GameObject&gt; object2;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> point;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>};</div>
 </div>
 <div class="ttc" id="aEvent_8h_html"><div class="ttname"><a href="Event_8h.html">Event.h</a></div><div class="ttdoc">Event class that stores specific event actions that get triggered.</div></div>
-<div class="ttc" id="aRenderableNode_8h_html"><div class="ttname"><a href="RenderableNode_8h.html">RenderableNode.h</a></div><div class="ttdoc">Renderable Node class used to represent renderable objects in the world.</div></div>
+<div class="ttc" id="aGameObject_8h_html"><div class="ttname"><a href="GameObject_8h.html">GameObject.h</a></div><div class="ttdoc">Scene Object that represents a renderable object component.</div></div>
 <div class="ttc" id="aclassCollisionEvent_html"><div class="ttname"><a href="classCollisionEvent.html">CollisionEvent</a></div><div class="ttdef"><b>Definition</b> CollisionEvent.h:6</div></div>
 <div class="ttc" id="aclassEvent_html"><div class="ttname"><a href="classEvent.html">Event</a></div><div class="ttdoc">Class Event that is inherited from for all event types.</div><div class="ttdef"><b>Definition</b> Event.h:20</div></div>
-<div class="ttc" id="aclassRenderableNode_html"><div class="ttname"><a href="classRenderableNode.html">RenderableNode</a></div><div class="ttdef"><b>Definition</b> RenderableNode.h:25</div></div>
+<div class="ttc" id="aclassVector3_html"><div class="ttname"><a href="classVector3.html">Vector3</a></div><div class="ttdef"><b>Definition</b> Vector3.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

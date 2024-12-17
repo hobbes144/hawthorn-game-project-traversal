@@ -1,85 +1,331 @@
+/*!****************************************************************************
+ * \file   PhysicsBody.cpp
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   12-16-2024
+ * 
+ *****************************************************************************/
+
 #include "PhysicsBody.h"
-#include "RenderableNode.h"
+#include "PhysicsManager.h"
 
 
-PhysicsBody::PhysicsBody(RenderableNode* owner)
-  : owner(owner), mass(1.0f), inverseMass(1.0f),
-  velocity(0, 0, 0), acceleration(0, 0, 0), force(0, 0, 0),
-  restitution(0.5f), friction(0.3f), isStatic(false) {}
+/*!****************************************************************************
+ * \brief Register self to the PhysicsManager
+ * 
+ * ## Usage:
+ * 
+ * If a collision Shape exists and collisions need to be properly calculated,
+ * the PhysicsBody must be registered to the PhysicsManager.
+ * 
+ * \param manager PhysicsManager
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::registerToPhysicsManager(
+  PhysicsManager& manager)
+{
+  manager.addBody(shared_from_this());
+  return shared_from_this();
+}
 
-void PhysicsBody::setMass(float newMass) {
+/*!****************************************************************************
+ * \brief Set the mass
+ * 
+ * ## Usage:
+ * 
+ * If the object is allowed to move, it must have a mass that the forces can
+ * be applied on.
+ * 
+ * This can be skipped for static objects.
+ * 
+ * \param newMass Mass of the PhysicsBody
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::setMass(float newMass) {
   mass = newMass;
   inverseMass = newMass > 0.0f ? 1.0f / newMass : 0.0f;
   isStatic = (newMass == 0.0f);
+
+  return shared_from_this();
 }
 
-void PhysicsBody::setVelocity(const Vector3& vel) {
+/*!****************************************************************************
+ * \brief Set the velocity
+ *
+ * ## Usage:
+ *
+ * This is to be used if the object's velocity needs to be reset to a specific
+ * value. A common use case would be during collisions, where instead of force,
+ * velocity might be set instead. Or in portals where, velocity must be shifted
+ * to a different reference frame.
+ *
+ * \param vel Velocity of the PhysicsBody
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::setVelocity(const Vector3& vel) {
   velocity = vel;
+
+  return shared_from_this();
 }
 
-void PhysicsBody::setAcceleration(const Vector3& acc) {
+/*!****************************************************************************
+ * \brief Set the acceleration
+ *
+ * ## Usage:
+ *
+ * This is used only if a burst of velocity is needed. This can be finnicky, so
+ * avoid using.
+ *
+ * ## Explanation:
+ *
+ * Acceleration is reset at the end of each update() call, so this would only
+ * take effect for the single update.
+ *
+ * \param acc Acceleration of the PhysicsBody
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::setAcceleration(const Vector3& acc) {
   acceleration = acc;
+
+  return shared_from_this();
 }
 
-void PhysicsBody::applyForce(const Vector3& f) {
+/*!****************************************************************************
+ * \brief Apply a force
+ *
+ * ## Usage:
+ *
+ * This should be the primary way of interacting with the object. It sets the
+ * force to affect the object for the update() call.
+ *
+ * ## Note:
+ *
+ * Force is reset at the end of each update() call, so this would only take
+ * effect for the single update.
+ *
+ * \param f Force on the PhysicsBody
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::applyForce(const Vector3& f) {
   force = force + f;
+
+  return shared_from_this();
 }
 
-void PhysicsBody::setRestitution(float r) {
+/*!****************************************************************************
+ * \brief Dummy restitution
+ *
+ * This has not yet been implemented.
+ *
+ * \param r Resitution of the PhysicsBody
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::setRestitution(float r) {
   restitution = r;
+
+  return shared_from_this();
 }
 
-void PhysicsBody::setFriction(float f) {
+/*!****************************************************************************
+ * \brief Set the friction affecting the body
+ *
+ * ## Usage:
+ *
+ * This is set to 0.3f by default. Set this to the required value to change the
+ * friction affecting the body.
+ *
+ * \param f Friction of the PhysicsBody
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::setFriction(float f) {
   friction = f;
+
+  return shared_from_this();
 }
 
-void PhysicsBody::setStatic(bool staticValue) {
+/*!****************************************************************************
+ * \brief Sets the body to be static
+ *
+ * ## Usage:
+ *
+ * This is to be used if the object should no longer be movable.
+ *
+ * ## Explanation:
+ *
+ * This resets the body's mass to 0.0f, so be aware of this if you want to use
+ * this to just freeze an object. When unfrozen, the object needs to have its
+ * mass reset to the old value.
+ *
+ * \param staticValue True if static
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::setStatic(bool staticValue) {
   isStatic = staticValue;
   if (staticValue) {
     mass = 0.0f;
     inverseMass = 0.0f;
   }
+
+  return shared_from_this();
 }
 
-void PhysicsBody::setShape(std::shared_ptr<Shape> newShape) {
+/*!****************************************************************************
+ * \brief Set up the collision Shape
+ *
+ * ## Usage:
+ *
+ * This is to be used when the object needs to have interactions with other
+ * objects in the world. This can be skipped if world interactions aren't
+ * needed.
+ *
+ * \param newShape Shape to be added to the object
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::setShape(std::shared_ptr<Shape> newShape) {
   collisionShape = newShape;
+
+  return shared_from_this();
 }
 
+/* Getters */
+
+/*!****************************************************************************
+ * \brief Get the mass
+ * 
+ * \return \b float Mass
+ *****************************************************************************/
 float PhysicsBody::getMass()            const { return mass; }
+
+/*!****************************************************************************
+ * \brief Get the inverse mass
+ * 
+ * \return \b float Inverse mass
+ *****************************************************************************/
 float PhysicsBody::getInverseMass()     const { return inverseMass; }
+
+/*!****************************************************************************
+ * \brief Get the velocity
+ * 
+ * \return \b Vector3 Velocity
+ *****************************************************************************/
 Vector3 PhysicsBody::getVelocity()      const { return velocity; }
+
+/*!****************************************************************************
+ * \brief Get the acceleration
+ * 
+ * \return \b Vector3 Acceleration
+ *****************************************************************************/
 Vector3 PhysicsBody::getAcceleration()  const { return acceleration; }
+
+/*!****************************************************************************
+ * \brief Get the force
+ * 
+ * \return \b Vector3 Force
+ *****************************************************************************/
 Vector3 PhysicsBody::getForce()         const { return force; }
+
+/*!****************************************************************************
+ * \brief Get the restitution
+ * 
+ * \return \b float Restitution
+ *****************************************************************************/
 float PhysicsBody::getRestitution()     const { return restitution; }
+
+/*!****************************************************************************
+ * \brief Get the friction
+ * 
+ * \return \b float Friction
+ *****************************************************************************/
 float PhysicsBody::getFriction()        const { return friction; }
+
+/*!****************************************************************************
+ * \brief Get if the object is static
+ * 
+ * \return \b bool True if static
+ *****************************************************************************/
 bool PhysicsBody::getIsStatic()         const { return isStatic; }
-Shape* PhysicsBody::getShape()          const { return collisionShape.get(); }
-RenderableNode* PhysicsBody::getOwner() const { return owner; }
 
-void PhysicsBody::integrate(float dt) {
-  if (isStatic) return;
+/*!****************************************************************************
+ * \brief Get the Collision Shape
+ * 
+ * \return \b Shape* Collision Shape
+ *****************************************************************************/
+std::shared_ptr<Shape> PhysicsBody::getShape() const { return collisionShape; }
 
-  acceleration = force / mass;
-  velocity = velocity + (acceleration * dt);
+/*!****************************************************************************
+ * \brief Update the GameObject and its related collision
+ * 
+ * ## Usage:
+ * 
+ * This should be called in the main loop to update the object's position 
+ * according to all external forces acting upon it.
+ * 
+ * ## Note:
+ * 
+ * This is not used in the update call since physics is usually handled
+ * separately to ensure consistent physics.
+ * 
+ * Look into how collision Shape and the PhysicsManager system work to ensure
+ * collisions are handled correctly.
+ * 
+ * \param deltaTime
+ *****************************************************************************/
+void PhysicsBody::integrate(float deltaTime) {
+  if (!parent->isEnabled()) return;
+  if (!isStatic) {
 
-  Vector3 newPosition = owner->getLocalPosition() + (velocity * dt);
-  owner->setLocalPosition(newPosition);
+    Vector3 netFriction;
+    if (velocity.magnitude() > 0) {
+      netFriction = velocity.normalized() * velocity.magnitude() * -friction;
+    }
+    else {
+      netFriction = Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+
+    acceleration = acceleration + (force + netFriction) * inverseMass;
+    velocity = velocity + (acceleration * deltaTime);
+
+    Vector3 newPosition = parent->getLocalPosition() + (velocity * deltaTime);
+    parent->setLocalPosition(newPosition);
+  }
 
   // Update collision shape
   if (collisionShape) {
     // Since we don't have direct access to transform,
     // we'll create a Transform object with the current state
     Transform currentTransform;
-    currentTransform.setPosition(owner->getLocalPosition());
-    currentTransform.setRotation(owner->getLocalRotation());
-    currentTransform.setScaling(owner->getLocalScaling());
+    currentTransform.setPosition(parent->getLocalPosition());
+    currentTransform.setRotation(parent->getLocalRotation());
+    currentTransform.setScaling(parent->getLocalScaling());
 
     // TODO: What else do you have to update during the integration
-    // besides the owner's position?
+    // besides the parent's position?
     // implement here ->:
     collisionShape->update(currentTransform);
   }
 
   // Reset force accumulator
   force = Vector3(0, 0, 0);
+  acceleration = Vector3(0, 0, 0);
 }
+
+/*!****************************************************************************
+ * \brief Dummy initialize function
+ * 
+ *****************************************************************************/
+void PhysicsBody::initialize() {}
+
+/*!****************************************************************************
+ * \brief Dummy update function
+ * 
+ *****************************************************************************/
+void PhysicsBody::update(float deltaTime) {}
+
+/*!****************************************************************************
+ * \brief Dummy shutdown function
+ *****************************************************************************/
+void PhysicsBody::shutdown() {}

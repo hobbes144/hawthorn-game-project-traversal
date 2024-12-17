@@ -119,15 +119,15 @@ Collaboration diagram for CollisionListener:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a8085477d25707552cf61a36cbb1f9f76" id="r_a8085477d25707552cf61a36cbb1f9f76"><td class="memItemLeft" align="right" valign="top"><a id="a8085477d25707552cf61a36cbb1f9f76" name="a8085477d25707552cf61a36cbb1f9f76"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>CollisionCallback</b> = std::function&lt;void(<a class="el" href="classRenderableNode.html">RenderableNode</a>*, <a class="el" href="classRenderableNode.html">RenderableNode</a>*)&gt;</td></tr>
-<tr class="separator:a8085477d25707552cf61a36cbb1f9f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4251a0bfcb6a356205e0db4af538a435" id="r_a4251a0bfcb6a356205e0db4af538a435"><td class="memItemLeft" align="right" valign="top"><a id="a4251a0bfcb6a356205e0db4af538a435" name="a4251a0bfcb6a356205e0db4af538a435"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>CollisionCallback</b> = std::function&lt;void(std::shared_ptr&lt;<a class="el" href="classGameObject.html">GameObject</a>&gt;, std::shared_ptr&lt;<a class="el" href="classGameObject.html">GameObject</a>&gt;, const <a class="el" href="classVector3.html">Vector3</a>&amp;)&gt;</td></tr>
+<tr class="separator:a4251a0bfcb6a356205e0db4af538a435"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae1efff6445d37be3c063304a423a58fa" id="r_ae1efff6445d37be3c063304a423a58fa"><td class="memItemLeft" align="right" valign="top"><a id="ae1efff6445d37be3c063304a423a58fa" name="ae1efff6445d37be3c063304a423a58fa"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>CollisionListener</b> (<a class="el" href="classRenderableNode.html">RenderableNode</a> *owner)</td></tr>
-<tr class="separator:ae1efff6445d37be3c063304a423a58fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2b542523f212c7934e0b91170566ce" id="r_adc2b542523f212c7934e0b91170566ce"><td class="memItemLeft" align="right" valign="top"><a id="adc2b542523f212c7934e0b91170566ce" name="adc2b542523f212c7934e0b91170566ce"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>CollisionListener</b> (std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt; owner)</td></tr>
+<tr class="separator:adc2b542523f212c7934e0b91170566ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23dbb66143c7ff12ddfe81b459c4cbc0" id="r_a23dbb66143c7ff12ddfe81b459c4cbc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23dbb66143c7ff12ddfe81b459c4cbc0">OnEvent</a> (const <a class="el" href="classCollisionEvent.html">CollisionEvent</a> &amp;event) override</td></tr>
 <tr class="separator:a23dbb66143c7ff12ddfe81b459c4cbc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dbee72a39358f133bd47eb51980ab2d" id="r_a4dbee72a39358f133bd47eb51980ab2d"><td class="memItemLeft" align="right" valign="top"><a id="a4dbee72a39358f133bd47eb51980ab2d" name="a4dbee72a39358f133bd47eb51980ab2d"></a>

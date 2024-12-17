@@ -1,37 +1,29 @@
+/*!****************************************************************************
+ * \file   CollisionGenerator.cpp
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   12-16-2024
+ * 
+ *****************************************************************************/
 #include "CollisionGenerator.h"
+
 #include "AABB.h"
 #include "OBB.h"
 #include "Sphere.h"
 
-CollisionGenerator::CollisionGenerator() {
-  initializeCollisionMatrix();
-}
-
-bool CollisionGenerator::generateContact(PhysicsBody* body1, PhysicsBody* body2, Contact& contact) {
-  Shape* shape1 = body1->getShape();
-  Shape* shape2 = body2->getShape();
-
-  if (!shape1 || !shape2) return false;
-
-  int type1 = static_cast<int>(shape1->getType());
-  int type2 = static_cast<int>(shape2->getType());
-
-  CollisionTest test = collisionTests[type1][type2];
-  if (test) {
-    if (test(shape1, shape2, contact)) {
-      contact.bodies[0] = body1;
-      contact.bodies[1] = body2;
-      return true;
-    }
-  }
-  return false;
-}
+/* Private functions */
 
 bool CollisionGenerator::AABBvsAABB(
-    const Shape* a, const Shape* b, Contact& contact) {
+  const std::shared_ptr<Shape> a, 
+  const std::shared_ptr<Shape> b, 
+  Contact& contact) {
+
   //TODO: Implement your algorithm here
-  const AABB* boxA = static_cast<const AABB*>(a);
-  const AABB* boxB = static_cast<const AABB*>(b);
+  const std::shared_ptr<AABB> boxA = std::static_pointer_cast<AABB>(a);
+  const std::shared_ptr<AABB> boxB = std::static_pointer_cast<AABB>(b);
 
   Vector3 minA = boxA->getMin();
   Vector3 maxA = boxA->getMax();
@@ -51,9 +43,9 @@ bool CollisionGenerator::AABBvsAABB(
   return true;
 }
 
-bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
-  const OBB* boxA = static_cast<const OBB*>(a);
-  const OBB* boxB = static_cast<const OBB*>(b);
+bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b, Contact& contact) {
+  const std::shared_ptr<OBB> boxA = std::static_pointer_cast<OBB>(a);
+  const std::shared_ptr<OBB> boxB = std::static_pointer_cast<OBB>(b);
 
   // PenDepth is used to find the point of contact
   // We find axis of minimum penetration depth's normal
@@ -246,10 +238,10 @@ bool CollisionGenerator::OBBvsOBB(const Shape* a, const Shape* b, Contact& conta
   return true;
 }
 
-bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& contact) {
+bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b, Contact& contact) {
   //TODO: Implement your algorithm here
-  const AABB* boxA = static_cast<const AABB*>(a);
-  const OBB* boxB = static_cast<const OBB*>(b);
+  const std::shared_ptr<AABB> boxA = std::static_pointer_cast<AABB>(a);
+  const std::shared_ptr<OBB> boxB = std::static_pointer_cast<OBB>(b);
 
   // Vector between two centers (scaled up appropriately)
   Vector3 T = (boxA->getCenter() - boxB->getCenter());
@@ -384,7 +376,7 @@ bool CollisionGenerator::AABBvsOBB(const Shape* a, const Shape* b, Contact& cont
   return true;
 }
 
-bool CollisionGenerator::OBBvsAABB(const Shape* a, const Shape* b, Contact& contact) {
+bool CollisionGenerator::OBBvsAABB(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b, Contact& contact) {
   return AABBvsOBB(b, a, contact);
 }
 
@@ -405,9 +397,9 @@ void CollisionGenerator::initializeCollisionMatrix() {
 
 }
 
-bool CollisionGenerator::SpherevsSphere(const Shape* a, const Shape* b, Contact& contact) {
-  const Sphere* sphere1 = static_cast<const Sphere*>(a);
-  const Sphere* sphere2 = static_cast<const Sphere*>(b);
+bool CollisionGenerator::SpherevsSphere(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b, Contact& contact) {
+  const std::shared_ptr<Sphere> sphere1 = std::static_pointer_cast<Sphere>(a);
+  const std::shared_ptr<Sphere> sphere2 = std::static_pointer_cast<Sphere>(b);
 
   Vector3 diff = sphere2->getCenter() - sphere1->getCenter();
   float distSquared = diff.magnitudSquared();
@@ -421,9 +413,9 @@ bool CollisionGenerator::SpherevsSphere(const Shape* a, const Shape* b, Contact&
   return false;
 }
 
-bool CollisionGenerator::SpherevsAABB(const Shape* a, const Shape* b, Contact& contact) {
-  const Sphere* sphere = static_cast<const Sphere*>(a);
-  const AABB* aabb = static_cast<const AABB*>(b);
+bool CollisionGenerator::SpherevsAABB(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b, Contact& contact) {
+  const std::shared_ptr<Sphere> sphere = std::static_pointer_cast<Sphere>(a);
+  const std::shared_ptr<AABB> aabb = std::static_pointer_cast<AABB>(b);
 
   // Find closest point on AABB to Sphere center
   Vector3 closestPoint;
@@ -445,13 +437,13 @@ bool CollisionGenerator::SpherevsAABB(const Shape* a, const Shape* b, Contact& c
   return false;
 }
 
-bool CollisionGenerator::AABBvsSphere(const Shape* a, const Shape* b, Contact& contact) {
+bool CollisionGenerator::AABBvsSphere(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b, Contact& contact) {
   return SpherevsAABB(b, a, contact);
 }
 
-bool CollisionGenerator::SpherevsOBB(const Shape* a, const Shape* b, Contact& contact) {
-  const Sphere* sphere = static_cast<const Sphere*>(a);
-  const OBB* obb = static_cast<const OBB*>(b);
+bool CollisionGenerator::SpherevsOBB(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b, Contact& contact) {
+  const std::shared_ptr<Sphere> sphere = std::static_pointer_cast<Sphere>(a);
+  const std::shared_ptr<OBB> obb = std::static_pointer_cast<OBB>(b);
 
   // Convert sphere center to OBB's local space
   Vector3 sphereCenter = sphere->getCenter() - obb->getCenter();
@@ -489,6 +481,76 @@ bool CollisionGenerator::SpherevsOBB(const Shape* a, const Shape* b, Contact& co
   return false;
 }
 
-bool CollisionGenerator::OBBvsSphere(const Shape* a, const Shape* b, Contact& contact) {
+bool CollisionGenerator::OBBvsSphere(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b, Contact& contact) {
   return SpherevsOBB(b, a, contact);
 }
+
+
+/* Public functions */
+
+/*!****************************************************************************
+ * \brief Generate a contact based on the collision Shapes
+ * 
+ * ## Usage:
+ * 
+ * This is to be called by the PhysicsManager
+ * 
+ * \param body1
+ * \param body2
+ * \param contact
+ * \return \b 
+ *****************************************************************************/
+bool CollisionGenerator::generateContact(
+  std::shared_ptr<PhysicsBody> body1,
+  std::shared_ptr<PhysicsBody> body2,
+  Contact& contact) {
+
+  std::shared_ptr<Shape> shape1 = body1->getShape();
+  std::shared_ptr<Shape> shape2 = body2->getShape();
+
+  if (!shape1 || !shape2) return false;
+
+  int type1 = static_cast<int>(shape1->getType());
+  int type2 = static_cast<int>(shape2->getType());
+
+  CollisionTest test = collisionTests[type1][type2];
+  if (test) {
+    if (test(shape1, shape2, contact)) {
+      contact.bodies[0] = body1;
+      contact.bodies[1] = body2;
+      return true;
+    }
+  }
+  return false;
+}
+
+/*!****************************************************************************
+ * \brief Initialize the CollisionGenerator
+ * 
+ * ## Usage:
+ * 
+ * This should be called when the CollisionGenerator is created. Automatically
+ * called by the PhysicsManager.
+ * 
+ * ## Explanation:
+ * 
+ * This sets up the collision matrix to make checks more efficient.
+ * 
+ *****************************************************************************/
+void CollisionGenerator::initialize()
+{
+  initializeCollisionMatrix();
+}
+
+/*!****************************************************************************
+ * \brief Dummy update function
+ * 
+ * \param deltaTime
+ *****************************************************************************/
+void CollisionGenerator::update(float deltaTime) {}
+
+/*!****************************************************************************
+ * \brief Dummy shutdown function
+ * 
+ *****************************************************************************/
+void CollisionGenerator::shutdown() {}
