@@ -33,7 +33,7 @@ public:
   void shutdown();
 
   std::shared_ptr<Movement> setInputSystem(
-    std::shared_ptr<Input> _inputSystem);
+    Input* _inputSystem);
 
   std::shared_ptr<Movement> setForce(float _f);
   std::shared_ptr<Movement> setUpKey(Key _upKey);
@@ -42,7 +42,7 @@ public:
   std::shared_ptr<Movement> setRightKey(Key _rightKey);
 
 private:
-  std::shared_ptr<Input> inputSystem;
+  Input* inputSystem;
   float f;
   Key upKey;
   Key downKey;

@@ -1,5 +1,54 @@
 #include "Tank.h"
 
+void onTankHit(
+  std::shared_ptr<GameObject> obj1, 
+  std::shared_ptr<GameObject> obj2, 
+  const Vector3& point) {
+
+  std::shared_ptr<Tank> tank;
+  std::shared_ptr<GameObject> other;
+  if (!(tank = std::dynamic_pointer_cast<Tank>(obj1))) {
+    tank = std::dynamic_pointer_cast<Tank>(obj2);
+    other = obj1;
+  }
+  else {
+    other = obj2;
+  }
+
+  auto tankPtr = std::dynamic_pointer_cast<Tank>(other);
+  if (tankPtr) {
+    other->disable();
+    tank->disable();
+    return;
+  }
+
+  auto wallPtr = std::dynamic_pointer_cast<Wall>(other);
+  if (wallPtr) {
+    std::cout << "Tank has hit a wall!\n";
+    auto tankPhysicsComponent = tank->findComponent<PhysicsBody>();
+    Vector3 f = tankPhysicsComponent->getVelocity();
+    if (wallPtr->getName() == "upWall") {
+      f.y = -f.y * 4000.0f;
+      f.y -= 1000.0f;
+    }
+    if (wallPtr->getName() == "downWall") {
+      f.y = -f.y * 4000.0f;
+      f.y += 1000.0f;
+    }
+    if (wallPtr->getName() == "leftWall") {
+      f.x = -f.x * 4000.0f;
+      f.x -= 1000.0f;
+    }
+    if (wallPtr->getName() == "rightWall") {
+      f.x = -f.x * 4000.0f;
+      f.x += 1000.0f;
+    }
+    f = f;
+    tankPhysicsComponent->applyForce(f);
+    return;
+  }
+}
+
 std::shared_ptr<Tank> createTank(
   std::string name, Renderer* renderer,
   std::shared_ptr<Camera> camera, Vector3 color)

@@ -34,7 +34,7 @@ private:
   std::shared_ptr<GameObject> owner;
 };
 
-void bulletHit(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2);
+void onBulletHit(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point);
 
 std::shared_ptr<Bullet> createBullet(
   std::string name, Renderer* renderer,

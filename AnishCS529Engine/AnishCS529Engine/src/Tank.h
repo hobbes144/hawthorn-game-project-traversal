@@ -20,10 +20,17 @@
 #include "PhysicsManager.h"
 #include "Render2D.h"
 
+#include "Wall.h"
+
 class Tank : public GameObject {
 public:
   Tank(std::string name) : GameObject(name) {};
 };
+
+void onTankHit(
+  std::shared_ptr<GameObject> obj1, 
+  std::shared_ptr<GameObject> obj2, 
+  const Vector3& point);
 
 std::shared_ptr<Tank> createTank(
   std::string name, Renderer* renderer, 

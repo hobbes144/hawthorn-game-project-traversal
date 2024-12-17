@@ -12,7 +12,7 @@
 
 
 std::shared_ptr<Movement> Movement::setInputSystem(
-  std::shared_ptr<Input> _inputSystem)
+  Input* _inputSystem)
 {
   inputSystem = _inputSystem;
 

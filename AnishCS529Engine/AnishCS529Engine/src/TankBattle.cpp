@@ -50,7 +50,9 @@ int main() {
   /* Input setup */
   Input* mainInput = new Input;
   std::vector<Key> keysToMonitor = { 
-    KEY_W, KEY_A, KEY_S, KEY_D, KEY_SPACE, KEY_ESCAPE };
+    KEY_W, KEY_A, KEY_S, KEY_D, KEY_SPACE, KEY_ESCAPE,
+    KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_ENTER
+  };
   mainInput->setGameWindow(mainWindow);
 
   /* Framerate controller setup */
@@ -74,12 +76,35 @@ int main() {
   /* Protagonist */
   auto protag = createTank("protag", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
   protag->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
+  protag->addComponent<Movement>()->setInputSystem(mainInput);
   mainSceneGraph.addNode(protag);
 
   /* Enemy */
   auto enemy = createTank("enemy", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
   enemy->setLocalPosition(Vector3(-1.0f, 0.0f, 0.0f));
+  enemy->addComponent<Movement>()->setInputSystem(mainInput)
+    ->setUpKey(KEY_UP)->setDownKey(KEY_DOWN)
+    ->setLeftKey(KEY_LEFT)->setRightKey(KEY_RIGHT);
   mainSceneGraph.addNode(enemy);
+
+  /* Walls */
+  Vector3 wallColor = Vector3(188.0f / 255.0f, 74.0f / 255.0f, 60.0f / 255.0f);
+  auto wallLeft = createWall("leftWall", mainRenderer, camera, wallColor);
+  wallLeft->setLocalPosition(Vector3(-7.5f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(1.0f, 10.0f, 0.0f));
+  mainSceneGraph.addNode(wallLeft);
+  auto wallRight = createWall("rightWall", mainRenderer, camera, wallColor);
+  wallRight->setLocalPosition(Vector3(7.5f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(1.0f, 10.0f, 0.0f));
+  mainSceneGraph.addNode(wallRight);
+  auto wallUp = createWall("upWall", mainRenderer, camera, wallColor);
+  wallUp->setLocalPosition(Vector3(0.0f, 4.2f, 0.0f))
+    ->setLocalScaling(Vector3(15.0f, 1.0f, 0.0f));
+  mainSceneGraph.addNode(wallUp);
+  auto wallDown = createWall("downWall", mainRenderer, camera, wallColor);
+  wallDown->setLocalPosition(Vector3(0.0f, -4.2f, 0.0f))
+    ->setLocalScaling(Vector3(15.0f, 1.0f, 0.0f));
+  mainSceneGraph.addNode(wallDown);
 
   /* Bullets */
 
@@ -87,7 +112,7 @@ int main() {
   std::vector<std::shared_ptr<Bullet>> pBullets;
 
   auto pBullet1 = createBullet("pBullet1", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  pBullet1->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  pBullet1->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(pBullet1);
   pBullets.push_back(pBullet1);
   auto pBullet2 = createBullet("pBullet2", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
@@ -106,25 +131,6 @@ int main() {
   pBullet5->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(pBullet5);
   pBullets.push_back(pBullet5);
-
-  /* Walls */
-  Vector3 wallColor = Vector3(188.0f / 255.0f, 74.0f / 255.0f, 60.0f / 255.0f);
-  auto wallLeft = createWall("leftWall", mainRenderer, camera, wallColor);
-  wallLeft->setLocalPosition(Vector3(-7.5f, 0.0f, 0.0f))
-    ->setLocalScaling(Vector3(1.0f,10.0f,0.0f));
-  mainSceneGraph.addNode(wallLeft);
-  auto wallRight = createWall("rightWall", mainRenderer, camera, wallColor);
-  wallRight->setLocalPosition(Vector3(7.5f, 0.0f, 0.0f))
-    ->setLocalScaling(Vector3(1.0f, 10.0f, 0.0f));
-  mainSceneGraph.addNode(wallRight);
-  auto wallUp = createWall("upWall", mainRenderer, camera, wallColor);
-  wallUp->setLocalPosition(Vector3(0.0f, 4.2f, 0.0f))
-    ->setLocalScaling(Vector3(15.0f, 1.0f, 0.0f));
-  mainSceneGraph.addNode(wallUp);
-  auto wallDown = createWall("downWall", mainRenderer, camera, wallColor);
-  wallDown->setLocalPosition(Vector3(0.0f, 4.2f, 0.0f))
-    ->setLocalScaling(Vector3(15.0f, 1.0f, 0.0f));
-  mainSceneGraph.addNode(wallDown);
 
   /* Enemy bullets */
   std::vector<std::shared_ptr<Bullet>> eBullets;
@@ -151,9 +157,14 @@ int main() {
   eBullets.push_back(eBullet5);
 
   /* Events */
+  //CollisionListener enemyHit(enemy);
+  //EventManager::Instance().AddListener(&protagHit);
+  //EventManager::Instance().AddListener(&enemyHit);
+  CollisionListener bulletHit(pBullet1);
+  bulletHit.setCallback(onBulletHit);
+  
   CollisionListener protagHit(protag);
-  CollisionListener enemyHit(enemy);
-  EventManager::Instance().AddListener(&protagHit);
+  protagHit.setCallback(onTankHit);
 
   /* Main loop */
   while (!mainWindow->getShouldClose()) {
@@ -162,30 +173,6 @@ int main() {
     mainFramerateController->startFrame();
 
     mainSceneGraph.update(0.0f);
-
-    if (mainInput->isKeyDown(KEY_W)) {
-      protag->findComponent<PhysicsBody>()
-        ->applyForce(Vector3(0.0f, 1000.0f, 0.0f));
-    }
-    
-    if (mainInput->isKeyDown(KEY_S)) {
-      protag->findComponent<PhysicsBody>()
-        ->applyForce(Vector3(0.0f, -1000.0f, 0.0f));
-    }
-
-    if (mainInput->isKeyDown(KEY_A)) {
-      protag->findComponent<PhysicsBody>()
-        ->applyForce(Vector3(-1000.0f, 0.0f, 0.0f));
-    }
-
-    if (mainInput->isKeyDown(KEY_D)) {
-      protag->findComponent<PhysicsBody>()
-        ->applyForce(Vector3(1000.0f, 0.0f, 0.0f));
-    }
-
-    if (mainInput->isKeyDown(KEY_SPACE)) {
-
-    }
 
     while (mainFramerateController->shouldUpdatePhysics()) {
       PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());

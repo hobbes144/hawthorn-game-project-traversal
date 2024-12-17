@@ -30,7 +30,8 @@ void PhysicsManager::checkCollisions() {
         // Collision detected, broadcast event
         CollisionEvent event(
             contact.bodies[0]->getParent(),
-            contact.bodies[1]->getParent()
+            contact.bodies[1]->getParent(),
+            contact.point
             );
         EventManager::Instance().BroadcastEvent(event);
       }

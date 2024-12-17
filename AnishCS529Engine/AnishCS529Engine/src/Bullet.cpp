@@ -32,7 +32,7 @@ std::shared_ptr<GameObject> Bullet::getOwner()
 }
 
 
-void bulletHit(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2){
+void onBulletHit(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point){
   std::shared_ptr<Bullet> bullet;
   std::shared_ptr<GameObject> other;
   if (!(bullet = std::dynamic_pointer_cast<Bullet>(obj1))) {
@@ -43,12 +43,17 @@ void bulletHit(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj
     other = obj2;
   }
 
-  if (other = std::dynamic_pointer_cast<Wall>(other)) {
-    bullet->disable()->setLocalPosition(Vector3(100.0f,0.0f,0.0f));
-  }
-  else if (other = std::dynamic_pointer_cast<Tank>(other)) {
-    other->disable();
+  auto tankPtr = std::dynamic_pointer_cast<Tank>(other);
+  if (tankPtr) {
+    tankPtr->disable();
     bullet->disable()->setLocalPosition(Vector3(100.0f, 0.0f, 0.0f));
+    return;
+  }
+
+  auto wallPtr = std::dynamic_pointer_cast<Wall>(other);
+  if (wallPtr) {
+    bullet->disable()->setLocalPosition(Vector3(100.0f, 0.0f, 0.0f));
+    return;
   }
 }
 
