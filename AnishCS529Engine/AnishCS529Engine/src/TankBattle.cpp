@@ -52,7 +52,8 @@ int main() {
   Input* mainInput = new Input;
   std::vector<Key> keysToMonitor = { 
     KEY_W, KEY_A, KEY_S, KEY_D, KEY_SPACE, KEY_ESCAPE,
-    KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_ENTER
+    KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_ENTER,
+    KEY_R
   };
   mainInput->setGameWindow(mainWindow);
 
@@ -75,14 +76,14 @@ int main() {
 
   /* GameObject setup */
   /* Protagonist */
-  auto protag = createTank("protag", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  protag->setLocalPosition(Vector3(-2.0f, 0.0f, 0.0f));
+  auto protag = createTank("protag", mainRenderer, camera, "media/TankPlayer1.png");
+  protag->setLocalPosition(Vector3(-2.0f, 0.0f, 0.0f))->setLocalScaling(Vector3(1.0f,0.7f,1.0f));
   protag->addComponent<Movement>()->setInputSystem(mainInput);
   mainSceneGraph.addNode(protag);
 
   /* Enemy */
-  auto enemy = createTank("enemy", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  enemy->setLocalPosition(Vector3(2.0f, 0.0f, 0.0f));
+  auto enemy = createTank("enemy", mainRenderer, camera, "media/TankPlayer2.png");
+  enemy->setLocalPosition(Vector3(2.0f, 0.0f, 0.0f))->setLocalScaling(Vector3(1.0f, 0.7f, 1.0f));
   enemy->addComponent<Movement>()->setInputSystem(mainInput)
     ->setUpKey(KEY_UP)->setDownKey(KEY_DOWN)
     ->setLeftKey(KEY_LEFT)->setRightKey(KEY_RIGHT);
@@ -193,7 +194,37 @@ int main() {
   CollisionListener enemyHit(enemy);
   enemyHit.setCallback(onTankHit);
 
+  /* End state */
   bool endStateReached = false;
+  auto p1WinScreen = std::make_shared<GameObject>("p1Win");
+  p1WinScreen->addComponent<Render2D>()
+    ->setRenderer(mainRenderer)->setCamera(camera)
+    ->setMaterial(createTextureMaterial("media/Player2Died.png"))
+    ->setMesh(createSquareMesh("p1Win"));
+  p1WinScreen->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(12.0f, 8.0f, 1.0f));
+  p1WinScreen->disable();
+  mainSceneGraph.addNode(p1WinScreen);
+
+  auto p2WinScreen = std::make_shared<GameObject>("p2Win");
+  p2WinScreen->addComponent<Render2D>()
+    ->setRenderer(mainRenderer)->setCamera(camera)
+    ->setMaterial(createTextureMaterial("media/Player1Died.png"))
+    ->setMesh(createSquareMesh("p2Win"));
+  p2WinScreen->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(12.0f, 8.0f, 1.0f));
+  p2WinScreen->disable();
+  mainSceneGraph.addNode(p2WinScreen);
+
+  auto playerDrawScreen = std::make_shared<GameObject>("playerDraw");
+  playerDrawScreen->addComponent<Render2D>()
+    ->setRenderer(mainRenderer)->setCamera(camera)
+    ->setMaterial(createTextureMaterial("media/Draw.png"))
+    ->setMesh(createSquareMesh("playerDraw"));
+  playerDrawScreen->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(12.0f, 8.0f, 1.0f));
+  playerDrawScreen->disable();
+  mainSceneGraph.addNode(playerDrawScreen);
 
   /* Main loop */
   while (!mainWindow->getShouldClose()) {
@@ -213,15 +244,34 @@ int main() {
     if (!endStateReached) {
       if (!protag->isEnabled() && !enemy->isEnabled()) {
         std::cout << "Draw!";
-        endStateReached = true;
-      }
-      else if (!protag->isEnabled()) {
-        std::cout << "Player 2 wins!";
+        playerDrawScreen->enable();
         endStateReached = true;
       }
       else if (!enemy->isEnabled()) {
         std::cout << "Player 1 wins!";
+        p1WinScreen->enable();
         endStateReached = true;
+      }
+      else if (!protag->isEnabled()) {
+        std::cout << "Player 2 wins!";
+        p2WinScreen->enable();
+        endStateReached = true;
+      }
+    }
+    else {
+      if (mainInput->isKeyPressed(KEY_R)) {
+        playerDrawScreen->disable();
+        p1WinScreen->disable();
+        p2WinScreen->disable();
+
+        protag->setLocalPosition(Vector3(-2.0f, 0.0f, 0.0f));
+        protag->findComponent<PhysicsBody>()->reset();
+        protag->enable();
+
+        enemy->setLocalPosition(Vector3(2.0f, 0.0f, 0.0f));
+        enemy->findComponent<PhysicsBody>()->reset();
+        enemy->enable();
+        endStateReached = false;
       }
     }
 

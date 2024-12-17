@@ -116,6 +116,22 @@ std::shared_ptr<PhysicsBody> PhysicsBody::applyForce(const Vector3& f) {
 }
 
 /*!****************************************************************************
+ * \brief Reset the force on the object
+ * 
+ * ## Usage:
+ * 
+ * This can be used when the object should be forced to stop all motion.
+ * 
+ * \return \b 
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::reset()
+{
+  force = Vector3(0.0f, 0.0f, 0.0f);
+  velocity = Vector3(0.0f, 0.0f, 0.0f);
+  return shared_from_this();
+}
+
+/*!****************************************************************************
  * \brief Dummy restitution
  *
  * This has not yet been implemented.

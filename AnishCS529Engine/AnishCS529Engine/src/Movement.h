@@ -36,7 +36,7 @@ class Movement :
 public:
   Movement() :
     upKey(KEY_W), downKey(KEY_S), leftKey(KEY_A), rightKey(KEY_D),
-    f(1000.0f) {}
+    f(2000.0f) {}
   ~Movement() = default;
 
   void initialize();

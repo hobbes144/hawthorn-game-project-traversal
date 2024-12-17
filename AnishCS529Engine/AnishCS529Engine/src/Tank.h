@@ -36,4 +36,8 @@ std::shared_ptr<Tank> createTank(
   std::string name, Renderer* renderer, 
   std::shared_ptr<Camera> camera, Vector3 color);
 
+std::shared_ptr<Tank> createTank(
+  std::string name, Renderer* renderer,
+  std::shared_ptr<Camera> camera, const std::string& textureFile);
+
 #endif // TANK_H

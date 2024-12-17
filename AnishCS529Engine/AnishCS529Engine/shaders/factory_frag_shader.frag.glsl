@@ -9,8 +9,9 @@ uniform bool isTransparent;
 uniform sampler2D mainTexture;
 
 void main() {
-    if (useTexture)
+    if (useTexture) {
         FragColor = texture(mainTexture, texcoord);
+    }
     else {
         if(isTransparent)
             FragColor = vec4(final_color, 0.0f);

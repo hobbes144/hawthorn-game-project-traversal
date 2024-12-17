@@ -12,8 +12,8 @@ var searchData=
   ['general_20lifecycle_20of_20a_20frameratecontroller_3a_9',['General lifecycle of a FramerateController:',['../classFramerateController.html#autotoc_md12',1,'']]],
   ['general_20lifecycle_20of_20a_20gameobject_3a_10',['General lifecycle of a GameObject:',['../classGameObject.html#autotoc_md28',1,'']]],
   ['general_20lifecycle_20of_20a_20gamewindow_3a_11',['General lifecycle of a GameWindow:',['../classGameWindow.html#autotoc_md50',1,'']]],
-  ['general_20lifecycle_20of_20a_20physicsbody_3a_12',['General lifecycle of a PhysicsBody:',['../classPhysicsBody.html#autotoc_md83',1,'']]],
-  ['general_20lifecycle_20of_20a_20renderer_3a_13',['General lifecycle of a Renderer:',['../classRenderer.html#autotoc_md119',1,'']]],
+  ['general_20lifecycle_20of_20a_20physicsbody_3a_12',['General lifecycle of a PhysicsBody:',['../classPhysicsBody.html#autotoc_md84',1,'']]],
+  ['general_20lifecycle_20of_20a_20renderer_3a_13',['General lifecycle of a Renderer:',['../classRenderer.html#autotoc_md120',1,'']]],
   ['general_20lifecycle_20of_20input_3a_14',['General lifecycle of Input:',['../classInput.html#autotoc_md63',1,'']]],
   ['geometrybuffer_15',['GeometryBuffer',['../classGeometryBuffer.html',1,'GeometryBuffer'],['../classGeometryBuffer.html#a01f92aed0d0d0415038d92fd63e77c33',1,'GeometryBuffer::GeometryBuffer(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#a682bca4d4ec83e9ae5e9b5ed216cdb3f',1,'GeometryBuffer::GeometryBuffer(GeometryBuffer &amp;&amp;) noexcept']]],
   ['geometrybuffer_2ecpp_16',['GeometryBuffer.cpp',['../GeometryBuffer_8cpp.html',1,'']]],
@@ -47,6 +47,6 @@ var searchData=
   ['getvertexcount_44',['getVertexCount',['../classGeometryBuffer.html#a2f9ee2907b9219ea471e61c14a3006d4',1,'GeometryBuffer']]],
   ['getviewmatrix_45',['getViewMatrix',['../classCamera.html#a85de2ec3fc9cf28fc0b74dd18e6e3952',1,'Camera']]],
   ['getwidth_46',['getWidth',['../classGameWindow.html#aed5ecd56b1d93217320055a1ff8f025e',1,'GameWindow']]],
-  ['github_20com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_47',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md142',1,'']]],
-  ['github_20com_20murthyanish_20digipencs529_20compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_48',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md140',1,'']]]
+  ['github_20com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_47',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md143',1,'']]],
+  ['github_20com_20murthyanish_20digipencs529_20compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_48',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md141',1,'']]]
 ];
