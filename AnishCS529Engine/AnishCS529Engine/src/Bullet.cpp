@@ -74,5 +74,7 @@ std::shared_ptr<Bullet> createBullet(std::string name, Renderer* renderer, std::
     ->setShape(bulletShape)
     ->registerToPhysicsManager(PhysicsManager::Instance());
   bullet->setLocalScaling(Vector3(0.2f, 0.2f, 0.2f));
+  bullet->disable();
+
   return bullet;
 }

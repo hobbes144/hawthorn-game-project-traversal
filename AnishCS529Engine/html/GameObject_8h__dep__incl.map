@@ -1,27 +1,68 @@
 <map id="AnishCS529Engine/src/GameObject.h" name="AnishCS529Engine/src/GameObject.h">
-<area shape="rect" id="Node000001" title="Scene Object that represents a renderable object component." alt="" coords="287,5,451,45"/>
-<area shape="rect" id="Node000002" href="$GameObject_8cpp.html" title=" " alt="" coords="5,93,169,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="295,52,150,96,148,91,293,47"/>
-<area shape="rect" id="Node000003" href="$GameObject_8inl.html" title=" " alt="" coords="193,93,357,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="332,56,290,95,287,91,328,52"/>
-<area shape="rect" id="Node000004" href="$PhysicsBody_8h.html" title="Physics body class." alt="" coords="381,93,545,133"/>
-<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="402,53,444,91,441,95,398,57"/>
-<area shape="rect" id="Node000009" href="$Render2D_8h.html" title="Render component for 2D objects." alt="" coords="569,93,733,133"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="445,47,590,91,589,96,443,52"/>
-<area shape="rect" id="Node000011" href="$SphereJump_8cpp.html" title="Test main for a simple game for final grade." alt="" coords="727,181,891,221"/>
-<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="464,32,625,53,697,70,726,80,748,91,769,111,785,135,806,180,801,182,781,137,765,114,744,96,724,85,696,75,624,58,464,37"/>
-<area shape="poly" id="edge3_Node000003_Node000001" title=" " alt="" coords="312,82,354,44,357,48,316,86"/>
-<area shape="rect" id="Node000005" href="$Contact_8h_source.html" title=" " alt="" coords="248,181,412,221"/>
-<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="424,143,361,183,358,179,421,139"/>
-<area shape="rect" id="Node000007" href="$PhysicsManager_8h_source.html" title=" " alt="" coords="299,357,463,397"/>
-<area shape="poly" id="edge10_Node000004_Node000007" title=" " alt="" coords="463,148,451,223,440,267,426,310,398,359,393,356,421,308,435,266,446,222,458,147"/>
-<area shape="rect" id="Node000008" href="$PhysicsBody_8cpp.html" title=" " alt="" coords="359,445,523,485"/>
-<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="473,146,480,195,486,258,486,328,477,398,467,424,455,446,451,444,462,422,471,397,481,328,481,259,475,196,467,147"/>
-<area shape="rect" id="Node000006" href="$CollisionGenerator_8h_source.html" title=" " alt="" coords="248,269,412,309"/>
-<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="333,235,333,269,327,269,327,235"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="351,320,372,356,367,358,346,323"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="404,407,430,444,425,447,400,410"/>
-<area shape="rect" id="Node000010" href="$Render2D_8cpp.html" title=" " alt="" coords="539,181,703,221"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="642,147,630,182,625,180,637,146"/>
-<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="699,138,775,179,773,184,697,142"/>
+<area shape="rect" id="Node000001" title="Scene Object that represents a renderable object component." alt="" coords="1033,5,1197,45"/>
+<area shape="rect" id="Node000002" href="$Bullet_8h.html" title="Bullet object." alt="" coords="435,621,599,661"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1019,34,747,53,580,67,412,86,256,108,127,135,77,150,39,166,16,183,8,201,8,466,13,503,27,529,50,550,83,571,110,583,146,594,239,612,342,624,435,632,435,638,341,630,238,617,145,599,108,588,80,576,47,554,23,532,8,504,3,467,3,199,12,180,37,162,75,145,125,130,255,103,411,80,580,62,747,47,1019,29"/>
+<area shape="rect" id="Node000005" href="$Shoot_8h.html" title="Shoot component for the tanks." alt="" coords="1134,709,1298,749"/>
+<area shape="poly" id="edge41_Node000001_Node000005" title=" " alt="" coords="1139,55,1177,108,1220,173,1255,237,1265,265,1269,288,1269,555,1265,599,1254,643,1228,710,1223,708,1249,641,1260,599,1264,555,1264,288,1260,266,1250,239,1215,176,1173,111,1135,58"/>
+<area shape="rect" id="Node000007" href="$BulletSpawnEvent_8h.html" title="Bullet Spawn Event class." alt="" coords="1263,93,1427,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1179,48,1296,91,1294,96,1177,53"/>
+<area shape="rect" id="Node000008" href="$CollisionEvent_8h_source.html" title=" " alt="" coords="137,269,301,309"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1019,30,869,35,693,46,529,65,463,79,414,96,383,113,354,134,302,183,261,231,233,270,229,267,257,228,298,179,351,130,381,109,412,91,462,74,528,60,693,41,869,30,1019,25"/>
+<area shape="rect" id="Node000012" href="$Tank_8h.html" title="Tank object." alt="" coords="555,533,719,573"/>
+<area shape="poly" id="edge42_Node000001_Node000012" title=" " alt="" coords="1019,40,883,60,808,75,735,93,670,115,618,140,598,154,583,169,574,184,571,200,571,291,575,335,586,368,600,401,615,445,636,532,631,534,609,446,595,403,581,370,570,336,565,291,565,200,569,182,579,165,594,150,615,136,668,110,734,88,807,70,882,55,1018,34"/>
+<area shape="rect" id="Node000013" href="$Wall_8h.html" title="Wall object." alt="" coords="435,445,599,485"/>
+<area shape="poly" id="edge43_Node000001_Node000013" title=" " alt="" coords="1019,28,895,31,757,41,691,49,633,61,585,76,551,95,531,118,522,141,520,167,520,200,520,291,520,445,515,445,515,291,515,200,514,167,517,139,526,115,548,91,582,71,631,56,690,44,756,35,895,26,1019,23"/>
+<area shape="rect" id="Node000014" href="$GameObject_8cpp.html" title=" " alt="" coords="1451,93,1615,133"/>
+<area shape="poly" id="edge19_Node000001_Node000014" title=" " alt="" coords="1211,44,1452,93,1451,98,1210,49"/>
+<area shape="rect" id="Node000015" href="$GameObject_8inl.html" title=" " alt="" coords="1639,93,1803,133"/>
+<area shape="poly" id="edge20_Node000001_Node000015" title=" " alt="" coords="1211,36,1399,59,1616,91,1640,95,1639,100,1616,96,1398,64,1211,41"/>
+<area shape="rect" id="Node000016" href="$Movement_8h.html" title="Movement system for the tanks." alt="" coords="1305,181,1469,221"/>
+<area shape="poly" id="edge22_Node000001_Node000016" title=" " alt="" coords="1148,52,1197,91,1253,131,1344,179,1342,183,1251,136,1193,95,1145,56"/>
+<area shape="rect" id="Node000018" href="$PhysicsBody_8h.html" title="Physics body class." alt="" coords="973,93,1137,133"/>
+<area shape="poly" id="edge24_Node000001_Node000018" title=" " alt="" coords="1096,58,1070,95,1066,92,1091,55"/>
+<area shape="rect" id="Node000022" href="$Render2D_8h.html" title="Render component for 2D objects." alt="" coords="315,357,479,397"/>
+<area shape="poly" id="edge36_Node000001_Node000022" title=" " alt="" coords="1019,34,875,43,713,57,574,74,527,85,500,96,472,123,450,157,432,194,420,232,405,304,400,357,395,357,400,303,414,230,427,192,445,154,468,120,497,91,525,79,573,69,712,51,874,38,1019,29"/>
+<area shape="rect" id="Node000003" href="$Bullet_8cpp.html" title=" " alt="" coords="435,709,599,749"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="520,675,520,709,515,709,515,675"/>
+<area shape="rect" id="Node000004" href="$BulletHitListener_8h.html" title="Listener for Bullet Hit event." alt="" coords="111,709,275,749"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="434,667,265,712,264,707,433,662"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="613,652,1134,715,1133,721,613,657"/>
+<area shape="rect" id="Node000006" href="$Shoot_8cpp.html" title=" " alt="" coords="1134,797,1298,837"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1219,763,1219,797,1213,797,1213,763"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="171,318,133,344,97,377,69,418,62,440,59,464,59,555,62,579,70,603,97,646,132,681,166,707,162,711,128,685,93,649,65,605,56,581,53,555,53,464,56,439,65,415,93,374,130,340,168,314"/>
+<area shape="rect" id="Node000009" href="$CollisionListener_8h_source.html" title=" " alt="" coords="94,533,258,573"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="200,322,167,378,152,411,141,446,138,465,141,485,151,510,164,532,160,535,146,512,136,486,133,465,136,445,147,410,163,376,195,319"/>
+<area shape="rect" id="Node000010" href="$PhysicsManager_8h_source.html" title=" " alt="" coords="707,357,871,397"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="315,302,707,361,707,366,314,308"/>
+<area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="265,574,443,619,442,624,263,579"/>
+<area shape="poly" id="edge12_Node000010_Node000002" title=" " alt="" coords="791,412,788,449,778,493,761,537,734,575,704,599,670,616,635,628,600,636,599,631,633,623,668,611,701,594,730,572,756,534,773,491,782,448,786,411"/>
+<area shape="rect" id="Node000011" href="$PhysicsBody_8cpp.html" title=" " alt="" coords="895,445,1059,485"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="844,401,937,443,935,448,842,405"/>
+<area shape="poly" id="edge14_Node000010_Node000012" title=" " alt="" coords="770,410,709,487,661,535,657,531,705,484,766,407"/>
+<area shape="poly" id="edge16_Node000010_Node000013" title=" " alt="" coords="717,404,578,448,576,443,716,399"/>
+<area shape="poly" id="edge15_Node000012_Node000002" title=" " alt="" coords="601,584,545,623,542,619,598,579"/>
+<area shape="poly" id="edge17_Node000013_Node000002" title=" " alt="" coords="520,499,520,621,515,621,515,499"/>
+<area shape="poly" id="edge18_Node000013_Node000012" title=" " alt="" coords="557,491,612,531,609,535,554,496"/>
+<area shape="poly" id="edge21_Node000015_Node000001" title=" " alt="" coords="1627,94,1392,60,1197,37,1197,32,1393,55,1628,89"/>
+<area shape="rect" id="Node000017" href="$Movement_8cpp.html" title=" " alt="" coords="1305,269,1469,309"/>
+<area shape="poly" id="edge23_Node000016_Node000017" title=" " alt="" coords="1389,235,1389,269,1384,269,1384,235"/>
+<area shape="poly" id="edge25_Node000018_Node000002" title=" " alt="" coords="1089,141,1115,169,1141,204,1160,244,1168,288,1168,467,1163,489,1150,508,1130,526,1103,543,1033,570,948,592,856,610,762,623,600,638,599,633,761,617,855,604,947,587,1031,565,1100,538,1126,522,1146,505,1158,486,1163,466,1163,288,1155,246,1136,207,1111,172,1085,145"/>
+<area shape="poly" id="edge33_Node000018_Node000005" title=" " alt="" coords="1105,138,1143,164,1179,198,1207,240,1216,263,1219,288,1219,555,1219,709,1213,709,1213,555,1213,288,1211,264,1203,242,1175,202,1139,168,1102,142"/>
+<area shape="poly" id="edge32_Node000018_Node000010" title=" " alt="" coords="973,141,934,159,899,183,862,226,832,275,811,322,798,358,793,356,806,320,827,273,857,223,896,179,931,154,970,136"/>
+<area shape="poly" id="edge31_Node000018_Node000011" title=" " alt="" coords="1075,145,1088,181,1104,242,1116,293,1117,317,1114,342,1106,369,1092,399,1066,428,1034,447,1031,443,1063,423,1087,396,1101,367,1109,341,1112,317,1111,293,1099,243,1083,182,1070,147"/>
+<area shape="poly" id="edge34_Node000018_Node000012" title=" " alt="" coords="960,139,908,158,859,184,804,222,765,258,733,301,698,358,645,534,640,532,694,356,729,298,761,255,800,218,856,179,906,153,959,134"/>
+<area shape="poly" id="edge35_Node000018_Node000013" title=" " alt="" coords="959,123,874,131,784,143,705,160,674,171,652,183,635,202,616,230,580,306,526,446,521,444,575,304,612,228,631,199,649,179,672,166,703,155,783,138,873,125,959,118"/>
+<area shape="poly" id="edge30_Node000018_Node000016" title=" " alt="" coords="1141,134,1315,179,1313,184,1140,139"/>
+<area shape="rect" id="Node000019" href="$Contact_8h_source.html" title=" " alt="" coords="909,181,1073,221"/>
+<area shape="poly" id="edge26_Node000018_Node000019" title=" " alt="" coords="1034,146,1007,183,1003,180,1030,143"/>
+<area shape="rect" id="Node000020" href="$CollisionGenerator_8h.html" title="Collision Generator class." alt="" coords="905,269,1069,309"/>
+<area shape="poly" id="edge27_Node000019_Node000020" title=" " alt="" coords="992,235,990,269,985,269,986,235"/>
+<area shape="poly" id="edge29_Node000020_Node000010" title=" " alt="" coords="932,317,834,360,831,355,930,312"/>
+<area shape="rect" id="Node000021" href="$CollisionGenerator_8cpp.html" title=" " alt="" coords="896,357,1077,397"/>
+<area shape="poly" id="edge28_Node000020_Node000021" title=" " alt="" coords="989,323,989,357,984,357,984,323"/>
+<area shape="poly" id="edge37_Node000022_Node000002" title=" " alt="" coords="303,394,249,407,204,426,188,438,179,451,178,466,185,484,220,504,299,542,475,619,472,624,297,546,218,509,181,487,172,467,174,449,185,434,201,421,247,402,301,388"/>
+<area shape="poly" id="edge39_Node000022_Node000012" title=" " alt="" coords="400,410,407,449,415,467,426,484,454,507,487,524,521,535,556,543,555,548,520,541,485,528,451,511,422,487,410,470,402,450,395,411"/>
+<area shape="poly" id="edge40_Node000022_Node000013" title=" " alt="" coords="437,403,492,443,489,447,434,408"/>
+<area shape="rect" id="Node000023" href="$Render2D_8cpp.html" title=" " alt="" coords="195,445,359,485"/>
+<area shape="poly" id="edge38_Node000022_Node000023" title=" " alt="" coords="361,408,305,447,302,443,358,403"/>
 </map>

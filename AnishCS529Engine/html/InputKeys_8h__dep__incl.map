@@ -1,9 +1,15 @@
 <map id="AnishCS529Engine/src/InputKeys.h" name="AnishCS529Engine/src/InputKeys.h">
-<area shape="rect" id="Node000001" title="Key references to set up supported key constexpr." alt="" coords="99,5,263,45"/>
-<area shape="rect" id="Node000002" href="$Input_8h.html" title="Input system to handle window inputs." alt="" coords="99,93,263,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,59,183,93,178,93,178,59"/>
+<area shape="rect" id="Node000001" title="Key references to set up supported key constexpr." alt="" coords="193,5,357,45"/>
+<area shape="rect" id="Node000002" href="$Input_8h.html" title="Input system to handle window inputs." alt="" coords="193,93,357,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="278,59,278,93,273,93,273,59"/>
 <area shape="rect" id="Node000003" href="$Input_8cpp.html" title=" " alt="" coords="5,181,169,221"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="152,145,110,183,106,179,148,141"/>
-<area shape="rect" id="Node000004" href="$SphereJump_8cpp.html" title="Test main for a simple game for final grade." alt="" coords="193,181,357,221"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="214,141,256,179,253,183,210,145"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="223,141,130,184,127,179,221,137"/>
+<area shape="rect" id="Node000004" href="$Movement_8h.html" title="Movement system for the tanks." alt="" coords="193,181,357,221"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="278,147,278,181,273,181,273,147"/>
+<area shape="rect" id="Node000006" href="$Shoot_8h.html" title="Shoot component for the tanks." alt="" coords="381,181,545,221"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="330,137,423,179,421,184,328,141"/>
+<area shape="rect" id="Node000005" href="$Movement_8cpp.html" title=" " alt="" coords="193,269,357,309"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="278,235,278,269,273,269,273,235"/>
+<area shape="rect" id="Node000007" href="$Shoot_8cpp.html" title=" " alt="" coords="381,269,545,309"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="466,235,466,269,461,269,461,235"/>
 </map>

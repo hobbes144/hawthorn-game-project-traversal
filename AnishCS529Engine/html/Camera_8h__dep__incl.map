@@ -1,12 +1,26 @@
 <map id="AnishCS529Engine/src/Camera.h" name="AnishCS529Engine/src/Camera.h">
-<area shape="rect" id="Node000001" title="Camera object." alt="" coords="193,5,357,45"/>
+<area shape="rect" id="Node000001" title="Camera object." alt="" coords="99,5,263,45"/>
 <area shape="rect" id="Node000002" href="$Camera_8cpp.html" title=" " alt="" coords="5,93,169,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,53,130,96,127,91,221,49"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,57,110,95,106,91,148,53"/>
 <area shape="rect" id="Node000003" href="$Render2D_8h.html" title="Render component for 2D objects." alt="" coords="193,93,357,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="278,59,278,93,273,93,273,59"/>
-<area shape="rect" id="Node000005" href="$SphereJump_8cpp.html" title="Test main for a simple game for final grade." alt="" coords="313,181,477,221"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="328,50,352,69,372,92,384,114,391,138,397,181,392,181,386,139,379,116,368,95,348,73,324,55"/>
-<area shape="rect" id="Node000004" href="$Render2D_8cpp.html" title=" " alt="" coords="125,181,289,221"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="254,146,224,183,220,179,250,143"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="315,139,370,179,367,183,312,144"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,53,256,91,253,95,210,57"/>
+<area shape="rect" id="Node000004" href="$Bullet_8h.html" title="Bullet object." alt="" coords="253,357,417,397"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="181,138,148,156,123,183,117,201,123,220,138,244,156,266,199,304,245,334,288,355,286,360,243,338,196,308,152,270,133,247,118,222,111,201,118,180,145,152,179,134"/>
+<area shape="rect" id="Node000009" href="$Render2D_8cpp.html" title=" " alt="" coords="133,181,297,221"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="256,146,231,183,226,180,252,143"/>
+<area shape="rect" id="Node000010" href="$Tank_8h.html" title="Tank object." alt="" coords="253,269,417,309"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="295,144,311,180,325,228,335,269,329,270,320,229,306,182,290,147"/>
+<area shape="rect" id="Node000011" href="$Wall_8h.html" title="Wall object." alt="" coords="373,181,537,221"/>
+<area shape="poly" id="edge11_Node000003_Node000011" title=" " alt="" coords="328,137,417,179,415,184,326,142"/>
+<area shape="rect" id="Node000005" href="$Bullet_8cpp.html" title=" " alt="" coords="65,445,229,485"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="283,405,190,448,187,443,281,401"/>
+<area shape="rect" id="Node000006" href="$BulletHitListener_8h.html" title="Listener for Bullet Hit event." alt="" coords="253,445,417,485"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="338,411,338,445,333,445,333,411"/>
+<area shape="rect" id="Node000007" href="$Shoot_8h.html" title="Shoot component for the tanks." alt="" coords="441,445,605,485"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="390,401,483,443,481,448,388,405"/>
+<area shape="rect" id="Node000008" href="$Shoot_8cpp.html" title=" " alt="" coords="441,533,605,573"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="526,499,526,533,521,533,521,499"/>
+<area shape="poly" id="edge10_Node000010_Node000004" title=" " alt="" coords="338,323,338,357,333,357,333,323"/>
+<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="456,236,448,273,431,311,405,339,375,359,372,355,401,335,426,308,443,272,450,235"/>
+<area shape="poly" id="edge13_Node000011_Node000010" title=" " alt="" coords="419,232,363,271,360,267,416,227"/>
 </map>

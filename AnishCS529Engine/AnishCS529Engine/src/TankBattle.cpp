@@ -28,6 +28,7 @@
 #include "Movement.h"
 #include "Tank.h"
 #include "Wall.h"
+#include "Shoot.h"
 
 int main() {
   const std::string GameTitle = "SphereJump";
@@ -75,13 +76,13 @@ int main() {
   /* GameObject setup */
   /* Protagonist */
   auto protag = createTank("protag", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  protag->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
+  protag->setLocalPosition(Vector3(-2.0f, 0.0f, 0.0f));
   protag->addComponent<Movement>()->setInputSystem(mainInput);
   mainSceneGraph.addNode(protag);
 
   /* Enemy */
   auto enemy = createTank("enemy", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  enemy->setLocalPosition(Vector3(-1.0f, 0.0f, 0.0f));
+  enemy->setLocalPosition(Vector3(2.0f, 0.0f, 0.0f));
   enemy->addComponent<Movement>()->setInputSystem(mainInput)
     ->setUpKey(KEY_UP)->setDownKey(KEY_DOWN)
     ->setLeftKey(KEY_LEFT)->setRightKey(KEY_RIGHT);
@@ -112,23 +113,23 @@ int main() {
   std::vector<std::shared_ptr<Bullet>> pBullets;
 
   auto pBullet1 = createBullet("pBullet1", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  pBullet1->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f));
+  pBullet1->setOwner(protag)->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(pBullet1);
   pBullets.push_back(pBullet1);
   auto pBullet2 = createBullet("pBullet2", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  pBullet2->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  pBullet2->setOwner(protag)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(pBullet2);
   pBullets.push_back(pBullet2);
   auto pBullet3 = createBullet("pBullet3", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  pBullet3->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  pBullet3->setOwner(protag)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(pBullet3);
   pBullets.push_back(pBullet3);
   auto pBullet4 = createBullet("pBullet4", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  pBullet4->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  pBullet4->setOwner(protag)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(pBullet4);
   pBullets.push_back(pBullet4);
   auto pBullet5 = createBullet("pBullet5", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  pBullet5->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  pBullet5->setOwner(protag)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(pBullet5);
   pBullets.push_back(pBullet5);
 
@@ -136,35 +137,63 @@ int main() {
   std::vector<std::shared_ptr<Bullet>> eBullets;
 
   auto eBullet1 = createBullet("eBullet1", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  eBullet1->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  eBullet1->setOwner(enemy)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(eBullet1);
   eBullets.push_back(eBullet1);
   auto eBullet2 = createBullet("eBullet2", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  eBullet2->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  eBullet2->setOwner(enemy)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(eBullet2);
   eBullets.push_back(eBullet2);
   auto eBullet3 = createBullet("eBullet3", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  eBullet3->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  eBullet3->setOwner(enemy)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(eBullet3);
   eBullets.push_back(eBullet3);
   auto eBullet4 = createBullet("eBullet4", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  eBullet4->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  eBullet4->setOwner(enemy)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(eBullet4);
   eBullets.push_back(eBullet4);
   auto eBullet5 = createBullet("eBullet5", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  eBullet5->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+  eBullet5->setOwner(enemy)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(eBullet5);
   eBullets.push_back(eBullet5);
 
+  /* Setting up ability to shoot */
+  protag->addComponent<Shoot>()
+    ->setInputSystem(mainInput)->setBulletPool(pBullets);
+  enemy->addComponent<Shoot>()
+    ->setInputSystem(mainInput)->setBulletPool(eBullets)->setShootKey(KEY_ENTER);
+
   /* Events */
-  //CollisionListener enemyHit(enemy);
-  //EventManager::Instance().AddListener(&protagHit);
-  //EventManager::Instance().AddListener(&enemyHit);
-  CollisionListener bulletHit(pBullet1);
-  bulletHit.setCallback(onBulletHit);
-  
+  // Todo: Convert CollisionListener to a component and move this to the
+  // createBullet function.
+  CollisionListener pBullet1Hit(pBullet1);
+  pBullet1Hit.setCallback(onBulletHit);
+  CollisionListener pBullet2Hit(pBullet2);
+  pBullet2Hit.setCallback(onBulletHit);
+  CollisionListener pBullet3Hit(pBullet3);
+  pBullet3Hit.setCallback(onBulletHit);
+  CollisionListener pBullet4Hit(pBullet4);
+  pBullet4Hit.setCallback(onBulletHit);
+  CollisionListener pBullet5Hit(pBullet5);
+  pBullet5Hit.setCallback(onBulletHit);
+
+  CollisionListener eBullet1Hit(eBullet1);
+  eBullet1Hit.setCallback(onBulletHit);
+  CollisionListener eBullet2Hit(eBullet2);
+  eBullet2Hit.setCallback(onBulletHit);
+  CollisionListener eBullet3Hit(eBullet3);
+  eBullet3Hit.setCallback(onBulletHit);
+  CollisionListener eBullet4Hit(eBullet4);
+  eBullet4Hit.setCallback(onBulletHit);
+  CollisionListener eBullet5Hit(eBullet5);
+  eBullet5Hit.setCallback(onBulletHit);
+
   CollisionListener protagHit(protag);
   protagHit.setCallback(onTankHit);
+  CollisionListener enemyHit(enemy);
+  enemyHit.setCallback(onTankHit);
+
+  bool endStateReached = false;
 
   /* Main loop */
   while (!mainWindow->getShouldClose()) {
@@ -180,6 +209,21 @@ int main() {
     }
 
     if (mainInput->isKeyDown(KEY_ESCAPE)) mainWindow->setShouldClose();
+
+    if (!endStateReached) {
+      if (!protag->isEnabled() && !enemy->isEnabled()) {
+        std::cout << "Draw!";
+        endStateReached = true;
+      }
+      else if (!protag->isEnabled()) {
+        std::cout << "Player 2 wins!";
+        endStateReached = true;
+      }
+      else if (!enemy->isEnabled()) {
+        std::cout << "Player 1 wins!";
+        endStateReached = true;
+      }
+    }
 
     mainFramerateController->endFrame();
     mainRenderer->swapBuffers();

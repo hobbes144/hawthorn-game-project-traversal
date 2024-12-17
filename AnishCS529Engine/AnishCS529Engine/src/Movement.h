@@ -1,3 +1,14 @@
+/*!****************************************************************************
+ * \file   Movement.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    CS529
+ * \date   12-16-2024
+ * \brief  Movement system for the tanks
+ * 
+ *****************************************************************************/
 #pragma once
 
 #include "Component.h"

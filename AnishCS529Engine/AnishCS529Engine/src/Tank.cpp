@@ -24,7 +24,6 @@ void onTankHit(
 
   auto wallPtr = std::dynamic_pointer_cast<Wall>(other);
   if (wallPtr) {
-    std::cout << "Tank has hit a wall!\n";
     auto tankPhysicsComponent = tank->findComponent<PhysicsBody>();
     Vector3 f = tankPhysicsComponent->getVelocity();
     if (wallPtr->getName() == "upWall") {

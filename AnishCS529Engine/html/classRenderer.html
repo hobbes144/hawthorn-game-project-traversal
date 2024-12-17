@@ -181,21 +181,21 @@ std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> that implements an OpenGL renderer. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md100"></a>
+ <h2><a class="anchor" id="autotoc_md116"></a>
 Usage:</h2>
 <p><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> is needed to render objects onto the screen. This needs to be initialized to work with a window, and the draw call must be made to draw objects to the screen.</p>
-<h2><a class="anchor" id="autotoc_md101"></a>
+<h2><a class="anchor" id="autotoc_md117"></a>
 Pre-initialization calls:</h2>
 <ul>
 <li><a class="el" href="#aab912bce1476cc6baa74e7f5965dc204" title="Setter for game window.">setGameWindow(GameWindow* _gameWindow)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md102"></a>
+<h2><a class="anchor" id="autotoc_md118"></a>
 Post-initialization calls:</h2>
 <ul>
 <li><a class="el" href="#a7c337d089d8d4ca91ecac65dc7211003" title="Set if the renderer should render in 3D.">setIs3D(bool is3D)</a></li>
 <li><a class="el" href="#a68787a4c8f3eb2469b38caf5c9847445" title="Set the clear color of the screen.">setClearColor(float r, float g, float b, float a)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md103"></a>
+<h2><a class="anchor" id="autotoc_md119"></a>
 General lifecycle of a Renderer:</h2>
 <ul>
 <li>Init <a class="el" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic.">GameWindow</a> object.</li>
@@ -205,7 +205,7 @@ General lifecycle of a Renderer:</h2>
 <li>Run <a class="el" href="#a836adb0232451aef992580dcc4c62744" title="Draw objects in buffers.">draw()</a> calls for each of the objects to be rendered.</li>
 <li>Call <a class="el" href="#aef569e49c7b1b4839bea96a4477c5b2c" title="Swap window buffers.">swapBuffers()</a> to render the window buffer to the screen.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md104"></a>
+<h2><a class="anchor" id="autotoc_md120"></a>
 Notes:</h2>
 <p><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> class is specific to a window. It is possible to have multiple renderers, one for each window you have. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -226,10 +226,10 @@ Notes:</h2>
 
 <p>Clear the window. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md93"></a>
+ <h2><a class="anchor" id="autotoc_md109"></a>
 Usage:</h2>
 <p>This is to be called at the start of each frame.</p>
-<h2><a class="anchor" id="autotoc_md94"></a>
+<h2><a class="anchor" id="autotoc_md110"></a>
 Explanation:</h2>
 <p>The window must be cleared after each draw to ensure we are starting with a clean window. </p>
 
@@ -261,7 +261,7 @@ Explanation:</h2>
 
 <p>Draw objects in buffers. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md97"></a>
+ <h2><a class="anchor" id="autotoc_md113"></a>
 Usage:</h2>
 <p>Calls the appropriate draw call to draw the objects in the buffers.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -300,14 +300,14 @@ Usage:</h2>
 
 <p>Initialize the renderer. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md98"></a>
+ <h2><a class="anchor" id="autotoc_md114"></a>
 Required calls before init:</h2>
 <ul>
 <li><a class="el" href="#aab912bce1476cc6baa74e7f5965dc204" title="Setter for game window.">setGameWindow(GameWindow* _gameWindow)</a></li>
 <li><a class="el" href="#a7c337d089d8d4ca91ecac65dc7211003" title="Set if the renderer should render in 3D.">setIs3D(bool is3D)</a></li>
 <li><a class="el" href="#a68787a4c8f3eb2469b38caf5c9847445" title="Set the clear color of the screen.">setClearColor(float r, float g, float b, float a)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md99"></a>
+<h2><a class="anchor" id="autotoc_md115"></a>
 Usage:</h2>
 <p>Initializes the renderer to load OpenGL. </p>
 
@@ -346,7 +346,7 @@ Usage:</h2>
 
 <p>Set the clear color of the screen. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md92"></a>
+ <h2><a class="anchor" id="autotoc_md108"></a>
 Usage:</h2>
 <p>Sets the clear color for each screen clear.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -379,10 +379,10 @@ Usage:</h2>
 
 <p>Setter for game window. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md88"></a>
+ <h2><a class="anchor" id="autotoc_md104"></a>
 Usage:</h2>
 <p>This funciton is to be called to set up the game window that the renderer will output to.</p>
-<h2><a class="anchor" id="autotoc_md89"></a>
+<h2><a class="anchor" id="autotoc_md105"></a>
 Explanation:</h2>
 <p><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> will always output to a specific window. We can have multiple instances of renderer for multiple windows if needed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -412,10 +412,10 @@ Explanation:</h2>
 
 <p>Set if the renderer should render in 3D. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md90"></a>
+ <h2><a class="anchor" id="autotoc_md106"></a>
 Usage:</h2>
 <p>Sets OpenGL config to enable 3D rendering.</p>
-<h2><a class="anchor" id="autotoc_md91"></a>
+<h2><a class="anchor" id="autotoc_md107"></a>
 Explanation:</h2>
 <p>The renderer will perform optimizations specific to 2D rendering if not set to <code>true</code>.</p>
 <p>It enables depth in the rendering if set to <code>true</code>.</p>
@@ -477,10 +477,10 @@ Explanation:</h2>
 
 <p>Swap window buffers. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md95"></a>
+ <h2><a class="anchor" id="autotoc_md111"></a>
 Usage:</h2>
 <p>This is to be called at the end of each frame.</p>
-<h2><a class="anchor" id="autotoc_md96"></a>
+<h2><a class="anchor" id="autotoc_md112"></a>
 Explanation:</h2>
 <p>Until this is called, the frame will not appear on screen. Ensure this is called at the end of your rendering logic. </p>
 

@@ -1,0 +1,7 @@
+<map id="Shoot" name="Shoot">
+<area shape="rect" id="Node000001" title="Simple movement component implementing 2D movement." alt="" coords="103,93,162,119"/>
+<area shape="rect" id="Node000002" href="$classComponent.html" title="Component is the base class of all components." alt="" coords="5,13,108,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,46,123,91,119,95,75,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="133,5,285,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="183,57,146,95,142,91,179,53"/>
+</map>

@@ -124,9 +124,6 @@
     <Filter Include="SphereJump\Header Files\Events">
       <UniqueIdentifier>{bac8f0ba-07da-441e-861a-654ad5962561}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SphereJump\Source Files\Component">
-      <UniqueIdentifier>{7314fe49-5fd7-4425-b4be-00c1bcb8e477}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SphereJump\Header Files\GameObjects">
       <UniqueIdentifier>{55a75db2-e1a3-4e6b-b0aa-1f8e1485d2a0}</UniqueIdentifier>
     </Filter>
@@ -138,6 +135,9 @@
     </Filter>
     <Filter Include="SphereJump\Source Files\Listeners">
       <UniqueIdentifier>{2bc8542f-1a04-43cf-89bc-e76f5cad3aab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Source Files\Components">
+      <UniqueIdentifier>{7314fe49-5fd7-4425-b4be-00c1bcb8e477}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -255,9 +255,6 @@
     <ClCompile Include="src\PhysicsBody.cpp">
       <Filter>Engine\Source Files\Systems\PhysicsSystem\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\Movement.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Tank.cpp">
       <Filter>SphereJump\Source Files\GameObjects</Filter>
     </ClCompile>
@@ -269,6 +266,12 @@
     </ClCompile>
     <ClCompile Include="src\Wall.cpp">
       <Filter>SphereJump\Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Movement.cpp">
+      <Filter>SphereJump\Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shoot.cpp">
+      <Filter>SphereJump\Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="src\Wall.h">
       <Filter>SphereJump\Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shoot.h">
+      <Filter>SphereJump\Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

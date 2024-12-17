@@ -102,11 +102,17 @@ Inheritance diagram for GameObject:</div>
 <div class="dyncontent">
 <div class="center"><img src="classGameObject__inherit__graph.png" border="0" usemap="#aGameObject_inherit__map" alt="Inheritance graph"/></div>
 <map name="aGameObject_inherit__map" id="aGameObject_inherit__map">
-<area shape="rect" title="GameObject class that implements a single object in the scene." alt="" coords="25,167,137,192"/>
-<area shape="rect" href="classNode.html" title=" " alt="" coords="52,93,111,119"/>
-<area shape="poly" title=" " alt="" coords="84,132,84,167,79,167,79,132"/>
-<area shape="rect" title=" " alt="" coords="5,5,157,45"/>
-<area shape="poly" title=" " alt="" coords="84,59,84,93,79,93,79,59"/>
+<area shape="rect" title="GameObject class that implements a single object in the scene." alt="" coords="57,167,169,192"/>
+<area shape="rect" href="classBullet.html" title=" " alt="" coords="5,240,63,265"/>
+<area shape="poly" title=" " alt="" coords="92,203,49,242,45,238,88,199"/>
+<area shape="rect" href="classTank.html" title=" " alt="" coords="87,240,138,265"/>
+<area shape="poly" title=" " alt="" coords="115,206,115,240,110,240,110,206"/>
+<area shape="rect" href="classWall.html" title=" " alt="" coords="163,240,212,265"/>
+<area shape="poly" title=" " alt="" coords="136,199,177,238,173,242,133,203"/>
+<area shape="rect" href="classNode.html" title=" " alt="" coords="83,93,142,119"/>
+<area shape="poly" title=" " alt="" coords="115,132,115,167,110,167,110,132"/>
+<area shape="rect" title=" " alt="" coords="37,5,189,45"/>
+<area shape="poly" title=" " alt="" coords="115,59,115,93,110,93,110,59"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -298,15 +304,15 @@ static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>nextID
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> class that implements a single object in the scene. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md17"></a>
+ <h2><a class="anchor" id="autotoc_md26"></a>
 Usage:</h2>
 <p>GameObjects are the main objects in the game that represent anything from characters to terrain to hidden triggers and so on. GameObjects are meant to be handled by the <a class="el" href="classSceneGraph.html">SceneGraph</a>, and will be called from the SceneGraph::update(float deltaTime) call in the order they exist in the node tree.</p>
-<h2><a class="anchor" id="autotoc_md18"></a>
+<h2><a class="anchor" id="autotoc_md27"></a>
 Pre-initialization calls:</h2>
 <ul>
 <li>addComponent(std::shared_ptr&lt;Component&gt; component)</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md28"></a>
 General lifecycle of a GameObject:</h2>
 <ul>
 <li>Call <a class="el" href="#a06a9408b223e0708a3fe6b7c65decc67" title="Add a component by creating.">addComponent()</a> to add the required components. The update function will return the relevant <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> once created.</li>
@@ -336,13 +342,13 @@ template&lt;typename T &gt; </div>
 
 <p>Add a component by creating. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md20"></a>
+ <h2><a class="anchor" id="autotoc_md29"></a>
 Usage:</h2>
 <p>Game behaviour and properties are handled through components. This function adds components to the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> by creating them.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 Explanation:</h2>
 <p>Components that can be added include Render components (requiring <a class="el" href="classMesh.html">Mesh</a> and <a class="el" href="classMaterial.html" title="Class to manage Materials used by objects.">Material</a> components) and <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> components.</p>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md31"></a>
 Note:</h2>
 <p>Adding duplicates of a <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> type leads to undefined behaviour.</p>
 <dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;T&gt;</b> <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> created </dd></dl>
@@ -368,13 +374,13 @@ template&lt;typename T &gt; </div>
 
 <p>Add a component by input. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md23"></a>
+ <h2><a class="anchor" id="autotoc_md32"></a>
 Usage:</h2>
 <p>Game behaviour and properties are handled through components. This function adds components to the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> by accepting a component as input.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 Explanation:</h2>
 <p>Components that can be added include Render components (requiring <a class="el" href="classMesh.html">Mesh</a> and <a class="el" href="classMaterial.html" title="Class to manage Materials used by objects.">Material</a> components) and <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> components.</p>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md34"></a>
 Note:</h2>
 <p>Adding duplicates of a <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> type leads to undefined behaviour.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -404,10 +410,10 @@ Note:</h2>
 
 <p>Disable the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a>. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md8"></a>
+ <h2><a class="anchor" id="autotoc_md17"></a>
 Usage:</h2>
 <p>This is used to disable or "Kill" a game object. This will ensure that the object is no longer processed even though it is still in memory.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 Explanation:</h2>
 <p>This disables update calls for the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a>, ensuring that all <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> objects are not run. If further control is needed, <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> also provides a <a class="el" href="classComponent.html#a5944c18d0e1de53f2842149ca364b672" title="Disable the component.">Component::disable()</a> call.</p>
 <dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;GameObject&gt;</b> Self shared pointer to allow chaining. </dd></dl>
@@ -431,10 +437,10 @@ Explanation:</h2>
 
 <p>Enable the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a>. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md6"></a>
+ <h2><a class="anchor" id="autotoc_md15"></a>
 Usage:</h2>
 <p>This is to be used to "spawn" in an object that is already loaded in memory. To reduce object init calls, ensure objects that aren't immediately needed are initialized at the start of scene but disabled until in use.</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Explanation:</h2>
 <p>This enables update calls for the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a>, ensuring that all enabled <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> objects are run. If further control is needed, <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> also provides a <a class="el" href="classComponent.html#af659603312b1770279f3722f8ea303a4" title="Enable the component.">Component::enable()</a> call.</p>
 <dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;GameObject&gt;</b> Self shared pointer to allow chaining. </dd></dl>
@@ -460,7 +466,7 @@ template&lt;typename T &gt; </div>
 
 <p>Find a component and return a pointer to it. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md27"></a>
+ <h2><a class="anchor" id="autotoc_md36"></a>
 Usage:</h2>
 <p>This can be used to get a specific component added to the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd><b></b> &lt;Component derived class&gt;* <a class="el" href="classComponent.html" title="Component is the base class of all components.">Component</a> being searched for. </dd></dl>
@@ -492,10 +498,10 @@ Usage:</h2>
 
 <p>Initialize an object. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md11"></a>
+ <h2><a class="anchor" id="autotoc_md20"></a>
 Usage:</h2>
 <p>Ensure that all components are added and configured before running initialize.</p>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 Explanation:</h2>
 <p>Calls Component::initialize() for each of the components added to the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a>. </p>
 
@@ -560,7 +566,7 @@ Explanation:</h2>
 
 <p>Mark component for deletion. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md10"></a>
+ <h2><a class="anchor" id="autotoc_md19"></a>
 Usage:</h2>
 <p>This function is intended to be used alongside a garbage collection system that ensures that objects are cleaned up when there are resources available to do so.</p>
 <dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;GameObject&gt;</b> Self shared pointer to allow chaining. </dd></dl>
@@ -586,7 +592,7 @@ template&lt;typename T &gt; </div>
 
 <p>Remove a component. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md26"></a>
+ <h2><a class="anchor" id="autotoc_md35"></a>
 Usage:</h2>
 <p>This is to be used when a <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> no longer needs a specific component. Note that this is a heavy call so it is to be avoided as much as possible. Prefer to use events to disable components.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -623,7 +629,7 @@ Usage:</h2>
 
 <p>Shutdown the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> along with all its components. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md16"></a>
+ <h2><a class="anchor" id="autotoc_md25"></a>
 Usage:</h2>
 <p>This is to be called at the end of the main loop, or whenever a <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> is no longer going to be used. Component::shutdown() will be called for all components of the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a>. </p>
 
@@ -654,13 +660,13 @@ Usage:</h2>
 
 <p>Update the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> with all components. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md13"></a>
+ <h2><a class="anchor" id="autotoc_md22"></a>
 Usage:</h2>
 <p>Use in the main loop to run the Component::update(float deltaTime) function for each of the components.</p>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md23"></a>
 Explanation:</h2>
 <p>The update call is intended to execute all relevant time-based game behaviour. Events are handled through the event system, and update calls may invoke events.</p>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 Note:</h2>
 <p>Components are updated in the order they are added to the vector. If you have any behaviour that is order dependent, ensure you have it correctly ordered, or consider using a separate system to manage these components.</p>
 <dl class="params"><dt>Parameters</dt><dd>
