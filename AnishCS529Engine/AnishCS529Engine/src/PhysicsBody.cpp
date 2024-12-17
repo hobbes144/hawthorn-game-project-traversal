@@ -255,12 +255,6 @@ bool PhysicsBody::getIsStatic()         const { return isStatic; }
 Shape* PhysicsBody::getShape()          const { return collisionShape.get(); }
 
 /*!****************************************************************************
- * \brief Dummy initialize function
- * 
- *****************************************************************************/
-void PhysicsBody::initialize() {}
-
-/*!****************************************************************************
  * \brief Update the GameObject and its related collision
  * 
  * ## Usage:
@@ -270,15 +264,25 @@ void PhysicsBody::initialize() {}
  * 
  * ## Note:
  * 
- * Look into how collision Shape and the PhysicsManager systems work to ensure
+ * This is not used in the update call since physics is usually handled
+ * separately to ensure consistent physics.
+ * 
+ * Look into how collision Shape and the PhysicsManager system work to ensure
  * collisions are handled correctly.
  * 
  * \param deltaTime
  *****************************************************************************/
-void PhysicsBody::update(float deltaTime) {
+void PhysicsBody::integrate(float deltaTime) {
   if (isStatic) return;
 
-  Vector3 netFriction = velocity.normalized() * velocity.magnitude() * -friction;
+  Vector3 netFriction;
+  if (velocity.magnitude() > 0) {
+    netFriction = velocity.normalized() * velocity.magnitude() * -friction;
+  }
+  else {
+    netFriction = Vector3(0.0f, 0.0f, 0.0f);
+  }
+
 
   acceleration = acceleration + (force + netFriction) * inverseMass;
   velocity = velocity + (acceleration * deltaTime);
@@ -305,6 +309,18 @@ void PhysicsBody::update(float deltaTime) {
   force = Vector3(0, 0, 0);
   acceleration = Vector3(0, 0, 0);
 }
+
+/*!****************************************************************************
+ * \brief Dummy initialize function
+ * 
+ *****************************************************************************/
+void PhysicsBody::initialize() {}
+
+/*!****************************************************************************
+ * \brief Dummy update function
+ * 
+ *****************************************************************************/
+void PhysicsBody::update(float deltaTime) {}
 
 /*!****************************************************************************
  * \brief Dummy shutdown function

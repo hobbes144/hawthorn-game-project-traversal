@@ -151,6 +151,12 @@ T FramerateController<T>::getTime() {
   return static_cast<T>(glfwGetTime());
 }
 
+template<typename T>
+inline T FramerateController<T>::getPhysicsTimestep()
+{
+  return physicsAccumulatorTimestep;
+}
+
 /*!****************************************************************************
  * \brief Set the timestep for the Physics Accumulator
  * 

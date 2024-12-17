@@ -15,6 +15,7 @@
 #include "GameObject.h"
 #include "GameWindow.h"
 #include "Input.h"
+#include "PhysicsBody.h"
 #include "Render2D.h"
 #include "Renderer.h"
 #include "SceneGraph.h"
@@ -68,6 +69,8 @@ int main() {
     ->setMesh(createSquareMesh("protag"));
   protag->setLocalPosition(Vector3(1.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(protag);
+  protag->addComponent<PhysicsBody>()
+    ->setMass(10.0f)->setFriction(100.0f);
 
   auto enemy = std::make_shared<GameObject>("enemy1");
   enemy->addComponent<Render2D>()
@@ -76,16 +79,30 @@ int main() {
     ->setMesh(createSquareMesh("enemy"));
   enemy->setLocalPosition(Vector3(-1.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(enemy);
+  enemy->addComponent<PhysicsBody>()
+    ->setMass(10.0f);
 
   /* Main loop */
   while (!mainWindow->getShouldClose()) {
     mainRenderer->clear();
     mainInput->update();
+    mainFramerateController->startFrame();
 
     mainSceneGraph.update(0.0f);
 
+    if (mainInput->isKeyDown(KEY_W)) {
+      protag->findComponent<PhysicsBody>()
+        ->applyForce(Vector3(0.0f, 1000.0f, 0.0f));
+    }
+
+    while (mainFramerateController->shouldUpdatePhysics()) {
+      protag->findComponent<PhysicsBody>()->integrate(mainFramerateController->getPhysicsTimestep());
+      mainFramerateController->consumePhysicsTime();
+    }
+
     if (mainInput->isKeyDown(KEY_ESCAPE)) mainWindow->setShouldClose();
 
+    mainFramerateController->endFrame();
     mainRenderer->swapBuffers();
     mainWindow->update();
   }

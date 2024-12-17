@@ -74,6 +74,9 @@ public:
   void update(float deltaTime);
   void shutdown();
 
+  /* Physics update function */
+  void integrate(float deltaTime);
+
   /* Utility functions */
   std::shared_ptr<PhysicsBody> registerToPhysicsManager(
     PhysicsManager* manager);

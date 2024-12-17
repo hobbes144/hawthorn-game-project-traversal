@@ -11,12 +11,12 @@ class PhysicsManager {
 public:
   static PhysicsManager& Instance();
 
-  void addBody(PhysicsBody* body);
-  void removeBody(PhysicsBody* body);
+  void addBody(std::shared_ptr<PhysicsBody> body);
+  void removeBody(std::shared_ptr<PhysicsBody> body);
 
   void update(const float deltaTime);
 
-  const std::vector<PhysicsBody*>& getBodies() const { return bodies; }
+  const std::vector<std::shared_ptr<PhysicsBody>>& getBodies() const { return bodies; }
 
 private:
   PhysicsManager() = default;
@@ -25,6 +25,6 @@ private:
 
   void checkCollisions();
 
-  std::vector<PhysicsBody*> bodies;
+  std::vector<std::shared_ptr<PhysicsBody>> bodies;
   CollisionGenerator collisionGenerator;
 };
