@@ -125,14 +125,6 @@ int main() {
   pBullet3->setOwner(protag)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(pBullet3);
   pBullets.push_back(pBullet3);
-  auto pBullet4 = createBullet("pBullet4", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  pBullet4->setOwner(protag)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
-  mainSceneGraph.addNode(pBullet4);
-  pBullets.push_back(pBullet4);
-  auto pBullet5 = createBullet("pBullet5", mainRenderer, camera, Vector3(0.25f, 0.25f, 1.0f));
-  pBullet5->setOwner(protag)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
-  mainSceneGraph.addNode(pBullet5);
-  pBullets.push_back(pBullet5);
 
   /* Enemy bullets */
   std::vector<std::shared_ptr<Bullet>> eBullets;
@@ -149,14 +141,6 @@ int main() {
   eBullet3->setOwner(enemy)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
   mainSceneGraph.addNode(eBullet3);
   eBullets.push_back(eBullet3);
-  auto eBullet4 = createBullet("eBullet4", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  eBullet4->setOwner(enemy)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
-  mainSceneGraph.addNode(eBullet4);
-  eBullets.push_back(eBullet4);
-  auto eBullet5 = createBullet("eBullet5", mainRenderer, camera, Vector3(1.0f, 0.25f, 0.25f));
-  eBullet5->setOwner(enemy)->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
-  mainSceneGraph.addNode(eBullet5);
-  eBullets.push_back(eBullet5);
 
   /* Setting up ability to shoot */
   protag->addComponent<Shoot>()
@@ -173,10 +157,6 @@ int main() {
   pBullet2Hit.setCallback(onBulletHit);
   CollisionListener pBullet3Hit(pBullet3);
   pBullet3Hit.setCallback(onBulletHit);
-  CollisionListener pBullet4Hit(pBullet4);
-  pBullet4Hit.setCallback(onBulletHit);
-  CollisionListener pBullet5Hit(pBullet5);
-  pBullet5Hit.setCallback(onBulletHit);
 
   CollisionListener eBullet1Hit(eBullet1);
   eBullet1Hit.setCallback(onBulletHit);
@@ -184,10 +164,6 @@ int main() {
   eBullet2Hit.setCallback(onBulletHit);
   CollisionListener eBullet3Hit(eBullet3);
   eBullet3Hit.setCallback(onBulletHit);
-  CollisionListener eBullet4Hit(eBullet4);
-  eBullet4Hit.setCallback(onBulletHit);
-  CollisionListener eBullet5Hit(eBullet5);
-  eBullet5Hit.setCallback(onBulletHit);
 
   CollisionListener protagHit(protag);
   protagHit.setCallback(onTankHit);
@@ -199,20 +175,20 @@ int main() {
   auto p1WinScreen = std::make_shared<GameObject>("p1Win");
   p1WinScreen->addComponent<Render2D>()
     ->setRenderer(mainRenderer)->setCamera(camera)
-    ->setMaterial(createTextureMaterial("media/Player2Died.png"))
+    ->setMaterial(createTextureMaterial("media/Player1Wins.png"))
     ->setMesh(createSquareMesh("p1Win"));
   p1WinScreen->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
-    ->setLocalScaling(Vector3(12.0f, 8.0f, 1.0f));
+    ->setLocalScaling(Vector3(15.0f, 10.0f, 1.0f));
   p1WinScreen->disable();
   mainSceneGraph.addNode(p1WinScreen);
 
   auto p2WinScreen = std::make_shared<GameObject>("p2Win");
   p2WinScreen->addComponent<Render2D>()
     ->setRenderer(mainRenderer)->setCamera(camera)
-    ->setMaterial(createTextureMaterial("media/Player1Died.png"))
+    ->setMaterial(createTextureMaterial("media/Player2Wins.png"))
     ->setMesh(createSquareMesh("p2Win"));
   p2WinScreen->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
-    ->setLocalScaling(Vector3(12.0f, 8.0f, 1.0f));
+    ->setLocalScaling(Vector3(15.0f, 10.0f, 1.0f));
   p2WinScreen->disable();
   mainSceneGraph.addNode(p2WinScreen);
 
@@ -222,7 +198,7 @@ int main() {
     ->setMaterial(createTextureMaterial("media/Draw.png"))
     ->setMesh(createSquareMesh("playerDraw"));
   playerDrawScreen->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
-    ->setLocalScaling(Vector3(12.0f, 8.0f, 1.0f));
+    ->setLocalScaling(Vector3(15.0f, 10.0f, 1.0f));
   playerDrawScreen->disable();
   mainSceneGraph.addNode(playerDrawScreen);
 

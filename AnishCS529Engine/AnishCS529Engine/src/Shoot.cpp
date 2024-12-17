@@ -70,7 +70,7 @@ void Shoot::update(float deltaTime)
 
     bullet->setLocalPosition(
         bullet->getLocalScaling().reciprocal() * (
-          parent->getLocalPosition() + Vector3(offset, 0.0f, 0.0f)
+          (parent->getLocalScaling() * parent->getLocalPosition()) + Vector3(offset, 0.0f, 0.0f)
         )
       );
     bullet->findComponent<PhysicsBody>()
