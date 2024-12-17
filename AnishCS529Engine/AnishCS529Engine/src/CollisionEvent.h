@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Event.h"
-#include "RenderableNode.h"
+#include "GameObject.h"
 
 class CollisionEvent : public Event {
 public:
-  CollisionEvent(RenderableNode* obj1, RenderableNode* obj2)
+  CollisionEvent(
+    std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2)
     : object1(obj1), object2(obj2) {}
 
-  RenderableNode* object1;
-  RenderableNode* object2;
+  std::shared_ptr<GameObject> object1;
+  std::shared_ptr<GameObject> object2;
 };

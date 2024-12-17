@@ -7,16 +7,20 @@
 
 #include <vector>
 
-class PhysicsManager {
+class PhysicsManager : public Component {
 public:
   static PhysicsManager& Instance();
+
+  void initialize();
+  void update(float deltaTime);
+  void shutdown();
 
   void addBody(std::shared_ptr<PhysicsBody> body);
   void removeBody(std::shared_ptr<PhysicsBody> body);
 
-  void update(const float deltaTime);
-
-  const std::vector<std::shared_ptr<PhysicsBody>>& getBodies() const { return bodies; }
+  const std::vector<std::shared_ptr<PhysicsBody>>& getBodies() const { 
+    return bodies;
+  }
 
 private:
   PhysicsManager() = default;

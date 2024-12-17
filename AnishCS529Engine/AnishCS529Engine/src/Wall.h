@@ -1,16 +1,16 @@
 /*!****************************************************************************
- * \file   Tank.h
+ * \file   Wall.h
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
  * \par    **Course**
  *    CS529
- * \date   12-13-2024
- * \brief  Tank object
+ * \date   12-16-2024
+ * \brief  Wall object
  * 
  *****************************************************************************/
-#ifndef TANK_H
-#define TANK_H
+#ifndef WALL_H
+#define WALL_H
 
 #pragma once
 
@@ -20,13 +20,13 @@
 #include "PhysicsManager.h"
 #include "Render2D.h"
 
-class Tank : public GameObject {
+class Wall : public GameObject {
 public:
-  Tank(std::string name) : GameObject(name) {};
+  Wall(std::string name) : GameObject(name) {};
 };
 
-std::shared_ptr<Tank> createTank(
-  std::string name, Renderer* renderer, 
+std::shared_ptr<Wall> createWall(
+  std::string name, Renderer* renderer,
   std::shared_ptr<Camera> camera, Vector3 color);
 
-#endif // TANK_H
+#endif // WALL_H

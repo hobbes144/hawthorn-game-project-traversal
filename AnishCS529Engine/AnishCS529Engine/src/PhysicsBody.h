@@ -79,7 +79,7 @@ public:
 
   /* Utility functions */
   std::shared_ptr<PhysicsBody> registerToPhysicsManager(
-    PhysicsManager* manager);
+    PhysicsManager& manager);
   std::shared_ptr<PhysicsBody> setMass(float newMass);
   std::shared_ptr<PhysicsBody> setVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setAcceleration(const Vector3& acc);
@@ -97,7 +97,7 @@ public:
   float       getRestitution()  const;
   float       getFriction()     const;
   bool        getIsStatic()     const;
-  Shape* getShape()        const;
+  std::shared_ptr<Shape> getShape()        const;
 
 private:
   float mass;

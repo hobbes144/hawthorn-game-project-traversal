@@ -121,6 +121,24 @@
     <Filter Include="Engine\Source Files\Systems\PhysicsSystem\Components">
       <UniqueIdentifier>{70477c14-dad4-4065-8810-f68c41c954d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SphereJump\Header Files\Events">
+      <UniqueIdentifier>{bac8f0ba-07da-441e-861a-654ad5962561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Source Files\Component">
+      <UniqueIdentifier>{7314fe49-5fd7-4425-b4be-00c1bcb8e477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Header Files\GameObjects">
+      <UniqueIdentifier>{55a75db2-e1a3-4e6b-b0aa-1f8e1485d2a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Source Files\GameObjects">
+      <UniqueIdentifier>{05085c6d-0944-4ae6-a46e-ffb540ad1c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Header Files\Listeners">
+      <UniqueIdentifier>{d0b51381-0443-4078-becc-a04c0dfeb238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SphereJump\Source Files\Listeners">
+      <UniqueIdentifier>{2bc8542f-1a04-43cf-89bc-e76f5cad3aab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -198,7 +216,7 @@
     <ClCompile Include="src\Texture.cpp">
       <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
-    <ClCompile Include="src\SphereJump.cpp">
+    <ClCompile Include="src\TankBattle.cpp">
       <Filter>SphereJump</Filter>
     </ClCompile>
     <ClCompile Include="src\Component.cpp">
@@ -236,6 +254,21 @@
     </ClCompile>
     <ClCompile Include="src\PhysicsBody.cpp">
       <Filter>Engine\Source Files\Systems\PhysicsSystem\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Movement.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tank.cpp">
+      <Filter>SphereJump\Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bullet.cpp">
+      <Filter>SphereJump\Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BulletHitListener.cpp">
+      <Filter>SphereJump\Source Files\Listeners</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Wall.cpp">
+      <Filter>SphereJump\Source Files\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -359,14 +392,29 @@
     <ClInclude Include="src\Texture.h">
       <Filter>Engine\Header Files\ObjectResources\Materials/Textures</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tank.h">
-      <Filter>SphereJump\Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="src\PhysicsBodyOld.h">
       <Filter>Engine\Header Files\Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="src\PhysicsBody.h">
       <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BulletSpawnEvent.h">
+      <Filter>SphereJump\Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Movement.h">
+      <Filter>SphereJump\Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tank.h">
+      <Filter>SphereJump\Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Bullet.h">
+      <Filter>SphereJump\Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BulletHitListener.h">
+      <Filter>SphereJump\Header Files\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wall.h">
+      <Filter>SphereJump\Header Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

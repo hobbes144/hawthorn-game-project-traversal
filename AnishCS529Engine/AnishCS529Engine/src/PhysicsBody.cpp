@@ -24,9 +24,10 @@
  * \param manager PhysicsManager
  * \return \b std::shared_ptr<PhysicsBody> Self
  *****************************************************************************/
-std::shared_ptr<PhysicsBody> PhysicsBody::registerToPhysicsManager(PhysicsManager* manager)
+std::shared_ptr<PhysicsBody> PhysicsBody::registerToPhysicsManager(
+  PhysicsManager& manager)
 {
-  manager->addBody(shared_from_this());
+  manager.addBody(shared_from_this());
   return shared_from_this();
 }
 
@@ -252,7 +253,7 @@ bool PhysicsBody::getIsStatic()         const { return isStatic; }
  * 
  * \return \b Shape* Collision Shape
  *****************************************************************************/
-Shape* PhysicsBody::getShape()          const { return collisionShape.get(); }
+std::shared_ptr<Shape> PhysicsBody::getShape() const { return collisionShape; }
 
 /*!****************************************************************************
  * \brief Update the GameObject and its related collision
@@ -273,22 +274,24 @@ Shape* PhysicsBody::getShape()          const { return collisionShape.get(); }
  * \param deltaTime
  *****************************************************************************/
 void PhysicsBody::integrate(float deltaTime) {
-  if (isStatic) return;
+  if (!parent->isEnabled()) return;
+  if (!isStatic) {
 
-  Vector3 netFriction;
-  if (velocity.magnitude() > 0) {
-    netFriction = velocity.normalized() * velocity.magnitude() * -friction;
+    Vector3 netFriction;
+    if (velocity.magnitude() > 0) {
+      netFriction = velocity.normalized() * velocity.magnitude() * -friction;
+    }
+    else {
+      netFriction = Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+
+    acceleration = acceleration + (force + netFriction) * inverseMass;
+    velocity = velocity + (acceleration * deltaTime);
+
+    Vector3 newPosition = parent->getLocalPosition() + (velocity * deltaTime);
+    parent->setLocalPosition(newPosition);
   }
-  else {
-    netFriction = Vector3(0.0f, 0.0f, 0.0f);
-  }
-
-
-  acceleration = acceleration + (force + netFriction) * inverseMass;
-  velocity = velocity + (acceleration * deltaTime);
-
-  Vector3 newPosition = parent->getLocalPosition() + (velocity * deltaTime);
-  parent->setLocalPosition(newPosition);
 
   // Update collision shape
   if (collisionShape) {
