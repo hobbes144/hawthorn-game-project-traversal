@@ -157,8 +157,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af8f37f8fd6225c4cfb60e76d13d04c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for GLFW window object.  <br /></td></tr>
 <tr class="separator:af8f37f8fd6225c4cfb60e76d13d04c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classComponent"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classComponent')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classComponent.html">Component</a></td></tr>
-<tr class="memitem:a3b3bee5d55446124842e5f2e229e1384 inherit pub_methods_classComponent" id="r_a3b3bee5d55446124842e5f2e229e1384"><td class="memItemLeft" align="right" valign="top">
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (float deltaTime)</td></tr>
+<tr class="memitem:a3b3bee5d55446124842e5f2e229e1384 inherit pub_methods_classComponent" id="r_a3b3bee5d55446124842e5f2e229e1384"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#a3b3bee5d55446124842e5f2e229e1384">update</a> (float deltaTime)</td></tr>
 <tr class="separator:a3b3bee5d55446124842e5f2e229e1384 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent" id="r_af659603312b1770279f3722f8ea303a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#af659603312b1770279f3722f8ea303a4">enable</a> ()</td></tr>
 <tr class="memdesc:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the component.  <br /></td></tr>
@@ -198,17 +197,17 @@ std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that sets up the GLFW window and associated logic. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md32"></a>
+ <h2><a class="anchor" id="autotoc_md39"></a>
 Usage:</h2>
 <p>The Game Window is the window where all game related functions run. It is where render calls are drawn, and where inputs are read from.</p>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md40"></a>
 Pre-initialization calls:</h2>
 <ul>
 <li><a class="el" href="#a0693380c47a740969f0c41b3c36f0452" title="Setter for the window title.">setTitle(std::string _title)</a></li>
 <li><a class="el" href="#a307d794d85158a5ec7846c95d033f8d7" title="Setter for the width of the window.">setWidth(int _width)</a></li>
 <li><a class="el" href="#af5f15fa1f8cc9d777c5413d8d9108e90" title="Setter for the height of the window.">setHeight(int _height)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md41"></a>
 General lifecycle of a GameWindow:</h2>
 <ul>
 <li>Init <a class="el" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic.">GameWindow</a> object.</li>
@@ -330,14 +329,14 @@ General lifecycle of a GameWindow:</h2>
 
 <p>Initializer for GLFW and the GLFW window. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md28"></a>
+ <h2><a class="anchor" id="autotoc_md35"></a>
 Required calls before init:</h2>
 <ul>
 <li><a class="el" href="#a0693380c47a740969f0c41b3c36f0452" title="Setter for the window title.">setTitle(std::string _title)</a></li>
 <li><a class="el" href="#a307d794d85158a5ec7846c95d033f8d7" title="Setter for the width of the window.">setWidth(int _width)</a></li>
 <li><a class="el" href="#af5f15fa1f8cc9d777c5413d8d9108e90" title="Setter for the height of the window.">setHeight(int _height)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md36"></a>
 Usage:</h2>
 <p>This must be called at the start of the program to create the game window. </p>
 
@@ -389,7 +388,7 @@ Usage:</h2>
 
 <p>Function to set the window should close signal. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md27"></a>
+ <h2><a class="anchor" id="autotoc_md34"></a>
 Usage:</h2>
 <p>Use this at the end of game loop to close the window and end the rendering. </p>
 
@@ -412,7 +411,7 @@ Usage:</h2>
 
 <p>Setter for the window title. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md24"></a>
+ <h2><a class="anchor" id="autotoc_md31"></a>
 Usage:</h2>
 <p>This is used to label and identify windows. Multiple windows must have different titles.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -442,11 +441,11 @@ Usage:</h2>
 
 <p>Setter for if Vsync should be used. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md25"></a>
+ <h2><a class="anchor" id="autotoc_md32"></a>
 Usage:</h2>
 <p>THIS FUNCTION MUST ONLY BE CALLED AFTER <code>Renderer::init()</code>! Calling this function before initializing the renderer will lead to a <code>GLFW_NO_CURRENT_CONTEXT</code> error.</p>
 <p>This sets up OpenGL to wait for the screen to fully update before swapping the buffers.</p>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 Explanation:</h2>
 <p>Default behaviour for buffer swapping varies by device, so setting this ensures vsync behaviour. If set to false, buffer swapping occurs acyncronouosly as soon as the frame is ready. If set to true, buffer will wait for screen update before swapping.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -511,7 +510,7 @@ Explanation:</h2>
 
 <p>Shutdown function to terminate the window and GLFW. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md31"></a>
+ <h2><a class="anchor" id="autotoc_md38"></a>
 Usage:</h2>
 <p>This function destroys the game window and terminates OpenGL. </p>
 
@@ -536,7 +535,7 @@ Usage:</h2>
 
 <p>Update function. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md30"></a>
+ <h2><a class="anchor" id="autotoc_md37"></a>
 Usage:</h2>
 <p>This function must be called at the end/beginning of the game loop to read window events. This includes all mouse, keyboard and other input device signals as long as the window is in focus. </p>
 

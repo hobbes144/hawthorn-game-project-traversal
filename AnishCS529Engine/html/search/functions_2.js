@@ -5,5 +5,6 @@ var searchData=
   ['consumephysicstime_2',['consumePhysicsTime',['../classFramerateController.html#a526d635f49149111b6a791840c72283c',1,'FramerateController']]],
   ['create_3',['create',['../classGeometryBuffer.html#a0f4472e3c564fc2b2894cdd721fd7ca0',1,'GeometryBuffer::create(Attributes &amp;attributeData, const std::string &amp;name, bool bufferIsInterleaved=true)'],['../classGeometryBuffer.html#a3e3a5a93ddd6e1d0efb13ca802db1e1c',1,'GeometryBuffer::create(Attributes &amp;attributeData, const std::vector&lt; unsigned int &gt; &amp;indices, const std::string &amp;name, bool bufferIsInterleaved=true)']]],
   ['createaccumulator_4',['createAccumulator',['../classFramerateController.html#a2d88c54ea6da277ecd4599e43a9a0edb',1,'FramerateController']]],
-  ['createratecontroller_5',['createRateController',['../classFramerateController.html#aa26ad8a5f649a76413c1900df65d2061',1,'FramerateController']]]
+  ['createratecontroller_5',['createRateController',['../classFramerateController.html#aa26ad8a5f649a76413c1900df65d2061',1,'FramerateController']]],
+  ['createsolidcolormaterial_6',['createSolidColorMaterial',['../Material_8cpp.html#a50ac9189783fa9fb4bbbbe24aab875f5',1,'createSolidColorMaterial(const Vector3 &amp;color):&#160;Material.cpp'],['../Material_8h.html#a50ac9189783fa9fb4bbbbe24aab875f5',1,'createSolidColorMaterial(const Vector3 &amp;color):&#160;Material.cpp']]]
 ];

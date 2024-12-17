@@ -18,9 +18,6 @@ void PhysicsManager::removeBody(PhysicsBody* body) {
 }
 
 void PhysicsManager::update(const float deltaTime) {
-  for (size_t i = 0; i < bodies.size(); i++) {
-    bodies[i]->integrate(deltaTime);
-  }
   checkCollisions();
 }
 
@@ -32,8 +29,8 @@ void PhysicsManager::checkCollisions() {
       if (collisionGenerator.generateContact(bodies[i], bodies[j], contact)) {
         // Collision detected, broadcast event
         CollisionEvent event(
-            contact.bodies[0]->getOwner(),
-            contact.bodies[1]->getOwner()
+            contact.bodies[0]->getParent(),
+            contact.bodies[1]->getParent()
             );
         EventManager::Instance().BroadcastEvent(event);
       }

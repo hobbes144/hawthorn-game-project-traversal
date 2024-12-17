@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['before_20init_3a_0',['before init:',['../classGameWindow.html#autotoc_md28',1,'Required calls before init:'],['../classRenderer.html#autotoc_md64',1,'Required calls before init:']]],
+  ['before_20init_3a_0',['before init:',['../classGameWindow.html#autotoc_md35',1,'Required calls before init:'],['../classRenderer.html#autotoc_md98',1,'Required calls before init:']]],
   ['bind_1',['bind',['../classGeometryBuffer.html#a37773a483500df1ca67192c9dcf4c259',1,'GeometryBuffer']]]
 ];

@@ -92,61 +92,146 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">PhysicsBody.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="Transform_8h.html">Transform.h</a>&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Shape.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">class </span><a class="code hl_class" href="classRenderableNode.html">RenderableNode</a>;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classPhysicsBody.html">    8</a></span><span class="keyword">class </span><a class="code hl_class" href="classPhysicsBody.html">PhysicsBody</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classPhysicsManager.html">PhysicsManager</a>;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <a class="code hl_class" href="classPhysicsBody.html">PhysicsBody</a>(<a class="code hl_class" href="classRenderableNode.html">RenderableNode</a>* owner);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="keywordtype">void</span> setMass(<span class="keywordtype">float</span> newMass);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  <span class="keywordtype">void</span> setVelocity(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; vel);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keywordtype">void</span> setAcceleration(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; acc);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keywordtype">void</span> applyForce(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; f);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keywordtype">void</span> setRestitution(<span class="keywordtype">float</span> r);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keywordtype">void</span> setFriction(<span class="keywordtype">float</span> f);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keywordtype">void</span> setStatic(<span class="keywordtype">bool</span> staticValue);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keywordtype">void</span> setShape(std::shared_ptr&lt;Shape&gt; newShape);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="comment">// Getters</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keywordtype">float</span>       getMass()         <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordtype">float</span>       getInverseMass()  <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <a class="code hl_class" href="classVector3.html">Vector3</a>     getVelocity()     <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <a class="code hl_class" href="classVector3.html">Vector3</a>     getAcceleration() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <a class="code hl_class" href="classVector3.html">Vector3</a>     getForce()        <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <span class="keywordtype">float</span>       getRestitution()  <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keywordtype">float</span>       getFriction()     <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordtype">bool</span>        getIsStatic()     <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <a class="code hl_class" href="classShape.html">Shape</a>* getShape()        <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <a class="code hl_class" href="classRenderableNode.html">RenderableNode</a>* getOwner()        <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="comment">// integration function</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keywordtype">void</span> integrate(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <a class="code hl_class" href="classRenderableNode.html">RenderableNode</a>* owner;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  <span class="keywordtype">float</span> mass;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keywordtype">float</span> inverseMass;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> velocity;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> acceleration;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> force;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keywordtype">float</span> restitution;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordtype">float</span> friction;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordtype">bool</span> isStatic;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  std::shared_ptr&lt;Shape&gt; collisionShape;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+<a href="PhysicsBody_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*!****************************************************************************</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * \file   PhysicsBody.h</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> * \author Anish Murthy (anish.murthy.dev@gmail.com)</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * \par    **DigiPen Email**</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *    anish.murthy@digipen.edu</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * \par    **Course**</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *    CS529</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * \date   12-16-2024</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * \brief  Physics body class</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> *****************************************************************************/</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifndef PHYSICS_BODY_H</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define PHYSICS_BODY_H</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> <span class="comment">/* Base class */</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="Component_8h.html">Component.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">/* Used classes */</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="GameObject_8h.html">GameObject.h</a>&quot;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;Shape.h&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="Transform_8h.html">Transform.h</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">class </span><a class="code hl_class" href="classPhysicsManager.html">PhysicsManager</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">/*!****************************************************************************</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> * \brief PhysicsBody class</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> * ## Usage:</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> * PhysicsBody is needed to simulate the physics of the GameObject. This also</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * includes setting up the Collision Shape, which allows for interactions.</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"> * ## Pre-initialization calls:</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"> * By default, no pre-initialization calls are needed for static objects.</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> * If a collision Shape is needed to enable collisions, call the following</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> * function:</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"> * - setShape(std::shared_ptr&lt;Shape&gt; newShape)</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"> * ## General lifecycle of a PhysicsBody:</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"> * Note: This is assuming a movable object with collisions.</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> * - Call setMass(float newMass) to set up the body&#39;s mass</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> * - Create a Shape object</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> * - Call setShape(std::shared_ptr&lt;Shape&gt; newShape)</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> * - In main loop, call applyForce() to move the object.</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * ## Note:</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> * PhysicsBody should have a collision Shape for any GameObject that needs to</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> * interact with the environment.</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> * PhysicsBody may be used without a Shape for objects that need to move in</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"> * the world but don&#39;t care about interacting with other objects, such as with</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment"> * ghosts, simple hanging objects, or visual effects.</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment"> * </span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"> *****************************************************************************/</span></div>
+<div class="foldopen" id="foldopen00061" data-start="{" data-end="};">
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classPhysicsBody.html">   61</a></span><span class="keyword">class </span><a class="code hl_class" href="classPhysicsBody.html">PhysicsBody</a> : </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keyword">public</span> <a class="code hl_class" href="classComponent.html">Component</a>, <span class="keyword">public</span> std::enable_shared_from_this&lt;PhysicsBody&gt; {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classPhysicsManager.html">PhysicsManager</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <a class="code hl_class" href="classPhysicsBody.html">PhysicsBody</a>() : </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    mass(1.0f), inverseMass(1.0f),</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    velocity(0, 0, 0), acceleration(0, 0, 0), force(0, 0, 0),</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    restitution(0.5f), friction(0.3f), isStatic(<span class="keyword">false</span>) {}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <a class="code hl_class" href="classPhysicsBody.html">~PhysicsBody</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="comment">/* Component functions */</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classPhysicsBody.html#a010914456b1f7ebeec18294a1a475df1">initialize</a>();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classPhysicsBody.html#a78368ef0f63aa06cd4bf88959dd988c6">update</a>(<span class="keywordtype">float</span> deltaTime);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classPhysicsBody.html#aaedea3f640d96aa7592fb5a8a8efcb79">shutdown</a>();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="comment">/* Utility functions */</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#a079fcd4c26af5cca2354d44c8cb3e4c4">registerToPhysicsManager</a>(</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <a class="code hl_class" href="classPhysicsManager.html">PhysicsManager</a>* manager);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#aaa4b9094e64f31ee6b8c82a5a30c0a4a">setMass</a>(<span class="keywordtype">float</span> newMass);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#ab6f9285d8a735ee94a440c81e0f424d1">setVelocity</a>(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; vel);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#adb7effa7e6d4addd5b671db016b37a7d">setAcceleration</a>(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; acc);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#acc33bac321ef26986c39790eb3a402f6">applyForce</a>(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; f);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#a7e37f9e6de80147b7dc8ca83d9d61d76">setRestitution</a>(<span class="keywordtype">float</span> r);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#ae332899a0001ef402453c5ac7275727c">setFriction</a>(<span class="keywordtype">float</span> f);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#af4b66dc2c86e62dc9e21910739eee5a3">setStatic</a>(<span class="keywordtype">bool</span> staticValue);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  std::shared_ptr&lt;PhysicsBody&gt; <a class="code hl_function" href="classPhysicsBody.html#aaaed307279c6f90ea1150977d995af65">setShape</a>(std::shared_ptr&lt;Shape&gt; newShape);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  <span class="keywordtype">float</span>       <a class="code hl_function" href="classPhysicsBody.html#a731ac34e0dd08804773c7079124f2ed1">getMass</a>()         <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="keywordtype">float</span>       <a class="code hl_function" href="classPhysicsBody.html#abaccdd84e07381d4e9902393f1d59aac">getInverseMass</a>()  <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <a class="code hl_class" href="classVector3.html">Vector3</a>     <a class="code hl_function" href="classPhysicsBody.html#a2a959a3a3ea47f9a12d75e221742649e">getVelocity</a>()     <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  <a class="code hl_class" href="classVector3.html">Vector3</a>     <a class="code hl_function" href="classPhysicsBody.html#acecef47bdbd9ffeda49ad43a839a06bb">getAcceleration</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  <a class="code hl_class" href="classVector3.html">Vector3</a>     <a class="code hl_function" href="classPhysicsBody.html#a57485a73d39688c247fd940590d0a3fb">getForce</a>()        <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="keywordtype">float</span>       <a class="code hl_function" href="classPhysicsBody.html#a5b998d2267c9286909cc8c0a94ac0a7a">getRestitution</a>()  <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keywordtype">float</span>       <a class="code hl_function" href="classPhysicsBody.html#a5663ab620e5c1b5330d41ac00da9c4ea">getFriction</a>()     <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="keywordtype">bool</span>        <a class="code hl_function" href="classPhysicsBody.html#a48de4e769ad237d4eab2ad6f45fe8655">getIsStatic</a>()     <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <a class="code hl_class" href="classShape.html">Shape</a>* <a class="code hl_function" href="classPhysicsBody.html#ae3f062b86526656a8d19f57d726f6419">getShape</a>()        <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <span class="keywordtype">float</span> mass;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <span class="keywordtype">float</span> inverseMass;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> velocity;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> acceleration;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  <a class="code hl_class" href="classVector3.html">Vector3</a> force;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <span class="keywordtype">float</span> restitution;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  <span class="keywordtype">float</span> friction;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <span class="keywordtype">bool</span> isStatic;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  std::shared_ptr&lt;Shape&gt; collisionShape;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>};</div>
 </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#endif </span><span class="comment">// PHYSICS_BODY_H</span></div>
+<div class="ttc" id="aComponent_8h_html"><div class="ttname"><a href="Component_8h.html">Component.h</a></div><div class="ttdoc">Component Class used as the base of the Entity Component System.</div></div>
+<div class="ttc" id="aGameObject_8h_html"><div class="ttname"><a href="GameObject_8h.html">GameObject.h</a></div><div class="ttdoc">Scene Object that represents a renderable object component.</div></div>
 <div class="ttc" id="aTransform_8h_html"><div class="ttname"><a href="Transform_8h.html">Transform.h</a></div><div class="ttdoc">Transform object, used to store the rotation, scale and translation info of an object,...</div></div>
-<div class="ttc" id="aclassPhysicsBody_html"><div class="ttname"><a href="classPhysicsBody.html">PhysicsBody</a></div><div class="ttdef"><b>Definition</b> PhysicsBody.h:8</div></div>
+<div class="ttc" id="aclassComponent_html"><div class="ttname"><a href="classComponent.html">Component</a></div><div class="ttdoc">Component is the base class of all components.</div><div class="ttdef"><b>Definition</b> Component.h:38</div></div>
+<div class="ttc" id="aclassPhysicsBody_html"><div class="ttname"><a href="classPhysicsBody.html">PhysicsBody</a></div><div class="ttdoc">PhysicsBody class.</div><div class="ttdef"><b>Definition</b> PhysicsBody.h:62</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a010914456b1f7ebeec18294a1a475df1"><div class="ttname"><a href="classPhysicsBody.html#a010914456b1f7ebeec18294a1a475df1">PhysicsBody::initialize</a></div><div class="ttdeci">void initialize()</div><div class="ttdoc">Dummy initialize function.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:261</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a079fcd4c26af5cca2354d44c8cb3e4c4"><div class="ttname"><a href="classPhysicsBody.html#a079fcd4c26af5cca2354d44c8cb3e4c4">PhysicsBody::registerToPhysicsManager</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; registerToPhysicsManager(PhysicsManager *manager)</div><div class="ttdoc">Register self to the PhysicsManager.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:27</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a2a959a3a3ea47f9a12d75e221742649e"><div class="ttname"><a href="classPhysicsBody.html#a2a959a3a3ea47f9a12d75e221742649e">PhysicsBody::getVelocity</a></div><div class="ttdeci">Vector3 getVelocity() const</div><div class="ttdoc">Get the velocity.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:213</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a48de4e769ad237d4eab2ad6f45fe8655"><div class="ttname"><a href="classPhysicsBody.html#a48de4e769ad237d4eab2ad6f45fe8655">PhysicsBody::getIsStatic</a></div><div class="ttdeci">bool getIsStatic() const</div><div class="ttdoc">Get if the object is static.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:248</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a5663ab620e5c1b5330d41ac00da9c4ea"><div class="ttname"><a href="classPhysicsBody.html#a5663ab620e5c1b5330d41ac00da9c4ea">PhysicsBody::getFriction</a></div><div class="ttdeci">float getFriction() const</div><div class="ttdoc">Get the friction.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:241</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a57485a73d39688c247fd940590d0a3fb"><div class="ttname"><a href="classPhysicsBody.html#a57485a73d39688c247fd940590d0a3fb">PhysicsBody::getForce</a></div><div class="ttdeci">Vector3 getForce() const</div><div class="ttdoc">Get the force.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:227</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a5b998d2267c9286909cc8c0a94ac0a7a"><div class="ttname"><a href="classPhysicsBody.html#a5b998d2267c9286909cc8c0a94ac0a7a">PhysicsBody::getRestitution</a></div><div class="ttdeci">float getRestitution() const</div><div class="ttdoc">Get the restitution.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:234</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a731ac34e0dd08804773c7079124f2ed1"><div class="ttname"><a href="classPhysicsBody.html#a731ac34e0dd08804773c7079124f2ed1">PhysicsBody::getMass</a></div><div class="ttdeci">float getMass() const</div><div class="ttdoc">Get the mass.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:199</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a78368ef0f63aa06cd4bf88959dd988c6"><div class="ttname"><a href="classPhysicsBody.html#a78368ef0f63aa06cd4bf88959dd988c6">PhysicsBody::update</a></div><div class="ttdeci">void update(float deltaTime)</div><div class="ttdoc">Update the GameObject and its related collision.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:278</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_a7e37f9e6de80147b7dc8ca83d9d61d76"><div class="ttname"><a href="classPhysicsBody.html#a7e37f9e6de80147b7dc8ca83d9d61d76">PhysicsBody::setRestitution</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; setRestitution(float r)</div><div class="ttdoc">Dummy restitution.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:125</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_aaa4b9094e64f31ee6b8c82a5a30c0a4a"><div class="ttname"><a href="classPhysicsBody.html#aaa4b9094e64f31ee6b8c82a5a30c0a4a">PhysicsBody::setMass</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; setMass(float newMass)</div><div class="ttdoc">Set the mass.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:46</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_aaaed307279c6f90ea1150977d995af65"><div class="ttname"><a href="classPhysicsBody.html#aaaed307279c6f90ea1150977d995af65">PhysicsBody::setShape</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; setShape(std::shared_ptr&lt; Shape &gt; newShape)</div><div class="ttdoc">Set up the collision Shape.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:186</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_aaedea3f640d96aa7592fb5a8a8efcb79"><div class="ttname"><a href="classPhysicsBody.html#aaedea3f640d96aa7592fb5a8a8efcb79">PhysicsBody::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Dummy shutdown function.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:312</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_ab6f9285d8a735ee94a440c81e0f424d1"><div class="ttname"><a href="classPhysicsBody.html#ab6f9285d8a735ee94a440c81e0f424d1">PhysicsBody::setVelocity</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; setVelocity(const Vector3 &amp;vel)</div><div class="ttdoc">Set the velocity.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:67</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_abaccdd84e07381d4e9902393f1d59aac"><div class="ttname"><a href="classPhysicsBody.html#abaccdd84e07381d4e9902393f1d59aac">PhysicsBody::getInverseMass</a></div><div class="ttdeci">float getInverseMass() const</div><div class="ttdoc">Get the inverse mass.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:206</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_acc33bac321ef26986c39790eb3a402f6"><div class="ttname"><a href="classPhysicsBody.html#acc33bac321ef26986c39790eb3a402f6">PhysicsBody::applyForce</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; applyForce(const Vector3 &amp;f)</div><div class="ttdoc">Apply a force.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:111</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_acecef47bdbd9ffeda49ad43a839a06bb"><div class="ttname"><a href="classPhysicsBody.html#acecef47bdbd9ffeda49ad43a839a06bb">PhysicsBody::getAcceleration</a></div><div class="ttdeci">Vector3 getAcceleration() const</div><div class="ttdoc">Get the acceleration.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:220</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_adb7effa7e6d4addd5b671db016b37a7d"><div class="ttname"><a href="classPhysicsBody.html#adb7effa7e6d4addd5b671db016b37a7d">PhysicsBody::setAcceleration</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; setAcceleration(const Vector3 &amp;acc)</div><div class="ttdoc">Set the acceleration.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:89</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_ae332899a0001ef402453c5ac7275727c"><div class="ttname"><a href="classPhysicsBody.html#ae332899a0001ef402453c5ac7275727c">PhysicsBody::setFriction</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; setFriction(float f)</div><div class="ttdoc">Set the friction affecting the body.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:142</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_ae3f062b86526656a8d19f57d726f6419"><div class="ttname"><a href="classPhysicsBody.html#ae3f062b86526656a8d19f57d726f6419">PhysicsBody::getShape</a></div><div class="ttdeci">Shape * getShape() const</div><div class="ttdoc">Get the Collision Shape.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:255</div></div>
+<div class="ttc" id="aclassPhysicsBody_html_af4b66dc2c86e62dc9e21910739eee5a3"><div class="ttname"><a href="classPhysicsBody.html#af4b66dc2c86e62dc9e21910739eee5a3">PhysicsBody::setStatic</a></div><div class="ttdeci">std::shared_ptr&lt; PhysicsBody &gt; setStatic(bool staticValue)</div><div class="ttdoc">Sets the body to be static.</div><div class="ttdef"><b>Definition</b> PhysicsBody.cpp:164</div></div>
 <div class="ttc" id="aclassPhysicsManager_html"><div class="ttname"><a href="classPhysicsManager.html">PhysicsManager</a></div><div class="ttdef"><b>Definition</b> PhysicsManager.h:10</div></div>
-<div class="ttc" id="aclassRenderableNode_html"><div class="ttname"><a href="classRenderableNode.html">RenderableNode</a></div><div class="ttdef"><b>Definition</b> RenderableNode.h:25</div></div>
 <div class="ttc" id="aclassShape_html"><div class="ttname"><a href="classShape.html">Shape</a></div><div class="ttdef"><b>Definition</b> Shape.h:5</div></div>
 <div class="ttc" id="aclassVector3_html"><div class="ttname"><a href="classVector3.html">Vector3</a></div><div class="ttdef"><b>Definition</b> Vector3.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->

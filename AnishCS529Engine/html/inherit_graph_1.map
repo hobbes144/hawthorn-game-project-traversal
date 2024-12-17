@@ -1,13 +1,30 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classComponent.html" title="Component is the base class of all components." alt="" coords="5,104,108,129"/>
-<area shape="rect" id="Node000001" href="$classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="156,5,273,31"/>
-<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="81,93,115,66,155,40,178,28,180,33,157,44,118,70,84,97"/>
-<area shape="rect" id="Node000002" href="$classInput.html" title="Input class that handles storing and updating key press states." alt="" coords="187,55,242,80"/>
-<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="110,97,186,73,188,78,112,102"/>
-<area shape="rect" id="Node000003" href="$classRender2D.html" title=" " alt="" coords="171,104,258,129"/>
-<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="122,114,171,114,171,119,122,119"/>
-<area shape="rect" id="Node000004" href="$classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="173,153,256,179"/>
-<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="112,131,174,151,172,156,110,136"/>
-<area shape="rect" id="Node000005" href="$classTank.html" title=" " alt="" coords="189,203,240,228"/>
-<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="86,137,119,162,157,188,190,204,188,209,155,192,116,167,82,141"/>
+<area shape="rect" id="Node000000" href="$classComponent.html" title="Component is the base class of all components." alt="" coords="27,129,130,155"/>
+<area shape="rect" id="Node000001" href="$classGameWindow.html" title="Class that sets up the GLFW window and associated logic." alt="" coords="200,55,317,80"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="122,121,199,89,226,78,228,82,201,94,124,126"/>
+<area shape="rect" id="Node000002" href="$classInput.html" title="Input class that handles storing and updating key press states." alt="" coords="231,104,286,129"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="143,130,231,118,231,123,144,136"/>
+<area shape="rect" id="Node000003" href="$classPhysicsBody.html" title="PhysicsBody class." alt="" coords="209,252,309,277"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="105,162,149,199,201,237,226,250,223,254,199,242,145,204,102,166"/>
+<area shape="rect" id="Node000011" href="$classRender2D.html" title="Render2D object that performs rendering to the screen." alt="" coords="215,203,302,228"/>
+<area shape="poly" id="edge4_Node000000_Node000011" title=" " alt="" coords="124,157,227,200,225,205,122,162"/>
+<area shape="rect" id="Node000012" href="$classRenderer.html" title="Class Renderer that implements an OpenGL renderer." alt="" coords="217,153,300,179"/>
+<area shape="poly" id="edge5_Node000000_Node000012" title=" " alt="" coords="144,148,217,158,217,163,143,153"/>
+<area shape="rect" id="Node000013" href="$classTank.html" title=" " alt="" coords="233,5,284,31"/>
+<area shape="poly" id="edge6_Node000000_Node000013" title=" " alt="" coords="101,117,145,79,199,40,232,24,234,29,201,44,148,83,105,121"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,245,152,285"/>
+<area shape="poly" id="edge13_Node000004_Node000003" title=" " alt="" coords="166,262,209,262,209,267,166,267"/>
+<area shape="poly" id="edge14_Node000004_Node000011" title=" " alt="" coords="165,238,215,224,216,230,166,243"/>
+<area shape="rect" id="Node000005" href="$classNode.html" title=" " alt="" coords="229,301,288,327"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="166,286,230,304,228,309,165,291"/>
+<area shape="rect" id="Node000006" href="$classCamera.html" title=" " alt="" coords="395,252,472,277"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="300,300,394,273,395,278,302,305"/>
+<area shape="rect" id="Node000007" href="$classGameObject.html" title="GameObject class that implements a single object in the scene." alt="" coords="377,301,489,327"/>
+<area shape="poly" id="edge9_Node000005_Node000007" title=" " alt="" coords="301,311,377,311,377,317,301,317"/>
+<area shape="rect" id="Node000008" href="$classRenderableNode.html" title=" " alt="" coords="365,351,501,376"/>
+<area shape="poly" id="edge10_Node000005_Node000008" title=" " alt="" coords="302,323,388,348,386,353,300,328"/>
+<area shape="rect" id="Node000009" href="$classRectanglePrimitive.html" title=" " alt="" coords="549,325,695,351"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="515,350,549,345,550,350,516,355"/>
+<area shape="rect" id="Node000010" href="$classTrianglePrimitive.html" title=" " alt="" coords="559,375,685,400"/>
+<area shape="poly" id="edge12_Node000008_Node000010" title=" " alt="" coords="515,371,559,377,558,382,515,376"/>
 </map>

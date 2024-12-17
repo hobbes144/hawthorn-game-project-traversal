@@ -1,7 +1,27 @@
 <map id="AnishCS529Engine/src/GameObject.inl" name="AnishCS529Engine/src/GameObject.inl">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,169,45"/>
-<area shape="rect" id="Node000002" href="$GameObject_8h.html" title="Scene Object that represents a renderable object component." alt="" coords="5,93,169,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,59,90,93,85,93,85,59"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="287,5,451,45"/>
+<area shape="rect" id="Node000002" href="$GameObject_8h.html" title="Scene Object that represents a renderable object component." alt="" coords="287,93,451,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="363,59,364,93,358,93,357,59"/>
+<area shape="poly" id="edge3_Node000002_Node000001" title=" " alt="" coords="375,80,374,46,379,46,380,80"/>
 <area shape="rect" id="Node000003" href="$GameObject_8cpp.html" title=" " alt="" coords="5,181,169,221"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,147,90,181,85,181,85,147"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="295,140,150,184,148,179,293,135"/>
+<area shape="rect" id="Node000004" href="$PhysicsBody_8h.html" title="Physics body class." alt="" coords="193,181,357,221"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="340,145,298,183,294,179,336,141"/>
+<area shape="rect" id="Node000009" href="$Render2D_8h.html" title="Render component for 2D objects." alt="" coords="381,181,545,221"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="402,141,444,179,441,183,398,145"/>
+<area shape="rect" id="Node000011" href="$SphereJump_8cpp.html" title="Test main for a simple game for final grade." alt="" coords="539,269,703,309"/>
+<area shape="poly" id="edge14_Node000002_Node000011" title=" " alt="" coords="465,132,514,151,560,179,580,200,596,224,617,268,612,270,591,226,576,203,556,183,512,156,463,137"/>
+<area shape="rect" id="Node000005" href="$Contact_8h_source.html" title=" " alt="" coords="60,269,224,309"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="236,231,173,271,170,267,233,227"/>
+<area shape="rect" id="Node000007" href="$PhysicsManager_8h_source.html" title=" " alt="" coords="111,445,275,485"/>
+<area shape="poly" id="edge10_Node000004_Node000007" title=" " alt="" coords="275,236,263,311,252,355,238,398,210,447,205,444,233,396,247,354,258,310,270,235"/>
+<area shape="rect" id="Node000008" href="$PhysicsBody_8cpp.html" title=" " alt="" coords="171,533,335,573"/>
+<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="285,234,292,283,298,346,298,416,289,486,279,512,267,534,263,532,274,510,283,485,293,416,293,347,287,284,279,235"/>
+<area shape="rect" id="Node000006" href="$CollisionGenerator_8h_source.html" title=" " alt="" coords="60,357,224,397"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="145,323,145,357,139,357,139,323"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="163,408,184,444,179,446,158,411"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="216,495,242,532,237,535,212,498"/>
+<area shape="rect" id="Node000010" href="$Render2D_8cpp.html" title=" " alt="" coords="351,269,515,309"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="454,235,442,270,437,268,449,234"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="511,226,587,267,585,272,509,230"/>
 </map>

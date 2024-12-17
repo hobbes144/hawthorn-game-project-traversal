@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['calls_20before_20init_3a_0',['calls before init:',['../classGameWindow.html#autotoc_md28',1,'Required calls before init:'],['../classRenderer.html#autotoc_md64',1,'Required calls before init:']]],
-  ['calls_3a_1',['calls:',['../classRenderer.html#autotoc_md68',1,'Post-initialization calls:'],['../classGameObject.html#autotoc_md14',1,'Pre-initialization calls:'],['../classGameWindow.html#autotoc_md33',1,'Pre-initialization calls:'],['../classInput.html#autotoc_md46',1,'Pre-initialization calls:'],['../classRenderer.html#autotoc_md67',1,'Pre-initialization calls:']]],
+  ['calls_20before_20init_3a_0',['calls before init:',['../classGameWindow.html#autotoc_md35',1,'Required calls before init:'],['../classRenderer.html#autotoc_md98',1,'Required calls before init:']]],
+  ['calls_3a_1',['calls:',['../classRenderer.html#autotoc_md102',1,'Post-initialization calls:'],['../classGameObject.html#autotoc_md18',1,'Pre-initialization calls:'],['../classGameWindow.html#autotoc_md40',1,'Pre-initialization calls:'],['../classInput.html#autotoc_md53',1,'Pre-initialization calls:'],['../classPhysicsBody.html#autotoc_md71',1,'Pre-initialization calls:'],['../classRenderer.html#autotoc_md101',1,'Pre-initialization calls:']]],
   ['camera_2',['Camera',['../classCamera.html',1,'']]],
   ['camera_2ecpp_3',['Camera.cpp',['../Camera_8cpp.html',1,'']]],
   ['camera_2eh_4',['Camera.h',['../Camera_8h.html',1,'']]],
@@ -10,18 +10,19 @@ var searchData=
   ['collisionevent_7',['CollisionEvent',['../classCollisionEvent.html',1,'']]],
   ['collisiongenerator_8',['CollisionGenerator',['../classCollisionGenerator.html',1,'']]],
   ['collisionlistener_9',['CollisionListener',['../classCollisionListener.html',1,'']]],
-  ['com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_10',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md90',1,'']]],
-  ['com_20murthyanish_20digipencs529_20compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_11',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md88',1,'']]],
-  ['compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_12',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md90',1,'']]],
-  ['compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_13',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md88',1,'']]],
+  ['com_20murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_10',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md124',1,'']]],
+  ['com_20murthyanish_20digipencs529_20compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_11',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md122',1,'']]],
+  ['compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_12',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md124',1,'']]],
+  ['compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_13',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md122',1,'']]],
   ['component_14',['Component',['../classComponent.html',1,'']]],
   ['component_2eh_15',['Component.h',['../Component_8h.html',1,'']]],
   ['components_16',['components',['../classGameObject.html#a545e4ed29df0e16304d46c73404c0ce6',1,'GameObject']]],
   ['consumeaccumulator_17',['consumeAccumulator',['../classFramerateController.html#abe5ee0f3a2a0203ee4f386422e8ffb74',1,'FramerateController']]],
   ['consumephysicstime_18',['consumePhysicsTime',['../classFramerateController.html#a526d635f49149111b6a791840c72283c',1,'FramerateController']]],
   ['contact_19',['Contact',['../classContact.html',1,'']]],
-  ['contributing_20',['Contributing',['../index.html#autotoc_md82',1,'']]],
+  ['contributing_20',['Contributing',['../index.html#autotoc_md116',1,'']]],
   ['create_21',['create',['../classGeometryBuffer.html#a0f4472e3c564fc2b2894cdd721fd7ca0',1,'GeometryBuffer::create(Attributes &amp;attributeData, const std::string &amp;name, bool bufferIsInterleaved=true)'],['../classGeometryBuffer.html#a3e3a5a93ddd6e1d0efb13ca802db1e1c',1,'GeometryBuffer::create(Attributes &amp;attributeData, const std::vector&lt; unsigned int &gt; &amp;indices, const std::string &amp;name, bool bufferIsInterleaved=true)']]],
   ['createaccumulator_22',['createAccumulator',['../classFramerateController.html#a2d88c54ea6da277ecd4599e43a9a0edb',1,'FramerateController']]],
-  ['createratecontroller_23',['createRateController',['../classFramerateController.html#aa26ad8a5f649a76413c1900df65d2061',1,'FramerateController']]]
+  ['createratecontroller_23',['createRateController',['../classFramerateController.html#aa26ad8a5f649a76413c1900df65d2061',1,'FramerateController']]],
+  ['createsolidcolormaterial_24',['createSolidColorMaterial',['../Material_8cpp.html#a50ac9189783fa9fb4bbbbe24aab875f5',1,'createSolidColorMaterial(const Vector3 &amp;color):&#160;Material.cpp'],['../Material_8h.html#a50ac9189783fa9fb4bbbbe24aab875f5',1,'createSolidColorMaterial(const Vector3 &amp;color):&#160;Material.cpp']]]
 ];

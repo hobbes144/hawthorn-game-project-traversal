@@ -92,79 +92,734 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">PhysicsBody Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> class.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="PhysicsBody_8h_source.html">PhysicsBody.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for PhysicsBody:</div>
+<div class="dyncontent">
+<div class="center"><img src="classPhysicsBody__inherit__graph.png" border="0" usemap="#aPhysicsBody_inherit__map" alt="Inheritance graph"/></div>
+<map name="aPhysicsBody_inherit__map" id="aPhysicsBody_inherit__map">
+<area shape="rect" title="PhysicsBody class." alt="" coords="92,93,192,119"/>
+<area shape="rect" href="classComponent.html" title="Component is the base class of all components." alt="" coords="5,13,108,38"/>
+<area shape="poly" title=" " alt="" coords="81,45,131,91,128,95,78,49"/>
+<area shape="rect" title=" " alt="" coords="132,5,325,45"/>
+<area shape="poly" title=" " alt="" coords="199,57,157,95,153,91,196,53"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for PhysicsBody:</div>
+<div class="dyncontent">
+<div class="center"><img src="classPhysicsBody__coll__graph.png" border="0" usemap="#aPhysicsBody_coll__map" alt="Collaboration graph"/></div>
+<map name="aPhysicsBody_coll__map" id="aPhysicsBody_coll__map">
+<area shape="rect" title="PhysicsBody class." alt="" coords="92,93,192,119"/>
+<area shape="rect" href="classComponent.html" title="Component is the base class of all components." alt="" coords="5,13,108,38"/>
+<area shape="poly" title=" " alt="" coords="81,45,131,91,128,95,78,49"/>
+<area shape="rect" title=" " alt="" coords="132,5,325,45"/>
+<area shape="poly" title=" " alt="" coords="199,57,157,95,153,91,196,53"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a978ac074535d3c159c8559849b872ea5" id="r_a978ac074535d3c159c8559849b872ea5"><td class="memItemLeft" align="right" valign="top"><a id="a978ac074535d3c159c8559849b872ea5" name="a978ac074535d3c159c8559849b872ea5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>PhysicsBody</b> (<a class="el" href="classRenderableNode.html">RenderableNode</a> *owner)</td></tr>
-<tr class="separator:a978ac074535d3c159c8559849b872ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17d256017edf8005cf02a53aec3f9f9d" id="r_a17d256017edf8005cf02a53aec3f9f9d"><td class="memItemLeft" align="right" valign="top"><a id="a17d256017edf8005cf02a53aec3f9f9d" name="a17d256017edf8005cf02a53aec3f9f9d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setMass</b> (float newMass)</td></tr>
-<tr class="separator:a17d256017edf8005cf02a53aec3f9f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6db945321a57de84441ad9dbb24b5195" id="r_a6db945321a57de84441ad9dbb24b5195"><td class="memItemLeft" align="right" valign="top"><a id="a6db945321a57de84441ad9dbb24b5195" name="a6db945321a57de84441ad9dbb24b5195"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setVelocity</b> (const <a class="el" href="classVector3.html">Vector3</a> &amp;vel)</td></tr>
-<tr class="separator:a6db945321a57de84441ad9dbb24b5195"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7f18791b2c5b0fd21756c87150625f9" id="r_af7f18791b2c5b0fd21756c87150625f9"><td class="memItemLeft" align="right" valign="top"><a id="af7f18791b2c5b0fd21756c87150625f9" name="af7f18791b2c5b0fd21756c87150625f9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setAcceleration</b> (const <a class="el" href="classVector3.html">Vector3</a> &amp;acc)</td></tr>
-<tr class="separator:af7f18791b2c5b0fd21756c87150625f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77c609c56970ed42d8d0c604522082c2" id="r_a77c609c56970ed42d8d0c604522082c2"><td class="memItemLeft" align="right" valign="top"><a id="a77c609c56970ed42d8d0c604522082c2" name="a77c609c56970ed42d8d0c604522082c2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>applyForce</b> (const <a class="el" href="classVector3.html">Vector3</a> &amp;f)</td></tr>
-<tr class="separator:a77c609c56970ed42d8d0c604522082c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d2a658f5816c966e525fe75a64292dc" id="r_a1d2a658f5816c966e525fe75a64292dc"><td class="memItemLeft" align="right" valign="top"><a id="a1d2a658f5816c966e525fe75a64292dc" name="a1d2a658f5816c966e525fe75a64292dc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setRestitution</b> (float r)</td></tr>
-<tr class="separator:a1d2a658f5816c966e525fe75a64292dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa86a8fad1fc91b29d52ca15e1bb3a9bf" id="r_aa86a8fad1fc91b29d52ca15e1bb3a9bf"><td class="memItemLeft" align="right" valign="top"><a id="aa86a8fad1fc91b29d52ca15e1bb3a9bf" name="aa86a8fad1fc91b29d52ca15e1bb3a9bf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setFriction</b> (float f)</td></tr>
-<tr class="separator:aa86a8fad1fc91b29d52ca15e1bb3a9bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ddc6de17ef3dd50cacbd710bbbe4f16" id="r_a1ddc6de17ef3dd50cacbd710bbbe4f16"><td class="memItemLeft" align="right" valign="top"><a id="a1ddc6de17ef3dd50cacbd710bbbe4f16" name="a1ddc6de17ef3dd50cacbd710bbbe4f16"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setStatic</b> (bool staticValue)</td></tr>
-<tr class="separator:a1ddc6de17ef3dd50cacbd710bbbe4f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cb28b447d757ad01cd9f89d2711342e" id="r_a3cb28b447d757ad01cd9f89d2711342e"><td class="memItemLeft" align="right" valign="top"><a id="a3cb28b447d757ad01cd9f89d2711342e" name="a3cb28b447d757ad01cd9f89d2711342e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setShape</b> (std::shared_ptr&lt; <a class="el" href="classShape.html">Shape</a> &gt; newShape)</td></tr>
-<tr class="separator:a3cb28b447d757ad01cd9f89d2711342e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a731ac34e0dd08804773c7079124f2ed1" id="r_a731ac34e0dd08804773c7079124f2ed1"><td class="memItemLeft" align="right" valign="top"><a id="a731ac34e0dd08804773c7079124f2ed1" name="a731ac34e0dd08804773c7079124f2ed1"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getMass</b> () const</td></tr>
+<tr class="memitem:a010914456b1f7ebeec18294a1a475df1" id="r_a010914456b1f7ebeec18294a1a475df1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a010914456b1f7ebeec18294a1a475df1">initialize</a> ()</td></tr>
+<tr class="memdesc:a010914456b1f7ebeec18294a1a475df1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy initialize function.  <br /></td></tr>
+<tr class="separator:a010914456b1f7ebeec18294a1a475df1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78368ef0f63aa06cd4bf88959dd988c6" id="r_a78368ef0f63aa06cd4bf88959dd988c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78368ef0f63aa06cd4bf88959dd988c6">update</a> (float deltaTime)</td></tr>
+<tr class="memdesc:a78368ef0f63aa06cd4bf88959dd988c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> and its related collision.  <br /></td></tr>
+<tr class="separator:a78368ef0f63aa06cd4bf88959dd988c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaedea3f640d96aa7592fb5a8a8efcb79" id="r_aaedea3f640d96aa7592fb5a8a8efcb79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaedea3f640d96aa7592fb5a8a8efcb79">shutdown</a> ()</td></tr>
+<tr class="memdesc:aaedea3f640d96aa7592fb5a8a8efcb79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy shutdown function.  <br /></td></tr>
+<tr class="separator:aaedea3f640d96aa7592fb5a8a8efcb79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a079fcd4c26af5cca2354d44c8cb3e4c4" id="r_a079fcd4c26af5cca2354d44c8cb3e4c4"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a079fcd4c26af5cca2354d44c8cb3e4c4">registerToPhysicsManager</a> (<a class="el" href="classPhysicsManager.html">PhysicsManager</a> *manager)</td></tr>
+<tr class="memdesc:a079fcd4c26af5cca2354d44c8cb3e4c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register self to the <a class="el" href="classPhysicsManager.html">PhysicsManager</a>.  <br /></td></tr>
+<tr class="separator:a079fcd4c26af5cca2354d44c8cb3e4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa4b9094e64f31ee6b8c82a5a30c0a4a" id="r_aaa4b9094e64f31ee6b8c82a5a30c0a4a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa4b9094e64f31ee6b8c82a5a30c0a4a">setMass</a> (float newMass)</td></tr>
+<tr class="memdesc:aaa4b9094e64f31ee6b8c82a5a30c0a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the mass.  <br /></td></tr>
+<tr class="separator:aaa4b9094e64f31ee6b8c82a5a30c0a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6f9285d8a735ee94a440c81e0f424d1" id="r_ab6f9285d8a735ee94a440c81e0f424d1"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6f9285d8a735ee94a440c81e0f424d1">setVelocity</a> (const <a class="el" href="classVector3.html">Vector3</a> &amp;vel)</td></tr>
+<tr class="memdesc:ab6f9285d8a735ee94a440c81e0f424d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the velocity.  <br /></td></tr>
+<tr class="separator:ab6f9285d8a735ee94a440c81e0f424d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb7effa7e6d4addd5b671db016b37a7d" id="r_adb7effa7e6d4addd5b671db016b37a7d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb7effa7e6d4addd5b671db016b37a7d">setAcceleration</a> (const <a class="el" href="classVector3.html">Vector3</a> &amp;acc)</td></tr>
+<tr class="memdesc:adb7effa7e6d4addd5b671db016b37a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the acceleration.  <br /></td></tr>
+<tr class="separator:adb7effa7e6d4addd5b671db016b37a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc33bac321ef26986c39790eb3a402f6" id="r_acc33bac321ef26986c39790eb3a402f6"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc33bac321ef26986c39790eb3a402f6">applyForce</a> (const <a class="el" href="classVector3.html">Vector3</a> &amp;f)</td></tr>
+<tr class="memdesc:acc33bac321ef26986c39790eb3a402f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a force.  <br /></td></tr>
+<tr class="separator:acc33bac321ef26986c39790eb3a402f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e37f9e6de80147b7dc8ca83d9d61d76" id="r_a7e37f9e6de80147b7dc8ca83d9d61d76"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e37f9e6de80147b7dc8ca83d9d61d76">setRestitution</a> (float r)</td></tr>
+<tr class="memdesc:a7e37f9e6de80147b7dc8ca83d9d61d76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy restitution.  <br /></td></tr>
+<tr class="separator:a7e37f9e6de80147b7dc8ca83d9d61d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae332899a0001ef402453c5ac7275727c" id="r_ae332899a0001ef402453c5ac7275727c"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae332899a0001ef402453c5ac7275727c">setFriction</a> (float f)</td></tr>
+<tr class="memdesc:ae332899a0001ef402453c5ac7275727c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the friction affecting the body.  <br /></td></tr>
+<tr class="separator:ae332899a0001ef402453c5ac7275727c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4b66dc2c86e62dc9e21910739eee5a3" id="r_af4b66dc2c86e62dc9e21910739eee5a3"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4b66dc2c86e62dc9e21910739eee5a3">setStatic</a> (bool staticValue)</td></tr>
+<tr class="memdesc:af4b66dc2c86e62dc9e21910739eee5a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the body to be static.  <br /></td></tr>
+<tr class="separator:af4b66dc2c86e62dc9e21910739eee5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaed307279c6f90ea1150977d995af65" id="r_aaaed307279c6f90ea1150977d995af65"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaaed307279c6f90ea1150977d995af65">setShape</a> (std::shared_ptr&lt; <a class="el" href="classShape.html">Shape</a> &gt; newShape)</td></tr>
+<tr class="memdesc:aaaed307279c6f90ea1150977d995af65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up the collision <a class="el" href="classShape.html">Shape</a>.  <br /></td></tr>
+<tr class="separator:aaaed307279c6f90ea1150977d995af65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a731ac34e0dd08804773c7079124f2ed1" id="r_a731ac34e0dd08804773c7079124f2ed1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a731ac34e0dd08804773c7079124f2ed1">getMass</a> () const</td></tr>
+<tr class="memdesc:a731ac34e0dd08804773c7079124f2ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the mass.  <br /></td></tr>
 <tr class="separator:a731ac34e0dd08804773c7079124f2ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaccdd84e07381d4e9902393f1d59aac" id="r_abaccdd84e07381d4e9902393f1d59aac"><td class="memItemLeft" align="right" valign="top"><a id="abaccdd84e07381d4e9902393f1d59aac" name="abaccdd84e07381d4e9902393f1d59aac"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getInverseMass</b> () const</td></tr>
+<tr class="memitem:abaccdd84e07381d4e9902393f1d59aac" id="r_abaccdd84e07381d4e9902393f1d59aac"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abaccdd84e07381d4e9902393f1d59aac">getInverseMass</a> () const</td></tr>
+<tr class="memdesc:abaccdd84e07381d4e9902393f1d59aac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the inverse mass.  <br /></td></tr>
 <tr class="separator:abaccdd84e07381d4e9902393f1d59aac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a959a3a3ea47f9a12d75e221742649e" id="r_a2a959a3a3ea47f9a12d75e221742649e"><td class="memItemLeft" align="right" valign="top"><a id="a2a959a3a3ea47f9a12d75e221742649e" name="a2a959a3a3ea47f9a12d75e221742649e"></a>
-<a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getVelocity</b> () const</td></tr>
+<tr class="memitem:a2a959a3a3ea47f9a12d75e221742649e" id="r_a2a959a3a3ea47f9a12d75e221742649e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a959a3a3ea47f9a12d75e221742649e">getVelocity</a> () const</td></tr>
+<tr class="memdesc:a2a959a3a3ea47f9a12d75e221742649e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the velocity.  <br /></td></tr>
 <tr class="separator:a2a959a3a3ea47f9a12d75e221742649e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acecef47bdbd9ffeda49ad43a839a06bb" id="r_acecef47bdbd9ffeda49ad43a839a06bb"><td class="memItemLeft" align="right" valign="top"><a id="acecef47bdbd9ffeda49ad43a839a06bb" name="acecef47bdbd9ffeda49ad43a839a06bb"></a>
-<a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getAcceleration</b> () const</td></tr>
+<tr class="memitem:acecef47bdbd9ffeda49ad43a839a06bb" id="r_acecef47bdbd9ffeda49ad43a839a06bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acecef47bdbd9ffeda49ad43a839a06bb">getAcceleration</a> () const</td></tr>
+<tr class="memdesc:acecef47bdbd9ffeda49ad43a839a06bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the acceleration.  <br /></td></tr>
 <tr class="separator:acecef47bdbd9ffeda49ad43a839a06bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57485a73d39688c247fd940590d0a3fb" id="r_a57485a73d39688c247fd940590d0a3fb"><td class="memItemLeft" align="right" valign="top"><a id="a57485a73d39688c247fd940590d0a3fb" name="a57485a73d39688c247fd940590d0a3fb"></a>
-<a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getForce</b> () const</td></tr>
+<tr class="memitem:a57485a73d39688c247fd940590d0a3fb" id="r_a57485a73d39688c247fd940590d0a3fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57485a73d39688c247fd940590d0a3fb">getForce</a> () const</td></tr>
+<tr class="memdesc:a57485a73d39688c247fd940590d0a3fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the force.  <br /></td></tr>
 <tr class="separator:a57485a73d39688c247fd940590d0a3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b998d2267c9286909cc8c0a94ac0a7a" id="r_a5b998d2267c9286909cc8c0a94ac0a7a"><td class="memItemLeft" align="right" valign="top"><a id="a5b998d2267c9286909cc8c0a94ac0a7a" name="a5b998d2267c9286909cc8c0a94ac0a7a"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getRestitution</b> () const</td></tr>
+<tr class="memitem:a5b998d2267c9286909cc8c0a94ac0a7a" id="r_a5b998d2267c9286909cc8c0a94ac0a7a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b998d2267c9286909cc8c0a94ac0a7a">getRestitution</a> () const</td></tr>
+<tr class="memdesc:a5b998d2267c9286909cc8c0a94ac0a7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the restitution.  <br /></td></tr>
 <tr class="separator:a5b998d2267c9286909cc8c0a94ac0a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5663ab620e5c1b5330d41ac00da9c4ea" id="r_a5663ab620e5c1b5330d41ac00da9c4ea"><td class="memItemLeft" align="right" valign="top"><a id="a5663ab620e5c1b5330d41ac00da9c4ea" name="a5663ab620e5c1b5330d41ac00da9c4ea"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getFriction</b> () const</td></tr>
+<tr class="memitem:a5663ab620e5c1b5330d41ac00da9c4ea" id="r_a5663ab620e5c1b5330d41ac00da9c4ea"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5663ab620e5c1b5330d41ac00da9c4ea">getFriction</a> () const</td></tr>
+<tr class="memdesc:a5663ab620e5c1b5330d41ac00da9c4ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the friction.  <br /></td></tr>
 <tr class="separator:a5663ab620e5c1b5330d41ac00da9c4ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48de4e769ad237d4eab2ad6f45fe8655" id="r_a48de4e769ad237d4eab2ad6f45fe8655"><td class="memItemLeft" align="right" valign="top"><a id="a48de4e769ad237d4eab2ad6f45fe8655" name="a48de4e769ad237d4eab2ad6f45fe8655"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>getIsStatic</b> () const</td></tr>
+<tr class="memitem:a48de4e769ad237d4eab2ad6f45fe8655" id="r_a48de4e769ad237d4eab2ad6f45fe8655"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48de4e769ad237d4eab2ad6f45fe8655">getIsStatic</a> () const</td></tr>
+<tr class="memdesc:a48de4e769ad237d4eab2ad6f45fe8655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get if the object is static.  <br /></td></tr>
 <tr class="separator:a48de4e769ad237d4eab2ad6f45fe8655"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f062b86526656a8d19f57d726f6419" id="r_ae3f062b86526656a8d19f57d726f6419"><td class="memItemLeft" align="right" valign="top"><a id="ae3f062b86526656a8d19f57d726f6419" name="ae3f062b86526656a8d19f57d726f6419"></a>
-<a class="el" href="classShape.html">Shape</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getShape</b> () const</td></tr>
+<tr class="memitem:ae3f062b86526656a8d19f57d726f6419" id="r_ae3f062b86526656a8d19f57d726f6419"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classShape.html">Shape</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f062b86526656a8d19f57d726f6419">getShape</a> () const</td></tr>
+<tr class="memdesc:ae3f062b86526656a8d19f57d726f6419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Collision <a class="el" href="classShape.html">Shape</a>.  <br /></td></tr>
 <tr class="separator:ae3f062b86526656a8d19f57d726f6419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad29c7c68f94ab1f5adab5142f9d4f8e" id="r_aad29c7c68f94ab1f5adab5142f9d4f8e"><td class="memItemLeft" align="right" valign="top"><a id="aad29c7c68f94ab1f5adab5142f9d4f8e" name="aad29c7c68f94ab1f5adab5142f9d4f8e"></a>
-<a class="el" href="classRenderableNode.html">RenderableNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getOwner</b> () const</td></tr>
-<tr class="separator:aad29c7c68f94ab1f5adab5142f9d4f8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4065992c7b7f8223470166228a15eae9" id="r_a4065992c7b7f8223470166228a15eae9"><td class="memItemLeft" align="right" valign="top"><a id="a4065992c7b7f8223470166228a15eae9" name="a4065992c7b7f8223470166228a15eae9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>integrate</b> (float dt)</td></tr>
-<tr class="separator:a4065992c7b7f8223470166228a15eae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classComponent"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classComponent')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classComponent.html">Component</a></td></tr>
+<tr class="memitem:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent" id="r_af659603312b1770279f3722f8ea303a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#af659603312b1770279f3722f8ea303a4">enable</a> ()</td></tr>
+<tr class="memdesc:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the component.  <br /></td></tr>
+<tr class="separator:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent" id="r_a5944c18d0e1de53f2842149ca364b672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#a5944c18d0e1de53f2842149ca364b672">disable</a> ()</td></tr>
+<tr class="memdesc:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the component.  <br /></td></tr>
+<tr class="separator:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a553dae3822f2c4a41808f64e27715878 inherit pub_methods_classComponent" id="r_a553dae3822f2c4a41808f64e27715878"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#a553dae3822f2c4a41808f64e27715878">isEnabled</a> () const</td></tr>
+<tr class="memdesc:a553dae3822f2c4a41808f64e27715878 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is component enabled.  <br /></td></tr>
+<tr class="separator:a553dae3822f2c4a41808f64e27715878 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab934884399c816afa73feefc84741113 inherit pub_methods_classComponent" id="r_ab934884399c816afa73feefc84741113"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#ab934884399c816afa73feefc84741113">setParent</a> (std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt; _parent)</td></tr>
+<tr class="memdesc:ab934884399c816afa73feefc84741113 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set component parent.  <br /></td></tr>
+<tr class="separator:ab934884399c816afa73feefc84741113 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66b9d2747399b75cbbd317bdab35e66d inherit pub_methods_classComponent" id="r_a66b9d2747399b75cbbd317bdab35e66d"><td class="memItemLeft" align="right" valign="top">
+std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getParent</b> () const</td></tr>
+<tr class="separator:a66b9d2747399b75cbbd317bdab35e66d inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a139cf05ac01161b7071c8a037c841683" id="r_a139cf05ac01161b7071c8a037c841683"><td class="memItemLeft" align="right" valign="top"><a id="a139cf05ac01161b7071c8a037c841683" name="a139cf05ac01161b7071c8a037c841683"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>PhysicsManager</b></td></tr>
 <tr class="separator:a139cf05ac01161b7071c8a037c841683"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classComponent"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classComponent')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classComponent.html">Component</a></td></tr>
+<tr class="memitem:afa65bb278f1e9256d34d6ea008e654ab inherit pro_attribs_classComponent" id="r_afa65bb278f1e9256d34d6ea008e654ab"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b></td></tr>
+<tr class="separator:afa65bb278f1e9256d34d6ea008e654ab inherit pro_attribs_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfed40142d7b94906283eccf45c7dff9 inherit pro_attribs_classComponent" id="r_adfed40142d7b94906283eccf45c7dff9"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b></td></tr>
+<tr class="separator:adfed40142d7b94906283eccf45c7dff9 inherit pro_attribs_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16c5b5c52b594184a7bfb5023f9f962c inherit pro_attribs_classComponent" id="r_a16c5b5c52b594184a7bfb5023f9f962c"><td class="memItemLeft" align="right" valign="top">
+std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
+<tr class="separator:a16c5b5c52b594184a7bfb5023f9f962c inherit pro_attribs_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> class. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md70"></a>
+Usage:</h2>
+<p><a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> is needed to simulate the physics of the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a>. This also includes setting up the Collision <a class="el" href="classShape.html">Shape</a>, which allows for interactions.</p>
+<h2><a class="anchor" id="autotoc_md71"></a>
+Pre-initialization calls:</h2>
+<p>By default, no pre-initialization calls are needed for static objects. If a collision <a class="el" href="classShape.html">Shape</a> is needed to enable collisions, call the following function:</p><ul>
+<li><a class="el" href="#aaaed307279c6f90ea1150977d995af65" title="Set up the collision Shape.">setShape(std::shared_ptr&lt;Shape&gt; newShape)</a></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md72"></a>
+General lifecycle of a PhysicsBody:</h2>
+<p>Note: This is assuming a movable object with collisions.</p>
+<ul>
+<li>Call <a class="el" href="#aaa4b9094e64f31ee6b8c82a5a30c0a4a" title="Set the mass.">setMass(float newMass)</a> to set up the body's mass</li>
+<li>Create a <a class="el" href="classShape.html">Shape</a> object</li>
+<li>Call <a class="el" href="#aaaed307279c6f90ea1150977d995af65" title="Set up the collision Shape.">setShape(std::shared_ptr&lt;Shape&gt; newShape)</a></li>
+<li>In main loop, call <a class="el" href="#acc33bac321ef26986c39790eb3a402f6" title="Apply a force.">applyForce()</a> to move the object.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md73"></a>
+Note:</h2>
+<p><a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> should have a collision <a class="el" href="classShape.html">Shape</a> for any <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> that needs to interact with the environment.</p>
+<p><a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> may be used without a <a class="el" href="classShape.html">Shape</a> for objects that need to move in the world but don't care about interacting with other objects, such as with ghosts, simple hanging objects, or visual effects. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="acc33bac321ef26986c39790eb3a402f6" name="acc33bac321ef26986c39790eb3a402f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc33bac321ef26986c39790eb3a402f6">&#9670;&#160;</a></span>applyForce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::applyForce </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classVector3.html">Vector3</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>f</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply a force. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md62"></a>
+Usage:</h2>
+<p>This should be the primary way of interacting with the object. It sets the force to affect the object for the <a class="el" href="#a78368ef0f63aa06cd4bf88959dd988c6" title="Update the GameObject and its related collision.">update()</a> call.</p>
+<h2><a class="anchor" id="autotoc_md63"></a>
+Note:</h2>
+<p>Force is reset at the end of each <a class="el" href="#a78368ef0f63aa06cd4bf88959dd988c6" title="Update the GameObject and its related collision.">update()</a> call, so this would only take effect for the single update.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Force on the <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="acecef47bdbd9ffeda49ad43a839a06bb" name="acecef47bdbd9ffeda49ad43a839a06bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acecef47bdbd9ffeda49ad43a839a06bb">&#9670;&#160;</a></span>getAcceleration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classVector3.html">Vector3</a> PhysicsBody::getAcceleration </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the acceleration. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b><a class="el" href="classVector3.html">Vector3</a></b> Acceleration </dd></dl>
+
+</div>
+</div>
+<a id="a57485a73d39688c247fd940590d0a3fb" name="a57485a73d39688c247fd940590d0a3fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57485a73d39688c247fd940590d0a3fb">&#9670;&#160;</a></span>getForce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classVector3.html">Vector3</a> PhysicsBody::getForce </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the force. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b><a class="el" href="classVector3.html">Vector3</a></b> Force </dd></dl>
+
+</div>
+</div>
+<a id="a5663ab620e5c1b5330d41ac00da9c4ea" name="a5663ab620e5c1b5330d41ac00da9c4ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5663ab620e5c1b5330d41ac00da9c4ea">&#9670;&#160;</a></span>getFriction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PhysicsBody::getFriction </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the friction. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b>float</b> Friction </dd></dl>
+
+</div>
+</div>
+<a id="abaccdd84e07381d4e9902393f1d59aac" name="abaccdd84e07381d4e9902393f1d59aac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaccdd84e07381d4e9902393f1d59aac">&#9670;&#160;</a></span>getInverseMass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PhysicsBody::getInverseMass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the inverse mass. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b>float</b> Inverse mass </dd></dl>
+
+</div>
+</div>
+<a id="a48de4e769ad237d4eab2ad6f45fe8655" name="a48de4e769ad237d4eab2ad6f45fe8655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48de4e769ad237d4eab2ad6f45fe8655">&#9670;&#160;</a></span>getIsStatic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PhysicsBody::getIsStatic </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get if the object is static. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b>bool</b> True if static </dd></dl>
+
+</div>
+</div>
+<a id="a731ac34e0dd08804773c7079124f2ed1" name="a731ac34e0dd08804773c7079124f2ed1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a731ac34e0dd08804773c7079124f2ed1">&#9670;&#160;</a></span>getMass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PhysicsBody::getMass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the mass. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b>float</b> Mass </dd></dl>
+
+</div>
+</div>
+<a id="a5b998d2267c9286909cc8c0a94ac0a7a" name="a5b998d2267c9286909cc8c0a94ac0a7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b998d2267c9286909cc8c0a94ac0a7a">&#9670;&#160;</a></span>getRestitution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PhysicsBody::getRestitution </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the restitution. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b>float</b> Restitution </dd></dl>
+
+</div>
+</div>
+<a id="ae3f062b86526656a8d19f57d726f6419" name="ae3f062b86526656a8d19f57d726f6419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3f062b86526656a8d19f57d726f6419">&#9670;&#160;</a></span>getShape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classShape.html">Shape</a> * PhysicsBody::getShape </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Collision <a class="el" href="classShape.html">Shape</a>. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b>Shape*</b> Collision <a class="el" href="classShape.html">Shape</a> </dd></dl>
+
+</div>
+</div>
+<a id="a2a959a3a3ea47f9a12d75e221742649e" name="a2a959a3a3ea47f9a12d75e221742649e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a959a3a3ea47f9a12d75e221742649e">&#9670;&#160;</a></span>getVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classVector3.html">Vector3</a> PhysicsBody::getVelocity </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the velocity. </p>
+<hr  />
+ <dl class="section return"><dt>Returns</dt><dd><b><a class="el" href="classVector3.html">Vector3</a></b> Velocity </dd></dl>
+
+</div>
+</div>
+<a id="a010914456b1f7ebeec18294a1a475df1" name="a010914456b1f7ebeec18294a1a475df1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a010914456b1f7ebeec18294a1a475df1">&#9670;&#160;</a></span>initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PhysicsBody::initialize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dummy initialize function. </p>
+<hr  />
+  
+<p>Reimplemented from <a class="el" href="classComponent.html">Component</a>.</p>
+
+</div>
+</div>
+<a id="a079fcd4c26af5cca2354d44c8cb3e4c4" name="a079fcd4c26af5cca2354d44c8cb3e4c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a079fcd4c26af5cca2354d44c8cb3e4c4">&#9670;&#160;</a></span>registerToPhysicsManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::registerToPhysicsManager </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classPhysicsManager.html">PhysicsManager</a> *</td>          <td class="paramname"><span class="paramname"><em>manager</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register self to the <a class="el" href="classPhysicsManager.html">PhysicsManager</a>. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md57"></a>
+Usage:</h2>
+<p>If a collision <a class="el" href="classShape.html">Shape</a> exists and collisions need to be properly calculated, the <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> must be registered to the <a class="el" href="classPhysicsManager.html">PhysicsManager</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">manager</td><td><a class="el" href="classPhysicsManager.html">PhysicsManager</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="adb7effa7e6d4addd5b671db016b37a7d" name="adb7effa7e6d4addd5b671db016b37a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb7effa7e6d4addd5b671db016b37a7d">&#9670;&#160;</a></span>setAcceleration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::setAcceleration </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classVector3.html">Vector3</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>acc</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the acceleration. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md60"></a>
+Usage:</h2>
+<p>This is used only if a burst of velocity is needed. This can be finnicky, so avoid using.</p>
+<h2><a class="anchor" id="autotoc_md61"></a>
+Explanation:</h2>
+<p>Acceleration is reset at the end of each <a class="el" href="#a78368ef0f63aa06cd4bf88959dd988c6" title="Update the GameObject and its related collision.">update()</a> call, so this would only take effect for the single update.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">acc</td><td>Acceleration of the <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="ae332899a0001ef402453c5ac7275727c" name="ae332899a0001ef402453c5ac7275727c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae332899a0001ef402453c5ac7275727c">&#9670;&#160;</a></span>setFriction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::setFriction </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>f</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the friction affecting the body. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md64"></a>
+Usage:</h2>
+<p>This is set to 0.3f by default. Set this to the required value to change the friction affecting the body.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Friction of the <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="aaa4b9094e64f31ee6b8c82a5a30c0a4a" name="aaa4b9094e64f31ee6b8c82a5a30c0a4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa4b9094e64f31ee6b8c82a5a30c0a4a">&#9670;&#160;</a></span>setMass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::setMass </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>newMass</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the mass. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md58"></a>
+Usage:</h2>
+<p>If the object is allowed to move, it must have a mass that the forces can be applied on.</p>
+<p>This can be skipped for static objects.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newMass</td><td>Mass of the <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="a7e37f9e6de80147b7dc8ca83d9d61d76" name="a7e37f9e6de80147b7dc8ca83d9d61d76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e37f9e6de80147b7dc8ca83d9d61d76">&#9670;&#160;</a></span>setRestitution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::setRestitution </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dummy restitution. </p>
+<hr  />
+ <p>This has not yet been implemented.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>Resitution of the <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="aaaed307279c6f90ea1150977d995af65" name="aaaed307279c6f90ea1150977d995af65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaed307279c6f90ea1150977d995af65">&#9670;&#160;</a></span>setShape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::setShape </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classShape.html">Shape</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>newShape</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set up the collision <a class="el" href="classShape.html">Shape</a>. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md67"></a>
+Usage:</h2>
+<p>This is to be used when the object needs to have interactions with other objects in the world. This can be skipped if world interactions aren't needed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newShape</td><td><a class="el" href="classShape.html">Shape</a> to be added to the object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="af4b66dc2c86e62dc9e21910739eee5a3" name="af4b66dc2c86e62dc9e21910739eee5a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4b66dc2c86e62dc9e21910739eee5a3">&#9670;&#160;</a></span>setStatic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::setStatic </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>staticValue</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the body to be static. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md65"></a>
+Usage:</h2>
+<p>This is to be used if the object should no longer be movable.</p>
+<h2><a class="anchor" id="autotoc_md66"></a>
+Explanation:</h2>
+<p>This resets the body's mass to 0.0f, so be aware of this if you want to use this to just freeze an object. When unfrozen, the object needs to have its mass reset to the old value.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">staticValue</td><td>True if static </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="ab6f9285d8a735ee94a440c81e0f424d1" name="ab6f9285d8a735ee94a440c81e0f424d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6f9285d8a735ee94a440c81e0f424d1">&#9670;&#160;</a></span>setVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classPhysicsBody.html">PhysicsBody</a> &gt; PhysicsBody::setVelocity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classVector3.html">Vector3</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>vel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the velocity. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md59"></a>
+Usage:</h2>
+<p>This is to be used if the object's velocity needs to be reset to a specific value. A common use case would be during collisions, where instead of force, velocity might be set instead. Or in portals where, velocity must be shifted to a different reference frame.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vel</td><td>Velocity of the <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;PhysicsBody&gt;</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="aaedea3f640d96aa7592fb5a8a8efcb79" name="aaedea3f640d96aa7592fb5a8a8efcb79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaedea3f640d96aa7592fb5a8a8efcb79">&#9670;&#160;</a></span>shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PhysicsBody::shutdown </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dummy shutdown function. </p>
+<hr  />
+  
+<p>Reimplemented from <a class="el" href="classComponent.html">Component</a>.</p>
+
+</div>
+</div>
+<a id="a78368ef0f63aa06cd4bf88959dd988c6" name="a78368ef0f63aa06cd4bf88959dd988c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78368ef0f63aa06cd4bf88959dd988c6">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PhysicsBody::update </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update the <a class="el" href="classGameObject.html" title="GameObject class that implements a single object in the scene.">GameObject</a> and its related collision. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md68"></a>
+Usage:</h2>
+<p>This should be called in the main loop to update the object's position according to all external forces acting upon it.</p>
+<h2><a class="anchor" id="autotoc_md69"></a>
+Note:</h2>
+<p>Look into how collision <a class="el" href="classShape.html">Shape</a> and the <a class="el" href="classPhysicsManager.html">PhysicsManager</a> systems work to ensure collisions are handled correctly.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deltaTime</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classComponent.html">Component</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>AnishCS529Engine/src/<a class="el" href="PhysicsBody_8h_source.html">PhysicsBody.h</a></li>
-<li>AnishCS529Engine/src/<b>PhysicsBody.cpp</b></li>
+<li>AnishCS529Engine/src/<a class="el" href="PhysicsBody_8cpp.html">PhysicsBody.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

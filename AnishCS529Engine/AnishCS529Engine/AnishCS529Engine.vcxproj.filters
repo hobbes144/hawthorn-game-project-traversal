@@ -115,6 +115,12 @@
     <Filter Include="Engine\Shaders">
       <UniqueIdentifier>{b20874b9-9397-423b-8562-417be9e8be03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Header Files\Systems\PhysicsSystem\Components">
+      <UniqueIdentifier>{1800fad6-f394-4d7e-bd7c-159f09b640a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Systems\PhysicsSystem\Components">
+      <UniqueIdentifier>{70477c14-dad4-4065-8810-f68c41c954d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -177,9 +183,6 @@
     <ClCompile Include="src\OBB.cpp">
       <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\PhysicsBody.cpp">
-      <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
-    </ClCompile>
     <ClCompile Include="src\PhysicsManager.cpp">
       <Filter>Engine\Source Files\Systems\PhysicsSystem</Filter>
     </ClCompile>
@@ -227,6 +230,12 @@
     </ClCompile>
     <ClCompile Include="src\Render2D.cpp">
       <Filter>Engine\Source Files\ObjectResources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsBodyOld.cpp">
+      <Filter>Engine\Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsBody.cpp">
+      <Filter>Engine\Source Files\Systems\PhysicsSystem\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,9 +308,6 @@
     <ClInclude Include="src\OBB.h">
       <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="src\PhysicsBody.h">
-      <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
-    </ClInclude>
     <ClInclude Include="src\PhysicsManager.h">
       <Filter>Engine\Header Files\Systems\PhysicsSystem</Filter>
     </ClInclude>
@@ -355,6 +361,12 @@
     </ClInclude>
     <ClInclude Include="src\Tank.h">
       <Filter>SphereJump\Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsBodyOld.h">
+      <Filter>Engine\Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsBody.h">
+      <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

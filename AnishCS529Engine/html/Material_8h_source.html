@@ -157,14 +157,19 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
 </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif </span><span class="comment">// MATERIAL_H</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">// Challenge for you: Can you think of a way to templetize the setProperty() function?</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">// What about the properties map? Instead of a variant, could you use a template parameter? In that case, how would you handle setting the uniforms?</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>std::shared_ptr&lt;Material&gt; <a class="code hl_function" href="Material_8h.html#a50ac9189783fa9fb4bbbbe24aab875f5">createSolidColorMaterial</a>(<span class="keyword">const</span> <a class="code hl_class" href="classVector3.html">Vector3</a>&amp; color);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>std::shared_ptr&lt;Material&gt; createTextureMaterial(<span class="keyword">const</span> std::string&amp; textureFile);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif </span><span class="comment">// MATERIAL_H</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">// Challenge for you: Can you think of a way to templetize the setProperty() function?</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">// What about the properties map? Instead of a variant, could you use a template parameter? In that case, how would you handle setting the uniforms?</span></div>
+<div class="ttc" id="aMaterial_8h_html_a50ac9189783fa9fb4bbbbe24aab875f5"><div class="ttname"><a href="Material_8h.html#a50ac9189783fa9fb4bbbbe24aab875f5">createSolidColorMaterial</a></div><div class="ttdeci">std::shared_ptr&lt; Material &gt; createSolidColorMaterial(const Vector3 &amp;color)</div><div class="ttdoc">Factory to create a solid color render material.</div><div class="ttdef"><b>Definition</b> Material.cpp:78</div></div>
 <div class="ttc" id="aMatrix4_8h_html"><div class="ttname"><a href="Matrix4_8h.html">Matrix4.h</a></div><div class="ttdoc">File conatining the custom Matrix4 implementation for use with OpenGL functions and other game logic.</div></div>
 <div class="ttc" id="aShader_8h_html"><div class="ttname"><a href="Shader_8h.html">Shader.h</a></div><div class="ttdoc">Shader class to create and manage shaders and set up uniforms.</div></div>
 <div class="ttc" id="aVector3_8h_html"><div class="ttname"><a href="Vector3_8h.html">Vector3.h</a></div><div class="ttdoc">File conatining the custom Vector3 implementation for use with OpenGL functions and other game logic.</div></div>
 <div class="ttc" id="aclassMaterial_html"><div class="ttname"><a href="classMaterial.html">Material</a></div><div class="ttdoc">Class to manage Materials used by objects.</div><div class="ttdef"><b>Definition</b> Material.h:31</div></div>
+<div class="ttc" id="aclassVector3_html"><div class="ttname"><a href="classVector3.html">Vector3</a></div><div class="ttdef"><b>Definition</b> Vector3.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
