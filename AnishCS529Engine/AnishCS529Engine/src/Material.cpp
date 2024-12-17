@@ -93,5 +93,5 @@ std::shared_ptr<Material> createTextureMaterial(const std::string& textureFile)
   newMaterial->setTexture("mainTexture", texture, 0);
   newMaterial->setProperty("useTexture", 1);
   newMaterial->setProperty("isTransparent", 1);
-  return std::shared_ptr<Material>();
+  return newMaterial;
 }

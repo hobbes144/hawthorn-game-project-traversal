@@ -51,6 +51,6 @@ var searchData=
   ['squaremesh_48',['SquareMesh',['../classSquareMesh.html',1,'']]],
   ['squaremesh_2eh_49',['SquareMesh.h',['../SquareMesh_8h.html',1,'']]],
   ['startframe_50',['startFrame',['../classFramerateController.html#a0b461598c6381316ffa8aced3b677bda',1,'FramerateController']]],
-  ['supported_20features_51',['Supported Features',['../md_manual_2ExtraFeatures.html#autotoc_md126',1,'']]],
+  ['supported_20features_51',['Supported Features',['../md_manual_2ExtraFeatures.html#autotoc_md127',1,'']]],
   ['swapbuffers_52',['swapBuffers',['../classRenderer.html#aef569e49c7b1b4839bea96a4477c5b2c',1,'Renderer']]]
 ];
