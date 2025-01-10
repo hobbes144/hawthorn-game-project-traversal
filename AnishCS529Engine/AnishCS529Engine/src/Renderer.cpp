@@ -263,6 +263,38 @@ void Renderer::draw(GLenum mode, GLint count, bool indexed = true) const {
 }
 
 /*!****************************************************************************
+ * \brief Set the Viewport size
+ * 
+ * ## Usage:
+ * 
+ * This is to be called during RenderGraph Passes that require a custom
+ * viewport size, such as for the ShadowPass.
+ * 
+ * Ensure that resetViewport is called after the Pass is completed.
+ * 
+ * \param width new width of Viewport
+ * \param height new height of the Viewport
+ *****************************************************************************/
+void Renderer::setViewport(int width, int height)
+{
+  glViewport(0, 0, width, height);
+}
+
+/*!****************************************************************************
+ * \brief Reset the Viewport size
+ * 
+ * ## Usage:
+ * 
+ * This is to be called after a RenderGraph Pass to set the Viewport back to
+ * the window resolution.
+ * 
+ *****************************************************************************/
+void Renderer::resetViewport()
+{
+  glViewport(0, 0, gameWindow->getWidth(), gameWindow->getHeight());
+}
+
+/*!****************************************************************************
  * \brief Set the Depth Test feature
  * 
  * ## Usage:

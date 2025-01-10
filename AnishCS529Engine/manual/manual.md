@@ -3,10 +3,13 @@
 AnishCS529Engine is an OpenGL based game engine that is written by Anish Murthy
 to learn Game Engine development and OpenGL rendering.
 
-## Manual
+## Table of Contents
 
-Refer to the documentation markdown at [AnishCS529Engine/manual](https://github.com/murthyanish/DigiPenCS529/blob/main/AnishCS529Engine/manual/manual.md) for more information.
-When cloned, you can access the more comprehensive documentation website at [AnishCS529Engine/manual/AnishCS529Engine Documentation.lnk](AnishCS529Engine/manual/AnishCS529Engine%20Documentation.lnk).
+[Framebuffer Objects/FBOs](FBOs.md)
+
+## Features
+
+[Extra Features](ExtraFeatures.md)
 
 ## Contributing
 
@@ -22,4 +25,4 @@ Please make sure to update tests as appropriate.
 This software is proprietary and confidential. It is licensed, not sold.
 
 Use, modification, and distribution are permitted only with written
-authorization from Anish Murthy and DigiPen Institute of technology.
+authorization from Anish Murthy or DigiPen Institute of technology.

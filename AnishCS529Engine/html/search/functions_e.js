@@ -6,8 +6,10 @@ var searchData=
   ['removenode_3',['removeNode',['../classNode.html#a9d3a897b1240b4cd8fc7e37ad5e30fcb',1,'Node']]],
   ['reparent_4',['reparent',['../classNode.html#a70630771eb579ea03658d83385489a47',1,'Node']]],
   ['reset_5',['reset',['../classPhysicsBody.html#ab5c304e72e8a2e6d69bd4ecc502bcd1d',1,'PhysicsBody']]],
-  ['rotationx_6',['rotationX',['../classMatrix4.html#a048be771f8129b58fb0d8cd88eeac1a8',1,'Matrix4']]],
-  ['rotationxyz_7',['rotationXYZ',['../classMatrix4.html#a55b9e4d0b4ec57a81d76234d62231a69',1,'Matrix4::rotationXYZ(float angleX, float angleY, float angleZ)'],['../classMatrix4.html#ab3213354aaeb9178e31f8d5e4c8e1ed5',1,'Matrix4::rotationXYZ(const Vector3 rotation)']]],
-  ['rotationy_8',['rotationY',['../classMatrix4.html#a9a3cd14d7170a3ee4aa5f63cf11a1721',1,'Matrix4']]],
-  ['rotationz_9',['rotationZ',['../classMatrix4.html#a19174edae2b8d9f241841ee80f903ed1',1,'Matrix4']]]
+  ['resetdepthtest_6',['resetDepthTest',['../classRenderer.html#a07ff04fd9afbd838d5575534fa62e2de',1,'Renderer']]],
+  ['resetviewport_7',['resetViewport',['../classRenderer.html#aac786f5c5d5b74e63f37c436bc2f1584',1,'Renderer']]],
+  ['rotationx_8',['rotationX',['../classMatrix4.html#a048be771f8129b58fb0d8cd88eeac1a8',1,'Matrix4']]],
+  ['rotationxyz_9',['rotationXYZ',['../classMatrix4.html#a55b9e4d0b4ec57a81d76234d62231a69',1,'Matrix4::rotationXYZ(float angleX, float angleY, float angleZ)'],['../classMatrix4.html#ab3213354aaeb9178e31f8d5e4c8e1ed5',1,'Matrix4::rotationXYZ(const Vector3 rotation)']]],
+  ['rotationy_10',['rotationY',['../classMatrix4.html#a9a3cd14d7170a3ee4aa5f63cf11a1721',1,'Matrix4']]],
+  ['rotationz_11',['rotationZ',['../classMatrix4.html#a19174edae2b8d9f241841ee80f903ed1',1,'Matrix4']]]
 ];

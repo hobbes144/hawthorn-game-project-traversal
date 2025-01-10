@@ -1,15 +1,10 @@
 var searchData=
 [
-  ['obb_0',['OBB',['../classOBB.html',1,'']]],
-  ['of_20a_20frameratecontroller_3a_1',['General lifecycle of a FramerateController:',['../classFramerateController.html#autotoc_md12',1,'']]],
-  ['of_20a_20gameobject_3a_2',['General lifecycle of a GameObject:',['../classGameObject.html#autotoc_md28',1,'']]],
-  ['of_20a_20gamewindow_3a_3',['General lifecycle of a GameWindow:',['../classGameWindow.html#autotoc_md50',1,'']]],
-  ['of_20a_20physicsbody_3a_4',['General lifecycle of a PhysicsBody:',['../classPhysicsBody.html#autotoc_md84',1,'']]],
-  ['of_20a_20renderer_3a_5',['General lifecycle of a Renderer:',['../classRenderer.html#autotoc_md120',1,'']]],
-  ['of_20input_3a_6',['General lifecycle of Input:',['../classInput.html#autotoc_md63',1,'']]],
-  ['openglcallbackfunction_7',['openglCallbackFunction',['../Renderer_8cpp.html#aee5466ea280b93bfafd043daa3c9567a',1,'Renderer.cpp']]],
-  ['operator_2a_8',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
-  ['operator_3c_3c_9',['operator&lt;&lt;',['../classNode.html#a2d3d26656e15be37b759d3e0f7696b47',1,'Node::operator&lt;&lt;'],['../Node_8cpp.html#a2d3d26656e15be37b759d3e0f7696b47',1,'operator&lt;&lt;():&#160;Node.cpp']]],
-  ['operator_3d_10',['operator=',['../classGeometryBuffer.html#acca6fbf2a11e18aede705580ec5fab51',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
-  ['orthographic_11',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
+  ['node_0',['Node',['../classNode.html',1,'Node'],['../classNode.html#afceb8877cfab44e0eda5ae3a88513242',1,'Node::Node()']]],
+  ['node_2ecpp_1',['Node.cpp',['../Node_8cpp.html',1,'']]],
+  ['node_2eh_2',['Node.h',['../Node_8h.html',1,'']]],
+  ['normalized_3',['normalized',['../structGeometryBuffer_1_1AttributeInfo.html#af3c5b99a8187c87f2cb890449795c067',1,'GeometryBuffer::AttributeInfo']]],
+  ['note_3a_4',['Note:',['../classGameObject.html#autotoc_md24',1,'Note:'],['../classGameObject.html#autotoc_md31',1,'Note:'],['../classGameObject.html#autotoc_md34',1,'Note:'],['../classPhysicsBody.html#autotoc_md74',1,'Note:'],['../classPhysicsBody.html#autotoc_md81',1,'Note:'],['../classPhysicsBody.html#autotoc_md85',1,'Note:'],['../classPhysicsManager.html#autotoc_md90',1,'Note:']]],
+  ['notes_5',['Notes',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md155',1,'']]],
+  ['notes_3a_6',['Notes:',['../classFramerateController.html#autotoc_md14',1,'Notes:'],['../classInput.html#autotoc_md64',1,'Notes:'],['../classRenderer.html#autotoc_md125',1,'Notes:']]]
 ];

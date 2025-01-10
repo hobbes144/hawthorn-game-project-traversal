@@ -5,7 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.3] - 09-01-2024
+## [1.0.4] - 10-01-2025
+
+### Added
+
+- Added option to change viewport in Renderer.
+
+### Removed
+
+- Removed FALL2024 project.
+
+### Note
+
+From now on, this repository will be moved to the DigiPen Hawthorn team's
+private repository. All future changes will be on this new repository and this
+repository will be abandoned.
+
+## [1.0.3] - 09-01-2025
 
 ### Added
 

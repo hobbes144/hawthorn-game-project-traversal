@@ -1,13 +1,15 @@
 var searchData=
 [
-  ['perspective_0',['perspective',['../classMatrix4.html#a1d2fb29604676dd0c374244e947d034f',1,'Matrix4']]],
-  ['physicsbody_1',['PhysicsBody',['../classPhysicsBody.html',1,'']]],
-  ['physicsbody_2ecpp_2',['PhysicsBody.cpp',['../PhysicsBody_8cpp.html',1,'']]],
-  ['physicsbody_2eh_3',['PhysicsBody.h',['../PhysicsBody_8h.html',1,'']]],
-  ['physicsbody_3a_4',['General lifecycle of a PhysicsBody:',['../classPhysicsBody.html#autotoc_md84',1,'']]],
-  ['physicsmanager_5',['PhysicsManager',['../classPhysicsManager.html',1,'']]],
-  ['pi_6',['pi',['../Matrix4_8cpp.html#abce8f0db8a5282e441988c8d2e73f79e',1,'Matrix4.cpp']]],
-  ['post_20initialization_20calls_3a_7',['Post-initialization calls:',['../classRenderer.html#autotoc_md119',1,'']]],
-  ['pre_20initialization_20calls_3a_8',['Pre initialization calls:',['../classFramerateController.html#autotoc_md11',1,'Pre-initialization calls:'],['../classGameObject.html#autotoc_md27',1,'Pre-initialization calls:'],['../classGameWindow.html#autotoc_md49',1,'Pre-initialization calls:'],['../classInput.html#autotoc_md62',1,'Pre-initialization calls:'],['../classMovement.html#autotoc_md67',1,'Pre-initialization calls:'],['../classPhysicsBody.html#autotoc_md83',1,'Pre-initialization calls:'],['../classRenderer.html#autotoc_md118',1,'Pre-initialization calls:'],['../classShoot.html#autotoc_md123',1,'Pre-initialization calls:']]],
-  ['printnoderecursive_9',['printNodeRecursive',['../classNode.html#a056d062eb29724b02a75fe7c11c9068d',1,'Node']]]
+  ['obb_0',['OBB',['../classOBB.html',1,'']]],
+  ['of_20a_20frameratecontroller_3a_1',['General lifecycle of a FramerateController:',['../classFramerateController.html#autotoc_md12',1,'']]],
+  ['of_20a_20gameobject_3a_2',['General lifecycle of a GameObject:',['../classGameObject.html#autotoc_md28',1,'']]],
+  ['of_20a_20gamewindow_3a_3',['General lifecycle of a GameWindow:',['../classGameWindow.html#autotoc_md50',1,'']]],
+  ['of_20a_20physicsbody_3a_4',['General lifecycle of a PhysicsBody:',['../classPhysicsBody.html#autotoc_md84',1,'']]],
+  ['of_20a_20renderer_3a_5',['General lifecycle of a Renderer:',['../classRenderer.html#autotoc_md124',1,'']]],
+  ['of_20input_3a_6',['General lifecycle of Input:',['../classInput.html#autotoc_md63',1,'']]],
+  ['openglcallbackfunction_7',['openglCallbackFunction',['../Renderer_8cpp.html#aee5466ea280b93bfafd043daa3c9567a',1,'Renderer.cpp']]],
+  ['operator_2a_8',['operator*',['../classMatrix4.html#af5d90a96dd8551e581564fad1c5894a0',1,'Matrix4::operator*(const Matrix4 &amp;other)'],['../classMatrix4.html#a80ef70673ad99e3b93667aac6d2e9751',1,'Matrix4::operator*(const Vector3 &amp;vec) const']]],
+  ['operator_3c_3c_9',['operator&lt;&lt;',['../classNode.html#a2d3d26656e15be37b759d3e0f7696b47',1,'Node::operator&lt;&lt;'],['../Node_8cpp.html#a2d3d26656e15be37b759d3e0f7696b47',1,'operator&lt;&lt;():&#160;Node.cpp']]],
+  ['operator_3d_10',['operator=',['../classGeometryBuffer.html#acca6fbf2a11e18aede705580ec5fab51',1,'GeometryBuffer::operator=(const GeometryBuffer &amp;)=delete'],['../classGeometryBuffer.html#ae30293d2749dc918f4208fadadf39bf5',1,'GeometryBuffer::operator=(GeometryBuffer &amp;&amp;) noexcept']]],
+  ['orthographic_11',['orthographic',['../classMatrix4.html#a6e7010d7e8abd5645f020a2f569079ea',1,'Matrix4']]]
 ];

@@ -74,7 +74,9 @@ public:
   void swapBuffers() const;
   void draw(GLenum mode, GLint count, bool indexed) const;
 
-  /* Rendering Utility functions */
+  /* Advanced Rendering Utility functions */
+  void setViewport(int width, int height);
+  void resetViewport();
   void setDepthTest(bool depthTestEnabled);
   void resetDepthTest();
   // To be added when we reach this part in graphics class:

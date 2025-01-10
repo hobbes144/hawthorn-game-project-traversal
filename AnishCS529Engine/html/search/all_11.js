@@ -1,21 +1,11 @@
 var searchData=
 [
-  ['manual_0',['Manual',['../index.html#autotoc_md133',1,'']]],
-  ['markedfordeletion_1',['markedForDeletion',['../classGameObject.html#a332495aab47697590809b418192e6aa4',1,'GameObject']]],
-  ['markfordeletion_2',['markForDeletion',['../classGameObject.html#ad5036818e6ba721120e39851f4e3e3da',1,'GameObject']]],
-  ['material_3',['Material',['../classMaterial.html',1,'']]],
-  ['material_2ecpp_4',['Material.cpp',['../Material_8cpp.html',1,'']]],
-  ['material_2eh_5',['Material.h',['../Material_8h.html',1,'']]],
-  ['matrix4_6',['Matrix4',['../classMatrix4.html',1,'Matrix4'],['../classMatrix4.html#a21e70a74447b9b05cf9a06400bc9c661',1,'Matrix4::Matrix4()'],['../classMatrix4.html#a09eab6d413ad9d6302003f9285859677',1,'Matrix4::Matrix4(float x0, float y0, float z0, float w0, float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2, float x3, float y3, float z3, float w3)']]],
-  ['matrix4_2ecpp_7',['Matrix4.cpp',['../Matrix4_8cpp.html',1,'']]],
-  ['matrix4_2eh_8',['Matrix4.h',['../Matrix4_8h.html',1,'']]],
-  ['mesh_9',['Mesh',['../classMesh.html',1,'']]],
-  ['mesh_2ecpp_10',['Mesh.cpp',['../Mesh_8cpp.html',1,'']]],
-  ['mesh_2eh_11',['Mesh.h',['../Mesh_8h.html',1,'']]],
-  ['modifiableattributes_12',['ModifiableAttributes',['../classGeometryBuffer.html#aa121e08fb0cbfe25f4af2e2438033d47',1,'GeometryBuffer']]],
-  ['movement_13',['Movement',['../classMovement.html',1,'']]],
-  ['movement_2ecpp_14',['Movement.cpp',['../Movement_8cpp.html',1,'']]],
-  ['movement_2eh_15',['Movement.h',['../Movement_8h.html',1,'']]],
-  ['murthyanish_20digipencs529_20compare_200_206_200_200_20v0_207_200_200_200_207_200_200_20a_2011_2004_202024_16',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/0.6.0.0...v0.7.0.0&quot; &gt;0.7.0.0&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md143',1,'']]],
-  ['murthyanish_20digipencs529_20compare_20v0_207_200_200_20v0_207_200_201_200_207_200_201_20a_2011_2004_202024_17',['&lt;a href=&quot;https://github.com/murthyanish/DigiPenCS529/compare/v0.7.0.0...v0.7.0.1&quot; &gt;0.7.0.1&lt;/a&gt; - 11-04-2024',['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2CHANGELOG.html#autotoc_md141',1,'']]]
+  ['license_0',['License',['../index.html#autotoc_md139',1,'License'],['../md__2mnt_2c_2Users_2murth_2DevEnv_2DigiPenCS529_2README.html#autotoc_md143',1,'License']]],
+  ['lifecycle_20of_20a_20frameratecontroller_3a_1',['General lifecycle of a FramerateController:',['../classFramerateController.html#autotoc_md12',1,'']]],
+  ['lifecycle_20of_20a_20gameobject_3a_2',['General lifecycle of a GameObject:',['../classGameObject.html#autotoc_md28',1,'']]],
+  ['lifecycle_20of_20a_20gamewindow_3a_3',['General lifecycle of a GameWindow:',['../classGameWindow.html#autotoc_md50',1,'']]],
+  ['lifecycle_20of_20a_20physicsbody_3a_4',['General lifecycle of a PhysicsBody:',['../classPhysicsBody.html#autotoc_md84',1,'']]],
+  ['lifecycle_20of_20a_20renderer_3a_5',['General lifecycle of a Renderer:',['../classRenderer.html#autotoc_md124',1,'']]],
+  ['lifecycle_20of_20input_3a_6',['General lifecycle of Input:',['../classInput.html#autotoc_md63',1,'']]],
+  ['lookat_7',['lookAt',['../classMatrix4.html#a9a4a1c9e854f476005c4ebf683fef91c',1,'Matrix4']]]
 ];
