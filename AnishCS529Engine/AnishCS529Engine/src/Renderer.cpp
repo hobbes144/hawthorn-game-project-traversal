@@ -173,7 +173,8 @@ Renderer* Renderer::setGameWindow(GameWindow* _gameWindow) {
  * \param is3D True if rendering should be in 3D space
  * \return \b Renderer* this
  *****************************************************************************/
-Renderer* Renderer::setIs3D(bool is3D) {
+Renderer* Renderer::setIs3D(bool _is3D) {
+  is3D = _is3D;
   if (is3D) {
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glEnable(GL_DEPTH_TEST);
@@ -259,6 +260,41 @@ void Renderer::draw(GLenum mode, GLint count, bool indexed = true) const {
   else {
     glDrawArrays(mode, 0, count);
   }
+}
+
+/*!****************************************************************************
+ * \brief Set the Depth Test feature
+ * 
+ * ## Usage:
+ * 
+ * This is to be called in RenderGraph Passes that require the feature to be a
+ * specific value.
+ * 
+ * \param depthTestEnabled If depth test should be enabled or disabled.
+ *****************************************************************************/
+void Renderer::setDepthTest(bool depthTestEnabled)
+{
+  if (depthTestEnabled)
+    glEnable(GL_DEPTH_TEST);
+  else
+    glDisable(GL_DEPTH_TEST);
+}
+
+/*!****************************************************************************
+ * \brief Reset the Depth Test feature
+ * 
+ * ## Usage:
+ * 
+ * This is to be called after the RenderGraph Pass to reset the Depth Test to
+ * the original value.
+ * 
+ *****************************************************************************/
+void Renderer::resetDepthTest()
+{
+  if (is3D)
+    glEnable(GL_DEPTH_TEST);
+  else
+    glDisable(GL_DEPTH_TEST);
 }
 
 /*!****************************************************************************

@@ -74,11 +74,20 @@ public:
   void swapBuffers() const;
   void draw(GLenum mode, GLint count, bool indexed) const;
 
+  /* Rendering Utility functions */
+  void setDepthTest(bool depthTestEnabled);
+  void resetDepthTest();
+  // To be added when we reach this part in graphics class:
+  // void setBlending(bool blendingEnabled);
+  // void resetBlending();
+
 private:
   /** Game Window object */
   GameWindow* gameWindow;
   /** Clear mask for glClear */
   GLbitfield clearMask;
+  /** Is rendering in 3D */
+  bool is3D;
 
   bool loadGraphicsAPIFunctions() const;
   void setupCallbacks() const;
