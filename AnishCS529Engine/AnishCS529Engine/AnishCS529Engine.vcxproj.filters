@@ -139,6 +139,12 @@
     <Filter Include="SphereJump\Source Files\Components">
       <UniqueIdentifier>{7314fe49-5fd7-4425-b4be-00c1bcb8e477}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Header Files\Systems\RenderingSystem">
+      <UniqueIdentifier>{3093263e-626d-455b-ab65-fcd3fcbac448}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Systems\RenderingSystem">
+      <UniqueIdentifier>{bd3ef459-aba3-468c-bc4d-877c97dc082a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -228,9 +234,6 @@
     <ClCompile Include="src\GameWindow.cpp">
       <Filter>Engine\Source Files\OpenGL\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
-      <Filter>Engine\Source Files\Systems\Components</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameWindowOld.cpp">
       <Filter>Engine\Source Files\Deprecated</Filter>
     </ClCompile>
@@ -272,6 +275,12 @@
     </ClCompile>
     <ClCompile Include="src\Shoot.cpp">
       <Filter>SphereJump\Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderPass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -362,9 +371,6 @@
     <ClInclude Include="src\GameWindow.h">
       <Filter>Engine\Header Files\OpenGL\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer.h">
-      <Filter>Engine\Header Files\Systems\Components</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameWindowOld.h">
       <Filter>Engine\Header Files\Deprecated</Filter>
     </ClInclude>
@@ -421,6 +427,12 @@
     </ClInclude>
     <ClInclude Include="src\Shoot.h">
       <Filter>SphereJump\Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderPass.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

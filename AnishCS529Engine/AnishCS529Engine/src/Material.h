@@ -45,7 +45,7 @@ public:
 
   virtual void apply() const;
 
-private:
+protected:
   std::shared_ptr<Shader> shader;
   std::unordered_map<
     std::string, 
