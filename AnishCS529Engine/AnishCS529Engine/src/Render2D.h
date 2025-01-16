@@ -20,7 +20,7 @@
 /* Used classes */
 #include "Camera.h"
 #include "GameObject.h"
-#include "Material.h"
+#include "MaterialDeprecated.h"
 #include "Mesh.h"
 #include "Renderer.h"
 
@@ -45,13 +45,13 @@ public:
   std::shared_ptr<Render2D> setRenderer(Renderer* _renderer);
   std::shared_ptr<Render2D> setCamera(std::shared_ptr<Camera> _camera);
   std::shared_ptr<Render2D> setMesh(std::shared_ptr<Mesh> _mesh);
-  std::shared_ptr<Render2D> setMaterial(std::shared_ptr<Material> _material);
+  std::shared_ptr<Render2D> setMaterial(std::shared_ptr<MaterialDeprecated> _material);
 
 private:
   Renderer* renderer;
   std::shared_ptr<Camera> camera;
   std::shared_ptr<Mesh> mesh;
-  std::shared_ptr<Material> material;
+  std::shared_ptr<MaterialDeprecated> material;
 };
 
 #endif // !RENDER_3D_H

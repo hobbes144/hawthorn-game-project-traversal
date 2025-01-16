@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Shape.h"
-#include "Renderer.h"
+#include "MaterialDeprecated.h"
 #include "Mesh.h"
-#include "Material.h"
+#include "Renderer.h"
+#include "Shape.h"
 
 class AABB : public Shape
 {
@@ -34,7 +34,7 @@ private:
 
   // debug properties
   std::shared_ptr<Mesh> debugMesh;
-  std::shared_ptr<Material> debugMaterial;
+  std::shared_ptr<MaterialDeprecated> debugMaterial;
   Renderer* renderer;
 };
 

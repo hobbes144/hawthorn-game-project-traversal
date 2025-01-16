@@ -111,6 +111,22 @@ const std::string& Mesh::getName() const {
   return name;
 }
 
+void Mesh::draw(Renderer* renderer) {
+  if ( !geometryBuffer ) return;
+  geometryBuffer->bind();
+
+  if (this->hasAttribute(GeometryBuffer::AttributeType::Position) ) {
+    if (this->getIndexCount() > 0) {
+      renderer->draw(GL_TRIANGLES, geometryBuffer->getIndexCount(), true);
+    }
+    else {
+      renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), false);
+    }
+  }
+
+  geometryBuffer->unbind();
+}
+
 std::shared_ptr<Mesh> createSquareMesh(const std::string name)
 {
   // Generate vertex data for a rectangle

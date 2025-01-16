@@ -18,11 +18,30 @@ void RenderPass::setTexture(const std::string& name, std::shared_ptr<Texture> te
   (*textureData)[name] = { texture, unit };
 }
 
-void RenderPass::apply() const
+void RenderPass::apply(const PropertyMap& tempProperties) const
 {
   shader->use();
 
-  for (const auto& [name, value] : properties) {
+  applyProperties(properties);
+  applyProperties(tempProperties);
+  
+  // Texture samplers
+  if (textureData) {
+    for (const auto& [name, texInfo] : *textureData) {
+      if (texInfo.texture) {
+        texInfo.texture->bind();
+        shader->setInt(name, texInfo.unit);
+      }
+      else {
+        std::cerr << "Warning: Null texture for uniform " << name << std::endl;
+      }
+    }
+  }
+}
+
+void RenderPass::applyProperties(PropertyMap _properties) const
+{
+  for (const auto& [name, value] : _properties) {
     /* visit takes a function as the first argument and the value to be sent
     to it in the second. */
     std::visit(
@@ -47,18 +66,4 @@ void RenderPass::apply() const
       value
     );
   }
-  // Texture samplers
-  if (textureData) {
-    for (const auto& [name, texInfo] : *textureData) {
-      if (texInfo.texture) {
-        texInfo.texture->bind();
-        shader->setInt(name, texInfo.unit);
-      }
-      else {
-        std::cerr << "Warning: Null texture for uniform " << name << std::endl;
-      }
-    }
-  }
 }
-
-

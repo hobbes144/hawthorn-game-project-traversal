@@ -145,6 +145,9 @@
     <Filter Include="Engine\Source Files\Systems\RenderingSystem">
       <UniqueIdentifier>{bd3ef459-aba3-468c-bc4d-877c97dc082a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Source Files\ObjectResources\Materials/Textures">
+      <UniqueIdentifier>{4e0f8240-3111-4951-aa02-e106ad0d945d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -167,9 +170,6 @@
     </ClCompile>
     <ClCompile Include="src\Shader.cpp">
       <Filter>Engine\Source Files\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Material.cpp">
-      <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
     <ClCompile Include="src\Mesh.cpp">
       <Filter>Engine\Source Files\ObjectResources</Filter>
@@ -218,9 +218,6 @@
     </ClCompile>
     <ClCompile Include="src\RectanglePrimitive.cpp">
       <Filter>Engine\Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Texture.cpp">
-      <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
     <ClCompile Include="src\TankBattle.cpp">
       <Filter>SphereJump</Filter>
@@ -281,6 +278,18 @@
     </ClCompile>
     <ClCompile Include="src\RenderPass.cpp">
       <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderGraph.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MaterialDeprecated.cpp">
+      <Filter>Engine\Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Material.cpp">
+      <Filter>Engine\Source Files\ObjectResources\Materials/Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Engine\Source Files\ObjectResources\Materials/Textures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,9 +401,6 @@
     <ClInclude Include="src\Mesh.h">
       <Filter>Engine\Header Files\ObjectResources\Meshes</Filter>
     </ClInclude>
-    <ClInclude Include="src\Material.h">
-      <Filter>Engine\Header Files\ObjectResources\Materials/Textures</Filter>
-    </ClInclude>
     <ClInclude Include="src\Node.h">
       <Filter>Engine\Header Files\ObjectResources\Nodes</Filter>
     </ClInclude>
@@ -433,6 +439,15 @@
     </ClInclude>
     <ClInclude Include="src\RenderPass.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderGraph.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Material.h">
+      <Filter>Engine\Header Files\ObjectResources\Materials/Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MaterialDeprecated.h">
+      <Filter>Engine\Header Files\Deprecated</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

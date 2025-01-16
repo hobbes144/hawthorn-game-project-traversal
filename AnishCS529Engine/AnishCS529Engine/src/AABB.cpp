@@ -107,7 +107,7 @@ void AABB::initializeDebugDraw(Renderer* renderer) {
 
   // Create and setup material
   auto shader = std::make_shared<Shader>("shaders/physics_test_vertex_shader.glsl\nshaders/physics_test_fragment_shader.glsl");
-  debugMaterial = std::make_shared<Material>(shader);
+  debugMaterial = std::make_shared<MaterialDeprecated>(shader);
   debugMaterial->setProperty("useTexture", 0);
   debugMaterial->setProperty("isTransparent", 0);
 }

@@ -15,7 +15,7 @@
 
 #pragma once
 
-#include "Material.h"
+#include "MaterialDeprecated.h"
 #include "Matrix4.h"
 #include "Mesh.h"
 #include "Node.h"
@@ -27,7 +27,7 @@ public:
   RenderableNode(
     const std::string& name,
     std::shared_ptr<Mesh> mesh,
-    std::shared_ptr<Material> material,
+    std::shared_ptr<MaterialDeprecated> material,
     Renderer* render,
     bool isIndexed = true) : Node(name), mesh(mesh), material(material),
                              renderer(renderer), isVisible(true),
@@ -35,7 +35,7 @@ public:
   virtual ~RenderableNode() = default;
 
   std::shared_ptr<Mesh> getMesh() const { return mesh; }
-  std::shared_ptr<Material> getMaterial() const { return material; }
+  std::shared_ptr<MaterialDeprecated> getMaterial() const { return material; }
   bool getVisible() const { return isVisible; }
 
   void setVisible(const bool visible) { isVisible = visible; }
@@ -45,7 +45,7 @@ public:
 
 protected:
   std::shared_ptr<Mesh> mesh;
-  std::shared_ptr<Material> material;
+  std::shared_ptr<MaterialDeprecated> material;
   bool isVisible;
   bool isIndexed;
 

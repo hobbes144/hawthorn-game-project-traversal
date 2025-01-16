@@ -53,5 +53,5 @@ void TrianglePrimitive::createMesh()
 void TrianglePrimitive::createMaterial()
 {
   auto shader = std::make_shared<Shader>("shaders/main_vertex_shader.glsl\nshaders/main_fragment_shader.glsl");
-  material = std::make_shared<Material>(shader);
+  material = std::make_shared<MaterialDeprecated>(shader);
 }

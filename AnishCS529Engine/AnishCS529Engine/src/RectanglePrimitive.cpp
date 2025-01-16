@@ -56,7 +56,7 @@ void RectanglePrimitive::createMesh()
 void RectanglePrimitive::createMaterial()
 {
   auto shader = std::make_shared<Shader>("shaders/physics_test_vertex_shader.glsl\nshaders/physics_test_fragment_shader.glsl");
-  material = std::make_shared<Material>(shader);
+  material = std::make_shared<MaterialDeprecated>(shader);
   std::shared_ptr<Texture> texture = Texture::create("media/ImgTexture120_100.bmp");
   material->setTexture("mainTexture", texture, 0);
   material->setProperty("useTexture", 1);

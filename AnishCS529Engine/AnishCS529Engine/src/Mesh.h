@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "GeometryBuffer.h"
+#include "Renderer.h"
 
 /** Struct VertexData not in use. */
 struct VertexData {
@@ -69,6 +70,8 @@ public:
 
   bool hasAttribute(GeometryBuffer::AttributeType attr) const;
   const std::string& getName() const;
+
+  void draw(Renderer* renderer);
 
 private:
   std::shared_ptr<GeometryBuffer> geometryBuffer;

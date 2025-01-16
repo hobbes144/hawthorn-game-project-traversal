@@ -92,7 +92,7 @@ std::shared_ptr<Render2D> Render2D::setMesh(std::shared_ptr<Mesh> _mesh)
  * \param _material Material to be rendered
  * \return \b std::shared_ptr<Render2D> Self shared pointer to allow chaining.
  *****************************************************************************/
-std::shared_ptr<Render2D> Render2D::setMaterial(std::shared_ptr<Material> _material)
+std::shared_ptr<Render2D> Render2D::setMaterial(std::shared_ptr<MaterialDeprecated> _material)
 {
   material = _material;
   return shared_from_this();

@@ -51,6 +51,11 @@
  *****************************************************************************/
 class RenderPass {
 public:
+  using PropertyMap = std::unordered_map<
+    std::string,
+    std::variant<unsigned int, int, float, Vector3, Matrix4>
+  >;
+
   RenderPass(std::shared_ptr<Shader> _shader) : shader(_shader) {};
   virtual ~RenderPass() = default;
 
@@ -71,15 +76,12 @@ public:
 
   void setTexture(const std::string& name, std::shared_ptr<Texture> texture, unsigned int unit);
 
-  virtual void apply() const;
+  virtual void apply(const PropertyMap& tempProperties = {}) const;
 
 protected:
   //std::optional<std::shared_ptr<FBO>> FBO;
   std::shared_ptr<Shader> shader;
-  std::unordered_map<
-    std::string,
-    std::variant<unsigned int, int, float, Vector3, Matrix4>
-  > properties;
+  PropertyMap properties;
 
   struct TextureInfo {
     std::shared_ptr<Texture> texture;
@@ -87,6 +89,8 @@ protected:
   };
 
   std::optional<std::unordered_map<std::string, TextureInfo>> textureData;
+
+  void applyProperties(PropertyMap _properties) const;
 
 };
 
