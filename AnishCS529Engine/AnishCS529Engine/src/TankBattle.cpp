@@ -29,8 +29,14 @@
 #include "Tank.h"
 #include "Wall.h"
 #include "Shoot.h"
+#include "audio.h"
+
 
 int main() {
+
+    // Declare FMOD system/sound/channel 
+    AudioManager::instance().init();
+
   const std::string GameTitle = "SphereJump";
 
   /* Game Window setup */
@@ -39,6 +45,10 @@ int main() {
   GameWindow* mainWindow = new GameWindow;
   mainWindow->setTitle(GameTitle)->setHeight(windowHeight)->setWidth(windowWidth);
   mainWindow->initialize();
+
+    // loading the sound so it can be played
+    AudioManager::instance().loadSound("laser", "pew.mp3", true);
+
 
   /* Renderer setup */
   Renderer* mainRenderer = new Renderer;
@@ -72,6 +82,10 @@ int main() {
     0.1f,
     1000.0f)->setLocalPosition(Vector3(0.0f, 0.0f, 10.0f));
   mainSceneGraph.addNode(camera);
+
+
+
+
 
 
   /* GameObject setup */
@@ -202,10 +216,21 @@ int main() {
   playerDrawScreen->disable();
   mainSceneGraph.addNode(playerDrawScreen);
 
+  // Audio set listener (Your ear position)
+  AudioManager::instance().setListenerPosition(0, 0, 0);
   /* Main loop */
   while (!mainWindow->getShouldClose()) {
     mainRenderer->clear();
     mainInput->update();
+    // Update fmod system
+    AudioManager::instance().update();
+    if (mainInput->isKeyPressed(KEY_SPACE)) {
+        AudioManager::instance().playSound("laser", protag->getLocalPosition()[0], protag->getLocalPosition()[1], protag->getLocalPosition()[2]);
+        
+    }
+    else if (mainInput->isKeyPressed(KEY_ENTER)) {
+        AudioManager::instance().playSound("laser", enemy->getLocalPosition()[0], enemy->getLocalPosition()[1], enemy->getLocalPosition()[2]);
+    }
     mainFramerateController->startFrame();
 
     mainSceneGraph.update(0.0f);
@@ -259,4 +284,8 @@ int main() {
   mainInput->shutdown();
   mainRenderer->shutdown();
   mainWindow->shutdown();
+
+  AudioManager::instance().shutdown();
+
+  return 0;
 }

@@ -273,6 +273,9 @@
     <ClCompile Include="src\Shoot.cpp">
       <Filter>SphereJump\Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\Audio.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -421,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="src\Shoot.h">
       <Filter>SphereJump\Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Audio.h">
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
