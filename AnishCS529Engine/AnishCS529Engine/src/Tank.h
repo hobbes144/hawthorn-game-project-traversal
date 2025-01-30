@@ -17,6 +17,7 @@
 #include "AABB.h"
 #include "GameObject.h"
 #include "PhysicsBody.h"
+#include "RigidBody.h"
 #include "PhysicsManager.h"
 #include "Render2D.h"
 

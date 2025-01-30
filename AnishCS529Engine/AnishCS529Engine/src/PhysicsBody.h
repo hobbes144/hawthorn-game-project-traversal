@@ -43,7 +43,7 @@ class PhysicsManager;
  * 
  * Note: This is assuming a movable object with collisions.
  * 
- * - Call setMass(float newMass) to set up the body's mass
+ * - Call setMass(double newMass) to set up the body's mass
  * - Create a Shape object
  * - Call setShape(std::shared_ptr<Shape> newShape)
  * - In main loop, call applyForce() to move the object.
@@ -66,7 +66,7 @@ public:
   PhysicsBody() : 
     mass(1.0f), inverseMass(1.0f),
     velocity(0, 0, 0), acceleration(0, 0, 0), force(0, 0, 0),
-    restitution(0.5f), friction(0.3f), isStatic(false) {}
+    restitution(0.5f), drag(0.3f), angularDrag(0.01f), isStatic(false) {}
   ~PhysicsBody() = default;
 
   /* Component functions */
@@ -75,40 +75,52 @@ public:
   void shutdown();
 
   /* Physics update function */
-  void integrate(float deltaTime);
+  virtual void integrate(float deltaTime);
 
   /* Utility functions */
   std::shared_ptr<PhysicsBody> registerToPhysicsManager(
     PhysicsManager& manager);
-  std::shared_ptr<PhysicsBody> setMass(float newMass);
+  std::shared_ptr<PhysicsBody> setMass(double newMass);
   std::shared_ptr<PhysicsBody> setVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setAcceleration(const Vector3& acc);
   std::shared_ptr<PhysicsBody> applyForce(const Vector3& f);
-  std::shared_ptr<PhysicsBody> setRestitution(float r);
-  std::shared_ptr<PhysicsBody> setFriction(float f);
+  std::shared_ptr<PhysicsBody> setRestitution(double r);
+  std::shared_ptr<PhysicsBody> setDrag(double f);
+  std::shared_ptr<PhysicsBody> setAngularDrag(float f);
   std::shared_ptr<PhysicsBody> setStatic(bool staticValue);
   std::shared_ptr<PhysicsBody> setShape(std::shared_ptr<Shape> newShape);
   std::shared_ptr<PhysicsBody> reset();
 
-  float       getMass()         const;
-  float       getInverseMass()  const;
+  double      getMass()         const;
+  double      getInverseMass()  const;
   Vector3     getVelocity()     const;
   Vector3     getAcceleration() const;
   Vector3     getForce()        const;
-  float       getRestitution()  const;
-  float       getFriction()     const;
+  double      getRestitution()  const;
+  double      getDrag()			const;
+  double      getAngularDrag()  const;
   bool        getIsStatic()     const;
   std::shared_ptr<Shape> getShape()        const;
 
-private:
-  float mass;
-  float inverseMass;
-  Vector3 velocity;
-  Vector3 acceleration;
-  Vector3 force;
-  float restitution;
-  float friction;
-  bool isStatic;
+protected:
+	/** The mass of the Object */
+	double mass;
+	/** Inversed mass value */
+	double inverseMass;
+	/** The linear drag of the Object */
+	double drag;
+	/** The angular drag of the Object */
+	double angularDrag;
+	/** The restitution drag of the Object */
+	double restitution;
+	/** Velocity of the RigidBody */
+	Vector3 velocity;
+	/** Acceleration of the RigidBody */
+	Vector3 acceleration;
+	/** The force currently applied on the RigidBody */
+	Vector3 force;
+	/** If it is Static */
+	bool isStatic;
   std::shared_ptr<Shape> collisionShape;
 };
 

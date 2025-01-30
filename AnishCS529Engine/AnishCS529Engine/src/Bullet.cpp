@@ -70,7 +70,7 @@ std::shared_ptr<Bullet> createBullet(std::string name, Renderer* renderer, std::
     Vector3(0.5f, 0.5f, 0.5f));
 
   bullet->addComponent<PhysicsBody>()
-    ->setMass(1.0f)->setFriction(0.0f)
+    ->setMass(1.0f)->setDrag(0.0f)
     ->setShape(bulletShape)
     ->registerToPhysicsManager(PhysicsManager::Instance());
   bullet->setLocalScaling(Vector3(0.2f, 0.2f, 0.2f));

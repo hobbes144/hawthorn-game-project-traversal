@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
     <ClCompile Include="src\Bullet.cpp" />
     <ClCompile Include="src\BulletHitListener.cpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\Render2D.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\RigidBody.h" />
     <ClInclude Include="src\Shoot.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\CollisionEvent.h" />

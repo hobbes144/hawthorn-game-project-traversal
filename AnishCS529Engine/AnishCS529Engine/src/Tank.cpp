@@ -62,8 +62,8 @@ std::shared_ptr<Tank> createTank(
     Vector3(-0.5f, -0.5f, -0.5f),
     Vector3(0.5f, 0.5f, 0.5f));
 
-  tank->addComponent<PhysicsBody>()
-    ->setMass(10.0f)->setFriction(100.0f)
+  tank->addComponent<RigidBody>()->usingGravity(true)
+    ->setMass(10.0f)->setDrag(100.0f)
     ->setShape(tankShape)
     ->registerToPhysicsManager(PhysicsManager::Instance());
   return tank;
@@ -83,8 +83,8 @@ std::shared_ptr<Tank> createTank(
     Vector3(-0.5f, -0.5f, -0.5f),
     Vector3(0.5f, 0.5f, 0.5f));
 
-  tank->addComponent<PhysicsBody>()
-    ->setMass(10.0f)->setFriction(100.0f)
+  tank->addComponent<RigidBody>()->usingGravity(true)
+    ->setMass(10.0f)->setDrag(100.0f)
     ->setShape(tankShape)
     ->registerToPhysicsManager(PhysicsManager::Instance());
   return tank;

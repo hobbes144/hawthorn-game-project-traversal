@@ -44,7 +44,7 @@ std::shared_ptr<PhysicsBody> PhysicsBody::registerToPhysicsManager(
  * \param newMass Mass of the PhysicsBody
  * \return \b std::shared_ptr<PhysicsBody> Self
  *****************************************************************************/
-std::shared_ptr<PhysicsBody> PhysicsBody::setMass(float newMass) {
+std::shared_ptr<PhysicsBody> PhysicsBody::setMass(double newMass) {
   mass = newMass;
   inverseMass = newMass > 0.0f ? 1.0f / newMass : 0.0f;
   isStatic = (newMass == 0.0f);
@@ -139,7 +139,7 @@ std::shared_ptr<PhysicsBody> PhysicsBody::reset()
  * \param r Resitution of the PhysicsBody
  * \return \b std::shared_ptr<PhysicsBody> Self
  *****************************************************************************/
-std::shared_ptr<PhysicsBody> PhysicsBody::setRestitution(float r) {
+std::shared_ptr<PhysicsBody> PhysicsBody::setRestitution(double r) {
   restitution = r;
 
   return shared_from_this();
@@ -156,10 +156,26 @@ std::shared_ptr<PhysicsBody> PhysicsBody::setRestitution(float r) {
  * \param f Friction of the PhysicsBody
  * \return \b std::shared_ptr<PhysicsBody> Self
  *****************************************************************************/
-std::shared_ptr<PhysicsBody> PhysicsBody::setFriction(float f) {
-  friction = f;
+std::shared_ptr<PhysicsBody> PhysicsBody::setDrag(double f) {
+  drag = f;
 
   return shared_from_this();
+}
+
+/*!****************************************************************************
+ * \brief Set the angular drag (angular friction) affecting the body
+ *
+ * ## Usage:
+ *
+ * This has not yet been implemented.
+ *
+ * \param f Angular drag (angular friction) of the PhysicsBody
+ * \return \b std::shared_ptr<PhysicsBody> Self
+ *****************************************************************************/
+std::shared_ptr<PhysicsBody> PhysicsBody::setAngularDrag(float f) {
+    angularDrag = f;
+
+    return shared_from_this();
 }
 
 /*!****************************************************************************
@@ -211,16 +227,16 @@ std::shared_ptr<PhysicsBody> PhysicsBody::setShape(std::shared_ptr<Shape> newSha
 /*!****************************************************************************
  * \brief Get the mass
  * 
- * \return \b float Mass
+ * \return \b double Mass
  *****************************************************************************/
-float PhysicsBody::getMass()            const { return mass; }
+double PhysicsBody::getMass()            const { return mass; }
 
 /*!****************************************************************************
  * \brief Get the inverse mass
  * 
- * \return \b float Inverse mass
+ * \return \b double Inverse mass
  *****************************************************************************/
-float PhysicsBody::getInverseMass()     const { return inverseMass; }
+double PhysicsBody::getInverseMass()     const { return inverseMass; }
 
 /*!****************************************************************************
  * \brief Get the velocity
@@ -246,16 +262,23 @@ Vector3 PhysicsBody::getForce()         const { return force; }
 /*!****************************************************************************
  * \brief Get the restitution
  * 
- * \return \b float Restitution
+ * \return \b double Restitution
  *****************************************************************************/
-float PhysicsBody::getRestitution()     const { return restitution; }
+double PhysicsBody::getRestitution()     const { return restitution; }
 
 /*!****************************************************************************
  * \brief Get the friction
  * 
- * \return \b float Friction
+ * \return \b double Friction
  *****************************************************************************/
-float PhysicsBody::getFriction()        const { return friction; }
+double PhysicsBody::getDrag()        const { return drag; }
+
+/*!****************************************************************************
+ * \brief Get the friction
+ *
+ * \return \b double Friction
+ *****************************************************************************/
+double PhysicsBody::getAngularDrag()        const { return angularDrag; }
 
 /*!****************************************************************************
  * \brief Get if the object is static
@@ -295,7 +318,7 @@ void PhysicsBody::integrate(float deltaTime) {
 
     Vector3 netFriction;
     if (velocity.magnitude() > 0) {
-      netFriction = velocity.normalized() * velocity.magnitude() * -friction;
+      netFriction = velocity.normalized() * velocity.magnitude() * -drag;
     }
     else {
       netFriction = Vector3(0.0f, 0.0f, 0.0f);
