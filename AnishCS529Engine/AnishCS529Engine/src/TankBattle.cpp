@@ -30,7 +30,7 @@
 #include "Wall.h"
 #include "Shoot.h"
 
-int main() {
+int tankBattleMain() {
   const std::string GameTitle = "SphereJump";
 
   /* Game Window setup */

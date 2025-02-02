@@ -291,6 +291,9 @@
     <ClCompile Include="src\Texture.cpp">
       <Filter>Engine\Source Files\ObjectResources\Materials/Textures</Filter>
     </ClCompile>
+    <ClCompile Include="src\GraphicsTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -448,6 +451,12 @@
     </ClInclude>
     <ClInclude Include="src\MaterialDeprecated.h">
       <Filter>Engine\Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Light.h">
+      <Filter>Engine\Header Files\ObjectResources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightManager.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

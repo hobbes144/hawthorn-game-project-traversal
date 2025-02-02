@@ -104,7 +104,7 @@ bool Renderer::loadGraphicsAPIFunctions() const {
  * rendering viewport.
  * 
  *****************************************************************************/
-void Renderer::setupCallbacks() const {
+void Renderer::setupCallbacks() {
   gameWindow->setResizeCallback([this](GLFWwindow* pWindow, int width, int height) {
     this->framebufferSizeCallback(pWindow, width, height);
     });
@@ -124,12 +124,12 @@ void Renderer::setupCallbacks() const {
  * \param height
  *****************************************************************************/
 void Renderer::framebufferSizeCallback(
-  GLFWwindow* pWindow, int width, int height) const {
+  GLFWwindow* pWindow, int width, int height) {
 
   glViewport(0, 0, width, height);
+  state.viewport = Viewport{ 0, 0, width, height };
   // Additional rendering adjustments can be made here
 }
-
 
 
 /* Public functions */
@@ -152,39 +152,6 @@ void Renderer::framebufferSizeCallback(
  *****************************************************************************/
 Renderer* Renderer::setGameWindow(GameWindow* _gameWindow) {
   gameWindow = _gameWindow;
-
-  return this;
-}
-
-/*!****************************************************************************
- * \brief Set if the renderer should render in 3D
- * 
- * ## Usage:
- * 
- * Sets OpenGL config to enable 3D rendering.
- * 
- * ## Explanation:
- * 
- * The renderer will perform optimizations specific to 2D rendering if not set
- * to `true`.
- * 
- * It enables depth in the rendering if set to `true`.
- * 
- * \param is3D True if rendering should be in 3D space
- * \return \b Renderer* this
- *****************************************************************************/
-Renderer* Renderer::setIs3D(bool _is3D) {
-  is3D = _is3D;
-  if (is3D) {
-    glfwWindowHint(GLFW_DEPTH_BITS, 24);
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    clearMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
-  }
-  else {
-    glDisable(GL_DEPTH_TEST);
-    clearMask = GL_COLOR_BUFFER_BIT;
-  }
 
   return this;
 }
@@ -270,14 +237,19 @@ void Renderer::draw(GLenum mode, GLint count, bool indexed = true) const {
  * This is to be called during RenderGraph Passes that require a custom
  * viewport size, such as for the ShadowPass.
  * 
- * Ensure that resetViewport is called after the Pass is completed.
+ * Ensure that viewport is correctly reset by either calling resetViewport, or
+ * using a RenderStateSaver.
  * 
- * \param width new width of Viewport
- * \param height new height of the Viewport
+ * \param Viewport The Viewport struct storing the width and height.
+ * \return \b Renderer* Self
  *****************************************************************************/
-void Renderer::setViewport(int width, int height)
+Renderer* Renderer::setViewport(const Viewport& viewport)
 {
-  glViewport(0, 0, width, height);
+  if (state.viewport == viewport) return this;
+
+  glViewport(0, 0, viewport.width, viewport.height);
+  state.viewport = viewport;
+  return this;
 }
 
 /*!****************************************************************************
@@ -285,48 +257,143 @@ void Renderer::setViewport(int width, int height)
  * 
  * ## Usage:
  * 
- * This is to be called after a RenderGraph Pass to set the Viewport back to
+ * This can be called after a RenderGraph Pass to set the Viewport back to
  * the window resolution.
  * 
+ * \return \b Renderer* Self
  *****************************************************************************/
-void Renderer::resetViewport()
+Renderer* Renderer::resetViewport()
 {
   glViewport(0, 0, gameWindow->getWidth(), gameWindow->getHeight());
+  state.viewport = Viewport{ 0, 0, gameWindow->getWidth() , gameWindow->getHeight() };
+  return this;
 }
 
 /*!****************************************************************************
- * \brief Set the Depth Test feature
+ * \brief Set the Depth State
  * 
  * ## Usage:
  * 
- * This is to be called in RenderGraph Passes that require the feature to be a
- * specific value.
+ * This is to be called in RenderGraph Passes that require the Depth test to be
+ * modified to a specific set of values.
  * 
- * \param depthTestEnabled If depth test should be enabled or disabled.
+ * ## Note:
+ * 
+ * clearMask is set here, which means that if depth testing is turned off
+ * before running a clear, The depth buffer might still have values that never
+ * get cleared until the next time depth testing is enabled and clear is
+ * called.
+ * 
+ * \param depthState DepthState object that stores the enabled and func.
+ * \return \b Renderer* Self
  *****************************************************************************/
-void Renderer::setDepthTest(bool depthTestEnabled)
+Renderer* Renderer::setDepthState(const DepthState& depthState)
 {
-  if (depthTestEnabled)
+  if (state.depthState == depthState) return this;
+
+  if (depthState.testEnabled) {
     glEnable(GL_DEPTH_TEST);
-  else
+    clearMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
+    if (depthState.writeEnabled)
+      glDepthMask(GL_TRUE);
+    else
+      glDepthMask(GL_FALSE);
+    glDepthFunc(depthState.func);
+  }
+  else {
     glDisable(GL_DEPTH_TEST);
+    clearMask = GL_COLOR_BUFFER_BIT;
+  }
+  return this;
 }
 
 /*!****************************************************************************
- * \brief Reset the Depth Test feature
+ * \brief Set the Blending State
+ *
+ * ## Usage:
+ *
+ * This is called in RenderGraph Passes to enable effects like transparency and
+ * advanced lighting.
+ *
+ * \param blendState BlendState object that stores the enabled, equation and
+ * func.
+ * \return \b Renderer* Self
+ *****************************************************************************/
+Renderer* Renderer::setBlendState(const BlendState& blendState)
+{
+  if (state.blendState == blendState) return this;
+
+  if (blendState.enabled) {
+    glEnable(GL_BLEND);
+    glBlendEquation(blendState.equation);
+    glBlendFunc(blendState.srcFactor, blendState.destFactor);
+  }
+  else
+    glDisable(GL_BLEND);
+  return this;
+}
+
+/*!****************************************************************************
+ * \brief Return the current state of the Renderer
  * 
  * ## Usage:
  * 
- * This is to be called after the RenderGraph Pass to reset the Depth Test to
- * the original value.
+ * This function is to be used to get the State struct of the Renderer.
+ * This was built to be used with the StateSaver class, to allow for easy State
+ * manipulation.
+ * 
+ * \return \b State Current state.
+ *****************************************************************************/
+Renderer::State Renderer::getCurrentState() const
+{
+  return state;
+}
+
+/*!****************************************************************************
+ * \brief Set the State of the Renderer
+ * 
+ * ## Usage
+ * 
+ * This is to be used to set the entire state of the Renderer in one call.
+ * This was built to be used with the StateSaver class, to allow for easy State
+ * manipulation.
+ * 
+ * \param state State struct that stores the state to be set to.
+ * \return \b Renderer* Self
+ *****************************************************************************/
+Renderer* Renderer::setState(const State& state)
+{
+  setViewport(state.viewport);
+  setBlendState(state.blendState);
+  setDepthState(state.depthState);
+
+  return this;
+}
+
+/* StateSaver Class */
+/*!****************************************************************************
+ * \brief Constructor for StateSaver
+ * 
+ * ## Explanation:
+ * 
+ * This will save the state of the renderer when created.
+ * 
+ * \param renderer
+ *****************************************************************************/
+Renderer::StateSaver::StateSaver(Renderer& renderer) :
+  savedRenderer(renderer), savedState(renderer.getCurrentState()) {};
+
+/*!****************************************************************************
+ * \brief Destructor for StateSaver
+ * 
+ * ## Explanation:
+ * 
+ * This will restore the state of the renderer to the state it was in when
+ * this object was created.
  * 
  *****************************************************************************/
-void Renderer::resetDepthTest()
-{
-  if (is3D)
-    glEnable(GL_DEPTH_TEST);
-  else
-    glDisable(GL_DEPTH_TEST);
+Renderer::StateSaver::~StateSaver() {
+  savedRenderer.setState(savedState);
 }
 
 /*!****************************************************************************
@@ -358,6 +425,10 @@ void Renderer::initialize() {
   if (!loadGraphicsAPIFunctions()) {
     throw std::runtime_error("Failed to load Graphics API Functions");
   }
+
+  state.viewport = Viewport{0,0,gameWindow->getWidth(), gameWindow->getHeight()};
+  setBlendState(state.blendState);
+  setDepthState(state.depthState);
 }
 
 /*!****************************************************************************

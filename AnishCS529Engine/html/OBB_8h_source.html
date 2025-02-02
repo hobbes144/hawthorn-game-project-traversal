@@ -96,7 +96,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;Shape.h&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="Renderer_8h.html">Renderer.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="Mesh_8h.html">Mesh.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="Material_8h.html">Material.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;MaterialDeprecated.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="classOBB.html">    7</a></span><span class="keyword">class </span><a class="code hl_class" href="classOBB.html">OBB</a> : <span class="keyword">public</span> <a class="code hl_class" href="classShape.html">Shape</a></div>
@@ -145,13 +145,12 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="comment">// debug properties</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  std::shared_ptr&lt;Mesh&gt; debugMesh;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  std::shared_ptr&lt;Material&gt; debugMaterial;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  std::shared_ptr&lt;MaterialDeprecated&gt; debugMaterial;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <a class="code hl_class" href="classRenderer.html">Renderer</a>* renderer;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
 </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="ttc" id="aMaterial_8h_html"><div class="ttname"><a href="Material_8h.html">Material.h</a></div><div class="ttdoc">Material class.</div></div>
 <div class="ttc" id="aMesh_8h_html"><div class="ttname"><a href="Mesh_8h.html">Mesh.h</a></div><div class="ttdoc">Mesh class.</div></div>
 <div class="ttc" id="aRenderer_8h_html"><div class="ttname"><a href="Renderer_8h.html">Renderer.h</a></div><div class="ttdoc">Renderer implementation to initialize the OpenGL libraries and libraries.</div></div>
 <div class="ttc" id="aclassMatrix4_html"><div class="ttname"><a href="classMatrix4.html">Matrix4</a></div><div class="ttdoc">Class that implements a custom 4x4 Matrix for use with OpenGL functions and game logic.</div><div class="ttdef"><b>Definition</b> Matrix4.h:31</div></div>

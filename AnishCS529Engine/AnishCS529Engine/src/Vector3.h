@@ -27,10 +27,13 @@ public:
     Vector3() : x(0), y(0), z(0) {}
     // Parameterized Constructor with Initialization List
     Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
+    Vector3(float val) : x(val), y(val), z(val) {}
 
     // Operator overloads
     Vector3 operator+(const Vector3& other) const;
+    Vector3 operator+(float scalar) const;
     Vector3 operator-(const Vector3& other) const;
+    Vector3 operator-(float scalar) const;
     Vector3 operator*(float scalar) const;
     Vector3 operator*(const Vector3& other) const;
     Vector3 operator/(float scalar) const;

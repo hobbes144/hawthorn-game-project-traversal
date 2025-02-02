@@ -15,7 +15,7 @@ var searchData=
   ['setkeystomonitor_12',['setKeysToMonitor',['../classInput.html#ac3e53c105fde0a98d82b45b39962fd43',1,'Input::setKeysToMonitor()'],['../classInput.html#a9423761288cc4ffb23bd5f415906aafe',1,'Input::setKeysToMonitor(std::vector&lt; Key &gt; &amp;keysToMonitor)']]],
   ['setmass_13',['setMass',['../classPhysicsBody.html#aaa4b9094e64f31ee6b8c82a5a30c0a4a',1,'PhysicsBody']]],
   ['setmat4_14',['setMat4',['../classShader.html#a93df51cf3edafbc0bde31e49e62e8956',1,'Shader']]],
-  ['setmaterial_15',['setMaterial',['../classRender2D.html#a5b9ab36d60fffdb77d076df41614a3ba',1,'Render2D']]],
+  ['setmaterial_15',['setMaterial',['../classRender2D.html#accf6bf603700a17b1ceeace2fd5031a3',1,'Render2D']]],
   ['setmesh_16',['setMesh',['../classRender2D.html#a31c733a2327fa4e1ff3e25bcc2daa654',1,'Render2D']]],
   ['setorthographicprojection_17',['setOrthographicProjection',['../classCamera.html#a28ade6fe88dafad0849bde280eea8a16',1,'Camera']]],
   ['setowner_18',['setOwner',['../classBullet.html#a6827b4961caa13f021be57e685b72286',1,'Bullet']]],

@@ -41,11 +41,23 @@ public:
     const float near,
     const float far);
 
+  std::shared_ptr<Camera> lookAt(
+    const Vector3& target,
+    const Vector3& upVector);
+  std::shared_ptr<Camera> move(
+    const Vector3& direction,
+    float amount);
+  std::shared_ptr<Camera> rotate(
+    float roll,
+    float pitch,
+    float yaw
+  );
+
   const Matrix4 getViewMatrix();
   const Matrix4& getProjectionMatrix();
 
 private:
-  Transform viewMatrix;
+  Matrix4 viewMatrix;
   Matrix4 projectionMatrix;
 
   void updateViewMatrix();

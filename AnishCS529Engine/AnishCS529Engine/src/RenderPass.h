@@ -79,9 +79,10 @@ public:
   virtual void apply(const PropertyMap& tempProperties = {}) const;
 
 protected:
-  //std::optional<std::shared_ptr<FBO>> FBO;
   std::shared_ptr<Shader> shader;
   PropertyMap properties;
+
+  //std::optional<std::shared_ptr<FBO>> FBO;
 
   struct TextureInfo {
     std::shared_ptr<Texture> texture;

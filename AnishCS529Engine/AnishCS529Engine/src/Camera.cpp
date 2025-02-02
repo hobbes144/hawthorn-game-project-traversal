@@ -88,6 +88,11 @@ std::shared_ptr<Camera> Camera::setOrthographicProjection(
   return std::static_pointer_cast<Camera>(shared_from_this());
 }
 
+std::shared_ptr<Camera> Camera::lookAt(const Vector3& target, const Vector3& upVector = Vector3(0,1,0)) {
+  viewMatrix = Matrix4::lookAt(getLocalPosition(), target, upVector);
+  return std::static_pointer_cast<Camera>( shared_from_this() );
+}
+
 /*!****************************************************************************
  * \brief Get the view matrix
  * 
@@ -100,7 +105,7 @@ std::shared_ptr<Camera> Camera::setOrthographicProjection(
  *****************************************************************************/
 const Matrix4 Camera::getViewMatrix()
 {
-  return viewMatrix.getLocalMatrix();
+  return viewMatrix;
 }
 
 /*!****************************************************************************
@@ -122,7 +127,9 @@ const Matrix4& Camera::getProjectionMatrix()
  * \brief Dummy initialize function
  * 
  *****************************************************************************/
-void Camera::initialize() {}
+void Camera::initialize() {
+  updateViewMatrix();
+}
 
 /*!****************************************************************************
  * \brief Update the camera transforms
