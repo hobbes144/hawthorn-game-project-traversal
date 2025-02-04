@@ -12,11 +12,18 @@
 
 #pragma once
 
+#include <memory>
+#include <vector>
+
+#include "Light.h"
+
 class LightManager {
 public:
+  int addLight(std::shared_ptr<Light> light);
+  std::shared_ptr<Light> getLight(int index);
 
 private:
-
+  std::vector<std::shared_ptr<Light>> lightStack;
 };
 
 #endif // !LIGHT_MANAGER_H
