@@ -35,11 +35,7 @@ class RigidBody :
 
 	friend class PhysicsManager;
 public:
-	RigidBody() : 
-		PhysicsBody(), useGravity(false), 
-		listener(new CollisionListener(this->parent)), 
-		freezePositionX(false), freezePositionY(false), freezePositionZ(false), 
-		freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {}
+	RigidBody();
 	~RigidBody() = default;
 
 	/* Physics update function */
@@ -67,10 +63,10 @@ private:
 	bool freezeRotationX;
 	bool freezeRotationY;
 	bool freezeRotationZ;
-
-	void onCollide(std::shared_ptr<GameObject> obj1, 
-		std::shared_ptr<GameObject> obj2, const Vector3& point);
 };
+
+void onRBCollide(std::shared_ptr<GameObject> obj1,
+	std::shared_ptr<GameObject> obj2, const Vector3& point);
 
 #endif // RIGIDBODY_H
 

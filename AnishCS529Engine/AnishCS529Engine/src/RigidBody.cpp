@@ -15,6 +15,18 @@
 const float gravity = -9.8f;
 
 /*!****************************************************************************
+ * \brief 
+ *****************************************************************************/
+RigidBody::RigidBody():
+    PhysicsBody(), useGravity(false),
+    listener(new CollisionListener(this->parent)),
+    freezePositionX(false), freezePositionY(false), freezePositionZ(false),
+    freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {
+
+    listener->setCallback(onRBCollide);
+}
+
+/*!****************************************************************************
  * \brief If is using Gravity
  *
  * ## Usage:
@@ -90,7 +102,8 @@ void RigidBody::integrate(float deltaTime) {
         
         Vector3 netFriction;
         if (velocity.magnitude() > 0) {
-            netFriction = velocity.normalized() * velocity.magnitude() * - drag;
+            netFriction = 
+                velocity.normalized() * velocity.magnitude() * - drag;
         }
         else {
             netFriction = Vector3(0.0f, 0.0f, 0.0f);
@@ -100,7 +113,8 @@ void RigidBody::integrate(float deltaTime) {
         acceleration = acceleration + (force + netFriction) * inverseMass;
         velocity = velocity + (acceleration * deltaTime);
 
-        Vector3 newPosition = parent->getLocalPosition() + (velocity * deltaTime);
+        Vector3 newPosition = 
+            parent->getLocalPosition() + (velocity * deltaTime);
         parent->setLocalPosition(newPosition);
     }
 
@@ -123,6 +137,55 @@ void RigidBody::integrate(float deltaTime) {
     if (useGravity) force = Vector3(0.0f, gravity, 0.0f);
     else force = Vector3(0, 0, 0);
     acceleration = Vector3(0, 0, 0);
+}
+
+void onRBCollide(std::shared_ptr<GameObject> obj1, 
+    std::shared_ptr<GameObject> obj2, const Vector3& point) {
+
+    std::shared_ptr<RigidBody> RB, RB2;
+
+    if (obj1->findComponent<RigidBody>()->getIsStatic()) {
+        RB2 = obj1->findComponent<RigidBody>();
+        RB = obj2->findComponent<RigidBody>();
+    }
+    else {
+        RB = obj1->findComponent<RigidBody>();
+        RB2 = obj2->findComponent<RigidBody>();
+    }
+
+    if (RB && RB2) {
+        std::cout << "test" << std::endl;
+        Vector3 velocity = RB->getVelocity();
+        Vector3 negVelocity = Vector3(-RB->getVelocity().x, 
+                              -RB->getVelocity().y, -RB->getVelocity().z);
+        Vector3 velocity2 = RB2->getVelocity();
+        Vector3 negVelocity2 = Vector3(-RB2->getVelocity().x,
+                               -RB2->getVelocity().y, -RB2->getVelocity().z);
+        Vector3 halfForce = Vector3(RB->getForce().x / 2,
+                            RB->getForce().y / 2, RB->getForce().z / 2);
+        Vector3 negHalfForce = Vector3(-RB->getForce().x / 2,
+                               -RB->getForce().y / 2, -RB->getForce().z / 2);
+        Vector3 negForce = Vector3(-RB->getForce().x,
+                           -RB->getForce().y, -RB->getForce().z);
+        Vector3 halfForce2 = Vector3(RB2->getForce().x / 2,
+                             RB2->getForce().y / 2, RB2->getForce().z / 2);
+        Vector3 negHalfForce2 = Vector3(-RB2->getForce().x / 2,
+                                -RB2->getForce().y / 2, -RB2->getForce().z / 2);
+        Vector3 negForce2 = Vector3(-RB2->getForce().x,
+                            -RB2->getForce().y, -RB2->getForce().z);
+        
+        Vector3 PosRB = RB->getParent()->getLocalPosition();
+        Vector3 PosRB2 = RB2->getParent()->getLocalPosition();
+
+        if (RB2->getIsStatic()) {
+            RB->getParent()->setLocalPosition();
+            return;
+        }
+
+        RB->applyForce(negVelocity * 2500);
+        RB2->applyForce(velocity * 2500);
+    }
+    return;
 }
 
 /* Getters */

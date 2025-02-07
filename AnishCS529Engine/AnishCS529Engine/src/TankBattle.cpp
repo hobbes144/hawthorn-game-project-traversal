@@ -166,9 +166,9 @@ int main() {
   eBullet3Hit.setCallback(onBulletHit);
 
   CollisionListener protagHit(protag);
-  protagHit.setCallback(onTankHit);
+  protagHit.setCallback(onRBCollide);
   CollisionListener enemyHit(enemy);
-  enemyHit.setCallback(onTankHit);
+  enemyHit.setCallback(onRBCollide);
 
   /* End state */
   bool endStateReached = false;

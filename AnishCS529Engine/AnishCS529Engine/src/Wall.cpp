@@ -14,9 +14,10 @@ std::shared_ptr<Wall> createWall(
     Vector3(-0.5f, -0.5f, -0.5f),
     Vector3(0.5f, 0.5f, 0.5f));
 
-  wall->addComponent<PhysicsBody>()
+  wall->addComponent<RigidBody>()->usingGravity(false)
     ->setMass(0.0f)
     ->setShape(wallShape)
     ->registerToPhysicsManager(PhysicsManager::Instance());
   return wall;
 }
+ 
