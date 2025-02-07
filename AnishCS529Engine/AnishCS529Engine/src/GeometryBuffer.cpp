@@ -325,6 +325,12 @@ void GeometryBuffer::initializeBuffers(
 /*!****************************************************************************
  * \brief Update the vertex attributes used in the VBO
  * 
+ * ## Usage:
+ * 
+ * This is only to be used if the VBO data is in block format.
+ * 
+ * DO NOT USE THIS CALL WHEN DATA IS INTERLEAVED
+ * 
  * \param type Type of attribute to be modified.
  * \param data Data of the attribute to be updated.
  *****************************************************************************/
