@@ -20,7 +20,7 @@
 #include "Matrix4.h"
 #include "Shader.h"
 #include "Vector3.h"
-#include "Texture.h"
+#include "TextureManager.h"
 
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
@@ -53,7 +53,7 @@ class RenderPass {
 public:
   using PropertyMap = std::unordered_map<
     std::string,
-    std::variant<unsigned int, int, float, Vector3, Matrix4>
+    std::variant<unsigned int, int, float, Vector3, Matrix4, TextureManager::TextureID>
   >;
 
   RenderPass(std::shared_ptr<Shader> _shader) : shader(_shader) {};
@@ -84,12 +84,7 @@ protected:
 
   //std::optional<std::shared_ptr<FBO>> FBO;
 
-  struct TextureInfo {
-    std::shared_ptr<Texture> texture;
-    unsigned int unit;
-  };
-
-  std::optional<std::unordered_map<std::string, TextureInfo>> textureData;
+  std::optional<std::unordered_map<std::string, TextureManager::TextureInfo>> textureData;
 
   void applyProperties(PropertyMap _properties) const;
 

@@ -19,15 +19,15 @@
 
 class RenderGraph {
 public:
-  RenderGraph() : globalProperties({}) {};
+  RenderGraph(Renderer* renderer) : renderer(renderer) {};
 
   void addPass(std::shared_ptr<RenderPass> pass);
 
-  void draw(Renderer* renderer, std::shared_ptr<Mesh> mesh);
+  void draw(std::shared_ptr<Mesh> mesh, RenderPass::PropertyMap peroperties);
 
 private:
+  Renderer* renderer;
   std::vector<std::shared_ptr<RenderPass>> renderStack;
-  RenderPass::PropertyMap globalProperties;
 
 };
 

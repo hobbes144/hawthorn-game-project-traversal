@@ -54,7 +54,7 @@
  * renderers, one for each window you have.
  * 
  *****************************************************************************/
-class Renderer : public Component {
+class Renderer {
 public:
   struct BlendState {
     bool enabled = false;
@@ -121,19 +121,7 @@ public:
    * will reset the state of the Renderer to its initial state.
    * 
    ***************************************************************************/
-  class StateSaver {
-  public:
-    explicit StateSaver(Renderer& renderer);
-    ~StateSaver();
-
-    // Disable moving
-    StateSaver(const StateSaver&) = delete;
-    StateSaver& operator=(const StateSaver&) = delete;
-
-  private:
-    Renderer& savedRenderer;
-    State savedState;
-  };
+  class StateSaver;
 
   Renderer() = default;
   ~Renderer() = default;

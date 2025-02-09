@@ -370,32 +370,6 @@ Renderer* Renderer::setState(const State& state)
   return this;
 }
 
-/* StateSaver Class */
-/*!****************************************************************************
- * \brief Constructor for StateSaver
- * 
- * ## Explanation:
- * 
- * This will save the state of the renderer when created.
- * 
- * \param renderer
- *****************************************************************************/
-Renderer::StateSaver::StateSaver(Renderer& renderer) :
-  savedRenderer(renderer), savedState(renderer.getCurrentState()) {};
-
-/*!****************************************************************************
- * \brief Destructor for StateSaver
- * 
- * ## Explanation:
- * 
- * This will restore the state of the renderer to the state it was in when
- * this object was created.
- * 
- *****************************************************************************/
-Renderer::StateSaver::~StateSaver() {
-  savedRenderer.setState(savedState);
-}
-
 /*!****************************************************************************
  * \brief Initialize the renderer
  * 

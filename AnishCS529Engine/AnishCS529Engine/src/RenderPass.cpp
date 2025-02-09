@@ -62,6 +62,9 @@ void RenderPass::applyProperties(PropertyMap _properties) const
         else if constexpr (std::is_same_v<T, Matrix4>) {
           shader->setMat4(name, arg);
         }
+        else if constexpr (std::is_same_v<T, TextureManager::TextureID>) {
+          shader->setMat4(name, arg);
+        }
       },
       value
     );
