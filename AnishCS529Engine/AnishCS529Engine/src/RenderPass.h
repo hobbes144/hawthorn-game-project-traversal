@@ -21,6 +21,7 @@
 #include "Shader.h"
 #include "Vector3.h"
 #include "TextureManager.h"
+#include "Light.h"
 
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
@@ -53,10 +54,12 @@ class RenderPass {
 public:
   using PropertyMap = std::unordered_map<
     std::string,
-    std::variant<unsigned int, int, float, Vector3, Matrix4, TextureManager::TextureID>
+    std::variant<
+      unsigned int, int, float, Vector3, Matrix4, TextureManager::TextureID>
   >;
 
-  RenderPass(std::shared_ptr<Shader> _shader) : shader(_shader) {};
+  RenderPass(std::shared_ptr<Shader> _shader) : 
+    enabled(true), shader(_shader), properties(PropertyMap()) {};
   virtual ~RenderPass() = default;
 
   void setShader(std::shared_ptr<Shader> _shader);
@@ -76,9 +79,16 @@ public:
 
   void setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit);
 
-  virtual void apply(const PropertyMap& materialProperties = {}) const;
+  virtual void apply(const PropertyMap& materialProperties = {},
+    const LightStack& lightStack = {}) const;
+
+  /* Utility functions */
+  void enable();
+  void disable();
+  bool isEnabled() const;
 
 protected:
+  bool enabled;
   std::shared_ptr<Shader> shader;
   PropertyMap properties;
 
@@ -86,7 +96,9 @@ protected:
 
   std::optional<std::unordered_map<std::string, TextureManager::TextureID>> textureData;
 
-  void applyProperties(PropertyMap _properties) const;
+  void applyProperties(
+    const PropertyMap& passProperties,
+    const PropertyMap& materialProperties) const;
 
 };
 

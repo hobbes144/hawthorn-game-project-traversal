@@ -23,22 +23,7 @@ void RenderableNode::draw(const Matrix4& view, const Matrix4& projection) {
   material->setProperty("ViewMatrix", view);
   material->setProperty("ProjectionMatrix", projection);
   material->setProperty("ModelMatrix", getTransformMatrix());
-  material->apply();
-
-  auto geometryBuffer = mesh->getGeometryBuffer();
-  if (!geometryBuffer) return;
-  geometryBuffer->bind();
-
-  if (mesh->hasAttribute(GeometryBuffer::AttributeType::Position)) {
-    if (isIndexed) {
-      renderer->draw(GL_TRIANGLES, geometryBuffer->getIndexCount(), isIndexed);
-    }
-    else {
-      renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), isIndexed);
-    }
-  }
-
-  geometryBuffer->unbind();
+  material->draw(mesh);
 
   for (auto& child : getChildren()) {
     /* This line will return null if child is of type Node, and return the

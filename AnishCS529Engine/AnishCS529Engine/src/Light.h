@@ -18,15 +18,18 @@
 #include "Vector3.h"
 #include "Shader.h"
 
+
 class Light : public std::enable_shared_from_this<Light> {
 public:
   Vector3 color = Vector3(1.0);
   float intensity = 1.0f;
   bool castsShadows = false;
 
-  virtual void applyToShader(Shader& shader, int lightIndex) const = 0;
+  virtual void applyToShader(const std::shared_ptr<Shader>& shader, int lightIndex) const = 0;
 
   // ToDo: Add shadow logic here
 };
+
+using LightStack = std::vector<std::shared_ptr<Light>>;
 
 #endif // !LIGHT_H

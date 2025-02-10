@@ -20,6 +20,7 @@
 
 /* Used classes */
 #include "GameWindow.h"
+//#include "RenderGraph.h"
 
 /*!****************************************************************************
  * \brief Class Renderer that implements an OpenGL renderer
@@ -126,7 +127,7 @@ public:
   Renderer() = default;
   ~Renderer() = default;
 
-  /* Component functions */
+  /* Component-like functions */
   void initialize();
   void update(); // Dummy
   void shutdown(); // Dummy
@@ -155,6 +156,8 @@ private:
   /** Clear mask for glClear */
   GLbitfield clearMask;
   State state{ Viewport{ 0,0,0,0 }, BlendState{}, DepthState{} };
+
+  //std::shared_ptr<RenderGraph> renderGraph;
 
   bool loadGraphicsAPIFunctions() const;
   void setupCallbacks();

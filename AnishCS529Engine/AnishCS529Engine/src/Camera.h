@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <cassert>
+
 /* Base class */
 #include "Node.h"
 
@@ -59,6 +61,10 @@ public:
 private:
   Matrix4 viewMatrix;
   Matrix4 projectionMatrix;
+
+  Vector3 up;
+  Vector3 front;
+  Vector3 right;
 
   void updateViewMatrix();
 };

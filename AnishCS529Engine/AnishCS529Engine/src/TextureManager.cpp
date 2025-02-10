@@ -8,6 +8,9 @@
  *****************************************************************************/
 #include "TextureManager.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb/stb_image.h"
+
 TextureManager::TextureID TextureManager::loadFile(const std::string& filePath)
 {
   /* Checking if Texture was already loaded and returning it. */
@@ -38,7 +41,7 @@ TextureManager::TextureID TextureManager::createTexture(
 
 void TextureManager::setTextureParameters(TextureID id, TextureParameters textureParameters)
 {
-  glBindTexture(TEXTURE_2D, id);
+  glBindTexture(TEXTURE_2D, id.id);
   setTextureParameters(textureParameters);
   glBindTexture(TEXTURE_2D, 0);
 }
@@ -56,7 +59,7 @@ TextureManager::TextureID TextureManager::loadHDRFile(const std::string& filepat
   float* data = stbi_loadf(
     filepath.c_str(), &(textureInfo.width), &(textureInfo.height), &channels, 4);
 
-  assert(("ERROR::TEXTURE::LOADTEXTURE::LOADFAILED::" + filepath).c_str(), data);
+  assert(("ERROR::TEXTURE::LOADTEXTURE::LOADFAILED::" + filepath).c_str() && data);
 
   textureInfo.format = TEXTURE_RGBA32F;
 
@@ -80,7 +83,7 @@ TextureManager::TextureID TextureManager::loadSDRFile(const std::string& filepat
   unsigned char* data = stbi_load(
     filepath.c_str(), &(textureInfo.width), &(textureInfo.height), &channels, 0);
 
-  assert(("ERROR::TEXTURE::LOADTEXTURE::LOADFAILED::" + filepath).c_str(), data);
+  assert(("ERROR::TEXTURE::LOADTEXTURE::LOADFAILED::" + filepath).c_str() && data);
 
   if (channels == 3)
     textureInfo.format = TEXTURE_RGB;

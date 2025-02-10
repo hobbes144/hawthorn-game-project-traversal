@@ -38,6 +38,7 @@
     <ClCompile Include="src\InputOld.cpp" />
     <ClCompile Include="src\LightManager.cpp" />
     <ClCompile Include="src\Material.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Movement.cpp" />
     <ClCompile Include="src\PhysicsBody.cpp" />
     <ClCompile Include="src\PointLight.cpp" />
@@ -67,7 +68,6 @@
     <ClCompile Include="src\TriangleTest.cpp" />
     <ClCompile Include="src\MaterialDeprecated.cpp" />
     <ClCompile Include="src\Matrix4.cpp" />
-    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\OBB.cpp" />
     <ClCompile Include="src\PhysicsBodyOld.cpp" />
@@ -93,8 +93,10 @@
     <ClInclude Include="src\InputOld.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Light.h" />
+    <ClInclude Include="src\LightingPass.h" />
     <ClInclude Include="src\LightManager.h" />
     <ClInclude Include="src\Material.h" />
+    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Movement.h" />
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\PointLight.h" />
@@ -121,7 +123,6 @@
     <ClInclude Include="src\InputKeys.h" />
     <ClInclude Include="src\MaterialDeprecated.h" />
     <ClInclude Include="src\Matrix4.h" />
-    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\OBB.h" />
     <ClInclude Include="src\PhysicsBodyOld.h" />

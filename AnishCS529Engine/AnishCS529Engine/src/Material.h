@@ -44,8 +44,6 @@ public:
     properties[name] = value;
   }
 
-  void setTexture(const std::string& name, std::shared_ptr<Texture> texture, unsigned int unit);
-
   virtual void draw(std::shared_ptr<Mesh> mesh) const;
 
 private:
@@ -56,8 +54,8 @@ private:
 
 };
 
-std::shared_ptr<Material> createSolidColorMaterial(const Vector3& color);
-std::shared_ptr<Material> createTextureMaterial(const std::string& textureFile);
+//std::shared_ptr<Material> createSolidColorMaterial(const Vector3& color);
+//std::shared_ptr<Material> createTextureMaterial(const std::string& textureFile);
 
 #endif // MATERIAL_H
 

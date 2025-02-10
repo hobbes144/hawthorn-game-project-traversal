@@ -3,7 +3,7 @@
 int LightManager::addLight(std::shared_ptr<Light> light)
 {
   lightStack.push_back(light);
-  return lightStack.size() - 1;
+  return static_cast<int>(lightStack.size() - 1);
 }
 
 std::shared_ptr<Light> LightManager::getLight(int index)

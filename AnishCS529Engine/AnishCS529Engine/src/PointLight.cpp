@@ -8,10 +8,11 @@
  *****************************************************************************/
 #include "PointLight.h"
 
-void PointLight::applyToShader(Shader& shader, int lightIndex) const
+void PointLight::applyToShader(const std::shared_ptr<Shader>& shader, int lightIndex) const
 {
-  shader.setVec3("pointLight_" + std::to_string(lightIndex) + "_position", position);
-  shader.setFloat("pointLight_" + std::to_string(lightIndex) + "_range", range);
-  shader.setVec3("pointLight_" + std::to_string(lightIndex) + "_color", color);
-  shader.setFloat("pointLight_" + std::to_string(lightIndex) + "_intensity", intensity);
+  std::string uniformBase = "pointLights[" + std::to_string(lightIndex) + "]";
+  shader->setVec3(uniformBase + ".position", position);
+  shader->setFloat(uniformBase + ".range", range);
+  shader->setVec3(uniformBase + ".color", color);
+  shader->setFloat(uniformBase + ".intensity", intensity);
 }

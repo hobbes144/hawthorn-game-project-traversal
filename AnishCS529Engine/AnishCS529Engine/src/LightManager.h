@@ -5,6 +5,9 @@
  *    anish.murthy@digipen.edu
  * \date   02-01-2025
  * \brief  Light Manager that handles registration and organization of lights
+ * 
+ * Note: This is not currently in use. It is placed here as a skeleton to
+ * eventually build as needed.
  *
  *****************************************************************************/
 #ifndef LIGHT_MANAGER_H

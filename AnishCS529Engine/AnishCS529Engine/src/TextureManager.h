@@ -17,14 +17,18 @@
 #include <glad/glad.h>
 #endif // !ENGINE_GRAPHICS_LIBRARY_H
 
+#include <cassert>
 #include <iostream>
 #include <string>
 #include <memory>
 #include <unordered_map>
 #include <vector>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
+#ifndef STB_IMAGE_H
+#define STB_IMAGE_H
+#include "stb/stb_image.h"
+#endif
+
 
 #include "TextureParametersOpenGL.h"
 
@@ -44,6 +48,7 @@ public:
     GLuint operator=(GLuint _id) { return id = _id; }
     operator GLuint() const { return id; }
     bool operator==(const TextureID& other) const { return id == other.id; }
+    bool operator<(const TextureID& other) const { return id < other.id; }
   };
 
   struct TextureParameters {
@@ -84,7 +89,7 @@ public:
 
 private:
   TextureManager() = default;
-  std::unordered_map<TextureID, TextureInfo> textures;
+  std::unordered_map<GLuint, TextureInfo> textures;
   std::unordered_map<std::string,TextureID> loadedFiles;
 
   TextureID loadHDRFile(const std::string& filepath);

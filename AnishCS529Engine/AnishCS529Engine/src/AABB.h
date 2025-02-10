@@ -24,8 +24,8 @@ public:
   float   getDepth()       const;
 
   // debug functions
-  void initializeDebugDraw(Renderer* renderer); // Call this once when creating OBB
-  void drawDebugLines(Matrix4& view, Matrix4& projection); // Call this in your render loop
+  //void initializeDebugDraw(Renderer* renderer); // Call this once when creating OBB
+  //void drawDebugLines(Matrix4& view, Matrix4& projection); // Call this in your render loop
 
 
 private:
@@ -33,8 +33,8 @@ private:
   Vector3 worldMin, worldMax;   // Transformed bounds in world space
 
   // debug properties
-  std::shared_ptr<Mesh> debugMesh;
-  std::shared_ptr<MaterialDeprecated> debugMaterial;
+  //std::shared_ptr<Mesh> debugMesh;
+  //std::shared_ptr<MaterialDeprecated> debugMaterial;
   Renderer* renderer;
 };
 

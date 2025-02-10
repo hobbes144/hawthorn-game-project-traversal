@@ -273,9 +273,6 @@
     <ClCompile Include="src\RenderPass.cpp">
       <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderGraph.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\MaterialDeprecated.cpp">
       <Filter>Engine\Source Files\Deprecated</Filter>
     </ClCompile>
@@ -285,23 +282,26 @@
     <ClCompile Include="src\GraphicsTest.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="src\PointLight.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AmbientLight.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LightManager.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RendererStateSaver.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TextureManager.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Texture.cpp">
       <Filter>Engine\Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererStateSaver.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AmbientLight.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightManager.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PointLight.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderGraph.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextureManager.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\Mesh.cpp">
       <Filter>Engine\Source Files\ObjectResources\Materials/Meshes</Filter>
@@ -470,17 +470,20 @@
     <ClInclude Include="src\AmbientLight.h">
       <Filter>Engine\Header Files\ObjectResources\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\RendererStateSaver.h">
-      <Filter>Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TextureManager.h">
-      <Filter>Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TextureParametersOpenGL.h">
-      <Filter>Engine\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Texture.h">
       <Filter>Engine\Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererStateSaver.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextureManager.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextureParametersOpenGL.h">
+      <Filter>Engine\Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightingPass.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\Mesh.h">
       <Filter>Engine\Header Files\ObjectResources\Materials/Meshes</Filter>

@@ -1,7 +1,8 @@
 #include "AmbientLight.h"
 
-void AmbientLight::applyToShader(Shader& shader, int lightIndex) const
+void AmbientLight::applyToShader(const std::shared_ptr<Shader>& shader, int lightIndex) const
 {
-  shader.setVec3("ambientLight_" + std::to_string(lightIndex) + "_color", color);
-  shader.setFloat("ambientLight_" + std::to_string(lightIndex) + "_intensity", intensity);
+  std::string uniformBase = "ambientLights[" + std::to_string(lightIndex) + "]";
+  shader->setVec3(uniformBase + ".color", color);
+  shader->setFloat(uniformBase + ".intensity", intensity);
 }

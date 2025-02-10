@@ -20,7 +20,7 @@ public:
   /* Range for attenuation in many local lights pass */
   float range = 0.0f;
 
-  void applyToShader(Shader& shader, int lightIndex) const;
+  void applyToShader(const std::shared_ptr<Shader>& shader, int lightIndex) const;
 
 };
 

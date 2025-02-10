@@ -185,7 +185,7 @@ void Shader::cacheUniforms()
 
     std::vector<char> nameData(values[2]);
     glGetProgramResourceName(programID, GL_UNIFORM, uniformNumber,
-      nameData.size(), NULL, &nameData[0]);
+      static_cast<GLsizei>(nameData.size()), NULL, &nameData[0]);
     std::string name(nameData.begin(), nameData.end() - 1);
     uniformLocationCache[name] = values[3];
   }
