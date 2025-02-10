@@ -400,7 +400,7 @@ void Renderer::initialize() {
     throw std::runtime_error("Failed to load Graphics API Functions");
   }
 
-  //renderGraph = std::make_shared<RenderGraph>(this);
+  renderGraph = std::make_shared<RenderGraph>();
 
   state.viewport = Viewport{0,0,gameWindow->getWidth(), gameWindow->getHeight()};
   setBlendState(state.blendState);

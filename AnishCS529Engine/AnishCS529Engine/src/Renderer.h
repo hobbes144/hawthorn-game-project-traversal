@@ -20,7 +20,7 @@
 
 /* Used classes */
 #include "GameWindow.h"
-//#include "RenderGraph.h"
+#include "RenderGraph.h"
 
 /*!****************************************************************************
  * \brief Class Renderer that implements an OpenGL renderer
@@ -157,7 +157,7 @@ private:
   GLbitfield clearMask;
   State state{ Viewport{ 0,0,0,0 }, BlendState{}, DepthState{} };
 
-  //std::shared_ptr<RenderGraph> renderGraph;
+  std::shared_ptr<RenderGraph> renderGraph;
 
   bool loadGraphicsAPIFunctions() const;
   void setupCallbacks();

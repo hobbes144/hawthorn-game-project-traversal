@@ -20,53 +20,53 @@ extern "C"
 }
 
 int main() {
-//  /* Game Window setup */
-//  float windowWidth = 1280.0f;
-//  float windowHeight = 720.0f;
-//  GameWindow* mainWindow = new GameWindow;
-//  mainWindow->setTitle("RenderingTest")->setHeight(windowHeight)->setWidth(windowWidth);
-//  mainWindow->initialize();
-//
-//  /* Renderer setup */
-//  Renderer* mainRenderer = new Renderer;
-//  mainRenderer->setGameWindow(mainWindow);
-//  mainRenderer->initialize();
-//  mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//
-//  mainWindow->setVsync(true);
-//
-//  /* Input setup */
-//  Input* mainInput = new Input;
-//  std::vector<Key> keysToMonitor = { 
-//    KEY_W, KEY_A, KEY_S, KEY_D, KEY_R, KEY_F,
-//    KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_ESCAPE
-//  };
-//  mainInput->setGameWindow(mainWindow);
-//
-//  /* Framerate controller setup */
-//  FFramerateController* mainFramerateController = 
-//    FFramerateController::getController();
-//  
-//  /* Scenegraph setup */
-//  SceneGraph mainSceneGraph;
-//
-//  /* Camera setup */
-//  Vector3 cameraPos(-20.0f, 20.0f, 500.0);
-//  Vector3 cameraTarget = cameraPos + Vector3(0.0f, 0.0f, -500.0f);
-//  Vector3 upVector(0.0f, 1.0f, 0.0f);
-//  auto camera = std::make_shared<Camera>("mainCamera");
-//  camera->setLocalPosition(Vector3(cameraPos));
-//  camera
-//    ->setPerspectiveProjection(
-//      45.0f * 3.14159f / 180.0f,
-//      mainWindow->getAspectRatio(),
-//      0.1f,
-//      1000.0f)
-//    ->lookAt(cameraTarget, upVector);
-//  mainSceneGraph.addNode(camera);
-//
-//  /* Create relevant Meshes*/
-//  auto boxMesh = createCubeMesh("box");
+  /* Game Window setup */
+  int windowWidth = 1280;
+  int windowHeight = 720;
+  GameWindow* mainWindow = new GameWindow;
+  mainWindow->setTitle("RenderingTest")->setHeight(windowHeight)->setWidth(windowWidth);
+  mainWindow->initialize();
+
+  /* Renderer setup */
+  Renderer* mainRenderer = new Renderer;
+  mainRenderer->setGameWindow(mainWindow);
+  mainRenderer->initialize();
+  mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+  mainWindow->setVsync(true);
+
+  /* Input setup */
+  Input* mainInput = new Input;
+  std::vector<Key> keysToMonitor = { 
+    KEY_W, KEY_A, KEY_S, KEY_D, KEY_R, KEY_F,
+    KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_ESCAPE
+  };
+  mainInput->setGameWindow(mainWindow);
+
+  /* Framerate controller setup */
+  FFramerateController* mainFramerateController = 
+    FFramerateController::getController();
+  
+  /* Scenegraph setup */
+  SceneGraph mainSceneGraph;
+
+  /* Camera setup */
+  Vector3 cameraPos(-20.0f, 20.0f, 500.0);
+  Vector3 cameraTarget = cameraPos + Vector3(0.0f, 0.0f, -500.0f);
+  Vector3 upVector(0.0f, 1.0f, 0.0f);
+  auto camera = std::make_shared<Camera>("mainCamera");
+  camera->setLocalPosition(Vector3(cameraPos));
+  camera
+    ->setPerspectiveProjection(
+      45.0f * 3.14159f / 180.0f,
+      mainWindow->getAspectRatio(),
+      0.1f,
+      1000.0f)
+    ->lookAt(cameraTarget, upVector);
+  mainSceneGraph.addNode(camera);
+
+  /* Create relevant Meshes*/
+  auto boxMesh = createCubeMesh("box");
 //  auto boxMaterial = createSolidColorMaterial(Vector3(1.0f,0.8f,0.8f));
 //
 //// Drawable objects

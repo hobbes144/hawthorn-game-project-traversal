@@ -15,6 +15,6 @@ void RenderGraph::draw(std::shared_ptr<Mesh> mesh, RenderPass::PropertyMap prope
   for (const auto& pass : renderStack) {
     pass->apply(properties, lightStack);
 
-    mesh->draw(renderer);
+    mesh->draw();
   }
 }

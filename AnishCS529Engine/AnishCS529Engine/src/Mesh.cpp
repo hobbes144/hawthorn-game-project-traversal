@@ -111,16 +111,20 @@ const std::string& Mesh::getName() const {
   return name;
 }
 
-void Mesh::draw(Renderer* renderer) {
+void Mesh::draw() {
   if ( !geometryBuffer ) return;
   geometryBuffer->bind();
 
+  /* Removed reference to renderer to avoid circular dependency issues.
+  * This really should have been in Renderer, or some other encapsulating class
+  * Todo: Move mesh draw OpenGL calls to different class.
+  */
   if (this->hasAttribute(GeometryBuffer::AttributeType::Position) ) {
     if (this->getIndexCount() > 0) {
-      renderer->draw(GL_TRIANGLES, geometryBuffer->getIndexCount(), true);
+      glDrawArrays(GL_TRIANGLES, 0, geometryBuffer->getIndexCount());
     }
     else {
-      renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), false);
+      glDrawElements(GL_TRIANGLES, geometryBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
     }
   }
   
