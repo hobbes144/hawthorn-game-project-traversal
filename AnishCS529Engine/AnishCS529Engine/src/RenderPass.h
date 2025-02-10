@@ -74,9 +74,9 @@ public:
   //void setFBO(std::shared_ptr<FBO> FBO);
   //std::shared_ptr<FBO> getFBO() const;
 
-  void setTexture(const std::string& name, std::shared_ptr<Texture> texture, unsigned int unit);
+  void setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit);
 
-  virtual void apply(const PropertyMap& tempProperties = {}) const;
+  virtual void apply(const PropertyMap& materialProperties = {}) const;
 
 protected:
   std::shared_ptr<Shader> shader;
@@ -84,7 +84,7 @@ protected:
 
   //std::optional<std::shared_ptr<FBO>> FBO;
 
-  std::optional<std::unordered_map<std::string, TextureManager::TextureInfo>> textureData;
+  std::optional<std::unordered_map<std::string, TextureManager::TextureID>> textureData;
 
   void applyProperties(PropertyMap _properties) const;
 

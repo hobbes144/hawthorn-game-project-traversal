@@ -8,13 +8,6 @@
  *****************************************************************************/
 #include "TextureManager.h"
 
-TextureManager::~TextureManager()
-{
-  for (auto& texture : textures) {
-    delete texture;
-  }
-}
-
 TextureManager::TextureID TextureManager::loadFile(const std::string& filePath)
 {
   /* Checking if Texture was already loaded and returning it. */
@@ -22,25 +15,12 @@ TextureManager::TextureID TextureManager::loadFile(const std::string& filePath)
     return loadedFiles[filePath];
   }
 
-  TextureInfo* textureInfo = new TextureInfo();
-
-  textures.push_back(textureInfo);
-  TextureID textureID = TextureID(textures.size() - 1);
-  loadedFiles[filePath] = textureID;
-
-  glGenTextures(1, &(textureInfo->id));
-  glBindTexture(TEXTURE_2D, textureInfo->id);
-
   if (stbi_is_hdr(filePath.c_str())) {
-    loadHDRFile(textureInfo, filePath);
+    return loadHDRFile(filePath);
   }
   else {
-    loadSDRFile(textureInfo, filePath);
+    return  loadSDRFile(filePath);
   }
-
-  glBindTexture(TEXTURE_2D, 0);
-
-  return TextureID();
 }
 
 TextureManager::TextureID TextureManager::createTexture(
@@ -48,82 +28,78 @@ TextureManager::TextureID TextureManager::createTexture(
   Texture::Format internal_format, const void* data,
   TextureParameters textureParameters)
 {
-  TextureInfo* textureInfo = new TextureInfo();
-  textureInfo->width = width;
-  textureInfo->height = height;
-  textureInfo->format = internal_format;
+  TextureInfo textureInfo = TextureInfo();
+  textureInfo.width = width;
+  textureInfo.height = height;
+  textureInfo.format = internal_format;
 
-  textures.push_back(textureInfo);
-  TextureID textureID = TextureID(textures.size() - 1);
-
-  glGenTextures(1, &(textureInfo->id));
-  glBindTexture(TEXTURE_2D, textureInfo->id);
-
-  createOpenGLTexture(textureInfo, data, textureParameters);
-
-  glBindTexture(TEXTURE_2D, 0);
-
-  return textureID;
+  return createOpenGLTexture(textureInfo, data, textureParameters);
 }
 
 void TextureManager::setTextureParameters(TextureID id, TextureParameters textureParameters)
 {
-  TextureInfo* textureInfo = textures[id];
-
-  glBindTexture(TEXTURE_2D, textureInfo->id);
-  setTextureParameters(*textureInfo, textureParameters);
+  glBindTexture(TEXTURE_2D, id);
+  setTextureParameters(textureParameters);
   glBindTexture(TEXTURE_2D, 0);
 }
 
-void TextureManager::loadHDRFile(TextureInfo* textureInfo, const std::string& filepath)
+TextureManager::TextureID TextureManager::loadHDRFile(const std::string& filepath)
 {
   TextureParameters textureParameters = TextureParameters(
     TEXTURE_NEAREST, TEXTURE_LINEAR_MIPMAP_LINEAR,
     TEXTURE_REPEAT, TEXTURE_REPEAT);
+
+  TextureInfo textureInfo = TextureInfo();
 
   stbi_set_flip_vertically_on_load(true);
   int channels;
   float* data = stbi_loadf(
-    filepath.c_str(), &(textureInfo->width), &(textureInfo->height), &channels, 4);
+    filepath.c_str(), &(textureInfo.width), &(textureInfo.height), &channels, 4);
 
   assert(("ERROR::TEXTURE::LOADTEXTURE::LOADFAILED::" + filepath).c_str(), data);
 
-  textureInfo->format = TEXTURE_RGBA32F;
+  textureInfo.format = TEXTURE_RGBA32F;
 
-  createOpenGLTexture(textureInfo, data, textureParameters);
+  TextureID id = createOpenGLTexture(textureInfo, data, textureParameters);
 
   stbi_image_free(data);
+
+  return id;
 }
 
-void TextureManager::loadSDRFile(TextureInfo* textureInfo, const std::string& filepath)
+TextureManager::TextureID TextureManager::loadSDRFile(const std::string& filepath)
 {
   TextureParameters textureParameters = TextureParameters(
     TEXTURE_NEAREST, TEXTURE_LINEAR_MIPMAP_LINEAR,
     TEXTURE_REPEAT, TEXTURE_REPEAT);
 
+  TextureInfo textureInfo = TextureInfo();
+
   stbi_set_flip_vertically_on_load(true);
   int channels;
   unsigned char* data = stbi_load(
-    filepath.c_str(), &(textureInfo->width), &(textureInfo->height), &channels, 0);
+    filepath.c_str(), &(textureInfo.width), &(textureInfo.height), &channels, 0);
 
   assert(("ERROR::TEXTURE::LOADTEXTURE::LOADFAILED::" + filepath).c_str(), data);
 
   if (channels == 3)
-    textureInfo->format = TEXTURE_RGB;
+    textureInfo.format = TEXTURE_RGB;
   else if (channels == 4)
-    textureInfo->format = TEXTURE_RGBA;
+    textureInfo.format = TEXTURE_RGBA;
 
-  createOpenGLTexture(textureInfo, data, textureParameters);
+  TextureID id = createOpenGLTexture(textureInfo, data, textureParameters);
 
   stbi_image_free(data);
+
+  return id;
 }
 
-void TextureManager::generateMipmaps(const TextureInfo& textureInfo)
+void TextureManager::generateMipmaps()
 {
   glGenerateMipmap(TEXTURE_2D);
 }
 
-void TextureManager::setTextureParameters(const TextureInfo& textureInfo, TextureParameters textureParameters)
+void TextureManager::setTextureParameters(TextureParameters textureParameters)
 {
   glTexParameteri(TEXTURE_2D, GL_TEXTURE_MAG_FILTER, textureParameters.mag_filter);
   glTexParameteri(TEXTURE_2D, GL_TEXTURE_MIN_FILTER, textureParameters.min_filter);
@@ -137,20 +113,25 @@ void TextureManager::setTextureParameters(const TextureInfo& textureInfo, Textur
     textureParameters.min_filter == TEXTURE_LINEAR_MIPMAP_NEAREST ||
     textureParameters.min_filter == TEXTURE_LINEAR_MIPMAP_LINEAR
     ) {
-    generateMipmaps(textureInfo);
+    generateMipmaps();
   }
 }
 
-void TextureManager::createOpenGLTexture(TextureInfo* textureInfo, const void* data,
+TextureManager::TextureID TextureManager::createOpenGLTexture(
+  const TextureInfo& textureInfo, const void* data,
   TextureParameters textureParameters)
 {
-  glGenTextures(1, &(textureInfo->id));
-  glBindTexture(TEXTURE_2D, textureInfo->id);
+  TextureID id = TextureID();
+  glGenTextures(1, &(id.id));
+
+  textures[id] = textureInfo;
+
+  glBindTexture(TEXTURE_2D, id);
 
   Texture::Format format;
-  if (textureInfo->format == TEXTURE_RGB || textureInfo->format == TEXTURE_RGB32F)
+  if (textureInfo.format == TEXTURE_RGB || textureInfo.format == TEXTURE_RGB32F)
     format = TEXTURE_RGB;
-  else if (textureInfo->format == TEXTURE_RGBA || textureInfo->format == TEXTURE_RGBA32F)
+  else if (textureInfo.format == TEXTURE_RGBA || textureInfo.format == TEXTURE_RGBA32F)
     format = TEXTURE_RGBA;
   else {
     std::cout << "WARNING::TEXTUREMANAGER::CREATETEXTURE::INVALIDFORMAT" 
@@ -159,10 +140,12 @@ void TextureManager::createOpenGLTexture(TextureInfo* textureInfo, const void* d
   }
 
   glTexImage2D(
-    TEXTURE_2D, 0, textureInfo->format, textureInfo->width, textureInfo->height,
+    TEXTURE_2D, 0, textureInfo.format, textureInfo.width, textureInfo.height,
     0, format, GL_UNSIGNED_BYTE, data);
 
-  setTextureParameters(*textureInfo, textureParameters);
+  setTextureParameters(textureParameters);
 
   glBindTexture(TEXTURE_2D, 0);
+
+  return id;
 }

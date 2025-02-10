@@ -123,8 +123,13 @@ void Mesh::draw(Renderer* renderer) {
       renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), false);
     }
   }
-
-  geometryBuffer->unbind();
+  
+  // For efficiency, removing unbind.
+  // We will be running draw calls multiple times per frame because we have
+  // multiple passes now. Doing an unbind every pass just to bind it again is
+  // very inefficient.
+  // 
+  // geometryBuffer->unbind();
 }
 
 std::shared_ptr<Mesh> createSquareMesh(const std::string name)

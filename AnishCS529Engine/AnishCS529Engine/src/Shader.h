@@ -63,6 +63,7 @@ private:
   GLuint loadShader(GLenum type, const GLchar* source);
   void deleteShader(GLuint id);
   void linkShaders();
+  void cacheUniforms();
   GLint getUniformLocation(const std::string& name) const;
 
   std::string toLowerCase(const std::string& str);

@@ -19,20 +19,21 @@
  * \param shaderFilePaths String with shader file paths separated by newline.
  *****************************************************************************/
 Shader::Shader(const std::string& shaderFilePaths) {
-	std::istringstream pathsStream(shaderFilePaths);
-	std::string shaderFilePath;
+  std::istringstream pathsStream(shaderFilePaths);
+  std::string shaderFilePath;
 
-	while (std::getline(pathsStream, shaderFilePath)) {
-		GLenum type = readShaderType(shaderFilePath);
-		std::string source = readShaderFile(shaderFilePath);
-		shaderIDs[type] = loadShader(type, source.c_str());
-	}
+  while (std::getline(pathsStream, shaderFilePath)) {
+    GLenum type = readShaderType(shaderFilePath);
+    std::string source = readShaderFile(shaderFilePath);
+    shaderIDs[type] = loadShader(type, source.c_str());
+  }
 
-	linkShaders();
+  linkShaders();
+  cacheUniforms();
 
-	for (const auto& [key, id] : shaderIDs) {
-		deleteShader(id);
-	}
+  for (const auto& [key, id] : shaderIDs) {
+    deleteShader(id);
+  }
 
 }
 
@@ -41,7 +42,7 @@ Shader::Shader(const std::string& shaderFilePaths) {
  * 
  *****************************************************************************/
 Shader::~Shader() {
-	glDeleteProgram(programID);
+  glDeleteProgram(programID);
 }
 
 /*!****************************************************************************
@@ -51,10 +52,10 @@ Shader::~Shader() {
  * \return \b std::string The lowercase string.
  *****************************************************************************/
 std::string Shader::toLowerCase(const std::string& str) {
-	std::string lowerStr = str;
-	std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), 
-		[](unsigned char c) { return std::tolower(c); });
-	return lowerStr;
+  std::string lowerStr = str;
+  std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), 
+    [](unsigned char c) { return std::tolower(c); });
+  return lowerStr;
 }
 
 /*!****************************************************************************
@@ -64,18 +65,18 @@ std::string Shader::toLowerCase(const std::string& str) {
  * \return \b GLenum Shader type.
  *****************************************************************************/
 GLenum Shader::readShaderType(std::string path) {
-	std::string lowercasePath = toLowerCase(path);
+  std::string lowercasePath = toLowerCase(path);
 
-	if (lowercasePath.find(".vert") != std::string::npos) 
-		return GL_VERTEX_SHADER;
-	if (lowercasePath.find(".frag") != std::string::npos) 
-		return GL_FRAGMENT_SHADER;
-	if (lowercasePath.find(".geom") != std::string::npos) 
-		return GL_GEOMETRY_SHADER;
-	if (lowercasePath.find(".comp") != std::string::npos) 
-		return GL_COMPUTE_SHADER;
-	else
-		return GL_VERTEX_SHADER;
+  if (lowercasePath.find(".vert") != std::string::npos) 
+    return GL_VERTEX_SHADER;
+  if (lowercasePath.find(".frag") != std::string::npos) 
+    return GL_FRAGMENT_SHADER;
+  if (lowercasePath.find(".geom") != std::string::npos) 
+    return GL_GEOMETRY_SHADER;
+  if (lowercasePath.find(".comp") != std::string::npos) 
+    return GL_COMPUTE_SHADER;
+  else
+    return GL_VERTEX_SHADER;
 }
 
 /*!****************************************************************************
@@ -85,19 +86,19 @@ GLenum Shader::readShaderType(std::string path) {
  * \return \b std::string Shader file contents.
  *****************************************************************************/
 std::string Shader::readShaderFile(std::string path) {
-	std::ifstream shaderFile(path);
-	if (!shaderFile.is_open()) {
-		std::cerr << "ERROR::SHADER::FILE::FILE_OPEN_FAILED::" << path <<
-			std::endl;
-		throw std::runtime_error("ERROR::SHADER::FILE::FILE_OPEN_FAILED");
-	}
+  std::ifstream shaderFile(path);
+  if (!shaderFile.is_open()) {
+    std::cerr << "ERROR::SHADER::FILE::FILE_OPEN_FAILED::" << path <<
+      std::endl;
+    throw std::runtime_error("ERROR::SHADER::FILE::FILE_OPEN_FAILED");
+  }
 
-	std::stringstream buffer;
-	buffer << shaderFile.rdbuf();
+  std::stringstream buffer;
+  buffer << shaderFile.rdbuf();
 
-	shaderFile.close();
+  shaderFile.close();
 
-	return buffer.str();
+  return buffer.str();
 }
 
 /*!****************************************************************************
@@ -108,24 +109,24 @@ std::string Shader::readShaderFile(std::string path) {
  * \return \b GLuint Shader ID of the new Shader.
  *****************************************************************************/
 GLuint Shader::loadShader(GLenum type, const GLchar* source) {
-	int  success;
-	char infoLog[512];
-	GLuint shaderId;
+  int  success;
+  char infoLog[512];
+  GLuint shaderId;
 
-	shaderId = glCreateShader(type);
+  shaderId = glCreateShader(type);
 
-	glShaderSource(shaderId, 1, &source, NULL);
-	glCompileShader(shaderId);
+  glShaderSource(shaderId, 1, &source, NULL);
+  glCompileShader(shaderId);
 
-	glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(shaderId, 512, NULL, infoLog);
-		std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog <<
-			std::endl;
-	}
+  glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
+  if (!success)
+  {
+    glGetShaderInfoLog(shaderId, 512, NULL, infoLog);
+    std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog <<
+      std::endl;
+  }
 
-	return shaderId;
+  return shaderId;
 }
 
 /*!****************************************************************************
@@ -134,7 +135,7 @@ GLuint Shader::loadShader(GLenum type, const GLchar* source) {
  * \param id ID of the shader to be deleted.
  *****************************************************************************/
 void Shader::deleteShader(GLuint id) {
-	glDeleteShader(id);
+  glDeleteShader(id);
 }
 
 /*!****************************************************************************
@@ -142,23 +143,52 @@ void Shader::deleteShader(GLuint id) {
  * 
  *****************************************************************************/
 void Shader::linkShaders() {
-	int  success;
-	char infoLog[512];
+  int  success;
+  char infoLog[512];
 
-	programID = glCreateProgram();
+  programID = glCreateProgram();
 
-	for (const auto& [type, id] : shaderIDs) {
-		glAttachShader(programID, id);
-	}
+  for (const auto& [type, id] : shaderIDs) {
+    glAttachShader(programID, id);
+  }
 
-	glLinkProgram(programID);
+  glLinkProgram(programID);
 
-	glGetProgramiv(programID, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetProgramInfoLog(programID, 512, NULL, infoLog);
-		std::cerr << "ERROR::SHADER::PROGRAM::COMPILATION_FAILED\n" << infoLog <<
-			std::endl;
-	}
+  glGetProgramiv(programID, GL_LINK_STATUS, &success);
+  if (!success) {
+    glGetProgramInfoLog(programID, 512, NULL, infoLog);
+    std::cerr << "ERROR::SHADER::PROGRAM::COMPILATION_FAILED\n" << infoLog <<
+      std::endl;
+  }
+}
+
+void Shader::cacheUniforms()
+{
+  // Getting number of uniforms in the Shader Program
+  // Note: This does not cache Uniform Blocks.
+  // We will handle that later as needed.
+  GLint uniformCount;
+  glGetProgramInterfaceiv(
+    programID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &uniformCount);
+
+  const GLenum properties[4] = { 
+    GL_BLOCK_INDEX, GL_TYPE, GL_NAME_LENGTH, GL_LOCATION
+  };
+
+  for ( int uniformNumber = 0; uniformNumber < uniformCount; ++uniformNumber) {
+    GLint values[4];
+    glGetProgramResourceiv(programID, GL_UNIFORM, uniformNumber, 4,
+      properties, 4, NULL, values);
+
+    if (values[0] != 1)
+      continue;
+
+    std::vector<char> nameData(values[2]);
+    glGetProgramResourceName(programID, GL_UNIFORM, uniformNumber,
+      nameData.size(), NULL, &nameData[0]);
+    std::string name(nameData.begin(), nameData.end() - 1);
+    uniformLocationCache[name] = values[3];
+  }
 }
 
 /*!****************************************************************************
@@ -169,7 +199,7 @@ void Shader::linkShaders() {
  * 
  *****************************************************************************/
 void Shader::use() {
-	glUseProgram(programID);
+  glUseProgram(programID);
 }
 
 /*!****************************************************************************
@@ -179,18 +209,18 @@ void Shader::use() {
  * \return \b GLint Uniform ID.
  *****************************************************************************/
 GLint Shader::getUniformLocation(const std::string& name) const {
-	auto it = uniformLocationCache.find(name);
+  auto it = uniformLocationCache.find(name);
 
-	if (it != uniformLocationCache.end()) {
-		return it->second;
-	}
-	GLint location = glGetUniformLocation(programID, name.c_str());
-	uniformLocationCache[name] = location;
-	if (location == -1) {
-		std::cerr << "ERROR::SHADER::UNIFORM::NOT_EXISTS::" << name << std::endl;
-	}
+  if (it != uniformLocationCache.end()) {
+    return it->second;
+  }
+  GLint location = glGetUniformLocation(programID, name.c_str());
+  uniformLocationCache[name] = location;
+  if (location == -1) {
+    std::cerr << "ERROR::SHADER::UNIFORM::NOT_EXISTS::" << name << std::endl;
+  }
 
-	return location;
+  return location;
 }
 
 /*!****************************************************************************
@@ -200,7 +230,7 @@ GLint Shader::getUniformLocation(const std::string& name) const {
  * \param value Value of the uniform
  *****************************************************************************/
 void Shader::setUInt(const std::string& name, unsigned int value) const {
-	glUniform1ui(getUniformLocation(name), value);
+  glUniform1ui(getUniformLocation(name), value);
 }
 
 /*!****************************************************************************
@@ -210,7 +240,7 @@ void Shader::setUInt(const std::string& name, unsigned int value) const {
  * \param value Value of the uniform
  *****************************************************************************/
 void Shader::setInt(const std::string& name, int value) const {
-	glUniform1i(getUniformLocation(name), value);
+  glUniform1i(getUniformLocation(name), value);
 }
 
 /*!****************************************************************************
@@ -220,7 +250,7 @@ void Shader::setInt(const std::string& name, int value) const {
  * \param value Value of the uniform
  *****************************************************************************/
 void Shader::set2Int(const std::string& name, int v0, int v1) const {
-	glUniform2i(getUniformLocation(name), v0, v1);
+  glUniform2i(getUniformLocation(name), v0, v1);
 }
 
 /*!****************************************************************************
@@ -230,7 +260,7 @@ void Shader::set2Int(const std::string& name, int v0, int v1) const {
  * \param value Value of the uniform
  *****************************************************************************/
 void Shader::setFloat(const std::string& name, float value) const {
-	glUniform1f(getUniformLocation(name), value);
+  glUniform1f(getUniformLocation(name), value);
 }
 
 /*!****************************************************************************
@@ -240,7 +270,7 @@ void Shader::setFloat(const std::string& name, float value) const {
  * \param value Value of the uniform
  *****************************************************************************/
 void Shader::setVec2(const std::string& name, float x, float y) const {
-	glUniform2f(getUniformLocation(name), x, y);
+  glUniform2f(getUniformLocation(name), x, y);
 }
 
 /*!****************************************************************************
@@ -250,7 +280,7 @@ void Shader::setVec2(const std::string& name, float x, float y) const {
  * \param value Value of the uniform
  *****************************************************************************/
 void Shader::setVec3(const std::string& name, const Vector3& value) const {
-	glUniform3f(getUniformLocation(name), value.x, value.y, value.z);
+  glUniform3f(getUniformLocation(name), value.x, value.y, value.z);
 }
 
 /*!****************************************************************************
@@ -260,7 +290,7 @@ void Shader::setVec3(const std::string& name, const Vector3& value) const {
  * \param value Value of the uniform
  *****************************************************************************/
 void Shader::setVec4(const std::string& name, float x, float y, float z, float w) const {
-	glUniform4f(getUniformLocation(name), x, y, z, w);
+  glUniform4f(getUniformLocation(name), x, y, z, w);
 }
 
 /*!****************************************************************************
@@ -270,5 +300,5 @@ void Shader::setVec4(const std::string& name, float x, float y, float z, float w
  * \param value Value of the uniform
  *****************************************************************************/
 void Shader::setMat4(const std::string& name, const Matrix4& value) const {
-	glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, value.getData());
+  glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, value.getData());
 }

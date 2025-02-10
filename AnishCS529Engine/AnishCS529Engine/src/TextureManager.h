@@ -36,13 +36,13 @@
 class TextureManager {
 public:
   struct TextureID {
-    unsigned int id;
+    GLuint id;
 
     TextureID() : id(0) {}
-    explicit TextureID(unsigned int id) : id(id) {}
+    TextureID(GLuint id) : id(id) {}
 
-    unsigned int operator=(unsigned int _id) { return id = _id; }
-    operator unsigned int() const { return id; }
+    GLuint operator=(GLuint _id) { return id = _id; }
+    operator GLuint() const { return id; }
     bool operator==(const TextureID& other) const { return id == other.id; }
   };
 
@@ -63,7 +63,6 @@ public:
   };
 
   struct TextureInfo {
-    GLuint id;
     int width, height;
     Texture::Format format;
   };
@@ -72,7 +71,6 @@ public:
     static TextureManager instance;
     return instance;
   }
-  ~TextureManager();
 
   TextureID loadFile(const std::string& filePath);
   TextureID createTexture(
@@ -86,19 +84,19 @@ public:
 
 private:
   TextureManager() = default;
-  std::vector<TextureInfo*> textures;
+  std::unordered_map<TextureID, TextureInfo> textures;
   std::unordered_map<std::string,TextureID> loadedFiles;
 
-  void loadHDRFile(TextureInfo* textureInfo, const std::string& filepath);
-  void loadSDRFile(TextureInfo* textureInfo, const std::string& filepath);
+  TextureID loadHDRFile(const std::string& filepath);
+  TextureID loadSDRFile(const std::string& filepath);
 
-  void generateMipmaps(const TextureInfo& textureInfo);
+  void generateMipmaps();
 
-  void setTextureParameters(
-    const TextureInfo& textureInfo, TextureParameters textureParameters);
+  void setTextureParameters(TextureParameters textureParameters);
 
-  void createOpenGLTexture(TextureInfo* textureInfo, const void* data,
-    TextureParameters textureParameters);
+  TextureID createOpenGLTexture(
+    const TextureInfo& textureInfo, const void* data,
+    TextureParameters textureParameters = TextureParameters());
 };
 
 #endif // !TEXTURE_MANAGER_H

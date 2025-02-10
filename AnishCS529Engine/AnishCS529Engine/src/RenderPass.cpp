@@ -10,26 +10,26 @@ std::shared_ptr<Shader> RenderPass::getShader() const
   return shader;
 }
 
-void RenderPass::setTexture(const std::string& name, std::shared_ptr<Texture> texture, unsigned int unit)
+void RenderPass::setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit)
 {
   if (!textureData) {
-    textureData = std::unordered_map<std::string, TextureInfo>();
+    textureData = std::unordered_map<std::string, TextureManager::TextureID>();
   }
-  (*textureData)[name] = { texture, unit };
+  (*textureData)[name] = textureID;
 }
 
-void RenderPass::apply(const PropertyMap& tempProperties) const
+void RenderPass::apply(const PropertyMap& materialProperties) const
 {
   shader->use();
 
   applyProperties(properties);
-  applyProperties(tempProperties);
+  applyProperties(materialProperties);
   
   // Texture samplers
   if (textureData) {
-    for (const auto& [name, texInfo] : *textureData) {
-      if (texInfo.texture) {
-        texInfo.texture->bind();
+    for (const auto& [name, texID] : *textureData) {
+      if (texID) {
+        bindTexture(texID);
         shader->setInt(name, texInfo.unit);
       }
       else {

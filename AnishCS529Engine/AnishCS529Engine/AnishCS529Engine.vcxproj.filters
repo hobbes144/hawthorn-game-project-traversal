@@ -33,12 +33,6 @@
     <Filter Include="Engine\Header Files\ObjectResources\Components">
       <UniqueIdentifier>{4b01c2dd-d4a8-4cfa-999e-2a0a50d96a5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Header Files\ObjectResources\Meshes">
-      <UniqueIdentifier>{77d3f894-5434-46e6-96e0-c19653ac57cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Header Files\ObjectResources\Materials/Textures">
-      <UniqueIdentifier>{4d195d69-0fb3-4917-935d-b1229b2cf05e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Header Files\ObjectResources\Nodes">
       <UniqueIdentifier>{75e94ada-8833-44fc-8edc-dbdb31c68d58}</UniqueIdentifier>
     </Filter>
@@ -145,8 +139,11 @@
     <Filter Include="Engine\Source Files\Systems\RenderingSystem">
       <UniqueIdentifier>{bd3ef459-aba3-468c-bc4d-877c97dc082a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Source Files\ObjectResources\Materials/Textures">
+    <Filter Include="Engine\Source Files\ObjectResources\Materials/Meshes">
       <UniqueIdentifier>{4e0f8240-3111-4951-aa02-e106ad0d945d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files\ObjectResources\Materials/Meshes">
+      <UniqueIdentifier>{4d195d69-0fb3-4917-935d-b1229b2cf05e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -170,9 +167,6 @@
     </ClCompile>
     <ClCompile Include="src\Shader.cpp">
       <Filter>Engine\Source Files\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Mesh.cpp">
-      <Filter>Engine\Source Files\ObjectResources</Filter>
     </ClCompile>
     <ClCompile Include="src\Node.cpp">
       <Filter>Engine\Source Files\ObjectResources</Filter>
@@ -286,10 +280,7 @@
       <Filter>Engine\Source Files\Deprecated</Filter>
     </ClCompile>
     <ClCompile Include="src\Material.cpp">
-      <Filter>Engine\Source Files\ObjectResources\Materials/Textures</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Texture.cpp">
-      <Filter>Engine\Source Files\ObjectResources\Materials/Textures</Filter>
+      <Filter>Engine\Source Files\ObjectResources\Materials/Meshes</Filter>
     </ClCompile>
     <ClCompile Include="src\GraphicsTest.cpp">
       <Filter>Tests</Filter>
@@ -302,6 +293,18 @@
     </ClCompile>
     <ClCompile Include="src\LightManager.cpp">
       <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RendererStateSaver.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextureManager.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Engine\Source Files\Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Engine\Source Files\ObjectResources\Materials/Meshes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,14 +413,8 @@
     <ClInclude Include="src\Camera.h">
       <Filter>Engine\Header Files\Objects\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\Mesh.h">
-      <Filter>Engine\Header Files\ObjectResources\Meshes</Filter>
-    </ClInclude>
     <ClInclude Include="src\Node.h">
       <Filter>Engine\Header Files\ObjectResources\Nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Texture.h">
-      <Filter>Engine\Header Files\ObjectResources\Materials/Textures</Filter>
     </ClInclude>
     <ClInclude Include="src\PhysicsBodyOld.h">
       <Filter>Engine\Header Files\Deprecated</Filter>
@@ -456,7 +453,7 @@
       <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\Material.h">
-      <Filter>Engine\Header Files\ObjectResources\Materials/Textures</Filter>
+      <Filter>Engine\Header Files\ObjectResources\Materials/Meshes</Filter>
     </ClInclude>
     <ClInclude Include="src\MaterialDeprecated.h">
       <Filter>Engine\Header Files\Deprecated</Filter>
@@ -472,6 +469,21 @@
     </ClInclude>
     <ClInclude Include="src\AmbientLight.h">
       <Filter>Engine\Header Files\ObjectResources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RendererStateSaver.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextureManager.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextureParametersOpenGL.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Engine\Header Files\Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh.h">
+      <Filter>Engine\Header Files\ObjectResources\Materials/Meshes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
