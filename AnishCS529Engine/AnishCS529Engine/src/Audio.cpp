@@ -1,6 +1,7 @@
 #include "audio.h"
 #include <stdexcept>
 #include <iostream>
+#include <cassert>
 
 /*!****************************************************************************
  * \brief Audio Manager control sounds
@@ -59,15 +60,12 @@ AudioManager::~AudioManager() {
 void AudioManager::initialize(int maxChannels) {
     // Create the main FMOD system object
     FMOD_RESULT result = FMOD::System_Create(&fmodSystem_);
-    if (result != FMOD_OK || !fmodSystem_) {
-        throw std::runtime_error("FMOD system creation failed");
-    }
+    assert(result == FMOD_OK && fmodSystem_ && "FMOD system creation failed");
+
 
     // Initialize the system with a given number of channels
     result = fmodSystem_->init(maxChannels, FMOD_INIT_NORMAL, nullptr);
-    if (result != FMOD_OK) {
-        throw std::runtime_error("FMOD system init failed");
-    }
+    assert(result == FMOD_OK && "FMOD system init failed");
 
     // Example: Set 3D settings if you want realistic attenuation over distance
     fmodSystem_->set3DSettings(
@@ -120,10 +118,7 @@ void AudioManager::update() {
  * \return void
  *****************************************************************************/
 void AudioManager::loadSound(const std::string& name, const std::string& path, bool is3D, bool loop) {
-    if (!fmodSystem_) {
-        std::cerr << "[AudioManager] Error: FMOD system not initialized.\n";
-        return;
-    }
+    assert(fmodSystem_ && "FMOD system not initialized");
 
     // Choose either 2D or 3D mode
     FMOD_MODE mode = is3D ? (FMOD_3D | FMOD_3D_LINEARROLLOFF) : FMOD_2D;
@@ -134,10 +129,7 @@ void AudioManager::loadSound(const std::string& name, const std::string& path, b
 
     FMOD::Sound* newSound = nullptr;
     FMOD_RESULT result = fmodSystem_->createSound(path.c_str(), mode, nullptr, &newSound);
-    if (result != FMOD_OK || !newSound) {
-        std::cerr << "[AudioManager] Failed to load sound: " << path << std::endl;
-        return;
-    }
+    assert(result == FMOD_OK && newSound && "Failed to load sound");
 
     // Store the sound in the map
     sounds_[name] = newSound;
@@ -166,24 +158,17 @@ void AudioManager::loadSound(const std::string& name, const std::string& path, b
 void AudioManager::playSound(const std::string& name, const Vector3& position) {
     // Find the sound by its name
     auto it = sounds_.find(name);
-    if (it == sounds_.end()) {
-        std::cerr << "[AudioManager] Sound not found: " << name << std::endl;
-        return;
-    }
+    assert(it != sounds_.end() && "Sound not found");
+
     FMOD::Sound* sound = it->second;
 
-    if (!fmodSystem_ || !sound) {
-        std::cerr << "[AudioManager] Cannot play sound. System or sound invalid.\n";
-        return;
-    }
+    assert(fmodSystem_ && sound && "Cannot play sound: system or sound invalid");
 
     // Play the sound
     FMOD::Channel* channel = nullptr;
     FMOD_RESULT result = fmodSystem_->playSound(sound, nullptr, false, &channel);
-    if (result != FMOD_OK) {
-        std::cerr << "[AudioManager] Failed to play sound: " << name << std::endl;
-        return;
-    }
+    assert(result == FMOD_OK && "Failed to play sound");
+
 
     // If this is a 3D sound, set its position in space
     FMOD_MODE currentMode;
@@ -213,7 +198,7 @@ void AudioManager::playSound(const std::string& name, const Vector3& position) {
  * \return void
  *****************************************************************************/
 void AudioManager::setListenerPosition(const Vector3& position) {
-    if (!fmodSystem_) return;
+    assert(fmodSystem_ && "FMOD system not initialized in setListenerPosition");
 
     // The orientation vectors can be adjusted based on camera property
     FMOD_VECTOR pos = { position.x, position.y, position.z };
