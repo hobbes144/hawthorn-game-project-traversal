@@ -18,23 +18,53 @@
 #include <fmod/fmod.hpp>
 
 
-/*!****************************************************************************
- * \brief A singleton class to manage all audio functionality using FMOD.
- * 
- * ## General lifecycle of a FramerateController:
- * 
- * Call AudioManager::instance().init(); once at startup, then:
- * - loadSound() for each sound you want to use
- * example: AudioManager::instance().loadSound("pew", "/media/pew.mp3", true); //true if sound in 3D, false if in 2D(mono sound) for music n etc
- * 
- * - playSound() to play them
- * example: AudioManager::instance().playSound("pew", 0, 0, 0);
- * 
- * - update() // Be sure to call AudioManager::instance().update(); every frame to update the sound
- * 
- * - shutdown() // Be sure to shut down by AudioManager::instance().shutdown(); before ending the game
- * 
- *****************************************************************************/
+ /*!****************************************************************************
+  * \brief Audio Manager
+  *
+  * ## Usage:
+  *
+  * The AudioManager manages all audio functionality using FMOD. It is responsible
+  * for initializing the audio system, loading sounds, playing sounds, updating 
+  * audio each frame, and properly shutting down the audio system.
+  *
+  * ## Pre-initialization calls:
+  *
+  * N/A
+  * 
+  * (AudioManager is created on first use; be sure to call init() before any
+  * other audio operations.)
+  *
+  * ## General lifecycle of an AudioManager:
+  *
+  * - Start the AudioManager instance using AudioManager::instance().
+  * - Call init() once at startup to initialize the audio system:
+  *   - Example: AudioManager::instance().init();
+  * - Load all necessary sound assets using loadSound():
+  *   - Example: AudioManager::instance().loadSound("pew", "/media/pew.mp3", true, false);
+  *     - The third parameter indicates whether the sound is 3D (true) or 2D (false).
+  *     - Optionally, a loop flag can be provided on the 4th parameter.
+  * - Play sounds using playSound():
+  *   - Example: AudioManager::instance().playSound("pew", 0.0f, 0.0f, 0.0f);
+  * - In the main loop, call update() every frame to process audio updates:
+  *   - Example: AudioManager::instance().update();
+  *   - You need to call update every frame to play the sounds properly.
+  * - Adjust the listener’s position using setListenerPosition() to control 3D audio:
+  *   - Example: AudioManager::instance().setListenerPosition(x, y, z);
+  * - Before terminating the application, call shutdown() to clean up the audio system:
+  *   - Example: AudioManager::instance().shutdown();
+  *
+  * ## Defaults:
+  *
+  * - Maximum channels: 512 (can be adjusted via the init() parameter)
+  * - Sounds are non-looping unless the loop flag is set during loadSound()
+  *
+  * ## Notes:
+  *
+  * - You need to call update() every frame to ensure proper audio processing.
+  * - It is recommended to load all required sounds during initialization to avoid
+  *   runtime performance issues.
+  *
+  *****************************************************************************/
 class AudioManager {
 public:
     static AudioManager& instance();
