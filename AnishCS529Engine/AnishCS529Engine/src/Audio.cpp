@@ -2,7 +2,16 @@
 #include <stdexcept>
 #include <iostream>
 
-/** Create the singleton instance */
+/*!****************************************************************************
+ * \brief Audio Manager control sounds
+ *
+ * ## Usage:
+ *
+ * Call initialization to setup the audio manager to create the global 
+ * AudioManager instance that is required for all sounds to work.
+ *
+ *****************************************************************************/
+
 AudioManager& AudioManager::instance() {
     static AudioManager instance;
     return instance;

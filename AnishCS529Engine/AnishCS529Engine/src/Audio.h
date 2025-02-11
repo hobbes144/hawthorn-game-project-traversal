@@ -21,7 +21,7 @@
 /*!****************************************************************************
  * \brief A singleton class to manage all audio functionality using FMOD.
  * 
- * ## Usage
+ * ## General lifecycle of a FramerateController:
  * 
  * Call AudioManager::instance().init(); once at startup, then:
  * - loadSound() for each sound you want to use
@@ -35,7 +35,6 @@
  * - shutdown() // Be sure to shut down by AudioManager::instance().shutdown(); before ending the game
  * 
  *****************************************************************************/
-
 class AudioManager {
 public:
     static AudioManager& instance();
