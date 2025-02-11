@@ -48,7 +48,7 @@ void AudioManager::update() {
 }
 
 /* LoadSound so it can be played later*/
-void AudioManager::loadSound(const std::string& name, const std::string& path, bool is3D) {
+void AudioManager::loadSound(const std::string& name, const std::string& path, bool is3D, bool loop) {
     if (!fmodSystem_) {
         std::cerr << "[AudioManager] Error: FMOD system not initialized.\n";
         return;
@@ -56,6 +56,10 @@ void AudioManager::loadSound(const std::string& name, const std::string& path, b
 
     // Choose either 2D or 3D mode
     FMOD_MODE mode = is3D ? (FMOD_3D | FMOD_3D_LINEARROLLOFF) : FMOD_2D;
+
+    if (loop) {
+        mode |= FMOD_LOOP_NORMAL;
+    }
 
     FMOD::Sound* newSound = nullptr;
     FMOD_RESULT result = fmodSystem_->createSound(path.c_str(), mode, nullptr, &newSound);

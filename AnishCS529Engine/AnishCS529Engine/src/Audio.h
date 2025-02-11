@@ -51,7 +51,7 @@ public:
     * the path the file path to the sound (ex: "media/pew.mp3") and is3D to tell Whether this sound is 3D 
     * (positional audio) or 2D (mono audio).   
     */
-    void loadSound(const std::string& name, const std::string& path, bool is3D = false);
+    void loadSound(const std::string& name, const std::string& path, bool is3D = false, bool loop = false);
 
     /**
      * Play a previously loaded sound, name The string key for the sound (must match what you used in loadSound(),

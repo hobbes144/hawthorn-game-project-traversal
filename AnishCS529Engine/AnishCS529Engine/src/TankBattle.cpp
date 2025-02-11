@@ -48,6 +48,7 @@ int main() {
 
     // loading the sound so it can be played
     AudioManager::instance().loadSound("laser", "media/audio/pew.mp3", true);
+    AudioManager::instance().loadSound("music", "media/audio/backgroundMusic.mp3", true, true);
 
 
   /* Renderer setup */
@@ -219,6 +220,7 @@ int main() {
   // Audio set listener (Your ear position)
   AudioManager::instance().setListenerPosition(0, 0, 0);
   /* Main loop */
+  AudioManager::instance().playSound("music", 0, 0, 0);
   while (!mainWindow->getShouldClose()) {
     mainRenderer->clear();
     mainInput->update();
