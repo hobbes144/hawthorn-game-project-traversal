@@ -318,6 +318,9 @@
     <ClCompile Include="src\TextureMaterial.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Movement3D.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -520,6 +523,9 @@
     </ClInclude>
     <ClInclude Include="src\SolidColorMaterial.h">
       <Filter>Engine\Header Files\ObjectResources\Materials/Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Movement3D.h">
+      <Filter>Engine\Header Files\ObjectResources\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

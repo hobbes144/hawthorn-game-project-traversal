@@ -41,7 +41,8 @@ public:
   const Vector3* getAxes() const;
 
   // debug functions
-  void initializeDebugDraw(std::shared_ptr<RenderGraph> renderGraph); // Call this once when creating OBB
+  void initializeDebugDraw(
+    std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera); // Call this once when creating OBB
 
 
 private:

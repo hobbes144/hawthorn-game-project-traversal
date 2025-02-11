@@ -66,6 +66,8 @@ public:
   PhysicsBody() : 
     mass(1.0f), inverseMass(1.0f),
     velocity(0, 0, 0), acceleration(0, 0, 0), force(0, 0, 0),
+    rotationalVelocity(0, 0, 0), rotationalAcceleration(0, 0, 0),
+    rotationalForce(0, 0, 0),
     restitution(0.5f), friction(0.3f), isStatic(false) {}
   ~PhysicsBody() = default;
 
@@ -84,10 +86,14 @@ public:
   std::shared_ptr<PhysicsBody> setVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setAcceleration(const Vector3& acc);
   std::shared_ptr<PhysicsBody> applyForce(const Vector3& f);
+  std::shared_ptr<PhysicsBody> setRotationalVelocity(const Vector3& vel);
+  std::shared_ptr<PhysicsBody> setRotationalAcceleration(const Vector3& acc);
+  std::shared_ptr<PhysicsBody> applyRotationalForce(const Vector3& f);
   std::shared_ptr<PhysicsBody> setRestitution(float r);
   std::shared_ptr<PhysicsBody> setFriction(float f);
   std::shared_ptr<PhysicsBody> setStatic(bool staticValue);
   std::shared_ptr<PhysicsBody> setShape(std::shared_ptr<Shape> newShape);
+  std::shared_ptr<PhysicsBody> setDebug(bool _debug);
   std::shared_ptr<PhysicsBody> reset();
 
   float       getMass()         const;
@@ -100,14 +106,15 @@ public:
   bool        getIsStatic()     const;
   std::shared_ptr<Shape> getShape()        const;
 
-  void setDebug(bool _debug) { debug = _debug; }
-
 private:
   float mass;
   float inverseMass;
   Vector3 velocity;
   Vector3 acceleration;
   Vector3 force;
+  Vector3 rotationalVelocity;
+  Vector3 rotationalAcceleration;
+  Vector3 rotationalForce;
   float restitution;
   float friction;
   bool isStatic;

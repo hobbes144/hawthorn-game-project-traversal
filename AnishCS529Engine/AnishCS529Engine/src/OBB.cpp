@@ -87,9 +87,10 @@ Vector3 OBB::getUp()		        const { return worldUp; }
 Vector3 OBB::getFront()		      const { return worldFront; }
 const Vector3* OBB::getAxes()   const { return worldAxes; }
 
-void OBB::initializeDebugDraw(std::shared_ptr<RenderGraph> renderGraph) {
+void OBB::initializeDebugDraw(
+  std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera) {
   this->renderGraph = renderGraph;
-
+  this->camera = camera;
   // Get debug shape
   debugMesh = Mesh::getShapeMesh(Mesh::Cube);
 

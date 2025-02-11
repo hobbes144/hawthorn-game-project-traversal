@@ -41,6 +41,7 @@
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Movement.cpp" />
+    <ClCompile Include="src\Movement3D.cpp" />
     <ClCompile Include="src\PhysicsBody.cpp" />
     <ClCompile Include="src\PointLight.cpp" />
     <ClCompile Include="src\Render2D.cpp" />
@@ -105,6 +106,7 @@
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Movement.h" />
+    <ClInclude Include="src\Movement3D.h" />
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\PointLight.h" />
     <ClInclude Include="src\Render2D.h" />

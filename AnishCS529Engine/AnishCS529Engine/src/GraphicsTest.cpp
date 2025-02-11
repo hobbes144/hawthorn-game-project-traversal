@@ -14,6 +14,10 @@
 #include "Render2D.h"
 #include "BasicRenderPass.h"
 #include "TextureMaterial.h"
+#include "PhysicsBody.h"
+#include "OBB.h"
+#include "PhysicsManager.h"
+#include "Movement3D.h"
 
 extern "C"
 {
@@ -90,6 +94,47 @@ int main() {
     ->setMesh(boxMesh)
     ->setMaterial(boxMaterial);
 
+  auto box1InputComponent = box1->addComponent<Movement3D>()->setInputSystem(mainInput)
+    ->setAction(Movement3D::Forward, KEY_W)
+    ->setAction(Movement3D::Back, KEY_S)
+    ->setAction(Movement3D::Left, KEY_A)
+    ->setAction(Movement3D::Right, KEY_D)
+    ->setAction(Movement3D::Up, KEY_R)
+    ->setAction(Movement3D::Down, KEY_F)
+    ->setAction(Movement3D::RollClockwise, KEY_LEFT)
+    ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
+    ->setAction(Movement3D::PitchClockwise, KEY_UP)
+    ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
+    ->setAction(Movement3D::YawClockwise, KEY_Q)
+    ->setAction(Movement3D::YawAntiClockwise, KEY_E);
+
+
+  // Create OBBs
+  auto shape1 = std::make_shared<OBB>(
+      Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+      Vector3(0.5f, 0.5f, 0.5f));
+  shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+  // Todo: When Z scale is set to 0, the box no longer follows the object in
+  // the Z axis.
+  auto shape2 = std::make_shared<OBB>(
+      Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+      Vector3(0.5f, 0.5f, 0.5f));
+  shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+
+
+  // Create instances of bodies for boxes
+  box1->addComponent<PhysicsBody>()
+    ->setMass(10.0f)->setFriction(100.0f)
+    ->setShape(shape1)
+    ->setDebug(true)
+    ->registerToPhysicsManager(PhysicsManager::Instance());
+
+  box2->addComponent<PhysicsBody>()
+    ->setMass(10.0f)->setFriction(100.0f)
+    ->setShape(shape2)
+    ->setDebug(true)
+    ->registerToPhysicsManager(PhysicsManager::Instance());
+
   mainSceneGraph.addNode(box1);
   mainSceneGraph.addNode(box2);
 
@@ -108,68 +153,17 @@ int main() {
     mainRenderer->clear();
     mainFramerateController->startFrame();              // record the time from frame start
 
-    if (mainInput->isKeyHeld(KEY_LEFT))
-      box1->setLocalRotation(Vector3(angleX, angleY, (angleZ -= 0.01f)));
-    if (mainInput->isKeyHeld(KEY_RIGHT))
-      box1->setLocalRotation(Vector3(angleX, angleY, (angleZ += 0.01f)));
-    if (mainInput->isKeyHeld(KEY_Q))
-      box1->setLocalRotation(Vector3((angleX -= 0.01f), angleY, angleZ));
-    if (mainInput->isKeyHeld(KEY_E))
-      box1->setLocalRotation(Vector3((angleX += 0.01f), angleY, angleZ));
-    if (mainInput->isKeyHeld(KEY_R))
-      box1->setLocalRotation(Vector3(angleX, (angleY -= 0.01f), angleZ));
-    if (mainInput->isKeyHeld(KEY_F))
-      box1->setLocalRotation(Vector3(angleX, (angleY += 0.01f), angleZ));
-    if (mainInput->isKeyHeld(KEY_W))
-      box1->setLocalPosition(box1->getLocalPosition() + Vector3(0.0f, deltaTime * 10.0f, 0.0f));
-    if (mainInput->isKeyHeld(KEY_A))
-      box1->setLocalPosition(box1->getLocalPosition() - Vector3(deltaTime * 10.0f, 0.0f, 0.0f));
-    if (mainInput->isKeyHeld(KEY_S))
-      box1->setLocalPosition(box1->getLocalPosition() - Vector3(0.0f, deltaTime * 10.0f, 0.0f));
-    if (mainInput->isKeyHeld(KEY_D))
-      box1->setLocalPosition(box1->getLocalPosition() + Vector3(deltaTime * 10.0f, 0.0f, 0.0f));
-    if (mainInput->isKeyHeld(KEY_UP))
-      box1->setLocalPosition(box1->getLocalPosition() + Vector3(0.0f, 0.0f, deltaTime * 10.0f));
-    if (mainInput->isKeyHeld(KEY_DOWN))
-      box1->setLocalPosition(box1->getLocalPosition() - Vector3(0.0f, 0.0f, deltaTime * 10.0f));
-
-
-
-    // Physics update deltaTime
-    //objectDelta.Update(deltaTime);
-
-    //// Physics update loop fixedStepTime
-    //while (framerateController->ShouldUpdatePhysics()) {
-    //    PhysicsManager::Instance().update(FramerateController::DEFAULT_FIXED_TIME_STEP);
-    //    framerateController->ConsumePhysicsTime();
-    //}
-    //PhysicsManager::Instance().update(deltaTime);
-
     mainInput->update();
     if (mainInput->isKeyHeld(KEY_ESCAPE))
       break;
 
+    // Physics update loop fixedStepTime
+    while (mainFramerateController->shouldUpdatePhysics()) {
+      PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
+      mainFramerateController->consumePhysicsTime();
+    }
+
     mainSceneGraph.update(deltaTime);
-
-    // draw debug lines for all bodies
-    // In your render loop, after sceneGraph.draw:
-    //std::cout << "Number of physics bodies: " << PhysicsManager::Instance().getBodies().size() << "\n";
-    //for (auto body : PhysicsManager::Instance().getBodies()) {
-    //  if (auto obb = dynamic_cast<OBB*>(body->getShape())) {
-    //    //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
-    //    //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
-    //    obb->drawDebugLines(viewMatrix, projectionMatrix);
-    //  }
-    //  if (auto aabb = dynamic_cast<AABB*>(body->getShape())) {
-    //    //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
-    //    //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
-    //    aabb->drawDebugLines(viewMatrix, projectionMatrix);
-    //  }
-    //}
-
-    //std::cout << "Angle for box1: " << angle << std::endl;
-    //std::cout << "========================" << std::endl;
-    deltaTime = mainFramerateController->getFrameTime();
 
     mainFramerateController->endFrame();
     mainRenderer->swapBuffers();

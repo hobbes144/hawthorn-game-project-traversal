@@ -115,6 +115,27 @@ std::shared_ptr<PhysicsBody> PhysicsBody::applyForce(const Vector3& f) {
   return shared_from_this();
 }
 
+std::shared_ptr<PhysicsBody> PhysicsBody::setRotationalVelocity(const Vector3& vel)
+{
+  rotationalVelocity = vel;
+
+  return shared_from_this();
+}
+
+std::shared_ptr<PhysicsBody> PhysicsBody::setRotationalAcceleration(const Vector3& acc)
+{
+  rotationalAcceleration = acc;
+
+  return shared_from_this();
+}
+
+std::shared_ptr<PhysicsBody> PhysicsBody::applyRotationalForce(const Vector3& f)
+{
+  rotationalForce = rotationalForce + f;
+
+  return shared_from_this();
+}
+
 /*!****************************************************************************
  * \brief Reset the force on the object
  * 
@@ -271,6 +292,12 @@ bool PhysicsBody::getIsStatic()         const { return isStatic; }
  *****************************************************************************/
 std::shared_ptr<Shape> PhysicsBody::getShape() const { return collisionShape; }
 
+std::shared_ptr<PhysicsBody> PhysicsBody::setDebug(bool _debug)
+{
+  debug = _debug;
+  return shared_from_this();
+}
+
 /*!****************************************************************************
  * \brief Update the GameObject and its related collision
  * 
@@ -301,12 +328,25 @@ void PhysicsBody::integrate(float deltaTime) {
       netFriction = Vector3(0.0f, 0.0f, 0.0f);
     }
 
-
     acceleration = acceleration + (force + netFriction) * inverseMass;
     velocity = velocity + (acceleration * deltaTime);
 
     Vector3 newPosition = parent->getLocalPosition() + (velocity * deltaTime);
     parent->setLocalPosition(newPosition);
+
+    Vector3 netRotationalFriction;
+    if (rotationalVelocity.magnitude() > 0) {
+      netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * -friction;
+    }
+    else {
+      netRotationalFriction = Vector3(0.0f, 0.0f, 0.0f);
+    }
+
+    rotationalAcceleration = rotationalAcceleration + (rotationalForce + netRotationalFriction) * inverseMass;
+    rotationalVelocity = rotationalVelocity + (rotationalAcceleration * deltaTime);
+
+    Vector3 newRotation = parent->getLocalRotation() + (rotationalVelocity * deltaTime);
+    parent->setLocalRotation(newRotation);
   }
 
   // Update collision shape
@@ -327,6 +367,8 @@ void PhysicsBody::integrate(float deltaTime) {
   // Reset force accumulator
   force = Vector3(0, 0, 0);
   acceleration = Vector3(0, 0, 0);
+  rotationalForce = Vector3(0, 0, 0);
+  rotationalAcceleration = Vector3(0, 0, 0);
 }
 
 /*!****************************************************************************

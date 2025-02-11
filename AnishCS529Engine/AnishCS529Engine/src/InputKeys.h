@@ -22,6 +22,7 @@
 
 using Key = unsigned int;
 
+constexpr Key KEY_UNKNOWN = GLFW_KEY_UNKNOWN;
 constexpr Key KEY_SPACE = GLFW_KEY_SPACE;
 constexpr Key KEY_0 = GLFW_KEY_0;
 constexpr Key KEY_1 = GLFW_KEY_1;

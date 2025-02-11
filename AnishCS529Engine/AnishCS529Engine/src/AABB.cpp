@@ -51,9 +51,10 @@ float   AABB::getWidth()        const { return worldMax[0] - worldMin[0]; }
 float   AABB::getHeight()       const { return worldMax[1] - worldMin[1]; }
 float   AABB::getDepth()        const { return worldMax[2] - worldMin[2]; }
 
-void AABB::initializeDebugDraw(std::shared_ptr<RenderGraph> renderGraph) {
+void AABB::initializeDebugDraw(
+  std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera) {
   this->renderGraph = renderGraph;
-  
+  this->camera = camera;
   // Get debug shape
   debugMesh = Mesh::getShapeMesh(Mesh::Cube);
 
