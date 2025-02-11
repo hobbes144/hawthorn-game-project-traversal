@@ -47,7 +47,7 @@ int main() {
   mainWindow->initialize();
 
     // loading the sound so it can be played
-    AudioManager::instance().loadSound("laser", "pew.mp3", true);
+    AudioManager::instance().loadSound("laser", "media/audio/pew.mp3", true);
 
 
   /* Renderer setup */
