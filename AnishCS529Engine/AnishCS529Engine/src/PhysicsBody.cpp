@@ -339,7 +339,11 @@ void PhysicsBody::initialize() {}
  * \brief Dummy update function
  * 
  *****************************************************************************/
-void PhysicsBody::update(float deltaTime) {}
+void PhysicsBody::update(float deltaTime) {
+  if (debug) {
+    collisionShape->debugDaw();
+  }
+}
 
 /*!****************************************************************************
  * \brief Dummy shutdown function

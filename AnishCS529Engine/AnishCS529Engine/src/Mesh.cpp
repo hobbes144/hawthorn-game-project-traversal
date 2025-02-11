@@ -10,6 +10,8 @@
  *****************************************************************************/
 #include "Mesh.h"
 
+std::unordered_map<Mesh::Type, std::shared_ptr<Mesh>> Mesh::shapeMeshes;
+
 Mesh::Mesh(const std::string& name) : name(name) {}
 
 Mesh::Mesh(
@@ -111,7 +113,7 @@ const std::string& Mesh::getName() const {
   return name;
 }
 
-void Mesh::draw() {
+void Mesh::draw(GLenum mode) {
   if ( !geometryBuffer ) return;
   geometryBuffer->bind();
 
@@ -121,10 +123,10 @@ void Mesh::draw() {
   */
   if (this->hasAttribute(GeometryBuffer::AttributeType::Position) ) {
     if (this->getIndexCount() > 0) {
-      glDrawArrays(GL_TRIANGLES, 0, geometryBuffer->getIndexCount());
+      glDrawElements(mode, geometryBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
     }
     else {
-      glDrawElements(GL_TRIANGLES, geometryBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
+      glDrawArrays(mode, 0, geometryBuffer->getVertexCount());
     }
   }
   
@@ -133,10 +135,10 @@ void Mesh::draw() {
   // multiple passes now. Doing an unbind every pass just to bind it again is
   // very inefficient.
   // 
-  // geometryBuffer->unbind();
+  //geometryBuffer->unbind();
 }
 
-std::shared_ptr<Mesh> createSquareMesh(const std::string name)
+std::shared_ptr<Mesh> Mesh::createSquareMesh(const std::string name)
 {
   // Generate vertex data for a rectangle
   // We'll use a unit rectangle centered at the origin
@@ -175,7 +177,7 @@ std::shared_ptr<Mesh> createSquareMesh(const std::string name)
   return newMesh;
 }
 
-std::shared_ptr<Mesh> createCubeMesh(const std::string name)
+std::shared_ptr<Mesh> Mesh::createCubeMesh(const std::string name)
 {
   // Generate vertex data for a rectangle
   // We'll use a unit rectangle centered at the origin
@@ -226,4 +228,42 @@ std::shared_ptr<Mesh> createCubeMesh(const std::string name)
     indices,
     static_cast<GLsizei>(5 * sizeof(float)));
   return newMesh;
+}
+
+std::shared_ptr<Mesh> Mesh::createMesh(const std::string name, Type type)
+{
+  switch (type) {
+  case Square:
+    return createSquareMesh(name);
+    break;
+  case Cube:
+    return createCubeMesh(name);
+    break;
+  default:
+    assert(("MESH::CREATEMESH::INVALIDTYPE") && false);
+  }
+  return nullptr;
+}
+
+std::shared_ptr<Mesh> Mesh::getShapeMesh(Type type)
+{
+  if (shapeMeshes.contains(type))
+    return shapeMeshes[type];
+
+  std::string name;
+  switch (type) {
+  case Square:
+    name = "SquareShape";
+    break;
+  case Cube:
+    name = "CubeShape";
+    break;
+  default:
+    assert(("MESH::GETSHAPEMESH::INVALIDTYPE") && false);
+    name = "InvalidShape";
+  }
+
+  shapeMeshes[type] = createMesh(name, type);
+  return shapeMeshes[type];
+
 }

@@ -1,24 +1,24 @@
 /*!****************************************************************************
- * \file   LightingPass.h
+ * \file   BasicRenderPass.h
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
  * \date   02-10-2025
- * \brief  Lighting RenderPass class for 3D rendering
+ * \brief  Basic RenderPass class for 2D rendering with no effects
  * 
  *****************************************************************************/
-#ifndef LIGHTING_PASS_H
-#define LIGHTING_PASS_H
+#ifndef BASIC_RENDER_PASS_H
+#define BASIC_RENDER_PASS_H
 
 #pragma once
 
 #include "RenderPass.h"
 
-class LightingPass : public RenderPass {
+class BasicRenderPass : public RenderPass {
 public:
-  LightingPass() : RenderPass() {
-    this->addShader("shaders/lighing.vert.glsl\nshaders/lighting.frag.glsl");
+  BasicRenderPass() : RenderPass() {
+    this->addShader("shaders/basic_render.vert.glsl\nshaders/basic_render.frag.glsl");
   };
 };
 
-#endif // !LIGHTING_PASS_H
+#endif // !BASIC_RENDER_PASS_H

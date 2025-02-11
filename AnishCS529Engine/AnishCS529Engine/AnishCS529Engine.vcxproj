@@ -33,6 +33,7 @@
     <ClCompile Include="src\BulletHitListener.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Component.cpp" />
+    <ClCompile Include="src\DebugMaterial.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\GraphicsTest.cpp" />
     <ClCompile Include="src\InputOld.cpp" />
@@ -48,6 +49,7 @@
     <ClCompile Include="src\RendererStateSaver.cpp" />
     <ClCompile Include="src\RenderGraph.cpp" />
     <ClCompile Include="src\RenderPass.cpp" />
+    <ClCompile Include="src\ShaderManager.cpp" />
     <ClCompile Include="src\Shoot.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\CollisionGenerator.cpp" />
@@ -65,6 +67,7 @@
     <ClCompile Include="src\TankBattle.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
+    <ClCompile Include="src\TextureMaterial.cpp" />
     <ClCompile Include="src\TriangleTest.cpp" />
     <ClCompile Include="src\MaterialDeprecated.cpp" />
     <ClCompile Include="src\Matrix4.cpp" />
@@ -84,12 +87,16 @@
   <ItemGroup>
     <ClInclude Include="src\AABB.h" />
     <ClInclude Include="src\AmbientLight.h" />
+    <ClInclude Include="src\BasicRenderPass.h" />
     <ClInclude Include="src\Bullet.h" />
     <ClInclude Include="src\BulletHitListener.h" />
     <ClInclude Include="src\BulletSpawnEvent.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Component.h" />
+    <ClInclude Include="src\DebugMaterial.h" />
+    <ClInclude Include="src\DebugPass.h" />
     <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\Material.inl" />
     <ClInclude Include="src\InputOld.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Light.h" />
@@ -105,7 +112,9 @@
     <ClInclude Include="src\RendererStateSaver.h" />
     <ClInclude Include="src\RenderGraph.h" />
     <ClInclude Include="src\RenderPass.h" />
+    <ClInclude Include="src\ShaderManager.h" />
     <ClInclude Include="src\Shoot.h" />
+    <ClInclude Include="src\SolidColorMaterial.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\CollisionEvent.h" />
     <ClInclude Include="src\CollisionGenerator.h" />
@@ -136,6 +145,7 @@
     <ClInclude Include="src\Tank.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\TextureManager.h" />
+    <ClInclude Include="src\TextureMaterial.h" />
     <ClInclude Include="src\TextureParametersOpenGL.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\TrianglePrimitive.h" />
@@ -144,6 +154,10 @@
     <ClInclude Include="src\Wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\basic_render.frag.glsl" />
+    <None Include="shaders\basic_render.vert.glsl" />
+    <None Include="shaders\debug.frag.glsl" />
+    <None Include="shaders\debug.vert.glsl" />
     <None Include="shaders\factory_frag_shader.frag.glsl" />
     <None Include="shaders\factory_vertex_shader.vert.glsl" />
     <None Include="shaders\main_fragment_shader.glsl" />
@@ -152,6 +166,7 @@
     <None Include="shaders\physics_test_vertex_shader.glsl" />
     <None Include="src\EventListener.inl" />
     <None Include="src\GameObject.inl" />
+    <None Include="src\RenderGraph.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

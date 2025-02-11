@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include <cassert>
 #include <unordered_map>
 #include <vector>
 
@@ -36,6 +37,12 @@ public:
         GLint
       >
     >;
+
+  /* Debug resources */
+  enum Type {
+    Square,
+    Cube
+  };
 
   Mesh(const std::string& name);
   Mesh(
@@ -70,7 +77,15 @@ public:
   bool hasAttribute(GeometryBuffer::AttributeType attr) const;
   const std::string& getName() const;
 
-  void draw();
+  void draw(GLenum mode = GL_TRIANGLES);
+
+  /* Mesh factory */
+  static std::unordered_map<Type, std::shared_ptr<Mesh>> shapeMeshes;
+
+  static std::shared_ptr<Mesh> createMesh(const std::string name, Type type);
+  static std::shared_ptr<Mesh> createSquareMesh(const std::string name);
+  static std::shared_ptr<Mesh> createCubeMesh(const std::string name);
+  static std::shared_ptr<Mesh> getShapeMesh(Type type);
 
 private:
   std::shared_ptr<GeometryBuffer> geometryBuffer;
@@ -84,8 +99,6 @@ private:
   std::string name;
 };
 
-std::shared_ptr<Mesh> createSquareMesh(const std::string name);
-std::shared_ptr<Mesh> createCubeMesh(const std::string name);
 
 #endif // MESH_H
 

@@ -142,13 +142,15 @@ public:
   void draw(GLenum mode, GLint count, bool indexed) const;
 
   /* Advanced Rendering Utility functions */
-  Renderer* setViewport(const Viewport& viewport);
+  Renderer* setViewport(const Viewport& viewport, bool force = false);
   Renderer* resetViewport();
-  Renderer* setDepthState(const DepthState& depthState);
-  Renderer* setBlendState(const BlendState& blendState);
+  Renderer* setDepthState(const DepthState& depthState, bool force = false);
+  Renderer* setBlendState(const BlendState& blendState, bool force = false);
+
+  std::shared_ptr<RenderGraph> getRenderGraph() { return renderGraph; }
 
   State getCurrentState() const;
-  Renderer* setState(const State& state);
+  Renderer* setState(const State& state, bool force = false);
 
 private:
   /** Game Window object */

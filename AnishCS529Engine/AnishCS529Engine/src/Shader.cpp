@@ -180,7 +180,7 @@ void Shader::cacheUniforms()
     glGetProgramResourceiv(programID, GL_UNIFORM, uniformNumber, 4,
       properties, 4, NULL, values);
 
-    if (values[0] != 1)
+    if (values[0] != -1)
       continue;
 
     std::vector<char> nameData(values[2]);

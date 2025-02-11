@@ -1,8 +1,15 @@
 #include "RenderPass.h"
 
-void RenderPass::setShader(std::shared_ptr<Shader> _shader)
+std::shared_ptr<Shader> RenderPass::addShader(std::string shaderFile)
+{
+  shader = ShaderManager::getInstance().loadFile(shaderFile);
+  return shader;
+}
+
+std::shared_ptr<Shader> RenderPass::addShader(std::shared_ptr<Shader> _shader)
 {
   shader = _shader;
+  return shader;
 }
 
 std::shared_ptr<Shader> RenderPass::getShader() const
@@ -40,26 +47,45 @@ void RenderPass::applyProperties(
   */
   std::vector<std::pair<std::string, TextureManager::TextureID>> texturesToBind;
 
-  for (const auto& propertySet : { passProperties, materialProperties }) {
-    for (const auto& [name, value] : propertySet) {
-      if (auto item = std::get_if<unsigned int>(&value)) {
-        shader->setUInt(name, *item);
-      }
-      if (auto item = std::get_if<int>(&value)) {
-        shader->setInt(name, *item);
-      }
-      if (auto item = std::get_if<float>(&value)) {
-        shader->setFloat(name, *item);
-      }
-      if (auto item = std::get_if<Vector3>(&value)) {
-        shader->setVec3(name, *item);
-      }
-      if (auto item = std::get_if<Matrix4>(&value)) {
-        shader->setMat4(name, *item);
-      }
-      if (auto item = std::get_if<TextureManager::TextureID>(&value)) {
-        texturesToBind.emplace_back(name, *item);
-      }
+  for (const auto& [name, value] : passProperties) {
+    if (auto item = std::get_if<unsigned int>(&value)) {
+      shader->setUInt(name, *item);
+    }
+    else if (auto item = std::get_if<int>(&value)) {
+      shader->setInt(name, *item);
+    }
+    else if (auto item = std::get_if<float>(&value)) {
+      shader->setFloat(name, *item);
+    }
+    else if (auto item = std::get_if<Vector3>(&value)) {
+      shader->setVec3(name, *item);
+    }
+    else if (auto item = std::get_if<Matrix4>(&value)) {
+      shader->setMat4(name, *item);
+    }
+    else if (auto item = std::get_if<TextureManager::TextureID>(&value)) {
+      texturesToBind.emplace_back(name, *item);
+    }
+  }
+
+  for (const auto& [name, value] : materialProperties) {
+    if (auto item = std::get_if<unsigned int>(&value)) {
+      shader->setUInt(name, *item);
+    }
+    else if (auto item = std::get_if<int>(&value)) {
+      shader->setInt(name, *item);
+    }
+    else if (auto item = std::get_if<float>(&value)) {
+      shader->setFloat(name, *item);
+    }
+    else if (auto item = std::get_if<Vector3>(&value)) {
+      shader->setVec3(name, *item);
+    }
+    else if (auto item = std::get_if<Matrix4>(&value)) {
+      shader->setMat4(name, *item);
+    }
+    else if (auto item = std::get_if<TextureManager::TextureID>(&value)) {
+      texturesToBind.emplace_back(name, *item);
     }
   }
 
@@ -69,7 +95,7 @@ void RenderPass::applyProperties(
     glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(TEXTURE_2D, textureID.id);
 
-    shader->setUInt(name, textureUnit);
+    shader->setInt(name, textureUnit);
     ++textureUnit;
   }
 }

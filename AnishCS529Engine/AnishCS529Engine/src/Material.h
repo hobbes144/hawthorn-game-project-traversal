@@ -29,11 +29,11 @@
   *
   * This class handles creation of shaders and setting parameters for them.
   *****************************************************************************/
-class Material {
+class Material : public std::enable_shared_from_this<Material> {
 public:
   using PropertyMap = RenderPass::PropertyMap;
 
-  Material(std::shared_ptr<RenderGraph> renderGraph) : renderGraph(renderGraph) {}
+  Material() = default;
   virtual ~Material() = default;
 
   void setRenderGraph(std::shared_ptr<RenderGraph> newRenderGraph);
@@ -46,16 +46,23 @@ public:
 
   virtual void draw(std::shared_ptr<Mesh> mesh) const;
 
-private:
+  /* Material factory */
+  static std::unordered_map<std::string, std::shared_ptr<Material>> basicMaterials;
+
+  template <typename T>
+  static std::shared_ptr<T> getMaterial(
+    const std::string& name,
+    std::shared_ptr<RenderGraph> renderGraph);
+
+protected:
   std::shared_ptr<RenderGraph> renderGraph;
   PropertyMap properties;
 
-  std::optional<std::unordered_map<std::string, TextureManager::TextureID>> textureData;
-
+  std::optional<
+    std::unordered_map<std::string, TextureManager::TextureID>> textureData;
 };
 
-//std::shared_ptr<Material> createSolidColorMaterial(const Vector3& color);
-//std::shared_ptr<Material> createTextureMaterial(const std::string& textureFile);
+#include "Material.inl"
 
 #endif // MATERIAL_H
 

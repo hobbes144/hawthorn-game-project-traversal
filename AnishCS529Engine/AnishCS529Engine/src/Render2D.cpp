@@ -11,29 +11,6 @@
 #include "Render2D.h"
 
 /*!****************************************************************************
- * \brief Set the renderer to be rendered to
- * 
- * ## Usage:
- * 
- * This needs to be set before running the initialization to ensure that the
- * mesh and material are associated to the correct renderer.
- * 
- * ## Explanation:
- * 
- * The Renderer is the object that manages interaction with OpenGL and hence
- * the GPU. It is possible to have multiple renderers, especially in case of
- * multiple GameWindows.
- * 
- * \param _renderer Renderer object pointer.
- * \return \b std::shared_ptr<Render2D> Self shared pointer to allow chaining.
- *****************************************************************************/
-std::shared_ptr<Render2D> Render2D::setRenderer(Renderer* _renderer)
-{
-  renderer = _renderer;
-  return shared_from_this();
-}
-
-/*!****************************************************************************
  * \brief Set the camera to be rendered to
  * 
  * ## Usage:
@@ -124,22 +101,8 @@ void Render2D::update(float deltaTime)
 
   material->setProperty("ViewMatrix", camera->getViewMatrix());
   material->setProperty("ProjectionMatrix", camera->getProjectionMatrix());
+  material->setProperty("ModelMatrix", parent->getTransformMatrix());
   material->draw(mesh);
-
-  auto geometryBuffer = mesh->getGeometryBuffer();
-  if (!geometryBuffer) return;
-  geometryBuffer->bind();
-
-  if (mesh->hasAttribute(GeometryBuffer::AttributeType::Position)) {
-    if (mesh->getIndexCount() > 0) {
-      renderer->draw(GL_TRIANGLES, geometryBuffer->getIndexCount(), true);
-    }
-    else {
-      renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), false);
-    }
-  }
-
-  geometryBuffer->unbind();
 }
 
 /*!****************************************************************************

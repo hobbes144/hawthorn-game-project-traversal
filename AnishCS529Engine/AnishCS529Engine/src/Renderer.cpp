@@ -90,6 +90,7 @@ bool Renderer::loadGraphicsAPIFunctions() const {
   glEnable(GL_DEBUG_OUTPUT);
   glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); // Makes sure errors are reported immediately
   //glEnable(GL_DEPTH_TEST);
+  glfwWindowHint(GLFW_DEPTH_BITS, 24);
   glDebugMessageCallback(openglCallbackFunction, nullptr);
   return true;
 }
@@ -243,9 +244,9 @@ void Renderer::draw(GLenum mode, GLint count, bool indexed = true) const {
  * \param Viewport The Viewport struct storing the width and height.
  * \return \b Renderer* Self
  *****************************************************************************/
-Renderer* Renderer::setViewport(const Viewport& viewport)
+Renderer* Renderer::setViewport(const Viewport& viewport, bool force)
 {
-  if (state.viewport == viewport) return this;
+  if (!force && state.viewport == viewport) return this;
 
   glViewport(0, 0, viewport.width, viewport.height);
   state.viewport = viewport;
@@ -287,17 +288,17 @@ Renderer* Renderer::resetViewport()
  * \param depthState DepthState object that stores the enabled and func.
  * \return \b Renderer* Self
  *****************************************************************************/
-Renderer* Renderer::setDepthState(const DepthState& depthState)
+Renderer* Renderer::setDepthState(const DepthState& depthState, bool force)
 {
-  if (state.depthState == depthState) return this;
+  if (!force && state.depthState == depthState) return this;
 
   if (depthState.testEnabled) {
     glEnable(GL_DEPTH_TEST);
     clearMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
-    if (depthState.writeEnabled)
+    /*if (depthState.writeEnabled)
       glDepthMask(GL_TRUE);
     else
-      glDepthMask(GL_FALSE);
+      glDepthMask(GL_FALSE);*/
     glDepthFunc(depthState.func);
   }
   else {
@@ -319,9 +320,9 @@ Renderer* Renderer::setDepthState(const DepthState& depthState)
  * func.
  * \return \b Renderer* Self
  *****************************************************************************/
-Renderer* Renderer::setBlendState(const BlendState& blendState)
+Renderer* Renderer::setBlendState(const BlendState& blendState, bool force)
 {
-  if (state.blendState == blendState) return this;
+  if (!force && state.blendState == blendState) return this;
 
   if (blendState.enabled) {
     glEnable(GL_BLEND);
@@ -361,11 +362,11 @@ Renderer::State Renderer::getCurrentState() const
  * \param state State struct that stores the state to be set to.
  * \return \b Renderer* Self
  *****************************************************************************/
-Renderer* Renderer::setState(const State& state)
+Renderer* Renderer::setState(const State& state, bool force)
 {
-  setViewport(state.viewport);
-  setBlendState(state.blendState);
-  setDepthState(state.depthState);
+  setViewport(state.viewport, force);
+  setBlendState(state.blendState, force);
+  setDepthState(state.depthState, force);
 
   return this;
 }
@@ -388,8 +389,7 @@ void Renderer::initialize() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    /* Todo: What is this command? */
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     });
 
   glfwMakeContextCurrent(gameWindow->getNativeWindow());
@@ -403,8 +403,7 @@ void Renderer::initialize() {
   renderGraph = std::make_shared<RenderGraph>();
 
   state.viewport = Viewport{0,0,gameWindow->getWidth(), gameWindow->getHeight()};
-  setBlendState(state.blendState);
-  setDepthState(state.depthState);
+  setState(state, true);
 }
 
 /*!****************************************************************************

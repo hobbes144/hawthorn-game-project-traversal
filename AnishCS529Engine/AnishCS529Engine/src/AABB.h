@@ -1,8 +1,22 @@
+/*!****************************************************************************
+ * \file   AABB.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \date   02-10-2025
+ * \brief  
+ * 
+ *****************************************************************************/
+#ifndef AABB_H
+#define AABB_H
+
 #pragma once
 
-#include "MaterialDeprecated.h"
+#include "Camera.h"
+#include "DebugMaterial.h"
+#include "DebugPass.h"
 #include "Mesh.h"
-#include "Renderer.h"
+#include "RenderGraph.h"
 #include "Shape.h"
 
 class AABB : public Shape
@@ -14,6 +28,7 @@ public:
 
   Type getType() const override;
   void update(Transform& transform);
+  void debugDaw();
 
   Vector3  getMin()        const;
   Vector3  getMax()        const;
@@ -24,8 +39,7 @@ public:
   float   getDepth()       const;
 
   // debug functions
-  //void initializeDebugDraw(Renderer* renderer); // Call this once when creating OBB
-  //void drawDebugLines(Matrix4& view, Matrix4& projection); // Call this in your render loop
+  void initializeDebugDraw(std::shared_ptr<RenderGraph> renderGraph); // Call this once when creating OBB
 
 
 private:
@@ -33,8 +47,10 @@ private:
   Vector3 worldMin, worldMax;   // Transformed bounds in world space
 
   // debug properties
-  //std::shared_ptr<Mesh> debugMesh;
-  //std::shared_ptr<MaterialDeprecated> debugMaterial;
-  Renderer* renderer;
+  std::shared_ptr<Mesh> debugMesh;
+  std::shared_ptr<DebugMaterial> debugMaterial;
+  std::shared_ptr<RenderGraph> renderGraph;
+  std::shared_ptr<Camera> camera;
 };
 
+#endif // !AABB_H

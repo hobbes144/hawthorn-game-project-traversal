@@ -18,7 +18,7 @@
 #include <optional>
 
 #include "Matrix4.h"
-#include "Shader.h"
+#include "ShaderManager.h"
 #include "Vector3.h"
 #include "TextureManager.h"
 #include "Light.h"
@@ -50,7 +50,7 @@
  * the setFBO() call is used.
  * 
  *****************************************************************************/
-class RenderPass {
+class RenderPass : public std::enable_shared_from_this<RenderPass> {
 public:
   using PropertyMap = std::unordered_map<
     std::string,
@@ -58,17 +58,18 @@ public:
       unsigned int, int, float, Vector3, Matrix4, TextureManager::TextureID>
   >;
 
-  RenderPass(std::shared_ptr<Shader> _shader) : 
-    enabled(true), shader(_shader), properties(PropertyMap()) {};
+  RenderPass() = default;
   virtual ~RenderPass() = default;
 
-  void setShader(std::shared_ptr<Shader> _shader);
+  std::shared_ptr<Shader> addShader(std::string shaderFile);
+  std::shared_ptr<Shader> addShader(std::shared_ptr<Shader> _shader);
   std::shared_ptr<Shader> getShader() const;
 
   template<typename T>
   void setProperty(const std::string& name, const T& value) {
     properties[name] = value;
   }
+
   template<typename T>
   T getProperty(const std::string& name) {
     return properties[name];

@@ -1,24 +1,25 @@
 /*!****************************************************************************
- * \file   LightingPass.h
+ * \file   DebugPass.h
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
  * \date   02-10-2025
- * \brief  Lighting RenderPass class for 3D rendering
- * 
+ * \brief  DebugPass class for 3D rendering
+ *
  *****************************************************************************/
-#ifndef LIGHTING_PASS_H
-#define LIGHTING_PASS_H
+#ifndef DEBUG_PASS_H
+#define DEBUG_PASS_H
 
 #pragma once
 
 #include "RenderPass.h"
 
-class LightingPass : public RenderPass {
+class DebugPass : public RenderPass {
 public:
-  LightingPass() : RenderPass() {
-    this->addShader("shaders/lighing.vert.glsl\nshaders/lighting.frag.glsl");
+  DebugPass() : RenderPass() {
+    this->addShader("shaders/basic_render.vert.glsl\nshaders/basic_render.frag.glsl");
+    this->setProperty("isDebug", 0);
   };
 };
 
-#endif // !LIGHTING_PASS_H
+#endif // !DEBUG_PASS_H

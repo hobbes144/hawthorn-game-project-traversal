@@ -12,6 +12,8 @@
 #include "EventManager.h"
 #include "GameObject.h"
 #include "Render2D.h"
+#include "BasicRenderPass.h"
+#include "TextureMaterial.h"
 
 extern "C"
 {
@@ -31,9 +33,11 @@ int main() {
   Renderer* mainRenderer = new Renderer;
   mainRenderer->setGameWindow(mainWindow);
   mainRenderer->initialize();
-  mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
 
-  mainWindow->setVsync(true);
+  mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
+
+  //mainWindow->setVsync(true);
 
   /* Input setup */
   Input* mainInput = new Input;
@@ -51,144 +55,134 @@ int main() {
   SceneGraph mainSceneGraph;
 
   /* Camera setup */
-  Vector3 cameraPos(-20.0f, 20.0f, 500.0);
-  Vector3 cameraTarget = cameraPos + Vector3(0.0f, 0.0f, -500.0f);
-  Vector3 upVector(0.0f, 1.0f, 0.0f);
+  Vector3 cameraPos(0.0f, 0.0f, 10.0f);
   auto camera = std::make_shared<Camera>("mainCamera");
-  camera->setLocalPosition(Vector3(cameraPos));
-  camera
-    ->setPerspectiveProjection(
-      45.0f * 3.14159f / 180.0f,
-      mainWindow->getAspectRatio(),
-      0.1f,
-      1000.0f)
-    ->lookAt(cameraTarget, upVector);
+  camera->setPerspectiveProjection(
+    45.0f * 3.14159f / 180.0f,
+    mainWindow->getAspectRatio(),
+    0.1f,
+    1000.0f)->setLocalPosition(Vector3(0.0f, 0.0f, 10.0f));
   mainSceneGraph.addNode(camera);
 
   /* Create relevant Meshes*/
-  auto boxMesh = createCubeMesh("box");
-//  auto boxMaterial = createSolidColorMaterial(Vector3(1.0f,0.8f,0.8f));
-//
-//// Drawable objects
-//  auto box1 = std::make_shared<GameObject>("Box1");
-//  box1->setLocalPosition(Vector3(0.25f, 0.0f, 0.0f))
-//    ->setLocalScaling(Vector3(100.0f, 100.f, 100.0f));
-//  // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
-//
-//  auto box1RenderComponent = box1->addComponent<Render2D>();
-//  box1RenderComponent
-//    ->setRenderer(mainRenderer)
-//    ->setCamera(camera)
-//    ->setMesh(boxMesh)
-//    ->setMaterial(boxMaterial);
-//
-//  auto box2 = std::make_shared<GameObject>("Box2");
-//  box1->setLocalPosition(Vector3(-0.25f, 0.0f, 0.0f))
-//    ->setLocalScaling(Vector3(100.0f, 100.f, 100.0f));
-//
-//  auto box2RenderComponent = box2->addComponent<Render2D>();
-//  box2RenderComponent
-//    ->setRenderer(mainRenderer)
-//    ->setCamera(camera)
-//    ->setMesh(boxMesh)
-//    ->setMaterial(boxMaterial);
-//
-//  mainSceneGraph.addNode(box1);
-//  mainSceneGraph.addNode(box2);
-//
-//  float angleX = 0.0f;
-//  float angleY = 0.0f;
-//  float angleZ = 0.0f;
-//  float speed = 10.0f;
-//  float deltaTime = 0.0f;
-//  int expectedFrameRate = 60; // 1000;
-//  mainFramerateController->setTargetFramerate(expectedFrameRate);
-//  mainSceneGraph.printSceneTree();
-//
-//  while (!window.getShouldClose()) {
-//    //std::cout << "\nloop restart at time " << framerateController->getTime() << "\n\n";
-//
-//    mainRenderer->clear();
-//    mainFramerateController->startFrame();              // record the time from frame start
-//
-//
-//    // Input for box1
-//    Vector3 velocity(0.0f, 0.0f, 0.0f);
-//    if (mainInput->isKeyHeld(KEY_D))
-//      camera->setLocalPosition(
-//        camera->getLocalPosition() + Vector3(0.0f,0.1f,00.0f));
-//    if (mainInput->isKeyHeld(KEY_A))
-//      camera->setLocalPosition(
-//        camera->getLocalPosition() + 0.1f);
-//    if (mainInput->isKeyHeld(KEY_W))
-//      velocity.y = speed;
-//    if (mainInput->isKeyHeld(KEY_S))
-//      velocity.y = -speed;
-//    if (mainInput->isKeyHeld(KEY_UP))
-//      velocity.z = speed;
-//    if (mainInput->isKeyHeld(KEY_DOWN))
-//      velocity.z = -speed;
-//    body1->setVelocity(velocity);
-//
-//    if (input.isKeyHeld(KEY_LEFT))
-//      box1->setLocalRotation(Vector3(angleX, angleY, (angleZ -= 0.01f)));
-//    if (input.isKeyHeld(KEY_RIGHT))
-//      box1->setLocalRotation(Vector3(angleX, angleY, (angleZ += 0.01f)));
-//    if (input.isKeyHeld(KEY_Q))
-//      box1->setLocalRotation(Vector3((angleX -= 0.01f), angleY, angleZ));
-//    if (input.isKeyHeld(KEY_E))
-//      box1->setLocalRotation(Vector3((angleX += 0.01f), angleY, angleZ));
-//    if (input.isKeyHeld(KEY_R))
-//      box1->setLocalRotation(Vector3(angleX, (angleY -= 0.01f), angleZ));
-//    if (input.isKeyHeld(KEY_F))
-//      box1->setLocalRotation(Vector3(angleX, (angleY += 0.01f), angleZ));
-//
-//
-//
-//    // Physics update deltaTime
-//    //objectDelta.Update(deltaTime);
-//
-//    //// Physics update loop fixedStepTime
-//    //while (framerateController->ShouldUpdatePhysics()) {
-//    //    PhysicsManager::Instance().update(FramerateController::DEFAULT_FIXED_TIME_STEP);
-//    //    framerateController->ConsumePhysicsTime();
-//    //}
-//    PhysicsManager::Instance().update(deltaTime);
-//
-//    input.update();
-//    if (input.isKeyHeld(KEY_ESCAPE))
-//      break;
-//
-//    sceneGraph.update(deltaTime);
-//
-//    // draw debug lines for all bodies
-//    // In your render loop, after sceneGraph.draw:
-//    //std::cout << "Number of physics bodies: " << PhysicsManager::Instance().getBodies().size() << "\n";
-//    for (auto body : PhysicsManager::Instance().getBodies()) {
-//      if (auto obb = dynamic_cast<OBB*>(body->getShape())) {
-//        //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
-//        //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
-//        obb->drawDebugLines(viewMatrix, projectionMatrix);
-//      }
-//      if (auto aabb = dynamic_cast<AABB*>(body->getShape())) {
-//        //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
-//        //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
-//        aabb->drawDebugLines(viewMatrix, projectionMatrix);
-//      }
-//    }
-//
-//
-//    sceneGraph.draw(viewMatrix, projectionMatrix);
-//
-//    //std::cout << "Angle for box1: " << angle << std::endl;
-//    //std::cout << "========================" << std::endl;
-//    renderer.swapBuffers();
-//    window.pollEvents();
-//
-//    framerateController->endFrame();
-//    deltaTime = framerateController->getFrameTime();
-//
-//  }
+  auto boxMesh = Mesh::createMesh("box", Mesh::Square);
+  auto boxMaterial = Material::getMaterial<TextureMaterial>("box", mainRenderer->getRenderGraph());
+
+// Drawable objects
+  auto box1 = std::make_shared<GameObject>("Box1");
+  box1->setLocalPosition(Vector3(2.0f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
+  // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
+
+  auto box1RenderComponent = box1->addComponent<Render2D>();
+  box1RenderComponent
+    ->setCamera(camera)
+    ->setMesh(boxMesh)
+    ->setMaterial(boxMaterial);
+
+  auto box2 = std::make_shared<GameObject>("Box2");
+  box1->setLocalPosition(Vector3(-2.0f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
+
+  auto box2RenderComponent = box2->addComponent<Render2D>();
+  box2RenderComponent
+    ->setCamera(camera)
+    ->setMesh(boxMesh)
+    ->setMaterial(boxMaterial);
+
+  mainSceneGraph.addNode(box1);
+  mainSceneGraph.addNode(box2);
+
+  float angleX = 0.0f;
+  float angleY = 0.0f;
+  float angleZ = 0.0f;
+  float speed = 10.0f;
+  float deltaTime = 0.0f;
+  int expectedFrameRate = 60; // 1000;
+  mainFramerateController->setTargetFramerate(expectedFrameRate);
+  mainSceneGraph.printSceneTree();
+
+  while (!mainWindow->getShouldClose()) {
+    //std::cout << "\nloop restart at time " << framerateController->getTime() << "\n\n";
+
+    mainRenderer->clear();
+    mainFramerateController->startFrame();              // record the time from frame start
+
+    if (mainInput->isKeyHeld(KEY_LEFT))
+      box1->setLocalRotation(Vector3(angleX, angleY, (angleZ -= 0.01f)));
+    if (mainInput->isKeyHeld(KEY_RIGHT))
+      box1->setLocalRotation(Vector3(angleX, angleY, (angleZ += 0.01f)));
+    if (mainInput->isKeyHeld(KEY_Q))
+      box1->setLocalRotation(Vector3((angleX -= 0.01f), angleY, angleZ));
+    if (mainInput->isKeyHeld(KEY_E))
+      box1->setLocalRotation(Vector3((angleX += 0.01f), angleY, angleZ));
+    if (mainInput->isKeyHeld(KEY_R))
+      box1->setLocalRotation(Vector3(angleX, (angleY -= 0.01f), angleZ));
+    if (mainInput->isKeyHeld(KEY_F))
+      box1->setLocalRotation(Vector3(angleX, (angleY += 0.01f), angleZ));
+    if (mainInput->isKeyHeld(KEY_W))
+      box1->setLocalPosition(box1->getLocalPosition() + Vector3(0.0f, deltaTime * 10.0f, 0.0f));
+    if (mainInput->isKeyHeld(KEY_A))
+      box1->setLocalPosition(box1->getLocalPosition() - Vector3(deltaTime * 10.0f, 0.0f, 0.0f));
+    if (mainInput->isKeyHeld(KEY_S))
+      box1->setLocalPosition(box1->getLocalPosition() - Vector3(0.0f, deltaTime * 10.0f, 0.0f));
+    if (mainInput->isKeyHeld(KEY_D))
+      box1->setLocalPosition(box1->getLocalPosition() + Vector3(deltaTime * 10.0f, 0.0f, 0.0f));
+    if (mainInput->isKeyHeld(KEY_UP))
+      box1->setLocalPosition(box1->getLocalPosition() + Vector3(0.0f, 0.0f, deltaTime * 10.0f));
+    if (mainInput->isKeyHeld(KEY_DOWN))
+      box1->setLocalPosition(box1->getLocalPosition() - Vector3(0.0f, 0.0f, deltaTime * 10.0f));
+
+
+
+    // Physics update deltaTime
+    //objectDelta.Update(deltaTime);
+
+    //// Physics update loop fixedStepTime
+    //while (framerateController->ShouldUpdatePhysics()) {
+    //    PhysicsManager::Instance().update(FramerateController::DEFAULT_FIXED_TIME_STEP);
+    //    framerateController->ConsumePhysicsTime();
+    //}
+    //PhysicsManager::Instance().update(deltaTime);
+
+    mainInput->update();
+    if (mainInput->isKeyHeld(KEY_ESCAPE))
+      break;
+
+    mainSceneGraph.update(deltaTime);
+
+    // draw debug lines for all bodies
+    // In your render loop, after sceneGraph.draw:
+    //std::cout << "Number of physics bodies: " << PhysicsManager::Instance().getBodies().size() << "\n";
+    //for (auto body : PhysicsManager::Instance().getBodies()) {
+    //  if (auto obb = dynamic_cast<OBB*>(body->getShape())) {
+    //    //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
+    //    //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
+    //    obb->drawDebugLines(viewMatrix, projectionMatrix);
+    //  }
+    //  if (auto aabb = dynamic_cast<AABB*>(body->getShape())) {
+    //    //std::cout << "Drawing OBB at position: " << body->getOwner()->getLocalPosition().x
+    //    //    << ", " << body->getOwner()->getLocalPosition().y << "\n";
+    //    aabb->drawDebugLines(viewMatrix, projectionMatrix);
+    //  }
+    //}
+
+    //std::cout << "Angle for box1: " << angle << std::endl;
+    //std::cout << "========================" << std::endl;
+    deltaTime = mainFramerateController->getFrameTime();
+
+    mainFramerateController->endFrame();
+    mainRenderer->swapBuffers();
+    mainWindow->update();
+
+    //glfwSwapBuffers(window);
+
+  }
+
+  
+  mainInput->shutdown();
+  mainRenderer->shutdown();
+  mainWindow->shutdown();
 
   return 0;
 }

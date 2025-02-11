@@ -100,6 +100,8 @@ public:
   bool        getIsStatic()     const;
   std::shared_ptr<Shape> getShape()        const;
 
+  void setDebug(bool _debug) { debug = _debug; }
+
 private:
   float mass;
   float inverseMass;
@@ -110,6 +112,7 @@ private:
   float friction;
   bool isStatic;
   std::shared_ptr<Shape> collisionShape;
+  bool debug = false;
 };
 
 #endif // PHYSICS_BODY_H
