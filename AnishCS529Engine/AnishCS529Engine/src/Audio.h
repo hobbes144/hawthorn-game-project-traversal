@@ -16,6 +16,7 @@
 #include <string>
 #include <unordered_map>
 #include <fmod/fmod.hpp>
+#include "Vector3.h"
 
 
  /*!****************************************************************************
@@ -68,12 +69,12 @@
 class AudioManager {
 public:
     static AudioManager& instance();
-    void init(int maxChannels = 512);
+    void initialize(int maxChannels = 512);
     void update();
-    void loadSound(const std::string& name, const std::string& path, bool is3D = false, bool loop = false);
-    void playSound(const std::string& name, float x = 0.0f, float y = 0.0f, float z = 0.0f);
-    void setListenerPosition(float x, float y, float z);
     void shutdown();
+    void loadSound(const std::string& name, const std::string& path, bool is3D = false, bool loop = false);
+    void playSound(const std::string& name, const Vector3& position = Vector3());
+    void setListenerPosition(const Vector3& position);
 
 private:
     AudioManager() = default;

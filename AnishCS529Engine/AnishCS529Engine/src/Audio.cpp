@@ -10,23 +10,53 @@
  * Call initialization to setup the audio manager to create the global 
  * AudioManager instance that is required for all sounds to work.
  *
+ * ## Explanation:
+ * 
+ * This function creates a static instance on its first call and returns a 
+ * reference to it. All audio operations should be performed using this instance.
+ * 
+ * \return AudioManager& Reference to the singleton AudioManager.
  *****************************************************************************/
-
 AudioManager& AudioManager::instance() {
     static AudioManager instance;
     return instance;
 }
 
 
-/** Destructor */
+/*!****************************************************************************
+ * \brief Destructor for AudioManager.
+ *
+ * ## Usage:
+ *
+ * This method is automatically triggers when the AudioManager is destroyed.
+ *
+ * ## Explanation:
+ *
+ * The destructor make sure the FMOD system is properly shut down by
+ * calling shutdown(), releasing all audio resources if the user forgot to do so.
+ *****************************************************************************/
 AudioManager::~AudioManager() {
-    // Ensure we clean up if user forgot to call shutdown()
     shutdown();
 }
 
 
-/** initialization */
-void AudioManager::init(int maxChannels) {
+/*!****************************************************************************
+ * \brief Initialize the AudioManager.
+ *
+ * ## Usage:
+ *
+ * Call this method once at the start of the application to initialize the FMOD
+ * audio system before any audio operations are performed.
+ *
+ * ## Explanation:
+ *
+ * This method creates and initializes the FMOD system with the specified maximum
+ * number of channels. 
+ *
+ * \param maxChannels The maximum number of channels to allocate for audio playback.
+ * \return void
+ *****************************************************************************/
+void AudioManager::initialize(int maxChannels) {
     // Create the main FMOD system object
     FMOD_RESULT result = FMOD::System_Create(&fmodSystem_);
     if (result != FMOD_OK || !fmodSystem_) {
@@ -46,17 +76,49 @@ void AudioManager::init(int maxChannels) {
         1.0f   // Rolloff scale
     );
 
-    std::cout << "[AudioManager] FMOD initialized with " << maxChannels << " channels.\n";
+    std::cerr << "[AudioManager] FMOD initialized with " << maxChannels << " channels.\n";
 }
 
-/** Update, Must be called once per frame so FMOD can process 3D audio, streaming, etc. */
+/*!****************************************************************************
+ * \brief Update the FMOD audio system.
+ *
+ * ## Usage:
+ *
+ * Call this method once per frame (within the main loop) to allow FMOD to
+ * process audio tasks.
+ *
+ * ## Explanation:
+ *
+ * This method updates the FMOD system so that the audio can be played 
+ * every frame.
+ *
+ * \return void
+ *****************************************************************************/
 void AudioManager::update() {
     if (fmodSystem_) {
         fmodSystem_->update();
     }
 }
 
-/* LoadSound so it can be played later*/
+/*!****************************************************************************
+ * \brief Load a sound asset for later playback.
+ *
+ * ## Usage:
+ *
+ * Use this method to load a sound file into the AudioManager. This must be done
+ * before attempting to play the sound.
+ *
+ * ## Explanation:
+ *
+ * This function creates a sound from the specified file path and stores it in a
+ * map. The sound can be loaded as either a 3D or 2D sound, and optionally set to loop.
+ *
+ * \param name A unique identifier for the sound.
+ * \param path The file path to the sound asset.
+ * \param is3D If true, the sound is loaded as a 3D sound; otherwise as a 2D sound.
+ * \param loop If true, the sound will loop over and over again.
+ * \return void
+ *****************************************************************************/
 void AudioManager::loadSound(const std::string& name, const std::string& path, bool is3D, bool loop) {
     if (!fmodSystem_) {
         std::cerr << "[AudioManager] Error: FMOD system not initialized.\n";
@@ -82,8 +144,26 @@ void AudioManager::loadSound(const std::string& name, const std::string& path, b
     std::cout << "[AudioManager] Loaded sound \"" << name << "\" from " << path << "\n";
 }
 
-/** Play the sound stored in loadsound() */
-void AudioManager::playSound(const std::string& name, float x, float y, float z) {
+/*!****************************************************************************
+ * \brief Play a previously loaded sound.
+ *
+ * ## Usage:
+ *
+ * Call this method to play a sound that has already been loaded using loadSound().
+ *
+ * ## Explanation:
+ *
+ * This function retrieves the sound by the map location stored from loadSound()
+ * and plays it using the FMOD system. If the sound is 3D, its spatial attributes 
+ * are set according to the provided position.
+ *
+ * \param name The unique identifier of the sound to play.
+ * \param x The x-coordinate of the sound's position in 3D space.
+ * \param y The y-coordinate of the sound's position in 3D space.
+ * \param z The z-coordinate of the sound's position in 3D space.
+ * \return void
+ *****************************************************************************/
+void AudioManager::playSound(const std::string& name, const Vector3& position) {
     // Find the sound by its name
     auto it = sounds_.find(name);
     if (it == sounds_.end()) {
@@ -109,27 +189,57 @@ void AudioManager::playSound(const std::string& name, float x, float y, float z)
     FMOD_MODE currentMode;
     sound->getMode(&currentMode);
     if ((currentMode & FMOD_3D) == FMOD_3D && channel) {
-        FMOD_VECTOR pos = { x, y, z };
+        FMOD_VECTOR pos = { position.x, position.y, position.z };
         FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f }; // velocity can be used for Doppler effect
         channel->set3DAttributes(&pos, &vel);
     }
 }
 
-/** setListenerPosition() */
-void AudioManager::setListenerPosition(float x, float y, float z) {
+/*!****************************************************************************
+ * \brief Set the audio listener's position in 3D space.
+ *
+ * ## Usage:
+ *
+ * Call this method every frame (or when the listener's position changes) to update
+ * the where you hear the audio. This typically reflects the camera's position.
+ *
+ * ## Explanation:
+ *
+ * This function sets the position of the primary audio listener in the FMOD system.
+ *
+ * \param x The x-coordinate of the listener's position.
+ * \param y The y-coordinate of the listener's position.
+ * \param z The z-coordinate of the listener's position.
+ * \return void
+ *****************************************************************************/
+void AudioManager::setListenerPosition(const Vector3& position) {
     if (!fmodSystem_) return;
 
     // The orientation vectors can be adjusted based on camera property
-    FMOD_VECTOR position = { x, y, z };
-    FMOD_VECTOR velocity = { 0.0f, 0.0f, 0.0f };
+    FMOD_VECTOR pos = { position.x, position.y, position.z };
+    FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f };
     FMOD_VECTOR forward = { 0.0f, 0.0f, 1.0f };
     FMOD_VECTOR up = { 0.0f, 1.0f, 0.0f };
 
     // Set the listener at index 0 
-    fmodSystem_->set3DListenerAttributes(0, &position, &velocity, &forward, &up);
+    fmodSystem_->set3DListenerAttributes(0, &pos, &vel, &forward, &up);
 }
 
-/** shutdown() */
+/*!****************************************************************************
+ * \brief Shut down the AudioManager and release all resources.
+ *
+ * ## Usage:
+ *
+ * Call this method when the application is closing to clean up all audio
+ * resources and properly shut down the FMOD system.
+ *
+ * ## Explanation:
+ *
+ * This method releases all loaded sound assets and closes the FMOD system to prevent
+ * memory leaks. It should be called once before the application exits.
+ *
+ * \return void
+ *****************************************************************************/
 void AudioManager::shutdown() {
     // Release all loaded sounds
     for (auto& pair : sounds_) {
