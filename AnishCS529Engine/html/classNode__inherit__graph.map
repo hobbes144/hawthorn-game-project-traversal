@@ -4,18 +4,14 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="133,128,65,169,62,164,130,123"/>
 <area shape="rect" id="Node000004" href="$classGameObject.html" title="GameObject class that implements a single object in the scene." alt="" coords="107,167,219,192"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,132,165,167,160,167,160,132"/>
-<area shape="rect" id="Node000008" href="$classRenderableNode.html" title=" " alt="" coords="267,167,403,192"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="204,121,308,164,306,169,202,126"/>
+<area shape="rect" id="Node000008" href="$classRenderableNode.html" title=" " alt="" coords="243,167,379,192"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="200,122,288,164,285,169,197,127"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="87,5,239,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,59,165,93,160,93,160,59"/>
-<area shape="rect" id="Node000005" href="$classBullet.html" title=" " alt="" coords="31,240,89,265"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="136,202,78,242,75,238,133,198"/>
-<area shape="rect" id="Node000006" href="$classTank.html" title=" " alt="" coords="113,240,164,265"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="157,206,145,241,140,239,152,204"/>
-<area shape="rect" id="Node000007" href="$classWall.html" title=" " alt="" coords="189,240,238,265"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="181,202,207,238,203,241,177,205"/>
-<area shape="rect" id="Node000009" href="$classRectanglePrimitive.html" title=" " alt="" coords="262,240,407,265"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="337,206,337,240,332,240,332,206"/>
-<area shape="rect" id="Node000010" href="$classTrianglePrimitive.html" title=" " alt="" coords="431,240,558,265"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="374,195,470,237,467,242,372,200"/>
+<area shape="rect" id="Node000005" href="$classBullet.html" title=" " alt="" coords="55,240,113,265"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="142,203,99,242,95,238,138,199"/>
+<area shape="rect" id="Node000006" href="$classTank.html" title=" " alt="" coords="137,240,188,265"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="165,206,165,240,160,240,160,206"/>
+<area shape="rect" id="Node000007" href="$classWall.html" title=" " alt="" coords="213,240,262,265"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="186,199,227,238,223,242,183,203"/>
 </map>

@@ -91,9 +91,10 @@ $(function(){ initResizable(false); });
 
 <p>This is the complete list of members for <a class="el" href="classRenderGraph.html">RenderGraph</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>addPass</b>(std::shared_ptr&lt; RenderPass &gt; pass) (defined in <a class="el" href="classRenderGraph.html">RenderGraph</a>)</td><td class="entry"><a class="el" href="classRenderGraph.html">RenderGraph</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>draw</b>(Renderer *renderer, std::shared_ptr&lt; Mesh &gt; mesh) (defined in <a class="el" href="classRenderGraph.html">RenderGraph</a>)</td><td class="entry"><a class="el" href="classRenderGraph.html">RenderGraph</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>RenderGraph</b>() (defined in <a class="el" href="classRenderGraph.html">RenderGraph</a>)</td><td class="entry"><a class="el" href="classRenderGraph.html">RenderGraph</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>addLight</b>(std::shared_ptr&lt; Light &gt; light) (defined in <a class="el" href="classRenderGraph.html">RenderGraph</a>)</td><td class="entry"><a class="el" href="classRenderGraph.html">RenderGraph</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>addPass</b>(const std::string &amp;name) (defined in <a class="el" href="classRenderGraph.html">RenderGraph</a>)</td><td class="entry"><a class="el" href="classRenderGraph.html">RenderGraph</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>addPass</b>(const std::string &amp;name, std::shared_ptr&lt; T &gt; pass) (defined in <a class="el" href="classRenderGraph.html">RenderGraph</a>)</td><td class="entry"><a class="el" href="classRenderGraph.html">RenderGraph</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>draw</b>(std::shared_ptr&lt; Mesh &gt; mesh, RenderPass::PropertyMap properties, GLenum mode=GL_TRIANGLES) (defined in <a class="el" href="classRenderGraph.html">RenderGraph</a>)</td><td class="entry"><a class="el" href="classRenderGraph.html">RenderGraph</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -187,16 +187,16 @@ std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classInput.html" title="Input class that handles storing and updating key press states.">Input</a> class that handles storing and updating key press states. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md61"></a>
+ <h2><a class="anchor" id="autotoc_md62"></a>
 Usage:</h2>
 <p>The <a class="el" href="classInput.html" title="Input class that handles storing and updating key press states.">Input</a> class is needed to read and manage user inputs to the game.</p>
-<h2><a class="anchor" id="autotoc_md62"></a>
+<h2><a class="anchor" id="autotoc_md63"></a>
 Pre-initialization calls:</h2>
 <ul>
 <li><a class="el" href="#a04da4d2944a5fccf05d045ea3d5da004" title="Seter GameWindow object that is being read from.">setGameWindow(GameWindow* _gameWindow)</a></li>
 <li><a class="el" href="#a9423761288cc4ffb23bd5f415906aafe" title="Setter for the keys to be monitored.">setKeysToMonitor(std::vector&lt;Key&gt;&amp; keysToMonitor)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md63"></a>
+<h2><a class="anchor" id="autotoc_md64"></a>
 General lifecycle of Input:</h2>
 <ul>
 <li>Initialize <a class="el" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic.">GameWindow</a> object.</li>
@@ -204,10 +204,10 @@ General lifecycle of Input:</h2>
 <li>Call <a class="el" href="#aa7fe26710dd863d11737bf2f6de4ad05" title="Update loop that polls the window for the state of each key.">update()</a> to poll for input events (after <a class="el" href="classGameWindow.html#a91e9584fa74547af5f20243bd4a13459" title="Update function.">GameWindow::update()</a>).</li>
 <li>Call the isKey_ functions to check if the required inputs were pressed.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md64"></a>
+<h2><a class="anchor" id="autotoc_md65"></a>
 Notes:</h2>
 <p><a class="el" href="#a4a86d2c4ada4b5917c799808eb3122e1" title="Input initialize is a dummy function.">initialize()</a> and <a class="el" href="#a38019b2111c789cfc6fff651b6ecfe19" title="Input shutdown is a dummy function.">shutdown()</a> are not necessary to call.</p>
-<h2><a class="anchor" id="autotoc_md65"></a>
+<h2><a class="anchor" id="autotoc_md66"></a>
 Future:</h2>
 <p>In the future, this will be expanded to also manage controller key states. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -393,10 +393,10 @@ Future:</h2>
 
 <p>Seter <a class="el" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic.">GameWindow</a> object that is being read from. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md52"></a>
+ <h2><a class="anchor" id="autotoc_md53"></a>
 Usage:</h2>
 <p>This function sets up the game window from which inputs should be read.</p>
-<h2><a class="anchor" id="autotoc_md53"></a>
+<h2><a class="anchor" id="autotoc_md54"></a>
 Explanation:</h2>
 <p>Inputs are read per window. The inputs are read every time the window calls a Window::update() call, when it polls for events.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -426,10 +426,10 @@ Explanation:</h2>
 
 <p>Setter for the keys to be monitored. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md54"></a>
+ <h2><a class="anchor" id="autotoc_md55"></a>
 Usage:</h2>
 <p>Sets all supported keys to be polled.</p>
-<h2><a class="anchor" id="autotoc_md55"></a>
+<h2><a class="anchor" id="autotoc_md56"></a>
 Explanation:</h2>
 <p>This is to be used only during testing, as checking every key can introduce significant overhead.</p>
 <p>For general use, make use of the function: <a class="el" href="#a9423761288cc4ffb23bd5f415906aafe" title="Setter for the keys to be monitored.">setKeysToMonitor(std::vector&lt;Key&gt;&amp; keysToMonitor)</a></p>
@@ -454,13 +454,13 @@ Explanation:</h2>
 
 <p>Setter for the keys to be monitored. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md56"></a>
+ <h2><a class="anchor" id="autotoc_md57"></a>
 Usage:</h2>
 <p>Sets the list of provided keys to be polled.</p>
-<h3><a class="anchor" id="autotoc_md57"></a>
+<h3><a class="anchor" id="autotoc_md58"></a>
 Input example:</h3>
 <p><code>std::vector&lt;Key&gt; keysToBeMonitored = { KEY_W, KEY_A, KEY_S, KEY_D };</code> <code>input-&gt;setKeysToMonitor(keysToBeMonitored);</code></p>
-<h2><a class="anchor" id="autotoc_md58"></a>
+<h2><a class="anchor" id="autotoc_md59"></a>
 Explanation:</h2>
 <p>This sets up the list of keys that will be polled on each <a class="el" href="#aa7fe26710dd863d11737bf2f6de4ad05" title="Update loop that polls the window for the state of each key.">update()</a> call.</p>
 <p>Ensure that only the needed keys are set.</p>
@@ -521,7 +521,7 @@ Explanation:</h2>
 
 <p>Update loop that polls the window for the state of each key. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md59"></a>
+ <h2><a class="anchor" id="autotoc_md60"></a>
 Usage:</h2>
 <p>Updates the previous state and stores the current state of the key.</p>
 <p>This should only be used after the <a class="el" href="classGameWindow.html#a91e9584fa74547af5f20243bd4a13459" title="Update function.">GameWindow::update()</a> call, as it relies on the game window having polled for events. </p>

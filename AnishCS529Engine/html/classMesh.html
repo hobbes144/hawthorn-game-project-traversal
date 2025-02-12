@@ -88,6 +88,8 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classMesh-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Mesh Class Reference</div></div>
 </div><!--header-->
@@ -105,6 +107,10 @@ Inheritance diagram for Mesh:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:aa6d0ac6c0ea8f06b8194aeb29f4a4648" id="r_aa6d0ac6c0ea8f06b8194aeb29f4a4648"><td class="memItemLeft" align="right" valign="top"><a id="aa6d0ac6c0ea8f06b8194aeb29f4a4648" name="aa6d0ac6c0ea8f06b8194aeb29f4a4648"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> { <b>Square</b>
+, <b>Cube</b>
+ }</td></tr>
+<tr class="separator:aa6d0ac6c0ea8f06b8194aeb29f4a4648"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abda0f43aca1e7a85492b891df907fb2b" id="r_abda0f43aca1e7a85492b891df907fb2b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abda0f43aca1e7a85492b891df907fb2b">Attributes</a></td></tr>
 <tr class="separator:abda0f43aca1e7a85492b891df907fb2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -146,9 +152,30 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasAttribute</b> (<a 
 <tr class="memitem:a5db6e4320ba53bfd030ca231d0544a2a" id="r_a5db6e4320ba53bfd030ca231d0544a2a"><td class="memItemLeft" align="right" valign="top"><a id="a5db6e4320ba53bfd030ca231d0544a2a" name="a5db6e4320ba53bfd030ca231d0544a2a"></a>
 const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const</td></tr>
 <tr class="separator:a5db6e4320ba53bfd030ca231d0544a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b69798863e7def8676a94ba2de0b93a" id="r_a1b69798863e7def8676a94ba2de0b93a"><td class="memItemLeft" align="right" valign="top"><a id="a1b69798863e7def8676a94ba2de0b93a" name="a1b69798863e7def8676a94ba2de0b93a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (<a class="el" href="classRenderer.html">Renderer</a> *renderer)</td></tr>
-<tr class="separator:a1b69798863e7def8676a94ba2de0b93a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88e183a002d1efa08a5c1d47bc8dd01d" id="r_a88e183a002d1efa08a5c1d47bc8dd01d"><td class="memItemLeft" align="right" valign="top"><a id="a88e183a002d1efa08a5c1d47bc8dd01d" name="a88e183a002d1efa08a5c1d47bc8dd01d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (GLenum mode=GL_TRIANGLES)</td></tr>
+<tr class="separator:a88e183a002d1efa08a5c1d47bc8dd01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a5f3e15cdd6d11985c1823c8d89d59ba5" id="r_a5f3e15cdd6d11985c1823c8d89d59ba5"><td class="memItemLeft" align="right" valign="top"><a id="a5f3e15cdd6d11985c1823c8d89d59ba5" name="a5f3e15cdd6d11985c1823c8d89d59ba5"></a>
+static std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createMesh</b> (const std::string name, Type type)</td></tr>
+<tr class="separator:a5f3e15cdd6d11985c1823c8d89d59ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d259b209e50073751fd98b6ae1606b9" id="r_a9d259b209e50073751fd98b6ae1606b9"><td class="memItemLeft" align="right" valign="top"><a id="a9d259b209e50073751fd98b6ae1606b9" name="a9d259b209e50073751fd98b6ae1606b9"></a>
+static std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createSquareMesh</b> (const std::string name)</td></tr>
+<tr class="separator:a9d259b209e50073751fd98b6ae1606b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99fc35f6ff70805c9156a0e21c140a02" id="r_a99fc35f6ff70805c9156a0e21c140a02"><td class="memItemLeft" align="right" valign="top"><a id="a99fc35f6ff70805c9156a0e21c140a02" name="a99fc35f6ff70805c9156a0e21c140a02"></a>
+static std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>createCubeMesh</b> (const std::string name)</td></tr>
+<tr class="separator:a99fc35f6ff70805c9156a0e21c140a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf2335c1a5ef26250509f93c658c7839" id="r_adf2335c1a5ef26250509f93c658c7839"><td class="memItemLeft" align="right" valign="top"><a id="adf2335c1a5ef26250509f93c658c7839" name="adf2335c1a5ef26250509f93c658c7839"></a>
+static std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getShapeMesh</b> (Type type)</td></tr>
+<tr class="separator:adf2335c1a5ef26250509f93c658c7839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a8fc255db6cc552dbe46280ba960d978a" id="r_a8fc255db6cc552dbe46280ba960d978a"><td class="memItemLeft" align="right" valign="top"><a id="a8fc255db6cc552dbe46280ba960d978a" name="a8fc255db6cc552dbe46280ba960d978a"></a>
+static std::unordered_map&lt; Type, std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>shapeMeshes</b></td></tr>
+<tr class="separator:a8fc255db6cc552dbe46280ba960d978a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="abda0f43aca1e7a85492b891df907fb2b" name="abda0f43aca1e7a85492b891df907fb2b"></a>

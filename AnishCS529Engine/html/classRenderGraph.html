@@ -94,16 +94,25 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2fa321c92a17f9e408fc90b5f2ad224d" id="r_a2fa321c92a17f9e408fc90b5f2ad224d"><td class="memItemLeft" align="right" valign="top"><a id="a2fa321c92a17f9e408fc90b5f2ad224d" name="a2fa321c92a17f9e408fc90b5f2ad224d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addPass</b> (std::shared_ptr&lt; <a class="el" href="classRenderPass.html">RenderPass</a> &gt; pass)</td></tr>
-<tr class="separator:a2fa321c92a17f9e408fc90b5f2ad224d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdde93cd4ca3fcd1fa713724e0894f1f" id="r_abdde93cd4ca3fcd1fa713724e0894f1f"><td class="memItemLeft" align="right" valign="top"><a id="abdde93cd4ca3fcd1fa713724e0894f1f" name="abdde93cd4ca3fcd1fa713724e0894f1f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (<a class="el" href="classRenderer.html">Renderer</a> *renderer, std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt; mesh)</td></tr>
-<tr class="separator:abdde93cd4ca3fcd1fa713724e0894f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a110abf4cbbf129463260ddc879de84a4" id="r_a110abf4cbbf129463260ddc879de84a4"><td class="memTemplParams" colspan="2"><a id="a110abf4cbbf129463260ddc879de84a4" name="a110abf4cbbf129463260ddc879de84a4"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a110abf4cbbf129463260ddc879de84a4"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addPass</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:a110abf4cbbf129463260ddc879de84a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a54b3fd0cc4bfb44afaedcda52fdb17" id="r_a4a54b3fd0cc4bfb44afaedcda52fdb17"><td class="memTemplParams" colspan="2"><a id="a4a54b3fd0cc4bfb44afaedcda52fdb17" name="a4a54b3fd0cc4bfb44afaedcda52fdb17"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4a54b3fd0cc4bfb44afaedcda52fdb17"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addPass</b> (const std::string &amp;name, std::shared_ptr&lt; T &gt; pass)</td></tr>
+<tr class="separator:a4a54b3fd0cc4bfb44afaedcda52fdb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01b368c2bc130b2c966ad19a49242e2d" id="r_a01b368c2bc130b2c966ad19a49242e2d"><td class="memItemLeft" align="right" valign="top"><a id="a01b368c2bc130b2c966ad19a49242e2d" name="a01b368c2bc130b2c966ad19a49242e2d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addLight</b> (std::shared_ptr&lt; <a class="el" href="classLight.html">Light</a> &gt; light)</td></tr>
+<tr class="separator:a01b368c2bc130b2c966ad19a49242e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1265cca7ab0cd47c391635e1e951e28" id="r_af1265cca7ab0cd47c391635e1e951e28"><td class="memItemLeft" align="right" valign="top"><a id="af1265cca7ab0cd47c391635e1e951e28" name="af1265cca7ab0cd47c391635e1e951e28"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt; mesh, RenderPass::PropertyMap properties, GLenum mode=GL_TRIANGLES)</td></tr>
+<tr class="separator:af1265cca7ab0cd47c391635e1e951e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>AnishCS529Engine/src/<a class="el" href="RenderGraph_8h_source.html">RenderGraph.h</a></li>
 <li>AnishCS529Engine/src/<b>RenderGraph.cpp</b></li>
+<li>AnishCS529Engine/src/<a class="el" href="RenderGraph_8inl_source.html">RenderGraph.inl</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

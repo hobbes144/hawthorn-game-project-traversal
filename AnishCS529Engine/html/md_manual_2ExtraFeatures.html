@@ -88,24 +88,24 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">Extra Features</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md131"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md136"></a></p>
 <p>The engine supports extra features that are being experimented on and aren't enabled by default.</p>
-<h2><a class="anchor" id="autotoc_md132"></a>
+<h2><a class="anchor" id="autotoc_md137"></a>
 Enabling extra features</h2>
 <p>To enable these features, you must make use of preprocessor definitions.</p>
 <p>You can find these under Project -&gt; Properties -&gt; C/C++ -&gt; Preprocessor -&gt; Preprocessor Definitions</p>
 <p><img src="../manual/PreprocessorDefinitions.png" alt="PreprocessorDefinitions" width="800" class="inline"/></p>
 <hr  />
-<h2><a class="anchor" id="autotoc_md134"></a>
+<h2><a class="anchor" id="autotoc_md139"></a>
 Supported Features</h2>
 <hr  />
-<h3><a class="anchor" id="autotoc_md136"></a>
+<h3><a class="anchor" id="autotoc_md141"></a>
 ENABLE_ADDITIONAL_ACCUMULATORS</h3>
 <p>This enables creation of any number of extra accumulators.</p>
 <p>Accumulators get updated on every endFrame() call. It can be used when we need to know the number of times some logic should run asyncronously.</p>
 <p>Enabling additional accumulators adds additional code to the endFrame() logic and should be used only if needed.</p>
 <hr  />
-<h3><a class="anchor" id="autotoc_md138"></a>
+<h3><a class="anchor" id="autotoc_md143"></a>
 ENABLE_RATE_CONTROLLERS</h3>
 <p>This enables creation of any number of rate controllers.</p>
 <p>Rate controllers are separate timers that are used to check if at least the designated rate has elapsed since last successful fire.</p>

@@ -18,6 +18,7 @@
 #include "OBB.h"
 #include "PhysicsManager.h"
 #include "Movement3D.h"
+#include "CollisionListener.h"
 
 extern "C"
 {
@@ -134,6 +135,8 @@ int main() {
     ->setShape(shape2)
     ->setDebug(true)
     ->registerToPhysicsManager(PhysicsManager::Instance());
+
+  CollisionListener boxTouch(box2);
 
   mainSceneGraph.addNode(box1);
   mainSceneGraph.addNode(box2);

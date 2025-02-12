@@ -1,36 +1,21 @@
 <map id="AnishCS529Engine/src/Mesh.h" name="AnishCS529Engine/src/Mesh.h">
-<area shape="rect" id="Node000001" title="Mesh class." alt="" coords="163,5,327,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,167,135,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,48,96,159,92,155,221,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="159,167,223,192"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="239,47,219,94,201,154,195,152,214,92,234,45"/>
-<area shape="rect" id="Node000004" href="$GeometryBuffer_8h.html" title="Geometry Buffer factory class that manages OpenGL buffers and their data." alt="" coords="229,93,367,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="260,44,284,80,280,83,255,47"/>
-<area shape="rect" id="Node000009" href="$Renderer_8h.html" title="Renderer implementation to initialize the OpenGL libraries and libraries." alt="" coords="593,93,686,119"/>
-<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="327,40,580,90,579,95,326,46"/>
-<area shape="poly" id="edge8_Node000004_Node000002" title=" " alt="" coords="262,121,121,165,119,160,261,116"/>
-<area shape="poly" id="edge9_Node000004_Node000003" title=" " alt="" coords="282,121,222,161,219,157,279,116"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="461,240,562,265"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="341,116,392,135,444,165,475,195,499,227,495,230,471,199,440,169,390,140,340,121"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="425,313,502,339"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="310,117,348,165,377,215,389,237,407,264,442,302,438,306,403,267,384,240,372,218,344,168,306,120"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="248,167,335,192"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="300,119,296,153,291,153,294,119"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="615,313,671,339"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="317,117,375,165,397,193,410,218,425,240,450,263,488,284,528,299,603,317,601,322,526,305,485,289,447,267,421,244,406,220,392,196,371,169,313,121"/>
-<area shape="rect" id="Node000010" href="$Component_8h.html" title="Component Class used as the base of the Entity Component System." alt="" coords="586,240,701,265"/>
-<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="642,119,645,226,640,226,637,119"/>
-<area shape="rect" id="Node000011" href="$GameWindow_8h.html" title="File containing GameWindow Object and associated logic." alt="" coords="677,167,805,192"/>
-<area shape="poly" id="edge14_Node000009_Node000011" title=" " alt="" coords="657,116,714,156,711,161,654,121"/>
-<area shape="poly" id="edge12_Node000010_Node000006" title=" " alt="" coords="615,268,506,311,504,306,613,263"/>
-<area shape="poly" id="edge13_Node000010_Node000008" title=" " alt="" coords="646,266,646,300,641,300,641,266"/>
-<area shape="poly" id="edge15_Node000011_Node000005" title=" " alt="" coords="705,195,563,238,561,233,703,189"/>
-<area shape="poly" id="edge18_Node000011_Node000008" title=" " alt="" coords="741,193,733,228,715,267,696,289,674,307,671,303,692,285,710,264,728,226,736,192"/>
-<area shape="poly" id="edge17_Node000011_Node000010" title=" " alt="" coords="727,194,672,234,669,229,723,190"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="775,240,887,265"/>
-<area shape="poly" id="edge16_Node000011_Node000012" title=" " alt="" coords="757,190,807,229,804,233,754,194"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="912,240,991,265"/>
-<area shape="poly" id="edge19_Node000011_Node000013" title=" " alt="" coords="775,189,905,233,904,238,774,195"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="1015,240,1103,265"/>
-<area shape="poly" id="edge20_Node000011_Node000014" title=" " alt="" coords="792,189,1002,236,1001,241,791,195"/>
+<area shape="rect" id="Node000001" title="Mesh class." alt="" coords="81,5,245,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="32,93,100,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,48,93,87,89,82,138,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,135,192"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,47,114,120,89,157,84,154,109,117,151,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="159,167,223,192"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="170,45,189,153,184,153,164,46"/>
+<area shape="rect" id="Node000005" href="$GeometryBuffer_8h.html" title="Geometry Buffer factory class that manages OpenGL buffers and their data." alt="" coords="227,93,364,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="196,43,265,84,262,88,194,48"/>
+<area shape="poly" id="edge9_Node000005_Node000003" title=" " alt="" coords="260,121,120,165,119,160,258,116"/>
+<area shape="poly" id="edge10_Node000005_Node000004" title=" " alt="" coords="280,121,221,161,218,156,277,116"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="439,167,541,192"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="328,116,446,159,445,164,326,121"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="565,167,642,192"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="345,116,552,163,550,169,344,121"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="248,167,335,192"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="297,119,295,153,290,153,292,119"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="359,167,415,192"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="312,117,363,156,360,160,308,121"/>
 </map>
