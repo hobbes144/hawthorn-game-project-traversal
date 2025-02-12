@@ -4,7 +4,7 @@
 
 class Shape {
 public:
-  enum class Type {
+  enum class Type { 
     AABB,
     OBB,
     Sphere
