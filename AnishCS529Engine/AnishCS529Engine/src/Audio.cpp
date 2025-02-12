@@ -211,6 +211,65 @@ void AudioManager::setListenerPosition(const Vector3& position) {
 }
 
 /*!****************************************************************************
+ * \brief Set the playback speed for all current playing audio.
+ *
+ * ## Usage:
+ *
+ * Call this method to adjust the playback speed of all currently playing audio.
+ *
+ * \param speed A positive float value representing the desired playback speed.
+ *              For example, 0.5 for half speed, 2.0 for double speed.
+ * \return void
+ *****************************************************************************/
+void AudioManager::setPlaybackSpeed(float speed) {
+    assert(speed > 0.0f && "Playback speed must be a positive value");
+    currentPlaybackSpeed_ = speed;
+
+    FMOD::ChannelGroup* masterGroup = nullptr;
+    FMOD_RESULT result = fmodSystem_->getMasterChannelGroup(&masterGroup);
+    assert(result == FMOD_OK && masterGroup && "Failed to get master channel group");
+
+    int numChannels = 0;
+    result = masterGroup->getNumChannels(&numChannels);
+    assert(result == FMOD_OK && "Failed to get number of channels");
+
+    // Iterate over all active channels and set their pitch.
+    for (int i = 0; i < numChannels; ++i) {
+        FMOD::Channel* channel = nullptr;
+        result = masterGroup->getChannel(i, &channel);
+        if (result == FMOD_OK && channel) {
+            result = channel->setPitch(currentPlaybackSpeed_);
+        }
+    }
+    std::cout << "[AudioManager] Playback speed set to " << speed << "x.\n";
+}
+
+/*!****************************************************************************
+ * \brief Toggle playback speed between normal and a given speed.
+ *
+ * ## Usage:
+ *
+ * Call this method to toggle the playback speed between the provided speed and
+ * normal speed (1.0). For example, if you want half-speed playback, calling
+ * togglePlaybackSpeed(0.5f) will set the speed to 0.5 if it is currently 1.0,
+ * or revert to 1.0 if it is already 0.5.
+ *
+ * \param speed A positive float value representing the alternate playback speed.
+ * \return void
+ *****************************************************************************/
+void AudioManager::togglePlaybackSpeed(float speed) {
+    // Use a small epsilon to compare floating-point values.
+    const float epsilon = 0.001f;
+    if (std::fabs(currentPlaybackSpeed_ - speed) < epsilon) {
+        setPlaybackSpeed(1.0f);
+    }
+    else {
+        setPlaybackSpeed(speed);
+
+    }
+}
+
+/*!****************************************************************************
  * \brief Shut down the AudioManager and release all resources.
  *
  * ## Usage:

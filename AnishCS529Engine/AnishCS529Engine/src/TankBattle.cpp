@@ -48,7 +48,7 @@ int main() {
 
     // loading the sound so it can be played
     AudioManager::instance().loadSound("laser", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/backgroundMusic.mp3", true, true);
+    AudioManager::instance().loadSound("music", "media/audio/1234.mp3", true, true);
 
 
   /* Renderer setup */
@@ -226,6 +226,9 @@ int main() {
     mainInput->update();
     // Update fmod system
     AudioManager::instance().update();
+    if (mainInput->isKeyPressed(KEY_V)) {
+        AudioManager::instance().togglePlaybackSpeed(0.5);
+    }
     if (mainInput->isKeyPressed(KEY_SPACE)) {
         AudioManager::instance().playSound("laser", Vector3(protag->getLocalPosition()[0], protag->getLocalPosition()[1], protag->getLocalPosition()[2]));
         

@@ -51,9 +51,13 @@
   *   - You need to call update every frame to play the sounds properly.
   * - Adjust the listener’s position using setListenerPosition() to control 3D audio:
   *   - Example: AudioManager::instance().setListenerPosition(x, y, z);
+  * - To change playback speed, call setPlaybackSpeed():
+  *   - Example: AudioManager::instance().setPlaybackSpeed(0.5f);
+  * - To toggle playback speed, call togglePlaybackSpeed(), when called again reset the speed.
+  *   - Example: AudioManager::instance().togglePlaybackSpeed(0.7f);
   * - Before terminating the application, call shutdown() to clean up the audio system:
   *   - Example: AudioManager::instance().shutdown();
-  *
+  * 
   * ## Defaults:
   *
   * - Maximum channels: 512 (can be adjusted via the init() parameter)
@@ -75,6 +79,8 @@ public:
     void loadSound(const std::string& name, const std::string& path, bool is3D = false, bool loop = false);
     void playSound(const std::string& name, const Vector3& position = Vector3());
     void setListenerPosition(const Vector3& position);
+    void setPlaybackSpeed(float speed);
+    void togglePlaybackSpeed(float speed = 1);
 
 private:
     AudioManager() = default;
@@ -84,6 +90,8 @@ private:
     AudioManager& operator=(const AudioManager&) = delete;
     FMOD::System* fmodSystem_ = nullptr;
     std::unordered_map<std::string, FMOD::Sound*> sounds_;
+
+    float currentPlaybackSpeed_ = 1.0f;
 };
 
 #endif // AUDIO_H
