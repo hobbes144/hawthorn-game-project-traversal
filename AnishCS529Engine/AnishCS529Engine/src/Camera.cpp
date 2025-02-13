@@ -161,7 +161,7 @@ void Camera::initialize() {
  * \param deltaTime
  *****************************************************************************/
 void Camera::update(float deltaTime) {
-  Node::update(deltaTime);
+  GameObject::update(deltaTime);
 
   updateViewMatrix();
 }

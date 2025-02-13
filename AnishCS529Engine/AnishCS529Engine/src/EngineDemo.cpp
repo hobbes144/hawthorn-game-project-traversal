@@ -60,7 +60,7 @@ int main() {
     /* Audio System Initalization */
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/1234.mp3", true, true);
+    AudioManager::instance().loadSound("music", "media/audio/backgroundMusic.mp3", true, true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
     AudioManager::instance().playSound("music", Vector3(0, 0, 0));
 
@@ -81,10 +81,25 @@ int main() {
     auto cameraShape = std::make_shared<OBB>(
         Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
         Vector3(0.5f, 0.5f, 0.5f));
-    auto cameraPhysicsBodyComponent = camera->addComponent<PhysicsBody>()
-        ->setMass(1.0f)->setFriction(1.0f)
+    camera->addComponent<PhysicsBody>()
+        ->setMass(10.0f)->setFriction(100.0f)
         ->setShape(cameraShape)
+        //->setDebug(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());
+
+    auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
+        ->setAction(Movement3D::Forward, KEY_W)
+        ->setAction(Movement3D::Back, KEY_S)
+        ->setAction(Movement3D::Left, KEY_A)
+        ->setAction(Movement3D::Right, KEY_D)
+        ->setAction(Movement3D::Up, KEY_R)
+        ->setAction(Movement3D::Down, KEY_F)
+        ->setAction(Movement3D::RollClockwise, KEY_LEFT)
+        ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
+        ->setAction(Movement3D::PitchClockwise, KEY_UP)
+        ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
+        ->setAction(Movement3D::YawClockwise, KEY_Q)
+        ->setAction(Movement3D::YawAntiClockwise, KEY_E);
 
     /* Create relevant Meshes*/
     auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
@@ -141,21 +156,6 @@ int main() {
 
     CollisionListener boxTouch(floor);
 
-
-    auto box1InputMovementComponent = box1->addComponent<Movement3D>()->setInputSystem(mainInput)
-        ->setAction(Movement3D::Forward, KEY_W)
-        ->setAction(Movement3D::Back, KEY_S)
-        ->setAction(Movement3D::Left, KEY_A)
-        ->setAction(Movement3D::Right, KEY_D)
-        ->setAction(Movement3D::Up, KEY_R)
-        ->setAction(Movement3D::Down, KEY_F)
-        ->setAction(Movement3D::RollClockwise, KEY_LEFT)
-        ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
-        ->setAction(Movement3D::PitchClockwise, KEY_UP)
-        ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
-        ->setAction(Movement3D::YawClockwise, KEY_Q)
-        ->setAction(Movement3D::YawAntiClockwise, KEY_E);
-
     mainSceneGraph.addNode(box1);
     mainSceneGraph.addNode(floor);
 
@@ -186,7 +186,7 @@ int main() {
 
         //Audio Update
         AudioManager::instance().update();
-        AudioManager::instance().setListenerPosition(box1.get()->getWorldTransform().getPosition());
+        AudioManager::instance().setListenerPosition(camera.get()->getWorldTransform().getPosition());
 
         if (mainInput->isKeyPressed(KEY_SPACE)) {
             AudioManager::instance().playSound("pew");
