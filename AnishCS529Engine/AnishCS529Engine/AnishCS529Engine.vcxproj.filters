@@ -148,6 +148,18 @@
     <Filter Include="Engine\Header Files\Systems\RenderingSystem\RenderPasses">
       <UniqueIdentifier>{64a77495-12b5-4db7-8cb3-50047fa61c03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\TestObjects">
+      <UniqueIdentifier>{670ec0ad-2323-4ab5-8612-8a0838736aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestLibraries">
+      <UniqueIdentifier>{2621ab4a-b985-4bde-a705-a7d91bb572ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestShaders">
+      <UniqueIdentifier>{c4b5a21d-223a-49e9-b094-a03e9a3567d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\TestRenderPasses">
+      <UniqueIdentifier>{40dda85b-0939-4ba1-912c-e300af96e9a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -320,6 +332,15 @@
     </ClCompile>
     <ClCompile Include="src\Movement3D.cpp">
       <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rply.c">
+      <Filter>Tests\TestLibraries</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestShapes.cpp">
+      <Filter>Tests\TestObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\simplexnoise.cpp">
+      <Filter>Tests\TestLibraries</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -527,6 +548,18 @@
     <ClInclude Include="src\Movement3D.h">
       <Filter>Engine\Header Files\ObjectResources\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\TestShapes.h">
+      <Filter>Tests\TestObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rply.h">
+      <Filter>Tests\TestLibraries</Filter>
+    </ClInclude>
+    <ClInclude Include="src\simplexnoise.h">
+      <Filter>Tests\TestLibraries</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TestPass.h">
+      <Filter>Tests\TestRenderPasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -567,6 +600,18 @@
     </None>
     <None Include="shaders\debug.vert.glsl">
       <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\main.vert">
+      <Filter>Tests\TestShaders</Filter>
+    </None>
+    <None Include="shaders\main.frag">
+      <Filter>Tests\TestShaders</Filter>
+    </None>
+    <None Include="shaders\lighting.vert">
+      <Filter>Tests\TestShaders</Filter>
+    </None>
+    <None Include="shaders\lighting.frag">
+      <Filter>Tests\TestShaders</Filter>
     </None>
   </ItemGroup>
 </Project>

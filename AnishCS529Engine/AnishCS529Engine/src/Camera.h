@@ -18,10 +18,11 @@
 
 /* Base class */
 #include "Node.h"
+#include "GameObject.h"
 
-class Camera : public Node {
+class Camera : public GameObject {
 public:
-  Camera(std::string name) : Node(name) {};
+  Camera(std::string name) : GameObject(name) {};
   ~Camera() = default;
 
   /* Component functions */

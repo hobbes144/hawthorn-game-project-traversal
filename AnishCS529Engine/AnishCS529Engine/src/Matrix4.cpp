@@ -246,9 +246,6 @@ Matrix4 Matrix4::scale(const Vector3& scaling)
   return result;
 }
 
-/** Pi constant for maths */
-const float pi = 3.14159f;
-
 /*!****************************************************************************
  * \brief Static function to create a Rotation matrix in the x axis
  *

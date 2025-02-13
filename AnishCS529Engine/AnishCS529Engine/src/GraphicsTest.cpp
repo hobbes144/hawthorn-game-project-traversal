@@ -19,6 +19,7 @@
 #include "PhysicsManager.h"
 #include "Movement3D.h"
 #include "CollisionListener.h"
+#include "TestPass.h"
 
 extern "C"
 {
@@ -41,6 +42,8 @@ int main() {
   mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
 
   mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
+  //std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");
+  //testPass->setProperty()
 
   //mainWindow->setVsync(true);
 
@@ -66,12 +69,52 @@ int main() {
     45.0f * 3.14159f / 180.0f,
     mainWindow->getAspectRatio(),
     0.1f,
-    1000.0f)->setLocalPosition(Vector3(0.0f, 0.0f, 10.0f));
+    5000.0f)->setLocalPosition(Vector3(0.0f, 0.0f, 10.0f));
   mainSceneGraph.addNode(camera);
+
+  auto cameraShape = std::make_shared<OBB>(
+      Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+      Vector3(0.5f, 0.5f, 0.5f));
+  camera->addComponent<PhysicsBody>()
+    ->setMass(10.0f)->setFriction(100.0f)
+    ->setShape(cameraShape)
+    //->setDebug(true)
+    ->registerToPhysicsManager(PhysicsManager::Instance());
+
+  auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
+    ->setAction(Movement3D::Forward, KEY_W)
+    ->setAction(Movement3D::Back, KEY_S)
+    ->setAction(Movement3D::Left, KEY_A)
+    ->setAction(Movement3D::Right, KEY_D)
+    ->setAction(Movement3D::Up, KEY_R)
+    ->setAction(Movement3D::Down, KEY_F)
+    ->setAction(Movement3D::RollClockwise, KEY_LEFT)
+    ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
+    ->setAction(Movement3D::PitchClockwise, KEY_UP)
+    ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
+    ->setAction(Movement3D::YawClockwise, KEY_Q)
+    ->setAction(Movement3D::YawAntiClockwise, KEY_E);
 
   /* Create relevant Meshes*/
   auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
   auto boxMaterial = Material::getMaterial<TextureMaterial>("box", mainRenderer->getRenderGraph());
+  //boxMaterial->setProperty("textureMode", 1);
+
+
+  auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
+  auto skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox", mainRenderer->getRenderGraph());
+  skyBoxMaterial->addTexture("media/beach.jpg");
+  //skyBoxMaterial->setProperty("objectId", 1);
+  //skyBoxMaterial->setProperty("textureMode", 1);
+
+  auto skyBox = std::make_shared<GameObject>("SkyBox");
+  skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
+  auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
+  skyBoxRenderComponent
+    ->setCamera(camera)
+    ->setMesh(sphereMesh)
+    ->setMaterial(skyBoxMaterial);
 
 // Drawable objects
   auto box1 = std::make_shared<GameObject>("Box1");
@@ -94,20 +137,6 @@ int main() {
     ->setCamera(camera)
     ->setMesh(boxMesh)
     ->setMaterial(boxMaterial);
-
-  auto box1InputComponent = box1->addComponent<Movement3D>()->setInputSystem(mainInput)
-    ->setAction(Movement3D::Forward, KEY_W)
-    ->setAction(Movement3D::Back, KEY_S)
-    ->setAction(Movement3D::Left, KEY_A)
-    ->setAction(Movement3D::Right, KEY_D)
-    ->setAction(Movement3D::Up, KEY_R)
-    ->setAction(Movement3D::Down, KEY_F)
-    ->setAction(Movement3D::RollClockwise, KEY_LEFT)
-    ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
-    ->setAction(Movement3D::PitchClockwise, KEY_UP)
-    ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
-    ->setAction(Movement3D::YawClockwise, KEY_Q)
-    ->setAction(Movement3D::YawAntiClockwise, KEY_E);
 
 
   // Create OBBs
@@ -140,6 +169,7 @@ int main() {
 
   mainSceneGraph.addNode(box1);
   mainSceneGraph.addNode(box2);
+  mainSceneGraph.addNode(skyBox);
 
   float angleX = 0.0f;
   float angleY = 0.0f;

@@ -32,6 +32,8 @@ public:
 
   /**
     \brief Attribute types supported by the code
+
+    These are also the positions of each attribute in the GPU.
   */
   enum class AttributeType {
     Position,
@@ -205,6 +207,8 @@ private:
   void initializeBuffers(
     Attributes& attributeData, 
     const std::vector<unsigned int>& indices);
+
+  GLenum getGlType(AttributeType);
 
   void cleanupBuffers();
 

@@ -26,6 +26,8 @@ public:
   std::shared_ptr<T> addPass(const std::string& name);
   template <typename T>
   std::shared_ptr<T> addPass(const std::string& name, std::shared_ptr<T> pass);
+  template <typename T>
+  std::shared_ptr<T> getPass(const std::string& name);
 
   void addLight(std::shared_ptr<Light> light);
 

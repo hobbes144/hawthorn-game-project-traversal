@@ -10,8 +10,6 @@
  *****************************************************************************/
 #include "Renderer.h"
 
-const float pi = 3.14159f;
-
 /* Private functions */
 
 // OpenGL Debugging function
