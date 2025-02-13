@@ -198,6 +198,10 @@ int main() {
             AudioManager::instance().togglePlaybackSpeed(0.7);
         }
 
+        if (mainInput->isKeyPressed(KEY_M)) {
+            AudioManager::instance().stopSound("radio");
+        }
+
         mainSceneGraph.update(deltaTime);
 
         mainFramerateController->endFrame();

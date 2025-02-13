@@ -46,6 +46,8 @@
   *     - Optionally, a loop flag can be provided on the 4th parameter.
   * - Play sounds using playSound():
   *   - Example: AudioManager::instance().playSound("pew", 0.0f, 0.0f, 0.0f);
+  * - Stop a sound using stopSound():
+  *   - Example: AudioManager::instance().stopSound("radio");
   * - In the main loop, call update() every frame to process audio updates:
   *   - Example: AudioManager::instance().update();
   *   - You need to call update every frame to play the sounds properly.
@@ -78,6 +80,7 @@ public:
     void shutdown();
     void loadSound(const std::string& name, const std::string& path, bool is3D = false, bool loop = false);
     void playSound(const std::string& name, const Vector3& position = Vector3(), float volume = 1.0f);
+    void stopSound(const std::string& name);
     void setListenerPosition(const Vector3& position);
     void setPlaybackSpeed(float speed);
     void togglePlaybackSpeed(float speed = 1);
