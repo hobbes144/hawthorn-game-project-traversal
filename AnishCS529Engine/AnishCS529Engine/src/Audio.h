@@ -77,7 +77,7 @@ public:
     void update();
     void shutdown();
     void loadSound(const std::string& name, const std::string& path, bool is3D = false, bool loop = false);
-    void playSound(const std::string& name, const Vector3& position = Vector3());
+    void playSound(const std::string& name, const Vector3& position = Vector3(), float volume = 1.0f);
     void setListenerPosition(const Vector3& position);
     void setPlaybackSpeed(float speed);
     void togglePlaybackSpeed(float speed = 1);

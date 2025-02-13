@@ -155,7 +155,7 @@ void AudioManager::loadSound(const std::string& name, const std::string& path, b
  * \param z The z-coordinate of the sound's position in 3D space.
  * \return void
  *****************************************************************************/
-void AudioManager::playSound(const std::string& name, const Vector3& position) {
+void AudioManager::playSound(const std::string& name, const Vector3& position, float volume) {
     // Find the sound by its name
     auto it = sounds_.find(name);
     assert(it != sounds_.end() && "Sound not found");
@@ -177,6 +177,9 @@ void AudioManager::playSound(const std::string& name, const Vector3& position) {
         FMOD_VECTOR pos = { position.x, position.y, position.z };
         FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f }; // velocity can be used for Doppler effect
         channel->set3DAttributes(&pos, &vel);
+    }
+    if (channel) {
+        channel->setVolume(volume);
     }
 }
 
