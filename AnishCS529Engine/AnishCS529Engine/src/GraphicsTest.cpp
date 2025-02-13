@@ -70,7 +70,7 @@ int main() {
   mainSceneGraph.addNode(camera);
 
   /* Create relevant Meshes*/
-  auto boxMesh = Mesh::createMesh("box", Mesh::Square);
+  auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
   auto boxMaterial = Material::getMaterial<TextureMaterial>("box", mainRenderer->getRenderGraph());
 
 // Drawable objects
@@ -114,26 +114,26 @@ int main() {
   auto shape1 = std::make_shared<OBB>(
       Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
       Vector3(0.5f, 0.5f, 0.5f));
-  shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+  //shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
   // Todo: When Z scale is set to 0, the box no longer follows the object in
   // the Z axis.
   auto shape2 = std::make_shared<OBB>(
       Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
       Vector3(0.5f, 0.5f, 0.5f));
-  shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+  //shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
 
   // Create instances of bodies for boxes
   box1->addComponent<PhysicsBody>()
     ->setMass(10.0f)->setFriction(100.0f)
     ->setShape(shape1)
-    ->setDebug(true)
+    //->setDebug(true)
     ->registerToPhysicsManager(PhysicsManager::Instance());
 
   box2->addComponent<PhysicsBody>()
     ->setMass(10.0f)->setFriction(100.0f)
     ->setShape(shape2)
-    ->setDebug(true)
+    //->setDebug(true)
     ->registerToPhysicsManager(PhysicsManager::Instance());
 
   CollisionListener boxTouch(box2);

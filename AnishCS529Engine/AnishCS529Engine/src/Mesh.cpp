@@ -183,31 +183,43 @@ std::shared_ptr<Mesh> Mesh::createCubeMesh(const std::string name)
   // We'll use a unit rectangle centered at the origin
   std::vector<float> vertices = {
     // Box corners in normalized coordinates (-0.5 to 0.5)
-    -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,  // Bottom-left-Front    //  0
-     0.5f, -0.5f, -0.5f,   0.0f, 0.0f,  // Bottom-right-Front   //  1
-     0.5f,  0.5f, -0.5f,   0.0f, 0.0f,  // Top-right-Front      //  2
-    -0.5f,  0.5f, -0.5f,   0.0f, 0.0f,  // Top-left-Front       //  3
-    -0.5f, -0.5f, 0.5f,   0.0f, 0.0f,  // Bottom-left-Back      //  4
-     0.5f, -0.5f, 0.5f,   0.0f, 0.0f,  // Bottom-right-Back     //  5
-     0.5f,  0.5f, 0.5f,   0.0f, 0.0f,  // Top-right-Back        //  6
-    -0.5f,  0.5f, 0.5f,   0.0f, 0.0f,  // Top-left-Back         //  7
+    -0.5f, -0.5f, -0.5f,   1.0f, 0.0f,  // Bottom-left-Back    //  0 A
+     0.5f, -0.5f, -0.5f,   0.0f, 0.0f,  // Bottom-right-Back   //  1 B
+     0.5f,  0.5f, -0.5f,   0.0f, 1.0f,  // Top-right-Back      //  2 C
+    -0.5f,  0.5f, -0.5f,   1.0f, 1.0f,  // Top-left-Back       //  3 D
+    -0.5f, -0.5f, 0.5f,   0.0f, 0.0f,  // Bottom-left-Front      //  4 E
+     0.5f, -0.5f, 0.5f,   1.0f, 0.0f,  // Bottom-right-Front     //  5 F
+     0.5f,  0.5f, 0.5f,   1.0f, 1.0f,  // Top-right-Front        //  6 G
+    -0.5f,  0.5f, 0.5f,   0.0f, 1.0f,  // Top-left-Front         //  7 H
+    -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,  // Bottom-left-Back    //  8 A
+     0.5f, -0.5f, -0.5f,   1.0f, 0.0f,  // Bottom-right-Back   //  9 B
+     0.5f,  0.5f, -0.5f,   1.0f, 1.0f,  // Top-right-Back      // 10 C
+    -0.5f,  0.5f, -0.5f,   0.0f, 1.0f,  // Top-left-Back       // 11 D
+    -0.5f, -0.5f, 0.5f,   0.0f, 1.0f,  // Bottom-left-Front      // 12 E
+     0.5f, -0.5f, 0.5f,   1.0f, 1.0f,  // Bottom-right-Front     // 13 F
+     0.5f,  0.5f, 0.5f,   1.0f, 0.0f,  // Top-right-Front        // 14 G
+    -0.5f,  0.5f, 0.5f,   0.0f, 0.0f,  // Top-left-Front         // 15 H
+    -0.5f, -0.5f, 0.5f,   1.0f, 0.0f,  // Bottom-left-Front      // 16 E
+     0.5f, -0.5f, 0.5f,   0.0f, 0.0f,  // Bottom-right-Front     // 17 F
+     0.5f,  0.5f, 0.5f,   0.0f, 1.0f,  // Top-right-Front        // 18 G
+    -0.5f,  0.5f, 0.5f,   1.0f, 1.0f,  // Top-left-Front         // 19 H
   };
 
 
   // Generate indices for two triangles
   std::vector<unsigned int> indices = {
-    0, 1,  // Bottom Front edge         // 0
-    1, 2,  // Right Front edge          // 2
-    2, 3,  // Top Front edge            // 4
-    3, 0,  // Left Front edge           // 6
-    4, 5,  // Bottom Back edge          // 8
-    5, 6,  // Right Back edge           // 10
-    6, 7,  // Top Back edge             // 12
-    7, 4,  // Left Back edge            // 14
-    0, 4,  // Bottom Left Z Axis edge   // 16
-    1, 5,  // Bottom Right Z Axis edge  // 18
-    2, 6,  // Top Right Z Axis edge     // 20
-    3, 7,  // Top Left Z Axis edge      // 22
+    0, 1, 2,  // Bottom Right Back triangle     // 0
+    2, 3, 0,  // Top left Back triangle          // 3
+    4, 5, 6,  // Bottom Right Front triangle          // 6
+    6, 7, 4,  // Top Left Front triangle           // 9
+    8, 9, 13,  // Bottom Right Bottom triangle     // 12
+    13, 12, 8,  // Top left Bottom triangle          // 15
+    15, 14, 10,  // Bottom Right Top triangle          // 18
+    10, 11, 15,  // Top Left Top triangle           // 21
+    16, 8, 11,  // Bottom Right Left triangle     // 24
+    11, 19, 16,  // Top left Left triangle          // 27
+    10, 9, 17,  // Bottom Right Right triangle          // 30
+    17, 18, 10,  // Top Left Right triangle           // 33
   };
 
   Mesh::Attributes newMeshData;
