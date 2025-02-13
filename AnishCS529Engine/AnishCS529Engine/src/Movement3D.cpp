@@ -7,6 +7,7 @@
  * 
  *****************************************************************************/
 #include "Movement3D.h"
+#include "Audio.h"
 
 
 std::shared_ptr<Movement3D> Movement3D::setInputSystem(

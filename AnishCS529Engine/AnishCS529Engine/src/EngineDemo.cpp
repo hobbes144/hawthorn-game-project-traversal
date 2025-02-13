@@ -19,6 +19,7 @@
 #include "PhysicsManager.h"
 #include "Movement3D.h"
 #include "CollisionListener.h"
+#include "Audio.h"
 
 extern "C"
 {
@@ -55,6 +56,11 @@ int main() {
     /* Framerate controller setup */
     FFramerateController* mainFramerateController =
         FFramerateController::getController();
+
+    /* Audio System Initalization */
+    AudioManager::instance().initialize();
+    AudioManager::instance().loadSound("pew", "/media/pew.mp3", true);
+    AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
 
     /* Scenegraph setup */
     SceneGraph mainSceneGraph;
@@ -176,6 +182,9 @@ int main() {
             mainFramerateController->consumePhysicsTime();
         }
 
+        //Audio Update
+        AudioManager::instance().update();
+
         mainSceneGraph.update(deltaTime);
 
         mainFramerateController->endFrame();
@@ -190,6 +199,7 @@ int main() {
     mainInput->shutdown();
     mainRenderer->shutdown();
     mainWindow->shutdown();
+    AudioManager::instance().shutdown();
 
     delete mainInput;
     delete mainRenderer;
