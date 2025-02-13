@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////
 // Pixel shader for lighting
 ////////////////////////////////////////////////////////////////////////
-#version 330
+#version 430
 
 #define M_PI 3.1415926535897932384626433832795
 
@@ -140,7 +140,7 @@ vec3 LightingFragment()
       }
       else if (objectId == skyId) {
         // Sky skips light processing so using a shortcut.
-        uv = vec2(-atan(V.y,V.x)/(2.0f*pi), acos(V.z)/pi);
+        uv = vec2(atan(V.x,V.z)/(2.0f*pi), acos(V.y)/pi);
         vec4 color = texture(texture0, uv);
         FragColor = color.rgb;
         if (enableExposure) {

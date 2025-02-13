@@ -20,6 +20,7 @@
 #include "Movement3D.h"
 #include "CollisionListener.h"
 #include "TestPass.h"
+#include "MainTestMaterial.h"
 
 extern "C"
 {
@@ -28,6 +29,8 @@ extern "C"
 }
 
 int main() {
+  const float rad = PI / 180.0f;
+
   /* Game Window setup */
   int windowWidth = 1280;
   int windowHeight = 720;
@@ -41,9 +44,26 @@ int main() {
   mainRenderer->initialize();
   mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
 
-  mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
-  //std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");
-  //testPass->setProperty()
+  //mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
+  std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");
+ 
+  /* Test stuff for lighting */
+  double lightSpin = 150.0;
+  double lightTilt = -45.0;
+  double lightDist = 100.0;
+  Vector3 lightPos = Vector3(lightDist * cos(lightSpin * rad) * sin(lightTilt * rad),
+                         lightDist * sin(lightSpin * rad) * sin(lightTilt * rad),
+                         lightDist * cos(lightTilt * rad));
+  testPass->setProperty("lightPos", lightPos);
+  testPass->setProperty("mode", 2);
+  testPass->setProperty("mode", 2);
+
+  Vector3 Light, Ambient;
+  Light = Vector3(4.0, 4.0, 4.0);
+  Ambient = Vector3(0.2, 0.2, 0.2);
+
+  testPass->setProperty("Light", Light);
+  testPass->setProperty("Ambient", Ambient);
 
   //mainWindow->setVsync(true);
 
@@ -97,15 +117,19 @@ int main() {
 
   /* Create relevant Meshes*/
   auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
-  auto boxMaterial = Material::getMaterial<TextureMaterial>("box", mainRenderer->getRenderGraph());
-  //boxMaterial->setProperty("textureMode", 1);
+  auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
+  boxMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+  boxMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+  boxMaterial->setProperty("shininess", 10.0f);
+  boxMaterial->setProperty("objectId", 5);
+  boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
+  boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
 
 
   auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
-  auto skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox", mainRenderer->getRenderGraph());
+  auto skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
   skyBoxMaterial->addTexture("media/beach.jpg");
-  //skyBoxMaterial->setProperty("objectId", 1);
-  //skyBoxMaterial->setProperty("textureMode", 1);
+  skyBoxMaterial->setProperty("objectId", 1);
 
   auto skyBox = std::make_shared<GameObject>("SkyBox");
   skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
@@ -118,7 +142,7 @@ int main() {
 
 // Drawable objects
   auto box1 = std::make_shared<GameObject>("Box1");
-  box1->setLocalPosition(Vector3(2.0f, 0.0f, 0.0f))
+  box1->setLocalPosition(Vector3(4.0f, 0.0f, 0.0f))
     ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -129,7 +153,7 @@ int main() {
     ->setMaterial(boxMaterial);
 
   auto box2 = std::make_shared<GameObject>("Box2");
-  box1->setLocalPosition(Vector3(-2.0f, 0.0f, 0.0f))
+  box1->setLocalPosition(Vector3(-4.0f, 0.0f, 0.0f))
     ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
 
   auto box2RenderComponent = box2->addComponent<Render2D>();

@@ -27,9 +27,15 @@ private:
 
 public:
   VectorTemplated() : data{} {}
-  VectorTemplated(T* arr) : data{} {
+  VectorTemplated(const T* arr) : data{} {
     for (int i = 0; i < N; ++i) {
       data[i] = arr[i];
+    }
+  }
+
+  VectorTemplated(const T val) : data{} {
+    for (int i = 0; i < N; ++i) {
+      data[i] = val;
     }
   }
   explicit VectorTemplated(const std::array<T, N>& values) : data(values) {}
@@ -51,7 +57,7 @@ public:
   VectorTemplated operator-(const VectorTemplated& other) const {
     VectorTemplated result;
     for (int i = 0; i < N; i++) {
-      result.data[i] = data[i] + other.data[i];
+      result.data[i] = data[i] - other.data[i];
     }
 
     return result;
@@ -62,6 +68,15 @@ public:
     VectorTemplated result;
     for (int i = 0; i < N; i++) {
       result.data[i] = data[i] * scalar;
+    }
+
+    return result;
+  }
+
+  VectorTemplated operator*(const VectorTemplated& other) const {
+    VectorTemplated result;
+    for (int i = 0; i < N; i++) {
+      result.data[i] = data[i] * other.data[i];
     }
 
     return result;

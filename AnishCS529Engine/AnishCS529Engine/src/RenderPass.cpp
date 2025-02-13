@@ -44,6 +44,9 @@ void RenderPass::applyProperties(
   /* Todo: this is VERY inefficient. We don't need to be using variant
   * and doing TWO loops over the same variant data is really bad for
   * performance. Please fix this when you get time.
+  * 
+  * Also a nightmare to manage. I forgot to add Vector2 to one and
+  * took half an hour to realise.
   */
   std::vector<std::pair<std::string, TextureManager::TextureID>> texturesToBind;
 
@@ -56,6 +59,9 @@ void RenderPass::applyProperties(
     }
     else if (auto item = std::get_if<float>(&value)) {
       shader->setFloat(name, *item);
+    }
+    else if (auto item = std::get_if<VectorTemplated<float, 2>>(&value)) {
+      shader->setVec2(name, (*item)[0], (*item)[1]);
     }
     else if (auto item = std::get_if<Vector3>(&value)) {
       shader->setVec3(name, *item);
@@ -77,6 +83,9 @@ void RenderPass::applyProperties(
     }
     else if (auto item = std::get_if<float>(&value)) {
       shader->setFloat(name, *item);
+    }
+    else if (auto item = std::get_if<VectorTemplated<float, 2>>(&value)) {
+      shader->setVec2(name, (*item)[0], (*item)[1]);
     }
     else if (auto item = std::get_if<Vector3>(&value)) {
       shader->setVec3(name, *item);

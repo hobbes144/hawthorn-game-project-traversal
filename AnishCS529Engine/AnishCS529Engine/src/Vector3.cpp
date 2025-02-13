@@ -45,6 +45,14 @@ Vector3 Vector3::operator/(const Vector3& other) const
   return Vector3(x / other.x, y / other.y, z / other.z);
 }
 
+bool Vector3::operator==(const Vector3 & other) const {
+  return ( x == other.x && y == other.y && z == other.z );
+}
+
+bool Vector3::operator!=(const Vector3 & other) const {
+  return ( !(*this == other) );
+}
+
 float Vector3::operator[](int index) const {
   if (index == 0) return x;
   else if (index == 1) return y;

@@ -25,14 +25,16 @@ Shader::Shader(const std::string& shaderFilePaths) {
   while (std::getline(pathsStream, shaderFilePath)) {
     GLenum type = readShaderType(shaderFilePath);
     std::string source = readShaderFile(shaderFilePath);
-    shaderIDs[type] = loadShader(type, source.c_str());
+    shaderIDs[type].push_back(loadShader(type, source.c_str()));
   }
 
   linkShaders();
   cacheUniforms();
 
-  for (const auto& [key, id] : shaderIDs) {
-    deleteShader(id);
+  for (const auto& [key, ids] : shaderIDs) {
+    for (const auto& id : ids) {
+      deleteShader(id);
+    }
   }
 
 }
@@ -148,8 +150,10 @@ void Shader::linkShaders() {
 
   programID = glCreateProgram();
 
-  for (const auto& [type, id] : shaderIDs) {
-    glAttachShader(programID, id);
+  for (const auto& [type, ids] : shaderIDs) {
+    for (const auto& id : ids) {
+      glAttachShader(programID, id);
+    }
   }
 
   glLinkProgram(programID);

@@ -3,17 +3,17 @@
 //
 // Copyright 2013 DigiPen Institute of Technology
 ////////////////////////////////////////////////////////////////////////
-#version 330
+#version 430
 
-uniform mat4 ModelTr, NormalTr;
+uniform mat4 ModelMatrix, InvModelMatrix;
 uniform mat4 ShadowMatrix;
 
 uniform vec3 lightPos;
 
-in vec4 vertex;
-in vec3 vertexNormal;
-in vec2 vertexTexture;
-in vec3 vertexTangent;
+layout(location = 0) in vec4 vertex;
+layout(location = 1) in vec3 vertexNormal;
+layout(location = 2) in vec2 vertexTexture;
+layout(location = 3) in vec3 vertexTangent;
 
 out vec3 normalVec, lightVec, eyeVec;
 out vec2 texCoord;
@@ -26,15 +26,15 @@ void LightingVertex(vec3 eyePos)
     // Computes world position at a pixel used for
     // light and eye vector calculations
     vec3 worldPos;
-    worldPos=(ModelTr*vertex).xyz;
+    worldPos=(ModelMatrix*vertex).xyz;
 
-    normalVec = vertexNormal*mat3(NormalTr);
+    normalVec = vertexNormal*mat3(InvModelMatrix);
     lightVec = lightPos - worldPos;
     eyeVec = eyePos-worldPos;
 
-    tanVec = mat3(ModelTr)*vertexTangent;
+    tanVec = mat3(ModelMatrix)*vertexTangent;
 
     texCoord = vertexTexture;
 
-    shadowCoord = ShadowMatrix * ModelTr * vertex;
+    shadowCoord = ShadowMatrix * ModelMatrix * vertex;
 }

@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////////////
 #version 330
 
-uniform mat4 WorldView, WorldInverse, WorldProj, ModelTr, NormalTr;
+uniform mat4 ViewMatrix, InverseViewMatrix, ProjectionMatrix, ModelMatrix, InvModelMatrix;
 in vec4 vertex;
 in vec3 vertexNormal;
 
@@ -15,11 +15,11 @@ void main()
     // Computes world position at a pixel used for
     // light and eye vector calculations
     vec3 worldPos;
-    worldPos=(ModelTr*vertex).xyz;
+    worldPos=(ModelMatrix*vertex).xyz;
 
     // Computes the point’s projection on the screen
-    gl_Position = WorldProj*WorldView*ModelTr*vertex;
-    vec3 eyePos = (WorldInverse*vec4(0,0,0,1)).xyz;
+    gl_Position = ProjectionMatrix*ViewMatrix*ModelMatrix*vertex;
+    vec3 eyePos = (InverseViewMatrix*vec4(0,0,0,1)).xyz;
 
     LightingVertex(eyePos);
 }

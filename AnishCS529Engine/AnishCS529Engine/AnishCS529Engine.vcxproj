@@ -38,6 +38,7 @@
     <ClCompile Include="src\GraphicsTest.cpp" />
     <ClCompile Include="src\InputOld.cpp" />
     <ClCompile Include="src\LightManager.cpp" />
+    <ClCompile Include="src\MainTestMaterial.cpp" />
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Movement.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="src\DebugMaterial.h" />
     <ClInclude Include="src\DebugPass.h" />
     <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\MainTestMaterial.h" />
     <ClInclude Include="src\Material.inl" />
     <ClInclude Include="src\InputOld.h" />
     <ClInclude Include="src\GameObject.h" />

@@ -22,6 +22,7 @@
 #include "Vector3.h"
 #include "TextureManager.h"
 #include "Light.h"
+#include "VectorTemplated.h"
 
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
@@ -55,7 +56,7 @@ public:
   using PropertyMap = std::unordered_map<
     std::string,
     std::variant<
-      unsigned int, int, float, Vector3, Matrix4, TextureManager::TextureID>
+      unsigned int, int, float, VectorTemplated<float, 2>, Vector3, Matrix4, TextureManager::TextureID>
   >;
 
   RenderPass() = default;

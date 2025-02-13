@@ -57,9 +57,6 @@ public:
 protected:
   std::shared_ptr<RenderGraph> renderGraph;
   PropertyMap properties;
-
-  std::optional<
-    std::unordered_map<std::string, TextureManager::TextureID>> textureData;
 };
 
 #include "Material.inl"

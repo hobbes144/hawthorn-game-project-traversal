@@ -127,6 +127,17 @@ float Matrix4::getElement(int row, int col) const
   return data[col][row];
 }
 
+Matrix4 Matrix4::operator*(const float scalar) const
+{
+  Matrix4 result;
+  for (int i = 0; i < 4; ++i) {
+    for (int j = 0; j < 4; ++j) {
+      result.data[i][j] = data[i][j] * scalar;
+    }
+  }
+  return result;
+}
+
 /*!****************************************************************************
  * \brief * Operator overloader for Matrix4 multiplication
  *
@@ -172,6 +183,16 @@ Vector3 Matrix4::operator*(const Vector3 &vec) const
   }
 
   return Vector3(x, y, z);
+}
+
+float* Matrix4::operator[](int row)
+{
+  return data[row];
+}
+
+const float* Matrix4::operator[](int row) const
+{
+  return data[row];
 }
 
 /*!****************************************************************************
@@ -404,6 +425,70 @@ Matrix4 Matrix4::lookAt(const Vector3 &eye, const Vector3 &center,
    -s.dot(eye),  -u.dot(eye), f.dot(eye), 1.0f);
 
   return result;
+}
+
+Matrix4 Matrix4::inverse(const Matrix4& m)
+{
+  float Coef00 = m[2][2] * m[3][3] - m[3][2] * m[2][3];
+  float Coef02 = m[1][2] * m[3][3] - m[3][2] * m[1][3];
+  float Coef03 = m[1][2] * m[2][3] - m[2][2] * m[1][3];
+
+  float Coef04 = m[2][1] * m[3][3] - m[3][1] * m[2][3];
+  float Coef06 = m[1][1] * m[3][3] - m[3][1] * m[1][3];
+  float Coef07 = m[1][1] * m[2][3] - m[2][1] * m[1][3];
+
+  float Coef08 = m[2][1] * m[3][2] - m[3][1] * m[2][2];
+  float Coef10 = m[1][1] * m[3][2] - m[3][1] * m[1][2];
+  float Coef11 = m[1][1] * m[2][2] - m[2][1] * m[1][2];
+
+  float Coef12 = m[2][0] * m[3][3] - m[3][0] * m[2][3];
+  float Coef14 = m[1][0] * m[3][3] - m[3][0] * m[1][3];
+  float Coef15 = m[1][0] * m[2][3] - m[2][0] * m[1][3];
+
+  float Coef16 = m[2][0] * m[3][2] - m[3][0] * m[2][2];
+  float Coef18 = m[1][0] * m[3][2] - m[3][0] * m[1][2];
+  float Coef19 = m[1][0] * m[2][2] - m[2][0] * m[1][2];
+
+  float Coef20 = m[2][0] * m[3][1] - m[3][0] * m[2][1];
+  float Coef22 = m[1][0] * m[3][1] - m[3][0] * m[1][1];
+  float Coef23 = m[1][0] * m[2][1] - m[2][0] * m[1][1];
+
+  VectorTemplated<float, 4> Fac0(std::array<float, 4>{Coef00, Coef00, Coef02, Coef03});
+  VectorTemplated<float, 4> Fac1(std::array<float, 4>{Coef04, Coef04, Coef06, Coef07});
+  VectorTemplated<float, 4> Fac2(std::array<float, 4>{Coef08, Coef08, Coef10, Coef11});
+  VectorTemplated<float, 4> Fac3(std::array<float, 4>{Coef12, Coef12, Coef14, Coef15});
+  VectorTemplated<float, 4> Fac4(std::array<float, 4>{Coef16, Coef16, Coef18, Coef19});
+  VectorTemplated<float, 4> Fac5(std::array<float, 4>{Coef20, Coef20, Coef22, Coef23});
+
+  VectorTemplated<float, 4> Vec0(std::array<float, 4>{m[1][0], m[0][0], m[0][0], m[0][0]});
+  VectorTemplated<float, 4> Vec1(std::array<float, 4>{m[1][1], m[0][1], m[0][1], m[0][1]});
+  VectorTemplated<float, 4> Vec2(std::array<float, 4>{m[1][2], m[0][2], m[0][2], m[0][2]});
+  VectorTemplated<float, 4> Vec3(std::array<float, 4>{m[1][3], m[0][3], m[0][3], m[0][3]});
+
+  VectorTemplated<float, 4> Inv0(Vec1 * Fac0 - Vec2 * Fac1 + Vec3 * Fac2);
+  VectorTemplated<float, 4> Inv1(Vec0 * Fac0 - Vec2 * Fac3 + Vec3 * Fac4);
+  VectorTemplated<float, 4> Inv2(Vec0 * Fac1 - Vec1 * Fac3 + Vec3 * Fac5);
+  VectorTemplated<float, 4> Inv3(Vec0 * Fac2 - Vec1 * Fac4 + Vec2 * Fac5);
+
+  VectorTemplated<float, 4> SignA(std::array<float, 4>{+1, -1, +1, -1});
+  VectorTemplated<float, 4> SignB(std::array<float, 4>{-1, +1, -1, +1});
+  VectorTemplated<float, 4> InverseA(Inv0 * SignA);
+  VectorTemplated<float, 4> InverseB(Inv1 * SignB);
+  VectorTemplated<float, 4> InverseC(Inv2 * SignA);
+  VectorTemplated<float, 4> InverseD(Inv3 * SignB);
+  Matrix4 Inverse(InverseA[0], InverseA[1], InverseA[2], InverseA[3],
+    InverseB[0], InverseB[1], InverseB[2], InverseB[3],
+    InverseC[0], InverseC[1], InverseC[2], InverseC[3],
+    InverseD[0], InverseD[1], InverseD[2], InverseD[3]);
+
+  VectorTemplated<float, 4> Row0(std::array<float, 4>{Inverse[0][0], Inverse[1][0], Inverse[2][0], Inverse[3][0]});
+
+  VectorTemplated<float, 4> Dot0(VectorTemplated<float, 4>(m[0]) * Row0);
+  float Dot1 = (Dot0[0] + Dot0[1]) + (Dot0[2] + Dot0[3]);
+
+  float OneOverDeterminant = static_cast<float>(1) / Dot1;
+
+  return Inverse * OneOverDeterminant;
 }
 
 std::ostream& operator<<(std::ostream& os, const Matrix4& m) {

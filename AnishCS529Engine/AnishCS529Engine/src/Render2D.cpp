@@ -100,8 +100,11 @@ void Render2D::update(float deltaTime)
   if (!enabled) return;
 
   material->setProperty("ViewMatrix", camera->getViewMatrix());
+  material->setProperty("InverseViewMatrix", camera->getInverseViewMatrix());
   material->setProperty("ProjectionMatrix", camera->getProjectionMatrix());
   material->setProperty("ModelMatrix", parent->getTransformMatrix());
+  // Todo: make this more efficient, this doesn't need to be calculated every refresh!!
+  material->setProperty("InvModelMatrix", Matrix4::inverse(parent->getTransformMatrix()));
   material->draw(mesh);
 }
 

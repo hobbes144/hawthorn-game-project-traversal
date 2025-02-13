@@ -160,6 +160,9 @@
     <Filter Include="Tests\TestRenderPasses">
       <UniqueIdentifier>{40dda85b-0939-4ba1-912c-e300af96e9a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\TestMaterials">
+      <UniqueIdentifier>{626edd24-88b9-4d70-9fd6-04ed521f443c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -341,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="src\simplexnoise.cpp">
       <Filter>Tests\TestLibraries</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainTestMaterial.cpp">
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -559,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="src\TestPass.h">
       <Filter>Tests\TestRenderPasses</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainTestMaterial.h">
+      <Filter>Tests\TestMaterials</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

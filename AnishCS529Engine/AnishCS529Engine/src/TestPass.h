@@ -17,7 +17,7 @@
 class TestPass : public RenderPass {
 public:
   TestPass() : RenderPass() {
-    this->addShader("shaders/lighting.vert\nshaders/lighting.frag");
+    this->addShader("shaders/main.vert\nshaders/main.frag\nshaders/lighting.vert\nshaders/lighting.frag");
   };
 };
 

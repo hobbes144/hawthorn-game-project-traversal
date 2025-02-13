@@ -58,7 +58,7 @@ public:
 private:
   Shader(const std::string& shaderFilePaths);
 
-  std::unordered_map<GLenum, GLuint> shaderIDs;
+  std::unordered_map<GLenum, std::vector<GLuint>> shaderIDs;
   mutable std::unordered_map<std::string, GLint> uniformLocationCache; // Todo: Why is this mutable?
   GLuint programID;
 
