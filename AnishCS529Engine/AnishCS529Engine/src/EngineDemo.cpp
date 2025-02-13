@@ -61,8 +61,10 @@ int main() {
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
     AudioManager::instance().loadSound("music", "media/audio/backgroundMusic.mp3", true, true);
+    AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
     AudioManager::instance().playSound("music", Vector3(0, 0, 0));
+    AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f));
 
     /* Scenegraph setup */
     SceneGraph mainSceneGraph;
@@ -190,6 +192,10 @@ int main() {
 
         if (mainInput->isKeyPressed(KEY_SPACE)) {
             AudioManager::instance().playSound("pew");
+        }
+
+        if (mainInput->isKeyPressed(KEY_V)) {
+            AudioManager::instance().togglePlaybackSpeed(0.7);
         }
 
         mainSceneGraph.update(deltaTime);
