@@ -63,13 +63,15 @@ int main() {
     AudioManager::instance().loadSound("music", "media/audio/backgroundMusic.mp3", true, true);
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
-    AudioManager::instance().playSound("music", Vector3(0, 0, 0));
-    AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
+    //AudioManager::instance().playSound("music", Vector3(0, 0, 0));
+    //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
     SceneGraph mainSceneGraph;
 
     /* Camera setup */
+#pragma region Camera
+
     auto camera = std::make_shared<Camera>("mainCamera");
     camera->setPerspectiveProjection(
       45.0f * 3.14159f / 180.0f,
@@ -103,21 +105,84 @@ int main() {
         ->setAction(Movement3D::YawClockwise, KEY_Q)
         ->setAction(Movement3D::YawAntiClockwise, KEY_E);
 
+#pragma endregion
+
     /* Create relevant Meshes*/
     auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
     auto boxMaterial = Material::getMaterial<TextureMaterial>("box", mainRenderer->getRenderGraph());
 
     // Drawable objects
-    auto box1 = std::make_shared<GameObject>("Box1");
-    box1->setLocalPosition(Vector3(2.0f, 0.5f, 0.0f))
+#pragma region PlayerBox
+
+    auto playerBox = std::make_shared<GameObject>("PlayerBox");
+    playerBox->setLocalPosition(Vector3(2.0f, 0.5f, 0.0f))
         ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
-    auto box1RenderComponent = box1->addComponent<Render2D>();
+    //Render Component
+    auto box1RenderComponent = playerBox->addComponent<Render2D>();
     box1RenderComponent
         ->setCamera(camera)
         ->setMesh(boxMesh)
         ->setMaterial(boxMaterial);
+
+    //Create Shape
+    auto shape1 = std::make_shared<OBB>(
+    Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+    Vector3(0.5f, 0.5f, 0.5f));
+    shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+
+    // Create instances of bodies for boxes
+    playerBox->addComponent<RigidBody>()
+        ->usingGravity(true)
+        ->setMass(10.0f)->setDrag(100.0f)
+        ->setShape(shape1)
+        ->setDebug(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+
+    auto playerBoxInputComponent = playerBox->addComponent<Movement3D>()->setInputSystem(mainInput)
+        ->setAction(Movement3D::Forward, KEY_I)
+        ->setAction(Movement3D::Back, KEY_K)
+        ->setAction(Movement3D::Left, KEY_J)
+        ->setAction(Movement3D::Right, KEY_L);
+
+    mainSceneGraph.addNode(playerBox);
+
+#pragma endregion
+
+#pragma region DynamicBox
+
+    auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
+    dynamicBox->setLocalPosition(Vector3(-2.0f, 0.5f, 0.0f))
+        ->setLocalScaling(Vector3(0.75f, 0.75f, 0.75f));
+    // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
+
+    //Render Component
+    auto dynamicBoxRenderComponent = dynamicBox->addComponent<Render2D>();
+    dynamicBoxRenderComponent
+        ->setCamera(camera)
+        ->setMesh(boxMesh)
+        ->setMaterial(boxMaterial);
+
+    //Create Shape
+    auto dBoxShape = std::make_shared<OBB>(
+    Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+    Vector3(0.5f, 0.5f, 0.5f));
+    dBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+
+    // Create instances of bodies for boxes
+    dynamicBox->addComponent<RigidBody>()
+        ->usingGravity(true)
+        ->setMass(10.0f)->setDrag(100.0f)
+        ->setShape(dBoxShape)
+        ->setDebug(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+
+    mainSceneGraph.addNode(dynamicBox);
+
+#pragma endregion
+
+#pragma region Floor
 
     auto floor = std::make_shared<GameObject>("Floor");
     floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
@@ -129,37 +194,58 @@ int main() {
         ->setMesh(boxMesh)
         ->setMaterial(boxMaterial);
 
-
-    // Create OBBs
-    auto shape1 = std::make_shared<OBB>(
-        Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
-        Vector3(0.5f, 0.5f, 0.5f));
-    shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
-    // Todo: When Z scale is set to 0, the box no longer follows the object in
-    // the Z axis.
     auto shape2 = std::make_shared<OBB>(
-        Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
-        Vector3(0.5f, 0.5f, 0.5f));
+    Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+    Vector3(0.5f, 0.5f, 0.5f));
     shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
-
-    // Create instances of bodies for boxes
-    box1->addComponent<PhysicsBody>()
-        ->setMass(10.0f)->setDrag(100.0f)
-        ->setShape(shape1)
-        ->setDebug(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
-
-    floor->addComponent<PhysicsBody>()
+    floor->addComponent<RigidBody>()
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape2)
         ->setDebug(true)
+        ->setStatic(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());
 
-    CollisionListener boxTouch(floor);
-
-    mainSceneGraph.addNode(box1);
     mainSceneGraph.addNode(floor);
+
+#pragma endregion
+
+#pragma region Static Sound Box
+
+    auto soundBox = std::make_shared<GameObject>("SoundBox");
+    soundBox->setLocalPosition(Vector3(-10.0f, 0.5f, 10.0f))
+        ->setLocalScaling(Vector3(0.5f, 0.5f, 0.5f));
+    // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
+
+    //Render Component
+    auto soundBoxRenderComponent = soundBox->addComponent<Render2D>();
+    soundBoxRenderComponent
+        ->setCamera(camera)
+        ->setMesh(boxMesh)
+        ->setMaterial(boxMaterial);
+
+    //Create Shape
+    auto soundBoxShape = std::make_shared<OBB>(
+    Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+    Vector3(0.5f, 0.5f, 0.5f));
+    soundBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+
+    // Create instances of bodies for boxes
+    soundBox->addComponent<RigidBody>()
+        ->setStatic(true)
+        ->setMass(10.0f)->setDrag(100.0f)
+        ->setShape(soundBoxShape)
+        ->setDebug(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+
+    mainSceneGraph.addNode(soundBox);
+
+    AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
+
+#pragma endregion
+
+
+    CollisionListener boxTouch(floor);
 
     float angleX = 0.0f;
     float angleY = 0.0f;
@@ -188,7 +274,7 @@ int main() {
 
         //Audio Update
         AudioManager::instance().update();
-        AudioManager::instance().setListenerPosition(camera.get()->getWorldTransform().getPosition());
+        AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
 
         if (mainInput->isKeyPressed(KEY_SPACE)) {
             AudioManager::instance().playSound("pew");
