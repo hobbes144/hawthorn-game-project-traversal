@@ -201,30 +201,12 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		Vector3 velocity = RB->getVelocity();
 		Vector3 negVelocity = Vector3(-RB->getVelocity().x,
 							  -RB->getVelocity().y, -RB->getVelocity().z);
-		Vector3 velocity2 = RB2->getVelocity();
-		Vector3 negVelocity2 = Vector3(-RB2->getVelocity().x,
-							   -RB2->getVelocity().y, -RB2->getVelocity().z);
-		Vector3 halfForce = Vector3(RB->getForce().x / 2,
-							RB->getForce().y / 2, RB->getForce().z / 2);
-		Vector3 negHalfForce = Vector3(-RB->getForce().x / 2,
-							   -RB->getForce().y / 2, -RB->getForce().z / 2);
-		Vector3 negForce = Vector3(-RB->getForce().x,
-						   -RB->getForce().y, -RB->getForce().z);
-		Vector3 halfForce2 = Vector3(RB2->getForce().x / 2,
-							 RB2->getForce().y / 2, RB2->getForce().z / 2);
-		Vector3 negHalfForce2 = Vector3(-RB2->getForce().x / 2,
-								-RB2->getForce().y / 2, -RB2->getForce().z / 2);
-		Vector3 negForce2 = Vector3(-RB2->getForce().x,
-							-RB2->getForce().y, -RB2->getForce().z);
+		Vector3 Acc = RB->getAcceleration();
+		Vector3 Force = RB->getForce();
 
 		Vector3 scaleRB = RB->getParent()->getLocalScaling();
-
 		Vector3 PosRB = RB->getParent()->getLocalPosition() * scaleRB;
-
-		std::cout << "posRB=" << PosRB.x << ", " << PosRB.y << ", " << PosRB.z << std::endl;
-		std::cout << "scaleRB=" << scaleRB.x << ", " << scaleRB.y << ", " << scaleRB.z << std::endl;
 		Vector3 scaleRB2 = RB2->getParent()->getLocalScaling();
-
 		Vector3 PosRB2 = RB2->getParent()->getLocalPosition() * scaleRB2;
 
 		double dx = (scaleRB.x + scaleRB2.x) / 2;
@@ -235,37 +217,11 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		double actualdisY = abs(PosRB.y - PosRB2.y);
 		double actualdisZ = abs(PosRB.z - PosRB2.z);
 
-		Vector3 vertices[8];
-		vertices[0] = Vector3(PosRB2.x + scaleRB2.x, PosRB2.y + scaleRB2.y, PosRB2.z + scaleRB2.z);
-		vertices[1] = Vector3(PosRB2.x - scaleRB2.x, PosRB2.y + scaleRB2.y, PosRB2.z + scaleRB2.z);
-		vertices[2] = Vector3(PosRB2.x - scaleRB2.x, PosRB2.y - scaleRB2.y, PosRB2.z + scaleRB2.z);
-		vertices[3] = Vector3(PosRB2.x + scaleRB2.x, PosRB2.y - scaleRB2.y, PosRB2.z + scaleRB2.z);
-		vertices[4] = Vector3(PosRB2.x + scaleRB2.x, PosRB2.y + scaleRB2.y, PosRB2.z - scaleRB2.z);
-		vertices[5] = Vector3(PosRB2.x - scaleRB2.x, PosRB2.y + scaleRB2.y, PosRB2.z - scaleRB2.z);
-		vertices[6] = Vector3(PosRB2.x - scaleRB2.x, PosRB2.y - scaleRB2.y, PosRB2.z - scaleRB2.z);
-		vertices[7] = Vector3(PosRB2.x + scaleRB2.x, PosRB2.y - scaleRB2.y, PosRB2.z - scaleRB2.z);
-
-
-		std::cout << "posRB2=" << PosRB2.x << ", " << PosRB2.y << ", " << PosRB2.z << std::endl;
-		std::cout << "scaleRB2=" << scaleRB2.x << ", " << scaleRB2.y << ", " << scaleRB2.z << std::endl;
-		std::cout << dx << "¡¡" << dy << " " << dz << std::endl;
-
-		bool signX = PosRB.x - PosRB2.x > 0;
-		bool signY = PosRB.y - PosRB2.y > 0;
-		bool signZ = PosRB.z - PosRB2.z > 0;
+		bool signX = Force.x != 0;
+		bool signY = Force.y != 0;
+		bool signZ = Force.z != 0;
 
 		Vector3 restore = Vector3(dx - actualdisX, dy - actualdisY, dz - actualdisZ);
-
-		double dotValue = RB->getVelocity().dot(RB2->getVelocity());
-		Vector3 crossVec = RB->getVelocity().cross(RB2->getVelocity());
-
-		Vector3 judgeVec[3];
-		if (signX) judgeVec[0] = Vector3(scaleRB2.x + scaleRB.x, 0, 0);
-		else judgeVec[0] = Vector3(-scaleRB2.x - scaleRB.x, 0, 0);
-		if (signY) judgeVec[1] = Vector3(0, scaleRB2.y + scaleRB.y, 0);
-		else judgeVec[1] = Vector3(0, -scaleRB2.y - scaleRB.y, 0);
-		if (signZ) judgeVec[2] = Vector3(0, 0, scaleRB2.z + scaleRB.z);
-		else judgeVec[2] = Vector3(0, 0, -scaleRB2.z - scaleRB.z);
 
 		float cntX = abs(restore.x / negVelocity.x);
 		float cntY = abs(restore.y / negVelocity.y);
@@ -273,18 +229,21 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 		double cnt = fmin(cntX, fmin(cntY, cntZ));
 
-		std::cout << cntX << cntY << cntZ << std::endl;
-
 		restore = Vector3(negVelocity.x * cnt, negVelocity.y * cnt, negVelocity.z * cnt);
 
+		std::cout << restore.x << " " << restore.y << " " << restore.z;
+
+		if (restore.x == NAN || restore.y == NAN || restore.z == NAN) restore = Vector3(0, 0, 0);
+
 		if (RB2->getIsStatic()) {
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + restore / scaleRB);
+			RB->setVelocity(Vector3(velocity.x*signX, velocity.y*signY, velocity.z*signZ));
+			RB->getParent()->setLocalPosition(PosRB / scaleRB + restore*1.1 / scaleRB);
 		}
 		else {
-			RB->applyForce(negVelocity * 1250);
+			RB->applyForce(negVelocity * 100 * RB2->getMass());
 			RB->getParent()->setLocalPosition(PosRB / scaleRB + restore / scaleRB / 2);
-			RB2->applyForce(velocity * 1250);
-			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - restore / scaleRB / 2);
+			RB2->applyForce(velocity * 100 * RB->getMass());
+			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - restore / scaleRB2 / 2);
 		}
 	}
 	return;
