@@ -184,6 +184,53 @@ void AudioManager::playSound(const std::string& name, const Vector3& position, f
 }
 
 /*!****************************************************************************
+ * \brief Stop playing a specific sound.
+ *
+ * ## Usage:
+ *
+ * Call this method with the it's name (as loaded with loadSound())
+ * to stop playing the sound.
+ *
+ * ## Explanation:
+ *
+ * This function retrieves the stored sound pointer for the given name and fine
+ * the channel. If channel name matches the target sound the channel is stopped.
+ *
+ * \param name The name of the sound to stop.
+ * \return void
+ *****************************************************************************/
+void AudioManager::stopSound(const std::string& name) {
+    auto it = sounds_.find(name);
+    assert(it != sounds_.end() && "Sound not found");
+    FMOD::Sound* targetSound = it->second;
+
+    // Get the master channel group.
+    FMOD::ChannelGroup* masterGroup = nullptr;
+    FMOD_RESULT result = fmodSystem_->getMasterChannelGroup(&masterGroup);
+    assert(result == FMOD_OK && masterGroup && "Failed to get master channel group");
+
+    int numChannels = 0;
+    result = masterGroup->getNumChannels(&numChannels);
+    assert(result == FMOD_OK && "Failed to get number of channels");
+
+
+    for (int i = 0; i < numChannels; ++i) {
+        FMOD::Channel* channel = nullptr;
+        result = masterGroup->getChannel(i, &channel);
+        if (result == FMOD_OK && channel) {
+            FMOD::Sound* playingSound = nullptr;
+            channel->getCurrentSound(&playingSound);
+            if (playingSound == targetSound) {
+                channel->stop();
+            }
+        }
+    }
+
+    std::cout << "[AudioManager] Stopped all instances of sound \"" << name << "\".\n";
+}
+
+
+/*!****************************************************************************
  * \brief Set the audio listener's position in 3D space.
  *
  * ## Usage:
