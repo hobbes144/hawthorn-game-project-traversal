@@ -70,7 +70,7 @@ int main() {
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
     //AudioManager::instance().playSound("music", Vector3(0, 0, 0));
-    //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
+    AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
     SceneGraph mainSceneGraph;
