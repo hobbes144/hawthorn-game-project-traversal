@@ -82,7 +82,7 @@ int main() {
         Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
         Vector3(0.5f, 0.5f, 0.5f));
     camera->addComponent<PhysicsBody>()
-        ->setMass(10.0f)->setFriction(100.0f)
+        ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(cameraShape)
         //->setDebug(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());
@@ -143,13 +143,13 @@ int main() {
 
     // Create instances of bodies for boxes
     box1->addComponent<PhysicsBody>()
-        ->setMass(10.0f)->setFriction(100.0f)
+        ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape1)
         ->setDebug(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());
 
     floor->addComponent<PhysicsBody>()
-        ->setMass(10.0f)->setFriction(100.0f)
+        ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape2)
         ->setDebug(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());

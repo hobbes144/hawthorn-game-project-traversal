@@ -359,7 +359,7 @@ void PhysicsBody::integrate(float deltaTime) {
 
     Vector3 netRotationalFriction;
     if (rotationalVelocity.magnitude() > 0) {
-      netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * -friction;
+      netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * -angularDrag;
     }
     else {
       netRotationalFriction = Vector3(0.0f, 0.0f, 0.0f);

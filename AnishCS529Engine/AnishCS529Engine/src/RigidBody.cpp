@@ -13,7 +13,7 @@
 #include "RigidBody.h"
 #include <cmath>
 
-const float gravity = -9.8f;
+const float gravity = 9.8f;
 
 /*!****************************************************************************
  * \brief The constructor or RigidBody class
@@ -104,46 +104,13 @@ std::shared_ptr<RigidBody> RigidBody::freezingRotationZ(bool value) {
  * \param deltaTime
  *****************************************************************************/
 void RigidBody::integrate(float deltaTime) {
-	if (!parent->isEnabled()) return;
-	if (!isStatic) {
 
-		Vector3 netFriction;
-		if (velocity.magnitude() > 0) {
-			netFriction =
-				velocity.normalized() * velocity.magnitude() * -drag;
-		}
-		else {
-			netFriction = Vector3(0.0f, 0.0f, 0.0f);
-		}
-
-
-		acceleration = acceleration + (force + netFriction) * inverseMass;
-		velocity = velocity + (acceleration * deltaTime);
-
-		Vector3 newPosition =
-			parent->getLocalPosition() + (velocity * deltaTime);
-		parent->setLocalPosition(newPosition);
+	if (useGravity) {
+		applyForce(Vector3(0.0, -gravity, 0.0));
 	}
 
-	// Update collision shape
-	if (collisionShape) {
-		// Since we don't have direct access to transform,
-		// we'll create a Transform object with the current state
-		Transform currentTransform;
-		currentTransform.setPosition(parent->getLocalPosition());
-		currentTransform.setRotation(parent->getLocalRotation());
-		currentTransform.setScaling(parent->getLocalScaling());
+	PhysicsBody::integrate(deltaTime);
 
-		// TODO: What else do you have to update during the integration
-		// besides the parent's position?
-		// implement here ->:
-		collisionShape->update(currentTransform);
-	}
-
-	// Reset force accumulator
-	if (useGravity) force = Vector3(0.0f, gravity, 0.0f);
-	else force = Vector3(0, 0, 0);
-	acceleration = Vector3(0, 0, 0);
 }
 
 bool belongsToXY(Vector3 vert1, Vector3 vert2, Vector3 target) {
