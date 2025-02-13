@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClCompile Include="src\AABB.cpp" />
     <ClCompile Include="src\AmbientLight.cpp" />
+    <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\Bullet.cpp" />
     <ClCompile Include="src\BulletHitListener.cpp" />
     <ClCompile Include="src\Camera.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="src\AABB.h" />
     <ClInclude Include="src\AmbientLight.h" />
     <ClInclude Include="src\BasicRenderPass.h" />
+    <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\Bullet.h" />
     <ClInclude Include="src\BulletHitListener.h" />
     <ClInclude Include="src\BulletSpawnEvent.h" />
@@ -242,7 +244,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\SDL;$(ProjectDir)include;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">
@@ -307,8 +309,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;fmod_vc.lib;fmodL_vc.lib;fmodstudio_vc.lib;fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)\AnishCS529Engine\x64\Debug\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">
     <ClCompile>
@@ -326,6 +331,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)\AnishCS529Engine\x64\Debug\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -345,6 +353,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)\AnishCS529Engine\x64\Debug\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

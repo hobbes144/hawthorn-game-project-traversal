@@ -414,7 +414,6 @@ FodyWeavers.xsd
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod
@@ -424,7 +423,6 @@ FodyWeavers.xsd
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
