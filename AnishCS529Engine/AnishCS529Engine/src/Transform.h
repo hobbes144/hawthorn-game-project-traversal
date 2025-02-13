@@ -26,9 +26,12 @@ public:
   Vector3 getRotation() const { return rotation; }
   Vector3 getScaling() const { return scaling; }
 
-  void setPosition(const Vector3& newPosition) { position = newPosition; }
-  void setRotation(const Vector3& newRotation) { rotation = newRotation; }
-  void setScaling(const Vector3& newScaling) { scaling = newScaling; }
+  Transform& setPosition(const Vector3& newPosition) { position = newPosition; return *this; }
+  Transform& setPosition(float x, float y, float z) { position = Vector3(x, y, z); return *this; }
+  Transform& setRotation(const Vector3& newRotation) { rotation = newRotation; return *this; }
+  Transform& setRotation(float x, float y, float z) { rotation = Vector3(x, y, z); return *this; }
+  Transform& setScaling(const Vector3& newScaling) { scaling = newScaling; return *this; }
+  Transform& setScaling(float x, float y, float z) { scaling = Vector3(x, y, z); return *this; }
 
   Matrix4 getLocalMatrix() const {
     return Matrix4::translation(position) *
@@ -46,14 +49,34 @@ public:
       Matrix4::translation(invTranslation);
   }
 
-  void translate(const Vector3& translation) { 
+  Transform& translate(const Vector3& translation) {
     position = position + translation;
+    return *this;
   }
-  void rotate(const Vector3 rotationDelta) { 
+
+  Transform& translate(float x, float y, float z) {
+    position = position + Vector3(x, y, z);
+    return *this;
+  }
+
+  Transform& rotate(const Vector3 rotationDelta) {
     rotation = rotation + rotationDelta;
+    return *this;
   }
-  void scale(const Vector3& scaleMult) {
+
+  Transform& rotate(float x, float y, float z) {
+    rotation = rotation + Vector3(x, y, z);
+    return *this;
+  }
+
+  Transform& scale(const Vector3& scaleMult) {
     scaling = scaling * scaleMult;
+    return *this;
+  }
+
+  Transform& scale(float x, float y, float z) {
+    scaling = scaling * Vector3(x, y, z);
+    return *this;
   }
 
 private:

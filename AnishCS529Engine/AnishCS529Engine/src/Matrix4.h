@@ -21,6 +21,7 @@
 #include <stdexcept>
 
 #include "Vector3.h"
+#include "VectorTemplated.h"
 
 /*!****************************************************************************
  * \brief Class that implements a custom 4x4 Matrix for use with OpenGL
@@ -52,8 +53,12 @@ public:
           float x3, float y3, float z3, float w3);
 
   // Multiplication: * Operator Overloads
+  Matrix4 operator*(const float scalar) const;
   Matrix4 operator*(const Matrix4 &other);
   Vector3 operator*(const Vector3 &vec) const;
+
+  float* operator[](int row);
+  const float* operator[](int row) const;
 
   // Matrix-specific functions
   const float * getData() const;
@@ -82,6 +87,7 @@ public:
                              const float near, const float far);
   static Matrix4 lookAt(const Vector3 &eye, const Vector3 &center,
                         const Vector3 &up);
+  static Matrix4 inverse(const Matrix4& m);
   // I encourage to implement the Euler Angles formula: Removes the gimball lock problem
 };
 

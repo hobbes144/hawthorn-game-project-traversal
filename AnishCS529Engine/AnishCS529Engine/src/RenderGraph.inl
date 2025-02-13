@@ -38,4 +38,10 @@ std::shared_ptr<T> RenderGraph::addPass(const std::string& name, std::shared_ptr
   return pass;
 }
 
+template<typename T>
+inline std::shared_ptr<T> RenderGraph::getPass(const std::string& name)
+{
+  return std::dynamic_pointer_cast<T>(registeredPasses[name]);
+}
+
 #endif // !RENDER_PASS_INL

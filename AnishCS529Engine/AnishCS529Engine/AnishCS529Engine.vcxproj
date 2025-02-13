@@ -41,6 +41,7 @@
     <ClCompile Include="src\GraphicsTest.cpp" />
     <ClCompile Include="src\InputOld.cpp" />
     <ClCompile Include="src\LightManager.cpp" />
+    <ClCompile Include="src\MainTestMaterial.cpp" />
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Movement.cpp" />
@@ -53,8 +54,10 @@
     <ClCompile Include="src\RendererStateSaver.cpp" />
     <ClCompile Include="src\RenderGraph.cpp" />
     <ClCompile Include="src\RenderPass.cpp" />
+    <ClCompile Include="src\rply.c" />
     <ClCompile Include="src\ShaderManager.cpp" />
     <ClCompile Include="src\Shoot.cpp" />
+    <ClCompile Include="src\simplexnoise.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
@@ -69,6 +72,7 @@
     <ClCompile Include="src\RectanglePrimitive.cpp" />
     <ClCompile Include="src\Tank.cpp" />
     <ClCompile Include="src\TankBattle.cpp" />
+    <ClCompile Include="src\TestShapes.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TextureMaterial.cpp" />
@@ -101,6 +105,7 @@
     <ClInclude Include="src\DebugMaterial.h" />
     <ClInclude Include="src\DebugPass.h" />
     <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\MainTestMaterial.h" />
     <ClInclude Include="src\Material.inl" />
     <ClInclude Include="src\InputOld.h" />
     <ClInclude Include="src\GameObject.h" />
@@ -118,9 +123,11 @@
     <ClInclude Include="src\RendererStateSaver.h" />
     <ClInclude Include="src\RenderGraph.h" />
     <ClInclude Include="src\RenderPass.h" />
+    <ClInclude Include="src\rply.h" />
     <ClInclude Include="src\ShaderManager.h" />
     <ClInclude Include="src\RigidBody.h" />
     <ClInclude Include="src\Shoot.h" />
+    <ClInclude Include="src\simplexnoise.h" />
     <ClInclude Include="src\SolidColorMaterial.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\CollisionEvent.h" />
@@ -150,6 +157,8 @@
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Shape.h" />
     <ClInclude Include="src\Tank.h" />
+    <ClInclude Include="src\TestPass.h" />
+    <ClInclude Include="src\TestShapes.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\TextureMaterial.h" />
@@ -167,6 +176,10 @@
     <None Include="shaders\debug.vert.glsl" />
     <None Include="shaders\factory_frag_shader.frag.glsl" />
     <None Include="shaders\factory_vertex_shader.vert.glsl" />
+    <None Include="shaders\lighting.frag" />
+    <None Include="shaders\lighting.vert" />
+    <None Include="shaders\main.frag" />
+    <None Include="shaders\main.vert" />
     <None Include="shaders\main_fragment_shader.glsl" />
     <None Include="shaders\main_vertex_shader.glsl" />
     <None Include="shaders\physics_test_fragment_shader.glsl" />

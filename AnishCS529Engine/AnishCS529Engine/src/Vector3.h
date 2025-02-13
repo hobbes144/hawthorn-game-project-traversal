@@ -17,6 +17,7 @@
 
 #include <cmath>
 #include <array>
+#include <vector>
 #include <stdexcept>
 
 class Vector3 {
@@ -39,6 +40,8 @@ public:
     Vector3 operator*(const Vector3& other) const;
     Vector3 operator/(float scalar) const;
     Vector3 operator/(const Vector3& other) const;
+    bool operator==(const Vector3& other) const;
+    bool operator!=(const Vector3& other) const;
     float operator[](int index) const;
     float& operator[](const int index);
 
@@ -49,6 +52,8 @@ public:
     Vector3 normalized() const;
     Vector3 cross(const Vector3& other) const;
     Vector3 reciprocal() const;
+
+    std::vector<float> getData() const { return { x, y, z }; }
 
     friend std::ostream& operator<<(std::ostream& os, const Vector3& v);
 };

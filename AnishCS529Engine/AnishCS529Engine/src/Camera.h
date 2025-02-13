@@ -56,11 +56,15 @@ public:
   );
 
   const Matrix4 getViewMatrix();
+  const Matrix4 getInverseViewMatrix();
   const Matrix4& getProjectionMatrix();
 
 private:
   Matrix4 viewMatrix;
   Matrix4 projectionMatrix;
+  Matrix4 inverseViewMatrix;
+  Vector3 oldPosition = Vector3();
+  Vector3 oldRotation = Vector3();
 
   Vector3 up;
   Vector3 front;
