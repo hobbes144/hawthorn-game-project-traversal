@@ -4,6 +4,7 @@
 #include "CollisionGenerator.h"
 #include "EventManager.h"
 #include "PhysicsBody.h"
+#include "RigidBody.h"
 
 #include <vector>
 
