@@ -1,15 +1,14 @@
 #version 430 core
 
-layout(location = 0) in vec3 vPos;
+layout(location = 0) in vec4 vPos;
 
 uniform mat4 ModelMatrix;
 uniform mat4 ViewMatrix;
 uniform mat4 ProjectionMatrix;
-uniform vec3 Color;
 
 out vec3 final_color;
 
 void main() {
-    final_color = Color;
-    gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(vPos, 1.0);
+    final_color = vec3(0.0, 1.0, 0.0);
+    gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vPos;
 }

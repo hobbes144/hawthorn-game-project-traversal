@@ -25,9 +25,11 @@ void RenderPass::setTexture(const std::string& name, TextureManager::TextureID t
   (*textureData)[name] = textureID;
 }
 
-void RenderPass::apply(const PropertyMap& materialProperties,
+void RenderPass::draw(std::shared_ptr<Mesh> mesh, GLenum mode,
+  const PropertyMap& materialProperties,
   const LightStack& lightStack) const
 {
+  if (materialProperties.contains("isDebug")) return;
   shader->use();
   applyProperties(properties, materialProperties);
 
@@ -35,6 +37,8 @@ void RenderPass::apply(const PropertyMap& materialProperties,
   for (const auto& light : lightStack) {
     light->applyToShader(shader, lightIndex);
   }
+
+  mesh->draw(mode);
 }
 
 void RenderPass::applyProperties(

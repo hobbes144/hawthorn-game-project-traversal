@@ -23,6 +23,7 @@
 #include "TextureManager.h"
 #include "Light.h"
 #include "VectorTemplated.h"
+#include "Mesh.h"
 
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
@@ -81,7 +82,8 @@ public:
 
   void setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit);
 
-  virtual void apply(const PropertyMap& materialProperties = {},
+  virtual void draw(std::shared_ptr<Mesh> mesh, GLenum mode,
+    const PropertyMap& materialProperties = {},
     const LightStack& lightStack = {}) const;
 
   /* Utility functions */

@@ -11,8 +11,6 @@ void RenderGraph::draw(
   GLenum mode)
 {
   for (const auto& pass : renderStack) {
-    pass->apply(properties, lightStack);
-
-    mesh->draw(mode);
+    pass->draw(mesh, mode, properties, lightStack);
   }
 }
