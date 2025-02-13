@@ -20,6 +20,8 @@
 #include "Movement3D.h"
 #include "CollisionListener.h"
 #include "Audio.h"
+#include "TestPass.h"
+#include "MainTestMaterial.h"
 
 extern "C"
 {
@@ -28,6 +30,7 @@ extern "C"
 }
 
 int main() {
+    const float rad = PI / 180.0f;
 
 #pragma region System Init
 
@@ -44,7 +47,26 @@ int main() {
     mainRenderer->initialize();
     mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
 
-    mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
+    //mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
+    std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");
+
+    /* Test stuff for lighting */
+    double lightSpin = 150.0;
+    double lightTilt = -45.0;
+    double lightDist = 100.0;
+    Vector3 lightPos = Vector3(lightDist * cos(lightSpin * rad) * sin(lightTilt * rad),
+                           lightDist * sin(lightSpin * rad) * sin(lightTilt * rad),
+                           lightDist * cos(lightTilt * rad));
+    testPass->setProperty("lightPos", lightPos);
+    testPass->setProperty("mode", 2);
+    testPass->setProperty("mode", 2);
+
+    Vector3 Light, Ambient;
+    Light = Vector3(4.0, 4.0, 4.0);
+    Ambient = Vector3(0.2, 0.2, 0.2);
+
+    testPass->setProperty("Light", Light);
+    testPass->setProperty("Ambient", Ambient);
 
     //mainWindow->setVsync(true);
 
@@ -70,7 +92,7 @@ int main() {
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
     //AudioManager::instance().playSound("music", Vector3(0, 0, 0));
-    AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
+    //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
     SceneGraph mainSceneGraph;
@@ -84,7 +106,7 @@ int main() {
       mainWindow->getAspectRatio(),
       0.1f,
       1000.0f)
-        ->setLocalPosition(Vector3(0.0f, 5.0f, 10.0f))
+        ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f))
         ->setLocalRotation(Vector3(-0.55f, 0.0f, 0.0f));
     mainSceneGraph.addNode(camera);
 
@@ -113,9 +135,35 @@ int main() {
 
 #pragma endregion
 
+#pragma region Meshs/Materials
+
     /* Create relevant Meshes*/
     auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
-    auto boxMaterial = Material::getMaterial<TextureMaterial>("box", mainRenderer->getRenderGraph());
+    auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
+    boxMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    boxMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    boxMaterial->setProperty("shininess", 10.0f);
+    boxMaterial->setProperty("objectId", 5);
+    boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
+    boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
+
+    /*Sky Box*/
+    auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
+    auto skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
+    skyBoxMaterial->addTexture("media/beach.jpg");
+    skyBoxMaterial->setProperty("objectId", 1);
+
+    auto skyBox = std::make_shared<GameObject>("SkyBox");
+    skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
+        ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
+    auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
+    skyBoxRenderComponent
+        ->setCamera(camera)
+        ->setMesh(sphereMesh)
+        ->setMaterial(skyBoxMaterial);
+    mainSceneGraph.addNode(skyBox);
+
+#pragma endregion
 
     // Drawable objects
 #pragma region PlayerBox

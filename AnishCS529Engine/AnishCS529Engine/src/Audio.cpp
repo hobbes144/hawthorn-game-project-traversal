@@ -177,6 +177,7 @@ void AudioManager::playSound(const std::string& name, const Vector3& position, f
         FMOD_VECTOR pos = { position.x, position.y, position.z };
         FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f }; // velocity can be used for Doppler effect
         channel->set3DAttributes(&pos, &vel);
+        channel->set3DMinMaxDistance(1.0f, 50.0f);
     }
     if (channel) {
         channel->setVolume(volume);
