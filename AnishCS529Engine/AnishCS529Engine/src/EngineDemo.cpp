@@ -28,6 +28,9 @@ extern "C"
 }
 
 int main() {
+
+#pragma region System Init
+
     /* Game Window setup */
     int windowWidth = 1280;
     int windowHeight = 720;
@@ -56,6 +59,9 @@ int main() {
     /* Framerate controller setup */
     FFramerateController* mainFramerateController =
         FFramerateController::getController();
+
+#pragma endregion
+
 
     /* Audio System Initalization */
     AudioManager::instance().initialize();
@@ -213,7 +219,7 @@ int main() {
 #pragma region Static Sound Box
 
     auto soundBox = std::make_shared<GameObject>("SoundBox");
-    soundBox->setLocalPosition(Vector3(-10.0f, 0.5f, 10.0f))
+    soundBox->setLocalPosition(Vector3(-7.0f, 0.5f, 7.0f))
         ->setLocalScaling(Vector3(0.5f, 0.5f, 0.5f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -240,7 +246,7 @@ int main() {
 
     mainSceneGraph.addNode(soundBox);
 
-    AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
+    AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.3f);
 
 #pragma endregion
 
