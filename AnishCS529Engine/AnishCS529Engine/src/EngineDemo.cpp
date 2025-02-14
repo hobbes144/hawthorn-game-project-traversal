@@ -22,6 +22,9 @@
 #include "Audio.h"
 #include "TestPass.h"
 #include "MainTestMaterial.h"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 extern "C"
 {
@@ -57,6 +60,55 @@ void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> 
     return;
 
 }
+//void DrawMenu() {
+//  ImGui_ImplOpenGL3_NewFrame();
+//  ImGui_ImplGlfw_NewFrame();
+//  ImGui::NewFrame();
+//
+//  if (ImGui::BeginMainMenuBar()) {
+//    // This menu demonstrates how to provide the user a list of toggleable settings.
+//    if (ImGui::BeginMenu("Objects")) {
+//      if (ImGui::MenuItem("Draw spheres", "", spheres->drawMe)) { spheres->drawMe ^= true; }
+//      if (ImGui::MenuItem("Draw walls", "", room->drawMe)) { room->drawMe ^= true; }
+//      if (ImGui::MenuItem("Draw ground/sea", "", ground->drawMe)) {
+//        ground->drawMe ^= true;
+//        sea->drawMe = ground->drawMe;
+//      }
+//      if (ImGui::MenuItem("Draw textures", "", Object::drawTexture)) {
+//        Object::drawTexture ^= true;
+//      }
+//      ImGui::EndMenu();
+//    }
+//
+//    // This menu demonstrates how to provide the user a choice
+//    // among a set of choices.  The current choice is stored in a
+//    // variable named "mode" in the application, and sent to the
+//    // shader to be used as you wish.
+//    if (ImGui::BeginMenu("Menu")) {
+//      if (ImGui::MenuItem("<sample menu of choices>", "", false, false)) {}
+//      if (ImGui::MenuItem("Default Lighting", "", mode == 0)) { mode = 0; }
+//      if (ImGui::MenuItem("Phong Lighting", "", mode == 1)) { mode = 1; }
+//      if (ImGui::MenuItem("BRDF Lighting", "", mode == 2)) { mode = 2; }
+//      ImGui::EndMenu();
+//    }
+//
+//    if (ImGui::BeginMenu("Light Effects")) {
+//      if (ImGui::MenuItem("Enable textures", "", Object::drawTexture)) {
+//        Object::drawTexture ^= true;
+//      }
+//      if (ImGui::MenuItem("Enable shadows", "", enableShadows)) { enableShadows ^= true; }
+//      if (ImGui::MenuItem("Enable reflections", "", enableReflections)) { enableReflections ^= true; }
+//      if (ImGui::MenuItem("Enable irradiance", "", enableIrradiance)) { enableIrradiance ^= true; }
+//      if (ImGui::MenuItem("Enable exposure", "", enableExposure)) { enableExposure ^= true; }
+//      ImGui::EndMenu();
+//    }
+//    ImGui::SliderFloat("Exposure", &exposure, 0.0f, 10.0f);
+//
+//    ImGui::EndMainMenuBar();
+//  }
+//  ImGui::Render();
+//  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+//}
 
 int main() {
     const float rad = PI / 180.0f;
@@ -76,8 +128,15 @@ int main() {
     mainRenderer->initialize();
     mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
 
+    ImGui::CreateContext();
+
+    ImGui_ImplGlfw_InitForOpenGL(mainWindow->getNativeWindow(), true);
+    ImGui_ImplOpenGL3_Init();
+
+    int textureMode = 1;
     //mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
     std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");
+    testPass->setProperty("textureMode", textureMode);
 
     /* Test stuff for lighting */
     double lightSpin = 150.0;
@@ -143,7 +202,7 @@ int main() {
         Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
         Vector3(0.5f, 0.5f, 0.5f));
     camera->addComponent<PhysicsBody>()
-        ->setMass(10.0f)->setDrag(100.0f)
+        ->setMass(10.0f)->setDrag(100.0f)->setAngularDrag(500.0f)
         ->setShape(cameraShape)
         //->setDebug(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());
@@ -165,7 +224,6 @@ int main() {
 #pragma endregion
 
 #pragma region Meshs/Materials
-
     /* Boxes */
     auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
     auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
@@ -205,6 +263,8 @@ int main() {
 #pragma endregion
 
     // Drawable objects
+    int isDebug = 0;
+    std::vector<std::shared_ptr<GameObject>> gameObjects;
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
@@ -230,7 +290,7 @@ int main() {
         //->usingGravity(true)
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape1)
-        ->setDebug(true)
+        ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance());
 
     auto playerBoxInputComponent = playerBox->addComponent<Movement3D>()->setInputSystem(mainInput)
@@ -240,7 +300,7 @@ int main() {
         ->setAction(Movement3D::Right, KEY_L);
 
     mainSceneGraph.addNode(playerBox);
-
+    gameObjects.push_back(playerBox);
 #pragma endregion
 
 #pragma region DynamicBox
@@ -267,10 +327,11 @@ int main() {
     dynamicBox->addComponent<RigidBody>()
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(dBoxShape)
-        ->setDebug(true)
+        ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance());
 
     mainSceneGraph.addNode(dynamicBox);
+    gameObjects.push_back(dynamicBox);
 
 #pragma endregion
 
@@ -295,10 +356,11 @@ int main() {
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape2)
         ->setDebug(true)
-        ->setStatic(true)
+        ->setStatic(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance());
 
     mainSceneGraph.addNode(floor);
+    gameObjects.push_back(floor);
 
 #pragma endregion
 
@@ -330,6 +392,7 @@ int main() {
         ->registerToPhysicsManager(PhysicsManager::Instance());
 
     mainSceneGraph.addNode(soundBox);
+    gameObjects.push_back(soundBox);
 
     AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.3f);
 
@@ -414,8 +477,63 @@ int main() {
         }
 
         mainSceneGraph.update(deltaTime);
-
         mainFramerateController->endFrame();
+
+#pragma region IMGUI
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        if (ImGui::BeginMainMenuBar()) {
+          // This menu demonstrates how to provide the user a list of toggleable settings.
+          if (ImGui::BeginMenu("Objects")) {
+            if (ImGui::MenuItem("Draw MovableBox", "", soundBox->isEnabled())) {
+              if (soundBox->isEnabled())
+                soundBox->disable();
+              else
+                soundBox->enable();
+            }
+            if (ImGui::MenuItem("Draw Textures", "", textureMode)) { 
+              if (textureMode) textureMode = 0;
+              else textureMode = 1;
+              testPass->setProperty("textureMode", textureMode);
+            }
+            if (ImGui::MenuItem("Draw debug lines", "", isDebug)) {
+              if (isDebug) isDebug = 0;
+              else isDebug = 1;
+              for (const auto& object : gameObjects) {
+                if (auto body = object->findComponent<RigidBody>()) {
+                  body->setDebug(isDebug);
+                }
+              }
+
+            }
+            ImGui::EndMenu();
+          }
+          ImGui::EndMainMenuBar();
+        }
+
+        //ImGui::SetNextWindowPos(ImVec2(10, 10)); // Position at top-left
+        //ImGui::SetNextWindowBgAlpha(0.35f); // Make it semi-transparent
+
+        ImGui::Begin("Overlay", nullptr,
+            ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_AlwaysAutoResize |
+            ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoScrollbar |
+            ImGuiWindowFlags_NoInputs);
+
+        ImGui::Text("FPS: %.1f", mainFramerateController->getFPS());
+        ImGui::Text("Frametime: %f", mainFramerateController->getFrameTime());
+        ImGui::Text("RenderTime: %f", mainFramerateController->getRenderTime());
+
+        ImGui::End();
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+#pragma endregion
+
         mainRenderer->swapBuffers();
         mainWindow->update();
 
@@ -423,6 +541,8 @@ int main() {
 
     }
 
+
+    ImGui::DestroyContext();
 
     mainInput->shutdown();
     mainRenderer->shutdown();

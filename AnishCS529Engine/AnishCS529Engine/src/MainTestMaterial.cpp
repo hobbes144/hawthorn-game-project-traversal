@@ -2,10 +2,6 @@
 
 TextureManager::TextureID MainTestMaterial::addTexture(const std::string& textureFile, float scaleX, float scaleY)
 {
-  if (!textureMode) {
-    this->setProperty("textureMode", 1);
-    textureMode = true;
-  }
   TextureManager::TextureID texture = TextureManager::getInstance().loadFile(textureFile);
   textures.push_back(texture);
   this->setProperty("numTextures", static_cast<int>(textures.size()));
