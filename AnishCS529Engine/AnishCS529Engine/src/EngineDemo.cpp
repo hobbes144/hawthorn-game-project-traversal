@@ -22,12 +22,65 @@
 #include "Audio.h"
 #include "TestPass.h"
 #include "MainTestMaterial.h"
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 extern "C"
 {
     __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
     __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
+
+//void DrawMenu() {
+//  ImGui_ImplOpenGL3_NewFrame();
+//  ImGui_ImplGlfw_NewFrame();
+//  ImGui::NewFrame();
+//
+//  if (ImGui::BeginMainMenuBar()) {
+//    // This menu demonstrates how to provide the user a list of toggleable settings.
+//    if (ImGui::BeginMenu("Objects")) {
+//      if (ImGui::MenuItem("Draw spheres", "", spheres->drawMe)) { spheres->drawMe ^= true; }
+//      if (ImGui::MenuItem("Draw walls", "", room->drawMe)) { room->drawMe ^= true; }
+//      if (ImGui::MenuItem("Draw ground/sea", "", ground->drawMe)) {
+//        ground->drawMe ^= true;
+//        sea->drawMe = ground->drawMe;
+//      }
+//      if (ImGui::MenuItem("Draw textures", "", Object::drawTexture)) {
+//        Object::drawTexture ^= true;
+//      }
+//      ImGui::EndMenu();
+//    }
+//
+//    // This menu demonstrates how to provide the user a choice
+//    // among a set of choices.  The current choice is stored in a
+//    // variable named "mode" in the application, and sent to the
+//    // shader to be used as you wish.
+//    if (ImGui::BeginMenu("Menu")) {
+//      if (ImGui::MenuItem("<sample menu of choices>", "", false, false)) {}
+//      if (ImGui::MenuItem("Default Lighting", "", mode == 0)) { mode = 0; }
+//      if (ImGui::MenuItem("Phong Lighting", "", mode == 1)) { mode = 1; }
+//      if (ImGui::MenuItem("BRDF Lighting", "", mode == 2)) { mode = 2; }
+//      ImGui::EndMenu();
+//    }
+//
+//    if (ImGui::BeginMenu("Light Effects")) {
+//      if (ImGui::MenuItem("Enable textures", "", Object::drawTexture)) {
+//        Object::drawTexture ^= true;
+//      }
+//      if (ImGui::MenuItem("Enable shadows", "", enableShadows)) { enableShadows ^= true; }
+//      if (ImGui::MenuItem("Enable reflections", "", enableReflections)) { enableReflections ^= true; }
+//      if (ImGui::MenuItem("Enable irradiance", "", enableIrradiance)) { enableIrradiance ^= true; }
+//      if (ImGui::MenuItem("Enable exposure", "", enableExposure)) { enableExposure ^= true; }
+//      ImGui::EndMenu();
+//    }
+//    ImGui::SliderFloat("Exposure", &exposure, 0.0f, 10.0f);
+//
+//    ImGui::EndMainMenuBar();
+//  }
+//  ImGui::Render();
+//  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+//}
 
 int main() {
     const float rad = PI / 180.0f;
@@ -46,6 +99,11 @@ int main() {
     mainRenderer->setGameWindow(mainWindow);
     mainRenderer->initialize();
     mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
+
+    ImGui::CreateContext();
+
+    ImGui_ImplGlfw_InitForOpenGL(mainWindow->getNativeWindow(), true);
+    ImGui_ImplOpenGL3_Init();
 
     //mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
     std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");
@@ -105,7 +163,7 @@ int main() {
       45.0f * 3.14159f / 180.0f,
       mainWindow->getAspectRatio(),
       0.1f,
-      1000.0f)
+      5000.0f)
         ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f))
         ->setLocalRotation(Vector3(-0.55f, 0.0f, 0.0f));
     mainSceneGraph.addNode(camera);
@@ -352,6 +410,8 @@ int main() {
 
     }
 
+
+    ImGui::DestroyContext();
 
     mainInput->shutdown();
     mainRenderer->shutdown();
