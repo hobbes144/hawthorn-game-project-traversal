@@ -18,7 +18,6 @@ class MainTestMaterial : public Material {
 public:
   MainTestMaterial() : Material() {
     this->setProperty("numTextures", 0);
-    this->setProperty("textureMode", 0);
     this->setProperty("enableShadows", 0);
     this->setProperty("enableReflections", 0);
     this->setProperty("enableIrradiance", 0);
