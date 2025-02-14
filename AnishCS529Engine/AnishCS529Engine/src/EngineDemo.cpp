@@ -150,7 +150,7 @@ int main() {
     mainSceneGraph.addNode(camera);
 
     auto cameraShape = std::make_shared<OBB>(
-        Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+        Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
         Vector3(0.5f, 0.5f, 0.5f));
     camera->addComponent<PhysicsBody>()
         ->setMass(10.0f)->setDrag(100.0f)->setAngularDrag(500.0f)
@@ -232,7 +232,7 @@ int main() {
 
     //Create Shape
     auto shape1 = std::make_shared<OBB>(
-    Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
     Vector3(0.5f, 0.5f, 0.5f));
     shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
@@ -270,7 +270,7 @@ int main() {
 
     //Create Shape
     auto dBoxShape = std::make_shared<OBB>(
-    Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
     Vector3(0.5f, 0.5f, 0.5f));
     dBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
@@ -299,7 +299,7 @@ int main() {
         ->setMaterial(floorMaterial);
 
     auto shape2 = std::make_shared<OBB>(
-    Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
     Vector3(0.5f, 0.5f, 0.5f));
     shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
@@ -331,7 +331,7 @@ int main() {
 
     //Create Shape
     auto soundBoxShape = std::make_shared<OBB>(
-    Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
+    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
     Vector3(0.5f, 0.5f, 0.5f));
     soundBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
