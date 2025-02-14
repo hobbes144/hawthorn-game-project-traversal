@@ -55,8 +55,8 @@ int main() {
     double lightTilt = -45.0;
     double lightDist = 100.0;
     Vector3 lightPos = Vector3(lightDist * cos(lightSpin * rad) * sin(lightTilt * rad),
-                           lightDist * sin(lightSpin * rad) * sin(lightTilt * rad),
-                           lightDist * cos(lightTilt * rad));
+                               lightDist * cos(lightTilt * rad),  
+                               lightDist * sin(lightSpin * rad) * sin(lightTilt * rad));
     testPass->setProperty("lightPos", lightPos);
     testPass->setProperty("mode", 2);
     testPass->setProperty("mode", 2);
@@ -105,7 +105,7 @@ int main() {
       45.0f * 3.14159f / 180.0f,
       mainWindow->getAspectRatio(),
       0.1f,
-      1000.0f)
+      5000.0f)
         ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f))
         ->setLocalRotation(Vector3(-0.55f, 0.0f, 0.0f));
     mainSceneGraph.addNode(camera);
@@ -137,7 +137,7 @@ int main() {
 
 #pragma region Meshs/Materials
 
-    /* Create relevant Meshes*/
+    /* Boxes */
     auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
     auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
     boxMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
@@ -146,6 +146,16 @@ int main() {
     boxMaterial->setProperty("objectId", 5);
     boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
     boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
+
+    /* Floor */
+    auto floorMesh = Mesh::createMesh("box", Mesh::Cube);
+    auto floorMaterial = Material::getMaterial<MainTestMaterial>("floor", mainRenderer->getRenderGraph());
+    floorMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    floorMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    floorMaterial->setProperty("shininess", 10.0f);
+    floorMaterial->setProperty("objectId", 5);
+    floorMaterial->addTexture("media/textures/6670-diffuse.jpg");
+    floorMaterial->addTexture("media/textures/6670-normal.jpg");
 
     /*Sky Box*/
     auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
@@ -169,7 +179,7 @@ int main() {
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
-    playerBox->setLocalPosition(Vector3(2.0f, 0.5f, 0.0f))
+    playerBox->setLocalPosition(Vector3(2.0f, 1.0f, 0.0f))
         ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -188,7 +198,7 @@ int main() {
 
     // Create instances of bodies for boxes
     playerBox->addComponent<RigidBody>()
-        ->usingGravity(true)
+        //->usingGravity(true)
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape1)
         ->setDebug(true)
@@ -207,7 +217,7 @@ int main() {
 #pragma region DynamicBox
 
     auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-    dynamicBox->setLocalPosition(Vector3(-2.0f, 0.5f, 0.0f))
+    dynamicBox->setLocalPosition(Vector3(-2.0f, 0.75f, 0.0f))
         ->setLocalScaling(Vector3(0.75f, 0.75f, 0.75f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -226,7 +236,6 @@ int main() {
 
     // Create instances of bodies for boxes
     dynamicBox->addComponent<RigidBody>()
-        ->usingGravity(true)
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(dBoxShape)
         ->setDebug(true)
@@ -245,8 +254,8 @@ int main() {
     auto box2RenderComponent = floor->addComponent<Render2D>();
     box2RenderComponent
         ->setCamera(camera)
-        ->setMesh(boxMesh)
-        ->setMaterial(boxMaterial);
+        ->setMesh(floorMesh)
+        ->setMaterial(floorMaterial);
 
     auto shape2 = std::make_shared<OBB>(
     Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
@@ -267,7 +276,7 @@ int main() {
 #pragma region Static Sound Box
 
     auto soundBox = std::make_shared<GameObject>("SoundBox");
-    soundBox->setLocalPosition(Vector3(-7.0f, 0.5f, 7.0f))
+    soundBox->setLocalPosition(Vector3(-10.0f, 0.75f, 10.0f))
         ->setLocalScaling(Vector3(0.5f, 0.5f, 0.5f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -286,7 +295,6 @@ int main() {
 
     // Create instances of bodies for boxes
     soundBox->addComponent<RigidBody>()
-        ->setStatic(true)
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(soundBoxShape)
         ->setDebug(true)
@@ -299,7 +307,8 @@ int main() {
 #pragma endregion
 
 
-    CollisionListener boxTouch(floor);
+    CollisionListener boxTouch(dynamicBox);
+    //boxTouch.setCallback();
 
     float angleX = 0.0f;
     float angleY = 0.0f;
@@ -309,6 +318,15 @@ int main() {
     int expectedFrameRate = 60; // 1000;
     mainFramerateController->setTargetFramerate(expectedFrameRate);
     mainSceneGraph.printSceneTree();
+
+    float affineCounter = 0.0f;
+    float affineSpeed = 0.5f;
+    Vector3 affinePosStart = Vector3(-10.0f, 0.75f, 10.0f);
+    Vector3 affinePosEnd = Vector3(-10.0f, 10.75f, 10.0f);
+    Vector3 affineRotStart = Vector3(0.0, 0.0, 0.0);
+    Vector3 affineRotEnd = Vector3(0.0, 2, 0.0);
+    Vector3 affineSclStart = Vector3(0.5, 0.5, 0.5);
+    Vector3 affineSclEnd = Vector3(0.6, 0.6, 0.6);
 
     while (!mainWindow->getShouldClose()) {
         //std::cout << "\nloop restart at time " << framerateController->getTime() << "\n\n";
@@ -326,20 +344,44 @@ int main() {
             mainFramerateController->consumePhysicsTime();
         }
 
+        //Affine Demonstration
+        affineCounter += 0.1f;
+        float t = 0.5f * (sin(affineCounter * affineSpeed) + 1.0);
+        Vector3 affineCurrPos = affinePosStart + (affinePosEnd - affinePosStart) * t;
+        soundBox.get()->setLocalPosition(affineCurrPos);
+        Vector3 affineCurrRot = affineRotStart + (affineRotEnd - affineRotStart) * t;
+        soundBox.get()->setLocalRotation(affineCurrRot);
+        Vector3 affineCurrScl = affineSclStart + (affineSclEnd - affineSclStart) * t;
+        soundBox.get()->setLocalScaling(affineCurrScl);
+
         //Audio Update
         AudioManager::instance().update();
         AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
-
         if (mainInput->isKeyPressed(KEY_SPACE)) {
             AudioManager::instance().playSound("pew");
         }
-
         if (mainInput->isKeyPressed(KEY_V)) {
             AudioManager::instance().togglePlaybackSpeed(0.7);
         }
-
         if (mainInput->isKeyPressed(KEY_M)) {
             AudioManager::instance().stopSound("radio");
+        }
+
+        //Light Manipulation
+        if(mainInput->isKeyHeld(KEY_T)){
+            std::cout << "Spinning Light\n";
+            lightSpin += 2.0f;
+            lightPos = Vector3(lightDist * cos(lightSpin * rad) * sin(lightTilt * rad),
+                               lightDist * cos(lightTilt * rad),
+                               lightDist * sin(lightSpin * rad) * sin(lightTilt * rad));
+            testPass->setProperty("lightPos", lightPos);
+        }
+        else if (mainInput->isKeyHeld(KEY_G)) {
+            lightSpin -= 2.0f;
+            lightPos = Vector3(lightDist * cos(lightSpin * rad) * sin(lightTilt * rad),
+                               lightDist * cos(lightTilt * rad),
+                               lightDist * sin(lightSpin * rad) * sin(lightTilt * rad));
+            testPass->setProperty("lightPos", lightPos);
         }
 
         mainSceneGraph.update(deltaTime);
