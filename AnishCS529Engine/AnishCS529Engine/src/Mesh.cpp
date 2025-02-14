@@ -264,7 +264,7 @@ std::pair<Mesh::Attributes, std::vector<unsigned int>> Mesh::createFace(const Ma
   newMeshData[GeometryBuffer::AttributeType::Tangent] =
     std::pair<std::vector<float>, GLint>(std::vector<float>(), 3);
 
-  float verts[8] = { -1.0f,-1.0f, 1.0f,-1.0f, 1.0f,1.0f, -1.0f,1.0f };
+  float verts[8] = { -0.5f,-0.5f, 0.5f,-0.5f, 0.5f,0.5f, -0.5f,0.5f };
   float texcd[8] = { 0.0f,0.0f,  1.0f,0.0f,  1.0f, 1.0f, 0.0f, 1.0f };
 
   Vector3 newPosition;
@@ -274,7 +274,7 @@ std::pair<Mesh::Attributes, std::vector<unsigned int>> Mesh::createFace(const Ma
   // Four vertices to make a single face, with its own normal and
   // texture coordinates.
   for (int i = 0; i < 8; i += 2) {
-    newPosition = tr * Vector3(verts[i], verts[i + 1], 1.0f);
+    newPosition = tr * Vector3(verts[i], verts[i + 1], 0.5f);
     newNormals = tr * Vector3(0.0f, 0.0f, 1.0f);
     newTangents = tr * Vector3(1.0f, 0.0f, 0.0f);
     newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(newPosition.x);
