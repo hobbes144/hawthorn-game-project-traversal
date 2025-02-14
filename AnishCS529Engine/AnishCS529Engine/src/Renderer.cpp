@@ -85,8 +85,8 @@ bool Renderer::loadGraphicsAPIFunctions() const {
     return false;
   }
   // Enable debug
-  glEnable(GL_DEBUG_OUTPUT);
-  glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); // Makes sure errors are reported immediately
+  //glEnable(GL_DEBUG_OUTPUT);
+  //glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS); // Makes sure errors are reported immediately
   //glEnable(GL_DEPTH_TEST);
   glfwWindowHint(GLFW_DEPTH_BITS, 24);
   glDebugMessageCallback(openglCallbackFunction, nullptr);
