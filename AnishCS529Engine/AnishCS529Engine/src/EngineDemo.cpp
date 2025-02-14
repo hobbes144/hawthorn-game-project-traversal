@@ -29,6 +29,35 @@ extern "C"
     __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
 
+void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point) {
+
+    std::cout << "OnBoxCollision\n";
+
+    std::shared_ptr<GameObject> dynamic;
+    std::shared_ptr<GameObject> player;
+
+    if(obj1.get()->getName() == "PlayerBox") {
+        dynamic = obj2;
+        player = obj1;
+    }
+    else if (obj2.get()->getName() == "PlayerBox") {
+        dynamic = obj1;
+        player = obj2;
+    }
+    else {
+        std::cout << "Neither is player Tank\n";
+        return;
+    }
+
+    float forceMagnatude = 10000;
+    Vector3 direction = dynamic.get()->getLocalPosition() - player.get()->getLocalPosition();
+    direction = direction.normalized();
+    Vector3 force = direction * forceMagnatude;
+    dynamic.get()->findComponent<RigidBody>().get()->applyForce(Vector3(force.x, 0, force.z));
+    return;
+
+}
+
 int main() {
     const float rad = PI / 180.0f;
 
@@ -180,7 +209,7 @@ int main() {
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
     playerBox->setLocalPosition(Vector3(2.0f, 1.0f, 0.0f))
-        ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
+        ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
     //Render Component
@@ -217,8 +246,8 @@ int main() {
 #pragma region DynamicBox
 
     auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-    dynamicBox->setLocalPosition(Vector3(-2.0f, 0.75f, 0.0f))
-        ->setLocalScaling(Vector3(0.75f, 0.75f, 0.75f));
+    dynamicBox->setLocalPosition(Vector3(-2.0f, 1.0f, 0.0f))
+        ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
     //Render Component
@@ -308,7 +337,7 @@ int main() {
 
 
     CollisionListener boxTouch(dynamicBox);
-    //boxTouch.setCallback();
+    boxTouch.setCallback(onBoxCollide);
 
     float angleX = 0.0f;
     float angleY = 0.0f;
