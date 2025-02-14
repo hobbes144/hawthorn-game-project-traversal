@@ -184,33 +184,42 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		double actualdisY = abs(PosRB.y - PosRB2.y);
 		double actualdisZ = abs(PosRB.z - PosRB2.z);
 
-		bool signX = Force.x != 0;
-		bool signY = Force.y != 0;
-		bool signZ = Force.z != 0;
+		Vector3 utv = (PosRB - PosRB2).normalized();
+
+		bool signX = (Force.x != 0 && velocity.x != 0);
+		bool signY = (Force.y != 0 && velocity.y != 0);
+		bool signZ = (Force.z != 0 && velocity.z != 0);
 
 		Vector3 restore = Vector3(dx - actualdisX, dy - actualdisY, dz - actualdisZ);
 
-		float cntX = abs(restore.x / negVelocity.x);
-		float cntY = abs(restore.y / negVelocity.y);
-		float cntZ = abs(restore.z / negVelocity.z);
+		float cntX = abs(restore.x / utv.x);
+		float cntY = abs(restore.y / utv.y);
+		float cntZ = abs(restore.z / utv.z);
 
-		double cnt = fmin(cntX, fmin(cntY, cntZ));
+		float cnt = fmin(cntX, fmin(cntY, cntZ));
 
-		restore = Vector3(negVelocity.x * cnt, negVelocity.y * cnt, negVelocity.z * cnt);
+		Vector3 mtv = Vector3(utv.x * cnt, utv.y * cnt, utv.z * cnt);
 
-		std::cout << restore.x << " " << restore.y << " " << restore.z;
+		float max = fmax(abs(mtv.x), fmax(abs(mtv.y), abs(mtv.z)));
+		float min = fmin(abs(mtv.x), fmin(abs(mtv.y), abs(mtv.z)));
 
-		if (restore.x == NAN || restore.y == NAN || restore.z == NAN) restore = Vector3(0, 0, 0);
+		Vector3 final = mtv;
+
+		if (min != 0) {
+			if (min == abs(mtv.x)) final.y = final.z = 0;
+			else if (min == abs(mtv.y)) final.x = final.z = 0;
+			else if (min == abs(mtv.z)) final.y = final.x = 0;
+		}
 
 		if (RB2->getIsStatic()) {
-			RB->setVelocity(Vector3(velocity.x*signX, velocity.y*signY, velocity.z*signZ));
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + restore*1.1 / scaleRB);
+			RB->setVelocity(Vector3(velocity.x * signX, velocity.y * signY, velocity.z * signZ));
+			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB);
 		}
 		else {
-			RB->applyForce(negVelocity * 100 * RB2->getMass());
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + restore / scaleRB / 2);
-			RB2->applyForce(velocity * 100 * RB->getMass());
-			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - restore / scaleRB2 / 2);
+			RB->applyForce(negVelocity * 10 * RB2->getMass());
+			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB / 2);
+			RB2->applyForce(velocity * 10 * RB->getMass());
+			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - final / scaleRB2 / 2);
 		}
 	}
 	return;

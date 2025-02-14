@@ -238,7 +238,7 @@ int main() {
 
     // Create instances of bodies for boxes
     playerBox->addComponent<RigidBody>()
-        //->usingGravity(true)
+        ->usingGravity(true)
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape1)
         ->setDebug(isDebug)
@@ -276,6 +276,7 @@ int main() {
 
     // Create instances of bodies for boxes
     dynamicBox->addComponent<RigidBody>()
+        ->usingGravity(true)
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(dBoxShape)
         ->setDebug(isDebug)
@@ -351,7 +352,11 @@ int main() {
 
 
     CollisionListener boxTouch(dynamicBox);
-    boxTouch.setCallback(onBoxCollide);
+    boxTouch.setCallback(onRBCollide);
+    CollisionListener floorTouch(floor);
+    floorTouch.setCallback(onRBCollide);
+    CollisionListener boxTouch2(playerBox);
+    boxTouch2.setCallback(onRBCollide);
 
     float angleX = 0.0f;
     float angleY = 0.0f;
