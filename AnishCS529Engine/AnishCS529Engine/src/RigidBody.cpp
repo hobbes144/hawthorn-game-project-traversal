@@ -212,13 +212,13 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		}
 
 		if (RB2->getIsStatic()) {
-			RB->setVelocity(Vector3(velocity.x * signX, velocity.y * signY, velocity.z * signZ));
+			RB->setVelocity(Vector3(velocity.x*signX, velocity.y*signY, velocity.z*signZ));
 			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB);
 		}
 		else {
-			RB->applyForce(negVelocity * 10 * RB2->getMass());
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB / 2);
-			RB2->applyForce(velocity * 10 * RB->getMass());
+			RB->applyForce(negVelocity * 20 * RB2->getMass());
+			RB->getParent()->setLocalPosition(PosRB / scaleRB + final/ scaleRB / 2);
+			RB2->applyForce(velocity * 20 * RB->getMass());
 			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - final / scaleRB2 / 2);
 		}
 	}
