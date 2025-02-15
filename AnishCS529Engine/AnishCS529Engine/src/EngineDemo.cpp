@@ -319,7 +319,7 @@ int main() {
 #pragma region Static Sound Box
 
     auto soundBox = std::make_shared<GameObject>("SoundBox");
-    soundBox->setLocalPosition(Vector3(-10.0f, 0.75f, 10.0f))
+    soundBox->setLocalPosition(Vector3(0.0f, 1.0f, 0.0f))
         ->setLocalScaling(Vector3(0.5f, 0.5f, 0.5f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
