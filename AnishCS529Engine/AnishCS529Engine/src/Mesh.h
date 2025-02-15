@@ -27,6 +27,7 @@
 #include "Vector3.h"
 #include "Matrix4.h"
 #include "Transform.h"
+#include "assimp/mesh.h"
 
 /** Struct VertexData not in use. */
 struct VertexData {
@@ -106,6 +107,8 @@ private:
 
   static Attributes combineAttributes(const std::vector<Attributes>& attributesList);
   static void combineIndices(unsigned int previousVertices, std::vector<unsigned int>& destIndices, std::vector<unsigned int> newIndices);
+
+  void ProcessMesh(aiMesh* mesh, Attributes& newMeshData, std::vector<unsigned int>& indices);
 
   void prepareAttributeData(
     GeometryBuffer::ModifiableAttributes& triangleBufferData,
