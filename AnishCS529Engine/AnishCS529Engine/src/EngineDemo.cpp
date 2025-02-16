@@ -448,17 +448,13 @@ int main() {
     mainSceneGraph.addNode(soundBox);
     gameObjects.push_back(soundBox);
 
-    AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.3f);
+    AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.7f);
 
 #pragma endregion
 
 
     CollisionListener boxTouch(dynamicBox);
-    boxTouch.setCallback(onRBCollide);
-    CollisionListener floorTouch(floor);
-    floorTouch.setCallback(onRBCollide);
-    CollisionListener boxTouch2(playerBox);
-    boxTouch2.setCallback(onRBCollide);
+    boxTouch.setCallback(onBoxCollide);
 
     float angleX = 0.0f;
     float angleY = 0.0f;
