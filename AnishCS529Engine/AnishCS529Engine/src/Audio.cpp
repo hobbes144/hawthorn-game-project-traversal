@@ -37,7 +37,7 @@ AudioManager& AudioManager::instance() {
  * calling shutdown(), releasing all audio resources if the user forgot to do so.
  *****************************************************************************/
 AudioManager::~AudioManager() {
-    shutdown();
+    //shutdown();
 }
 
 
@@ -75,6 +75,10 @@ void AudioManager::initialize(int maxChannels) {
     );
 
     std::cerr << "[AudioManager] FMOD initialized with " << maxChannels << " channels.\n";
+
+    engineListener = new AudioListener();
+
+    EventManager::Instance().AddListener(engineListener);
 }
 
 /*!****************************************************************************
@@ -351,5 +355,23 @@ void AudioManager::shutdown() {
         fmodSystem_->release();
         fmodSystem_ = nullptr;
     }
+
+    EventManager::Instance().RemoveListener(engineListener);
+    delete(engineListener);
+
     std::cout << "[AudioManager] FMOD system shut down.\n";
+}
+
+void AudioListener::OnEvent(const AudioEvent& event) {
+  if (event.action == AudioEvent::Action::Start) {
+    std::cout << "Audio requested: " << event.audioName << std::endl;
+    AudioManager::instance().playSound(event.audioName);
+    if (event.duration > 0.0f) {
+      AudioEvent stopEvent(event.audioName, AudioEvent::Action::Stop);
+      EventManager::Instance().ScheduleEvent(stopEvent, event.duration);
+    }
+  }
+  else if (event.action == AudioEvent::Action::Stop) {
+    AudioManager::instance().stopSound(event.audioName);
+  }
 }

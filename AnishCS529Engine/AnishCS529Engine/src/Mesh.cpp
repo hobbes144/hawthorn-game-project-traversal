@@ -1,4 +1,4 @@
-/*!****************************************************************************
+﻿/*!****************************************************************************
  * \file   Mesh.cpp
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
@@ -9,6 +9,9 @@
  *
  *****************************************************************************/
 #include "Mesh.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 std::unordered_map<Mesh::Type, std::shared_ptr<Mesh>> Mesh::shapeMeshes;
 
@@ -224,6 +227,122 @@ void Mesh::combineIndices(unsigned int previousVertices, std::vector<unsigned in
   for (auto index : newIndices) {
     destIndices.push_back(index + previousVertices);
   }
+}
+
+
+std::unordered_map<std::string, std::shared_ptr<Mesh>> Mesh::loadedMeshes;
+
+std::shared_ptr<Mesh> Mesh::loadMesh(const std::string& filename)
+{
+    // if already have this file, return the cached mesh.
+    if (loadedMeshes.find(filename) != loadedMeshes.end())
+        return loadedMeshes[filename];
+
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(filename,
+        aiProcess_Triangulate |
+        aiProcess_FlipUVs |
+        aiProcess_GenNormals |
+        aiProcess_CalcTangentSpace);
+
+    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+    {
+        std::cerr << "Assimp error loading " << filename << ": "
+            << importer.GetErrorString() << std::endl;
+        return nullptr;
+    }
+
+    std::vector<Attributes> meshesAttributes;
+    std::vector<unsigned int> combinedIndices;
+    unsigned int vertexOffset = 0;
+
+    for (unsigned int i = 0; i < scene->mNumMeshes; i++)
+    {
+        aiMesh* aMesh = scene->mMeshes[i];
+        Attributes tempAttributes;
+        tempAttributes[GeometryBuffer::AttributeType::Position] = std::make_pair(std::vector<float>(), 3);
+        tempAttributes[GeometryBuffer::AttributeType::Normal] = std::make_pair(std::vector<float>(), 3);
+        tempAttributes[GeometryBuffer::AttributeType::TexCoord] = std::make_pair(std::vector<float>(), 2);
+        tempAttributes[GeometryBuffer::AttributeType::Tangent] = std::make_pair(std::vector<float>(), 3);
+
+        std::vector<unsigned int> meshIndices;
+        // process the individual mesh.
+        processMesh(aMesh, tempAttributes, meshIndices);
+
+        // adjust the indices from this mesh by the current vertex offset.
+        combineIndices(vertexOffset, combinedIndices, meshIndices);
+
+        // Update vertexOffset
+        size_t numVertices = tempAttributes[GeometryBuffer::AttributeType::Position].first.size() / 3;
+        vertexOffset += static_cast<unsigned int>(numVertices);
+
+        meshesAttributes.push_back(tempAttributes);
+    }
+
+    // combine the per‑mesh attribute data into one Attributes object.
+    Attributes combinedAttributes = combineAttributes(meshesAttributes);
+
+    // create the new mesh instance using the combined attributes and indices.
+    std::shared_ptr<Mesh> newMesh = std::make_shared<Mesh>(filename + "_Mesh", combinedAttributes, combinedIndices, 0);
+
+    // cache the loaded mesh.
+    loadedMeshes[filename] = newMesh;
+    return newMesh;
+}
+void Mesh::processMesh(aiMesh* mesh, Attributes& newMeshData, std::vector<unsigned int>& indices)
+{
+    // Reserve space based on the number of vertices.
+    newMeshData[GeometryBuffer::AttributeType::Position].first.reserve(mesh->mNumVertices * 3);
+    newMeshData[GeometryBuffer::AttributeType::Normal].first.reserve(mesh->mNumVertices * 3);
+    newMeshData[GeometryBuffer::AttributeType::TexCoord].first.reserve(mesh->mNumVertices * 2);
+    newMeshData[GeometryBuffer::AttributeType::Tangent].first.reserve(mesh->mNumVertices * 3);
+
+    // Process vertices.
+    for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+    {
+        // Position.
+        newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].x);
+        newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].y);
+        newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].z);
+
+        // Normal.
+        if (mesh->HasNormals())
+        {
+            newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].x);
+            newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].y);
+            newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].z);
+        }
+
+        // Texture Coordinates (first set only).
+        if (mesh->HasTextureCoords(0))
+        {
+            newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(mesh->mTextureCoords[0][i].x);
+            newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(mesh->mTextureCoords[0][i].y);
+        }
+        else
+        {
+            newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(0.0f);
+            newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(0.0f);
+        }
+
+        // Tangent.
+        if (mesh->HasTangentsAndBitangents())
+        {
+            newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].x);
+            newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].y);
+            newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].z);
+        }
+    }
+
+    // Process indices.
+    for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+    {
+        aiFace face = mesh->mFaces[i];
+        for (unsigned int j = 0; j < face.mNumIndices; j++)
+        {
+            indices.push_back(face.mIndices[j]);
+        }
+    }
 }
 //
 //Mesh::Attributes Mesh::createTri(std::vector<Vector3> points, std::vector<float> texCoords) {

@@ -31,35 +31,42 @@ extern "C"
     __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
     __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
+void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point) {
 
-//void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point) {
-//
-//    std::cout << "OnBoxCollision\n";
-//
-//    std::shared_ptr<GameObject> dynamic;
-//    std::shared_ptr<GameObject> player;
-//
-//    if(obj1.get()->getName() == "PlayerBox") {
-//        dynamic = obj2;
-//        player = obj1;
-//    }
-//    else if (obj2.get()->getName() == "PlayerBox") {
-//        dynamic = obj1;
-//        player = obj2;
-//    }
-//    else {
-//        std::cout << "Neither is player Tank\n";
-//        return;
-//    }
-//
-//    float forceMagnatude = 10000;
-//    Vector3 direction = dynamic.get()->getLocalPosition() - player.get()->getLocalPosition();
-//    direction = direction.normalized();
-//    Vector3 force = direction * forceMagnatude;
-//    dynamic.get()->findComponent<RigidBody>().get()->applyForce(Vector3(force.x, 0, force.z));
-//    return;
-//
-//}
+    std::cout << "OnBoxCollision\n";
+
+    std::shared_ptr<GameObject> dynamic;
+    std::shared_ptr<GameObject> player;
+
+    if(obj1.get()->getName() == "PlayerBox") {
+        dynamic = obj2;
+        player = obj1;
+    }
+    else if (obj2.get()->getName() == "PlayerBox") {
+        dynamic = obj1;
+        player = obj2;
+    }
+    else {
+        std::cout << "Neither is player Tank\n";
+        return;
+    }
+
+    // Play audio from dynamic box
+    AudioManager::instance().playSound("bang", Vector3(dynamic->getLocalPosition()));
+    return;
+
+}
+
+void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
+
+  std::cout << "onMove\n";
+
+  AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
+
+  return;
+
+}
+
 
 int main() {
     const float rad = PI / 180.0f;
@@ -127,8 +134,10 @@ int main() {
     /* Audio System Initalization */
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/backgroundMusic.mp3", true, true);
+    AudioManager::instance().loadSound("music", "media/audio/GuanShanYue.mp3", true, true);
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
+    AudioManager::instance().loadSound("bang", "media/audio/bang.mp3", true);
+    AudioManager::instance().loadSound("footstep", "media/audio/footstep.mp3", true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
     //AudioManager::instance().playSound("music", Vector3(0, 0, 0));
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
@@ -175,6 +184,7 @@ int main() {
 #pragma endregion
 
 #pragma region Meshs/Materials
+
     /* Boxes */
     auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
     auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
@@ -194,6 +204,39 @@ int main() {
     floorMaterial->setProperty("objectId", 5);
     floorMaterial->addTexture("media/textures/6670-diffuse.jpg");
     floorMaterial->addTexture("media/textures/6670-normal.jpg");
+
+    /* Grass */
+    auto grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
+    grassMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    grassMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    grassMaterial->setProperty("shininess", 10.0f);
+    grassMaterial->setProperty("objectId", 5);
+    grassMaterial->addTexture("media/textures/grass.jpg");
+
+    /* Cracks */
+    auto cracksMaterial = Material::getMaterial<MainTestMaterial>("cracks", mainRenderer->getRenderGraph());
+    cracksMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    cracksMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    cracksMaterial->setProperty("shininess", 10.0f);
+    cracksMaterial->setProperty("objectId", 5);
+    cracksMaterial->addTexture("media/textures/cracks.png");
+
+    /* MyHouse */
+    auto myhouseMaterial = Material::getMaterial<MainTestMaterial>("myhouse", mainRenderer->getRenderGraph());
+    myhouseMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    myhouseMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    myhouseMaterial->setProperty("shininess", 10.0f);
+    myhouseMaterial->setProperty("objectId", 5);
+    myhouseMaterial->addTexture("media/textures/my-house-01.png");
+
+    /* Brick */
+    auto brickMaterial = Material::getMaterial<MainTestMaterial>("brick", mainRenderer->getRenderGraph());
+    brickMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    brickMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    brickMaterial->setProperty("shininess", 10.0f);
+    brickMaterial->setProperty("objectId", 5);
+    brickMaterial->addTexture("media/textures/Standard_red_pxr128.png");
+    brickMaterial->addTexture("media/textures/Standard_red_pxr128_normal.png");
 
     /*Sky Box*/
     auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
@@ -217,6 +260,56 @@ int main() {
     int isDebug = 0;
     std::vector<std::shared_ptr<GameObject>> gameObjects;
 
+#pragma region Map
+    std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
+    auto mapObject = std::make_shared<GameObject>("Map");
+    mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
+    mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    auto mapRenderComponent = mapObject->addComponent<Render2D>();
+    mapRenderComponent->setCamera(camera)
+        ->setMesh(mapMesh)
+        ->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(mapObject);
+
+#pragma endregion
+
+#pragma region Turret
+    std::shared_ptr<Mesh> turretMesh = Mesh::loadMesh("media/Map/Turret.fbx");
+    auto turretObject = std::make_shared<GameObject>("turret");
+    turretObject->setLocalPosition(Vector3(50.0f, 0.0f, 0.0f));
+    turretObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    auto turretRenderComponent = turretObject->addComponent<Render2D>();
+    turretRenderComponent->setCamera(camera)
+        ->setMesh(turretMesh)
+        ->setMaterial(brickMaterial);
+    mainSceneGraph.addNode(turretObject);
+#pragma endregion
+
+#pragma region Cannon
+    std::shared_ptr<Mesh> cannonMesh = Mesh::loadMesh("media/Map/Cannon.fbx");
+    auto cannonObject = std::make_shared<GameObject>("Cannon");
+    cannonObject->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+    cannonObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    cannonObject->setLocalRotation(Vector3(0.0f, 0.0f, 135.0f));
+    auto cannonRenderComponent = cannonObject->addComponent<Render2D>();
+    cannonRenderComponent->setCamera(camera)
+        ->setMesh(cannonMesh)
+        ->setMaterial(boxMaterial);
+    mainSceneGraph.addNode(cannonObject);
+#pragma endregion
+
+#pragma region Cannonball
+    std::shared_ptr<Mesh> cannonballMesh = Mesh::loadMesh("media/Map/Cannonball.fbx");
+    auto cannonballObject = std::make_shared<GameObject>("Cannonball");
+    cannonballObject->setLocalPosition(Vector3(-80.0f, 0.0f, 70.0f));
+    cannonballObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    auto cannonballRenderComponent = cannonballObject->addComponent<Render2D>();
+    cannonballRenderComponent->setCamera(camera)
+        ->setMesh(cannonballMesh)
+        ->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(cannonballObject);
+#pragma endregion
+
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
@@ -229,7 +322,7 @@ int main() {
     box1RenderComponent
         ->setCamera(camera)
         ->setMesh(boxMesh)
-        ->setMaterial(boxMaterial);
+        ->setMaterial(cracksMaterial);
 
     //Create Shape
     auto shape1 = std::make_shared<OBB>(
@@ -247,10 +340,15 @@ int main() {
       ->initialize();
 
     auto playerBoxInputComponent = playerBox->addComponent<Movement3D>()->setInputSystem(mainInput)
-        ->setAction(Movement3D::Forward, KEY_I)
-        ->setAction(Movement3D::Back, KEY_K)
-        ->setAction(Movement3D::Left, KEY_J)
-        ->setAction(Movement3D::Right, KEY_L);
+      ->setAction(Movement3D::Forward, KEY_I)
+      ->setAction(Movement3D::Back, KEY_K)
+      ->setAction(Movement3D::Left, KEY_J)
+      ->setAction(Movement3D::Right, KEY_L);
+
+    Movement3DListener playerMovementListener(playerBox);
+    playerMovementListener.setCallback(onMove);
+
+    EventManager::Instance().AddListener(&playerMovementListener);
 
     mainSceneGraph.addNode(playerBox);
     gameObjects.push_back(playerBox);
@@ -268,7 +366,7 @@ int main() {
     dynamicBoxRenderComponent
         ->setCamera(camera)
         ->setMesh(boxMesh)
-        ->setMaterial(boxMaterial);
+        ->setMaterial(cracksMaterial);
 
     //Create Shape
     auto dBoxShape = std::make_shared<OBB>(
@@ -300,7 +398,7 @@ int main() {
     box2RenderComponent
         ->setCamera(camera)
         ->setMesh(floorMesh)
-        ->setMaterial(floorMaterial);
+        ->setMaterial(cracksMaterial);
 
     auto shape2 = std::make_shared<OBB>(
     Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
@@ -332,7 +430,7 @@ int main() {
     soundBoxRenderComponent
         ->setCamera(camera)
         ->setMesh(boxMesh)
-        ->setMaterial(boxMaterial);
+        ->setMaterial(cracksMaterial);
 
     //Create Shape
     auto soundBoxShape = std::make_shared<OBB>(
@@ -351,17 +449,12 @@ int main() {
     mainSceneGraph.addNode(soundBox);
     gameObjects.push_back(soundBox);
 
-    AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.3f);
+    AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.7f);
 
 #pragma endregion
 
-
-    /*CollisionListener boxTouch(dynamicBox);
-    boxTouch.setCallback(onRBCollide);
-    CollisionListener floorTouch(floor);
-    floorTouch.setCallback(onRBCollide);
-    CollisionListener boxTouch2(playerBox);
-    boxTouch2.setCallback(onRBCollide);*/
+    CollisionListener boxTouch(dynamicBox);
+    boxTouch.setCallback(onBoxCollide);
 
     float angleX = 0.0f;
     float angleY = 0.0f;
