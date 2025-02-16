@@ -175,6 +175,25 @@ int main() {
 #pragma endregion
 
 #pragma region Meshs/Materials
+
+    /* Map */
+    std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
+    auto mapMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
+
+
+    auto mapObject = std::make_shared<GameObject>("Map");
+    mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
+    mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+
+    // Create and configure a render component for the map.
+    auto mapRenderComponent = mapObject->addComponent<Render2D>();
+    mapRenderComponent->setCamera(camera)
+        ->setMesh(mapMesh)
+        ->setMaterial(mapMaterial);
+
+    // Add the map to the scene graph so that it is updated and drawn.
+    mainSceneGraph.addNode(mapObject);
+
     /* Boxes */
     auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
     auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());

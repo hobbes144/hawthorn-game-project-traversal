@@ -91,8 +91,7 @@ public:
   void draw(GLenum mode = GL_TRIANGLES);
 
   /* Mesh factory */
-  static std::unordered_map<Type, std::shared_ptr<Mesh>> shapeMeshes;
-
+  static std::shared_ptr<Mesh> loadMesh(const std::string& filename);
   static std::pair<Attributes, std::vector<unsigned int>> createFace(const Matrix4& tr);
 
   static std::shared_ptr<Mesh> createSphereMesh(const std::string& name, const int n = 32);
@@ -107,8 +106,12 @@ private:
 
   static Attributes combineAttributes(const std::vector<Attributes>& attributesList);
   static void combineIndices(unsigned int previousVertices, std::vector<unsigned int>& destIndices, std::vector<unsigned int> newIndices);
+  static void processMesh(aiMesh* mesh, Attributes& newMeshData, std::vector<unsigned int>& indices);
+  static std::unordered_map<std::string, std::shared_ptr<Mesh>> loadedMeshes;
 
-  void ProcessMesh(aiMesh* mesh, Attributes& newMeshData, std::vector<unsigned int>& indices);
+  /* Mesh factory */
+  static std::unordered_map<Type, std::shared_ptr<Mesh>> shapeMeshes;
+
 
   void prepareAttributeData(
     GeometryBuffer::ModifiableAttributes& triangleBufferData,
