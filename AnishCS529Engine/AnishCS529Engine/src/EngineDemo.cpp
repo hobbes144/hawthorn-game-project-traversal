@@ -276,7 +276,7 @@ int main() {
 #pragma region Turret
     std::shared_ptr<Mesh> turretMesh = Mesh::loadMesh("media/Map/Turret.fbx");
     auto turretObject = std::make_shared<GameObject>("turret");
-    turretObject->setLocalPosition(Vector3(50.0f, 0.0f, 0.0f));
+    turretObject->setLocalPosition(Vector3(50.0f, 1.0f, 0.0f));
     turretObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
     auto turretRenderComponent = turretObject->addComponent<Render2D>();
     turretRenderComponent->setCamera(camera)
@@ -288,7 +288,7 @@ int main() {
 #pragma region Cannon
     std::shared_ptr<Mesh> cannonMesh = Mesh::loadMesh("media/Map/Cannon.fbx");
     auto cannonObject = std::make_shared<GameObject>("Cannon");
-    cannonObject->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
+    cannonObject->setLocalPosition(Vector3(-100.0f, 1.0f, 0.0f));
     cannonObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
     cannonObject->setLocalRotation(Vector3(0.0f, 0.0f, 135.0f));
     auto cannonRenderComponent = cannonObject->addComponent<Render2D>();
@@ -301,7 +301,7 @@ int main() {
 #pragma region Cannonball
     std::shared_ptr<Mesh> cannonballMesh = Mesh::loadMesh("media/Map/Cannonball.fbx");
     auto cannonballObject = std::make_shared<GameObject>("Cannonball");
-    cannonballObject->setLocalPosition(Vector3(-80.0f, 0.0f, 70.0f));
+    cannonballObject->setLocalPosition(Vector3(-80.0f, 1.0f, 70.0f));
     cannonballObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
     auto cannonballRenderComponent = cannonballObject->addComponent<Render2D>();
     cannonballRenderComponent->setCamera(camera)
@@ -313,7 +313,7 @@ int main() {
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
-    playerBox->setLocalPosition(Vector3(-2.0f, 1.0f, -2.0f))
+    playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -357,7 +357,7 @@ int main() {
 #pragma region DynamicBox
 
     auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-    dynamicBox->setLocalPosition(Vector3(-4.0f, 1.0f, -2.0f))
+    dynamicBox->setLocalPosition(Vector3(-2.0f, 5.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
