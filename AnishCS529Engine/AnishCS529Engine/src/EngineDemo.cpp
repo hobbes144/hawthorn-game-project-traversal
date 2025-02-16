@@ -31,7 +31,6 @@ extern "C"
     __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
     __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
-
 void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point) {
 
     std::cout << "OnBoxCollision\n";
@@ -261,8 +260,6 @@ int main() {
     int isDebug = 0;
     std::vector<std::shared_ptr<GameObject>> gameObjects;
 
-
-
 #pragma region Map
     std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
     auto mapObject = std::make_shared<GameObject>("Map");
@@ -316,7 +313,7 @@ int main() {
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
-    playerBox->setLocalPosition(Vector3(2.0f, 1.0f, 0.0f))
+    playerBox->setLocalPosition(Vector3(-2.0f, 1.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -339,7 +336,8 @@ int main() {
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape1)
         ->setDebug(isDebug)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+        ->registerToPhysicsManager(PhysicsManager::Instance())
+      ->initialize();
 
     auto playerBoxInputComponent = playerBox->addComponent<Movement3D>()->setInputSystem(mainInput)
       ->setAction(Movement3D::Forward, KEY_I)
@@ -359,7 +357,7 @@ int main() {
 #pragma region DynamicBox
 
     auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-    dynamicBox->setLocalPosition(Vector3(-2.0f, 1.0f, 0.0f))
+    dynamicBox->setLocalPosition(Vector3(-4.0f, 1.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -382,7 +380,8 @@ int main() {
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(dBoxShape)
         ->setDebug(isDebug)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+        ->registerToPhysicsManager(PhysicsManager::Instance())
+      ->initialize();
 
     mainSceneGraph.addNode(dynamicBox);
     gameObjects.push_back(dynamicBox);
@@ -411,7 +410,8 @@ int main() {
         ->setShape(shape2)
         ->setDebug(isDebug)
         ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+        ->registerToPhysicsManager(PhysicsManager::Instance())
+      ->initialize();
 
     mainSceneGraph.addNode(floor);
     gameObjects.push_back(floor);
@@ -421,7 +421,7 @@ int main() {
 #pragma region Static Sound Box
 
     auto soundBox = std::make_shared<GameObject>("SoundBox");
-    soundBox->setLocalPosition(Vector3(-10.0f, 0.75f, 10.0f))
+    soundBox->setLocalPosition(Vector3(0.0f, 1.0f, 0.0f))
         ->setLocalScaling(Vector3(0.5f, 0.5f, 0.5f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -443,7 +443,8 @@ int main() {
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(soundBoxShape)
         ->setDebug(isDebug)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+        ->registerToPhysicsManager(PhysicsManager::Instance())
+      ->initialize();
 
     mainSceneGraph.addNode(soundBox);
     gameObjects.push_back(soundBox);
@@ -451,7 +452,6 @@ int main() {
     AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.7f);
 
 #pragma endregion
-
 
     CollisionListener boxTouch(dynamicBox);
     boxTouch.setCallback(onBoxCollide);
