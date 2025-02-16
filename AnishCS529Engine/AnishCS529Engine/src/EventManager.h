@@ -12,10 +12,14 @@
  *****************************************************************************/
 #pragma once
 
+#include <functional>
+#include <vector>
+#include <queue>
+
 #include "Event.h"
 #include "EventListener.h"
+#include "FramerateController.h"
 
-#include <vector>
 
  // Event Manager - Singleton pattern
 class EventManager {
@@ -25,12 +29,39 @@ public:
     return instance;
   }
 
+  struct DelayedEvent {
+    using DelayedEventCallback = std::function<void()>;
+    DelayedEvent(float _execTime, DelayedEventCallback _callback) :
+      execTime(_execTime), callback(std::move(_callback)) {}
+
+    bool operator>(const DelayedEvent& other) const {
+      return execTime > other.execTime;
+    }
+
+    float execTime;
+    DelayedEventCallback callback;
+  };
+
+  void update(float deltaTime);
+
   // Simple version - just store all listeners in a vector
   //void AddListener(EventListener<Event>* listener);
   void AddListener(IEventListener* listener);
 
   //void RemoveListener(EventListener<Event>* listener);
   void RemoveListener(IEventListener* listener);
+
+  template <typename T>
+  void ScheduleEvent(const T& event, float delay) {
+    delayedEvents.push(
+      {
+        FFramerateController::getController()->getTime() + delay,
+        [this, event]() {
+          BroadcastEvent(event);
+        }
+      }
+    );
+  }
 
   // Broadcast event to interested listeners
   template<typename T>
@@ -43,4 +74,6 @@ public:
 private:
   EventManager() = default;
   std::vector<IEventListener*> listeners;
+  std::priority_queue<
+    DelayedEvent, std::vector<DelayedEvent>, std::greater<>> delayedEvents;
 };

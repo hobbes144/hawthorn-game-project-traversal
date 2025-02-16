@@ -10,6 +10,17 @@
  *****************************************************************************/
 #include "EventManager.h"
 
+void EventManager::update(float deltaTime) {
+  while (
+    !delayedEvents.empty() &&
+    delayedEvents.top().execTime <= FFramerateController::getController()->getTime()
+    ) {
+    auto delayedEvent = delayedEvents.top();
+    delayedEvents.pop();
+    delayedEvent.callback();
+  }
+}
+
 void EventManager::AddListener(IEventListener* listener) {
   listeners.push_back(listener);
 }

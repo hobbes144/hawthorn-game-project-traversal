@@ -17,6 +17,30 @@
 #include <unordered_map>
 #include <fmod/fmod.hpp>
 #include "Vector3.h"
+#include "EventManager.h"
+#include "GameObject.h"
+
+
+class AudioEvent : public Event {
+public:
+  enum Action {
+    Start,
+    Stop
+  };
+
+  AudioEvent(std::string _audioName, Action _action = Action::Start, float _duration = 0.0f) :
+    audioName(_audioName), action(_action), duration(_duration) {};
+  std::string audioName;
+  Action action;
+  float duration;
+};
+
+class AudioListener : public EventListener<AudioEvent> {
+public:
+  AudioListener() = default;
+
+  void OnEvent(const AudioEvent& event) override;
+};
 
 
  /*!****************************************************************************
@@ -95,6 +119,8 @@ private:
     std::unordered_map<std::string, FMOD::Sound*> sounds_;
 
     float currentPlaybackSpeed_ = 1.0f;
+
+    AudioListener* engineListener;
 };
 
 #endif // AUDIO_H
