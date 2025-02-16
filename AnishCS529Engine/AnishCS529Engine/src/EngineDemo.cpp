@@ -124,7 +124,7 @@ int main() {
     /* Audio System Initalization */
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/backgroundMusic.mp3", true, true);
+    AudioManager::instance().loadSound("music", "media/audio/GuanShanYue.mp3", true, true);
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
     AudioManager::instance().loadSound("bang", "media/audio/bang.mp3", true);
     AudioManager::instance().loadSound("footstep", "media/audio/footstep.mp3", true);
