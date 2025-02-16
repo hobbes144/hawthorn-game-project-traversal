@@ -52,11 +52,8 @@ void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> 
         return;
     }
 
-    float forceMagnatude = 10000;
-    Vector3 direction = dynamic.get()->getLocalPosition() - player.get()->getLocalPosition();
-    direction = direction.normalized();
-    Vector3 force = direction * forceMagnatude;
-    dynamic.get()->findComponent<RigidBody>().get()->applyForce(Vector3(force.x, 0, force.z));
+    // Play audio from dynamic box
+    AudioManager::instance().playSound("pew", Vector3(dynamic->getLocalPosition()));
     return;
 
 }
@@ -129,6 +126,8 @@ int main() {
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
     AudioManager::instance().loadSound("music", "media/audio/backgroundMusic.mp3", true, true);
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
+    //AudioManager::instance().loadSound("pew", "media/audio/bang.mp3", true);
+    //AudioManager::instance().loadSound("pew", "media/audio/footstep.mp3", true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
     //AudioManager::instance().playSound("music", Vector3(0, 0, 0));
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
