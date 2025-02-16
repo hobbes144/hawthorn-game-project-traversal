@@ -14,7 +14,7 @@
 #include <cmath>
 #include <algorithm>
 
-const float gravity = 9.8f * 10;
+float RigidBody::gravity = 9.8f;
 
 /*!****************************************************************************
  * \brief The constructor or RigidBody class
@@ -111,7 +111,7 @@ void RigidBody::initialize()
 void RigidBody::integrate(float deltaTime) {
 
 	if (useGravity) {
-		applyForce(Vector3(0.0, -gravity, 0.0));
+		applyForce(Vector3(0.0, -gravity*100.0f, 0.0));
 	}
 
 	PhysicsBody::integrate(deltaTime);

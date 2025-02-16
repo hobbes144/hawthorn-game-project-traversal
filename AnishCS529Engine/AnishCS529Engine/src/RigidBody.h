@@ -35,6 +35,8 @@ class RigidBody :
 
 	friend class PhysicsManager;
 public:
+
+	static float gravity;
 	RigidBody();
 	~RigidBody() = default;
 
