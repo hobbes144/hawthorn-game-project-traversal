@@ -214,6 +214,39 @@ int main() {
     floorMaterial->addTexture("media/textures/6670-diffuse.jpg");
     floorMaterial->addTexture("media/textures/6670-normal.jpg");
 
+    /* Grass */
+    auto grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
+    grassMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    grassMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    grassMaterial->setProperty("shininess", 10.0f);
+    grassMaterial->setProperty("objectId", 5);
+    grassMaterial->addTexture("media/textures/grass.jpg");
+
+    /* Cracks */
+    auto cracksMaterial = Material::getMaterial<MainTestMaterial>("cracks", mainRenderer->getRenderGraph());
+    cracksMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    cracksMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    cracksMaterial->setProperty("shininess", 10.0f);
+    cracksMaterial->setProperty("objectId", 5);
+    cracksMaterial->addTexture("media/textures/cracks.png");
+
+    /* MyHouse */
+    auto myhouseMaterial = Material::getMaterial<MainTestMaterial>("myhouse", mainRenderer->getRenderGraph());
+    myhouseMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    myhouseMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    myhouseMaterial->setProperty("shininess", 10.0f);
+    myhouseMaterial->setProperty("objectId", 5);
+    myhouseMaterial->addTexture("media/textures/my-house-01.png");
+
+    /* Brick */
+    auto brickMaterial = Material::getMaterial<MainTestMaterial>("brick", mainRenderer->getRenderGraph());
+    brickMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    brickMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    brickMaterial->setProperty("shininess", 10.0f);
+    brickMaterial->setProperty("objectId", 5);
+    brickMaterial->addTexture("media/textures/Standard_red_pxr128.png");
+    brickMaterial->addTexture("media/textures/Standard_red_pxr128_normal.png");
+
     /*Sky Box*/
     auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
     auto skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
@@ -247,7 +280,7 @@ int main() {
     box1RenderComponent
         ->setCamera(camera)
         ->setMesh(boxMesh)
-        ->setMaterial(boxMaterial);
+        ->setMaterial(cracksMaterial);
 
     //Create Shape
     auto shape1 = std::make_shared<OBB>(
@@ -285,7 +318,7 @@ int main() {
     dynamicBoxRenderComponent
         ->setCamera(camera)
         ->setMesh(boxMesh)
-        ->setMaterial(boxMaterial);
+        ->setMaterial(cracksMaterial);
 
     //Create Shape
     auto dBoxShape = std::make_shared<OBB>(
@@ -315,7 +348,7 @@ int main() {
     box2RenderComponent
         ->setCamera(camera)
         ->setMesh(floorMesh)
-        ->setMaterial(floorMaterial);
+        ->setMaterial(cracksMaterial);
 
     auto shape2 = std::make_shared<OBB>(
     Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
@@ -346,7 +379,7 @@ int main() {
     soundBoxRenderComponent
         ->setCamera(camera)
         ->setMesh(boxMesh)
-        ->setMaterial(boxMaterial);
+        ->setMaterial(cracksMaterial);
 
     //Create Shape
     auto soundBoxShape = std::make_shared<OBB>(
