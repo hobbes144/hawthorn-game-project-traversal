@@ -176,24 +176,6 @@ int main() {
 
 #pragma region Meshs/Materials
 
-    /* Map */
-    std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
-    auto mapMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
-
-
-    auto mapObject = std::make_shared<GameObject>("Map");
-    mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
-    mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
-
-    // Create and configure a render component for the map.
-    auto mapRenderComponent = mapObject->addComponent<Render2D>();
-    mapRenderComponent->setCamera(camera)
-        ->setMesh(mapMesh)
-        ->setMaterial(mapMaterial);
-
-    // Add the map to the scene graph so that it is updated and drawn.
-    mainSceneGraph.addNode(mapObject);
-
     /* Boxes */
     auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
     auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
@@ -268,6 +250,59 @@ int main() {
     // Drawable objects
     int isDebug = 0;
     std::vector<std::shared_ptr<GameObject>> gameObjects;
+
+
+
+#pragma region Map
+    std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
+    auto mapObject = std::make_shared<GameObject>("Map");
+    mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
+    mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    auto mapRenderComponent = mapObject->addComponent<Render2D>();
+    mapRenderComponent->setCamera(camera)
+        ->setMesh(mapMesh)
+        ->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(mapObject);
+
+#pragma endregion
+
+#pragma region Turret
+    std::shared_ptr<Mesh> turretMesh = Mesh::loadMesh("media/Map/Turret.fbx");
+    auto turretObject = std::make_shared<GameObject>("turret");
+    turretObject->setLocalPosition(Vector3(50.0f, 0.0f, 0.0f));
+    turretObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    auto turretRenderComponent = turretObject->addComponent<Render2D>();
+    turretRenderComponent->setCamera(camera)
+        ->setMesh(turretMesh)
+        ->setMaterial(brickMaterial);
+    mainSceneGraph.addNode(turretObject);
+#pragma endregion
+
+#pragma region Cannon
+    std::shared_ptr<Mesh> cannonMesh = Mesh::loadMesh("media/Map/Cannon.fbx");
+    auto cannonObject = std::make_shared<GameObject>("Cannon");
+    cannonObject->setLocalPosition(Vector3(120.0f, 0.0f, 0.0f));
+    cannonObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    cannonObject->setLocalRotation(Vector3(0.0f, 0.0f, 135.0f));
+    auto cannonRenderComponent = cannonObject->addComponent<Render2D>();
+    cannonRenderComponent->setCamera(camera)
+        ->setMesh(cannonMesh)
+        ->setMaterial(boxMaterial);
+    mainSceneGraph.addNode(cannonObject);
+#pragma endregion
+
+#pragma region Cannonball
+    std::shared_ptr<Mesh> cannonballMesh = Mesh::loadMesh("media/Map/Cannonball.fbx");
+    auto cannonballObject = std::make_shared<GameObject>("Cannonball");
+    cannonballObject->setLocalPosition(Vector3(120.0f, 0.0f, 70.0f));
+    cannonballObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    auto cannonballRenderComponent = cannonballObject->addComponent<Render2D>();
+    cannonballRenderComponent->setCamera(camera)
+        ->setMesh(cannonballMesh)
+        ->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(cannonballObject);
+#pragma endregion
+
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
