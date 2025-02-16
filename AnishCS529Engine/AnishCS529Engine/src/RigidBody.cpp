@@ -206,7 +206,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		Vector3 final = mtv;
 
 		if (min != 0) {
-			if (min == abs(mtv.x)) final.y = final.z = 0;
+			if (max == abs(mtv.x)) final.y = final.z = 0;
 			else if (min == abs(mtv.y)) final.x = final.z = 0;
 			else if (min == abs(mtv.z)) final.y = final.x = 0;
 		}
