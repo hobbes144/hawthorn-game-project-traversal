@@ -191,9 +191,9 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 		Vector3 utv = (PosRB - PosRB2).normalized();
 
-		bool signX = (Force.x != 0 && velocity.x != 0);
-		bool signY = (Force.y != 0 && velocity.y != 0);
-		bool signZ = (Force.z != 0 && velocity.z != 0);
+		bool signX = (velocity.x != 0);
+		bool signY = (velocity.y != 0);
+		bool signZ = (velocity.z != 0);
 
 		Vector3 restore = Vector3(dx - actualdisX, dy - actualdisY, dz - actualdisZ);
 
@@ -211,7 +211,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		float max = values[2];
 		float min = values[0];
 		if (min == 0) min = values[1];
-
+		if (min == 0) min = values[2];
 		Vector3 final = mtv;
 
 		if (min == abs(mtv.x)) final.y = final.z = 0;
@@ -223,7 +223,9 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB);
 		}
 		else {
+			RB->applyForce(negVelocity * 20);
 			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB / 2);
+			RB2->applyForce(velocity * 20);
 			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - final / scaleRB2 / 2);
 		}
 	}

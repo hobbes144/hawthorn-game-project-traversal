@@ -345,7 +345,7 @@ int main() {
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(soundBoxShape)
         ->setDebug(isDebug)
-        //->registerToPhysicsManager(PhysicsManager::Instance())
+        ->registerToPhysicsManager(PhysicsManager::Instance())
       ->initialize();
 
     mainSceneGraph.addNode(soundBox);
