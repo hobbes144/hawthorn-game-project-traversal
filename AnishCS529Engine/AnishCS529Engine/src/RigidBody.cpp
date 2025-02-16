@@ -12,8 +12,9 @@
 #include "PhysicsManager.h"
 #include "RigidBody.h"
 #include <cmath>
+#include <algorithm>
 
-const float gravity = 9.8f;
+const float gravity = 9.8f * 10;
 
 /*!****************************************************************************
  * \brief The constructor or RigidBody class
@@ -204,25 +205,25 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 		Vector3 mtv = Vector3(utv.x * cnt, utv.y * cnt, utv.z * cnt);
 
-		float max = fmax(abs(mtv.x), fmax(abs(mtv.y), abs(mtv.z)));
-		float min = fmin(abs(mtv.x), fmin(abs(mtv.y), abs(mtv.z)));
+		float values[3] = { abs(mtv.x), abs(mtv.y), abs(mtv.z) };
+		std::sort(values, values+3);
+
+		float max = values[2];
+		float min = values[0];
+		if (min == 0) min = values[1];
 
 		Vector3 final = mtv;
 
-		if (min != 0) {
-			if (min == abs(mtv.x)) final.y = final.z = 0;
-			else if (min == abs(mtv.y)) final.x = final.z = 0;
-			else if (min == abs(mtv.z)) final.y = final.x = 0;
-		}
+		if (min == abs(mtv.x)) final.y = final.z = 0;
+		else if (min == abs(mtv.y)) final.x = final.z = 0;
+		else if (min == abs(mtv.z)) final.y = final.x = 0;
 
 		if (RB2->getIsStatic()) {
 			RB->setVelocity(Vector3(velocity.x*signX, velocity.y*signY, velocity.z*signZ));
 			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB);
 		}
 		else {
-			RB->applyForce(negVelocity * 20 * RB2->getMass());
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + final/ scaleRB / 2);
-			RB2->applyForce(velocity * 20 * RB->getMass());
+			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB / 2);
 			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - final / scaleRB2 / 2);
 		}
 	}
