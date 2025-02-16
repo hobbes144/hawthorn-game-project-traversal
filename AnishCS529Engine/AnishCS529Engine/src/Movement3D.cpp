@@ -37,75 +37,99 @@ std::shared_ptr<Movement3D> Movement3D::setAction(Action action, Key key)
   std::function<void(std::shared_ptr<PhysicsBody>)> actionFunction;
   switch (action) {
   case Forward:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
       if (inputSystem->isKeyDown(key)) {
         physicsBody->applyForce(Vector3(0.0f, 0.0f, -force));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case Back:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyForce(Vector3(0.0f, 0.0f, force));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case Left:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyForce(Vector3(-force, 0.0f, 0.0f));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case Right:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyForce(Vector3(force, 0.0f, 0.0f));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case Up:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyForce(Vector3(0.0f, force, 0.0f));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case Down:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyForce(Vector3(0.0f, -force, 0.0f));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case RollClockwise:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyRotationalForce(Vector3(0.0f, 0.0f, -force));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case RollAntiClockwise:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyRotationalForce(Vector3(0.0f, 0.0f, force));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case PitchClockwise:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyRotationalForce(Vector3(-force, 0.0f, 0.0f));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case PitchAnticlockwise:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyRotationalForce(Vector3(force, 0.0f, 0.0f));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case YawClockwise:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyRotationalForce(Vector3(0.0f, force, 0.0f));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   case YawAntiClockwise:
-    actionFunction = [this, key](std::shared_ptr<PhysicsBody> physicsBody) {
-      if (inputSystem->isKeyDown(key)) {
+    actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
+      if ( inputSystem->isKeyDown(key) ) {
         physicsBody->applyRotationalForce(Vector3(0.0f, -force, 0.0f));
+        Movement3DEvent moveEvent(this->getParent(), action);
+        EventManager::Instance().BroadcastEvent(moveEvent);
       } };
     break;
   default:
@@ -128,3 +152,21 @@ void Movement3D::update(float deltaTime)
 }
 
 void Movement3D::shutdown() {}
+
+Movement3DListener::Movement3DListener(std::shared_ptr<GameObject> owner) :
+  owner(owner) {
+
+  RegisterListener();
+}
+
+
+void Movement3DListener::OnEvent(const Movement3DEvent & event) {
+
+  if ( event.object == owner) {
+    std::cout << "Movement detected for " << owner->getName() << std::endl;
+
+    if ( onMovementCallback ) {
+      onMovementCallback(owner, event.action);
+    }
+  }
+}

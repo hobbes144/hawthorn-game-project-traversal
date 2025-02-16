@@ -16,7 +16,8 @@
 #include "Input.h"
 #include "GameObject.h"
 #include "PhysicsBody.h"
-
+#include "Event.h"
+#include "EventManager.h"
 
  /*!****************************************************************************
   * \brief Simple movement component implementing 2D movement
@@ -36,7 +37,8 @@ class Movement3D :
 
 public:
   Movement3D() :
-    force(2000.0f), rotationalForce(10.0f) {}
+    force(2000.0f), rotationalForce(10.0f),
+    inputSystem(nullptr), registeredActions({}) {}
   ~Movement3D() = default;
 
   void initialize();
@@ -65,4 +67,30 @@ private:
   float force;
   float rotationalForce;
   std::unordered_map<Action, std::function<void(std::shared_ptr<PhysicsBody>)>> registeredActions;
+};
+
+
+class Movement3DEvent : public Event {
+public:
+  Movement3DEvent(std::shared_ptr<GameObject> _object, Movement3D::Action _action) :
+    object(_object), action(_action) {}
+
+  std::shared_ptr<GameObject> object;
+  Movement3D::Action action;
+};
+
+class Movement3DListener : public EventListener<Movement3DEvent> {
+public:
+
+  using MovementCallback = std::function<void(std::shared_ptr<GameObject>, Movement3D::Action)>;
+
+  Movement3DListener(std::shared_ptr<GameObject> owner);
+
+  void OnEvent(const Movement3DEvent& event) override;
+
+  void setCallback(MovementCallback callback) { onMovementCallback = callback; }
+
+private:
+  std::shared_ptr<GameObject> owner;
+  MovementCallback onMovementCallback;
 };

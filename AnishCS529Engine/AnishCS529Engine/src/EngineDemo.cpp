@@ -58,6 +58,17 @@ void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> 
 
 }
 
+void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
+
+  std::cout << "onMove\n";
+
+  AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
+
+  return;
+
+}
+
+
 int main() {
     const float rad = PI / 180.0f;
 
@@ -280,7 +291,7 @@ int main() {
 #pragma region Cannon
     std::shared_ptr<Mesh> cannonMesh = Mesh::loadMesh("media/Map/Cannon.fbx");
     auto cannonObject = std::make_shared<GameObject>("Cannon");
-    cannonObject->setLocalPosition(Vector3(120.0f, 0.0f, 0.0f));
+    cannonObject->setLocalPosition(Vector3(-100.0f, 0.0f, 0.0f));
     cannonObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
     cannonObject->setLocalRotation(Vector3(0.0f, 0.0f, 135.0f));
     auto cannonRenderComponent = cannonObject->addComponent<Render2D>();
@@ -293,7 +304,7 @@ int main() {
 #pragma region Cannonball
     std::shared_ptr<Mesh> cannonballMesh = Mesh::loadMesh("media/Map/Cannonball.fbx");
     auto cannonballObject = std::make_shared<GameObject>("Cannonball");
-    cannonballObject->setLocalPosition(Vector3(120.0f, 0.0f, 70.0f));
+    cannonballObject->setLocalPosition(Vector3(-80.0f, 0.0f, 70.0f));
     cannonballObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
     auto cannonballRenderComponent = cannonballObject->addComponent<Render2D>();
     cannonballRenderComponent->setCamera(camera)
@@ -331,10 +342,15 @@ int main() {
         ->registerToPhysicsManager(PhysicsManager::Instance());
 
     auto playerBoxInputComponent = playerBox->addComponent<Movement3D>()->setInputSystem(mainInput)
-        ->setAction(Movement3D::Forward, KEY_I)
-        ->setAction(Movement3D::Back, KEY_K)
-        ->setAction(Movement3D::Left, KEY_J)
-        ->setAction(Movement3D::Right, KEY_L);
+      ->setAction(Movement3D::Forward, KEY_I)
+      ->setAction(Movement3D::Back, KEY_K)
+      ->setAction(Movement3D::Left, KEY_J)
+      ->setAction(Movement3D::Right, KEY_L);
+
+    Movement3DListener playerMovementListener(playerBox);
+    playerMovementListener.setCallback(onMove);
+
+    EventManager::Instance().AddListener(&playerMovementListener);
 
     mainSceneGraph.addNode(playerBox);
     gameObjects.push_back(playerBox);
