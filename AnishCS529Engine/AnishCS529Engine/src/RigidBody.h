@@ -38,6 +38,9 @@ public:
 	RigidBody();
 	~RigidBody() = default;
 
+	/* Component functions */
+	void initialize();
+
 	/* Physics update function */
 	void integrate(float deltaTime);
 

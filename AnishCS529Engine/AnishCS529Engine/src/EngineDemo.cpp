@@ -219,7 +219,7 @@ int main() {
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
-    playerBox->setLocalPosition(Vector3(2.0f, 1.0f, 0.0f))
+    playerBox->setLocalPosition(Vector3(-2.0f, 1.0f, 0.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -242,7 +242,8 @@ int main() {
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape1)
         ->setDebug(isDebug)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+        ->registerToPhysicsManager(PhysicsManager::Instance())
+      ->initialize();
 
     auto playerBoxInputComponent = playerBox->addComponent<Movement3D>()->setInputSystem(mainInput)
         ->setAction(Movement3D::Forward, KEY_I)
@@ -280,7 +281,8 @@ int main() {
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(dBoxShape)
         ->setDebug(isDebug)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+        //->registerToPhysicsManager(PhysicsManager::Instance())
+      ->initialize();
 
     mainSceneGraph.addNode(dynamicBox);
     gameObjects.push_back(dynamicBox);
@@ -309,7 +311,8 @@ int main() {
         ->setShape(shape2)
         ->setDebug(isDebug)
         ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+        ->registerToPhysicsManager(PhysicsManager::Instance())
+      ->initialize();
 
     mainSceneGraph.addNode(floor);
     gameObjects.push_back(floor);
@@ -341,7 +344,8 @@ int main() {
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(soundBoxShape)
         ->setDebug(isDebug)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+        //->registerToPhysicsManager(PhysicsManager::Instance())
+      ->initialize();
 
     mainSceneGraph.addNode(soundBox);
     gameObjects.push_back(soundBox);
@@ -351,12 +355,12 @@ int main() {
 #pragma endregion
 
 
-    CollisionListener boxTouch(dynamicBox);
+    /*CollisionListener boxTouch(dynamicBox);
     boxTouch.setCallback(onRBCollide);
     CollisionListener floorTouch(floor);
     floorTouch.setCallback(onRBCollide);
     CollisionListener boxTouch2(playerBox);
-    boxTouch2.setCallback(onRBCollide);
+    boxTouch2.setCallback(onRBCollide);*/
 
     float angleX = 0.0f;
     float angleY = 0.0f;

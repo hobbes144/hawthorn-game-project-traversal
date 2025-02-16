@@ -20,12 +20,9 @@ const float gravity = 9.8f;
  *****************************************************************************/
 RigidBody::RigidBody() :
 	PhysicsBody(), useGravity(false),
-	listener(new CollisionListener(this->parent)),
+	listener(nullptr),
 	freezePositionX(false), freezePositionY(false), freezePositionZ(false),
-	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {
-
-	listener->setCallback(onRBCollide);
-}
+	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {}
 
 /*!****************************************************************************
  * \brief If is using Gravity
@@ -83,6 +80,13 @@ std::shared_ptr<RigidBody> RigidBody::freezingRotationZ(bool value) {
 	freezeRotationZ = value;
 
 	return std::static_pointer_cast<RigidBody>(shared_from_this());
+}
+
+void RigidBody::initialize()
+{
+	listener = new CollisionListener(this->parent);
+
+	listener->setCallback(onRBCollide);
 }
 
 /*!****************************************************************************
@@ -206,7 +210,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		Vector3 final = mtv;
 
 		if (min != 0) {
-			if (max == abs(mtv.x)) final.y = final.z = 0;
+			if (min == abs(mtv.x)) final.y = final.z = 0;
 			else if (min == abs(mtv.y)) final.x = final.z = 0;
 			else if (min == abs(mtv.z)) final.y = final.x = 0;
 		}
