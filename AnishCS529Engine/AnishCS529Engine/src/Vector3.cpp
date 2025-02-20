@@ -8,9 +8,21 @@ Vector3 Vector3::operator+(const Vector3& other) const
   return Vector3(x + other.x, y + other.y, z + other.z);
 }
 
+Vector3 Vector3::operator+(float scalar) const {
+  return Vector3(x + scalar, y + scalar, z + scalar);
+}
+
 Vector3 Vector3::operator-(const Vector3& other) const
 {
   return Vector3(x - other.x, y - other.y, z - other.z);
+}
+
+Vector3 Vector3::operator-(float scalar) const {
+  return Vector3(x - scalar, y - scalar, z - scalar);
+}
+
+Vector3 Vector3::operator-() const {
+  return Vector3(-x, -y, -z);
 }
 
 Vector3 Vector3::operator*(float scalar) const
@@ -31,6 +43,14 @@ Vector3 Vector3::operator/(float scalar) const
 Vector3 Vector3::operator/(const Vector3& other) const
 {
   return Vector3(x / other.x, y / other.y, z / other.z);
+}
+
+bool Vector3::operator==(const Vector3 & other) const {
+  return ( x == other.x && y == other.y && z == other.z );
+}
+
+bool Vector3::operator!=(const Vector3 & other) const {
+  return ( !(*this == other) );
 }
 
 float Vector3::operator[](int index) const {

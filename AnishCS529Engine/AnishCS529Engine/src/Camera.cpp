@@ -25,9 +25,24 @@
   *
   *****************************************************************************/
 void Camera::updateViewMatrix() {
-  viewMatrix.setRotation(worldTransform.getRotation());
-  Vector3 position = worldTransform.getPosition();
-  viewMatrix.setPosition(Vector3(-position.x, -position.y, -position.z));
+  if (oldPosition != getLocalPosition() || oldRotation != getLocalRotation()) {
+    oldPosition = getLocalPosition();
+    oldRotation = getLocalRotation();
+
+    Vector3 position = getLocalPosition();
+
+    // Compute rotation matrix from Node's rotation angles
+    Matrix4 rotationMatrix = Matrix4::rotationXYZ(getLocalRotation());
+
+    // Extract basis vectors (Right, Up, Forward)
+    Vector3 right = rotationMatrix * Vector3(1.0f, 0.0f, 0.0f);
+    Vector3 up = rotationMatrix * Vector3(0.0f, 1.0f, 0.0f);
+    Vector3 forward = rotationMatrix * Vector3(0.0f, 0.0f, -1.0f);  // Camera forward is -Z
+
+    // Compute view matrix using LookAt
+    viewMatrix = Matrix4::lookAt(position, position + forward, up);
+    inverseViewMatrix = Matrix4::inverse(viewMatrix);
+  }
 }
 
 
@@ -88,6 +103,21 @@ std::shared_ptr<Camera> Camera::setOrthographicProjection(
   return std::static_pointer_cast<Camera>(shared_from_this());
 }
 
+std::shared_ptr<Camera> Camera::lookAt(const Vector3& target, const Vector3& upVector = Vector3(0,1,0)) {
+  viewMatrix = Matrix4::lookAt(getLocalPosition(), target, upVector);
+  return std::static_pointer_cast<Camera>( shared_from_this() );
+}
+
+std::shared_ptr<Camera> Camera::move(const Vector3 & direction, float amount) {
+  setLocalPosition(getLocalPosition() + (direction * amount));
+  return std::static_pointer_cast<Camera>( shared_from_this() );
+}
+
+std::shared_ptr<Camera> Camera::rotate(float roll, float pitch, float yaw) {
+  setLocalRotation(getLocalRotation() + Vector3(roll, pitch, yaw));
+  return std::static_pointer_cast<Camera>( shared_from_this() );
+}
+
 /*!****************************************************************************
  * \brief Get the view matrix
  * 
@@ -100,7 +130,12 @@ std::shared_ptr<Camera> Camera::setOrthographicProjection(
  *****************************************************************************/
 const Matrix4 Camera::getViewMatrix()
 {
-  return viewMatrix.getLocalMatrix();
+  return viewMatrix;
+}
+
+const Matrix4 Camera::getInverseViewMatrix()
+{
+  return inverseViewMatrix;
 }
 
 /*!****************************************************************************
@@ -122,7 +157,9 @@ const Matrix4& Camera::getProjectionMatrix()
  * \brief Dummy initialize function
  * 
  *****************************************************************************/
-void Camera::initialize() {}
+void Camera::initialize() {
+  updateViewMatrix();
+}
 
 /*!****************************************************************************
  * \brief Update the camera transforms
@@ -135,7 +172,7 @@ void Camera::initialize() {}
  * \param deltaTime
  *****************************************************************************/
 void Camera::update(float deltaTime) {
-  Node::update(deltaTime);
+  GameObject::update(deltaTime);
 
   updateViewMatrix();
 }

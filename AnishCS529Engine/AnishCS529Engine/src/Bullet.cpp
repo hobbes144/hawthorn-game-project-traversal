@@ -57,24 +57,24 @@ void onBulletHit(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> o
   }
 }
 
-std::shared_ptr<Bullet> createBullet(std::string name, Renderer* renderer, std::shared_ptr<Camera> camera, Vector3 color)
-{
-  auto bullet = std::make_shared<Bullet>(name);
-  bullet->addComponent<Render2D>()
-    ->setRenderer(renderer)->setCamera(camera)
-    ->setMaterial(createSolidColorMaterial(color))
-    ->setMesh(createSquareMesh(name));
-
-  auto bulletShape = std::make_shared<AABB>(
-    Vector3(-0.5f, -0.5f, -0.5f),
-    Vector3(0.5f, 0.5f, 0.5f));
-
-  bullet->addComponent<PhysicsBody>()
-    ->setMass(1.0f)->setFriction(0.0f)
-    ->setShape(bulletShape)
-    ->registerToPhysicsManager(PhysicsManager::Instance());
-  bullet->setLocalScaling(Vector3(0.2f, 0.2f, 0.2f));
-  bullet->disable();
-
-  return bullet;
-}
+//std::shared_ptr<Bullet> createBullet(std::string name, Renderer* renderer, std::shared_ptr<Camera> camera, Vector3 color)
+//{
+//  auto bullet = std::make_shared<Bullet>(name);
+//  bullet->addComponent<Render2D>()
+//    ->setRenderer(renderer)->setCamera(camera)
+//    ->setMaterial(createSolidColorMaterial(color))
+//    ->setMesh(createSquareMesh(name));
+//
+//  auto bulletShape = std::make_shared<AABB>(
+//    Vector3(-0.5f, -0.5f, -0.5f),
+//    Vector3(0.5f, 0.5f, 0.5f));
+//
+//  bullet->addComponent<PhysicsBody>()
+//    ->setMass(1.0f)->setFriction(0.0f)
+//    ->setShape(bulletShape)
+//    ->registerToPhysicsManager(PhysicsManager::Instance());
+//  bullet->setLocalScaling(Vector3(0.2f, 0.2f, 0.2f));
+//  bullet->disable();
+//
+//  return bullet;
+//}

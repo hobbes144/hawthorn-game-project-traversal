@@ -86,6 +86,7 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classRenderer-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Renderer Class Reference</div></div>
@@ -96,27 +97,20 @@ $(function(){ initResizable(false); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Renderer_8h_source.html">Renderer.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Renderer:</div>
-<div class="dyncontent">
-<div class="center"><img src="classRenderer__inherit__graph.png" border="0" usemap="#aRenderer_inherit__map" alt="Inheritance graph"/></div>
-<map name="aRenderer_inherit__map" id="aRenderer_inherit__map">
-<area shape="rect" title="Class Renderer that implements an OpenGL renderer." alt="" coords="15,79,98,104"/>
-<area shape="rect" href="classComponent.html" title="Component is the base class of all components." alt="" coords="5,5,108,31"/>
-<area shape="poly" title=" " alt="" coords="59,44,59,79,54,79,54,44"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Renderer:</div>
-<div class="dyncontent">
-<div class="center"><img src="classRenderer__coll__graph.png" border="0" usemap="#aRenderer_coll__map" alt="Collaboration graph"/></div>
-<map name="aRenderer_coll__map" id="aRenderer_coll__map">
-<area shape="rect" title="Class Renderer that implements an OpenGL renderer." alt="" coords="15,79,98,104"/>
-<area shape="rect" href="classComponent.html" title="Component is the base class of all components." alt="" coords="5,5,108,31"/>
-<area shape="poly" title=" " alt="" coords="59,44,59,79,54,79,54,44"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRenderer_1_1BlendState.html">BlendState</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRenderer_1_1DepthState.html">DepthState</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRenderer_1_1State.html">State</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRenderer_1_1StateSaver.html">StateSaver</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRenderer_1_1Viewport.html">Viewport</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af0cf13596dfb5e7c40f58b5dbad6e74c" id="r_af0cf13596dfb5e7c40f58b5dbad6e74c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0cf13596dfb5e7c40f58b5dbad6e74c">initialize</a> ()</td></tr>
@@ -131,9 +125,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aab912bce1476cc6baa74e7f5965dc204" id="r_aab912bce1476cc6baa74e7f5965dc204"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab912bce1476cc6baa74e7f5965dc204">setGameWindow</a> (<a class="el" href="classGameWindow.html">GameWindow</a> *_gameWindow)</td></tr>
 <tr class="memdesc:aab912bce1476cc6baa74e7f5965dc204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setter for game window.  <br /></td></tr>
 <tr class="separator:aab912bce1476cc6baa74e7f5965dc204"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c337d089d8d4ca91ecac65dc7211003" id="r_a7c337d089d8d4ca91ecac65dc7211003"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c337d089d8d4ca91ecac65dc7211003">setIs3D</a> (bool is3D)</td></tr>
-<tr class="memdesc:a7c337d089d8d4ca91ecac65dc7211003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set if the renderer should render in 3D.  <br /></td></tr>
-<tr class="separator:a7c337d089d8d4ca91ecac65dc7211003"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68787a4c8f3eb2469b38caf5c9847445" id="r_a68787a4c8f3eb2469b38caf5c9847445"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68787a4c8f3eb2469b38caf5c9847445">setClearColor</a> (float r, float g, float b, float a)</td></tr>
 <tr class="memdesc:a68787a4c8f3eb2469b38caf5c9847445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the clear color of the screen.  <br /></td></tr>
 <tr class="separator:a68787a4c8f3eb2469b38caf5c9847445"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,68 +137,46 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a836adb0232451aef992580dcc4c62744" id="r_a836adb0232451aef992580dcc4c62744"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a836adb0232451aef992580dcc4c62744">draw</a> (GLenum mode, GLint count, bool indexed) const</td></tr>
 <tr class="memdesc:a836adb0232451aef992580dcc4c62744"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw objects in buffers.  <br /></td></tr>
 <tr class="separator:a836adb0232451aef992580dcc4c62744"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a270e0791ab9f8e99910bf9f7e1d01d33" id="r_a270e0791ab9f8e99910bf9f7e1d01d33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a270e0791ab9f8e99910bf9f7e1d01d33">setViewport</a> (int width, int height)</td></tr>
-<tr class="memdesc:a270e0791ab9f8e99910bf9f7e1d01d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Viewport size.  <br /></td></tr>
-<tr class="separator:a270e0791ab9f8e99910bf9f7e1d01d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac786f5c5d5b74e63f37c436bc2f1584" id="r_aac786f5c5d5b74e63f37c436bc2f1584"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac786f5c5d5b74e63f37c436bc2f1584">resetViewport</a> ()</td></tr>
-<tr class="memdesc:aac786f5c5d5b74e63f37c436bc2f1584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the Viewport size.  <br /></td></tr>
-<tr class="separator:aac786f5c5d5b74e63f37c436bc2f1584"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c8e19694758c1bcc693bed9990ec6a1" id="r_a0c8e19694758c1bcc693bed9990ec6a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c8e19694758c1bcc693bed9990ec6a1">setDepthTest</a> (bool depthTestEnabled)</td></tr>
-<tr class="memdesc:a0c8e19694758c1bcc693bed9990ec6a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Depth Test feature.  <br /></td></tr>
-<tr class="separator:a0c8e19694758c1bcc693bed9990ec6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07ff04fd9afbd838d5575534fa62e2de" id="r_a07ff04fd9afbd838d5575534fa62e2de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07ff04fd9afbd838d5575534fa62e2de">resetDepthTest</a> ()</td></tr>
-<tr class="memdesc:a07ff04fd9afbd838d5575534fa62e2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the Depth Test feature.  <br /></td></tr>
-<tr class="separator:a07ff04fd9afbd838d5575534fa62e2de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classComponent"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classComponent')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classComponent.html">Component</a></td></tr>
-<tr class="memitem:a3b3bee5d55446124842e5f2e229e1384 inherit pub_methods_classComponent" id="r_a3b3bee5d55446124842e5f2e229e1384"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#a3b3bee5d55446124842e5f2e229e1384">update</a> (float deltaTime)</td></tr>
-<tr class="separator:a3b3bee5d55446124842e5f2e229e1384 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent" id="r_af659603312b1770279f3722f8ea303a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#af659603312b1770279f3722f8ea303a4">enable</a> ()</td></tr>
-<tr class="memdesc:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable the component.  <br /></td></tr>
-<tr class="separator:af659603312b1770279f3722f8ea303a4 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent" id="r_a5944c18d0e1de53f2842149ca364b672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#a5944c18d0e1de53f2842149ca364b672">disable</a> ()</td></tr>
-<tr class="memdesc:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable the component.  <br /></td></tr>
-<tr class="separator:a5944c18d0e1de53f2842149ca364b672 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a553dae3822f2c4a41808f64e27715878 inherit pub_methods_classComponent" id="r_a553dae3822f2c4a41808f64e27715878"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#a553dae3822f2c4a41808f64e27715878">isEnabled</a> () const</td></tr>
-<tr class="memdesc:a553dae3822f2c4a41808f64e27715878 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is component enabled.  <br /></td></tr>
-<tr class="separator:a553dae3822f2c4a41808f64e27715878 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab934884399c816afa73feefc84741113 inherit pub_methods_classComponent" id="r_ab934884399c816afa73feefc84741113"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classComponent.html#ab934884399c816afa73feefc84741113">setParent</a> (std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt; _parent)</td></tr>
-<tr class="memdesc:ab934884399c816afa73feefc84741113 inherit pub_methods_classComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set component parent.  <br /></td></tr>
-<tr class="separator:ab934884399c816afa73feefc84741113 inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66b9d2747399b75cbbd317bdab35e66d inherit pub_methods_classComponent" id="r_a66b9d2747399b75cbbd317bdab35e66d"><td class="memItemLeft" align="right" valign="top">
-std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getParent</b> () const</td></tr>
-<tr class="separator:a66b9d2747399b75cbbd317bdab35e66d inherit pub_methods_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_attribs_classComponent"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classComponent')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classComponent.html">Component</a></td></tr>
-<tr class="memitem:afa65bb278f1e9256d34d6ea008e654ab inherit pro_attribs_classComponent" id="r_afa65bb278f1e9256d34d6ea008e654ab"><td class="memItemLeft" align="right" valign="top">
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>enabled</b></td></tr>
-<tr class="separator:afa65bb278f1e9256d34d6ea008e654ab inherit pro_attribs_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfed40142d7b94906283eccf45c7dff9 inherit pro_attribs_classComponent" id="r_adfed40142d7b94906283eccf45c7dff9"><td class="memItemLeft" align="right" valign="top">
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>markedForDeletion</b></td></tr>
-<tr class="separator:adfed40142d7b94906283eccf45c7dff9 inherit pro_attribs_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16c5b5c52b594184a7bfb5023f9f962c inherit pro_attribs_classComponent" id="r_a16c5b5c52b594184a7bfb5023f9f962c"><td class="memItemLeft" align="right" valign="top">
-std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
-<tr class="separator:a16c5b5c52b594184a7bfb5023f9f962c inherit pro_attribs_classComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3546a4ec1f0bd016fde475a3447f4c9" id="r_ad3546a4ec1f0bd016fde475a3447f4c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3546a4ec1f0bd016fde475a3447f4c9">setViewport</a> (const <a class="el" href="structRenderer_1_1Viewport.html">Viewport</a> &amp;viewport, bool force=false)</td></tr>
+<tr class="memdesc:ad3546a4ec1f0bd016fde475a3447f4c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="structRenderer_1_1Viewport.html">Viewport</a> size.  <br /></td></tr>
+<tr class="separator:ad3546a4ec1f0bd016fde475a3447f4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f7a002336769572fb3e688e936bd686" id="r_a6f7a002336769572fb3e688e936bd686"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f7a002336769572fb3e688e936bd686">resetViewport</a> ()</td></tr>
+<tr class="memdesc:a6f7a002336769572fb3e688e936bd686"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the <a class="el" href="structRenderer_1_1Viewport.html">Viewport</a> size.  <br /></td></tr>
+<tr class="separator:a6f7a002336769572fb3e688e936bd686"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91272594ea374e51be44c369973d8dce" id="r_a91272594ea374e51be44c369973d8dce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91272594ea374e51be44c369973d8dce">setDepthState</a> (const <a class="el" href="structRenderer_1_1DepthState.html">DepthState</a> &amp;depthState, bool force=false)</td></tr>
+<tr class="memdesc:a91272594ea374e51be44c369973d8dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Depth <a class="el" href="structRenderer_1_1State.html">State</a>.  <br /></td></tr>
+<tr class="separator:a91272594ea374e51be44c369973d8dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b6a209f3eca30fa4a2c094a9384bc2" id="r_a10b6a209f3eca30fa4a2c094a9384bc2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10b6a209f3eca30fa4a2c094a9384bc2">setBlendState</a> (const <a class="el" href="structRenderer_1_1BlendState.html">BlendState</a> &amp;blendState, bool force=false)</td></tr>
+<tr class="memdesc:a10b6a209f3eca30fa4a2c094a9384bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Blending <a class="el" href="structRenderer_1_1State.html">State</a>.  <br /></td></tr>
+<tr class="separator:a10b6a209f3eca30fa4a2c094a9384bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b7a8746fe78057623427b854bb74248" id="r_a0b7a8746fe78057623427b854bb74248"><td class="memItemLeft" align="right" valign="top"><a id="a0b7a8746fe78057623427b854bb74248" name="a0b7a8746fe78057623427b854bb74248"></a>
+std::shared_ptr&lt; <a class="el" href="classRenderGraph.html">RenderGraph</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getRenderGraph</b> ()</td></tr>
+<tr class="separator:a0b7a8746fe78057623427b854bb74248"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75b53e837ffec6cc5e0b9abd8a951d67" id="r_a75b53e837ffec6cc5e0b9abd8a951d67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structRenderer_1_1State.html">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75b53e837ffec6cc5e0b9abd8a951d67">getCurrentState</a> () const</td></tr>
+<tr class="memdesc:a75b53e837ffec6cc5e0b9abd8a951d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current state of the <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a>.  <br /></td></tr>
+<tr class="separator:a75b53e837ffec6cc5e0b9abd8a951d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6388113a79904312d7c19b4d91cc7bd1" id="r_a6388113a79904312d7c19b4d91cc7bd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRenderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6388113a79904312d7c19b4d91cc7bd1">setState</a> (const <a class="el" href="structRenderer_1_1State.html">State</a> &amp;state, bool force=false)</td></tr>
+<tr class="memdesc:a6388113a79904312d7c19b4d91cc7bd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="structRenderer_1_1State.html">State</a> of the <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a>.  <br /></td></tr>
+<tr class="separator:a6388113a79904312d7c19b4d91cc7bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> that implements an OpenGL renderer. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md121"></a>
+ <h2><a class="anchor" id="autotoc_md123"></a>
 Usage:</h2>
 <p><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> is needed to render objects onto the screen. This needs to be initialized to work with a window, and the draw call must be made to draw objects to the screen.</p>
-<h2><a class="anchor" id="autotoc_md122"></a>
+<h2><a class="anchor" id="autotoc_md124"></a>
 Pre-initialization calls:</h2>
 <ul>
 <li><a class="el" href="#aab912bce1476cc6baa74e7f5965dc204" title="Setter for game window.">setGameWindow(GameWindow* _gameWindow)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md123"></a>
+<h2><a class="anchor" id="autotoc_md125"></a>
 Post-initialization calls:</h2>
 <ul>
-<li><a class="el" href="#a7c337d089d8d4ca91ecac65dc7211003" title="Set if the renderer should render in 3D.">setIs3D(bool is3D)</a></li>
+<li>setIs3D(bool is3D)</li>
 <li><a class="el" href="#a68787a4c8f3eb2469b38caf5c9847445" title="Set the clear color of the screen.">setClearColor(float r, float g, float b, float a)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md124"></a>
+<h2><a class="anchor" id="autotoc_md126"></a>
 General lifecycle of a Renderer:</h2>
 <ul>
 <li>Init <a class="el" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic.">GameWindow</a> object.</li>
@@ -217,7 +186,7 @@ General lifecycle of a Renderer:</h2>
 <li>Run <a class="el" href="#a836adb0232451aef992580dcc4c62744" title="Draw objects in buffers.">draw()</a> calls for each of the objects to be rendered.</li>
 <li>Call <a class="el" href="#aef569e49c7b1b4839bea96a4477c5b2c" title="Swap window buffers.">swapBuffers()</a> to render the window buffer to the screen.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md125"></a>
+<h2><a class="anchor" id="autotoc_md127"></a>
 Notes:</h2>
 <p><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> class is specific to a window. It is possible to have multiple renderers, one for each window you have. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -238,10 +207,10 @@ Notes:</h2>
 
 <p>Clear the window. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md110"></a>
+ <h2><a class="anchor" id="autotoc_md109"></a>
 Usage:</h2>
 <p>This is to be called at the start of each frame.</p>
-<h2><a class="anchor" id="autotoc_md111"></a>
+<h2><a class="anchor" id="autotoc_md110"></a>
 Explanation:</h2>
 <p>The window must be cleared after each draw to ensure we are starting with a clean window. </p>
 
@@ -273,7 +242,7 @@ Explanation:</h2>
 
 <p>Draw objects in buffers. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md114"></a>
+ <h2><a class="anchor" id="autotoc_md113"></a>
 Usage:</h2>
 <p>Calls the appropriate draw call to draw the objects in the buffers.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -287,14 +256,35 @@ Usage:</h2>
 
 </div>
 </div>
+<a id="a75b53e837ffec6cc5e0b9abd8a951d67" name="a75b53e837ffec6cc5e0b9abd8a951d67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75b53e837ffec6cc5e0b9abd8a951d67">&#9670;&#160;</a></span>getCurrentState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structRenderer_1_1State.html">Renderer::State</a> Renderer::getCurrentState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the current state of the <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a>. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md119"></a>
+Usage:</h2>
+<p>This function is to be used to get the <a class="el" href="structRenderer_1_1State.html">State</a> struct of the <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a>. This was built to be used with the <a class="el" href="classRenderer_1_1StateSaver.html">StateSaver</a> class, to allow for easy <a class="el" href="structRenderer_1_1State.html">State</a> manipulation.</p>
+<dl class="section return"><dt>Returns</dt><dd><b><a class="el" href="structRenderer_1_1State.html">State</a></b> Current state. </dd></dl>
+
+</div>
+</div>
 <a id="af0cf13596dfb5e7c40f58b5dbad6e74c" name="af0cf13596dfb5e7c40f58b5dbad6e74c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af0cf13596dfb5e7c40f58b5dbad6e74c">&#9670;&#160;</a></span>initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Renderer::initialize </td>
@@ -303,38 +293,31 @@ Usage:</h2>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Initialize the renderer. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md119"></a>
+ <h2><a class="anchor" id="autotoc_md121"></a>
 Required calls before init:</h2>
 <ul>
 <li><a class="el" href="#aab912bce1476cc6baa74e7f5965dc204" title="Setter for game window.">setGameWindow(GameWindow* _gameWindow)</a></li>
-<li><a class="el" href="#a7c337d089d8d4ca91ecac65dc7211003" title="Set if the renderer should render in 3D.">setIs3D(bool is3D)</a></li>
+<li>setIs3D(bool is3D)</li>
 <li><a class="el" href="#a68787a4c8f3eb2469b38caf5c9847445" title="Set the clear color of the screen.">setClearColor(float r, float g, float b, float a)</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md120"></a>
+<h2><a class="anchor" id="autotoc_md122"></a>
 Usage:</h2>
 <p>Initializes the renderer to load OpenGL. </p>
 
-<p>Reimplemented from <a class="el" href="classComponent.html">Component</a>.</p>
-
 </div>
 </div>
-<a id="a07ff04fd9afbd838d5575534fa62e2de" name="a07ff04fd9afbd838d5575534fa62e2de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07ff04fd9afbd838d5575534fa62e2de">&#9670;&#160;</a></span>resetDepthTest()</h2>
+<a id="a6f7a002336769572fb3e688e936bd686" name="a6f7a002336769572fb3e688e936bd686"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f7a002336769572fb3e688e936bd686">&#9670;&#160;</a></span>resetViewport()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Renderer::resetDepthTest </td>
+          <td class="memname"><a class="el" href="classRenderer.html">Renderer</a> * Renderer::resetViewport </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -342,34 +325,46 @@ Usage:</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Reset the Depth Test feature. </p>
+<p>Reset the <a class="el" href="structRenderer_1_1Viewport.html">Viewport</a> size. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md115"></a>
+Usage:</h2>
+<p>This can be called after a <a class="el" href="classRenderGraph.html">RenderGraph</a> Pass to set the <a class="el" href="structRenderer_1_1Viewport.html">Viewport</a> back to the window resolution.</p>
+<dl class="section return"><dt>Returns</dt><dd><b>Renderer*</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="a10b6a209f3eca30fa4a2c094a9384bc2" name="a10b6a209f3eca30fa4a2c094a9384bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10b6a209f3eca30fa4a2c094a9384bc2">&#9670;&#160;</a></span>setBlendState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRenderer.html">Renderer</a> * Renderer::setBlendState </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRenderer_1_1BlendState.html">BlendState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>blendState</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>force</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Blending <a class="el" href="structRenderer_1_1State.html">State</a>. </p>
 <hr  />
  <h2><a class="anchor" id="autotoc_md118"></a>
 Usage:</h2>
-<p>This is to be called after the RenderGraph Pass to reset the Depth Test to the original value. </p>
-
-</div>
-</div>
-<a id="aac786f5c5d5b74e63f37c436bc2f1584" name="aac786f5c5d5b74e63f37c436bc2f1584"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac786f5c5d5b74e63f37c436bc2f1584">&#9670;&#160;</a></span>resetViewport()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Renderer::resetViewport </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reset the Viewport size. </p>
-<hr  />
- <h2><a class="anchor" id="autotoc_md116"></a>
-Usage:</h2>
-<p>This is to be called after a RenderGraph Pass to set the Viewport back to the window resolution. </p>
+<p>This is called in <a class="el" href="classRenderGraph.html">RenderGraph</a> Passes to enable effects like transparency and advanced lighting.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">blendState</td><td><a class="el" href="structRenderer_1_1BlendState.html">BlendState</a> object that stores the enabled, equation and func. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>Renderer*</b> Self </dd></dl>
 
 </div>
 </div>
@@ -404,7 +399,7 @@ Usage:</h2>
 
 <p>Set the clear color of the screen. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md109"></a>
+ <h2><a class="anchor" id="autotoc_md108"></a>
 Usage:</h2>
 <p>Sets the clear color for each screen clear.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -420,32 +415,40 @@ Usage:</h2>
 
 </div>
 </div>
-<a id="a0c8e19694758c1bcc693bed9990ec6a1" name="a0c8e19694758c1bcc693bed9990ec6a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c8e19694758c1bcc693bed9990ec6a1">&#9670;&#160;</a></span>setDepthTest()</h2>
+<a id="a91272594ea374e51be44c369973d8dce" name="a91272594ea374e51be44c369973d8dce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91272594ea374e51be44c369973d8dce">&#9670;&#160;</a></span>setDepthState()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Renderer::setDepthTest </td>
+          <td class="memname"><a class="el" href="classRenderer.html">Renderer</a> * Renderer::setDepthState </td>
           <td>(</td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>depthTestEnabled</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structRenderer_1_1DepthState.html">DepthState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>depthState</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>force</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set the Depth Test feature. </p>
+<p>Set the Depth <a class="el" href="structRenderer_1_1State.html">State</a>. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md117"></a>
+ <h2><a class="anchor" id="autotoc_md116"></a>
 Usage:</h2>
-<p>This is to be called in RenderGraph Passes that require the feature to be a specific value.</p>
+<p>This is to be called in <a class="el" href="classRenderGraph.html">RenderGraph</a> Passes that require the Depth test to be modified to a specific set of values.</p>
+<h2><a class="anchor" id="autotoc_md117"></a>
+Note:</h2>
+<p>clearMask is set here, which means that if depth testing is turned off before running a clear, The depth buffer might still have values that never get cleared until the next time depth testing is enabled and clear is called.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">depthTestEnabled</td><td>If depth test should be enabled or disabled. </td></tr>
+    <tr><td class="paramname">depthState</td><td><a class="el" href="structRenderer_1_1DepthState.html">DepthState</a> object that stores the enabled and func. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><b>Renderer*</b> Self </dd></dl>
 
 </div>
 </div>
@@ -466,10 +469,10 @@ Usage:</h2>
 
 <p>Setter for game window. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md105"></a>
+ <h2><a class="anchor" id="autotoc_md106"></a>
 Usage:</h2>
 <p>This funciton is to be called to set up the game window that the renderer will output to.</p>
-<h2><a class="anchor" id="autotoc_md106"></a>
+<h2><a class="anchor" id="autotoc_md107"></a>
 Explanation:</h2>
 <p><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> will always output to a specific window. We can have multiple instances of renderer for multiple windows if needed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -482,72 +485,72 @@ Explanation:</h2>
 
 </div>
 </div>
-<a id="a7c337d089d8d4ca91ecac65dc7211003" name="a7c337d089d8d4ca91ecac65dc7211003"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c337d089d8d4ca91ecac65dc7211003">&#9670;&#160;</a></span>setIs3D()</h2>
+<a id="a6388113a79904312d7c19b4d91cc7bd1" name="a6388113a79904312d7c19b4d91cc7bd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6388113a79904312d7c19b4d91cc7bd1">&#9670;&#160;</a></span>setState()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classRenderer.html">Renderer</a> * Renderer::setIs3D </td>
+          <td class="memname"><a class="el" href="classRenderer.html">Renderer</a> * Renderer::setState </td>
           <td>(</td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>_is3D</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set if the renderer should render in 3D. </p>
-<hr  />
- <h2><a class="anchor" id="autotoc_md107"></a>
-Usage:</h2>
-<p>Sets OpenGL config to enable 3D rendering.</p>
-<h2><a class="anchor" id="autotoc_md108"></a>
-Explanation:</h2>
-<p>The renderer will perform optimizations specific to 2D rendering if not set to <code>true</code>.</p>
-<p>It enables depth in the rendering if set to <code>true</code>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">is3D</td><td>True if rendering should be in 3D space </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><b>Renderer*</b> this </dd></dl>
-
-</div>
-</div>
-<a id="a270e0791ab9f8e99910bf9f7e1d01d33" name="a270e0791ab9f8e99910bf9f7e1d01d33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a270e0791ab9f8e99910bf9f7e1d01d33">&#9670;&#160;</a></span>setViewport()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Renderer::setViewport </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structRenderer_1_1State.html">State</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>force</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set the Viewport size. </p>
+<p>Set the <a class="el" href="structRenderer_1_1State.html">State</a> of the <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a>. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md115"></a>
-Usage:</h2>
-<p>This is to be called during RenderGraph Passes that require a custom viewport size, such as for the ShadowPass.</p>
-<p>Ensure that resetViewport is called after the Pass is completed.</p>
+ <h2><a class="anchor" id="autotoc_md120"></a>
+Usage</h2>
+<p>This is to be used to set the entire state of the <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> in one call. This was built to be used with the <a class="el" href="classRenderer_1_1StateSaver.html">StateSaver</a> class, to allow for easy <a class="el" href="structRenderer_1_1State.html">State</a> manipulation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">width</td><td>new width of Viewport </td></tr>
-    <tr><td class="paramname">height</td><td>new height of the Viewport </td></tr>
+    <tr><td class="paramname">state</td><td><a class="el" href="structRenderer_1_1State.html">State</a> struct that stores the state to be set to. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><b>Renderer*</b> Self </dd></dl>
+
+</div>
+</div>
+<a id="ad3546a4ec1f0bd016fde475a3447f4c9" name="ad3546a4ec1f0bd016fde475a3447f4c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3546a4ec1f0bd016fde475a3447f4c9">&#9670;&#160;</a></span>setViewport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRenderer.html">Renderer</a> * Renderer::setViewport </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRenderer_1_1Viewport.html">Viewport</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>viewport</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>force</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the <a class="el" href="structRenderer_1_1Viewport.html">Viewport</a> size. </p>
+<hr  />
+ <h2><a class="anchor" id="autotoc_md114"></a>
+Usage:</h2>
+<p>This is to be called during <a class="el" href="classRenderGraph.html">RenderGraph</a> Passes that require a custom viewport size, such as for the ShadowPass.</p>
+<p>Ensure that viewport is correctly reset by either calling resetViewport, or using a RenderStateSaver.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="structRenderer_1_1Viewport.html">Viewport</a></td><td>The <a class="el" href="structRenderer_1_1Viewport.html">Viewport</a> struct storing the width and height. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><b>Renderer*</b> Self </dd></dl>
 
 </div>
 </div>
@@ -556,9 +559,6 @@ Usage:</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Renderer::shutdown </td>
@@ -567,18 +567,11 @@ Usage:</h2>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> Shutdown is a dummy call. </p>
 <hr  />
  <p><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> does not have any shutdown logic. </p>
-
-<p>Reimplemented from <a class="el" href="classComponent.html">Component</a>.</p>
 
 </div>
 </div>
@@ -599,10 +592,10 @@ Usage:</h2>
 
 <p>Swap window buffers. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md112"></a>
+ <h2><a class="anchor" id="autotoc_md111"></a>
 Usage:</h2>
 <p>This is to be called at the end of each frame.</p>
-<h2><a class="anchor" id="autotoc_md113"></a>
+<h2><a class="anchor" id="autotoc_md112"></a>
 Explanation:</h2>
 <p>Until this is called, the frame will not appear on screen. Ensure this is called at the end of your rendering logic. </p>
 

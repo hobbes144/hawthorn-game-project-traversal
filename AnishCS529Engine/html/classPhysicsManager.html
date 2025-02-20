@@ -195,10 +195,10 @@ std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt
 
 <p>Initialize the <a class="el" href="classPhysicsManager.html">PhysicsManager</a>. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md86"></a>
+ <h2><a class="anchor" id="autotoc_md89"></a>
 Usage:</h2>
 <p>This function is not to be used. It is automatically executed in the Instance() call.</p>
-<h2><a class="anchor" id="autotoc_md87"></a>
+<h2><a class="anchor" id="autotoc_md90"></a>
 Explanation:</h2>
 <p>Initializes the <a class="el" href="classCollisionGenerator.html">CollisionGenerator</a> object used by the <a class="el" href="classPhysicsManager.html">PhysicsManager</a>. </p>
 
@@ -261,13 +261,13 @@ Explanation:</h2>
 
 <p>Update the physics. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md88"></a>
+ <h2><a class="anchor" id="autotoc_md91"></a>
 Usage:</h2>
 <p>This function is to be called in the main loop's physics loop. Ideally it is called using a separate physics timestep accumulator that is implemented in the <a class="el" href="classFramerateController.html" title="Framerate Controller.">FramerateController</a> class.</p>
-<h2><a class="anchor" id="autotoc_md89"></a>
+<h2><a class="anchor" id="autotoc_md92"></a>
 Explanation:</h2>
 <p>This will update all objects' positions based on their <a class="el" href="classPhysicsBody.html" title="PhysicsBody class.">PhysicsBody</a> state. It will then check for collisions between any two bodies in the scene.</p>
-<h2><a class="anchor" id="autotoc_md90"></a>
+<h2><a class="anchor" id="autotoc_md93"></a>
 Note:</h2>
 <p>Because collision detection compares every <a class="el" href="classShape.html">Shape</a> in the scene with every other <a class="el" href="classShape.html">Shape</a>, it is advised not to use too many collision Shapes. There are more efficient ways to handle this, but we have not implemented them.</p>
 <dl class="params"><dt>Parameters</dt><dd>

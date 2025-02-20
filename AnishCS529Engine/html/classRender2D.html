@@ -132,9 +132,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae66618df6b0b1567017afb7216411e95" id="r_ae66618df6b0b1567017afb7216411e95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66618df6b0b1567017afb7216411e95">shutdown</a> ()</td></tr>
 <tr class="memdesc:ae66618df6b0b1567017afb7216411e95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy shutdown function.  <br /></td></tr>
 <tr class="separator:ae66618df6b0b1567017afb7216411e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9728e94eff464c89b68290e916012b45" id="r_a9728e94eff464c89b68290e916012b45"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classRender2D.html">Render2D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9728e94eff464c89b68290e916012b45">setRenderer</a> (<a class="el" href="classRenderer.html">Renderer</a> *_renderer)</td></tr>
-<tr class="memdesc:a9728e94eff464c89b68290e916012b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the renderer to be rendered to.  <br /></td></tr>
-<tr class="separator:a9728e94eff464c89b68290e916012b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1df160995d51e5f63f89a35b775ccc2" id="r_aa1df160995d51e5f63f89a35b775ccc2"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classRender2D.html">Render2D</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1df160995d51e5f63f89a35b775ccc2">setCamera</a> (std::shared_ptr&lt; <a class="el" href="classCamera.html">Camera</a> &gt; _camera)</td></tr>
 <tr class="memdesc:aa1df160995d51e5f63f89a35b775ccc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the camera to be rendered to.  <br /></td></tr>
 <tr class="separator:aa1df160995d51e5f63f89a35b775ccc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,10 +222,10 @@ std::shared_ptr&lt; <a class="el" href="classGameObject.html">GameObject</a> &gt
 
 <p>Set the camera to be rendered to. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md93"></a>
+ <h2><a class="anchor" id="autotoc_md94"></a>
 Usage:</h2>
 <p>The sets up which camera to use for rendering. This is needed before any <a class="el" href="#a01312d64cc0c1b3c0d471a1a4a93e771" title="Draw objects to screen.">update()</a> calls can be made.</p>
-<h2><a class="anchor" id="autotoc_md94"></a>
+<h2><a class="anchor" id="autotoc_md95"></a>
 Explanation:</h2>
 <p>The <a class="el" href="#a01312d64cc0c1b3c0d471a1a4a93e771" title="Draw objects to screen.">update()</a> call draws the object to the screen, but to do so, the viewMatrix and projectionMatrix are needed. These are set up in the <a class="el" href="classCamera.html">Camera</a> object. When multiple cameras are involved, this helps ensure rendering occurs to the correct region of the screen.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -258,10 +255,10 @@ Explanation:</h2>
 
 <p>Set the mesh to be rendered. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md97"></a>
+ <h2><a class="anchor" id="autotoc_md98"></a>
 Usage:</h2>
 <p>This sets the mesh to be rendered.</p>
-<h2><a class="anchor" id="autotoc_md98"></a>
+<h2><a class="anchor" id="autotoc_md99"></a>
 Explanation:</h2>
 <p>The <a class="el" href="#a01312d64cc0c1b3c0d471a1a4a93e771" title="Draw objects to screen.">update()</a> call will draw the mesh to the screen using the material.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -291,48 +288,15 @@ Explanation:</h2>
 
 <p>Set the mesh to be rendered. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md95"></a>
+ <h2><a class="anchor" id="autotoc_md96"></a>
 Usage:</h2>
 <p>This sets the mesh to be rendered.</p>
-<h2><a class="anchor" id="autotoc_md96"></a>
+<h2><a class="anchor" id="autotoc_md97"></a>
 Explanation:</h2>
 <p>The <a class="el" href="#a01312d64cc0c1b3c0d471a1a4a93e771" title="Draw objects to screen.">update()</a> call will draw the mesh to the screen using the material.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_mesh</td><td><a class="el" href="classMesh.html">Mesh</a> to be rendered </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><b>std::shared_ptr&lt;Render2D&gt;</b> Self shared pointer to allow chaining. </dd></dl>
-
-</div>
-</div>
-<a id="a9728e94eff464c89b68290e916012b45" name="a9728e94eff464c89b68290e916012b45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9728e94eff464c89b68290e916012b45">&#9670;&#160;</a></span>setRenderer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt; <a class="el" href="classRender2D.html">Render2D</a> &gt; Render2D::setRenderer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRenderer.html">Renderer</a> *</td>          <td class="paramname"><span class="paramname"><em>_renderer</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the renderer to be rendered to. </p>
-<hr  />
- <h2><a class="anchor" id="autotoc_md91"></a>
-Usage:</h2>
-<p>This needs to be set before running the initialization to ensure that the mesh and material are associated to the correct renderer.</p>
-<h2><a class="anchor" id="autotoc_md92"></a>
-Explanation:</h2>
-<p>The <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> is the object that manages interaction with OpenGL and hence the GPU. It is possible to have multiple renderers, especially in case of multiple GameWindows.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_renderer</td><td><a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> object pointer. </td></tr>
   </table>
   </dd>
 </dl>
@@ -395,10 +359,10 @@ Explanation:</h2>
 
 <p>Draw objects to screen. </p>
 <hr  />
- <h2><a class="anchor" id="autotoc_md99"></a>
+ <h2><a class="anchor" id="autotoc_md100"></a>
 Usage:</h2>
 <p>This call should be made when the object must be drawn to the <a class="el" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic.">GameWindow</a>.</p>
-<h2><a class="anchor" id="autotoc_md100"></a>
+<h2><a class="anchor" id="autotoc_md101"></a>
 Explanation:</h2>
 <p>This call sets up the <a class="el" href="classRenderer.html" title="Class Renderer that implements an OpenGL renderer.">Renderer</a> to use the <a class="el" href="classMaterial.html" title="Class to manage Materials used by objects.">Material</a> and <a class="el" href="classMesh.html">Mesh</a> to draw to the <a class="el" href="classGameWindow.html" title="Class that sets up the GLFW window and associated logic.">GameWindow</a></p>
 <dl class="params"><dt>Parameters</dt><dd>

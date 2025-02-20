@@ -36,7 +36,9 @@
 
 class Shader {
 public:
-  Shader(const std::string& shaderFilePaths);
+  Shader(const Shader&) = delete;
+  Shader& operator=(const Shader&) = delete;
+
   ~Shader();
 
   void use();
@@ -54,7 +56,9 @@ public:
   unsigned int getId() { return programID; };
   
 private:
-  std::unordered_map<GLenum, GLuint> shaderIDs;
+  Shader(const std::string& shaderFilePaths);
+
+  std::unordered_map<GLenum, std::vector<GLuint>> shaderIDs;
   mutable std::unordered_map<std::string, GLint> uniformLocationCache; // Todo: Why is this mutable?
   GLuint programID;
 
@@ -63,10 +67,12 @@ private:
   GLuint loadShader(GLenum type, const GLchar* source);
   void deleteShader(GLuint id);
   void linkShaders();
+  void cacheUniforms();
   GLint getUniformLocation(const std::string& name) const;
 
   std::string toLowerCase(const std::string& str);
 
+  friend class ShaderManager;
 };
 
 #endif // SHADER_H

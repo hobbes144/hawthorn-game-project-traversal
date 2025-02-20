@@ -42,13 +42,11 @@ public:
   void shutdown();
 
   /* Pre-initialization functions */
-  std::shared_ptr<Render2D> setRenderer(Renderer* _renderer);
   std::shared_ptr<Render2D> setCamera(std::shared_ptr<Camera> _camera);
   std::shared_ptr<Render2D> setMesh(std::shared_ptr<Mesh> _mesh);
   std::shared_ptr<Render2D> setMaterial(std::shared_ptr<Material> _material);
 
 private:
-  Renderer* renderer;
   std::shared_ptr<Camera> camera;
   std::shared_ptr<Mesh> mesh;
   std::shared_ptr<Material> material;

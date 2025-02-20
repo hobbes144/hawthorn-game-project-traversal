@@ -14,10 +14,20 @@
 
 #pragma once
 
+#ifndef PI
+#define PI 3.14159265358979323846 
+#endif // !PI
+
+
+#include <cassert>
 #include <unordered_map>
 #include <vector>
 
 #include "GeometryBuffer.h"
+#include "Vector3.h"
+#include "Matrix4.h"
+#include "Transform.h"
+#include "assimp/mesh.h"
 
 /** Struct VertexData not in use. */
 struct VertexData {
@@ -36,6 +46,13 @@ public:
         GLint
       >
     >;
+
+  /* Debug resources */
+  enum Type {
+    Square,
+    Cube,
+    Sphere
+  };
 
   Mesh(const std::string& name);
   Mesh(
@@ -70,9 +87,31 @@ public:
   bool hasAttribute(GeometryBuffer::AttributeType attr) const;
   const std::string& getName() const;
 
+
+  void draw(GLenum mode = GL_TRIANGLES);
+
+  /* Mesh factory */
+  static std::shared_ptr<Mesh> loadMesh(const std::string& filename);
+  static std::pair<Attributes, std::vector<unsigned int>> createFace(const Matrix4& tr);
+
+  static std::shared_ptr<Mesh> createSphereMesh(const std::string& name, const int n = 32);
+  static std::shared_ptr<Mesh> createMesh(const std::string& name, Type type);
+  static std::shared_ptr<Mesh> createSquareMesh(const std::string& name);
+  static std::shared_ptr<Mesh> createCubeMesh(const std::string& name);
+  static std::shared_ptr<Mesh> getShapeMesh(Type type);
+
 private:
   std::shared_ptr<GeometryBuffer> geometryBuffer;
   std::vector<unsigned int> indices;
+
+  static Attributes combineAttributes(const std::vector<Attributes>& attributesList);
+  static void combineIndices(unsigned int previousVertices, std::vector<unsigned int>& destIndices, std::vector<unsigned int> newIndices);
+  static void processMesh(aiMesh* mesh, Attributes& newMeshData, std::vector<unsigned int>& indices);
+  static std::unordered_map<std::string, std::shared_ptr<Mesh>> loadedMeshes;
+
+  /* Mesh factory */
+  static std::unordered_map<Type, std::shared_ptr<Mesh>> shapeMeshes;
+
 
   void prepareAttributeData(
     GeometryBuffer::ModifiableAttributes& triangleBufferData,
@@ -82,8 +121,6 @@ private:
   std::string name;
 };
 
-std::shared_ptr<Mesh> createSquareMesh(const std::string name);
-std::shared_ptr<Mesh> createCubeMesh(const std::string name);
 
 #endif // MESH_H
 

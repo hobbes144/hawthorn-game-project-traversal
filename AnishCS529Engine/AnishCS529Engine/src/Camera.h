@@ -14,12 +14,14 @@
 
 #pragma once
 
-/* Base class */
-#include "Node.h"
+#include <cassert>
 
-class Camera : public Node {
+/* Base class */
+#include "GameObject.h"
+
+class Camera : public GameObject {
 public:
-  Camera(std::string name) : Node(name) {};
+  Camera(std::string name) : GameObject(name) {};
   ~Camera() = default;
 
   /* Component functions */
@@ -41,12 +43,32 @@ public:
     const float near,
     const float far);
 
+  std::shared_ptr<Camera> lookAt(
+    const Vector3& target,
+    const Vector3& upVector);
+  std::shared_ptr<Camera> move(
+    const Vector3& direction,
+    float amount);
+  std::shared_ptr<Camera> rotate(
+    float roll,
+    float pitch,
+    float yaw
+  );
+
   const Matrix4 getViewMatrix();
+  const Matrix4 getInverseViewMatrix();
   const Matrix4& getProjectionMatrix();
 
 private:
-  Transform viewMatrix;
+  Matrix4 viewMatrix;
   Matrix4 projectionMatrix;
+  Matrix4 inverseViewMatrix;
+  Vector3 oldPosition = Vector3();
+  Vector3 oldRotation = Vector3();
+
+  Vector3 up;
+  Vector3 front;
+  Vector3 right;
 
   void updateViewMatrix();
 };

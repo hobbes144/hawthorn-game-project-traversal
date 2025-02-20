@@ -83,6 +83,7 @@ public:
   /* Utility functions */
   int getWidth();
   int getHeight();
+  float getAspectRatio();
   bool getShouldClose() const;
   void setShouldClose() const;
   GLFWwindow* getNativeWindow() const;

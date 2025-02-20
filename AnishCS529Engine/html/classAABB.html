@@ -121,6 +121,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae5e0625421b9d2730633612bab46d414"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65058f28b38f18f1e1e3fa3430defb54" id="r_a65058f28b38f18f1e1e3fa3430defb54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65058f28b38f18f1e1e3fa3430defb54">update</a> (<a class="el" href="classTransform.html">Transform</a> &amp;transform)</td></tr>
 <tr class="separator:a65058f28b38f18f1e1e3fa3430defb54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26a9c1d4e2f9a54a2ad46ac71523ab26" id="r_a26a9c1d4e2f9a54a2ad46ac71523ab26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26a9c1d4e2f9a54a2ad46ac71523ab26">debugDaw</a> ()</td></tr>
+<tr class="separator:a26a9c1d4e2f9a54a2ad46ac71523ab26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a568bbf8c4c9c9d8df758ef9293e19849" id="r_a568bbf8c4c9c9d8df758ef9293e19849"><td class="memItemLeft" align="right" valign="top"><a id="a568bbf8c4c9c9d8df758ef9293e19849" name="a568bbf8c4c9c9d8df758ef9293e19849"></a>
 <a class="el" href="classVector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getMin</b> () const</td></tr>
 <tr class="separator:a568bbf8c4c9c9d8df758ef9293e19849"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,12 +144,9 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>getHeight</b> () con
 <tr class="memitem:af4a84666f30d5fd1a8d26d9a218a9e75" id="r_af4a84666f30d5fd1a8d26d9a218a9e75"><td class="memItemLeft" align="right" valign="top"><a id="af4a84666f30d5fd1a8d26d9a218a9e75" name="af4a84666f30d5fd1a8d26d9a218a9e75"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>getDepth</b> () const</td></tr>
 <tr class="separator:af4a84666f30d5fd1a8d26d9a218a9e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1af4bc52fbbc0c913b005164179b7c6b" id="r_a1af4bc52fbbc0c913b005164179b7c6b"><td class="memItemLeft" align="right" valign="top"><a id="a1af4bc52fbbc0c913b005164179b7c6b" name="a1af4bc52fbbc0c913b005164179b7c6b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initializeDebugDraw</b> (<a class="el" href="classRenderer.html">Renderer</a> *renderer)</td></tr>
-<tr class="separator:a1af4bc52fbbc0c913b005164179b7c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2f0a546765938c431c043881437561a" id="r_ad2f0a546765938c431c043881437561a"><td class="memItemLeft" align="right" valign="top"><a id="ad2f0a546765938c431c043881437561a" name="ad2f0a546765938c431c043881437561a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>drawDebugLines</b> (<a class="el" href="classMatrix4.html">Matrix4</a> &amp;view, <a class="el" href="classMatrix4.html">Matrix4</a> &amp;projection)</td></tr>
-<tr class="separator:ad2f0a546765938c431c043881437561a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98dccabfee71e7d834ff9bd4c68f02ae" id="r_a98dccabfee71e7d834ff9bd4c68f02ae"><td class="memItemLeft" align="right" valign="top"><a id="a98dccabfee71e7d834ff9bd4c68f02ae" name="a98dccabfee71e7d834ff9bd4c68f02ae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>initializeDebugDraw</b> (std::shared_ptr&lt; <a class="el" href="classRenderGraph.html">RenderGraph</a> &gt; renderGraph, std::shared_ptr&lt; <a class="el" href="classCamera.html">Camera</a> &gt; camera)</td></tr>
+<tr class="separator:a98dccabfee71e7d834ff9bd4c68f02ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classShape"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classShape')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classShape.html">Shape</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
@@ -160,6 +159,33 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a359229718ec54cfac5980b883e3e4ea8 inherit pub_types_classShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a26a9c1d4e2f9a54a2ad46ac71523ab26" name="a26a9c1d4e2f9a54a2ad46ac71523ab26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26a9c1d4e2f9a54a2ad46ac71523ab26">&#9670;&#160;</a></span>debugDaw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AABB::debugDaw </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classShape.html">Shape</a>.</p>
+
+</div>
+</div>
 <a id="ae5e0625421b9d2730633612bab46d414" name="ae5e0625421b9d2730633612bab46d414"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5e0625421b9d2730633612bab46d414">&#9670;&#160;</a></span>getType()</h2>
 

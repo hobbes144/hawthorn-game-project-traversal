@@ -86,7 +86,11 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classMaterial-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Material Class Reference</div></div>
 </div><!--header-->
@@ -96,28 +100,79 @@ $(function(){ initResizable(false); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Material_8h_source.html">Material.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Material:</div>
+<div class="dyncontent">
+<div class="center"><img src="classMaterial__inherit__graph.png" border="0" usemap="#aMaterial_inherit__map" alt="Inheritance graph"/></div>
+<map name="aMaterial_inherit__map" id="aMaterial_inherit__map">
+<area shape="rect" title="Class to manage Materials used by objects." alt="" coords="184,93,259,119"/>
+<area shape="rect" href="classDebugMaterial.html" title=" " alt="" coords="5,167,125,192"/>
+<area shape="poly" title=" " alt="" coords="185,127,92,169,90,164,183,122"/>
+<area shape="rect" href="classSolidColorMaterial.html" title=" " alt="" coords="150,167,293,192"/>
+<area shape="poly" title=" " alt="" coords="224,132,224,167,219,167,219,132"/>
+<area shape="rect" href="classTextureMaterial.html" title=" " alt="" coords="317,167,437,192"/>
+<area shape="poly" title=" " alt="" coords="260,122,353,164,351,169,258,127"/>
+<area shape="rect" title=" " alt="" coords="137,5,305,45"/>
+<area shape="poly" title=" " alt="" coords="224,59,224,93,219,93,219,59"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for Material:</div>
+<div class="dyncontent">
+<div class="center"><img src="classMaterial__coll__graph.png" border="0" usemap="#aMaterial_coll__map" alt="Collaboration graph"/></div>
+<map name="aMaterial_coll__map" id="aMaterial_coll__map">
+<area shape="rect" title="Class to manage Materials used by objects." alt="" coords="52,93,127,119"/>
+<area shape="rect" title=" " alt="" coords="5,5,173,45"/>
+<area shape="poly" title=" " alt="" coords="92,59,92,93,87,93,87,59"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6c749b655cffc48b0de165d4276d3a91" id="r_a6c749b655cffc48b0de165d4276d3a91"><td class="memItemLeft" align="right" valign="top"><a id="a6c749b655cffc48b0de165d4276d3a91" name="a6c749b655cffc48b0de165d4276d3a91"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>PropertyMap</b> = RenderPass::PropertyMap</td></tr>
+<tr class="separator:a6c749b655cffc48b0de165d4276d3a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6c6dc52dccc57852a3763ed5a39028e5" id="r_a6c6dc52dccc57852a3763ed5a39028e5"><td class="memItemLeft" align="right" valign="top"><a id="a6c6dc52dccc57852a3763ed5a39028e5" name="a6c6dc52dccc57852a3763ed5a39028e5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Material</b> (std::shared_ptr&lt; <a class="el" href="classShader.html">Shader</a> &gt; shader)</td></tr>
-<tr class="separator:a6c6dc52dccc57852a3763ed5a39028e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2d9ec6f3e9b3979ba4be481f93a25af" id="r_ad2d9ec6f3e9b3979ba4be481f93a25af"><td class="memItemLeft" align="right" valign="top"><a id="ad2d9ec6f3e9b3979ba4be481f93a25af" name="ad2d9ec6f3e9b3979ba4be481f93a25af"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setShader</b> (std::shared_ptr&lt; <a class="el" href="classShader.html">Shader</a> &gt; shader)</td></tr>
-<tr class="separator:ad2d9ec6f3e9b3979ba4be481f93a25af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4035dad0f51eb13be79a8fc4a68f3e8f" id="r_a4035dad0f51eb13be79a8fc4a68f3e8f"><td class="memItemLeft" align="right" valign="top"><a id="a4035dad0f51eb13be79a8fc4a68f3e8f" name="a4035dad0f51eb13be79a8fc4a68f3e8f"></a>
-std::shared_ptr&lt; <a class="el" href="classShader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getShader</b> () const</td></tr>
-<tr class="separator:a4035dad0f51eb13be79a8fc4a68f3e8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca492c9d47bc5bae15e26a19594b4762" id="r_aca492c9d47bc5bae15e26a19594b4762"><td class="memItemLeft" align="right" valign="top"><a id="aca492c9d47bc5bae15e26a19594b4762" name="aca492c9d47bc5bae15e26a19594b4762"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setRenderGraph</b> (std::shared_ptr&lt; <a class="el" href="classRenderGraph.html">RenderGraph</a> &gt; newRenderGraph)</td></tr>
+<tr class="separator:aca492c9d47bc5bae15e26a19594b4762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a15e92ea8adcc6f52ae483765e8eb21" id="r_a3a15e92ea8adcc6f52ae483765e8eb21"><td class="memItemLeft" align="right" valign="top"><a id="a3a15e92ea8adcc6f52ae483765e8eb21" name="a3a15e92ea8adcc6f52ae483765e8eb21"></a>
+std::shared_ptr&lt; <a class="el" href="classRenderGraph.html">RenderGraph</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getRenderGraph</b> () const</td></tr>
+<tr class="separator:a3a15e92ea8adcc6f52ae483765e8eb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07ff3e892b12b34d4d984202edf03f1d" id="r_a07ff3e892b12b34d4d984202edf03f1d"><td class="memTemplParams" colspan="2"><a id="a07ff3e892b12b34d4d984202edf03f1d" name="a07ff3e892b12b34d4d984202edf03f1d"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a07ff3e892b12b34d4d984202edf03f1d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>setProperty</b> (const std::string &amp;name, const T &amp;value)</td></tr>
 <tr class="separator:a07ff3e892b12b34d4d984202edf03f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c22b8b98b6802f027243891800cfa5e" id="r_a9c22b8b98b6802f027243891800cfa5e"><td class="memItemLeft" align="right" valign="top"><a id="a9c22b8b98b6802f027243891800cfa5e" name="a9c22b8b98b6802f027243891800cfa5e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTexture</b> (const std::string &amp;name, std::shared_ptr&lt; <a class="el" href="classTexture.html">Texture</a> &gt; texture, unsigned int unit)</td></tr>
-<tr class="separator:a9c22b8b98b6802f027243891800cfa5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab8fd35ae9d69c0e88976a8210576a72" id="r_aab8fd35ae9d69c0e88976a8210576a72"><td class="memItemLeft" align="right" valign="top"><a id="aab8fd35ae9d69c0e88976a8210576a72" name="aab8fd35ae9d69c0e88976a8210576a72"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>apply</b> () const</td></tr>
-<tr class="separator:aab8fd35ae9d69c0e88976a8210576a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55445fc704646abfa46d42dfd0bc0921" id="r_a55445fc704646abfa46d42dfd0bc0921"><td class="memItemLeft" align="right" valign="top"><a id="a55445fc704646abfa46d42dfd0bc0921" name="a55445fc704646abfa46d42dfd0bc0921"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (std::shared_ptr&lt; <a class="el" href="classMesh.html">Mesh</a> &gt; mesh) const</td></tr>
+<tr class="separator:a55445fc704646abfa46d42dfd0bc0921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:afc6ca3515d7bbc722ca21ac28010c7c6" id="r_afc6ca3515d7bbc722ca21ac28010c7c6"><td class="memTemplParams" colspan="2"><a id="afc6ca3515d7bbc722ca21ac28010c7c6" name="afc6ca3515d7bbc722ca21ac28010c7c6"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:afc6ca3515d7bbc722ca21ac28010c7c6"><td class="memTemplItemLeft" align="right" valign="top">static std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getMaterial</b> (const std::string &amp;name, std::shared_ptr&lt; <a class="el" href="classRenderGraph.html">RenderGraph</a> &gt; renderGraph)</td></tr>
+<tr class="separator:afc6ca3515d7bbc722ca21ac28010c7c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a2653e9940521d5793b646f3902e04ff5" id="r_a2653e9940521d5793b646f3902e04ff5"><td class="memItemLeft" align="right" valign="top"><a id="a2653e9940521d5793b646f3902e04ff5" name="a2653e9940521d5793b646f3902e04ff5"></a>
+static std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="classMaterial.html">Material</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>basicMaterials</b></td></tr>
+<tr class="separator:a2653e9940521d5793b646f3902e04ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a584efc91cf3cb88f2383e5653de3033f" id="r_a584efc91cf3cb88f2383e5653de3033f"><td class="memItemLeft" align="right" valign="top"><a id="a584efc91cf3cb88f2383e5653de3033f" name="a584efc91cf3cb88f2383e5653de3033f"></a>
+std::shared_ptr&lt; <a class="el" href="classRenderGraph.html">RenderGraph</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>renderGraph</b></td></tr>
+<tr class="separator:a584efc91cf3cb88f2383e5653de3033f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae909d669bc091b59c7ae9697437f8ca3" id="r_ae909d669bc091b59c7ae9697437f8ca3"><td class="memItemLeft" align="right" valign="top"><a id="ae909d669bc091b59c7ae9697437f8ca3" name="ae909d669bc091b59c7ae9697437f8ca3"></a>
+PropertyMap&#160;</td><td class="memItemRight" valign="bottom"><b>properties</b></td></tr>
+<tr class="separator:ae909d669bc091b59c7ae9697437f8ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f804a6dc503a26d3622817038bd4bad" id="r_a9f804a6dc503a26d3622817038bd4bad"><td class="memItemLeft" align="right" valign="top"><a id="a9f804a6dc503a26d3622817038bd4bad" name="a9f804a6dc503a26d3622817038bd4bad"></a>
+std::optional&lt; std::unordered_map&lt; std::string, <a class="el" href="structTextureManager_1_1TextureID.html">TextureManager::TextureID</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>textureData</b></td></tr>
+<tr class="separator:a9f804a6dc503a26d3622817038bd4bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to manage Materials used by objects. </p>
@@ -126,6 +181,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>apply</b> () 
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>AnishCS529Engine/src/<a class="el" href="Material_8h_source.html">Material.h</a></li>
 <li>AnishCS529Engine/src/<a class="el" href="Material_8cpp.html">Material.cpp</a></li>
+<li>AnishCS529Engine/src/<a class="el" href="Material_8inl_source.html">Material.inl</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

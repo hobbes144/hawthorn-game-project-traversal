@@ -7,7 +7,7 @@
  *    CS529
  * \date   10-14-2024
  * \brief  Material class
- * 
+ *
  *****************************************************************************/
 #ifndef MATERIAL_H
 #define MATERIAL_H
@@ -19,50 +19,47 @@
 #include <optional>
 
 #include "Matrix4.h"
-#include "Shader.h"
+#include "Mesh.h"
+#include "RenderGraph.h"
 #include "Vector3.h"
 #include "Texture.h"
 
-/*!****************************************************************************
- * \brief Class to manage Materials used by objects
- * 
- * This class handles creation of shaders and setting parameters for them.
- *****************************************************************************/
-class Material {
+ /*!****************************************************************************
+  * \brief Class to manage Materials used by objects
+  *
+  * This class handles creation of shaders and setting parameters for them.
+  *****************************************************************************/
+class Material : public std::enable_shared_from_this<Material> {
 public:
-  Material(std::shared_ptr<Shader> shader) : shader(shader) {}
+  using PropertyMap = RenderPass::PropertyMap;
+
+  Material() = default;
   virtual ~Material() = default;
 
-  void setShader(std::shared_ptr<Shader> shader);
-  std::shared_ptr<Shader> getShader() const;
+  void setRenderGraph(std::shared_ptr<RenderGraph> newRenderGraph);
+  std::shared_ptr<RenderGraph> getRenderGraph() const;
 
   template<typename T>
   void setProperty(const std::string& name, const T& value) {
     properties[name] = value;
   }
 
-  void setTexture(const std::string& name, std::shared_ptr<Texture> texture, unsigned int unit);
+  virtual void draw(std::shared_ptr<Mesh> mesh) const;
 
-  virtual void apply() const;
+  /* Material factory */
+  static std::unordered_map<std::string, std::shared_ptr<Material>> basicMaterials;
 
-private:
-  std::shared_ptr<Shader> shader;
-  std::unordered_map<
-    std::string, 
-    std::variant<unsigned int, int, float, Vector3, Matrix4>
-  > properties;
+  template <typename T>
+  static std::shared_ptr<T> getMaterial(
+    const std::string& name,
+    std::shared_ptr<RenderGraph> renderGraph);
 
-  struct TextureInfo {
-    std::shared_ptr<Texture> texture;
-    unsigned int unit;
-  };
-
-  std::optional<std::unordered_map<std::string, TextureInfo>> textureData;
-
+protected:
+  std::shared_ptr<RenderGraph> renderGraph;
+  PropertyMap properties;
 };
 
-std::shared_ptr<Material> createSolidColorMaterial(const Vector3& color);
-std::shared_ptr<Material> createTextureMaterial(const std::string& textureFile);
+#include "Material.inl"
 
 #endif // MATERIAL_H
 

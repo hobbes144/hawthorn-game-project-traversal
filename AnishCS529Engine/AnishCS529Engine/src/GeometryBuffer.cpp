@@ -229,7 +229,6 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
     * We are storing the data as blocks of each attribute. We are not using the
     * interleaved data approach.
     */
-    GLuint index = 0;
     for (const auto& [type, info] : attributeData) {
       glBufferSubData(
         GL_ARRAY_BUFFER,
@@ -238,15 +237,14 @@ void GeometryBuffer::initializeVertexBuffers(Attributes& attributeData) {
         info.data.data());
 
       glVertexAttribPointer(
-        index,
+        static_cast<GLuint>(type),
         info.elementSize,
         info.type,
         info.normalized,
         info.elementSize * sizeof(float),
         (void*)attributeOffsets[type]);
 
-      glEnableVertexAttribArray(index);
-      index++;
+      glEnableVertexAttribArray(static_cast<GLuint>(type));
     }
   }
 }
@@ -324,6 +322,12 @@ void GeometryBuffer::initializeBuffers(
 
 /*!****************************************************************************
  * \brief Update the vertex attributes used in the VBO
+ * 
+ * ## Usage:
+ * 
+ * This is only to be used if the VBO data is in block format.
+ * 
+ * DO NOT USE THIS CALL WHEN DATA IS INTERLEAVED
  * 
  * \param type Type of attribute to be modified.
  * \param data Data of the attribute to be updated.

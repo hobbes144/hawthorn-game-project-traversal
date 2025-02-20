@@ -1,8 +1,23 @@
+/*!****************************************************************************
+ * \file   OBB.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \date   02-10-2025
+ * \brief  
+ * 
+ *****************************************************************************/
+#ifndef OBB_H
+#define OBB_H
+
 #pragma once
-#include "Shape.h"
-#include "Renderer.h"
+
+#include "Camera.h"
+#include "DebugMaterial.h"
+#include "DebugPass.h"
 #include "Mesh.h"
-#include "Material.h"
+#include "RenderGraph.h"
+#include "Shape.h"
 
 class OBB : public Shape
 {
@@ -11,8 +26,8 @@ public:
   ~OBB() = default;
 
   Type getType() const override;
-
   void update(Transform& transform) override;
+  void debugDaw();
 
   void getCorners(Vector3 corners[4]) const;
 
@@ -26,8 +41,8 @@ public:
   const Vector3* getAxes() const;
 
   // debug functions
-  void initializeDebugDraw(Renderer* renderer); // Call this once when creating OBB
-  void drawDebugLines(Matrix4& view, Matrix4& projection); // Call this in your render loop
+  void initializeDebugDraw(
+    std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera); // Call this once when creating OBB
 
 
 private:
@@ -50,8 +65,10 @@ private:
 
   // debug properties
   std::shared_ptr<Mesh> debugMesh;
-  std::shared_ptr<Material> debugMaterial;
-  Renderer* renderer;
+  std::shared_ptr<DebugMaterial> debugMaterial;
+  std::shared_ptr<RenderGraph> renderGraph;
+  std::shared_ptr<Camera> camera;
 
 };
 
+#endif // !OBB_H

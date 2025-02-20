@@ -221,6 +221,10 @@ int GameWindow::getHeight()
   return height;
 }
 
+float GameWindow::getAspectRatio() {
+    return (float)width / (float)height;
+}
+
 /*!****************************************************************************
  * \brief Initializer for GLFW and the GLFW window
  *
