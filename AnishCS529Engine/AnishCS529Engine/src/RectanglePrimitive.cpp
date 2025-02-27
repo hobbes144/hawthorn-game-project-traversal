@@ -1,3 +1,4 @@
+#include "precompiled.h"
 //#include "RectanglePrimitive.h"
 //
 //RectanglePrimitive::RectanglePrimitive(const std::string name,

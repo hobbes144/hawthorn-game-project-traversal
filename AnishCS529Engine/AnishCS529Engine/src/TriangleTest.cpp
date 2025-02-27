@@ -1,3 +1,4 @@
+#include "precompiled.h"
 ///*!****************************************************************************
 // * \file   main.cpp
 // * \author Anish Murthy (anish.murthy.dev@gmail.com)

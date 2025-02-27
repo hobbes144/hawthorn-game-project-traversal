@@ -1,3 +1,4 @@
+#include "precompiled.h"
 ///*!****************************************************************************
 // * \file   Material.cpp
 // * \author Anish Murthy (anish.murthy.dev@gmail.com)

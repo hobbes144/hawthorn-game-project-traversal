@@ -6,6 +6,7 @@
  * \date   02-10-2025
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include "DebugMaterial.h"
 
 void DebugMaterial::draw(std::shared_ptr<Mesh> mesh) const

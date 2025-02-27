@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include <windows.h>
 
 #include "Renderer.h"
@@ -470,7 +472,7 @@ int main() {
     Vector3 affinePosStart = Vector3(-10.0f, 0.75f, 10.0f);
     Vector3 affinePosEnd = Vector3(-10.0f, 10.75f, 10.0f);
     Vector3 affineRotStart = Vector3(0.0, 0.0, 0.0);
-    Vector3 affineRotEnd = Vector3(0.0, 2, 0.0);
+    Vector3 affineRotEnd = Vector3(0.0, 2.0, 0.0);
     Vector3 affineSclStart = Vector3(0.5, 0.5, 0.5);
     Vector3 affineSclEnd = Vector3(0.6, 0.6, 0.6);
 
@@ -492,7 +494,7 @@ int main() {
 
         //Affine Demonstration
         affineCounter += 0.1f;
-        float t = 0.5f * (sin(affineCounter * affineSpeed) + 1.0);
+        float t = 0.5f * (sinf(affineCounter * affineSpeed) + 1.0f);
         Vector3 affineCurrPos = affinePosStart + (affinePosEnd - affinePosStart) * t;
         soundBox.get()->setLocalPosition(affineCurrPos);
         Vector3 affineCurrRot = affineRotStart + (affineRotEnd - affineRotStart) * t;
@@ -507,7 +509,7 @@ int main() {
             AudioManager::instance().playSound("pew");
         }
         if (mainInput->isKeyPressed(KEY_V)) {
-            AudioManager::instance().togglePlaybackSpeed(0.7);
+            AudioManager::instance().togglePlaybackSpeed(0.7f);
         }
         if (mainInput->isKeyPressed(KEY_M)) {
             AudioManager::instance().stopSound("radio");

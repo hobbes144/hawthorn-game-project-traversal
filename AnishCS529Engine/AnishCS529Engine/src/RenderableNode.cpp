@@ -8,6 +8,7 @@
  * \date   10-15-2024
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include "RenderableNode.h"
 
 void RenderableNode::update(float deltaTime) {

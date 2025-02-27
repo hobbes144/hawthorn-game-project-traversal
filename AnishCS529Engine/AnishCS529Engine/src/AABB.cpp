@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "AABB.h"
 #include <iostream>
 
