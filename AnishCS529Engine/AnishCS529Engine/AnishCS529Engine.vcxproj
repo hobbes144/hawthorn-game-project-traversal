@@ -33,6 +33,9 @@
     <ClCompile Include="include\imgui\imgui_demo.cpp" />
     <ClCompile Include="include\imgui\imgui_draw.cpp" />
     <ClCompile Include="include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="RaycastHit.cpp" />
+    <ClCompile Include="RaycastManager.cpp" />
     <ClCompile Include="src\DebugPass.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
@@ -100,6 +103,9 @@
     <ClCompile Include="src\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="RaycastHit.h" />
+    <ClInclude Include="RaycastManager.h" />
     <ClInclude Include="src\AABB.h" />
     <ClInclude Include="src\AmbientLight.h" />
     <ClInclude Include="src\BasicRenderPass.h" />
