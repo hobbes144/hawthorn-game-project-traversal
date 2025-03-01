@@ -19,6 +19,7 @@
 ////    glDrawElements(GL_TRIANGLES, vertexcount, GL_UNSIGNED_INT, 0);
 ////    glBindVertexArray(0);
 //////////////////////////////////////////////////////////////////////////
+#include "precompiled.h"
 //
 //#include <vector>
 //#include <fstream>

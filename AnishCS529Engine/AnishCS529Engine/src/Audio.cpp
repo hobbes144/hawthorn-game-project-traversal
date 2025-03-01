@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "audio.h"
 #include <stdexcept>
 #include <iostream>

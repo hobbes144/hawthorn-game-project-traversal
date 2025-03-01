@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "LightManager.h"
 
 int LightManager::addLight(std::shared_ptr<Light> light)
