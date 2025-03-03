@@ -44,6 +44,7 @@ public:
   void initializeDebugDraw(
     std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera); // Call this once when creating OBB
 
+  bool raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const override;
 
 private:
   // Local space values (original, unchanged)

@@ -491,6 +491,21 @@ Matrix4 Matrix4::inverse(const Matrix4& m)
   return Inverse * OneOverDeterminant;
 }
 
+/*!****************************************************************************
+ * \brief 
+ * 
+ * \param direction - the direction to be transformed
+ * \return \b Vector3 the tranformed direction 
+ *****************************************************************************/
+Vector3 Matrix4::transformDirection(const Vector3& direction) const {
+    return Vector3(
+        data[0][0] * direction.x + data[0][1] * direction.y + data[0][2] * direction.z,
+        data[1][0] * direction.x + data[1][1] * direction.y + data[1][2] * direction.z,
+        data[2][0] * direction.x + data[2][1] * direction.y + data[2][2] * direction.z
+    ).normalized();
+}
+
+
 std::ostream& operator<<(std::ostream& os, const Matrix4& m) {
   const float* data = m.getData();
 

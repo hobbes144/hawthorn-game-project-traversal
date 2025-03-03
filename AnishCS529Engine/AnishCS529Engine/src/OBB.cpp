@@ -124,3 +124,50 @@ void OBB::debugDaw() {
 
   debugMaterial->draw(debugMesh);
 }
+
+bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const {
+
+    const Vector3* axes = getAxes(); 
+    const Vector3 center = getCenter(); 
+    const Vector3 halfExtents = getHalfExtents(); 
+
+    Vector3 p = center - ray.getOrigin();
+
+    float tMin = 0.0f;
+    float tMax = maxDistance;
+
+    for (int i = 0; i < 3; ++i) {
+        float e = axes[i].dot(p);
+        float f = axes[i].dot(ray.getDirection());
+
+        if (std::abs(f) > 0.00001f) {
+            float t1 = (e + halfExtents[i]) / f;
+            float t2 = (e - halfExtents[i]) / f;
+
+            if (t1 > t2) std::swap(t1, t2);
+
+            tMin = std::max(tMin, t1);
+            tMax = std::min(tMax, t2);
+
+            if (tMin > tMax) return false;
+        }
+        else if (-e - halfExtents[i] > 0 || -e + halfExtents[i] < 0) {
+            return false;
+        }
+    }
+
+    hit.distance = tMin;
+    hit.point = ray.getOrigin() + ray.getDirection() * tMin;
+
+    // Compute normal
+    for (int i = 0; i < 3; ++i) {
+        if (std::abs(hit.point.dot(axes[i]) - center.dot(axes[i])) > halfExtents[i] - 0.001f) {
+            hit.normal = axes[i] * (hit.point.dot(axes[i]) > center.dot(axes[i]) ? 1.0f : -1.0f);
+            break;
+        }
+    }
+
+    return true;
+
+}
+

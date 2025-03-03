@@ -12,6 +12,8 @@ public:
   Vector3 getCenter() const;
   float getRadius() const;
 
+  bool raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const override;
+
 private:
   Vector3 center;
   float radius;
