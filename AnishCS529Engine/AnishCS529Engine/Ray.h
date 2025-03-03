@@ -16,6 +16,7 @@
 #pragma once
 
 #include "src/Vector3.h"
+#include "src/Matrix4.h"
 
 class Ray
 {
@@ -24,7 +25,7 @@ class Ray
 	Vector3 direction;
 
 public:
-	Ray(const Vector3& o, const Vector3& d) : origin(o), direction(d.normalized()) {}
+	Ray(const Vector3& o = Vector3(), const Vector3& d = Vector3()) : origin(o), direction(d.normalized()) {}
 
 	Ray transformRay(const Matrix4& transform) const {
 		Ray transformedRay = Ray(Vector3(), Vector3());

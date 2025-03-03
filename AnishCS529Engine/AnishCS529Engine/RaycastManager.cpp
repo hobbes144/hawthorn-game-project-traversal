@@ -1,7 +1,7 @@
 #include "RaycastManager.h"
 #include <src/PhysicsBody.h>
 
-bool RaycastManager::Raycast(const Ray& ray, const SceneGraph* sceneGraph, RaycastHit& hit, float maxDistance = FLT_MAX) {
+bool RaycastManager::Raycast(const Ray& ray, const SceneGraph* sceneGraph, RaycastHit& hit, float maxDistance) {
 
 	return processNode(sceneGraph->getRootNode(), ray, hit, maxDistance);
 
