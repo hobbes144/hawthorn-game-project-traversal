@@ -263,6 +263,8 @@ int main() {
     int isDebug = 0;
     std::vector<std::shared_ptr<GameObject>> gameObjects;
 
+/*
+
 #pragma region Map
     std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
     auto mapObject = std::make_shared<GameObject>("Map");
@@ -313,6 +315,8 @@ int main() {
     mainSceneGraph.addNode(cannonballObject);
 #pragma endregion
 
+*/
+
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
@@ -335,7 +339,7 @@ int main() {
 
     // Create instances of bodies for boxes
     playerBox->addComponent<RigidBody>()
-        ->usingGravity(true)
+        ->usingGravity(false)
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(shape1)
         ->setDebug(isDebug)
@@ -379,7 +383,7 @@ int main() {
 
     // Create instances of bodies for boxes
     dynamicBox->addComponent<RigidBody>()
-        ->usingGravity(true)
+        ->usingGravity(false)
         ->setMass(10.0f)->setDrag(100.0f)
         ->setShape(dBoxShape)
         ->setDebug(isDebug)
@@ -390,6 +394,8 @@ int main() {
     gameObjects.push_back(dynamicBox);
 
 #pragma endregion
+
+/*
 
 #pragma region Floor
 
@@ -456,6 +462,8 @@ int main() {
 
 #pragma endregion
 
+*/
+
     CollisionListener boxTouch(dynamicBox);
     boxTouch.setCallback(onBoxCollide);
 
@@ -493,16 +501,6 @@ int main() {
             mainFramerateController->consumePhysicsTime();
         }
 
-        //Affine Demonstration
-        affineCounter += 0.1f;
-        float t = 0.5f * (sin(affineCounter * affineSpeed) + 1.0);
-        Vector3 affineCurrPos = affinePosStart + (affinePosEnd - affinePosStart) * t;
-        soundBox.get()->setLocalPosition(affineCurrPos);
-        Vector3 affineCurrRot = affineRotStart + (affineRotEnd - affineRotStart) * t;
-        soundBox.get()->setLocalRotation(affineCurrRot);
-        Vector3 affineCurrScl = affineSclStart + (affineSclEnd - affineSclStart) * t;
-        soundBox.get()->setLocalScaling(affineCurrScl);
-
         //Audio Update
         AudioManager::instance().update();
         AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
@@ -516,7 +514,7 @@ int main() {
         //Raycast Testing
         if (mainInput->isKeyPressed(KEY_SPACE)) {
             Vector3 rayOrigin = playerBox->getWorldTransform().getPosition();
-            Vector3 rayDirection = Vector3(1,0,0);
+            Vector3 rayDirection = Vector3(-1,0,0);
 
             Ray testRay(rayOrigin, rayDirection);
 
@@ -548,61 +546,6 @@ int main() {
 
         mainSceneGraph.update(deltaTime);
         mainFramerateController->endFrame();
-
-#pragma region IMGUI
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        if (ImGui::BeginMainMenuBar()) {
-          // This menu demonstrates how to provide the user a list of toggleable settings.
-          if (ImGui::BeginMenu("Objects")) {
-            if (ImGui::MenuItem("Draw MovableBox", "", soundBox->isEnabled())) {
-              if (soundBox->isEnabled())
-                soundBox->disable();
-              else
-                soundBox->enable();
-            }
-            if (ImGui::MenuItem("Draw Textures", "", textureMode)) { 
-              if (textureMode) textureMode = 0;
-              else textureMode = 1;
-              testPass->setProperty("textureMode", textureMode);
-            }
-            if (ImGui::MenuItem("Draw debug lines", "", isDebug)) {
-              if (isDebug) isDebug = 0;
-              else isDebug = 1;
-              for (const auto& object : gameObjects) {
-                if (auto body = object->findComponent<RigidBody>()) {
-                  body->setDebug(isDebug);
-                }
-              }
-
-            }
-            ImGui::EndMenu();
-          }
-          ImGui::EndMainMenuBar();
-        }
-
-        //ImGui::SetNextWindowPos(ImVec2(10, 10)); // Position at top-left
-        //ImGui::SetNextWindowBgAlpha(0.35f); // Make it semi-transparent
-
-        ImGui::Begin("Overlay", nullptr,
-            ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_AlwaysAutoResize |
-            ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoScrollbar |
-            ImGuiWindowFlags_NoInputs);
-
-        ImGui::Text("FPS: %.1f", mainFramerateController->getFPS());
-        ImGui::Text("Frametime: %f", mainFramerateController->getFrameTime());
-        ImGui::Text("RenderTime: %f", mainFramerateController->getRenderTime());
-
-        ImGui::End();
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-#pragma endregion
 
         mainRenderer->swapBuffers();
         mainWindow->update();

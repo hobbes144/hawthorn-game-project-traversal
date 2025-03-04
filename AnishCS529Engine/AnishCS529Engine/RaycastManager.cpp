@@ -8,42 +8,49 @@ bool RaycastManager::Raycast(const Ray& ray, const SceneGraph* sceneGraph, Rayca
 }
 
 bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
-					 const Ray& ray,
-					 RaycastHit& hit,
-					 float& closeHitDistance) {
+                                 const Ray& ray,
+                                 RaycastHit& hit,
+                                 float& closeHitDistance) {
+    if (!node) {
+        return false;
+    }
 
-	//Confirm that node exists
-	if (!node) {
-		return false;
-	}
+    bool hasHit = false;
+    RaycastHit tempHit;
 
-	bool hasHit = false;
-	RaycastHit tempHit;
+    // Convert the Ray to the Node's local space
+    Matrix4 worldToLocal = node->getWorldTransform().getLocalMatrix();
+    Ray localRay = ray.transformRay(worldToLocal);
 
-	//Convert the Ray to the Node's local space
-	Matrix4 worldToLocal = node->getWorldTransform().getInverseLocalMatrix();
-	Ray localRay = ray.transformRay(worldToLocal);
+    // If the node has a physics body, check for intersection
+    auto gameObject = std::dynamic_pointer_cast<GameObject>(node);
+    if (gameObject) {
+        auto pbComp = gameObject->findComponent<PhysicsBody>();
+        if (pbComp) {
+            if (pbComp->getShape()->raycastIntersect(localRay, tempHit, closeHitDistance)) {
 
-	//If the node has a physics body, check for intersection
-	auto gameObject = std::dynamic_pointer_cast<GameObject>(node);
-	if (gameObject) {
-		auto pbComp = gameObject->findComponent<PhysicsBody>();
-		if (pbComp && pbComp->getShape()->raycastIntersect(localRay, tempHit, closeHitDistance)) { //TODO: MIGHT NOT BE CLOSEHIT DISTANCE
-			
-			tempHit.point = node->getTransformMatrix() * tempHit.point;
-			tempHit.normal = node->getTransformMatrix().transformDirection(tempHit.normal);
-			closeHitDistance = tempHit.distance;
-			hit = tempHit;
-			hasHit = true;
+                // Only update if this is the closest hit
+                if (tempHit.distance < closeHitDistance) {
+                    closeHitDistance = tempHit.distance;
 
-		}
-	}
+                    // Convert back to world space
+                    tempHit.point = node->getWorldTransform().getLocalMatrix() * tempHit.point;
+                    tempHit.normal = node->getWorldTransform().getLocalMatrix().transformDirection(tempHit.normal);
 
-	//Recursivly check children
-	for (const auto child : node->getChildren()) {
-		if (processNode(child, ray, hit, closeHitDistance)) {
-			hasHit = true;
-		}
-	}
+                    hit = tempHit;
+                    hasHit = true;
+                }
 
+            }
+        }
+    }
+
+    // Recursively check children
+    for (const auto& child : node->getChildren()) {
+        if (processNode(child, ray, hit, closeHitDistance)) {
+            hasHit = true;
+        }
+    }
+
+    return hasHit;
 }
