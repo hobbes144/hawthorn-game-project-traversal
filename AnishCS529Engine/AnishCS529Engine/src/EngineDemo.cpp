@@ -25,6 +25,9 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "Ray.h"
+#include "RaycastHit.h"
+#include "RaycastManager.h"
 
 extern "C"
 {
@@ -503,14 +506,27 @@ int main() {
         //Audio Update
         AudioManager::instance().update();
         AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
-        if (mainInput->isKeyPressed(KEY_SPACE)) {
-            AudioManager::instance().playSound("pew");
-        }
         if (mainInput->isKeyPressed(KEY_V)) {
             AudioManager::instance().togglePlaybackSpeed(0.7);
         }
         if (mainInput->isKeyPressed(KEY_M)) {
             AudioManager::instance().stopSound("radio");
+        }
+
+        //Raycast Testing
+        if (mainInput->isKeyPressed(KEY_SPACE)) {
+            Vector3 rayOrigin = playerBox->getWorldTransform().getPosition();
+            Vector3 rayDirection = Vector3(1,0,0);
+
+            Ray testRay(rayOrigin, rayDirection);
+
+            RaycastHit hit;
+            if (RaycastManager::Raycast(testRay, &mainSceneGraph, hit, 100.0f)) {
+                std::cout << "Ray hit at: " << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << std::endl;
+            }
+            else {
+                std::cout << "Ray missed!\n";
+            }
         }
 
         //Light Manipulation
