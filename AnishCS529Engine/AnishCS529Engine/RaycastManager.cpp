@@ -19,7 +19,7 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
     RaycastHit tempHit;
 
     // Convert the Ray to the Node's local space
-    Matrix4 worldToLocal = node->getWorldTransform().getLocalMatrix();
+    Matrix4 worldToLocal = node->getWorldTransform().getInverseLocalMatrix();
     Ray localRay = ray.transformRay(worldToLocal);
 
     // If the node has a physics body, check for intersection

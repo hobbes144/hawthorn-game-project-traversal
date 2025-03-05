@@ -119,7 +119,7 @@ std::shared_ptr<Movement3D> Movement3D::setAction(Action action, Key key)
   case YawClockwise:
     actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
       if ( inputSystem->isKeyDown(key) ) {
-        physicsBody->applyRotationalForce(Vector3(0.0f, force, 0.0f));
+        physicsBody->applyRotationalForce(Vector3(0.0f, -force, 0.0f));
         Movement3DEvent moveEvent(this->getParent(), action);
         EventManager::Instance().BroadcastEvent(moveEvent);
       } };
@@ -127,7 +127,7 @@ std::shared_ptr<Movement3D> Movement3D::setAction(Action action, Key key)
   case YawAntiClockwise:
     actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
       if ( inputSystem->isKeyDown(key) ) {
-        physicsBody->applyRotationalForce(Vector3(0.0f, -force, 0.0f));
+        physicsBody->applyRotationalForce(Vector3(0.0f, force, 0.0f));
         Movement3DEvent moveEvent(this->getParent(), action);
         EventManager::Instance().BroadcastEvent(moveEvent);
       } };
