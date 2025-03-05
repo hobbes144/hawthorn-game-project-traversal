@@ -152,10 +152,10 @@ Matrix4 Matrix4::operator*(const Matrix4 &other)
   {
     for (int j = 0; j < 4; j++)
     {
-      result.data[i][j] = 0.0f;
+      result.data[j][i] = 0.0f;
       for (int k = 0; k < 4; k++)
       {
-        result.data[i][j] += data[k][i] * other.data[j][k];
+        result.data[j][i] += data[k][i] * other.data[j][k];
       }
     }
   }
@@ -172,10 +172,10 @@ Matrix4 Matrix4::operator*(const Matrix4 &other)
 Vector3 Matrix4::operator*(const Vector3 &vec) const
 {
   float x, y, z, w;
-  x = vec.x * data[0][0] + vec.y * data[1][0] + vec.z * data[2][0] + 1 * data[3][0];
-  y = vec.x * data[0][1] + vec.y * data[1][1] + vec.z * data[2][1] + 1 * data[3][1];
-  z = vec.x * data[0][2] + vec.y * data[1][2] + vec.z * data[2][2] + 1 * data[3][2];
-  w = vec.x * data[0][3] + vec.y * data[1][3] + vec.z * data[2][3] + 1 * data[3][3];
+  x = vec.x * data[0][0] + vec.y * data[0][1] + vec.z * data[0][2] + 1 * data[0][3];
+  y = vec.x * data[1][0] + vec.y * data[1][1] + vec.z * data[1][2] + 1 * data[1][3];
+  z = vec.x * data[2][0] + vec.y * data[2][1] + vec.z * data[2][2] + 1 * data[2][3];
+  w = vec.x * data[3][0] + vec.y * data[3][1] + vec.z * data[3][2] + 1 * data[3][3];
 
   if (w != 0) {
     x /= w;

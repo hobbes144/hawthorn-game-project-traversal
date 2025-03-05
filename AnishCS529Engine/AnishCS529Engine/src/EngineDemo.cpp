@@ -157,7 +157,7 @@ int main() {
       0.1f,
       5000.0f)
         ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f))
-        ->setLocalRotation(Vector3(-0.55f, 0.0f, 0.0f));
+        ->setLocalRotation(Vector3(0.55f, 0.0f, 0.0f));
     mainSceneGraph.addNode(camera);
 
     auto cameraShape = std::make_shared<OBB>(
