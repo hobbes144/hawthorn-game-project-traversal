@@ -38,6 +38,7 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
                     tempHit.normal = node->getWorldTransform().getLocalMatrix().transformDirection(tempHit.normal);
 
                     hit = tempHit;
+                    hit.object = gameObject.get();
                     hasHit = true;
                 }
 

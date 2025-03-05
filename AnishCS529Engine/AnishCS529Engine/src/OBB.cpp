@@ -127,22 +127,25 @@ void OBB::debugDaw() {
 
 bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const {
 
-    const Vector3* axes = getAxes(); 
-    const Vector3 center = getCenter(); 
-    const Vector3 halfExtents = getHalfExtents(); 
+    const Vector3* axes = localAxes;
+    const Vector3 halfExtents = localHalfExtents;
 
-    Vector3 p = center - ray.getOrigin();
+    Vector3 p = ray.getOrigin(); 
 
     float tMin = 0.0f;
     float tMax = maxDistance;
 
     for (int i = 0; i < 3; ++i) {
-        float e = axes[i].dot(p);
-        float f = axes[i].dot(ray.getDirection());
+
+        Vector3 currAxis = axes[i];
+        float currHalfExtents = halfExtents[i];
+
+        float e = ray.getOrigin().dot(currAxis);
+        float f = currAxis.dot(ray.getDirection());
 
         if (std::abs(f) > 0.00001f) {
-            float t1 = (e + halfExtents[i]) / f;
-            float t2 = (e - halfExtents[i]) / f;
+            float t1 = (e + currHalfExtents) / f;
+            float t2 = (e - currHalfExtents) / f;
 
             if (t1 > t2) std::swap(t1, t2);
 
@@ -151,7 +154,7 @@ bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) c
 
             if (tMin > tMax) return false;
         }
-        else if (-e - halfExtents[i] > 0 || -e + halfExtents[i] < 0) {
+        else if (-e - currHalfExtents > 0 || -e + currHalfExtents < 0) {
             return false;
         }
     }
@@ -159,13 +162,22 @@ bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) c
     hit.distance = tMin;
     hit.point = ray.getOrigin() + ray.getDirection() * tMin;
 
-    // Compute normal
-    for (int i = 0; i < 3; ++i) {
-        if (std::abs(hit.point.dot(axes[i]) - center.dot(axes[i])) > halfExtents[i] - 0.001f) {
-            hit.normal = axes[i] * (hit.point.dot(axes[i]) > center.dot(axes[i]) ? 1.0f : -1.0f);
-            break;
+    // Compute normal in world space
+    Vector3 localHitPoint = hit.point - worldCenter; // Now we have the local hit point relative to the world center
+
+    int bestAxis = 0;
+    float bestDist = std::abs(localHitPoint.dot(axes[0])); // Start with first axis, no need to subtract center
+
+    for (int i = 1; i < 3; ++i) {
+        float dist = std::abs(localHitPoint.dot(axes[i])); // Compare the distance to other axes
+        if (dist > bestDist) {
+            bestDist = dist;
+            bestAxis = i;
         }
     }
+
+    // Assign normal with the correct direction in world space
+    hit.normal = axes[bestAxis] * ((localHitPoint.dot(axes[bestAxis]) > 0) ? 1.0f : -1.0f);
 
     return true;
 
