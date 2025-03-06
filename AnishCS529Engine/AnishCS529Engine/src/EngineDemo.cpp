@@ -31,31 +31,7 @@ extern "C"
     __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
     __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
-void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point) {
 
-    std::cout << "OnBoxCollision\n";
-
-    std::shared_ptr<GameObject> dynamic;
-    std::shared_ptr<GameObject> player;
-
-    if(obj1.get()->getName() == "PlayerBox") {
-        dynamic = obj2;
-        player = obj1;
-    }
-    else if (obj2.get()->getName() == "PlayerBox") {
-        dynamic = obj1;
-        player = obj2;
-    }
-    else {
-        std::cout << "Neither is player Tank\n";
-        return;
-    }
-
-    // Play audio from dynamic box
-    AudioManager::instance().playSound("bang", Vector3(dynamic->getLocalPosition()));
-    return;
-
-}
 
 void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
 
@@ -313,7 +289,7 @@ int main() {
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox");
-    playerBox->setLocalPosition(Vector3(-2.0f, 1.0f, -2.0f))
+    playerBox->setLocalPosition(Vector3(-2.0f, 2.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -357,7 +333,7 @@ int main() {
 #pragma region DynamicBox
 
     auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-    dynamicBox->setLocalPosition(Vector3(-4.0f, 1.0f, -2.0f))
+    dynamicBox->setLocalPosition(Vector3(-4.0f, 2.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -454,7 +430,9 @@ int main() {
 #pragma endregion
 
     CollisionListener boxTouch(dynamicBox);
-    boxTouch.setCallback(onBoxCollide);
+    CollisionListener boxTouch2(playerBox);
+    boxTouch.setCallback(onRBCollide);
+    boxTouch2.setCallback(onRBCollide);
 
     float angleX = 0.0f;
     float angleY = 0.0f;
