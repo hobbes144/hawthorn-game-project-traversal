@@ -21,7 +21,7 @@
 
 class Camera : public GameObject {
 public:
-  Camera(std::string name) : GameObject(name) {};
+  Camera(std::string name) : GameObject(name, GameObject::Tag::SYSTEM) {};
   ~Camera() = default;
 
   /* Component functions */

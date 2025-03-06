@@ -319,7 +319,7 @@ int main() {
 
 #pragma region PlayerBox
 
-    auto playerBox = std::make_shared<GameObject>("PlayerBox");
+    auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
     playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
@@ -513,13 +513,13 @@ int main() {
 
         //Raycast Testing
         if (mainInput->isKeyPressed(KEY_SPACE)) {
-            Vector3 rayOrigin = playerBox->getWorldTransform().getPosition() + Vector3(0.6, 0, 0);
+            Vector3 rayOrigin = playerBox->getWorldTransform().getPosition();
             Vector3 rayDirection = Vector3(1,0,0);
 
             Ray testRay(rayOrigin, rayDirection);
 
             RaycastHit hit;
-            if (RaycastManager::Raycast(testRay, &mainSceneGraph, hit, 100.0f)) {
+            if (RaycastManager::Raycast(testRay, &mainSceneGraph, hit, 100.0f, { GameObject::Tag::SYSTEM })) {
                 std::cout << "Ray hit at: " << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << std::endl;
             }
             else {

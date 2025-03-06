@@ -23,13 +23,14 @@ class RaycastManager
 {
 
 public: 
-	static bool Raycast(const Ray& ray, const SceneGraph* sceneGraph, RaycastHit& hit, float maxDistance = FLT_MAX);
+	static bool Raycast(const Ray& ray, const SceneGraph* sceneGraph, RaycastHit& hit, float maxDistance = FLT_MAX, const std::vector<GameObject::Tag> tagToIgnore = {});
 
 private:
 	static bool processNode(const std::shared_ptr<Node>& node,
 					 const Ray& ray,
 					 RaycastHit& hit,
-					 float& closeHitDistance);
+					 float& closeHitDistance,
+					 const std::vector<GameObject::Tag> tagToIgnore);
 
 };
 

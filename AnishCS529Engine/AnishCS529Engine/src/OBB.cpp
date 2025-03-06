@@ -126,58 +126,75 @@ void OBB::debugDaw() {
 }
 
 bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const {
-
     const Vector3* axes = localAxes;
     const Vector3 halfExtents = localHalfExtents;
 
+    //-------------
+    //Check if the origin is in the bounding box
+    Vector3 rayOrigin = ray.getOrigin();
+    if (((rayOrigin.x >= -halfExtents.x && rayOrigin.x <= halfExtents.x) &&
+        (rayOrigin.y >= -halfExtents.y && rayOrigin.y <= halfExtents.y) &&
+        (rayOrigin.z >= -halfExtents.z && rayOrigin.z <= halfExtents.z))) {
+        return false;
+    }
+    //-------------
+
     Vector3 p = ray.getOrigin(); 
 
-    float tMin = 0.0f;
-    float tMax = maxDistance;
+    float tMin = -std::numeric_limits<float>::infinity();
+    float tMax = std::numeric_limits<float>::infinity();
+    int hitAxis = -1;
 
     for (int i = 0; i < 3; ++i) {
-
         Vector3 currAxis = axes[i];
         float currHalfExtents = halfExtents[i];
 
-        float e = ray.getOrigin().dot(currAxis);
-        float f = currAxis.dot(ray.getDirection());
+        float minBound = -currHalfExtents;
+        float maxBound = currHalfExtents;
+        float originComponent = ray.getOrigin()[i];
+        float dirComponent = ray.getDirection()[i];
 
-        if (std::abs(f) > 0.00001f) {
-            float t1 = (e + currHalfExtents) / f;
-            float t2 = (e - currHalfExtents) / f;
-
-            if (t1 > t2) std::swap(t1, t2);
-
-            tMin = std::max(tMin, t1);
-            tMax = std::min(tMax, t2);
-
-            if (tMin > tMax) return false;
+        // Ray is parallel to slab
+        if (std::abs(dirComponent) < 1e-6) { 
+            if (originComponent < minBound || originComponent > maxBound) {
+                return false; // Outside the slab
+            }
+            continue;
         }
-        else if (-e - currHalfExtents > 0 || -e + currHalfExtents < 0) {
+
+        float t1 = (minBound - originComponent) / dirComponent;
+        float t2 = (maxBound - originComponent) / dirComponent;
+
+        if (t1 > t2) std::swap(t1, t2);
+
+        if (t1 > tMin) {
+            tMin = t1;
+            hitAxis = i;
+        }
+
+        tMax = std::min(tMax, t2);
+
+        if (tMin > tMax || tMax < 0) {
             return false;
         }
     }
 
-    hit.distance = tMin;
     hit.point = ray.getOrigin() + ray.getDirection() * tMin;
+    hit.distance = tMin;
 
-    // Compute normal in world space
-    Vector3 localHitPoint = hit.point - worldCenter; // Now we have the local hit point relative to the world center
-
-    int bestAxis = 0;
-    float bestDist = std::abs(localHitPoint.dot(axes[0])); // Start with first axis, no need to subtract center
-
-    for (int i = 1; i < 3; ++i) {
-        float dist = std::abs(localHitPoint.dot(axes[i])); // Compare the distance to other axes
-        if (dist > bestDist) {
-            bestDist = dist;
-            bestAxis = i;
-        }
+    switch (hitAxis) {
+    case 0:
+        hit.normal.x = (hit.normal.x > 0) ? 1 : -1;
+        break;
+    case 1:
+        hit.normal.y = (hit.normal.y > 0) ? 1 : -1;
+        break;
+    case 2:
+        hit.normal.z = (hit.normal.z > 0) ? 1 : -1;
+        break;
+    default:
+        break;
     }
-
-    // Assign normal with the correct direction in world space
-    hit.normal = axes[bestAxis] * ((localHitPoint.dot(axes[bestAxis]) > 0) ? 1.0f : -1.0f);
 
     return true;
 

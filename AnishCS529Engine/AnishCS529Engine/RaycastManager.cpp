@@ -1,16 +1,18 @@
 #include "RaycastManager.h"
 #include <src/PhysicsBody.h>
 
-bool RaycastManager::Raycast(const Ray& ray, const SceneGraph* sceneGraph, RaycastHit& hit, float maxDistance) {
+bool RaycastManager::Raycast(const Ray& ray, const SceneGraph* sceneGraph, RaycastHit& hit, float maxDistance, const std::vector<GameObject::Tag> tagToIgnore) {
 
-	return processNode(sceneGraph->getRootNode(), ray, hit, maxDistance);
+	return processNode(sceneGraph->getRootNode(), ray, hit, maxDistance, tagToIgnore);
 
 }
 
 bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
                                  const Ray& ray,
                                  RaycastHit& hit,
-                                 float& closeHitDistance) {
+                                 float& closeHitDistance,
+                                 const std::vector<GameObject::Tag> tagToIgnore
+) {
     if (!node) {
         return false;
     }
@@ -26,7 +28,7 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
     auto gameObject = std::dynamic_pointer_cast<GameObject>(node);
     if (gameObject) {
         auto pbComp = gameObject->findComponent<PhysicsBody>();
-        if (pbComp) {
+        if (std::find(tagToIgnore.begin(), tagToIgnore.end(), gameObject->getTag()) == tagToIgnore.end() && pbComp) {
             if (pbComp->getShape()->raycastIntersect(localRay, tempHit, closeHitDistance)) {
 
                 // Only update if this is the closest hit
@@ -48,7 +50,7 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
 
     // Recursively check children
     for (const auto& child : node->getChildren()) {
-        if (processNode(child, ray, hit, closeHitDistance)) {
+        if (processNode(child, ray, hit, closeHitDistance, tagToIgnore)) {
             hasHit = true;
         }
     }
