@@ -129,9 +129,22 @@ bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) c
     const Vector3* axes = localAxes;
     const Vector3 halfExtents = localHalfExtents;
 
+    Vector3 rayOrigin = ray.getOrigin();
+
+    //-------------
+    // Hueristically Check if the Object is too far away
+    
+    if (!(std::abs(rayOrigin.x) - halfExtents.x <= maxDistance &&
+          std::abs(rayOrigin.y) - halfExtents.y <= maxDistance &&
+          std::abs(rayOrigin.z) - halfExtents.z <= maxDistance
+        )) {
+        return false;
+    }
+
+    //-------------
+
     //-------------
     //Check if the origin is in the bounding box
-    Vector3 rayOrigin = ray.getOrigin();
     if (((rayOrigin.x >= -halfExtents.x && rayOrigin.x <= halfExtents.x) &&
         (rayOrigin.y >= -halfExtents.y && rayOrigin.y <= halfExtents.y) &&
         (rayOrigin.z >= -halfExtents.z && rayOrigin.z <= halfExtents.z))) {
