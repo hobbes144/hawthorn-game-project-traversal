@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "Sphere.h"
 
 Sphere::Sphere(const Vector3& center, float radius)

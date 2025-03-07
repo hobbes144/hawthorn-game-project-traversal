@@ -157,6 +157,6 @@ private:
 using FFramerateController = FramerateController<float>;
 using DFramerateController = FramerateController<double>;
 
-#include "FramerateController.inl"
+#include "FramerateController.inl" // ERROR: you have a circular reference here.  
 
 #endif // FRAMERATE_CONTROLLER_H

@@ -33,6 +33,11 @@
     <ClCompile Include="include\imgui\imgui_demo.cpp" />
     <ClCompile Include="include\imgui\imgui_draw.cpp" />
     <ClCompile Include="include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RaycastHit.cpp" />
     <ClCompile Include="RaycastManager.cpp" />
@@ -64,7 +69,11 @@
     <ClCompile Include="src\RendererStateSaver.cpp" />
     <ClCompile Include="src\RenderGraph.cpp" />
     <ClCompile Include="src\RenderPass.cpp" />
-    <ClCompile Include="src\rply.c" />
+    <ClCompile Include="src\rply.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\ShaderManager.cpp" />
     <ClCompile Include="src\Shoot.cpp" />
     <ClCompile Include="src\simplexnoise.cpp" />
@@ -72,11 +81,17 @@
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
-    <ClCompile Include="src\FramerateController.inl" />
+    <ClInclude Include="src\FramerateController.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
     <ClCompile Include="src\GameObjectOld.cpp" />
     <ClCompile Include="src\GameWindowOld.cpp" />
     <ClCompile Include="src\GeometryBuffer.cpp" />
-    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\glad.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\PhysicsTest.cpp" />
     <ClCompile Include="src\RectanglePrimitive.cpp" />
@@ -106,6 +121,7 @@
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RaycastHit.h" />
     <ClInclude Include="RaycastManager.h" />
+    <ClInclude Include="precompiled.h" />
     <ClInclude Include="src\AABB.h" />
     <ClInclude Include="src\AmbientLight.h" />
     <ClInclude Include="src\BasicRenderPass.h" />
@@ -197,9 +213,15 @@
     <None Include="shaders\main_vertex_shader.glsl" />
     <None Include="shaders\physics_test_fragment_shader.glsl" />
     <None Include="shaders\physics_test_vertex_shader.glsl" />
-    <None Include="src\EventListener.inl" />
-    <None Include="src\GameObject.inl" />
-    <None Include="src\RenderGraph.inl" />
+    <ClInclude Include="src\EventListener.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="src\GameObject.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="src\RenderGraph.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -331,8 +353,10 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -351,8 +375,10 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -371,10 +397,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

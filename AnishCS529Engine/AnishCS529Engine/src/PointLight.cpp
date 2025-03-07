@@ -6,6 +6,7 @@
  * \date   02-03-2025
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include "PointLight.h"
 
 void PointLight::applyToShader(const std::shared_ptr<Shader>& shader, int lightIndex) const

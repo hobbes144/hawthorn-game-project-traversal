@@ -1,4 +1,5 @@
- #include <windows.h>
+#include "precompiled.h"
+#include <windows.h>
 
  #include "Renderer.h"
  #include "GameWindow.h"

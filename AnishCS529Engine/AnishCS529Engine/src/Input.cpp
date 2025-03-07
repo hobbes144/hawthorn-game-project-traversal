@@ -8,6 +8,7 @@
  * \date   10-22-2024
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include"Input.h"
 
 /* Private functions */

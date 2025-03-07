@@ -1,9 +1,0 @@
-<map id="Light" name="Light">
-<area shape="rect" id="Node000001" title=" " alt="" coords="95,93,149,119"/>
-<area shape="rect" id="Node000003" href="$classAmbientLight.html" title=" " alt="" coords="5,167,116,192"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,131,73,168,69,165,101,128"/>
-<area shape="rect" id="Node000004" href="$classPointLight.html" title=" " alt="" coords="140,167,227,192"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="143,128,175,165,171,168,139,131"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="49,5,195,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,59,125,93,119,93,119,59"/>
-</map>

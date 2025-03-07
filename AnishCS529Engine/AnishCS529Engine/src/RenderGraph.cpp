@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "RenderGraph.h"
 
 void RenderGraph::addLight(std::shared_ptr<Light> light)

@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "BulletHitListener.h"
 
 BulletHitListener::BulletHitListener(std::shared_ptr<Bullet> owner) :

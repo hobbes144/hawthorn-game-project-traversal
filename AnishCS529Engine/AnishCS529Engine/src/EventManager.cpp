@@ -8,6 +8,7 @@
  * \date   11-04-2024
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include "EventManager.h"
 
 void EventManager::update(float deltaTime) {

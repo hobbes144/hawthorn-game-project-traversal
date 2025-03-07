@@ -6,6 +6,7 @@
  * \date   02-08-2025
  * 
  *****************************************************************************/
+#include "precompiled.h"
 
 #include "RendererStateSaver.h"
 

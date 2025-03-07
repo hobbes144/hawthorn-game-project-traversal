@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "MainTestMaterial.h"
 
 TextureManager::TextureID MainTestMaterial::addTexture(const std::string& textureFile, float scaleX, float scaleY)

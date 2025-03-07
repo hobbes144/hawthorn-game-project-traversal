@@ -1,7 +1,0 @@
-<map id="CollisionEvent" name="CollisionEvent">
-<area shape="rect" id="Node000001" title=" " alt="" coords="24,93,136,119"/>
-<area shape="rect" id="Node000002" href="$classEvent.html" title="Class Event that is inherited from for all event types." alt="" coords="5,5,64,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="50,42,76,92,71,94,45,44"/>
-<area shape="rect" id="Node000003" href="$classVector3.html" title=" " alt="" coords="89,5,162,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,44,89,94,84,92,110,42"/>
-</map>

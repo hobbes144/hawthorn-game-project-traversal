@@ -8,6 +8,7 @@
  * \date   12-16-2024
  *
  *****************************************************************************/
+#include "precompiled.h"
 
 #include "PhysicsManager.h"
 #include "RigidBody.h"
@@ -111,7 +112,7 @@ void RigidBody::initialize()
 void RigidBody::integrate(float deltaTime) {
 
 	if (useGravity) {
-		applyForce(Vector3(0.0, -gravity*100.0f, 0.0));
+		applyForce(Vector3(0.0f, -gravity*100.0f, 0.0f));
 	}
 
 	PhysicsBody::integrate(deltaTime);

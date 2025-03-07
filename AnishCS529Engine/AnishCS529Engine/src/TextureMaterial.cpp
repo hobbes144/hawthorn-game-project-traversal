@@ -6,6 +6,7 @@
  * \date   02-10-2025
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include "TextureMaterial.h"
 
 const std::string TextureMaterial::defaultTextureFile = "media/FactoryMaterial.bmp";
