@@ -6,7 +6,9 @@
  * \par    **Course**
  *    GAM541
  * \date   03-01-2025
- * \brief  This is a Ray class representing a ray being casted
+ * \brief  This is a Ray class representing a ray being casted. It is created 
+ * before the call of RaycastManager::Raycast.
+ * It contains an Origin(Vector3) and a direciton (Vector3)
  * 
  *****************************************************************************/
 

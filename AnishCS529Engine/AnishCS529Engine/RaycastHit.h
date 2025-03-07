@@ -6,7 +6,11 @@
  * \par    **Course**
  *    GAM541
  * \date   03-01-2025
- * \brief  This is the class representing the hit of a raycast
+ * \brief  This is the class representing the hit of a raycast. It stores the
+ * data of point of intersection (Vector3), the normal vector of the objected at
+ * the point of intersection (Vector3), the distance at which the intersection
+ * occured (float), and a pointer to the object that was intersected with 
+ * (GameObject*)
  * 
  *****************************************************************************/
 #ifndef RAYCAST_HIT

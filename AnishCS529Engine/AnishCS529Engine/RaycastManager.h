@@ -6,7 +6,8 @@
  * \par    **Course**
  *    GAM541
  * \date   03-01-2025
- * \brief  This is the RaycastManager class it is called when a raycast is made
+ * \brief  This is the RaycastManager class it is used to call the Raycast Function
+ * This Function Requires the input of a Ray and RaycastHit Object
  * 
  *****************************************************************************/
 #ifndef RAYCAST_MANAGER
