@@ -522,7 +522,7 @@ int main() {
         //Raycast Testing
         if (mainInput->isKeyPressed(KEY_SPACE)) {
             Vector3 rayOrigin = playerBox->getWorldTransform().getPosition();
-            Vector3 rayDirection = Vector3(0,0,-1);
+            Vector3 rayDirection = Vector3(1,0,0);
 
             Ray testRay(rayOrigin, rayDirection);
             RaycastHit hit;
