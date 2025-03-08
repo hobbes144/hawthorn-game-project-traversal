@@ -397,6 +397,9 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 			RB->getParent()->setLocalPosition((PosRB + final) / scaleRB);
 		}
 		else {
+			RB->applyForce(Vector3(0, 0, 0) - RB->getVelocity() * 500);
+			RB2->applyForce(Vector3(0, 0, 0) + RB->getVelocity() * 500);
+
 			RB->getParent()->setLocalPosition((PosRB + final / 2) / scaleRB);
 			RB2->getParent()->setLocalPosition((PosRB2 - final / 2) / scaleRB2);
 		}
