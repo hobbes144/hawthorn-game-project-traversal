@@ -80,7 +80,6 @@ private:
 
 void onRBCollide(std::shared_ptr<GameObject> obj1,
 	std::shared_ptr<GameObject> obj2, const Vector3& point);
-Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, 
-	const std::shared_ptr<OBB> boxB);
+Vector3 OBBandOBB(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b);
 
 #endif // RIGIDBODY_H

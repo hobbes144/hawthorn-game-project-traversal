@@ -142,7 +142,15 @@ bool belongsToXZ(Vector3 vert1, Vector3 vert2, Vector3 target) {
 	return false;
 }
 
-Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> boxB) {
+Vector3 OBBandOBB(std::shared_ptr<RigidBody> RB, const std::shared_ptr<RigidBody> RB2) {
+	Vector3 scaleRB = RB->getParent()->getLocalScaling();
+	Vector3 PosRB = RB->getParent()->getLocalPosition() * scaleRB;
+	Vector3 scaleRB2 = RB2->getParent()->getLocalScaling();
+	Vector3 PosRB2 = RB2->getParent()->getLocalPosition() * scaleRB2;
+
+	const std::shared_ptr<OBB> boxA = std::static_pointer_cast<OBB>(RB->getShape());
+	const std::shared_ptr<OBB> boxB = std::static_pointer_cast<OBB>(RB2->getShape());
+
 	float minPenDepth = INFINITY;
 	float penDepth = 0.0f;
 	// Axis of minimum penetration depth
@@ -153,6 +161,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 
 	const Vector3* aAxes = boxA->getAxes();
 	const Vector3* bAxes = boxB->getAxes();
+
 	Vector3 aExtents = boxA->getHalfExtents();
 	Vector3 bExtents = boxB->getHalfExtents();
 
@@ -177,7 +186,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 			bExtents[1] * R[0][1] +
 			bExtents[2] * R[0][2]
 			)) - T[0];
-	if (penDepth <= 0) return Vector3(0, 0, 0);
+	minPenAxis = 0;
 
 	// A1 and A2 axes
 	for (int i = 1; i < 3; i++) {
@@ -187,8 +196,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 			  bExtents[1] * R[i][1] +
 			  bExtents[2] * R[i][2]
 			  )) - T[i];
-		if (penDepth <= 0) return Vector3(0, 0, 0);
-		if (penDepth < minPenDepth) {
+		if (penDepth < minPenDepth && penDepth > 0) {
 			minPenDepth = penDepth;
 			minPenAxis = i;
 		}
@@ -202,8 +210,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 				aExtents[1] * R[1][i] +
 				aExtents[2] * R[2][i]
 				)) - abs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i]);
-		if (penDepth <= 0) return Vector3(0, 0, 0);
-		if (penDepth < minPenDepth) {
+		if (penDepth < minPenDepth && penDepth > 0) {
 			minPenDepth = penDepth;
 			// B0 = 3, B1 = 4, B2 = 5
 			minPenAxis = i + 3;
@@ -215,8 +222,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[1] * R[2][0] + aExtents[2] * R[1][0] +
 		bExtents[1] * R[0][2] + bExtents[2] * R[0][1]
 	  ) - abs(T[2] * R[1][0] - T[1] * R[2][0]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A0xB0 = 6
 		minPenAxis = 6;
@@ -227,8 +233,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[1] * R[2][1] + aExtents[2] * R[1][1] +
 		bExtents[0] * R[0][2] + bExtents[2] * R[0][0]
 	  ) - abs(T[2] * R[1][1] - T[1] * R[2][1]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A0xB1 = 7
 		minPenAxis = 7;
@@ -239,8 +244,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[1] * R[2][2] + aExtents[2] * R[1][2] +
 		bExtents[0] * R[0][1] + bExtents[1] * R[0][0]
 	  ) - abs(T[2] * R[1][2] - T[1] * R[2][2]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);;
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A0xB2 = 8
 		minPenAxis = 8;
@@ -250,8 +254,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[0] * R[2][0] + aExtents[2] * R[0][0] +
 		bExtents[1] * R[1][2] + bExtents[2] * R[1][1]
 	  ) - abs(T[0] * R[2][0] - T[2] * R[0][0]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);;
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A1xB0 = 9
 		minPenAxis = 9;
@@ -262,8 +265,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[0] * R[2][1] + aExtents[2] * R[0][1] +
 		bExtents[0] * R[1][2] + bExtents[2] * R[1][0]
 	  ) - abs(T[0] * R[2][1] - T[2] * R[0][1]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A1xB1 = 10
 		minPenAxis = 10;
@@ -273,8 +275,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[0] * R[2][2] + aExtents[2] * R[0][2] +
 		bExtents[0] * R[1][1] + bExtents[1] * R[1][0]
 	  ) - abs(T[0] * R[2][2] - T[2] * R[0][2]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A1xB2 = 11
 		minPenAxis = 11;
@@ -284,8 +285,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[0] * R[1][0] + aExtents[1] * R[0][0] +
 		bExtents[1] * R[2][2] + bExtents[2] * R[2][1]
 	  ) - abs(T[1] * R[0][0] - T[0] * R[1][0]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A2xB0 = 12
 		minPenAxis = 12;
@@ -295,8 +295,7 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[0] * R[1][1] + aExtents[1] * R[0][1] +
 		bExtents[0] * R[2][2] + bExtents[2] * R[2][0]
 	  ) - abs(T[1] * R[0][1] - T[0] * R[1][1]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A2xB1 = 13
 		minPenAxis = 13;
@@ -306,40 +305,63 @@ Vector3 OBBandOBB(const std::shared_ptr<OBB> boxA, const std::shared_ptr<OBB> bo
 		aExtents[0] * R[1][2] + aExtents[1] * R[0][2] +
 		bExtents[0] * R[2][1] + bExtents[1] * R[2][0]
 	  ) - abs(T[1] * R[0][2] - T[0] * R[1][2]);
-	if (penDepth <= 0) return Vector3(0, 0, 0);
-	if (penDepth < minPenDepth) {
+	if (penDepth < minPenDepth && penDepth > 0) {
 		minPenDepth = penDepth;
 		// A2xB2 = 14
 		minPenAxis = 14;
 	}
-	if (minPenAxis == 6) {
-		return boxA->getAxes()[0].cross(boxB->getAxes()[0]) * minPenDepth;
+
+	std::cout << minPenDepth << "\n";
+	std::cout << minPenAxis << "\n";
+
+	if (minPenAxis == 0) {
+		return boxA->getAxes()[0].normalized() * minPenDepth;
+	}
+	else if (minPenAxis == 1) {
+		return boxA->getAxes()[1].normalized() * minPenDepth;
+	}
+	else if (minPenAxis == 2) {
+		return boxA->getAxes()[2].normalized() * minPenDepth;
+	}
+	else if (minPenAxis == 3) {
+		return boxB->getAxes()[0].normalized() * minPenDepth;
+	}
+	else if (minPenAxis == 4) {
+		return boxB->getAxes()[1].normalized() * minPenDepth;
+	}
+	else if (minPenAxis == 5) {
+		return boxB->getAxes()[2].normalized() * minPenDepth;
+	}
+	else if (minPenAxis == 6) {
+		return boxA->getAxes()[0].cross(boxB->getAxes()[0]).normalized() * minPenDepth;
 	}
 	else if (minPenAxis == 7) {
-		return boxA->getAxes()[0].cross(boxB->getAxes()[1]) * minPenDepth;
+		return boxA->getAxes()[0].cross(boxB->getAxes()[1]).normalized() * minPenDepth;
 	}
 	else if (minPenAxis == 8) {
-		return boxA->getAxes()[0].cross(boxB->getAxes()[2]) * minPenDepth;
+		return boxA->getAxes()[0].cross(boxB->getAxes()[2]).normalized() * minPenDepth;
 	}
 	if (minPenAxis == 9) {
-		return boxA->getAxes()[1].cross(boxB->getAxes()[0]) * minPenDepth;
+		return boxA->getAxes()[1].cross(boxB->getAxes()[0]).normalized() * minPenDepth;
 	}
 	else if (minPenAxis == 10) {
-		return boxA->getAxes()[1].cross(boxB->getAxes()[1]) * minPenDepth;
+		return boxA->getAxes()[1].cross(boxB->getAxes()[1]).normalized() * minPenDepth;
 	}
 	else if (minPenAxis == 11) {
-		return boxA->getAxes()[1].cross(boxB->getAxes()[2]) * minPenDepth;
+		return boxA->getAxes()[1].cross(boxB->getAxes()[2]).normalized() * minPenDepth;
 	}
 	if (minPenAxis == 12) {
-		return boxA->getAxes()[2].cross(boxB->getAxes()[0]) * minPenDepth;
+		return boxA->getAxes()[2].cross(boxB->getAxes()[0]).normalized() * minPenDepth;
 	}
 	else if (minPenAxis == 13) {
-		return boxA->getAxes()[2].cross(boxB->getAxes()[1]) * minPenDepth;
+		return boxA->getAxes()[2].cross(boxB->getAxes()[1]).normalized() * minPenDepth;
 	}
 	else if (minPenAxis == 14) {
-		return boxA->getAxes()[2].cross(boxB->getAxes()[2]) * minPenDepth;
+		return boxA->getAxes()[2].cross(boxB->getAxes()[2]).normalized() * minPenDepth;
 	}
-	else return Vector3(0, 0, 0);
+	else {
+		return Vector3(0, 0, 0);
+	}
 }
 
 /*!****************************************************************************
@@ -356,6 +378,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 	std::shared_ptr<RigidBody> RB, RB2;
 
 	if (obj1->findComponent<RigidBody>()->getIsStatic()) {
+		if (obj2->findComponent<RigidBody>()->getIsStatic()) return;
 		RB2 = obj1->findComponent<RigidBody>();
 		RB = obj2->findComponent<RigidBody>();
 	}
@@ -364,32 +387,45 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		RB2 = obj2->findComponent<RigidBody>();
 	}
 
-	if (RB && RB2) {
-		Vector3 scaleRB = RB->getParent()->getLocalScaling();
-		Vector3 PosRB = RB->getParent()->getLocalPosition() * scaleRB;
-		Vector3 scaleRB2 = RB2->getParent()->getLocalScaling();
-		Vector3 PosRB2 = RB2->getParent()->getLocalPosition() * scaleRB2;
+	Vector3 scaleRB = RB->getParent()->getLocalScaling();
+	Vector3 PosRB = RB->getParent()->getLocalPosition() * scaleRB;
+	Vector3 scaleRB2 = RB2->getParent()->getLocalScaling();
+	Vector3 PosRB2 = RB2->getParent()->getLocalPosition() * scaleRB2;
+	Vector3 velocity = RB->getVelocity();
+	Vector3 velocity2 = RB2->getVelocity();
 
+	if (RB && RB2) {
 		Vector3 final = Vector3(0, 0, 0);
+
+		const std::shared_ptr<OBB> boxA = std::static_pointer_cast<OBB>(RB->getShape());
+		const std::shared_ptr<OBB> boxB = std::static_pointer_cast<OBB>(RB2->getShape());
 
 		if (RB->getShape()->getType() == Shape::Type::OBB && 
 			RB2->getShape()->getType() == Shape::Type::OBB) {
-			const std::shared_ptr<OBB> boxA = std::static_pointer_cast<OBB>(RB->getShape());
-			const std::shared_ptr<OBB> boxB = std::static_pointer_cast<OBB>(RB->getShape());
-
-			final = OBBandOBB(boxA, boxB);
-		}
-		if (RB->getShape()->getType() == Shape::Type::AABB && RB2->getShape()->getType() == Shape::Type::AABB) {
-
-		}
-		else return;
-
-		if (RB2->getIsStatic()) {
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB);
+			
+			final = OBBandOBB(RB, RB2);
+			std::cout << final << "\n";
 		}
 		else {
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB / 2);
-			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - final / scaleRB2 / 2);
+			return;
+		}
+
+		if (PosRB.x - PosRB2.x < 0) {
+			final.x = -final.x;
+		}
+		if (PosRB.y - PosRB2.y < 0) {
+			final.y = -final.y;
+		}
+		if (PosRB.z - PosRB2.z < 0) {
+			final.z = -final.z;
+		}
+
+		if (RB2->getIsStatic()) {
+			RB->getParent()->setLocalPosition((PosRB + final) / scaleRB);
+		}
+		else {
+			RB->getParent()->setLocalPosition((PosRB + final / 2) / scaleRB);
+			RB2->getParent()->setLocalPosition((PosRB2 - final / 2) / scaleRB2);
 		}
 	}
 	return;
