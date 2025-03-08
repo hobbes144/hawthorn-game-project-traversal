@@ -115,33 +115,6 @@ void RigidBody::integrate(float deltaTime) {
 
 }
 
-bool belongsToXY(Vector3 vert1, Vector3 vert2, Vector3 target) {
-	if (vert1.x > target.x && vert1.y > target.y) {
-		if (vert2.x < target.x && vert2.y < target.y) {
-			return true;
-		}
-	}
-	return false;
-}
-
-bool belongsToYZ(Vector3 vert1, Vector3 vert2, Vector3 target) {
-	if (vert1.z > target.z && vert1.y > target.y) {
-		if (vert2.z < target.z && vert2.y < target.y) {
-			return true;
-		}
-	}
-	return false;
-}
-
-bool belongsToXZ(Vector3 vert1, Vector3 vert2, Vector3 target) {
-	if (vert1.x > target.x && vert1.z > target.z) {
-		if (vert2.x < target.x && vert2.z < target.z) {
-			return true;
-		}
-	}
-	return false;
-}
-
 Vector3 OBBandOBB(std::shared_ptr<RigidBody> RB, const std::shared_ptr<RigidBody> RB2) {
 	Vector3 scaleRB = RB->getParent()->getLocalScaling();
 	Vector3 PosRB = RB->getParent()->getLocalPosition() * scaleRB;
