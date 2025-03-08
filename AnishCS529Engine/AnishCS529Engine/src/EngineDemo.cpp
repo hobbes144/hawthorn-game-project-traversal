@@ -275,7 +275,19 @@ int main() {
     mainSceneGraph.addNode(mapObject);
 
 #pragma endregion
-
+    /*
+#pragma region Environment 
+    std::shared_ptr<Mesh> EnvironmentMesh = Mesh::loadMesh("media/Map/Environment.fbx");
+    auto EnvironmentObject = std::make_shared<GameObject>("Environment");
+    EnvironmentObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
+    EnvironmentObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    auto EnvironmentRenderComponent = EnvironmentObject->addComponent<Render2D>();
+    EnvironmentRenderComponent->setCamera(camera)
+        ->setMesh(EnvironmentMesh)
+        ->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(EnvironmentObject);
+    */
+#pragma endregion
 #pragma region Turret
     std::shared_ptr<Mesh> turretMesh = Mesh::loadMesh("media/Map/Turret.fbx");
     auto turretObject = std::make_shared<GameObject>("turret");
