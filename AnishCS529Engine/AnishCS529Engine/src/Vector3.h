@@ -27,8 +27,12 @@ public:
     // Default Constructor
     Vector3() : x(0), y(0), z(0) {}
     // Parameterized Constructor with Initialization List
-    Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
-    Vector3(float val) : x(val), y(val), z(val) {}
+    
+    template <std::convertible_to<float> Numeric>
+    Vector3(Numeric x, Numeric y, Numeric z) : x(float(x)), y(float(y)), z(float(z)) {}
+        
+    template <std::convertible_to<float> Numeric>
+    Vector3(Numeric val) : x(float(val)), y(float(val)), z(float(val)) {}
 
     // Operator overloads
     Vector3 operator+(const Vector3& other) const;

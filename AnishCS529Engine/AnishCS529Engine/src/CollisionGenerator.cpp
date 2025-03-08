@@ -8,6 +8,7 @@
  * \date   12-16-2024
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include "CollisionGenerator.h"
 
 #include "AABB.h"
@@ -103,7 +104,7 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
         bExtents[0] * R[i][0] +
         bExtents[1] * R[i][1] +
         bExtents[2] * R[i][2]
-        )) - T[0];
+        )) - T[i];
     if (penDepth <= 0) return false;
     if (penDepth < minPenDepth) {
       minPenDepth = penDepth;

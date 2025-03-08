@@ -1,3 +1,4 @@
+#include "precompiled.h"
 //#include "GameObject.h"
 //
 //GameObject::GameObject(const std::string name, Renderer* renderer) 

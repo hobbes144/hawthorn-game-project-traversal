@@ -49,8 +49,19 @@
  *****************************************************************************/
 class GameObject : public Node {
 public:
-  GameObject(std::string name) : Node(name), enabled(true), markedForDeletion(false) {};
+
+	enum Tag {
+		UNTAGGED,
+		PLAYER,
+		ENEMY,
+		WALL,
+		SYSTEM
+	};
+
+  GameObject(std::string name, Tag t = UNTAGGED) : Node(name), tag(t), enabled(true), markedForDeletion(false) {};
   ~GameObject() = default;
+
+  Tag getTag() { return tag; }
 
   /* Component functions */
   virtual void initialize();
@@ -82,6 +93,10 @@ protected:
   bool enabled;
   /** Is GameObject marked for deletion */
   bool markedForDeletion;
+
+  /** Tag of the GameObject **/
+  Tag tag;
+
 };
 
 #include "GameObject.inl"

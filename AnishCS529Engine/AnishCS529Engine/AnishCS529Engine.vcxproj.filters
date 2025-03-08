@@ -163,6 +163,12 @@
     <Filter Include="Tests\TestMaterials">
       <UniqueIdentifier>{626edd24-88b9-4d70-9fd6-04ed521f443c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Header Files\Systems\Raycasting">
+      <UniqueIdentifier>{c24ae3b5-f0a4-4d91-afcb-22628d038141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Systems\Raycasting">
+      <UniqueIdentifier>{973930a1-31cd-47f3-9059-a3f5ae35f9ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -196,9 +202,6 @@
       <Filter>Engine\Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Input.cpp">
-      <Filter>Engine\Source Files\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="src\FramerateController.inl">
       <Filter>Engine\Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="src\EventManager.cpp">
@@ -338,6 +341,57 @@
     </ClCompile>
     <ClCompile Include="src\EngineDemo.cpp">
       <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\backends\imgui_impl_glfw.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\backends\imgui_impl_opengl3.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_demo.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_draw.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\imgui\imgui_widgets.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DebugPass.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RigidBody.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Audio.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainTestMaterial.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rply.c">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\simplexnoise.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestShapes.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
+    </ClCompile>
+    <ClCompile Include="RaycastHit.cpp">
+      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
+    </ClCompile>
+    <ClCompile Include="RaycastManager.cpp">
+      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
+    </ClCompile>
+    <ClCompile Include="precompiled.cpp">
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -560,6 +614,36 @@
     <ClInclude Include="src\MainTestMaterial.h">
       <Filter>Tests\TestMaterials</Filter>
     </ClInclude>
+    <ClInclude Include="src\Audio.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RigidBody.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="precompiled.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventListener.inl">
+      <Filter>Engine\Header Files\Systems\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject.inl">
+      <Filter>Engine\Source Files\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderGraph.inl">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FramerateController.inl">
+      <Filter>Engine\Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastHit.h">
+      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastManager.h">
+      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -568,26 +652,17 @@
     <None Include="shaders\main_fragment_shader.glsl">
       <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="src\EventListener.inl">
-      <Filter>Engine\Header Files\Systems\EventSystem</Filter>
-    </None>
     <None Include="shaders\physics_test_vertex_shader.glsl">
       <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\physics_test_fragment_shader.glsl">
       <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="src\GameObject.inl">
-      <Filter>Engine\Source Files\Objects\Components</Filter>
-    </None>
     <None Include="shaders\factory_vertex_shader.vert.glsl">
       <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\factory_frag_shader.frag.glsl">
       <Filter>Engine\Shaders</Filter>
-    </None>
-    <None Include="src\RenderGraph.inl">
-      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </None>
     <None Include="shaders\basic_render.vert.glsl">
       <Filter>Engine\Shaders</Filter>

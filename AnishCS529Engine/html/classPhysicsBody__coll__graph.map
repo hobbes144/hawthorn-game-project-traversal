@@ -1,7 +1,0 @@
-<map id="PhysicsBody" name="PhysicsBody">
-<area shape="rect" id="Node000001" title="PhysicsBody class." alt="" coords="92,93,192,119"/>
-<area shape="rect" id="Node000002" href="$classComponent.html" title="Component is the base class of all components." alt="" coords="5,13,108,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,45,131,91,128,95,78,49"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="132,5,325,45"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,57,157,95,153,91,196,53"/>
-</map>

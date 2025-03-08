@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "audio.h"
 #include <stdexcept>
 #include <iostream>
@@ -160,31 +161,55 @@ void AudioManager::loadSound(const std::string& name, const std::string& path, b
  * \return void
  *****************************************************************************/
 void AudioManager::playSound(const std::string& name, const Vector3& position, float volume) {
-    // Find the sound by its name
+    // Retrieve the sound pointer from our stored sounds.
     auto it = sounds_.find(name);
     assert(it != sounds_.end() && "Sound not found");
-
     FMOD::Sound* sound = it->second;
-
     assert(fmodSystem_ && sound && "Cannot play sound: system or sound invalid");
 
-    // Play the sound
+    // Obtain the master channel group so we can iterate over active channels.
+    FMOD::ChannelGroup* masterGroup = nullptr;
+    FMOD_RESULT result = fmodSystem_->getMasterChannelGroup(&masterGroup);
+    assert(result == FMOD_OK && masterGroup && "Failed to get master channel group");
+
+    int numChannels = 0;
+    result = masterGroup->getNumChannels(&numChannels);
+    assert(result == FMOD_OK && "Failed to get number of channels");
+
+    // Iterate over each active channel in the master group.
+    for (int i = 0; i < numChannels; ++i) {
+        FMOD::Channel* channel = nullptr;
+        result = masterGroup->getChannel(i, &channel);
+        assert(result == FMOD_OK && "Failed to get channel");
+        if (channel) {
+            FMOD::Sound* currentSound = nullptr;
+            // Retrieve the sound currently playing on this channel.
+            channel->getCurrentSound(&currentSound);
+            // Check if the channel is playing the same sound
+            if (currentSound == sound) {
+                bool isPlaying = false;
+                channel->isPlaying(&isPlaying);
+                // if the same sound is still playing, do not start a new instance.
+                if (isPlaying) {
+                    return;
+                }
+            }
+        }
+    }
+
+    // If no active channel is playing the sound, play the sound.
     FMOD::Channel* channel = nullptr;
-    FMOD_RESULT result = fmodSystem_->playSound(sound, nullptr, false, &channel);
+    result = fmodSystem_->playSound(sound, nullptr, false, &channel);
     assert(result == FMOD_OK && "Failed to play sound");
 
-
-    // If this is a 3D sound, set its position in space
+    // If this is a 3D sound, set its position and attenuation attributes.
     FMOD_MODE currentMode;
     sound->getMode(&currentMode);
     if ((currentMode & FMOD_3D) == FMOD_3D && channel) {
         FMOD_VECTOR pos = { position.x, position.y, position.z };
-        FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f }; // velocity can be used for Doppler effect
+        FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f };
         channel->set3DAttributes(&pos, &vel);
         channel->set3DMinMaxDistance(1.0f, 50.0f);
-    }
-    if (channel) {
-        channel->setVolume(volume);
     }
 }
 

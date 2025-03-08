@@ -8,24 +8,23 @@
  * \date   12-16-2024
  *
  *****************************************************************************/
+#include "precompiled.h"
 
 #include "PhysicsManager.h"
 #include "RigidBody.h"
 #include <cmath>
+#include <algorithm>
 
-const float gravity = 9.8f;
+float RigidBody::gravity = 9.8f;
 
 /*!****************************************************************************
  * \brief The constructor or RigidBody class
  *****************************************************************************/
 RigidBody::RigidBody() :
 	PhysicsBody(), useGravity(false),
-	listener(new CollisionListener(this->parent)),
+	listener(nullptr),
 	freezePositionX(false), freezePositionY(false), freezePositionZ(false),
-	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {
-
-	listener->setCallback(onRBCollide);
-}
+	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {}
 
 /*!****************************************************************************
  * \brief If is using Gravity
@@ -85,6 +84,13 @@ std::shared_ptr<RigidBody> RigidBody::freezingRotationZ(bool value) {
 	return std::static_pointer_cast<RigidBody>(shared_from_this());
 }
 
+void RigidBody::initialize()
+{
+	listener = new CollisionListener(this->parent);
+
+	listener->setCallback(onRBCollide);
+}
+
 /*!****************************************************************************
  * \brief Update the GameObject and its related collision
  *
@@ -106,7 +112,7 @@ std::shared_ptr<RigidBody> RigidBody::freezingRotationZ(bool value) {
 void RigidBody::integrate(float deltaTime) {
 
 	if (useGravity) {
-		applyForce(Vector3(0.0, -gravity, 0.0));
+		applyForce(Vector3(0.0f, -gravity*100.0f, 0.0f));
 	}
 
 	PhysicsBody::integrate(deltaTime);
@@ -186,9 +192,9 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 		Vector3 utv = (PosRB - PosRB2).normalized();
 
-		bool signX = (Force.x != 0 && velocity.x != 0);
-		bool signY = (Force.y != 0 && velocity.y != 0);
-		bool signZ = (Force.z != 0 && velocity.z != 0);
+		bool signX = (velocity.x != 0);
+		bool signY = (velocity.y != 0);
+		bool signZ = (velocity.z != 0);
 
 		Vector3 restore = Vector3(dx - actualdisX, dy - actualdisY, dz - actualdisZ);
 
@@ -200,25 +206,27 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 		Vector3 mtv = Vector3(utv.x * cnt, utv.y * cnt, utv.z * cnt);
 
-		float max = fmax(abs(mtv.x), fmax(abs(mtv.y), abs(mtv.z)));
-		float min = fmin(abs(mtv.x), fmin(abs(mtv.y), abs(mtv.z)));
+		float values[3] = { abs(mtv.x), abs(mtv.y), abs(mtv.z) };
+		std::sort(values, values+3);
 
+		float max = values[2];
+		float min = values[0];
+		if (min == 0) min = values[1];
+		if (min == 0) min = values[2];
 		Vector3 final = mtv;
 
-		if (min != 0) {
-			if (min == abs(mtv.x)) final.y = final.z = 0;
-			else if (min == abs(mtv.y)) final.x = final.z = 0;
-			else if (min == abs(mtv.z)) final.y = final.x = 0;
-		}
+		if (min == abs(mtv.x)) final.y = final.z = 0;
+		else if (min == abs(mtv.y)) final.x = final.z = 0;
+		else if (min == abs(mtv.z)) final.y = final.x = 0;
 
 		if (RB2->getIsStatic()) {
-			RB->setVelocity(Vector3(velocity.x * signX, velocity.y * signY, velocity.z * signZ));
+			RB->setVelocity(Vector3(velocity.x*signX, velocity.y*signY, velocity.z*signZ));
 			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB);
 		}
 		else {
-			RB->applyForce(negVelocity * 10 * RB2->getMass());
+			RB->applyForce(negVelocity * 20);
 			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB / 2);
-			RB2->applyForce(velocity * 10 * RB->getMass());
+			RB2->applyForce(velocity * 20);
 			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - final / scaleRB2 / 2);
 		}
 	}

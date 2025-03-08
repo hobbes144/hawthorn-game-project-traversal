@@ -6,6 +6,7 @@
  * \date   02-11-2025
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include "Movement3D.h"
 #include "Audio.h"
 
@@ -87,7 +88,7 @@ std::shared_ptr<Movement3D> Movement3D::setAction(Action action, Key key)
   case RollClockwise:
     actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
       if ( inputSystem->isKeyDown(key) ) {
-        physicsBody->applyRotationalForce(Vector3(0.0f, 0.0f, -force));
+        physicsBody->applyRotationalForce(Vector3(0.0f, 0.0f, force));
         Movement3DEvent moveEvent(this->getParent(), action);
         EventManager::Instance().BroadcastEvent(moveEvent);
       } };
@@ -95,7 +96,7 @@ std::shared_ptr<Movement3D> Movement3D::setAction(Action action, Key key)
   case RollAntiClockwise:
     actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
       if ( inputSystem->isKeyDown(key) ) {
-        physicsBody->applyRotationalForce(Vector3(0.0f, 0.0f, force));
+        physicsBody->applyRotationalForce(Vector3(0.0f, 0.0f, -force));
         Movement3DEvent moveEvent(this->getParent(), action);
         EventManager::Instance().BroadcastEvent(moveEvent);
       } };
@@ -103,7 +104,7 @@ std::shared_ptr<Movement3D> Movement3D::setAction(Action action, Key key)
   case PitchClockwise:
     actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
       if ( inputSystem->isKeyDown(key) ) {
-        physicsBody->applyRotationalForce(Vector3(-force, 0.0f, 0.0f));
+        physicsBody->applyRotationalForce(Vector3(force, 0.0f, 0.0f));
         Movement3DEvent moveEvent(this->getParent(), action);
         EventManager::Instance().BroadcastEvent(moveEvent);
       } };
@@ -111,7 +112,7 @@ std::shared_ptr<Movement3D> Movement3D::setAction(Action action, Key key)
   case PitchAnticlockwise:
     actionFunction = [this, action, key](std::shared_ptr<PhysicsBody> physicsBody) {
       if ( inputSystem->isKeyDown(key) ) {
-        physicsBody->applyRotationalForce(Vector3(force, 0.0f, 0.0f));
+        physicsBody->applyRotationalForce(Vector3(-force, 0.0f, 0.0f));
         Movement3DEvent moveEvent(this->getParent(), action);
         EventManager::Instance().BroadcastEvent(moveEvent);
       } };

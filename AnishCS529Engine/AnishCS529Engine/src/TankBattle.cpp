@@ -1,4 +1,5 @@
- ///*!****************************************************************************
+#include "precompiled.h"
+///*!****************************************************************************
  // * \file   SphereJump.cpp
  // * \author Anish Murthy (anish.murthy.dev@gmail.com)
  // * \par    **DigiPen Email**

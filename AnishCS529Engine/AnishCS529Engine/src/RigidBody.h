@@ -35,8 +35,13 @@ class RigidBody :
 
 	friend class PhysicsManager;
 public:
+
+	static float gravity;
 	RigidBody();
 	~RigidBody() = default;
+
+	/* Component functions */
+	void initialize();
 
 	/* Physics update function */
 	void integrate(float deltaTime);

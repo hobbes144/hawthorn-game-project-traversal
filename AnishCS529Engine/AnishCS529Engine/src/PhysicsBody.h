@@ -21,6 +21,8 @@
 #include "GameObject.h"
 #include "Shape.h"
 #include "Transform.h"
+#include "Ray.h"
+#include "RaycastHit.h"
 
 class PhysicsManager;
 

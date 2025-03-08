@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "RenderPass.h"
 
 std::shared_ptr<Shader> RenderPass::addShader(std::string shaderFile)
