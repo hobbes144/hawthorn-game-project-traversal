@@ -38,6 +38,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="RaycastHit.cpp" />
+    <ClCompile Include="RaycastManager.cpp" />
     <ClCompile Include="src\DebugPass.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
@@ -115,6 +118,9 @@
     <ClCompile Include="src\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="RaycastHit.h" />
+    <ClInclude Include="RaycastManager.h" />
     <ClInclude Include="precompiled.h" />
     <ClInclude Include="src\AABB.h" />
     <ClInclude Include="src\AmbientLight.h" />

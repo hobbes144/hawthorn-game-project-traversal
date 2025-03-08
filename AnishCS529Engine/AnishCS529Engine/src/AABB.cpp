@@ -85,3 +85,49 @@ void AABB::debugDaw() {
   debugMaterial->draw(debugMesh);
 }
 
+bool AABB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const {
+
+    float tMin = 0.0f;
+    float tMax = maxDistance;
+
+    Vector3 bounds[2] = { localMin, localMax };
+
+    for (int i = 0; i < 3; i++) {
+        if (ray.getDirection()[i] == 0) {
+            if (ray.getOrigin()[i] > bounds[0][i] || ray.getOrigin()[i] > bounds[1][i]) {
+                return false;
+            }
+        }
+        else {
+            float t1 = (bounds[0][i] - ray.getOrigin()[i]) / ray.getDirection()[i];
+            float t2 = (bounds[1][i] - ray.getOrigin()[i]) / ray.getDirection()[i];
+
+            if (t1 > t2) {
+                std::swap(t1, t2);
+            }
+
+            tMin = std::max(tMin, t1);
+            tMax = std::min(tMax, t2);
+
+            if (tMin > tMax) {
+                return false;
+            }
+        }
+    }
+
+    hit.distance = tMin;
+    hit.point = ray.getOrigin() + (ray.getDirection() * tMin);
+
+    Vector3 center = (localMin + localMax) * 0.5f;
+    Vector3 localPoint = hit.point - center;
+    Vector3 extents = (localMax - localMin) * 0.5f;
+
+    hit.normal = Vector3(
+         (fabs(localPoint.x) > extents.x - 1e-4f) ? copysign(1.0f, localPoint.x) : 0.0f,
+        (fabs(localPoint.y) > extents.y - 1e-4f) ? copysign(1.0f, localPoint.y) : 0.0f,
+        (fabs(localPoint.z) > extents.z - 1e-4f) ? copysign(1.0f, localPoint.z) : 0.0f
+    );
+
+    return true;
+
+}

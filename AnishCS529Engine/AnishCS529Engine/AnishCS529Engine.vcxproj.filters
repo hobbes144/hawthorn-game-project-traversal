@@ -163,6 +163,12 @@
     <Filter Include="Tests\TestMaterials">
       <UniqueIdentifier>{626edd24-88b9-4d70-9fd6-04ed521f443c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Header Files\Systems\Raycasting">
+      <UniqueIdentifier>{c24ae3b5-f0a4-4d91-afcb-22628d038141}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source Files\Systems\Raycasting">
+      <UniqueIdentifier>{973930a1-31cd-47f3-9059-a3f5ae35f9ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -374,6 +380,15 @@
     </ClCompile>
     <ClCompile Include="src\TestShapes.cpp">
       <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
+    </ClCompile>
+    <ClCompile Include="RaycastHit.cpp">
+      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
+    </ClCompile>
+    <ClCompile Include="RaycastManager.cpp">
+      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
     </ClCompile>
     <ClCompile Include="precompiled.cpp">
       <Filter>Engine\Source Files</Filter>
@@ -619,6 +634,15 @@
     </ClInclude>
     <ClInclude Include="src\FramerateController.inl">
       <Filter>Engine\Source Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastHit.h">
+      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastManager.h">
+      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

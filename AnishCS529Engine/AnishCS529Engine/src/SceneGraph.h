@@ -48,6 +48,8 @@ private:
 public:
   SceneGraph() : root(std::make_shared<RootNode>()) {}
 
+  std::shared_ptr<RootNode> getRootNode() const { return root; }
+
   void addNode(std::shared_ptr<Node> node);
   void removeNode(std::shared_ptr<Node> node);
 
