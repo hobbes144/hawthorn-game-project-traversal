@@ -81,6 +81,7 @@
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
+    <ClInclude Include="src\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\FramerateController.inl">
       <FileType>Document</FileType>
     </ClInclude>

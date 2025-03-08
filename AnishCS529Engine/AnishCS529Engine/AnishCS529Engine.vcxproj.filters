@@ -644,6 +644,9 @@
     <ClInclude Include="RaycastManager.h">
       <Filter>Engine\Header Files\Systems\Raycasting</Filter>
     </ClInclude>
+    <ClInclude Include="src\FirstPersonControllerComponent.h">
+      <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
