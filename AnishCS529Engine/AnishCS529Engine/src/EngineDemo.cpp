@@ -128,6 +128,7 @@ int main() {
     KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_ESCAPE
   };
   mainInput->setGameWindow(mainWindow);
+  mainInput->initialize();
 
   /* Framerate controller setup */
   FFramerateController* mainFramerateController =
@@ -495,6 +496,21 @@ int main() {
       PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
       mainFramerateController->consumePhysicsTime();
     }
+
+    //MouseMovement Testing
+    MouseState ms = mainInput->getMouseState();
+    const float mouseSensitivity = 0.01f;
+
+    float mouseXDelta = 0.0f;
+    float mouseYDelta = 0.0f;
+    if (ms.deltaX != 0) {
+        mouseXDelta = static_cast<float>(ms.deltaX) * mouseSensitivity;
+    }
+    if (ms.deltaY != 0) {
+        mouseYDelta = static_cast<float>(ms.deltaY) * mouseSensitivity;
+    }
+    camera->setLocalRotation(camera->getLocalRotation() + Vector3(-mouseYDelta, -mouseXDelta, 0.0f));
+    mainInput->resetMouseDelta();
 
     //Affine Demonstration
     affineCounter += 0.1f;

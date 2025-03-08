@@ -30,7 +30,33 @@ void Input::registerKey(Key k) {
     keyStates[k] = KeyState();
 }
 
+void Input::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 
+    Input* input = static_cast<Input*>(glfwGetWindowUserPointer(window));
+    if (!input) return;
+
+    bool pressed = (action == GLFW_PRESS);
+
+    switch (button) {
+    case GLFW_MOUSE_BUTTON_LEFT:   input->mouseState.leftMouseDown = pressed; break;
+    case GLFW_MOUSE_BUTTON_RIGHT:  input->mouseState.rightMouseDown = pressed; break;
+    case GLFW_MOUSE_BUTTON_MIDDLE: input->mouseState.middleMouseDown = pressed; break;
+    }
+
+}
+
+void Input::MouseMotionCallback(GLFWwindow* window, double xpos, double ypos) {
+
+    Input* input = static_cast<Input*>(glfwGetWindowUserPointer(window));
+    if (!input) return;
+
+    input->mouseState.deltaX = xpos - input->mouseState.xPos;
+    input->mouseState.deltaY = ypos - input->mouseState.yPos;
+
+    input->mouseState.xPos = xpos;
+    input->mouseState.yPos = ypos;
+
+}
 
 /* Public functions */
 
@@ -176,7 +202,13 @@ bool Input::isKeyHeld(Key k) {
  * \brief Input initialize is a dummy function
  * 
  *****************************************************************************/
-void Input::initialize() {}
+void Input::initialize() {
+    glfwSetInputMode(window->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    glfwSetWindowUserPointer(window->getNativeWindow(), this);
+    glfwSetMouseButtonCallback(window->getNativeWindow(), MouseButtonCallback);
+    glfwSetCursorPosCallback(window->getNativeWindow(), MouseMotionCallback);
+}
 
 /*!****************************************************************************
  * \brief Update loop that polls the window for the state of each key
@@ -207,3 +239,27 @@ void Input::update() {
  * 
  *****************************************************************************/
 void Input::shutdown() {}
+
+void Input::getMousePosition(double& x, double& y) const {
+    x = mouseState.xPos;
+    y = mouseState.yPos;
+}
+
+void Input::getMouseDelta(double& dx, double& dy) const {
+    dx = mouseState.deltaX;
+    dy = mouseState.deltaY;
+}
+
+bool Input::isMouseButtonDown(int button) const {
+    switch (button) {
+    case GLFW_MOUSE_BUTTON_LEFT: return mouseState.leftMouseDown;
+    case GLFW_MOUSE_BUTTON_RIGHT: return mouseState.rightMouseDown;
+    case GLFW_MOUSE_BUTTON_MIDDLE: return mouseState.middleMouseDown;
+    default: return false;
+    }
+}
+
+void Input::resetMouseDelta() {
+    mouseState.deltaX = 0.0f;
+    mouseState.deltaY = 0.0f;
+}

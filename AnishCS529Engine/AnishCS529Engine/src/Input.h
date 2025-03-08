@@ -47,6 +47,19 @@ struct KeyState {
 };
 
 
+struct MouseState {
+	//Mouse Position
+	double xPos = 0.0f;
+	double yPos = 0.0f;
+	//Mouse Delta
+	double deltaX = 0.0f;
+	double deltaY = 0.0f;
+	//Buttons
+	bool leftMouseDown = false;
+	bool rightMouseDown = false;
+	bool middleMouseDown = false;
+};
+
 /*!****************************************************************************
  * \brief Input class that handles storing and updating key press states
  * 
@@ -98,13 +111,26 @@ public:
   bool isKeyUp(Key k);
   bool isKeyHeld(Key k);
 
+  //Mouse Functions
+  MouseState getMouseState() const { return mouseState; }
+  void getMousePosition(double& x, double& y) const;
+  void getMouseDelta(double& dx, double& dy) const;
+  bool isMouseButtonDown(int button) const;
+  void resetMouseDelta();
+
 private:
   /** GameWindow object to read keys from */
   GameWindow* window;
   /** Map of key states for each registered key */
   std::unordered_map<Key, KeyState> keyStates;
+  /** State of the Mouse */
+  MouseState mouseState;
 
   void registerKey(Key k);
+
+  // Mouse Functions
+  static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+  static void MouseMotionCallback(GLFWwindow* window, double xpos, double ypos);
 
 };
 
