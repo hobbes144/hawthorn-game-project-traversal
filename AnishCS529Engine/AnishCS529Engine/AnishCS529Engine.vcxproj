@@ -40,6 +40,7 @@
     </ClCompile>
     <ClCompile Include="src\DebugPass.cpp" />
     <ClCompile Include="src\EngineDemo.cpp" />
+    <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\RaycastHit.cpp" />
     <ClCompile Include="src\RaycastManager.cpp" />

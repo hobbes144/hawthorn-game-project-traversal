@@ -381,17 +381,20 @@
     <ClCompile Include="src\TestShapes.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ray.cpp">
-      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
-    </ClCompile>
-    <ClCompile Include="RaycastHit.cpp">
-      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
-    </ClCompile>
-    <ClCompile Include="RaycastManager.cpp">
-      <Filter>Engine\Source Files\Systems\Raycasting</Filter>
-    </ClCompile>
     <ClCompile Include="precompiled.cpp">
       <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ray.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RaycastHit.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RaycastManager.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FirstPersonControllerComponent.cpp">
+      <Filter>Engine\Source Files\Systems\PhysicsSystem\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -635,17 +638,17 @@
     <ClInclude Include="src\FramerateController.inl">
       <Filter>Engine\Source Files\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Ray.h">
-      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
-    </ClInclude>
-    <ClInclude Include="RaycastHit.h">
-      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
-    </ClInclude>
-    <ClInclude Include="RaycastManager.h">
-      <Filter>Engine\Header Files\Systems\Raycasting</Filter>
-    </ClInclude>
     <ClInclude Include="src\FirstPersonControllerComponent.h">
       <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ray.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RaycastHit.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RaycastManager.h">
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

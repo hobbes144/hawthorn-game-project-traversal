@@ -85,6 +85,8 @@ public:
   SharedNode setLocalRotation(const Vector3& rotation);
   SharedNode setLocalScaling(const Vector3& scaling);
 
+  void Rotate(float degrees, Vector3 axis);
+
 };
 
 #endif // NODE_H

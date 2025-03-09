@@ -150,6 +150,9 @@ int main() {
   /* Scenegraph setup */
   SceneGraph mainSceneGraph;
 
+  /* Raycast Manager Setup */
+  RaycastManager::Instance().setSceneGraph(&mainSceneGraph);
+
   /* Camera setup */
 #pragma region Camera
 
@@ -364,7 +367,7 @@ int main() {
   auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
   dynamicBox->setLocalPosition(Vector3(-2.0f, 5.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f))
-        ->setLocalRotation(Vector3(0,1,0));
+        ->setLocalRotation(Vector3(0,0,0));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
   //Render Component
@@ -499,7 +502,6 @@ int main() {
     //MouseMovement Testing
     MouseState ms = mainInput->getMouseState();
     const float mouseSensitivity = 0.01f;
-
     float mouseXDelta = 0.0f;
     float mouseYDelta = 0.0f;
     if (ms.deltaX != 0) {
@@ -542,7 +544,7 @@ int main() {
             Ray testRay(rayOrigin, rayDirection);
             RaycastHit hit;
 
-            if (RaycastManager::Raycast(testRay, &mainSceneGraph, hit, 100.0f, { GameObject::Tag::SYSTEM })) {
+            if (RaycastManager::Instance().Raycast(testRay, hit, 100.0f, { GameObject::Tag::SYSTEM })) {
                 std::cout << "Ray hit at: " << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << std::endl;
             }
             else {

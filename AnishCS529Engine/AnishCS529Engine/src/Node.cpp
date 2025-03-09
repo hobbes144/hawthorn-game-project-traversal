@@ -233,6 +233,29 @@ std::shared_ptr<Node> Node::setLocalScaling(const Vector3& scaling) {
   return shared_from_this();
 }
 
+void Node::Rotate(float degrees, Vector3 axis)
+{
+
+    // Convert degrees to radians
+    float radians = degrees * (3.1415926 / 180.0f);
+
+    // Convert current rotation to a rotation matrix
+    Matrix4 currentRotationMatrix = Matrix4::rotationXYZ(localTransform.getRotation());
+
+    // Create a new rotation matrix around the given axis
+    Matrix4 rotationMatrix = Matrix4::CreateRotation(axis, radians); // Assumes this function exists
+
+    // Apply the rotation
+    Matrix4 newRotationMatrix = rotationMatrix * currentRotationMatrix;
+
+    // Convert the new rotation matrix back to Euler angles
+    Vector3 newEulerAngles = newRotationMatrix.toEulerAngles(); // You need to implement this
+
+    // Update the transform's rotation
+    localTransform.setRotation(newEulerAngles);
+
+}
+
 /*!****************************************************************************
  * \brief Debugging printing
  * 

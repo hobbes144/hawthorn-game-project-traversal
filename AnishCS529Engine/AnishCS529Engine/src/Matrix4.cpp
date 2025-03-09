@@ -506,6 +506,22 @@ Vector3 Matrix4::transformDirection(const Vector3& direction) const {
     ).normalized();
 }
 
+Matrix4 Matrix4::CreateRotation(const Vector3& axis, float radians)
+{
+    Vector3 a = axis.normalized();
+    float x = a.x, y = a.y, z = a.z;
+    float c = std::cos(radians);
+    float s = std::sin(radians);
+    float t = 1.0f - c;
+
+    return Matrix4(
+        t*x*x+c, t*x*y-s*z, t*x*z+s*y, 0.0f,
+        t*x*y+s*z, t*y*y+c, t*y*z-s*x, 0.0f,
+        t*x*z-s*y, t*y*z+s*x, t*z*z+c, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    );
+}
+
 
 std::ostream& operator<<(std::ostream& os, const Matrix4& m) {
   const float* data = m.getData();

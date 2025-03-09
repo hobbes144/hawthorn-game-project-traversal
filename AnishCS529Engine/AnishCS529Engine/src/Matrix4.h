@@ -92,6 +92,33 @@ public:
 
   Vector3 transformDirection(const Vector3& direction) const;
 
+  static Matrix4 CreateRotation(const Vector3& axis, float radians);
+
+  Vector3 toEulerAngles() const {
+      Vector3 eulerAngles;
+
+      // Extract values from the column-major rotation matrix
+      float sy = sqrt(data[0][0] * data[0][0] + data[1][0] * data[1][0]);
+
+      bool singular = sy < 1e-6; // Check if near singularity (Gimbal lock case)
+
+      if (!singular) {
+          eulerAngles.x = atan2(data[2][1], data[2][2]); // Pitch (X-axis)
+          eulerAngles.y = atan2(-data[2][0], sy);     // Yaw (Y-axis)
+          eulerAngles.z = atan2(data[1][0], data[0][0]); // Roll (Z-axis)
+      }
+      else {
+          eulerAngles.x = atan2(-data[1][2], data[1][1]);
+          eulerAngles.y = atan2(-data[2][0], sy);
+          eulerAngles.z = 0; // Roll is set to zero in gimbal lock case
+      }
+
+      // Convert from radians to degrees
+      eulerAngles = eulerAngles * (180.0f / 3.1415926);
+
+      return eulerAngles;
+  }
+
 };
 
 std::ostream& operator<<(std::ostream& os, const Matrix4& m);

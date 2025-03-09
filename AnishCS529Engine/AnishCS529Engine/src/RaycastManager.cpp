@@ -16,8 +16,8 @@
  * @param tagToIgnore A Vector containing Tags of Gameobject that should be ignored for collisions
  * @return Boolean signifying if there was a successful intersection. The data of the intersection is stored in the RaycastHit object
  */
-bool RaycastManager::Raycast(const Ray& ray, const SceneGraph* sceneGraph, RaycastHit& hit, float maxDistance, const std::vector<GameObject::Tag> tagToIgnore) {
-
+bool RaycastManager::Raycast(const Ray& ray, RaycastHit& hit, float maxDistance, const std::vector<GameObject::Tag> tagToIgnore) {
+    if (!sceneGraph) { return false; }
 	return processNode(sceneGraph->getRootNode(), ray, hit, maxDistance, tagToIgnore);
 
 }
