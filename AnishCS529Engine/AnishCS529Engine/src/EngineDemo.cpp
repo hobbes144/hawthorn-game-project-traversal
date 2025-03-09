@@ -318,8 +318,8 @@ int main() {
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
-  playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
-    ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+    playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
+        ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
   //Render Component

@@ -47,7 +47,7 @@ public:
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
         walkForce(1.0f), maxWalkSpeed(5.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        mouseSensitivity(0.01f), pitchLimit(80),
+        mouseSensitivity(0.001f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.1f)
         {}
     ~FirstPersonControllerComponent() = default;

@@ -194,6 +194,24 @@ void Node::localToWorldSpace() {
   isLocalSpace = false;
 }
 
+Vector3 Node::getForwardVector() const
+{
+    Matrix4 worldMatrix = getTransformMatrix();
+    return Vector3(worldMatrix[0][2], worldMatrix[1][2], worldMatrix[2][2]).normalized();
+}
+
+Vector3 Node::getRightVector() const
+{
+    Matrix4 worldMatrix = getTransformMatrix();
+    return Vector3(worldMatrix[0][0], worldMatrix[1][0], worldMatrix[2][0]).normalized();
+}
+
+Vector3 Node::getUpVector() const
+{
+    Matrix4 worldMatrix = getTransformMatrix();
+    return Vector3(worldMatrix[0][1], worldMatrix[1][1], worldMatrix[2][1]).normalized();
+}
+
 std::shared_ptr<Node> Node::setLocalPosition(const Vector3& position) {
   localTransform.setPosition(position);
   isLocalSpace = true;  // Ensure we're in local space after this operation

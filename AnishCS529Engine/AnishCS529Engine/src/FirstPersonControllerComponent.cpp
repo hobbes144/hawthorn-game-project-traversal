@@ -1,5 +1,8 @@
 #include "precompiled.h"
 #include "FirstPersonControllerComponent.h"
+#include "Ray.h"
+#include "RaycastHit.h"
+#include "RaycastManager.h"
 
 void FirstPersonControllerComponent::initialize()
 {
@@ -18,8 +21,29 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool isSprinting = input->isKeyHeld(ActionKey[Sprint]);
 	int forwardMotion = input->isKeyHeld(ActionKey[MoveForward]) - input->isKeyHeld(ActionKey[MoveBackward]);
 	int lateralMotion = input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]);
+	isGrounded = RaycastManager::Raycast();
 
-	//Applying Movement Force
+	//---Applying Movement Force---
+	float movementForce = isSprinting ? runForce : walkForce;
+	float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
+	//Forward
+	Vector3 forwardVector = body->getForwardVector();
+	Vector3 forwardMotionVector = forwardMotion * forwardVector;
+	//Lateral
+	Vector3 rightVector = body->getRightVector();
+	Vector3 lateralMotionVector = lateralMotion * rightVector;
+	//Combine Forward and Lateral Movement and Apply Force
+	Vector3 movementVector = (forwardMotionVector + lateralMotionVector).normalized() * movementForce;
+	physicsBody->applyForce(movementVector);
+	//Clamp Speed
+	Vector3 pbVelocity = physicsBody->getVelocity();
+	float pbVelocityMag = pbVelocity.magnitude();
+	if (pbVelocityMag > maxMovementSpeed) {
+		pbVelocity = (pbVelocity / pbVelocityMag) * maxMovementSpeed;
+		physicsBody->setVelocity(pbVelocity);
+	}
+
+	//---Camera Movement---
 
 
 }

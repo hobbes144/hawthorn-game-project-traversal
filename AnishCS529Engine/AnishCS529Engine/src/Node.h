@@ -77,6 +77,10 @@ public:
   Vector3 getLocalRotation() const { return localTransform.getRotation(); }
   Vector3 getLocalScaling() const { return localTransform.getScaling(); }
 
+  Vector3 getForwardVector() const;
+  Vector3 getRightVector() const;
+  Vector3 getUpVector() const;
+
   SharedNode setLocalPosition(const Vector3& position);
   SharedNode setLocalRotation(const Vector3& rotation);
   SharedNode setLocalScaling(const Vector3& scaling);
