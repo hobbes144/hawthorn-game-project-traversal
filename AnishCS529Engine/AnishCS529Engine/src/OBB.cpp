@@ -198,13 +198,13 @@ bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) c
 
     switch (hitAxis) {
     case 0:
-        hit.normal.x = (hit.point.x > 0) ? 1 : -1;
+        hit.normal.x = (hit.point.x > 0.f) ? 1.f : -1.f;
         break;
     case 1:
-        hit.normal.y = (hit.point.y > 0) ? 1 : -1;
+        hit.normal.y = (hit.point.y > 0.f) ? 1.f : -1.f;
         break;
     case 2:
-        hit.normal.z = (hit.point.z > 0) ? 1 : -1;
+        hit.normal.z = (hit.point.z > 0.f) ? 1.f : -1.f;
         break;
     default:
         break;

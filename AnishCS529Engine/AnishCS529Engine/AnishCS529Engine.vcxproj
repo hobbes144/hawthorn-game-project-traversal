@@ -38,10 +38,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="RaycastHit.cpp" />
-    <ClCompile Include="RaycastManager.cpp" />
     <ClCompile Include="src\DebugPass.cpp" />
+    <ClCompile Include="src\EngineDemo.cpp" />
+    <ClCompile Include="src\Ray.cpp" />
+    <ClCompile Include="src\RaycastHit.cpp" />
+    <ClCompile Include="src\RaycastManager.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
     <ClCompile Include="src\AmbientLight.cpp" />
@@ -51,7 +52,6 @@
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\DebugMaterial.cpp" />
-    <ClCompile Include="src\EngineDemo.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\GraphicsTest.cpp" />
     <ClCompile Include="src\InputOld.cpp" />
@@ -118,9 +118,6 @@
     <ClCompile Include="src\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ray.h" />
-    <ClInclude Include="RaycastHit.h" />
-    <ClInclude Include="RaycastManager.h" />
     <ClInclude Include="precompiled.h" />
     <ClInclude Include="src\AABB.h" />
     <ClInclude Include="src\AmbientLight.h" />
@@ -147,6 +144,9 @@
     <ClInclude Include="src\Movement3D.h" />
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\PointLight.h" />
+    <ClInclude Include="src\Ray.h" />
+    <ClInclude Include="src\RaycastHit.h" />
+    <ClInclude Include="src\RaycastManager.h" />
     <ClInclude Include="src\Render2D.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\RendererStateSaver.h" />
