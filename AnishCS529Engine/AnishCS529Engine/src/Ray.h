@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include "src/Vector3.h"
-#include "src/Matrix4.h"
+#include "Vector3.h"
+#include "Matrix4.h"
 
 class Ray
 {
