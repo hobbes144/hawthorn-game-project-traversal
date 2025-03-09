@@ -72,7 +72,6 @@ void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action)
 
 }
 
-
 int main() {
   const float rad = PI / 180.0f;
 
