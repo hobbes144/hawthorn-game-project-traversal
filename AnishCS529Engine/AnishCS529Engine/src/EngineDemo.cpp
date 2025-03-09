@@ -334,6 +334,7 @@ int main() {
 
 	auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
 	dynamicBox->setLocalPosition(Vector3(-4.0f, 2.0f, -2.0f))
+		->setLocalRotation(Vector3(0.0f, 1.0f, 0.0f))
 		->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
 	// Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
