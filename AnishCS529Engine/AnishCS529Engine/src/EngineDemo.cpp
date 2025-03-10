@@ -264,11 +264,11 @@ int main() {
   // Drawable objects
   int isDebug = 0;
   std::vector<std::shared_ptr<GameObject>> gameObjects;
-
+  /*
 #pragma region Map
   std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
   auto mapObject = std::make_shared<GameObject>("Map");
-  mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
+  mapObject->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f));
   mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
   auto mapRenderComponent = mapObject->addComponent<Render2D>();
   mapRenderComponent->setCamera(camera)
@@ -277,6 +277,7 @@ int main() {
   mainSceneGraph.addNode(mapObject);
 
 #pragma endregion
+*/
     /*
 #pragma region Environment 
     std::shared_ptr<Mesh> EnvironmentMesh = Mesh::loadMesh("media/Map/Environment.fbx");
@@ -288,8 +289,85 @@ int main() {
         ->setMesh(EnvironmentMesh)
         ->setMaterial(floorMaterial);
     mainSceneGraph.addNode(EnvironmentObject);
-    */
+    
 #pragma endregion
+*/
+  /*
+#pragma region jump
+
+// Starting
+{
+    auto mainFloor = std::make_shared<GameObject>("MainFloor");
+    mainFloor->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f));
+    mainFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+    auto renderComp = mainFloor->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(mainFloor);
+}
+
+// platforms
+float platformSizes[] = { 4.0f, 3.5f, 3.0f, 3.2f, 3.6f, 3.1f, 3.4f, 3.7f, 4.2f };
+float yVariation[] = { 0.3f, -0.2f, 0.5f, -0.4f, 0.2f, -0.3f, 0.4f, -0.2f, 0.1f };
+float xSpacing = 6.0f;
+float xOffset[] = { 2.0f, 2.0f, -3.0f, 3.0f, -4.0f, 4.0f, -5.0f, 5.0f, 8.0f };
+
+for (int i = 0; i < 9; ++i) {
+    auto platform = std::make_shared<GameObject>("Platform" + std::to_string(i + 1));
+    float adjustedX = (i == 0) ? (xSpacing * 1.5f) : ((i + 1) * xSpacing + 5.0f);
+    platform->setLocalPosition(Vector3(adjustedX, yVariation[i], xOffset[i]));
+    platform->setLocalScaling(Vector3(platformSizes[i], 0.5f, platformSizes[i]));
+    auto renderComp = platform->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(platform);
+}
+
+// Exit
+{
+    auto upperFloor = std::make_shared<GameObject>("UpperFloor");
+    upperFloor->setLocalPosition(Vector3(60.0f, 0.2f, 8.0f));
+    upperFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+    auto renderComp = upperFloor->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(upperFloor);
+}
+
+#pragma endregion
+*/
+#pragma region wallrun
+// 1) Left pad
+{
+    auto mainFloorLeft = std::make_shared<GameObject>("MainFloorLeft");
+    mainFloorLeft->setLocalPosition(Vector3(-4.0f, 0.0f, 0.0f));
+    mainFloorLeft->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+    auto renderComp = mainFloorLeft->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(mainFloorLeft);
+}
+
+// Right pad
+{
+    auto mainFloorRight = std::make_shared<GameObject>("MainFloorRight");
+    mainFloorRight->setLocalPosition(Vector3(40.0f, 0.0f, 0.0f));
+    mainFloorRight->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+    auto renderComp = mainFloorRight->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(mainFloorRight);
+}
+
+// Wall for wall running
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+    wallRunWall->setLocalPosition(Vector3(18.0f, 2.5f, -4.0f));
+    wallRunWall->setLocalScaling(Vector3(30.0f, 8.0f, 1.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    mainSceneGraph.addNode(wallRunWall);
+}
+
+#pragma endregion
+
+ 
+  /*
 #pragma region Turret
   std::shared_ptr<Mesh> turretMesh = Mesh::loadMesh("media/Map/Turret.fbx");
   auto turretObject = std::make_shared<GameObject>("turret");
@@ -326,7 +404,7 @@ int main() {
     ->setMaterial(floorMaterial);
   mainSceneGraph.addNode(cannonballObject);
 #pragma endregion
-
+*/
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
