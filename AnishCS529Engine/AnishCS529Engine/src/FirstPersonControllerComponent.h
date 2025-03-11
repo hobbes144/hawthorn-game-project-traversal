@@ -47,6 +47,7 @@ public:
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
         walkForce(1.0f), maxWalkSpeed(5.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
+        jumpForce(10),
         mouseSensitivity(0.001f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.1f)
         {}
@@ -92,6 +93,7 @@ private:
     float maxWalkSpeed;
     float runForce;
     float maxRunSpeed;
+    float jumpForce;
 
     //Player Mouse Members
     float mouseSensitivity;
@@ -99,7 +101,9 @@ private:
 
     //Parkour Members
     float coyoteTime;
+    float lastTimeGrounded = 0.0f;
     float jumpBufferTime;
+    float lastTimeJumpPressed = 0.0f;
 
     //Time Ability Members
 

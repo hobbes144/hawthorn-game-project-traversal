@@ -17,11 +17,12 @@ void FirstPersonControllerComponent::initialize()
 
 void FirstPersonControllerComponent::update(float deltaTime)
 {
+	//-----First Person Movement-----//
 	//Temp States
 	bool isSprinting = input->isKeyHeld(ActionKey[Sprint]);
 	float forwardMotion = input->isKeyHeld(ActionKey[MoveForward]) - input->isKeyHeld(ActionKey[MoveBackward]);
 	float lateralMotion = input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]);
-	
+	//Check if Grounded
 	RaycastHit hitGround;
 	isGrounded = RaycastManager::Instance().Raycast(
 		Ray(body->getWorldTransform().getPosition(), -body->getUpVector()),
@@ -32,10 +33,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	float movementForce = isSprinting ? runForce : walkForce;
 	float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
 	//Forward
-	Vector3 forwardVector = body->getForwardVector();
+	Vector3 forwardVector = Vector3(camera->getForwardVector().x, 0.0f, camera->getForwardVector().z);
 	Vector3 forwardMotionVector = forwardVector * forwardMotion;
 	//Lateral
-	Vector3 rightVector = body->getRightVector();
+	Vector3 rightVector = camera->getRightVector();
 	Vector3 lateralMotionVector = rightVector * lateralMotion;
 	//Combine Forward and Lateral Movement and Apply Force
 	Vector3 movementVector = (forwardMotionVector + lateralMotionVector).normalized() * movementForce;
@@ -48,7 +49,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		physicsBody->setVelocity(pbVelocity);
 	}
 
-	//---Handling Camera Movement---
+	//-----Handling Camera Movement-----//
 	//Update Camera Position
 	float cameraHeight = 0.5f;
 	camera->setLocalPosition(body->getLocalPosition() + Vector3(0.0f, cameraHeight, 0.0f));
@@ -68,6 +69,26 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	camera->Rotate(mouseYDelta, camera->getRightVector());
 	//Reset Mouse Delta
 	input->resetMouseDelta();
+
+	//-----Handle Jumping-----//
+	//Track the last time the player was ground
+	if (isGrounded) {
+		lastTimeGrounded = 0.0f;
+	}
+	else {
+		lastTimeGrounded += deltaTime;
+	}
+	//Track Last Time Jump was pressed
+	if (input->isKeyPressed(ActionKey[Jump])) {
+		lastTimeJumpPressed = 0.0f;
+	}
+	else {
+		lastTimeJumpPressed += deltaTime;
+	}
+	//Handle Jumping
+	if ((isGrounded || lastTimeGrounded < coyoteTime) && (lastTimeJumpPressed < jumpBufferTime)) {
+		physicsBody->applyForce(Vector3(0.0f, jumpForce, 0.0f));
+	}
 
 }
 
