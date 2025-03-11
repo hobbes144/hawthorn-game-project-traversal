@@ -10,6 +10,7 @@
  *****************************************************************************/
 
 #include "Node.h"
+#include "GameObject.h"
 
 /* Initializing static Next ID counter. */
 unsigned int Node::nextID = 0;
@@ -162,26 +163,22 @@ void Node::update(float deltaTime) {
   if (!parent) throw std::runtime_error("ERROR::NODE::UPDATE::NOPARENT");
 
   if (isLocalSpace) {
-    if (parent) {
-      Matrix4 parentWorld = parent->getTransformMatrix();
-      worldTransform.setPosition(parentWorld * localTransform.getPosition());
-      worldTransform.setRotation(parent->worldTransform.getRotation() + localTransform.getRotation());
-      worldTransform.setScaling(parent->worldTransform.getScaling() * localTransform.getScaling());
-    }
-    else {
-      worldTransform = localTransform;
-    }
+    worldTransform = parent->getWorldTransform() * worldTransform;
   }
   else {
-    if (parent) {
-      Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
-      localTransform.setPosition(parentWorldInv * worldTransform.getPosition());
-      localTransform.setRotation(worldTransform.getRotation() - parent->worldTransform.getRotation());
-      localTransform.setScaling(worldTransform.getScaling() * parent->worldTransform.getScaling().reciprocal());
-    }
-    else {
-      localTransform = worldTransform;
-    }
+    Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
+    localTransform.setPosition(parentWorldInv * worldTransform.getPosition());
+    localTransform.setRotation(worldTransform.getRotation() - parent->worldTransform.getRotation());
+    localTransform.setScaling(worldTransform.getScaling() * parent->worldTransform.getScaling().reciprocal());
+  }
+
+  if (GameObject* obj = dynamic_cast<GameObject*>(this)) {
+    obj->updateComponents(deltaTime);
+  }
+
+  // Update all children
+  for (auto& child : children) {
+    child->update(deltaTime);
   }
 }
 

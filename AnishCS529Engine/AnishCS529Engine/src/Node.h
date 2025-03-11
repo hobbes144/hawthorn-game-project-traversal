@@ -67,7 +67,7 @@ public:
 
   Matrix4 getTransformMatrix() const { 
     return isLocalSpace ?
-      localTransform.getLocalMatrix() : 
+      localTransform.getLocalMatrix() :
       worldTransform.getLocalMatrix();
   }
   Transform getLocalTransform() const { return localTransform; }

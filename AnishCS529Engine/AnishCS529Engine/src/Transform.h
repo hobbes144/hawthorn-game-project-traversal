@@ -22,6 +22,14 @@ class Transform {
 public:
   Transform() : position(0, 0, 0), rotation(0, 0, 0), scaling(1, 1, 1) {}
 
+  Transform operator*(const Transform& other) {
+    Transform res;
+    res.position = this->position + this->rotation * (this->scaling * other.scaling);
+    res.rotation = this->rotation * other.rotation;
+    res.scaling = this->scaling * other.scaling;
+    return res;
+  }
+
   Vector3 getPosition() const { return position; }
   Vector3 getRotation() const { return rotation; }
   Vector3 getScaling() const { return scaling; }

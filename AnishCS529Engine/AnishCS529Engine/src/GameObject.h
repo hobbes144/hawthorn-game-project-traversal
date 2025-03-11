@@ -56,6 +56,7 @@ public:
   virtual void initialize();
   virtual void update(float deltaTime);
   virtual void shutdown();
+  virtual void updateComponents(float deltaTime);
 
   /* Utility functions */
   template<typename T>
