@@ -308,7 +308,7 @@ int main() {
 
 	// Create instances of bodies for boxes
 	playerBox->addComponent<RigidBody>()
-		->usingGravity(true)
+		->usingGravity(false)
 		->setMass(10.0f)->setDrag(100.0f)
 		->setShape(shape1)
 		->setDebug(isDebug)
@@ -334,7 +334,7 @@ int main() {
 
 	auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
 	dynamicBox->setLocalPosition(Vector3(-4.0f, 2.0f, -2.0f))
-		->setLocalRotation(Vector3(0.0f, 1.0f, 0.0f))
+		//->setLocalRotation(Vector3(0.0f, 1.0f, 0.0f))
 		->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
 	// Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -353,14 +353,14 @@ int main() {
 
 	// Create instances of bodies for boxes
 	dynamicBox->addComponent<RigidBody>()
-		->usingGravity(true)
+		->usingGravity(false)
 		->setMass(10.0f)->setDrag(100.0f)
 		->setShape(dBoxShape)
 		->setDebug(isDebug)
 		->registerToPhysicsManager(PhysicsManager::Instance())
 		->initialize();
 
-	mainSceneGraph.addNode(dynamicBox);
+	playerBox->addChild(dynamicBox);
 	gameObjects.push_back(dynamicBox);
 
 #pragma endregion
