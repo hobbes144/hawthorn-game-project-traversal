@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "ShaderManager.h"
 
 std::shared_ptr<Shader> ShaderManager::loadFile(const std::string& filePath)

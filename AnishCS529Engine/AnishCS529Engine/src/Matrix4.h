@@ -89,6 +89,9 @@ public:
                         const Vector3 &up);
   static Matrix4 inverse(const Matrix4& m);
   // I encourage to implement the Euler Angles formula: Removes the gimball lock problem
+
+  Vector3 transformDirection(const Vector3& direction) const;
+
 };
 
 std::ostream& operator<<(std::ostream& os, const Matrix4& m);

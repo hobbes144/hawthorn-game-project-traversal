@@ -8,6 +8,7 @@
  * \date   12-16-2024
  * 
  *****************************************************************************/
+#include "precompiled.h"
 
 #include "PhysicsBody.h"
 #include "PhysicsManager.h"
@@ -345,13 +346,13 @@ void PhysicsBody::integrate(float deltaTime) {
 
     Vector3 netFriction;
     if (velocity.magnitude() > 0) {
-      netFriction = velocity.normalized() * velocity.magnitude() * -drag;
+        netFriction = velocity.normalized() * velocity.magnitude() * float(-drag);
     }
     else {
       netFriction = Vector3(0.0f, 0.0f, 0.0f);
     }
 
-    acceleration = acceleration + (force + netFriction) * inverseMass;
+    acceleration = acceleration + (force + netFriction) * float(inverseMass);
     velocity = velocity + (acceleration * deltaTime);
 
     Vector3 newPosition = parent->getLocalPosition() + (velocity * deltaTime);
@@ -359,13 +360,13 @@ void PhysicsBody::integrate(float deltaTime) {
 
     Vector3 netRotationalFriction;
     if (rotationalVelocity.magnitude() > 0) {
-      netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * -angularDrag;
+        netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * float(-angularDrag);
     }
     else {
       netRotationalFriction = Vector3(0.0f, 0.0f, 0.0f);
     }
 
-    rotationalAcceleration = rotationalAcceleration + (rotationalForce + netRotationalFriction) * inverseMass;
+    rotationalAcceleration = rotationalAcceleration + (rotationalForce + netRotationalFriction) * float(inverseMass);
     rotationalVelocity = rotationalVelocity + (rotationalAcceleration * deltaTime);
 
     Vector3 newRotation = parent->getLocalRotation() + (rotationalVelocity * deltaTime);

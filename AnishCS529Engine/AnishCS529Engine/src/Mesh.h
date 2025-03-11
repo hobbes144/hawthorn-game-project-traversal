@@ -14,10 +14,10 @@
 
 #pragma once
 
-#ifndef PI
-#define PI 3.14159265358979323846 
-#endif // !PI
-
+// #ifndef PI
+// #define PI 3.14159265358979323846 
+// #endif // !PI
+constexpr float PI{ 3.14159265f }; 
 
 #include <cassert>
 #include <unordered_map>

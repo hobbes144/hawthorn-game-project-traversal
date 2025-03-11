@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "OBB.h"
 
 
@@ -124,3 +125,92 @@ void OBB::debugDaw() {
 
   debugMaterial->draw(debugMesh);
 }
+
+bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const {
+    const Vector3* axes = localAxes;
+    const Vector3 halfExtents = localHalfExtents;
+
+    Vector3 rayOrigin = ray.getOrigin();
+
+    //-------------
+    // Hueristically Check if the Object is too far away
+    
+    if (!(std::abs(rayOrigin.x) - halfExtents.x <= maxDistance &&
+          std::abs(rayOrigin.y) - halfExtents.y <= maxDistance &&
+          std::abs(rayOrigin.z) - halfExtents.z <= maxDistance
+        )) {
+        return false;
+    }
+
+    //-------------
+
+    //-------------
+    //Check if the origin is in the bounding box
+    if (((rayOrigin.x >= -halfExtents.x && rayOrigin.x <= halfExtents.x) &&
+        (rayOrigin.y >= -halfExtents.y && rayOrigin.y <= halfExtents.y) &&
+        (rayOrigin.z >= -halfExtents.z && rayOrigin.z <= halfExtents.z))) {
+        return false;
+    }
+    //-------------
+
+    Vector3 p = ray.getOrigin(); 
+
+    float tMin = -std::numeric_limits<float>::infinity();
+    float tMax = std::numeric_limits<float>::infinity();
+    int hitAxis = -1;
+
+    for (int i = 0; i < 3; ++i) {
+        Vector3 currAxis = axes[i];
+        float currHalfExtents = halfExtents[i];
+
+        float minBound = -currHalfExtents;
+        float maxBound = currHalfExtents;
+        float originComponent = ray.getOrigin()[i];
+        float dirComponent = ray.getDirection()[i];
+
+        // Ray is parallel to slab
+        if (std::abs(dirComponent) < 1e-6) { 
+            if (originComponent < minBound || originComponent > maxBound) {
+                return false; // Outside the slab
+            }
+            continue;
+        }
+
+        float t1 = (minBound - originComponent) / dirComponent;
+        float t2 = (maxBound - originComponent) / dirComponent;
+
+        if (t1 > t2) std::swap(t1, t2);
+
+        if (t1 > tMin) {
+            tMin = t1;
+            hitAxis = i;
+        }
+
+        tMax = std::min(tMax, t2);
+
+        if (tMin > tMax || tMax < 0) {
+            return false;
+        }
+    }
+
+    hit.point = ray.getOrigin() + ray.getDirection() * tMin;
+    hit.distance = tMin;
+
+    switch (hitAxis) {
+    case 0:
+        hit.normal.x = (hit.point.x > 0.f) ? 1.f : -1.f;
+        break;
+    case 1:
+        hit.normal.y = (hit.point.y > 0.f) ? 1.f : -1.f;
+        break;
+    case 2:
+        hit.normal.z = (hit.point.z > 0.f) ? 1.f : -1.f;
+        break;
+    default:
+        break;
+    }
+
+    return true;
+
+}
+

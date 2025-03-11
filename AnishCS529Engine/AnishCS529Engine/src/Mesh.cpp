@@ -8,6 +8,7 @@
  * \date   10-15-2024
  *
  *****************************************************************************/
+#include "precompiled.h"
 #include "Mesh.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

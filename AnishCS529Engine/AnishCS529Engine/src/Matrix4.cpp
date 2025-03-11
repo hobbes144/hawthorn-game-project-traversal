@@ -8,6 +8,7 @@
  * \date   10-05-2024
  * 
  *****************************************************************************/
+#include "precompiled.h"
 #include "Matrix4.h"
 
 /*!****************************************************************************
@@ -151,10 +152,10 @@ Matrix4 Matrix4::operator*(const Matrix4 &other)
   {
     for (int j = 0; j < 4; j++)
     {
-      result.data[i][j] = 0.0f;
+      result.data[j][i] = 0.0f;
       for (int k = 0; k < 4; k++)
       {
-        result.data[i][j] += data[k][i] * other.data[j][k];
+        result.data[j][i] += data[k][i] * other.data[j][k];
       }
     }
   }
@@ -490,6 +491,21 @@ Matrix4 Matrix4::inverse(const Matrix4& m)
 
   return Inverse * OneOverDeterminant;
 }
+
+/*!****************************************************************************
+ * \brief 
+ * 
+ * \param direction - the direction to be transformed
+ * \return \b Vector3 the tranformed direction 
+ *****************************************************************************/
+Vector3 Matrix4::transformDirection(const Vector3& direction) const {
+    return Vector3(
+    data[0][0] * direction.x + data[1][0] * direction.y + data[2][0] * direction.z,
+    data[0][1] * direction.x + data[1][1] * direction.y + data[2][1] * direction.z,
+    data[0][2] * direction.x + data[1][2] * direction.y + data[2][2] * direction.z
+    ).normalized();
+}
+
 
 std::ostream& operator<<(std::ostream& os, const Matrix4& m) {
   const float* data = m.getData();

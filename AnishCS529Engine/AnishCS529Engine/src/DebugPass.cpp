@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "DebugPass.h"
 
 void DebugPass::draw(std::shared_ptr<Mesh> mesh, GLenum mode,

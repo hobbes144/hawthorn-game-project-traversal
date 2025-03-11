@@ -1,3 +1,4 @@
+#include "precompiled.h"
 ///*!****************************************************************************
 // * \file   Renderer.cpp
 // * \author Anish Murthy (anish.murthy.dev@gmail.com)

@@ -8,6 +8,7 @@
  * \date   10-14-2024
  *
  *****************************************************************************/
+#include "precompiled.h"
 #include "Material.h"
 
 std::unordered_map<std::string, std::shared_ptr<Material>> Material::basicMaterials;

@@ -1,3 +1,4 @@
+#include "precompiled.h"
 ///*!****************************************************************************
 // * \file   TrianglePrimitive.cpp
 // * \author Anish Murthy (anish.murthy.dev@gmail.com)
