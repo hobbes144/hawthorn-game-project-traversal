@@ -88,6 +88,7 @@ public:
   std::shared_ptr<PhysicsBody> setVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setAcceleration(const Vector3& acc);
   std::shared_ptr<PhysicsBody> applyForce(const Vector3& f);
+  std::shared_ptr<PhysicsBody> applyImpulse(const Vector3& i);
   std::shared_ptr<PhysicsBody> setRotationalVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setRotationalAcceleration(const Vector3& acc);
   std::shared_ptr<PhysicsBody> applyRotationalForce(const Vector3& f);

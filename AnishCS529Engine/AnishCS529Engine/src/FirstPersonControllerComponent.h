@@ -66,7 +66,7 @@ public:
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
         walkForce(10.0f), maxWalkSpeed(5.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        jumpForce(100),
+        jumpForce(1000),
         mouseSensitivity(0.001f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f)
         {}

@@ -91,7 +91,11 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	//Handle Jumping
 	bool canJump = (isGrounded || lastTimeGrounded < coyoteTime) && (lastTimeJumpPressed < jumpBufferTime);
 	if (canJump) {
-        physicsBody->applyForce(Vector3(0.0f, jumpForce * 100, 0.0f));
+        physicsBody->applyImpulse(Vector3(0.0f, jumpForce, 0.0f));
+
+		// Prevent multiple jumps until grounded again
+		lastTimeJumpPressed = jumpBufferTime + 1.0f;
+		lastTimeGrounded = coyoteTime + 1.0f;
 	}
 
 }

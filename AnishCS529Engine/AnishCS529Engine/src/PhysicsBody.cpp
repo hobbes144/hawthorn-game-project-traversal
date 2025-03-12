@@ -116,6 +116,18 @@ std::shared_ptr<PhysicsBody> PhysicsBody::applyForce(const Vector3& f) {
   return shared_from_this();
 }
 
+std::shared_ptr<PhysicsBody> PhysicsBody::applyImpulse(const Vector3& i)
+{
+    if (mass == 0.0f) return shared_from_this();
+
+    Vector3 modifier = (i / mass);
+    Vector3 newVelocity = velocity + modifier;
+
+    velocity = newVelocity;
+
+    return shared_from_this();
+}
+
 std::shared_ptr<PhysicsBody> PhysicsBody::setRotationalVelocity(const Vector3& vel)
 {
   rotationalVelocity = vel;
