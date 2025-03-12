@@ -39,8 +39,11 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	Vector3 rightVector = camera->getRightVector();
 	Vector3 lateralMotionVector = rightVector * lateralMotion;
 	//Combine Forward and Lateral Movement and Apply Force
-	Vector3 movementVector = (forwardMotionVector + lateralMotionVector).normalized() * movementForce;
-	physicsBody->applyForce(movementVector);
+	Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+	if (combinedMotionVector.magnitude() > 0) {
+		Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
+		physicsBody->applyForce(movementVector);
+	}
 	//Clamp Speed
 	Vector3 pbVelocity = physicsBody->getVelocity();
 	float pbVelocityMag = pbVelocity.magnitude();
@@ -96,6 +99,34 @@ void FirstPersonControllerComponent::shutdown()
 {
 }
 
+std::shared_ptr<FirstPersonControllerComponent> 
+	FirstPersonControllerComponent::setInputSystem(Input* _inputSystem)
+{
+	input = _inputSystem;
+	return shared_from_this();
+}
+
+std::shared_ptr<FirstPersonControllerComponent> 
+	FirstPersonControllerComponent::setPhysicsBody(PhysicsBody* _physicsBody)
+{
+	physicsBody = _physicsBody;
+	return shared_from_this();
+}
+
+std::shared_ptr<FirstPersonControllerComponent> 
+	FirstPersonControllerComponent::setBody(GameObject* _body)
+{
+	body = _body;
+	return shared_from_this();
+}
+
+std::shared_ptr<FirstPersonControllerComponent> 
+	FirstPersonControllerComponent::setCamera(Camera* _camera)
+{
+	camera = _camera;
+	return shared_from_this();
+}
+ 
 std::shared_ptr<FirstPersonControllerComponent> 
 	FirstPersonControllerComponent::setActionKey(Action _action, Key _key)
 {

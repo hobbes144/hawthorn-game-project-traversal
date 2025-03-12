@@ -22,6 +22,25 @@
 #include "GameObject.h"
 #include "PhysicsBody.h"
 
+/*!****************************************************************************
+ * \brief This is the First Person Contorller responsible for player movement,
+ * camera mouse movement, Jumping, Wall Running sliding, and Time Abilities
+ * 
+ * ## Pre - initialization calls :
+ *
+ * Need to initalizethe Input System, PhysicsBody, Body of the player, and a 
+ * pointer to the camera
+ * 
+ * std::shared_ptr<FirstPersonControllerComponent>
+ *      setInputSystem(Input* _inputSystem) { input = _inputSystem; }
+ *  std::shared_ptr<FirstPersonControllerComponent>
+ *      setPhysicsBody(PhysicsBody* _physicsBody) { physicsBody = _physicsBody; }
+ *  std::shared_ptr<FirstPersonControllerComponent>
+ *      setBody(GameObject* _body) { body = _body; }
+ *  std::shared_ptr<FirstPersonControllerComponent>
+ *      setCamera(Camera* _camera) { camera = _camera; }
+ * 
+ *****************************************************************************/
 class FirstPersonControllerComponent
     : public Component, public std::enable_shared_from_this<FirstPersonControllerComponent> {
 
@@ -59,13 +78,13 @@ public:
 
     //Setting up the componenet
     std::shared_ptr<FirstPersonControllerComponent>
-        setInputSystem(Input* _inputSystem) { input = _inputSystem; }
+        setInputSystem(Input* _inputSystem);
     std::shared_ptr<FirstPersonControllerComponent>
-        setPhysicsBody(PhysicsBody* _physicsBody) { physicsBody = _physicsBody; }
+        setPhysicsBody(PhysicsBody* _physicsBody);
     std::shared_ptr<FirstPersonControllerComponent>
-        setBody(GameObject* _body) { body = _body; }
+        setBody(GameObject* _body);
     std::shared_ptr<FirstPersonControllerComponent>
-        setCamera(Camera* _camera) { camera = _camera; }
+        setCamera(Camera* _camera);
 
     //Mapping the Actions to the Keys
     std::shared_ptr<FirstPersonControllerComponent>

@@ -70,6 +70,7 @@ constexpr Key KEY_F1 = GLFW_KEY_F1;
 constexpr Key KEY_F13 = GLFW_KEY_F13;
 constexpr Key KEY_LEFT_CONTROL = GLFW_KEY_LEFT_CONTROL;
 constexpr Key KEY_LEFT_ALT = GLFW_KEY_LEFT_ALT;
+constexpr Key KEY_LEFT_SHIFT = GLFW_KEY_LEFT_SHIFT;
 
 /*!****************************************************************************
  * \brief List of all keys supported by the engine

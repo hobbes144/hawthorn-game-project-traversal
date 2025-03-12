@@ -243,13 +243,13 @@ void Node::Rotate(float degrees, Vector3 axis)
     Matrix4 currentRotationMatrix = Matrix4::rotationXYZ(localTransform.getRotation());
 
     // Create a new rotation matrix around the given axis
-    Matrix4 rotationMatrix = Matrix4::CreateRotation(axis, radians); // Assumes this function exists
+    Matrix4 rotationMatrix = Matrix4::CreateRotation(axis, radians); 
 
     // Apply the rotation
     Matrix4 newRotationMatrix = rotationMatrix * currentRotationMatrix;
 
     // Convert the new rotation matrix back to Euler angles
-    Vector3 newEulerAngles = newRotationMatrix.toEulerAngles(); // You need to implement this
+    Vector3 newEulerAngles = newRotationMatrix.toEulerAngles();
 
     // Update the transform's rotation
     localTransform.setRotation(newEulerAngles);

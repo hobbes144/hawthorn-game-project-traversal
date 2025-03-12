@@ -396,6 +396,9 @@
     <ClCompile Include="src\FirstPersonControllerComponent.cpp">
       <Filter>Engine\Source Files\Systems\PhysicsSystem\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\FPCDemo.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
