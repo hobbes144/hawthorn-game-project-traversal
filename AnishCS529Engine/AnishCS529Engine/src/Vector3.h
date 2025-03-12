@@ -56,6 +56,7 @@ public:
     Vector3 normalized() const;
     Vector3 cross(const Vector3& other) const;
     Vector3 reciprocal() const;
+    Vector3 abs() const;
 
     std::vector<float> getData() const { return { x, y, z }; }
 

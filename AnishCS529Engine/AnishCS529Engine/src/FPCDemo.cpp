@@ -157,15 +157,34 @@ int main() {
     /* Camera setup */
 #pragma region Camera
 
-    auto camera = std::make_shared<Camera>("mainCamera");
-    camera->setPerspectiveProjection(
-      45.0f * 3.14159f / 180.0f,
-      mainWindow->getAspectRatio(),
-      0.1f,
-      5000.0f)
-        ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f))
-        ->setLocalRotation(Vector3(0.55f, 0.0f, 0.0f));
-    mainSceneGraph.addNode(camera);
+  auto camera = std::make_shared<Camera>("mainCamera");
+  camera->setPerspectiveProjection(
+    45.0f * 3.14159f / 180.0f,
+    mainWindow->getAspectRatio(),
+    0.1f,
+    5000.0f)
+    ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f))
+    ->setLocalRotation(Vector3(0.55f, 0.0f, 0.0f));
+  mainSceneGraph.addNode(camera);
+
+  auto cameraShape = std::make_shared<OBB>(
+      Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+      Vector3(0.5f, 0.5f, 0.5f));
+  camera->addComponent<PhysicsBody>()
+    ->setMass(10.0f)->setDrag(100.0f)->setAngularDrag(500.0f)
+    ->setShape(cameraShape)
+    //->setDebug(true)
+    ->registerToPhysicsManager(PhysicsManager::Instance());
+
+  auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
+    ->setAction(Movement3D::Up, KEY_R)
+    ->setAction(Movement3D::Down, KEY_F)
+    ->setAction(Movement3D::RollClockwise, KEY_LEFT)
+    ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
+    ->setAction(Movement3D::PitchClockwise, KEY_UP)
+    ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
+    ->setAction(Movement3D::YawClockwise, KEY_Q)
+    ->setAction(Movement3D::YawAntiClockwise, KEY_E);
 
 #pragma endregion
 

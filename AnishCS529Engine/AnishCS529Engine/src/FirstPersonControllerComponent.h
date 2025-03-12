@@ -64,11 +64,11 @@ public:
 
     FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
-        walkForce(1.0f), maxWalkSpeed(5.0f),
+        walkForce(10.0f), maxWalkSpeed(5.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        jumpForce(10),
+        jumpForce(100),
         mouseSensitivity(0.001f), pitchLimit(80),
-        coyoteTime(0.1f), jumpBufferTime(0.1f)
+        coyoteTime(0.1f), jumpBufferTime(0.2f)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -120,9 +120,9 @@ private:
 
     //Parkour Members
     float coyoteTime;
-    float lastTimeGrounded = 0.0f;
+    float lastTimeGrounded = coyoteTime+1;
     float jumpBufferTime;
-    float lastTimeJumpPressed = 0.0f;
+    float lastTimeJumpPressed = jumpBufferTime + 1;
 
     //Time Ability Members
 

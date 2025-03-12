@@ -26,17 +26,17 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	RaycastHit hitGround;
 	isGrounded = RaycastManager::Instance().Raycast(
 		Ray(body->getWorldTransform().getPosition(), -body->getUpVector()),
-		hitGround, (body->getLocalScaling().z / 2) + 0.25
+		hitGround, (body->getLocalScaling().z)*2 + 0.25
 	);
 
 	//---Applying Movement Force---
-	float movementForce = isSprinting ? runForce : walkForce;
+	float movementForce = (isSprinting ? runForce : walkForce) * 100;
 	float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
 	//Forward
-	Vector3 forwardVector = Vector3(camera->getForwardVector().x, 0.0f, camera->getForwardVector().z);
+	Vector3 forwardVector = body->getForwardVector();
 	Vector3 forwardMotionVector = forwardVector * forwardMotion;
 	//Lateral
-	Vector3 rightVector = camera->getRightVector();
+	Vector3 rightVector = body->getRightVector();
 	Vector3 lateralMotionVector = rightVector * lateralMotion;
 	//Combine Forward and Lateral Movement and Apply Force
 	Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
@@ -54,8 +54,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 	//-----Handling Camera Movement-----//
 	//Update Camera Position
-	float cameraHeight = 0.5f;
-	camera->setLocalPosition(body->getLocalPosition() + Vector3(0.0f, cameraHeight, 0.0f));
+	//float cameraHeight = 0.5f;
+	//camera->setLocalPosition(body->getLocalPosition() + Vector3(0.0f, cameraHeight, 0.0f));
 	//Get Mouse State Data
 	MouseState mouseState = input->getMouseState();
 	float mouseXDelta = 0.0f;
@@ -67,9 +67,9 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseSensitivity;
 	}
 	//Yaw Camera
-	camera->Rotate(mouseXDelta, Vector3(0,1,0));
+	//camera->Rotate(mouseXDelta, Vector3(0,1,0));
 	//Pitch Camera
-	camera->Rotate(mouseYDelta, camera->getRightVector());
+	//camera->Rotate(mouseYDelta, camera->getRightVector());
 	//Reset Mouse Delta
 	input->resetMouseDelta();
 
@@ -89,8 +89,9 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		lastTimeJumpPressed += deltaTime;
 	}
 	//Handle Jumping
-	if ((isGrounded || lastTimeGrounded < coyoteTime) && (lastTimeJumpPressed < jumpBufferTime)) {
-		physicsBody->applyForce(Vector3(0.0f, jumpForce, 0.0f));
+	bool canJump = (isGrounded || lastTimeGrounded < coyoteTime) && (lastTimeJumpPressed < jumpBufferTime);
+	if (canJump) {
+        physicsBody->applyForce(Vector3(0.0f, jumpForce * 100, 0.0f));
 	}
 
 }

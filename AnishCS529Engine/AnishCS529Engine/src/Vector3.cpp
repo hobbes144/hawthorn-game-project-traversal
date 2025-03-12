@@ -103,6 +103,11 @@ Vector3 Vector3::reciprocal() const
   );
 }
 
+Vector3 Vector3::abs() const
+{
+    return Vector3(std::abs(x), std::abs(y), std::abs(z));
+}
+
 std::ostream& operator<<(std::ostream& os, const Vector3& v) {
   os << std::fixed << std::setprecision(2) << "(" << v.x << ", " << v.y << ", " << v.z << ")";
   return os;

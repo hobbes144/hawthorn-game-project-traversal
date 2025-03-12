@@ -45,15 +45,29 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
     RaycastHit tempHit;
 
     // Convert the Ray to the Node's local space
-    Matrix4 worldToLocal = node->getWorldTransform().getInverseLocalMatrix();
+    Matrix4 worldToLocal = node->getLocalTransform().getInverseLocalMatrix();
     Ray localRay = ray.transformRay(worldToLocal);
+
+    //Scaling Factors of the Ray
+    Vector3 scaleX(worldToLocal[0][0], worldToLocal[1][0], worldToLocal[2][0]);
+    Vector3 scaleY(worldToLocal[0][1], worldToLocal[1][1], worldToLocal[2][1]);
+    Vector3 scaleZ(worldToLocal[0][2], worldToLocal[1][2], worldToLocal[2][2]);
+
+    float scaleFactorX = scaleX.magnitude();
+    float scaleFactorY = scaleY.magnitude();
+    float scaleFactorZ = scaleZ.magnitude();
+
+    float scaleFactor = ray.getDirection().abs().dot(Vector3(scaleFactorX, scaleFactorY, scaleFactorZ));
+    float localClosestHitDistance = scaleFactor * closeHitDistance;
 
     // If the node has a physics body, check for intersection
     auto gameObject = std::dynamic_pointer_cast<GameObject>(node);
     if (gameObject) {
         auto pbComp = gameObject->findComponent<PhysicsBody>();
         if (std::find(tagToIgnore.begin(), tagToIgnore.end(), gameObject->getTag()) == tagToIgnore.end() && pbComp) {
-            if (pbComp->getShape()->raycastIntersect(localRay, tempHit, closeHitDistance)) {
+            if (pbComp->getShape()->raycastIntersect(localRay, tempHit, localClosestHitDistance)) {
+
+                tempHit.distance /= scaleFactor;
 
                 // Only update if this is the closest hit
                 if (tempHit.distance < closeHitDistance) {
