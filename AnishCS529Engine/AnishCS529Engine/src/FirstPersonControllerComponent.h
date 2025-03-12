@@ -68,7 +68,8 @@ public:
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
         jumpForce(1000),
         mouseSensitivity(0.001f), pitchLimit(80),
-        coyoteTime(0.1f), jumpBufferTime(0.2f)
+        coyoteTime(0.1f), jumpBufferTime(0.2f),
+        slideCoolDown(5.0f)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -123,6 +124,8 @@ private:
     float lastTimeGrounded = coyoteTime+1;
     float jumpBufferTime;
     float lastTimeJumpPressed = jumpBufferTime + 1;
+    float slideCoolDown;
+    float slideCoolDownTimer = slideCoolDown + 1;
 
     //Time Ability Members
 
