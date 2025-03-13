@@ -9,8 +9,8 @@ public:
 
   Type getType() const override;
   void update(const Transform& transform) override;
-  Vector3 getFarthestExtent(const Vector3& direction) const override;
-  Vector3 getSurfacePoint(const Vector3& direction) const override;
+  Vector3 getFarthestExtent(const Vector3& direction) override;
+  Vector3 getSurfacePoint(const Vector3& direction) override;
   Vector3 getCenter() const;
   float getRadius() const;
 

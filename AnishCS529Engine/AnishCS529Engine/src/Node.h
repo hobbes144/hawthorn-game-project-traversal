@@ -54,6 +54,7 @@ public:
   virtual void removeNode(SharedNode node);
   virtual void reparent(SharedNode node);
   virtual void update(float deltaTime);
+  virtual void updateTransforms();
   virtual void worldToLocalSpace();
   virtual void localToWorldSpace();
   void addChild(SharedNode node);

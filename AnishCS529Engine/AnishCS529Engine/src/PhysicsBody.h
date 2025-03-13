@@ -70,7 +70,7 @@ public:
     velocity(0, 0, 0), acceleration(0, 0, 0), force(0, 0, 0),
     rotationalVelocity(0, 0, 0), rotationalAcceleration(0, 0, 0),
     rotationalForce(0, 0, 0),
-    restitution(0.5f), drag(0.3f), angularDrag(0.01f), isStatic(false) {}
+    restitution(0.5f), drag(0.3f), angularDrag(0.6f), isStatic(false) {}
   ~PhysicsBody() = default;
 
   /* Component functions */

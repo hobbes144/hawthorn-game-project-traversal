@@ -40,13 +40,14 @@ private:
 
     void update(float deltaTime) override {
       worldTransform = localTransform;
-      for (auto& child : children) {
+      /*for (auto& child : children) {
         child->update(deltaTime);
-      }
+      }*/
     }
   };
 
   std::shared_ptr<RootNode> root;
+  std::stack<std::shared_ptr<Node>> nodeUpdateStack;
 
   void drawNode(const std::shared_ptr<Node>& node, 
     const Matrix4& view, const Matrix4& projection) const;

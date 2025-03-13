@@ -43,10 +43,17 @@ void SceneGraph::update(float deltaTime) {
 }
 
 void SceneGraph::updateNode(const std::shared_ptr<Node>& node, float deltaTime) {
-  node->update(deltaTime);
-  for (auto child : node->getChildren()) {
-    updateNode(child, deltaTime);
+  nodeUpdateStack.push(node);
+  std::shared_ptr<Node> currNode;
+  while (nodeUpdateStack.size() > 0) {
+    currNode = nodeUpdateStack.top();
+    nodeUpdateStack.pop();
+    currNode->update(deltaTime);
+    for (auto child : currNode->getChildren()) {
+      nodeUpdateStack.push(child);
+    }
   }
+  
 }
 
 void SceneGraph::drawNode(const std::shared_ptr<Node>& node,

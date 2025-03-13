@@ -111,6 +111,21 @@ public:
     return result;
   }
 
+  // Axis 0 = x, 1 = y, 2 = z
+  Vector3 getAxis(int axis) {
+    switch (axis) {
+    case 0:
+      return *this * Vector3(1, 0, 0);
+      break;
+    case 1:
+      return *this * Vector3(0, 1, 0);
+      break;
+    case 2:
+      return *this * Vector3(0, 0, 1);
+      break;
+    }
+  }
+
   /*Matrix4 toRotationMatrix() {
     if (isRotationMatrix)
       return rotationMatrix;
