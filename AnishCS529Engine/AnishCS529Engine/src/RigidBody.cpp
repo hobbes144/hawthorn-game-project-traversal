@@ -174,11 +174,13 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		obj2->setWorldPosition(RB2Position + (correction * 2));
 		RB2->setVelocity(Vector3());
 		RB2->applyForce(impulse);
+		obj2->updateTransforms();
 	}
 	else if (RB2->getIsStatic()) {
 		obj1->setWorldPosition(RB1Position - (correction * 2));
 		RB1->setVelocity(Vector3());
 		RB1->applyForce(impulse);
+		obj1->updateTransforms();
 	}
 	else {
 		RB1->applyForce(-impulse);
@@ -189,6 +191,8 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 			RB1->updateShapePosition();
 			obj2->setWorldPosition(RB2Position + correction);
 			RB2->updateShapePosition();
+			obj1->updateTransforms();
+			obj2->updateTransforms();
 		}
 	}
 
