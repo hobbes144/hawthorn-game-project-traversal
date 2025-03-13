@@ -121,18 +121,21 @@ private:
     float mouseSensitivity;
     float pitchLimit;
 
-    //Parkour Members
+    //Jumping Members
     float coyoteTime;
     float lastTimeGrounded = coyoteTime+1;
     float jumpBufferTime;
     float lastTimeJumpPressed = jumpBufferTime + 1;
+    //Sliding Members
     float slideForce;
     Vector3 slideVector = Vector3();
     float slideCoolDown;
     float slideCoolDownTimer = slideCoolDown + 1;
+    //WallRunning Members
+
 
     //Time Ability Members
 
-    //Debuggin
+    //Debugging
     void debugCheck();
 };

@@ -130,18 +130,22 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (!isGrounded) {
 			//If Left is a Wall and moving left
 			if (isLeftWall && input->isKeyHeld(ActionKey[MoveLeft])) {
-
+				
+				playerState = WallRunning;
 			}
 			//If Right is a wall and moving right
 			else if (isRightWall && input->isKeyHeld(ActionKey[MoveRight])) {
-
+				
+				playerState = WallRunning;
 			}
 		}
 
 	}//End Free State
 	else if (playerState == WallRunning) {
 
-	}
+
+
+	}//End Wallrunning State
 	else if (playerState = Sliding) {
 
 		//Continue to Apply force?
@@ -154,7 +158,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			playerState = Free;
 		}
 
-	}
+	}//End Sliding State
 
 }
 
