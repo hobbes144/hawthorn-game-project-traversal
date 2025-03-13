@@ -362,8 +362,8 @@ void PhysicsBody::integrate(float deltaTime) {
       netFriction = Vector3(0.0f, 0.0f, 0.0f);
     }
 
-    acceleration = acceleration + (force + netFriction) * float(inverseMass);
-    velocity = velocity + (acceleration * deltaTime);
+    acceleration = acceleration + (force * float(inverseMass));
+    velocity = velocity + ((acceleration + (netFriction * 10.0f)) * deltaTime);
     deltaVelocity = velocity * deltaTime;
     if (deltaVelocity > 1e-6f) {
       parent->setWorldPosition(parentTransform.getPosition() + deltaVelocity);
@@ -381,7 +381,7 @@ void PhysicsBody::integrate(float deltaTime) {
     }
 
     // I added a mult to make this feel better without ridiculous values in Movement3D.
-    rotationalAcceleration = rotationalAcceleration + (rotationalForce * 10.0f * float(inverseMass));
+    rotationalAcceleration = rotationalAcceleration + (rotationalForce * float(inverseMass));
     rotationalVelocity = rotationalVelocity + ((rotationalAcceleration + (netRotationalFriction * 10.0f)) * deltaTime);
     deltaVelocity = rotationalVelocity * deltaTime;
     if (deltaVelocity > 1e-3f) {

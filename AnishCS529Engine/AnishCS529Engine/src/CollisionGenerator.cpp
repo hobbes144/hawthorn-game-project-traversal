@@ -93,24 +93,27 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
     }
   }
 
+  Vector3 projectedB = Vector3();
+
   // A0 axis
   // We calculate this separately so we can get the initial pen depth
+  projectedB[0] = (
+    bExtents[0] * R[0][0] +
+    bExtents[1] * R[0][1] +
+    bExtents[2] * R[0][2]);
+
   minPenDepth = penDepth = (aExtents[0] +
-      (
-        bExtents[0] * R[0][0] +
-        bExtents[1] * R[0][1] +
-        bExtents[2] * R[0][2]
-        )) - fabs(T[0]);
+      projectedB[0]) - fabs(T[0]);
   if (penDepth <= 1e-6f) return false;
 
   // A1 and A2 axes
   for (int i = 1; i < 3; i++) {
+    projectedB[i] = (
+      bExtents[0] * R[i][0] +
+      bExtents[1] * R[i][1] +
+      bExtents[2] * R[i][2]);
     penDepth = (aExtents[i] +
-      (
-        bExtents[0] * R[i][0] +
-        bExtents[1] * R[i][1] +
-        bExtents[2] * R[i][2]
-        )) - fabs(T[i]);
+      projectedB[i]) - fabs(T[i]);
     if (penDepth <= 1e-6f) return false;
     if (penDepth < minPenDepth) {
       minPenDepth = penDepth;
@@ -277,7 +280,7 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
     }
   }
 
-  Vector3 correction = aExtents * (unprojT / (aExtents + bExtents));
+  Vector3 correction = projectedB * (unprojT / (aExtents + projectedB));
 
   contact.point = boxA->getCenter() - correction;
 

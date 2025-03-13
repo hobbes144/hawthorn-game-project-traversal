@@ -147,7 +147,6 @@ int main() {
     ->registerToPhysicsManager(PhysicsManager::Instance());
 
   auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
-    ->setRotationalForce(100.0f)
     ->setAction(Movement3D::Forward, KEY_W)
     ->setAction(Movement3D::Back, KEY_S)
     ->setAction(Movement3D::Left, KEY_A)
@@ -318,7 +317,7 @@ int main() {
   // Create instances of bodies for boxes
   playerBox->addComponent<RigidBody>()
     ->usingGravity(false)
-    ->setMass(10.0f)->setDrag(100.0f)
+    ->setMass(10.0f)
     ->setShape(shape1)
     ->setDebug(isDebug)
     ->registerToPhysicsManager(PhysicsManager::Instance())
