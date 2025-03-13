@@ -141,12 +141,13 @@ int main() {
 
   auto cameraShape = std::make_shared<OBB>();
   camera->addComponent<PhysicsBody>()
-    ->setMass(10.0f)->setDrag(100.0f)->setAngularDrag(500.0f)
+    ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
     ->setShape(cameraShape)
     //->setDebug(true)
     ->registerToPhysicsManager(PhysicsManager::Instance());
 
   auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
+    ->setRotationalForce(100.0f)
     ->setAction(Movement3D::Forward, KEY_W)
     ->setAction(Movement3D::Back, KEY_S)
     ->setAction(Movement3D::Left, KEY_A)

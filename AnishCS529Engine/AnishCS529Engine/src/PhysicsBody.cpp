@@ -356,7 +356,7 @@ void PhysicsBody::integrate(float deltaTime) {
     Vector3 netFriction;
     Vector3 deltaVelocity;
     if (velocity.magnitude() > 1e-6f) {
-        netFriction = velocity.normalized() * velocity.magnitude() * float(-drag);
+        netFriction = velocity * float(-drag);
     }
     else {
       netFriction = Vector3(0.0f, 0.0f, 0.0f);
@@ -373,18 +373,18 @@ void PhysicsBody::integrate(float deltaTime) {
     }
 
     Vector3 netRotationalFriction;
-    if (rotationalVelocity.magnitude() > 1e-6f) {
-      netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * float(-angularDrag) / deltaTime;
+    if (rotationalVelocity.magnitude() > 1e-3f) {
+      netRotationalFriction = rotationalVelocity * float(-angularDrag);
     }
     else {
       netRotationalFriction = Vector3();
     }
 
     // I added a mult to make this feel better without ridiculous values in Movement3D.
-    rotationalAcceleration = rotationalAcceleration + ((rotationalForce * 10.0f) + netRotationalFriction) * float(inverseMass);
-    rotationalVelocity = rotationalVelocity + (rotationalAcceleration * deltaTime);
+    rotationalAcceleration = rotationalAcceleration + (rotationalForce * 10.0f * float(inverseMass));
+    rotationalVelocity = rotationalVelocity + ((rotationalAcceleration + (netRotationalFriction * 10.0f)) * deltaTime);
     deltaVelocity = rotationalVelocity * deltaTime;
-    if (deltaVelocity > 1e-6f) {
+    if (deltaVelocity > 1e-3f) {
       parent->setWorldRotation(parentTransform.getRotation() * Quaternion::fromEuler(deltaVelocity));
     }
     else {
