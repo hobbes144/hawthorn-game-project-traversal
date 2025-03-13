@@ -64,7 +64,7 @@ private:
   Matrix4 projectionMatrix;
   Matrix4 inverseViewMatrix;
   Vector3 oldPosition = Vector3();
-  Vector3 oldRotation = Vector3();
+  Quaternion oldRotation = Quaternion();
 
   Vector3 up;
   Vector3 front;

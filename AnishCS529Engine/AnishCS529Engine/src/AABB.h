@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include "EngineMath.h"
 #include "Camera.h"
 #include "DebugMaterial.h"
 #include "DebugPass.h"
@@ -27,7 +28,10 @@ public:
   ~AABB() = default;
 
   Type getType() const override;
-  void update(Transform& transform);
+  void update(const Transform& transform) override;
+  Vector3 getFarthestExtent(const Vector3& direction) const override;
+  Vector3 getSurfacePoint(const Vector3& direction) const override;
+  Vector3 getNormalAtVector(const Vector3& direction) const override;
   void debugDaw();
 
   Vector3  getMin()        const;

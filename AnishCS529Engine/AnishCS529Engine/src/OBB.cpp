@@ -2,8 +2,8 @@
 #include "OBB.h"
 
 
-OBB::OBB(const Vector3& center = Vector3(0, 0, 0),
-  const Vector3& halfExtents = Vector3(0.5f, 0.5f, 0.5f))
+OBB::OBB(const Vector3& center,
+  const Vector3& halfExtents)
   : localCenter(center), localHalfExtents(halfExtents),
   unscaledWorldCenter(center),
   worldCenter(center), worldHalfExtents(halfExtents) {
@@ -21,21 +21,16 @@ Shape::Type OBB::getType() const {
   return Type::OBB;
 }
 
-void OBB::update(Transform& transform) {
-  // Get the transform matrix once
-  unscaledWorldCenter = transform.getPosition();
-  worldCenter = transform.getPosition() * transform.getScaling();
-
+void OBB::update(const Transform& transform) {
   // Update orientation vectors using rotation only
   // We can get this directly from the transform's rotation
   Matrix4 transformMatrix = transform.getLocalMatrix();
-
-  // Todo: Figure out what this is for:
-  float angle = transform.getRotation().z; // For 2D we only need Z rotation
   
+  unscaledWorldCenter = transform.getPosition();
   worldAxes[0] = Vector3(transformMatrix.getElement(0, 0), transformMatrix.getElement(1, 0), transformMatrix.getElement(2, 0)).normalized();
   worldAxes[1] = Vector3(transformMatrix.getElement(0, 1), transformMatrix.getElement(1, 1), transformMatrix.getElement(2, 1)).normalized();
   worldAxes[2] = Vector3(transformMatrix.getElement(0, 2), transformMatrix.getElement(1, 2), transformMatrix.getElement(2, 2)).normalized();
+  worldCenter = localCenter + Vector3(transformMatrix.getElement(0, 3), transformMatrix.getElement(1, 3), transformMatrix.getElement(2, 3));
   worldRight = worldAxes[0];
   worldUp = worldAxes[1];
 
@@ -46,6 +41,75 @@ void OBB::update(Transform& transform) {
     localHalfExtents.y * std::abs(scale.y),
     localHalfExtents.z * std::abs(scale.z)
   );
+}
+
+Vector3 OBB::getFarthestExtent(const Vector3& direction) const {
+  Vector3 farthestPoint = Vector3();
+
+  for (int i = 0; i < 3; i++) {
+    float sign = worldAxes[i].dot(direction) > 0 ? 1.0f : -1.0f;
+    farthestPoint += sign * worldHalfExtents[i] * worldAxes[i];
+  }
+  return farthestPoint;
+}
+
+Vector3 OBB::getSurfacePoint(const Vector3& direction) const {
+  Vector3 localDir = Vector3(direction.dot(worldAxes[0]), direction.dot(worldAxes[1]), direction.dot(worldAxes[2]));
+
+  Vector3 localPoint = Vector3(
+      worldHalfExtents.x * EngineMath::clamp(localDir.x / abs(localDir.x), -1.0f, 1.0f),
+      worldHalfExtents.y * EngineMath::clamp(localDir.y / abs(localDir.y), -1.0f, 1.0f),
+      worldHalfExtents.z * EngineMath::clamp(localDir.z / abs(localDir.z), -1.0f, 1.0f)
+  );
+
+  // Convert back to world space
+  return worldCenter + localPoint.x * worldAxes[0] + localPoint.y * worldAxes[1] + localPoint.z * worldAxes[2];
+}
+  
+//  Vector3 support = Vector3();
+//  float point;
+//  float maxPoint = 0;
+//  int maxDirection;
+//  int sign = 0;
+//
+//  // Move along each principal axis in the direction that maximizes projection
+//  for (int i = 0; i < 3; i++) {
+//    point = direction.dot(worldAxes[i]) * worldHalfExtents[i];
+//    support[i] = point;
+//    if (fabs(point) > maxPoint) {
+//      maxPoint = fabs(point);
+//      maxDirection = i;
+//      sign = (point >= 0);
+//    }
+//  }
+//
+//  support[maxDirection] = worldHalfExtents[maxDirection] * (sign*2 - 1);
+//
+//  return support;
+//}
+
+Vector3 OBB::getNormalAtVector(const Vector3& direction) const
+{
+  float x = direction.dot(worldAxes[0]);
+  float y = direction.dot(worldAxes[1]);
+  float z = direction.dot(worldAxes[2]);
+
+  if (fabs(x) > fabs(y)) {
+    if (fabs(x) > fabs(z)) {
+      return worldAxes[0] * ((x >= 0) * 2 - 1);
+    }
+    else {
+      return worldAxes[2] * ((z >= 0) * 2 - 1);
+    }
+  }
+  else {
+    if (fabs(y) > fabs(z)) {
+      return worldAxes[1] * ((y >= 0) * 2 - 1);
+    }
+    else {
+      return worldAxes[2] * ((z >= 0) * 2 - 1);
+    }
+  }
 }
 
 void OBB::getCorners(Vector3 corners[4]) const {

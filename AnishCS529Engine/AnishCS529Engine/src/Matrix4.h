@@ -22,6 +22,7 @@
 
 #include "Vector3.h"
 #include "VectorTemplated.h"
+#include "Quaternion.h"
 
 /*!****************************************************************************
  * \brief Class that implements a custom 4x4 Matrix for use with OpenGL
@@ -55,7 +56,10 @@ public:
   // Multiplication: * Operator Overloads
   Matrix4 operator*(const float scalar) const;
   Matrix4 operator*(const Matrix4 &other);
-  Vector3 operator*(const Vector3 &vec) const;
+  Vector3 operator*(const Vector3& vec) const;
+  VectorTemplated<float, 4> operator*(const VectorTemplated<float,4>& vec) const;
+
+  //friend Quaternion operator*(const Matrix4&, const Quaternion&);
 
   float* operator[](int row);
   const float* operator[](int row) const;
@@ -76,6 +80,9 @@ public:
   static Matrix4 rotationZ(float angle);
   static Matrix4 rotationXYZ(float angleX, float angleY, float angleZ);
   static Matrix4 rotationXYZ(const Vector3 rotation);
+  static Matrix4 rotationZYX(float angleX, float angleY, float angleZ);
+  static Matrix4 rotationZYX(const Vector3 rotation);
+  static Matrix4 rotation(Quaternion rotation);
   static Matrix4 orthographic(
       const float left,
       const float right,

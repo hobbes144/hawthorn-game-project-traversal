@@ -6,11 +6,29 @@
 
 Vector3 Vector3::operator+(const Vector3& other) const
 {
-  return Vector3(x + other.x, y + other.y, z + other.z);
+  Vector3 result = Vector3(*this);
+  return result += other;
 }
 
 Vector3 Vector3::operator+(float scalar) const {
-  return Vector3(x + scalar, y + scalar, z + scalar);
+  Vector3 result = Vector3(*this);
+  return result += scalar;
+}
+
+Vector3& Vector3::operator+=(const Vector3& other)
+{
+  this->x += other.x;
+  this->y += other.y;
+  this->z += other.z;
+  return *this;
+}
+
+Vector3& Vector3::operator+=(float scalar)
+{
+  this->x += scalar;
+  this->y += scalar;
+  this->z += scalar;
+  return *this;
 }
 
 Vector3 Vector3::operator-(const Vector3& other) const
@@ -101,6 +119,51 @@ Vector3 Vector3::reciprocal() const
     y != 0.0f ? 1.0f / y : largeNumber,
     z != 0.0f ? 1.0f / z : largeNumber
   );
+}
+
+Vector3 Vector3::project(const Vector3& other) const
+{
+  return (
+      other * (this->dot(other) / other.magnitudSquared())
+    );
+}
+
+// Friend functions
+
+Vector3 operator+(float scalar, const Vector3& other)
+{
+  return other + scalar;
+}
+
+Vector3 operator-(float scalar, const Vector3& other)
+{
+  return other - scalar;
+}
+
+Vector3 operator*(float scalar, const Vector3& other)
+{
+  return other * scalar;
+}
+
+bool operator<(const Vector3& first, const Vector3& other)
+{
+  if (first.magnitudSquared() < other.magnitudSquared()) return true;
+  return false;
+}
+
+bool operator>(const Vector3& first, const Vector3& other)
+{
+  return other < first;
+}
+
+bool operator<=(const Vector3& first, const Vector3& other)
+{
+  return !(other < first);
+}
+
+bool operator>=(const Vector3& first, const Vector3& other)
+{
+  return !(first < other);
 }
 
 std::ostream& operator<<(std::ostream& os, const Vector3& v) {

@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="include\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="include\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="include\imgui\imgui.cpp" />
@@ -81,6 +82,7 @@
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
+    <ClInclude Include="EngineMath.h" />
     <ClInclude Include="src\FramerateController.inl">
       <FileType>Document</FileType>
     </ClInclude>
@@ -144,6 +146,7 @@
     <ClInclude Include="src\Movement3D.h" />
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\PointLight.h" />
+    <ClInclude Include="src\Quaternion.h" />
     <ClInclude Include="src\Ray.h" />
     <ClInclude Include="src\RaycastHit.h" />
     <ClInclude Include="src\RaycastManager.h" />

@@ -40,11 +40,11 @@ extern "C"
 
 void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
 
-	std::cout << "onMove\n";
+  std::cout << "onMove\n";
 
-	AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
+  AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
 
-	return;
+  return;
 
 }
 
@@ -130,6 +130,7 @@ int main() {
 #pragma region Camera
 
   auto camera = std::make_shared<Camera>("mainCamera");
+  mainSceneGraph.addNode(camera);
   camera->setPerspectiveProjection(
     45.0f * 3.14159f / 180.0f,
     mainWindow->getAspectRatio(),
@@ -137,11 +138,8 @@ int main() {
     5000.0f)
     ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f))
     ->setLocalRotation(Vector3(-0.55f, 0.0f, 0.0f));
-  mainSceneGraph.addNode(camera);
 
-  auto cameraShape = std::make_shared<OBB>(
-      Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-      Vector3(0.5f, 0.5f, 0.5f));
+  auto cameraShape = std::make_shared<OBB>();
   camera->addComponent<PhysicsBody>()
     ->setMass(10.0f)->setDrag(100.0f)->setAngularDrag(500.0f)
     ->setShape(cameraShape)
@@ -155,12 +153,12 @@ int main() {
     ->setAction(Movement3D::Right, KEY_D)
     ->setAction(Movement3D::Up, KEY_R)
     ->setAction(Movement3D::Down, KEY_F)
-    ->setAction(Movement3D::RollClockwise, KEY_LEFT)
-    ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
+    ->setAction(Movement3D::RollClockwise, KEY_Q)
+    ->setAction(Movement3D::RollAntiClockwise, KEY_E)
     ->setAction(Movement3D::PitchClockwise, KEY_UP)
     ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
-    ->setAction(Movement3D::YawClockwise, KEY_Q)
-    ->setAction(Movement3D::YawAntiClockwise, KEY_E);
+    ->setAction(Movement3D::YawClockwise, KEY_LEFT)
+    ->setAction(Movement3D::YawAntiClockwise, KEY_RIGHT);
 
 #pragma endregion
 
@@ -226,6 +224,8 @@ int main() {
   skyBoxMaterial->setProperty("objectId", 1);
 
   auto skyBox = std::make_shared<GameObject>("SkyBox");
+  mainSceneGraph.addNode(skyBox);
+
   skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
     ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
   auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
@@ -233,7 +233,6 @@ int main() {
     ->setCamera(camera)
     ->setMesh(sphereMesh)
     ->setMaterial(skyBoxMaterial);
-  mainSceneGraph.addNode(skyBox);
 
 #pragma endregion
 
@@ -244,57 +243,63 @@ int main() {
 #pragma region Map
   std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
   auto mapObject = std::make_shared<GameObject>("Map");
-  mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
-  mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+  mainSceneGraph.addNode(mapObject);
+
+  mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f))
+    ->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
   auto mapRenderComponent = mapObject->addComponent<Render2D>();
   mapRenderComponent->setCamera(camera)
     ->setMesh(mapMesh)
     ->setMaterial(floorMaterial);
-  mainSceneGraph.addNode(mapObject);
 
 #pragma endregion
 
 #pragma region Turret
   std::shared_ptr<Mesh> turretMesh = Mesh::loadMesh("media/Map/Turret.fbx");
   auto turretObject = std::make_shared<GameObject>("turret");
-  turretObject->setLocalPosition(Vector3(50.0f, 1.0f, 0.0f));
-  turretObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+  mainSceneGraph.addNode(turretObject);
+
+  turretObject->setLocalPosition(Vector3(50.0f, 1.0f, 0.0f))
+    ->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
   auto turretRenderComponent = turretObject->addComponent<Render2D>();
   turretRenderComponent->setCamera(camera)
     ->setMesh(turretMesh)
     ->setMaterial(brickMaterial);
-  mainSceneGraph.addNode(turretObject);
 #pragma endregion
 
 #pragma region Cannon
   std::shared_ptr<Mesh> cannonMesh = Mesh::loadMesh("media/Map/Cannon.fbx");
   auto cannonObject = std::make_shared<GameObject>("Cannon");
-  cannonObject->setLocalPosition(Vector3(-100.0f, 1.0f, 0.0f));
-  cannonObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
-  cannonObject->setLocalRotation(Vector3(0.0f, 0.0f, 135.0f));
+  mainSceneGraph.addNode(cannonObject);
+
+  cannonObject->setLocalPosition(Vector3(-100.0f, 1.0f, 0.0f))
+    ->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f))
+    ->setLocalRotation(Vector3(0.0f, 0.0f, 135.0f));
   auto cannonRenderComponent = cannonObject->addComponent<Render2D>();
   cannonRenderComponent->setCamera(camera)
     ->setMesh(cannonMesh)
     ->setMaterial(boxMaterial);
-  mainSceneGraph.addNode(cannonObject);
 #pragma endregion
 
 #pragma region Cannonball
   std::shared_ptr<Mesh> cannonballMesh = Mesh::loadMesh("media/Map/Cannonball.fbx");
   auto cannonballObject = std::make_shared<GameObject>("Cannonball");
-  cannonballObject->setLocalPosition(Vector3(-80.0f, 1.0f, 70.0f));
-  cannonballObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+  cannonballObject->setLocalPosition(Vector3(-80.0f, 1.0f, 70.0f))
+    ->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+  mainSceneGraph.addNode(cannonballObject);
   auto cannonballRenderComponent = cannonballObject->addComponent<Render2D>();
   cannonballRenderComponent->setCamera(camera)
     ->setMesh(cannonballMesh)
     ->setMaterial(floorMaterial);
-  mainSceneGraph.addNode(cannonballObject);
 #pragma endregion
 
 #pragma region PlayerBox
 
-    auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
-  playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
+  auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
+  mainSceneGraph.addNode(playerBox);
+  gameObjects.push_back(playerBox);
+
+  playerBox->setLocalPosition(Vector3(1.0f, 2.0f, 0.0f))
     ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
@@ -306,14 +311,12 @@ int main() {
     ->setMaterial(cracksMaterial);
 
   //Create Shape
-  auto shape1 = std::make_shared<OBB>(
-  Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-  Vector3(0.5f, 0.5f, 0.5f));
+  auto shape1 = std::make_shared<OBB>();
   shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
   // Create instances of bodies for boxes
   playerBox->addComponent<RigidBody>()
-        ->usingGravity(false)
+    ->usingGravity(false)
     ->setMass(10.0f)->setDrag(100.0f)
     ->setShape(shape1)
     ->setDebug(isDebug)
@@ -324,23 +327,26 @@ int main() {
     ->setAction(Movement3D::Forward, KEY_I)
     ->setAction(Movement3D::Back, KEY_K)
     ->setAction(Movement3D::Left, KEY_J)
-    ->setAction(Movement3D::Right, KEY_L);
+    ->setAction(Movement3D::Right, KEY_L)
+    ->setAction(Movement3D::RollClockwise, KEY_U)
+    ->setAction(Movement3D::RollAntiClockwise, KEY_O);
 
   Movement3DListener playerMovementListener(playerBox);
   playerMovementListener.setCallback(onMove);
 
   EventManager::Instance().AddListener(&playerMovementListener);
-
-  mainSceneGraph.addNode(playerBox);
-  gameObjects.push_back(playerBox);
 #pragma endregion
 
 #pragma region DynamicBox
 
   auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-  dynamicBox->setLocalPosition(Vector3(-2.0f, 5.0f, -2.0f))
-        ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f))
-        ->setLocalRotation(Vector3(0,1,0));
+  playerBox->addChild(dynamicBox);
+  //mainSceneGraph.addNode(dynamicBox);
+  gameObjects.push_back(dynamicBox);
+
+  dynamicBox->setLocalPosition(Vector3(2.0f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f))
+    ->setLocalRotation(Vector3(.0f, .0f, .0f));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
   //Render Component
@@ -351,9 +357,7 @@ int main() {
     ->setMaterial(cracksMaterial);
 
   //Create Shape
-  auto dBoxShape = std::make_shared<OBB>(
-  Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-  Vector3(0.5f, 0.5f, 0.5f));
+  auto dBoxShape = std::make_shared<OBB>();
   dBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
   // Create instances of bodies for boxes
@@ -365,49 +369,47 @@ int main() {
     ->registerToPhysicsManager(PhysicsManager::Instance())
     ->initialize();
 
-	playerBox->addChild(dynamicBox);
-	gameObjects.push_back(dynamicBox);
-
 #pragma endregion
 
 #pragma region StaticBox
 
-	auto staticBox = std::make_shared<GameObject>("StaticBox");
-	staticBox->setLocalPosition(Vector3(-2.0f, 1.0f, 3.0f))
-		->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
-	// Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
+  auto staticBox = std::make_shared<GameObject>("StaticBox");
+  mainSceneGraph.addNode(staticBox);
+  gameObjects.push_back(staticBox);
 
-	//Render Component
-	auto staticBoxRenderComponent = staticBox->addComponent<Render2D>();
-	staticBoxRenderComponent
-		->setCamera(camera)
-		->setMesh(boxMesh)
-		->setMaterial(cracksMaterial);
+  staticBox->setLocalPosition(Vector3(-2.0f, 1.0f, 3.0f))
+    ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+  // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
-	//Create Shape
-	auto sBoxShape = std::make_shared<OBB>(
-	Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-	Vector3(0.5f, 0.5f, 0.5f));
-	sBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+  //Render Component
+  auto staticBoxRenderComponent = staticBox->addComponent<Render2D>();
+  staticBoxRenderComponent
+    ->setCamera(camera)
+    ->setMesh(boxMesh)
+    ->setMaterial(cracksMaterial);
 
-	// Create instances of bodies for boxes
-	staticBox->addComponent<RigidBody>()
-		->usingGravity(false)
-		->setMass(10.0f)->setDrag(100.0f)
-		->setShape(sBoxShape)
-		->setStatic(true)
-		->setDebug(isDebug)
-		->registerToPhysicsManager(PhysicsManager::Instance())
-		->initialize();
+  //Create Shape
+  auto sBoxShape = std::make_shared<OBB>();
+  sBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
-	mainSceneGraph.addNode(staticBox);
-	gameObjects.push_back(staticBox);
+  // Create instances of bodies for boxes
+  staticBox->addComponent<RigidBody>()
+    ->usingGravity(false)
+    ->setMass(10.0f)->setDrag(100.0f)
+    ->setShape(sBoxShape)
+    ->setStatic(true)
+    ->setDebug(isDebug)
+    ->registerToPhysicsManager(PhysicsManager::Instance())
+    ->initialize();
 
 #pragma endregion
 
 #pragma region Floor
 
   auto floor = std::make_shared<GameObject>("Floor");
+  mainSceneGraph.addNode(floor);
+  gameObjects.push_back(floor);
+
   floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
     ->setLocalScaling(Vector3(10.0f, 0.05f, 10.0f));
 
@@ -417,9 +419,7 @@ int main() {
     ->setMesh(floorMesh)
     ->setMaterial(cracksMaterial);
 
-  auto shape2 = std::make_shared<OBB>(
-  Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-  Vector3(0.5f, 0.5f, 0.5f));
+  auto shape2 = std::make_shared<OBB>();
   shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
   floor->addComponent<RigidBody>()
@@ -430,54 +430,49 @@ int main() {
     ->registerToPhysicsManager(PhysicsManager::Instance())
     ->initialize();
 
-  mainSceneGraph.addNode(floor);
-  gameObjects.push_back(floor);
-
 #pragma endregion
 
 #pragma region Static Sound Box
 
-  auto soundBox = std::make_shared<GameObject>("SoundBox");
-  soundBox->setLocalPosition(Vector3(0.0f, 1.0f, 0.0f))
-    ->setLocalScaling(Vector3(0.5f, 0.5f, 0.5f));
-  // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
+  //auto soundBox = std::make_shared<GameObject>("SoundBox");
+  //mainSceneGraph.addNode(soundBox);
+  //gameObjects.push_back(soundBox);
 
-  //Render Component
-  auto soundBoxRenderComponent = soundBox->addComponent<Render2D>();
-  soundBoxRenderComponent
-    ->setCamera(camera)
-    ->setMesh(boxMesh)
-    ->setMaterial(cracksMaterial);
+  //soundBox->setLocalPosition(Vector3(0.0f, 1.0f, 0.0f))
+  //  ->setLocalScaling(Vector3(0.5f, 0.5f, 0.5f));
+  //// Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
-  //Create Shape
-  auto soundBoxShape = std::make_shared<OBB>(
-  Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-  Vector3(0.5f, 0.5f, 0.5f));
-  soundBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+  ////Render Component
+  //auto soundBoxRenderComponent = soundBox->addComponent<Render2D>();
+  //soundBoxRenderComponent
+  //  ->setCamera(camera)
+  //  ->setMesh(boxMesh)
+  //  ->setMaterial(cracksMaterial);
 
-  // Create instances of bodies for boxes
-  soundBox->addComponent<RigidBody>()
-    ->setMass(10.0f)->setDrag(100.0f)
-    ->setShape(soundBoxShape)
-    ->setDebug(isDebug)
-    ->registerToPhysicsManager(PhysicsManager::Instance())
-    ->initialize();
+  ////Create Shape
+  //auto soundBoxShape = std::make_shared<OBB>();
+  //soundBoxShape->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
-  mainSceneGraph.addNode(soundBox);
-  gameObjects.push_back(soundBox);
+  //// Create instances of bodies for boxes
+  //soundBox->addComponent<RigidBody>()
+  //  ->setMass(10.0f)->setDrag(100.0f)
+  //  ->setShape(soundBoxShape)
+  //  ->setDebug(isDebug)
+  //  ->registerToPhysicsManager(PhysicsManager::Instance())
+  //  ->initialize();
 
-  AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.7f);
+  //AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.7f);
 
 #pragma endregion
 
-	float angleX = 0.0f;
-	float angleY = 0.0f;
-	float angleZ = 0.0f;
-	float speed = 10.0f;
-	float deltaTime = 0.0f;
-	int expectedFrameRate = 60; // 1000;
-	mainFramerateController->setTargetFramerate(expectedFrameRate);
-	mainSceneGraph.printSceneTree();
+  float angleX = 0.0f;
+  float angleY = 0.0f;
+  float angleZ = 0.0f;
+  float speed = 10.0f;
+  float deltaTime = 0.0f;
+  int expectedFrameRate = 60; // 1000;
+  mainFramerateController->setTargetFramerate(expectedFrameRate);
+  mainSceneGraph.printSceneTree();
 
   float affineCounter = 0.0f;
   float affineSpeed = 0.5f;
@@ -504,15 +499,15 @@ int main() {
       mainFramerateController->consumePhysicsTime();
     }
 
-    //Affine Demonstration
-    affineCounter += 0.1f;
-    float t = 0.5f * (sinf(affineCounter * affineSpeed) + 1.0f);
-    Vector3 affineCurrPos = affinePosStart + (affinePosEnd - affinePosStart) * t;
-    soundBox.get()->setLocalPosition(affineCurrPos);
-    Vector3 affineCurrRot = affineRotStart + (affineRotEnd - affineRotStart) * t;
-    soundBox.get()->setLocalRotation(affineCurrRot);
-    Vector3 affineCurrScl = affineSclStart + (affineSclEnd - affineSclStart) * t;
-    soundBox.get()->setLocalScaling(affineCurrScl);
+    ////Affine Demonstration
+    //affineCounter += 0.1f;
+    //float t = 0.5f * (sinf(affineCounter * affineSpeed) + 1.0f);
+    //Vector3 affineCurrPos = affinePosStart + (affinePosEnd - affinePosStart) * t;
+    //soundBox.get()->setLocalPosition(affineCurrPos);
+    //Vector3 affineCurrRot = affineRotStart + (affineRotEnd - affineRotStart) * t;
+    //soundBox.get()->setLocalRotation(affineCurrRot);
+    //Vector3 affineCurrScl = affineSclStart + (affineSclEnd - affineSclStart) * t;
+    //soundBox.get()->setLocalScaling(affineCurrScl);
 
     //Audio Update
     AudioManager::instance().update();
@@ -527,21 +522,21 @@ int main() {
       AudioManager::instance().stopSound("radio");
     }
 
-        //Raycast Testing
-        if (mainInput->isKeyPressed(KEY_SPACE)) {
-            Vector3 rayOrigin = playerBox->getWorldTransform().getPosition();
-            Vector3 rayDirection = Vector3(1,0,0);
+    //Raycast Testing
+    if (mainInput->isKeyPressed(KEY_SPACE)) {
+      Vector3 rayOrigin = playerBox->getWorldTransform().getPosition();
+      Vector3 rayDirection = Vector3(1, 0, 0);
 
-            Ray testRay(rayOrigin, rayDirection);
-            RaycastHit hit;
+      Ray testRay(rayOrigin, rayDirection);
+      RaycastHit hit;
 
-            if (RaycastManager::Raycast(testRay, &mainSceneGraph, hit, 100.0f, { GameObject::Tag::SYSTEM })) {
-                std::cout << "Ray hit at: " << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << std::endl;
-            }
-            else {
-                std::cout << "Ray missed!\n";
-            }
-        }
+      if (RaycastManager::Raycast(testRay, &mainSceneGraph, hit, 100.0f, { GameObject::Tag::SYSTEM })) {
+        std::cout << "Ray hit at: " << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << std::endl;
+      }
+      else {
+        std::cout << "Ray missed!\n";
+      }
+    }
 
     //Light Manipulation
     if (mainInput->isKeyHeld(KEY_T)) {
@@ -571,12 +566,12 @@ int main() {
     if (ImGui::BeginMainMenuBar()) {
       // This menu demonstrates how to provide the user a list of toggleable settings.
       if (ImGui::BeginMenu("Objects")) {
-        if (ImGui::MenuItem("Draw MovableBox", "", soundBox->isEnabled())) {
+        /*if (ImGui::MenuItem("Draw MovableBox", "", soundBox->isEnabled())) {
           if (soundBox->isEnabled())
             soundBox->disable();
           else
             soundBox->enable();
-        }
+        }*/
         if (ImGui::MenuItem("Draw Textures", "", textureMode)) {
           if (textureMode) textureMode = 0;
           else textureMode = 1;

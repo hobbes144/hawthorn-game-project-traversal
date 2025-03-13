@@ -61,10 +61,12 @@ public:
 	std::shared_ptr<RigidBody> freezingRotationY(bool value);
 	std::shared_ptr<RigidBody> freezingRotationZ(bool value);
 	
+	float getElasticity() const { return elasticity; }
 
 private:
 	/** If it uses gravity */
 	bool useGravity;
+	float elasticity;
 	/** Used for collision detection of rigidbody */
 	CollisionListener* listener;
 	/** If it freezes position movement of x,y,z */
@@ -80,6 +82,5 @@ private:
 
 void onRBCollide(std::shared_ptr<GameObject> obj1,
 	std::shared_ptr<GameObject> obj2, const Vector3& point);
-Vector3 OBBandOBB(const std::shared_ptr<Shape> a, const std::shared_ptr<Shape> b);
 
 #endif // RIGIDBODY_H
