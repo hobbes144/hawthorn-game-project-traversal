@@ -68,9 +68,10 @@ public:
         walkForce(10.0f), maxWalkSpeed(5.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
         jumpForce(1000),
-        mouseSensitivity(0.001f), pitchLimit(80),
+        mouseSensitivity(100.0f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f),
-        slideForce(100), slideCoolDown(5.0f)
+        slideForce(100), slideCoolDown(5.0f),
+        wallRunSpeed(15), wallJumpForce(1000)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -120,6 +121,8 @@ private:
     //Player Mouse Members
     float mouseSensitivity;
     float pitchLimit;
+    float yawRotation = 0.0f;
+    float pitchRotation = 0.0;
 
     //Jumping Members
     float coyoteTime;
@@ -132,6 +135,12 @@ private:
     float slideCoolDown;
     float slideCoolDownTimer = slideCoolDown + 1;
     //WallRunning Members
+    bool isLeftWall = false;
+    bool isRightWall = false;
+    float wallRunSpeed;
+    float wallJumpForce;
+    Vector3 wallNormal = Vector3();
+    bool isWallRunning = false;
 
 
     //Time Ability Members

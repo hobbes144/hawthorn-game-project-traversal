@@ -243,7 +243,7 @@ void Node::Rotate(float degrees, Vector3 axis)
     Matrix4 currentRotationMatrix = Matrix4::rotationXYZ(localTransform.getRotation());
 
     // Create a new rotation matrix around the given axis
-    Matrix4 rotationMatrix = Matrix4::CreateRotation(axis, radians); 
+    Matrix4 rotationMatrix = Matrix4::rotationAxis(axis, radians); 
 
     // Apply the rotation
     Matrix4 newRotationMatrix = rotationMatrix * currentRotationMatrix;

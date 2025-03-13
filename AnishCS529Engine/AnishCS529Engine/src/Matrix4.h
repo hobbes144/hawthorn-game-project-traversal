@@ -92,29 +92,30 @@ public:
 
   Vector3 transformDirection(const Vector3& direction) const;
 
-  static Matrix4 CreateRotation(const Vector3& axis, float radians);
+  static Matrix4 rotationAxis(const Vector3& axis, float radians);
 
   Vector3 toEulerAngles() const {
-    Vector3 eulerAngles;
+      float R00 = data[0][0];
+      float R10 = data[1][0];
+      float R20 = data[2][0];
+      float R01 = data[0][1];
+      float R11 = data[1][1];
+      float R21 = data[2][1];
+      float R02 = data[0][2];
+      float R12 = data[1][2];
+      float R22 = data[2][2];
 
-    float sy = sqrt(data[0][0] * data[0][0] + data[1][0] * data[1][0]);
-    bool singular = sy < 1e-6; // Gimbal lock detection
+      // Calculate Yaw (around Y-axis)
+      float yaw = std::atan2(R10, R00);
 
-    if (!singular) {
-        eulerAngles.x = atan2(data[2][1], data[2][2]); // Roll (X)
-        eulerAngles.y = atan2(-data[2][0], sy); // Pitch (Y)
-        eulerAngles.z = atan2(data[1][0], data[0][0]); // Yaw (Z)
-    } else {
-        // Gimbal lock case: force roll to 0 and solve for pitch/yaw
-        eulerAngles.x = 0;
-        eulerAngles.y = atan2(-data[2][0], sy);
-        eulerAngles.z = atan2(-data[1][2], data[1][1]); // Use alternative roll equation
-    }
+      // Calculate Pitch (around X-axis)
+      float pitch = std::atan2(-R20, std::sqrt(R00 * R00 + R10 * R10));
 
-    // Convert to degrees
-    eulerAngles = eulerAngles * (180.0f / 3.1415926f);
+      // Calculate Roll (around Z-axis)
+      float roll = std::atan2(R21, R22);
 
-    return eulerAngles;
+      // Return the Euler angles as a Vector3 (yaw, pitch, roll)
+      return Vector3(yaw, pitch, roll);
 }
 
 

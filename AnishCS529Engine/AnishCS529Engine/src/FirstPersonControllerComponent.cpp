@@ -3,6 +3,7 @@
 #include "Ray.h"
 #include "RaycastHit.h"
 #include "RaycastManager.h"
+#include "RigidBody.h"
 
 void FirstPersonControllerComponent::initialize()
 {
@@ -17,8 +18,6 @@ void FirstPersonControllerComponent::initialize()
 
 void FirstPersonControllerComponent::update(float deltaTime)
 {
-
-	std::cout << "PlayerState: " << playerState << std::endl;
 
 	if (playerState == Free) {
 
@@ -57,10 +56,12 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			physicsBody->setVelocity(pbVelocity);
 		}
 
+		debugCheck();
+
 		//-----Handling Camera Movement-----//
 		//Update Camera Position
-		//float cameraHeight = 0.5f;
-		//camera->setLocalPosition(body->getLocalPosition() + Vector3(0.0f, cameraHeight, 0.0f));
+		float cameraHeight = 1.5f;
+		camera->setLocalPosition(body->getLocalPosition() + Vector3(0.0f, cameraHeight, 0.0f));
 		//Get Mouse State Data
 		MouseState mouseState = input->getMouseState();
 		float mouseXDelta = 0.0f;
@@ -71,10 +72,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (mouseState.deltaY != 0) {
 			mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseSensitivity;
 		}
-		//Yaw Camera
-		//camera->Rotate(mouseXDelta, Vector3(0,1,0));
-		//Pitch Camera
-		//camera->Rotate(mouseYDelta, camera->getRightVector());
+		//Update Rotate Body and Camera Values
+		physicsBody->applyRotationalForce(Vector3(0.0f, -mouseYDelta, 0.0f));
+		camera->findComponent<PhysicsBody>()->applyRotationalForce(Vector3(0.0f, -mouseXDelta, 0.0f));
+		camera->findComponent<PhysicsBody>()->applyRotationalForce(Vector3(-mouseYDelta, 0.0f, 0.0f));
 		//Reset Mouse Delta
 		input->resetMouseDelta();
 
@@ -93,7 +94,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		else {
 			lastTimeJumpPressed += deltaTime;
 		}
-		//Handle Jumping
+
+		//-----Handle Jumping-----//
 		bool canJump = (isGrounded || lastTimeGrounded < coyoteTime) && (lastTimeJumpPressed < jumpBufferTime);
 		if (canJump) {
 			physicsBody->applyImpulse(Vector3(0.0f, jumpForce, 0.0f));
@@ -121,29 +123,69 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		//Check Wall on Left
 		Ray leftRay = Ray(body->getLocalPosition(), -body->getRightVector());
 		RaycastHit leftWallHit;
-		bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 1.0f);
+		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 1.0f);
 		//Check Wall on Right
 		Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
 		RaycastHit rightWallHit;
-		bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 1.0f);
+		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 1.0f);
 		//If Not Grounded
 		if (!isGrounded) {
 			//If Left is a Wall and moving left
 			if (isLeftWall && input->isKeyHeld(ActionKey[MoveLeft])) {
-				
 				playerState = WallRunning;
+				wallNormal = leftWallHit.normal;
+				isWallRunning = true;
+				RigidBody* rb = static_cast<RigidBody*>(physicsBody);
+				rb->usingGravity(false);
 			}
 			//If Right is a wall and moving right
 			else if (isRightWall && input->isKeyHeld(ActionKey[MoveRight])) {
-				
 				playerState = WallRunning;
+				wallNormal = rightWallHit.normal;
+				isWallRunning = true;
+				RigidBody* rb = static_cast<RigidBody*>(physicsBody);
+				rb->usingGravity(false);
 			}
 		}
 
 	}//End Free State
 	else if (playerState == WallRunning) {
 
+		//Continue performing Wall Checks
+		Ray leftRay = Ray(body->getLocalPosition(), -body->getRightVector());
+		RaycastHit leftWallHit;
+		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 1.0f);
+		//Check Wall on Right
+		Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
+		RaycastHit rightWallHit;
+		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 1.0f);
 
+		//Get the direction to move along the wall in
+		Vector3 wallRunDirection = Vector3(0, 1, 0).cross(wallNormal);
+		if (wallRunDirection.dot(physicsBody->getVelocity()) < 0) {
+			wallRunDirection = -wallRunDirection; // Ensure correct movement direction
+		}
+
+		// Apply movement along the wall
+		physicsBody->setVelocity(wallRunDirection * wallRunSpeed);
+
+		//Jump Off of the Wall
+		if (input->isKeyPressed(ActionKey[Jump])) {
+			Vector3 jumpDirection = wallNormal * wallJumpForce + Vector3(0.0f, wallJumpForce, 0.0f);
+			physicsBody->applyImpulse(jumpDirection);
+
+			playerState = Free; // Exit wallrunning
+			RigidBody* rb = static_cast<RigidBody*>(physicsBody);
+			rb->usingGravity(true);
+		}
+
+		//Exit Wall Running if there is no more Wall
+		if ((!isLeftWall && !isRightWall) || isGrounded || input->isKeyHeld(ActionKey[MoveBackward])) {
+			playerState = Free;
+			isWallRunning = false;
+			RigidBody* rb = static_cast<RigidBody*>(physicsBody);
+			rb->usingGravity(true);
+		}
 
 	}//End Wallrunning State
 	else if (playerState = Sliding) {
