@@ -1,0 +1,4 @@
+# Format: ObjectName posX posY posZ scaleX scaleY scaleZ
+MainFloorLeft -4 0 0 8 1 8
+MainFloorRight 40 0 0 8 1 8
+WallRunWall 18 2.5 -4 30 8 1

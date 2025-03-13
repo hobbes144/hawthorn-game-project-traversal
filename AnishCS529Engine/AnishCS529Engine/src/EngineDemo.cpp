@@ -30,6 +30,7 @@
 #include "Ray.h"
 #include "RaycastHit.h"
 #include "RaycastManager.h"
+#include "MapLoader.h"
 
 extern "C"
 {
@@ -334,36 +335,10 @@ for (int i = 0; i < 9; ++i) {
 #pragma endregion
 */
 #pragma region wallrun
-// 1) Left pad
-{
-    auto mainFloorLeft = std::make_shared<GameObject>("MainFloorLeft");
-    mainFloorLeft->setLocalPosition(Vector3(-4.0f, 0.0f, 0.0f));
-    mainFloorLeft->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
-    auto renderComp = mainFloorLeft->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    mainSceneGraph.addNode(mainFloorLeft);
-}
 
-// Right pad
-{
-    auto mainFloorRight = std::make_shared<GameObject>("MainFloorRight");
-    mainFloorRight->setLocalPosition(Vector3(40.0f, 0.0f, 0.0f));
-    mainFloorRight->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
-    auto renderComp = mainFloorRight->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    mainSceneGraph.addNode(mainFloorRight);
-}
+  MapLoader::instance().loadMap(2, 0.0f, 0.0f, 0.0f, mainSceneGraph, camera, floorMesh, boxMaterial);
 
-// Wall for wall running
-{
-    auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
-    wallRunWall->setLocalPosition(Vector3(18.0f, 2.5f, -4.0f));
-    wallRunWall->setLocalScaling(Vector3(30.0f, 8.0f, 1.0f));
-    auto renderComp = wallRunWall->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    mainSceneGraph.addNode(wallRunWall);
-}
-
+  MapLoader::instance().loadMap(1, 0.0f, 0.0f, 30.0f, mainSceneGraph, camera, floorMesh, floorMaterial);
 #pragma endregion
 
  

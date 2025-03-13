@@ -42,6 +42,7 @@
     <ClCompile Include="RaycastHit.cpp" />
     <ClCompile Include="RaycastManager.cpp" />
     <ClCompile Include="src\DebugPass.cpp" />
+    <ClCompile Include="src\MapLoader.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
     <ClCompile Include="src\AmbientLight.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="src\DebugPass.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\MainTestMaterial.h" />
+    <ClInclude Include="src\MapLoader.h" />
     <ClInclude Include="src\Material.inl" />
     <ClInclude Include="src\InputOld.h" />
     <ClInclude Include="src\GameObject.h" />
