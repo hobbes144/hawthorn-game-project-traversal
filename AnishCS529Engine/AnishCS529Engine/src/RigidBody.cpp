@@ -169,8 +169,8 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 	}
 
 	if (RB && RB2) {
-		std::cout << "RBcollided between " << RB->getParent()->getName()
-			<< " and " << RB2->getParent()->getName() << std::endl;
+		//std::cout << "RBcollided between " << RB->getParent()->getName()
+		//	<< " and " << RB2->getParent()->getName() << std::endl;
 		Vector3 velocity = RB->getVelocity();
 		Vector3 negVelocity = Vector3(-RB->getVelocity().x,
 							  -RB->getVelocity().y, -RB->getVelocity().z);

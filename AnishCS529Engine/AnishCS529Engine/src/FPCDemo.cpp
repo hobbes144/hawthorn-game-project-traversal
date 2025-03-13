@@ -39,7 +39,7 @@ extern "C"
 }
 void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point) {
 
-    std::cout << "OnBoxCollision\n";
+    //std::cout << "OnBoxCollision\n";
 
     std::shared_ptr<GameObject> dynamic;
     std::shared_ptr<GameObject> player;
@@ -53,7 +53,7 @@ void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> 
         player = obj2;
     }
     else {
-        std::cout << "Neither is player Tank\n";
+        //std::cout << "Neither is player Tank\n";
         return;
     }
 
@@ -65,7 +65,7 @@ void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> 
 
 void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
 
-    std::cout << "onMove\n";
+    //std::cout << "onMove\n";
 
     AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
 
@@ -355,7 +355,9 @@ int main() {
         ->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
         ->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
         ->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
-        ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT);
+        ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
+        ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
+        ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9);
 
     Movement3DListener playerMovementListener(playerBox);
     playerMovementListener.setCallback(onMove);

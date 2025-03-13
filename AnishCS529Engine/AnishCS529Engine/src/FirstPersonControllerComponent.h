@@ -59,7 +59,8 @@ public:
         MoveBackward,
         Sprint,
         Jump,
-        Slide
+        Slide,
+        Debug
     };
 
     FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
@@ -69,7 +70,7 @@ public:
         jumpForce(1000),
         mouseSensitivity(0.001f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f),
-        slideCoolDown(5.0f)
+        slideForce(100), slideCoolDown(5.0f)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -90,6 +91,7 @@ public:
     //Mapping the Actions to the Keys
     std::shared_ptr<FirstPersonControllerComponent>
         setActionKey(Action _action, Key _key);
+
 
 
 private:
@@ -124,9 +126,13 @@ private:
     float lastTimeGrounded = coyoteTime+1;
     float jumpBufferTime;
     float lastTimeJumpPressed = jumpBufferTime + 1;
+    float slideForce;
+    Vector3 slideVector = Vector3();
     float slideCoolDown;
     float slideCoolDownTimer = slideCoolDown + 1;
 
     //Time Ability Members
 
+    //Debuggin
+    void debugCheck();
 };

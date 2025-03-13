@@ -18,6 +18,8 @@ void FirstPersonControllerComponent::initialize()
 void FirstPersonControllerComponent::update(float deltaTime)
 {
 
+	std::cout << "PlayerState: " << playerState << std::endl;
+
 	if (playerState == Free) {
 
 		//-----First Person Movement-----//
@@ -102,9 +104,55 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 
 		//-----Handle Sliding-----//
+		slideCoolDownTimer += 0.01;
+		if (slideCoolDownTimer >= slideCoolDown  && input->isKeyPressed(ActionKey[Slide])) {
+			//Reset Timer
+			slideCoolDownTimer = 0;
+			
+			//Apply a Slide Force
+			slideVector = combinedMotionVector * slideForce;
+			physicsBody->applyImpulse(slideVector);
+			
+			// Force Transition State
+			playerState = Sliding;
+		}
 
 		//-----WallRunning Check-----//
-		
+		//Check Wall on Left
+		Ray leftRay = Ray(body->getLocalPosition(), -body->getRightVector());
+		RaycastHit leftWallHit;
+		bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 1.0f);
+		//Check Wall on Right
+		Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
+		RaycastHit rightWallHit;
+		bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 1.0f);
+		//If Not Grounded
+		if (!isGrounded) {
+			//If Left is a Wall and moving left
+			if (isLeftWall && input->isKeyHeld(ActionKey[MoveLeft])) {
+
+			}
+			//If Right is a wall and moving right
+			else if (isRightWall && input->isKeyHeld(ActionKey[MoveRight])) {
+
+			}
+		}
+
+	}//End Free State
+	else if (playerState == WallRunning) {
+
+	}
+	else if (playerState = Sliding) {
+
+		//Continue to Apply force?
+		physicsBody->applyForce(slideVector);
+
+		//increment slide timer
+		slideCoolDownTimer += 0.01;
+
+		if (slideCoolDownTimer >= (slideCoolDown/2)) {
+			playerState = Free;
+		}
 
 	}
 
@@ -147,4 +195,13 @@ std::shared_ptr<FirstPersonControllerComponent>
 {
 	ActionKey[_action] = _key;
 	return shared_from_this();
+}
+
+void FirstPersonControllerComponent::debugCheck()
+{
+
+	if (input->isKeyPressed(ActionKey[Debug])) {
+		std::cout << "Here" << std::endl;
+	}
+
 }
