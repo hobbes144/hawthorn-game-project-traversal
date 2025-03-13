@@ -89,7 +89,7 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
   // Projections of B's axes on A:
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      R[i][j] = fabs(aAxes[i].dot(bAxes[j])) + 1e-6f; // Adding offset for when 0;
+      R[i][j] = fabs(aAxes[i].dot(bAxes[j])); // Adding offset for when 0;
     }
   }
 
@@ -101,7 +101,7 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
         bExtents[1] * R[0][1] +
         bExtents[2] * R[0][2]
         )) - fabs(T[0]);
-  if (penDepth <= 0) return false;
+  if (penDepth <= 1e-6f) return false;
 
   // A1 and A2 axes
   for (int i = 1; i < 3; i++) {
@@ -111,7 +111,7 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
         bExtents[1] * R[i][1] +
         bExtents[2] * R[i][2]
         )) - fabs(T[i]);
-    if (penDepth <= 0) return false;
+    if (penDepth <= 1e-6f) return false;
     if (penDepth < minPenDepth) {
       minPenDepth = penDepth;
       minPenAxis = i;
@@ -126,7 +126,7 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
           aExtents[1] * R[1][i] +
           aExtents[2] * R[2][i]
           )) - fabs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i]);
-    if (penDepth <= 0) return false;
+    if (penDepth <= 1e-6f) return false;
     if (penDepth < minPenDepth) {
       minPenDepth = penDepth;
       // B0 = 3, B1 = 4, B2 = 5
@@ -142,7 +142,7 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
       aExtents[1] * R[2][0] + aExtents[2] * R[1][0] +
       bExtents[1] * R[0][2] + bExtents[2] * R[0][1]
     ) - abs(T[2] * R[1][0] - T[1] * R[2][0]);
-    if (penDepth <= 0) return false;
+    if (penDepth <= 1e-6f) return false;
     if (penDepth < minPenDepth) {
       minPenDepth = penDepth;
       // A0xB0 = 6

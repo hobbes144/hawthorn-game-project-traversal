@@ -26,13 +26,14 @@ void OBB::update(const Transform& transform) {
   // We can get this directly from the transform's rotation
   Matrix4 transformMatrix = transform.getLocalMatrix();
   
-  unscaledWorldCenter = transform.getPosition();
-  worldAxes[0] = Vector3(transformMatrix.getElement(0, 0), transformMatrix.getElement(1, 0), transformMatrix.getElement(2, 0)).normalized();
-  worldAxes[1] = Vector3(transformMatrix.getElement(0, 1), transformMatrix.getElement(1, 1), transformMatrix.getElement(2, 1)).normalized();
-  worldAxes[2] = Vector3(transformMatrix.getElement(0, 2), transformMatrix.getElement(1, 2), transformMatrix.getElement(2, 2)).normalized();
+  unscaledWorldCenter = transform.getPosition() + localCenter;
   worldCenter = localCenter + Vector3(transformMatrix.getElement(0, 3), transformMatrix.getElement(1, 3), transformMatrix.getElement(2, 3));
-  worldRight = worldAxes[0];
-  worldUp = worldAxes[1];
+  //worldCenter = transform.getPosition() + (rotation * localCenter * transform.getScaling());
+
+  rotation = transform.getRotation();
+  worldAxes[0] = worldRight = rotation.getAxis(0);
+  worldAxes[1] = worldUp = rotation.getAxis(1);
+  worldAxes[2] = worldFront = rotation.getAxis(2);
 
   // Update half extents with scale
   Vector3 scale = transform.getScaling();
@@ -43,27 +44,33 @@ void OBB::update(const Transform& transform) {
   );
 }
 
-Vector3 OBB::getFarthestExtent(const Vector3& direction) const {
-  Vector3 farthestPoint = Vector3();
+Vector3 OBB::getFarthestExtent(const Vector3& direction) {
+  Vector3 farthestPoint;
 
-  for (int i = 0; i < 3; i++) {
-    float sign = worldAxes[i].dot(direction) > 0 ? 1.0f : -1.0f;
-    farthestPoint += sign * worldHalfExtents[i] * worldAxes[i];
-  }
+  Vector3 projectedPoint = rotation * direction;
+  Vector3 farthestDiagonal = Vector3(
+    worldHalfExtents[0] * ((projectedPoint[0] > 0) * 2 - 1),
+    worldHalfExtents[1] * ((projectedPoint[1] > 0) * 2 - 1),
+    worldHalfExtents[2] * ((projectedPoint[2] > 0) * 2 - 1)
+  );
+
+  Vector3 reprojectedDiagonal = rotation.inverse() * farthestDiagonal;
+
+  farthestPoint = direction * reprojectedDiagonal.dot(direction);
+
   return farthestPoint;
 }
 
-Vector3 OBB::getSurfacePoint(const Vector3& direction) const {
-  Vector3 localDir = Vector3(direction.dot(worldAxes[0]), direction.dot(worldAxes[1]), direction.dot(worldAxes[2]));
+Vector3 OBB::getSurfacePoint(const Vector3& direction) {
+  Vector3 surfacePoint;
 
-  Vector3 localPoint = Vector3(
-      worldHalfExtents.x * EngineMath::clamp(localDir.x / abs(localDir.x), -1.0f, 1.0f),
-      worldHalfExtents.y * EngineMath::clamp(localDir.y / abs(localDir.y), -1.0f, 1.0f),
-      worldHalfExtents.z * EngineMath::clamp(localDir.z / abs(localDir.z), -1.0f, 1.0f)
-  );
+  Vector3 projectedLengths = rotation * direction / worldHalfExtents;
+  int maxIndex = projectedLengths.abs().getMaxIndex();
+  float scaling = fabs(localHalfExtents[maxIndex] / (projectedLengths[maxIndex]));
 
-  // Convert back to world space
-  return worldCenter + localPoint.x * worldAxes[0] + localPoint.y * worldAxes[1] + localPoint.z * worldAxes[2];
+  surfacePoint = projectedLengths * scaling * (worldHalfExtents/localHalfExtents);
+
+  return surfacePoint;
 }
   
 //  Vector3 support = Vector3();
@@ -88,26 +95,24 @@ Vector3 OBB::getSurfacePoint(const Vector3& direction) const {
 //  return support;
 //}
 
-Vector3 OBB::getNormalAtVector(const Vector3& direction) const
+Vector3 OBB::getNormalAtVector(const Vector3& direction)
 {
-  float x = direction.dot(worldAxes[0]);
-  float y = direction.dot(worldAxes[1]);
-  float z = direction.dot(worldAxes[2]);
+  Vector3 projectedDirection = rotation * direction;
 
-  if (fabs(x) > fabs(y)) {
-    if (fabs(x) > fabs(z)) {
-      return worldAxes[0] * ((x >= 0) * 2 - 1);
+  if (fabs(projectedDirection.x) > fabs(projectedDirection.y)) {
+    if (fabs(projectedDirection.x) > fabs(projectedDirection.z)) {
+      return worldAxes[0] * ((projectedDirection.x >= 0) * 2 - 1);
     }
     else {
-      return worldAxes[2] * ((z >= 0) * 2 - 1);
+      return worldAxes[2] * ((projectedDirection.z >= 0) * 2 - 1);
     }
   }
   else {
-    if (fabs(y) > fabs(z)) {
-      return worldAxes[1] * ((y >= 0) * 2 - 1);
+    if (fabs(projectedDirection.y) > fabs(projectedDirection.z)) {
+      return worldAxes[1] * ((projectedDirection.y >= 0) * 2 - 1);
     }
     else {
-      return worldAxes[2] * ((z >= 0) * 2 - 1);
+      return worldAxes[2] * ((projectedDirection.z >= 0) * 2 - 1);
     }
   }
 }

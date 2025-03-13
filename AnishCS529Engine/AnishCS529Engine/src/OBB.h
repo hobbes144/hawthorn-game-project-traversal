@@ -28,9 +28,9 @@ public:
 
   Type getType() const override;
   void update(const Transform& transform) override;
-  Vector3 getFarthestExtent(const Vector3& direction) const override;
-  Vector3 getSurfacePoint(const Vector3& direction) const override;
-  Vector3 getNormalAtVector(const Vector3& direction) const override;
+  Vector3 getFarthestExtent(const Vector3& direction) override;
+  Vector3 getSurfacePoint(const Vector3& direction) override;
+  Vector3 getNormalAtVector(const Vector3& direction) override;
   void debugDaw();
 
   void getCorners(Vector3 corners[4]) const;
@@ -68,6 +68,8 @@ private:
   Vector3 worldRight;
   Vector3 worldUp;
   Vector3 worldFront;
+
+  Quaternion rotation;
 
   // debug properties
   std::shared_ptr<Mesh> debugMesh;

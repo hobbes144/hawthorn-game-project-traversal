@@ -48,6 +48,8 @@ public:
     Vector3 operator-() const;
     Vector3 operator*(float scalar) const;
     Vector3 operator*(const Vector3& other) const;
+    Vector3& operator*=(const Vector3& other);
+    Vector3& operator*=(float scalar);
     friend Vector3 operator*(float scalar, const Vector3& other);
     Vector3 operator/(float scalar) const;
     Vector3 operator/(const Vector3& other) const;
@@ -68,6 +70,9 @@ public:
     Vector3 cross(const Vector3& other) const;
     Vector3 reciprocal() const;
     Vector3 project(const Vector3& other) const;
+
+    Vector3 abs() const;
+    int getMaxIndex() const;
 
     std::vector<float> getData() const { return { x, y, z }; }
 

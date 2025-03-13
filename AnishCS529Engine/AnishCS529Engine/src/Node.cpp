@@ -163,6 +163,8 @@ void Node::update(float deltaTime) {
   /* Todo: add other update logic here? */
   if (!parent) throw std::runtime_error("ERROR::NODE::UPDATE::NOPARENT");
 
+  updateTransforms();
+
   if (GameObject* obj = dynamic_cast<GameObject*>(this)) {
     obj->updateComponents(deltaTime);
   }
@@ -170,6 +172,20 @@ void Node::update(float deltaTime) {
   // Update all children
   for (auto& child : children) {
     child->update(deltaTime);
+  }
+}
+
+void Node::updateTransforms()
+{
+  if (isLocalSpace) {
+    worldTransform = parent->getWorldTransform() * localTransform;
+  }
+  else {
+    Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
+    localTransform.setPosition(parentWorldInv * worldTransform.getPosition());
+    localTransform.setRotation(worldTransform.getRotation().inverse() * parent->worldTransform.getRotation());
+    localTransform.setScaling(worldTransform.getScaling() * parent->worldTransform.getScaling().reciprocal());
+    isLocalSpace = true;
   }
 }
 
@@ -183,7 +199,6 @@ void Node::worldToLocalSpace() {
 
 void Node::localToWorldSpace() {
   worldTransform = (parent->worldTransform * localTransform);
-  isLocalSpace = false;
 }
 
 Vector3 Node::getLocalPosition() {
@@ -211,6 +226,7 @@ std::shared_ptr<Node> Node::setLocalTransform(Transform newTransform) {
 std::shared_ptr<Node> Node::setWorldTransform(Transform newTransform) {
   if (isLocalSpace)
     localToWorldSpace();
+  isLocalSpace = false;
   worldTransform = newTransform;
   return shared_from_this();
 }
@@ -243,24 +259,28 @@ std::shared_ptr<Node> Node::setLocalScaling(const Vector3& scaling) {
 std::shared_ptr<Node> Node::setWorldPosition(const Vector3& position) {
   if (isLocalSpace)
     localToWorldSpace();
+  isLocalSpace = false;
   worldTransform.setPosition(position);
   return shared_from_this();
 }
 std::shared_ptr<Node> Node::setWorldRotation(const Quaternion& rotation) {
   if (isLocalSpace)
     localToWorldSpace();
+  isLocalSpace = false;
   worldTransform.setRotation(rotation);
   return shared_from_this();
 }
 std::shared_ptr<Node> Node::setWorldRotation(const Vector3& rotation) {
   if (isLocalSpace)
     localToWorldSpace();
+  isLocalSpace = false;
   worldTransform.setRotation(rotation);
   return shared_from_this();
 }
 std::shared_ptr<Node> Node::setWorldScaling(const Vector3& scaling) {
   if (isLocalSpace)
     localToWorldSpace();
+  isLocalSpace = false;
   worldTransform.setScaling(scaling);
   return shared_from_this();
 }

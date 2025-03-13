@@ -299,8 +299,8 @@ int main() {
   mainSceneGraph.addNode(playerBox);
   gameObjects.push_back(playerBox);
 
-  playerBox->setLocalPosition(Vector3(1.0f, 2.0f, 0.0f))
-    ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+  playerBox->setLocalPosition(Vector3(1.0f, 2.0f, 0.0f));
+    //->setLocalScaling(Vector3(1.5f, 1.5f, 1.5f));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
   //Render Component
@@ -311,7 +311,7 @@ int main() {
     ->setMaterial(cracksMaterial);
 
   //Create Shape
-  auto shape1 = std::make_shared<OBB>();
+  auto shape1 = std::make_shared<OBB>(); // Vector3(0.5f, 0.5f, 0.0f));
   shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
   // Create instances of bodies for boxes
@@ -340,11 +340,11 @@ int main() {
 #pragma region DynamicBox
 
   auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-  playerBox->addChild(dynamicBox);
-  //mainSceneGraph.addNode(dynamicBox);
+  //playerBox->addChild(dynamicBox);
+  mainSceneGraph.addNode(dynamicBox);
   gameObjects.push_back(dynamicBox);
 
-  dynamicBox->setLocalPosition(Vector3(2.0f, 0.0f, 0.0f))
+  dynamicBox->setLocalPosition(Vector3(2.0f, 2.0f, 0.0f))
     ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f))
     ->setLocalRotation(Vector3(.0f, .0f, .0f));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
@@ -362,7 +362,7 @@ int main() {
 
   // Create instances of bodies for boxes
   dynamicBox->addComponent<RigidBody>()
-    ->usingGravity(false)
+    ->usingGravity(true)
     ->setMass(10.0f)->setDrag(100.0f)
     ->setShape(dBoxShape)
     ->setDebug(isDebug)

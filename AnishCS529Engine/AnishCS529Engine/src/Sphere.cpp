@@ -19,12 +19,12 @@ void Sphere::update(const Transform& transform) {
   radius *= maxScale;
 }
 
-Vector3 Sphere::getFarthestExtent(const Vector3& direction) const
+Vector3 Sphere::getFarthestExtent(const Vector3& direction)
 {
 	return direction * radius;
 }
 
-Vector3 Sphere::getSurfacePoint(const Vector3& direction) const
+Vector3 Sphere::getSurfacePoint(const Vector3& direction)
 {
 	return direction * radius;
 }

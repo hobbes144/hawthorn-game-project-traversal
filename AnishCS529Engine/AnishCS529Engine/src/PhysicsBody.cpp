@@ -354,7 +354,7 @@ void PhysicsBody::integrate(float deltaTime) {
   if (!isStatic) {
     Transform parentTransform = parent->getTransform();
     Vector3 netFriction;
-    if (velocity.magnitude() > 0) {
+    if (velocity.magnitude() > 1e-16f) {
         netFriction = velocity.normalized() * velocity.magnitude() * float(-drag);
     }
     else {
@@ -364,12 +364,15 @@ void PhysicsBody::integrate(float deltaTime) {
     acceleration = acceleration + (force + netFriction) * float(inverseMass);
     velocity = velocity + (acceleration * deltaTime);
 
-    if (velocity > Vector3()) {
+    if (velocity > 1e-16f) {
       parent->setWorldPosition(parentTransform.getPosition() + (velocity * deltaTime));
+    }
+    else {
+      velocity = Vector3();
     }
 
     Vector3 netRotationalFriction;
-    if (rotationalVelocity.magnitude() > 0) {
+    if (rotationalVelocity.magnitude() > 1e-16f) {
       netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * float(-angularDrag);
     }
     else {
@@ -378,8 +381,11 @@ void PhysicsBody::integrate(float deltaTime) {
 
     rotationalAcceleration = rotationalAcceleration + (rotationalForce + netRotationalFriction) * float(inverseMass);
     rotationalVelocity = rotationalVelocity + (rotationalAcceleration * deltaTime);
-    if (rotationalVelocity > Vector3()) {
+    if (rotationalVelocity > 1e-16f) {
       parent->setWorldRotation(parentTransform.getRotation() * Quaternion::fromEuler(rotationalVelocity * deltaTime));
+    }
+    else {
+      rotationalVelocity = Vector3();
     }
   }
 
