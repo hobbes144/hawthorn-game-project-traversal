@@ -362,7 +362,7 @@ int main() {
 
   // Create instances of bodies for boxes
   dynamicBox->addComponent<RigidBody>()
-    ->usingGravity(true)
+    ->usingGravity(false)
     ->setMass(10.0f)->setDrag(100.0f)
     ->setShape(dBoxShape)
     ->setDebug(isDebug)

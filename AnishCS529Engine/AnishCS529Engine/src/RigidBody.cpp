@@ -156,7 +156,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 	Vector3 correction = (RB1Extent - contactVector) * normal;
 
-	if (correction < Vector3(1e-16f)) {
+	if (correction < Vector3(1e-6f)) {
 		PhysicsManager::Instance().addHandledCollision(RB1, RB2);
 		return;
 	}
@@ -186,7 +186,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		RB1->applyForce(-impulse);
 		RB2->applyForce(impulse);
 
-		if (correction > Vector3(1e-16f)) {
+		if (correction > Vector3(1e-6f)) {
 			obj1->setWorldPosition(RB1Position - correction);
 			RB1->updateShapePosition();
 			obj2->setWorldPosition(RB2Position + correction);

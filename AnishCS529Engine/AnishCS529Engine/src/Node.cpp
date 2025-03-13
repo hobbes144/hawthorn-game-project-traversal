@@ -169,10 +169,10 @@ void Node::update(float deltaTime) {
     obj->updateComponents(deltaTime);
   }
 
-  // Update all children
-  for (auto& child : children) {
-    child->update(deltaTime);
-  }
+  //// Update all children
+  //for (auto& child : children) {
+  //  child->update(deltaTime);
+  //}
 }
 
 void Node::updateTransforms()

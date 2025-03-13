@@ -37,7 +37,7 @@ class Movement3D :
 
 public:
   Movement3D() :
-    force(2000.0f), rotationalForce(10.0f),
+    force(2000.0f), rotationalForce(2000.0f),
     inputSystem(nullptr), registeredActions({}) {}
   ~Movement3D() = default;
 

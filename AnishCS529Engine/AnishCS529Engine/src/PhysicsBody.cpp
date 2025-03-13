@@ -354,7 +354,8 @@ void PhysicsBody::integrate(float deltaTime) {
   if (!isStatic) {
     Transform parentTransform = parent->getTransform();
     Vector3 netFriction;
-    if (velocity.magnitude() > 1e-16f) {
+    Vector3 deltaVelocity;
+    if (velocity.magnitude() > 1e-6f) {
         netFriction = velocity.normalized() * velocity.magnitude() * float(-drag);
     }
     else {
@@ -363,26 +364,28 @@ void PhysicsBody::integrate(float deltaTime) {
 
     acceleration = acceleration + (force + netFriction) * float(inverseMass);
     velocity = velocity + (acceleration * deltaTime);
-
-    if (velocity > 1e-16f) {
-      parent->setWorldPosition(parentTransform.getPosition() + (velocity * deltaTime));
+    deltaVelocity = velocity * deltaTime;
+    if (deltaVelocity > 1e-6f) {
+      parent->setWorldPosition(parentTransform.getPosition() + deltaVelocity);
     }
     else {
       velocity = Vector3();
     }
 
     Vector3 netRotationalFriction;
-    if (rotationalVelocity.magnitude() > 1e-16f) {
-      netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * float(-angularDrag);
+    if (rotationalVelocity.magnitude() > 1e-6f) {
+      netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * float(-angularDrag) / deltaTime;
     }
     else {
       netRotationalFriction = Vector3();
     }
 
-    rotationalAcceleration = rotationalAcceleration + (rotationalForce + netRotationalFriction) * float(inverseMass);
+    // I added a mult to make this feel better without ridiculous values in Movement3D.
+    rotationalAcceleration = rotationalAcceleration + ((rotationalForce * 10.0f) + netRotationalFriction) * float(inverseMass);
     rotationalVelocity = rotationalVelocity + (rotationalAcceleration * deltaTime);
-    if (rotationalVelocity > 1e-16f) {
-      parent->setWorldRotation(parentTransform.getRotation() * Quaternion::fromEuler(rotationalVelocity * deltaTime));
+    deltaVelocity = rotationalVelocity * deltaTime;
+    if (deltaVelocity > 1e-6f) {
+      parent->setWorldRotation(parentTransform.getRotation() * Quaternion::fromEuler(deltaVelocity));
     }
     else {
       rotationalVelocity = Vector3();
@@ -392,6 +395,8 @@ void PhysicsBody::integrate(float deltaTime) {
   if (collisionShape) {
     collisionShape->update(parent->getWorldTransform());
   }
+
+  parent->updateTransforms();
 
   // Reset force accumulator
   force = Vector3(0, 0, 0);
