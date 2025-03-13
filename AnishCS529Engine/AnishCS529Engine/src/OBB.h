@@ -15,6 +15,7 @@
 #include "Camera.h"
 #include "DebugMaterial.h"
 #include "DebugPass.h"
+#include "EngineMath.h"
 #include "Mesh.h"
 #include "RenderGraph.h"
 #include "Shape.h"
@@ -22,11 +23,14 @@
 class OBB : public Shape
 {
 public:
-  OBB(const Vector3& center, const Vector3& halfExtents);
+  OBB(const Vector3& center = Vector3(0, 0, 0), const Vector3& halfExtents = Vector3(0.5f, 0.5f, 0.5f));
   ~OBB() = default;
 
   Type getType() const override;
-  void update(Transform& transform) override;
+  void update(const Transform& transform) override;
+  Vector3 getFarthestExtent(const Vector3& direction) const override;
+  Vector3 getSurfacePoint(const Vector3& direction) const override;
+  Vector3 getNormalAtVector(const Vector3& direction) const override;
   void debugDaw();
 
   void getCorners(Vector3 corners[4]) const;
@@ -50,7 +54,8 @@ private:
   // Local space values (original, unchanged)
   Vector3 localCenter;
   Vector3 localHalfExtents;
-  Vector3 localAxes[3];
+  Vector3 localScale;
+  Vector3 localAxes[3]; // unused
   Vector3 localRight;
   Vector3 localUp;
   Vector3 localFront;

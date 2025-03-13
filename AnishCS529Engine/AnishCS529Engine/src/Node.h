@@ -54,8 +54,8 @@ public:
   virtual void removeNode(SharedNode node);
   virtual void reparent(SharedNode node);
   virtual void update(float deltaTime);
-  void worldToLocalSpace();
-  void localToWorldSpace();
+  virtual void worldToLocalSpace();
+  virtual void localToWorldSpace();
   void addChild(SharedNode node);
   SharedNode findNode(unsigned int id);
   SharedNode findNodeFast(unsigned int id);
@@ -65,17 +65,36 @@ public:
   SharedNode getParent() const { return parent; }
   const ChildrenContainer& getChildren() const { return children; }
 
-  Matrix4 getTransformMatrix() const { 
-    return isLocalSpace ?
-      localTransform.getLocalMatrix() : 
-      worldTransform.getLocalMatrix();
+  Matrix4 getTransformMatrix() {
+    if (isLocalSpace)
+      localToWorldSpace();
+    return (worldTransform).getLocalMatrix();
   }
-  Transform getLocalTransform() const { return localTransform; }
-  Transform getWorldTransform() const { return worldTransform; }
 
-  Vector3 getLocalPosition() const { return localTransform.getPosition(); }
-  Vector3 getLocalRotation() const { return localTransform.getRotation(); }
-  Vector3 getLocalScaling() const { return localTransform.getScaling(); }
+  Transform getTransform() {
+    if (isLocalSpace)
+      localToWorldSpace();
+    return worldTransform;
+  }
+
+  Transform getLocalTransform() {
+    if (!isLocalSpace)
+      worldToLocalSpace();
+    return localTransform;
+  }
+
+  Transform getWorldTransform() {
+    if (isLocalSpace)
+      localToWorldSpace();
+    return worldTransform;
+  }
+
+  Vector3 getLocalPosition();
+  Quaternion getLocalRotation();
+  Vector3 getLocalScaling();
+
+  SharedNode setLocalTransform(Transform newTransform);
+  SharedNode setWorldTransform(Transform newTransform);
 
   Vector3 getForwardVector() const;
   Vector3 getRightVector() const;
@@ -83,9 +102,13 @@ public:
 
   SharedNode setLocalPosition(const Vector3& position);
   SharedNode setLocalRotation(const Vector3& rotation);
+  SharedNode setLocalRotation(const Quaternion& rotation);
   SharedNode setLocalScaling(const Vector3& scaling);
 
-  void Rotate(float degrees, Vector3 axis);
+  SharedNode setWorldPosition(const Vector3& position);
+  SharedNode setWorldRotation(const Quaternion& rotation);
+  SharedNode setWorldRotation(const Vector3& rotation);
+  SharedNode setWorldScaling(const Vector3& scaling);
 
 };
 

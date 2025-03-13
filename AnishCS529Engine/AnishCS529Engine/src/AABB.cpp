@@ -11,7 +11,7 @@ Shape::Type AABB::getType() const {
   return Type::AABB;
 }
 
-void AABB::update(Transform& transform) {
+void AABB::update(const Transform& transform) {
   // For 2D AABB, we only need 4 corners
   Vector3 corners[8] = {
       Vector3(localMin[0], localMin[1], localMin[2]), // Bottom-left-Front
@@ -38,6 +38,49 @@ void AABB::update(Transform& transform) {
     worldMax[0] = std::max(worldMax[0], transformed[0]);
     worldMax[1] = std::max(worldMax[1], transformed[1]);
     worldMax[2] = std::max(worldMax[2], transformed[2]);
+  }
+}
+
+Vector3 AABB::getFarthestExtent(const Vector3& direction) const
+{
+  Vector3 support = Vector3();
+  Vector3 worldHalfExtents = getHalfExtents();
+
+  support.x += direction.dot(Vector3(1, 0, 0)) * worldHalfExtents[0];
+  support.y += direction.dot(Vector3(0, 1, 0)) * worldHalfExtents[1];
+  support.z += direction.dot(Vector3(0, 0, 1)) * worldHalfExtents[2];
+
+  return support;
+}
+
+Vector3 AABB::getSurfacePoint(const Vector3& direction) const
+{
+  Vector3 worldHalfExtents = getHalfExtents();
+
+  return Vector3(
+      worldHalfExtents.x * EngineMath::clamp(direction.x / abs(direction.x), -1.0f, 1.0f),
+      worldHalfExtents.y * EngineMath::clamp(direction.y / abs(direction.y), -1.0f, 1.0f),
+      worldHalfExtents.z * EngineMath::clamp(direction.z / abs(direction.z), -1.0f, 1.0f)
+  );
+}
+
+Vector3 AABB::getNormalAtVector(const Vector3& direction) const
+{
+  if (fabs(direction.x) > fabs(direction.y)) {
+    if (fabs(direction.x) > fabs(direction.z)) {
+      return Vector3(1, 0, 0) * ((direction.x >= 0) * 2 - 1);
+    }
+    else {
+      return Vector3(0, 0, 1) * ((direction.z >= 0) * 2 - 1);
+    }
+  }
+  else {
+    if (fabs(direction.y) > fabs(direction.z)) {
+      return Vector3(0, 1, 0) * ((direction.y >= 0) * 2 - 1);
+    }
+    else {
+      return Vector3(0, 0, 1) * ((direction.z >= 0) * 2 - 1);
+    }
   }
 }
 

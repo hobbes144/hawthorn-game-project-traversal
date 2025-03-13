@@ -186,6 +186,18 @@ Vector3 Matrix4::operator*(const Vector3 &vec) const
   return Vector3(x, y, z);
 }
 
+VectorTemplated<float,4> Matrix4::operator*(const VectorTemplated<float,4>& vec) const
+{
+  float vectorData[4];
+  vectorData[0] = vec[0] * data[0][0] + vec[1] * data[1][0] + vec[2] * data[2][0] + vec[3] * data[3][0];
+  vectorData[1] = vec[0] * data[0][1] + vec[1] * data[1][1] + vec[2] * data[2][1] + vec[3] * data[3][1];
+  vectorData[2] = vec[0] * data[0][2] + vec[1] * data[1][2] + vec[2] * data[2][2] + vec[3] * data[3][2];
+  vectorData[3] = vec[0] * data[0][3] + vec[1] * data[1][3] + vec[2] * data[2][3] + vec[3] * data[3][3];
+
+
+  return VectorTemplated<float, 4>(vectorData);
+}
+
 float* Matrix4::operator[](int row)
 {
   return data[row];
@@ -347,6 +359,63 @@ Matrix4 Matrix4::rotationXYZ(const Vector3 rotation) {
     rotationX(rotation.x) * 
     rotationY(rotation.y) * 
     rotationZ(rotation.z);
+
+  return result;
+}
+
+/*!****************************************************************************
+ * \brief Static function to create a Rotation matrix in all 3 axis in reverse
+ * for inverse calc
+ *
+ * \param angleX Angle of rotation in the x axis.
+ * \param angleY Angle of rotation in the y axis.
+ * \param angleZ Angle of rotation in the z axis.
+ * \return \b Matrix4 The resulting Rotation matrix.
+ *****************************************************************************/
+Matrix4 Matrix4::rotationZYX(float angleX, float angleY, float angleZ) {
+  Matrix4 result =
+    rotationZ(angleX) *
+    rotationY(angleY) *
+    rotationX(angleZ);
+
+  return result;
+}
+
+/*!****************************************************************************
+ * \brief Static function to create a Rotation matrix in all 3 axis in reverse
+ * for inverse calc
+ *
+ * \param rotation Vector3 of Rotation in each axis.
+ * \return \b Matrix4 The resulting Rotation matrix.
+ *****************************************************************************/
+Matrix4 Matrix4::rotationZYX(const Vector3 rotation) {
+  Matrix4 result =
+    rotationZ(rotation.z) *
+    rotationY(rotation.y) *
+    rotationX(rotation.x);
+
+  return result;
+}
+
+/*!****************************************************************************
+ * \brief Static function to create a Rotation matrix in all 3 axis
+ *
+ * \param rotation Vector3 of Rotation in each axis.
+ * \return \b Matrix4 The resulting Rotation matrix.
+ *****************************************************************************/
+Matrix4 Matrix4::rotation(Quaternion rotation) {
+  Quaternion nQuaternion = rotation.normalized();
+  float qw = nQuaternion.w();
+  float qx = nQuaternion.x();
+  float qy = nQuaternion.y();
+  float qz = nQuaternion.z();
+  
+  Matrix4 result(
+    1.0f - 2.0f * qy * qy - 2.0f * qz * qz, 2.0f * qx * qy + 2.0f * qz * qw,        2.0f * qx * qz - 2.0f * qy * qw,        0.0f,
+    2.0f * qx * qy - 2.0f * qz * qw,        1.0f - 2.0f * qx * qx - 2.0f * qz * qz, 2.0f * qy * qz + 2.0f * qx * qw,        0.0f,
+    2.0f * qx * qz + 2.0f * qy * qw,        2.0f * qy * qz - 2.0f * qx * qw,        1.0f - 2.0f * qx * qx - 2.0f * qy * qy, 0.0f,
+    0.0f,                                   0.0f,                                   0.0f,                                   1.0f
+  );
 
   return result;
 }

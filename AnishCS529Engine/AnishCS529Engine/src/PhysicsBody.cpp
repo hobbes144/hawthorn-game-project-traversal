@@ -252,7 +252,16 @@ std::shared_ptr<PhysicsBody> PhysicsBody::setStatic(bool staticValue) {
  *****************************************************************************/
 std::shared_ptr<PhysicsBody> PhysicsBody::setShape(std::shared_ptr<Shape> newShape) {
   collisionShape = newShape;
+  collisionShape->update(parent->getWorldTransform());
 
+  return shared_from_this();
+}
+
+std::shared_ptr<PhysicsBody> PhysicsBody::updateShapePosition()
+{
+  if (collisionShape) {
+    collisionShape->update(parent->getWorldTransform());
+  }
   return shared_from_this();
 }
 
@@ -355,7 +364,7 @@ std::shared_ptr<PhysicsBody> PhysicsBody::setDebug(bool _debug)
 void PhysicsBody::integrate(float deltaTime) {
   if (!parent->isEnabled()) return;
   if (!isStatic) {
-
+    Transform parentTransform = parent->getTransform();
     Vector3 netFriction;
     if (velocity.magnitude() > 0) {
         netFriction = velocity.normalized() * velocity.magnitude() * float(-drag);
@@ -367,37 +376,27 @@ void PhysicsBody::integrate(float deltaTime) {
     acceleration = acceleration + (force + netFriction) * float(inverseMass);
     velocity = velocity + (acceleration * deltaTime);
 
-    Vector3 newPosition = parent->getLocalPosition() + (velocity * deltaTime);
-    parent->setLocalPosition(newPosition);
+    if (velocity > Vector3()) {
+      parent->setWorldPosition(parentTransform.getPosition() + (velocity * deltaTime));
+    }
 
     Vector3 netRotationalFriction;
     if (rotationalVelocity.magnitude() > 0) {
-        netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * float(-angularDrag);
+      netRotationalFriction = rotationalVelocity.normalized() * rotationalVelocity.magnitude() * float(-angularDrag);
     }
     else {
-      netRotationalFriction = Vector3(0.0f, 0.0f, 0.0f);
+      netRotationalFriction = Vector3();
     }
 
     rotationalAcceleration = rotationalAcceleration + (rotationalForce + netRotationalFriction) * float(inverseMass);
     rotationalVelocity = rotationalVelocity + (rotationalAcceleration * deltaTime);
-
-    Vector3 newRotation = parent->getLocalRotation() + (rotationalVelocity * deltaTime);
-    parent->setLocalRotation(newRotation);
+    if (rotationalVelocity > Vector3()) {
+      parent->setWorldRotation(parentTransform.getRotation() * Quaternion::fromEuler(rotationalVelocity * deltaTime));
+    }
   }
 
-  // Update collision shape
   if (collisionShape) {
-    // Since we don't have direct access to transform,
-    // we'll create a Transform object with the current state
-    Transform currentTransform;
-    currentTransform.setPosition(parent->getLocalPosition());
-    currentTransform.setRotation(parent->getLocalRotation());
-    currentTransform.setScaling(parent->getLocalScaling());
-
-    // TODO: What else do you have to update during the integration
-    // besides the parent's position?
-    // implement here ->:
-    collisionShape->update(currentTransform);
+    collisionShape->update(parent->getWorldTransform());
   }
 
   // Reset force accumulator

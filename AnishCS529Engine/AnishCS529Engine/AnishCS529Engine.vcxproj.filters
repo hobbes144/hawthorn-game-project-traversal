@@ -393,6 +393,9 @@
     <ClCompile Include="src\RaycastManager.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EngineMath.cpp">
+      <Filter>Engine\Source Files\Math</Filter>
+    </ClCompile>
     <ClCompile Include="src\FirstPersonControllerComponent.cpp">
       <Filter>Engine\Source Files\Systems\PhysicsSystem\Components</Filter>
     </ClCompile>
@@ -641,14 +644,29 @@
     <ClInclude Include="src\FramerateController.inl">
       <Filter>Engine\Source Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ray.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RaycastHit.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RaycastManager.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\FirstPersonControllerComponent.h">
       <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Ray.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Quaternion.h">
+      <Filter>Engine\Header Files\Math</Filter>
+    </ClInclude>
     <ClInclude Include="src\RaycastHit.h">
       <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMath.h">
+      <Filter>Engine\Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\RaycastManager.h">
       <Filter>Engine\Header Files</Filter>

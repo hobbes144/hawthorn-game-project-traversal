@@ -21,7 +21,10 @@ class SceneGraph {
 private:
   class RootNode : public Node {
   public:
-    RootNode() : Node("Root") {}
+    RootNode() : Node("Root") {
+      worldTransform = Transform();
+      localTransform = Transform();
+    }
     ~RootNode() override = default;
 
     void removeNode(SharedNode node) override {
@@ -32,8 +35,11 @@ private:
       throw std::runtime_error("ERROR::SCENEGRAPHvoid::ROOTNODE::REPARENTNODE::FORBIDDEN");
     }
 
+    void worldToLocalSpace() { isLocalSpace = true; }
+    void localToWorldSpace() { isLocalSpace = false; }
+
     void update(float deltaTime) override {
-      localTransform = localTransform;
+      worldTransform = localTransform;
       for (auto& child : children) {
         child->update(deltaTime);
       }
@@ -62,7 +68,7 @@ public:
   void printSceneTree();
 
   Vector3 getRootPosition() const { return root->getLocalPosition(); }
-  Vector3 getRootRotation() const { return root->getLocalRotation(); }
+  Quaternion getRootRotation() const { return root->getLocalRotation(); }
   Vector3 getRootScaling() const { return root->getLocalScaling(); }
 
   void setRootPosition(const Vector3& position) { root->setLocalPosition(position); }

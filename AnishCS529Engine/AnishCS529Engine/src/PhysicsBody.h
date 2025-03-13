@@ -97,6 +97,7 @@ public:
   std::shared_ptr<PhysicsBody> setAngularDrag(float f);
   std::shared_ptr<PhysicsBody> setStatic(bool staticValue);
   std::shared_ptr<PhysicsBody> setShape(std::shared_ptr<Shape> newShape);
+  std::shared_ptr<PhysicsBody> updateShapePosition();
   std::shared_ptr<PhysicsBody> setDebug(bool _debug);
   std::shared_ptr<PhysicsBody> reset();
 
