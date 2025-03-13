@@ -158,13 +158,13 @@ int main() {
 #pragma region Camera
 
   auto camera = std::make_shared<Camera>("mainCamera");
+  mainSceneGraph.addNode(camera);
   camera->setPerspectiveProjection(
     45.0f * 3.14159f / 180.0f,
     mainWindow->getAspectRatio(),
     0.1f,
     5000.0f)
       ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f));
-  mainSceneGraph.addNode(camera);
 
   auto cameraShape = std::make_shared<OBB>(
       Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
@@ -267,31 +267,32 @@ int main() {
 #pragma region Map
     std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
     auto mapObject = std::make_shared<GameObject>("Map");
+    mainSceneGraph.addNode(mapObject);
     mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
     mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
     auto mapRenderComponent = mapObject->addComponent<Render2D>();
     mapRenderComponent->setCamera(camera)
         ->setMesh(mapMesh)
         ->setMaterial(floorMaterial);
-    mainSceneGraph.addNode(mapObject);
 
 #pragma endregion
 
 #pragma region Turret
     std::shared_ptr<Mesh> turretMesh = Mesh::loadMesh("media/Map/Turret.fbx");
     auto turretObject = std::make_shared<GameObject>("turret");
+    mainSceneGraph.addNode(turretObject);
     turretObject->setLocalPosition(Vector3(50.0f, 1.0f, 0.0f));
     turretObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
     auto turretRenderComponent = turretObject->addComponent<Render2D>();
     turretRenderComponent->setCamera(camera)
         ->setMesh(turretMesh)
         ->setMaterial(brickMaterial);
-    mainSceneGraph.addNode(turretObject);
 #pragma endregion
 
 #pragma region Cannon
     std::shared_ptr<Mesh> cannonMesh = Mesh::loadMesh("media/Map/Cannon.fbx");
     auto cannonObject = std::make_shared<GameObject>("Cannon");
+    mainSceneGraph.addNode(cannonObject);
     cannonObject->setLocalPosition(Vector3(-100.0f, 1.0f, 0.0f));
     cannonObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
     cannonObject->setLocalRotation(Vector3(0.0f, 0.0f, 135.0f));
@@ -299,7 +300,6 @@ int main() {
     cannonRenderComponent->setCamera(camera)
         ->setMesh(cannonMesh)
         ->setMaterial(boxMaterial);
-    mainSceneGraph.addNode(cannonObject);
 #pragma endregion
 
 #pragma region Cannonball
@@ -317,6 +317,7 @@ int main() {
 #pragma region PlayerBox
 
     auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
+    mainSceneGraph.addNode(playerBox);
     playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
@@ -363,13 +364,13 @@ int main() {
 
     EventManager::Instance().AddListener(&playerMovementListener);
 
-    mainSceneGraph.addNode(playerBox);
     gameObjects.push_back(playerBox);
 #pragma endregion
 
 #pragma region DynamicBox
 
     auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
+    mainSceneGraph.addNode(dynamicBox);
     dynamicBox->setLocalPosition(Vector3(-2.0f, 5.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f))
         ->setLocalRotation(Vector3(0, 0, 0));
@@ -397,7 +398,6 @@ int main() {
         ->registerToPhysicsManager(PhysicsManager::Instance())
         ->initialize();
 
-    mainSceneGraph.addNode(dynamicBox);
     gameObjects.push_back(dynamicBox);
 
 #pragma endregion
@@ -405,6 +405,7 @@ int main() {
 #pragma region Floor
 
     auto floor = std::make_shared<GameObject>("Floor");
+    mainSceneGraph.addNode(floor);
     floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
         ->setLocalScaling(Vector3(10.0f, 0.05f, 10.0f));
 
@@ -427,7 +428,6 @@ int main() {
         ->registerToPhysicsManager(PhysicsManager::Instance())
         ->initialize();
 
-    mainSceneGraph.addNode(floor);
     gameObjects.push_back(floor);
 
 #pragma endregion
@@ -435,6 +435,7 @@ int main() {
 #pragma region Static Sound Box
 
     auto soundBox = std::make_shared<GameObject>("SoundBox");
+    mainSceneGraph.addNode(soundBox);
     soundBox->setLocalPosition(Vector3(0.0f, 1.0f, 0.0f))
         ->setLocalScaling(Vector3(0.5f, 0.5f, 0.5f));
     // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
@@ -460,7 +461,6 @@ int main() {
         ->registerToPhysicsManager(PhysicsManager::Instance())
         ->initialize();
 
-    mainSceneGraph.addNode(soundBox);
     gameObjects.push_back(soundBox);
 
     AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.7f);

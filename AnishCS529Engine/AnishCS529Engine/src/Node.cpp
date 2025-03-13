@@ -215,20 +215,24 @@ std::shared_ptr<Node> Node::setWorldTransform(Transform newTransform) {
   return shared_from_this();
 }
 
-Vector3 Node::getForwardVector() const
+Vector3 Node::getForwardVector()
 {
-    Matrix4 worldMatrix = getTransformMatrix();
-    return Vector3(worldMatrix[0][2], worldMatrix[1][2], worldMatrix[2][2]).normalized();
+    Vector3 forward = getTransform().getRotation() * Vector3(0.0f, 0.0f, -1.0f);
+    return forward;
 }
 
-Vector3 Node::getRightVector() const
+Vector3 Node::getRightVector()
 {
+    Vector3 right = getTransform().getRotation() * Vector3(1.0f, 0.0f, 0.0f);
+
     Matrix4 worldMatrix = getTransformMatrix();
     return Vector3(worldMatrix[0][0], worldMatrix[1][0], worldMatrix[2][0]).normalized();
 }
 
-Vector3 Node::getUpVector() const
+Vector3 Node::getUpVector()
 {
+    Vector3 up = getTransform().getRotation() * Vector3(0.0f, 1.0f, 0.0f);
+
     Matrix4 worldMatrix = getTransformMatrix();
     return Vector3(worldMatrix[0][1], worldMatrix[1][1], worldMatrix[2][1]).normalized();
 }
@@ -281,29 +285,6 @@ std::shared_ptr<Node> Node::setWorldScaling(const Vector3& scaling) {
     localToWorldSpace();
   worldTransform.setScaling(scaling);
   return shared_from_this();
-}
-
-void Node::Rotate(float degrees, Vector3 axis)
-{
-
-    // Convert degrees to radians
-    float radians = degrees * (3.1415926 / 180.0f);
-
-    // Convert current rotation to a rotation matrix
-    Matrix4 currentRotationMatrix = Matrix4::rotationXYZ(localTransform.getRotation());
-
-    // Create a new rotation matrix around the given axis
-    Matrix4 rotationMatrix = Matrix4::rotationAxis(axis, radians); 
-
-    // Apply the rotation
-    Matrix4 newRotationMatrix = rotationMatrix * currentRotationMatrix;
-
-    // Convert the new rotation matrix back to Euler angles
-    Vector3 newEulerAngles = newRotationMatrix.toEulerAngles();
-
-    // Update the transform's rotation
-    localTransform.setRotation(newEulerAngles);
-
 }
 
 /*!****************************************************************************

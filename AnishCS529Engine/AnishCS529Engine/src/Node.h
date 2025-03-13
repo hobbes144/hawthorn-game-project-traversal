@@ -96,9 +96,9 @@ public:
   SharedNode setLocalTransform(Transform newTransform);
   SharedNode setWorldTransform(Transform newTransform);
 
-  Vector3 getForwardVector() const;
-  Vector3 getRightVector() const;
-  Vector3 getUpVector() const;
+  Vector3 getForwardVector();
+  Vector3 getRightVector();
+  Vector3 getUpVector();
 
   SharedNode setLocalPosition(const Vector3& position);
   SharedNode setLocalRotation(const Vector3& rotation);
