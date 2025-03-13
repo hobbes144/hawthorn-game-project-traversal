@@ -340,8 +340,8 @@ int main() {
 #pragma region DynamicBox
 
   auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-  //playerBox->addChild(dynamicBox);
-  mainSceneGraph.addNode(dynamicBox);
+  playerBox->addChild(dynamicBox);
+  //mainSceneGraph.addNode(dynamicBox);
   gameObjects.push_back(dynamicBox);
 
   dynamicBox->setLocalPosition(Vector3(2.0f, 2.0f, 0.0f))

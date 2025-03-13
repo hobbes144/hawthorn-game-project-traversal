@@ -181,24 +181,24 @@ void Node::updateTransforms()
     worldTransform = parent->getWorldTransform() * localTransform;
   }
   else {
-    Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
-    localTransform.setPosition(parentWorldInv * worldTransform.getPosition());
-    localTransform.setRotation(worldTransform.getRotation().inverse() * parent->worldTransform.getRotation());
-    localTransform.setScaling(worldTransform.getScaling() * parent->worldTransform.getScaling().reciprocal());
+    Transform parentWorldTransform = parent->getWorldTransform();
+    localTransform.setPosition(parentWorldTransform.getInverseLocalMatrix() * worldTransform.getPosition());
+    localTransform.setRotation(worldTransform.getRotation().inverse() * parentWorldTransform.getRotation());
+    localTransform.setScaling(worldTransform.getScaling() * parentWorldTransform.getScaling().reciprocal());
     isLocalSpace = true;
   }
 }
 
 void Node::worldToLocalSpace() {
-  Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
-  localTransform.setPosition(parentWorldInv * worldTransform.getPosition());
-  localTransform.setRotation(parent->worldTransform.getRotation().inverse() * worldTransform.getRotation());
-  localTransform.setScaling(worldTransform.getScaling() * parent->worldTransform.getScaling().reciprocal());
+  Transform parentWorldTransform = parent->getWorldTransform();
+  localTransform.setPosition(parentWorldTransform.getInverseLocalMatrix() * worldTransform.getPosition());
+  localTransform.setRotation(parentWorldTransform.getRotation().inverse() * worldTransform.getRotation());
+  localTransform.setScaling(worldTransform.getScaling() * parentWorldTransform.getScaling().reciprocal());
   isLocalSpace = true;
 }
 
 void Node::localToWorldSpace() {
-  worldTransform = (parent->worldTransform * localTransform);
+  worldTransform = (parent->getWorldTransform() * localTransform);
 }
 
 Vector3 Node::getLocalPosition() {

@@ -162,7 +162,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 	}
 
 	Vector3 impulse =
-		(RB1->getVelocity() - RB2->getVelocity()) *
+		(RB1->getVelocity() - RB2->getVelocity()) * normal *
 		(1 + e) *
 		(
 			(RB1->getMass() * RB2->getMass())
