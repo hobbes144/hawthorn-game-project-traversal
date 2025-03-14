@@ -240,17 +240,13 @@ Vector3 Node::getForwardVector()
 Vector3 Node::getRightVector()
 {
     Vector3 right = getTransform().getRotation() * Vector3(1.0f, 0.0f, 0.0f);
-
-    Matrix4 worldMatrix = getTransformMatrix();
-    return Vector3(worldMatrix[0][0], worldMatrix[1][0], worldMatrix[2][0]).normalized();
+    return right;
 }
 
 Vector3 Node::getUpVector()
 {
     Vector3 up = getTransform().getRotation() * Vector3(0.0f, 1.0f, 0.0f);
-
-    Matrix4 worldMatrix = getTransformMatrix();
-    return Vector3(worldMatrix[0][1], worldMatrix[1][1], worldMatrix[2][1]).normalized();
+    return up;
 }
 
 std::shared_ptr<Node> Node::setLocalPosition(const Vector3& position) {

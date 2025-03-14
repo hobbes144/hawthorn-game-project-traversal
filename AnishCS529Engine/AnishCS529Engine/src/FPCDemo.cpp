@@ -91,8 +91,8 @@ int main() {
     mainRenderer->initialize();
     mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
 
+    /* IMGUI Init */
     ImGui::CreateContext();
-
     ImGui_ImplGlfw_InitForOpenGL(mainWindow->getNativeWindow(), true);
     ImGui_ImplOpenGL3_Init();
 
@@ -134,9 +134,6 @@ int main() {
     FFramerateController* mainFramerateController =
         FFramerateController::getController();
 
-#pragma endregion
-
-
     /* Audio System Initalization */
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
@@ -154,7 +151,8 @@ int main() {
     /* Raycast Manager Setup */
     RaycastManager::Instance().setSceneGraph(&mainSceneGraph);
 
-    /* Camera setup */
+#pragma endregion
+
 #pragma region Camera
 
   auto camera = std::make_shared<Camera>("mainCamera");
@@ -342,9 +340,8 @@ int main() {
         ->setShape(shape1)
         ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance());
-
     playerBoxPB->initialize();
-
+    
     auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
         ->setInputSystem(mainInput)
         ->setPhysicsBody(playerBoxPB.get())
@@ -358,10 +355,12 @@ int main() {
         ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
         ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
         ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9);
+    
 
+
+    //On Move Callback 
     Movement3DListener playerMovementListener(playerBox);
     playerMovementListener.setCallback(onMove);
-
     EventManager::Instance().AddListener(&playerMovementListener);
 
     gameObjects.push_back(playerBox);
@@ -400,6 +399,9 @@ int main() {
 
     gameObjects.push_back(dynamicBox);
 
+    CollisionListener boxTouch(dynamicBox);
+    boxTouch.setCallback(onBoxCollide);
+
 #pragma endregion
 
 #pragma region Floor
@@ -407,7 +409,7 @@ int main() {
     auto floor = std::make_shared<GameObject>("Floor");
     mainSceneGraph.addNode(floor);
     floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
-        ->setLocalScaling(Vector3(10.0f, 0.05f, 10.0f));
+        ->setLocalScaling(Vector3(20.0f, 0.05f, 20.0f));
 
     auto box2RenderComponent = floor->addComponent<Render2D>();
     box2RenderComponent
@@ -467,9 +469,7 @@ int main() {
 
 #pragma endregion
 
-    CollisionListener boxTouch(dynamicBox);
-    boxTouch.setCallback(onBoxCollide);
-
+    /* Main Loop Variables */
     float angleX = 0.0f;
     float angleY = 0.0f;
     float angleZ = 0.0f;
@@ -479,6 +479,7 @@ int main() {
     mainFramerateController->setTargetFramerate(expectedFrameRate);
     mainSceneGraph.printSceneTree();
 
+    /* Affine Transformation Variables */
     float affineCounter = 0.0f;
     float affineSpeed = 0.5f;
     Vector3 affinePosStart = Vector3(-10.0f, 0.75f, 10.0f);
@@ -488,13 +489,17 @@ int main() {
     Vector3 affineSclStart = Vector3(0.5, 0.5, 0.5);
     Vector3 affineSclEnd = Vector3(0.6, 0.6, 0.6);
 
+    /* Main Loop */
     while (!mainWindow->getShouldClose()) {
         //std::cout << "\nloop restart at time " << framerateController->getTime() << "\n\n";
 
         mainRenderer->clear();
         mainFramerateController->startFrame();              // record the time from frame start
 
+        //Update the Input Manager
         mainInput->update();
+        
+        //If Escape is Pressed Exit Loop
         if (mainInput->isKeyHeld(KEY_ESCAPE))
             break;
 
@@ -517,9 +522,6 @@ int main() {
         //Audio Update
         AudioManager::instance().update();
         AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
-        /*if (mainInput->isKeyPressed(KEY_SPACE)) {
-          AudioManager::instance().playSound("pew");
-        }*/
         if (mainInput->isKeyPressed(KEY_V)) {
             AudioManager::instance().togglePlaybackSpeed(0.7f);
         }

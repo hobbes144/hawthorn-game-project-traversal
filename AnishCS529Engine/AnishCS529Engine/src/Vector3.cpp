@@ -193,11 +193,6 @@ bool operator>=(const Vector3& first, const Vector3& other)
   return !(first < other);
 }
 
-Vector3 Vector3::abs() const
-{
-    return Vector3(std::abs(x), std::abs(y), std::abs(z));
-}
-
 std::ostream& operator<<(std::ostream& os, const Vector3& v) {
   os << std::fixed << std::setprecision(2) << "(" << v.x << ", " << v.y << ", " << v.z << ")";
   return os;

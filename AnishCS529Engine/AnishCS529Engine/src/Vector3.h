@@ -72,7 +72,6 @@ public:
     Vector3 project(const Vector3& other) const;
     Vector3 abs() const;
 
-    Vector3 abs() const;
     int getMaxIndex() const;
 
     std::vector<float> getData() const { return { x, y, z }; }

@@ -61,7 +61,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		//-----Handling Camera Movement-----//
 		//Update Camera Position
 		float cameraHeight = 1.5f;
-		camera->setLocalPosition(body->getLocalPosition() + Vector3(0.0f, cameraHeight, 0.0f));
+		//camera->setLocalPosition(body->getLocalPosition() + Vector3(0.0f, cameraHeight, 0.0f));
 		//Get Mouse State Data
 		MouseState mouseState = input->getMouseState();
 		float mouseXDelta = 0.0f;
@@ -73,18 +73,9 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseSensitivity;
 		}
 		//Rotate Body
-		Quaternion bodyRotation = body->getLocalRotation();
-		float horizontalRotation = -mouseXDelta;  // Use the mouseXDelta to rotate around Y-axis (Horizontal)
-		bodyRotation = bodyRotation * Quaternion::fromEuler(0.0f, horizontalRotation, 0.0f);
-		body->setLocalRotation(bodyRotation);
+		
 		//Rotate Camera
-		Quaternion cameraRotation = camera->getLocalRotation();
-		float verticalRotation = -mouseYDelta;
-		float currentPitch = cameraRotation.toEuler().x;
-		float newPitch = currentPitch + verticalRotation;
-		newPitch = std::clamp(newPitch, -89.0f, 89.0f);
-		cameraRotation = Quaternion::fromEuler(newPitch, 0.0f, 0.0f);
-		camera->setLocalRotation(cameraRotation);
+		
 		//Reset Mouse Delta
 		input->resetMouseDelta();
 
@@ -106,6 +97,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		//Apply Jump
 		bool canJump = (isGrounded || lastTimeGrounded < coyoteTime) && (lastTimeJumpPressed < jumpBufferTime);
 		if (canJump) {
+			//Apply Jump Force
 			physicsBody->applyImpulse(Vector3(0.0f, jumpForce, 0.0f));
 
 			// Prevent multiple jumps until grounded again
