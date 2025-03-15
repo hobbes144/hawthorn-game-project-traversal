@@ -183,7 +183,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(contactVector.normalized());
 		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
 
-		Vector3 correction = ((RB1Extent + RB2Extent) - contactVector).abs() * normal;
+		Vector3 correction = (RB1Extent - contactVector).abs() * normal;
 
 		Vector3 impulse =
 			(RB1->getVelocity() - RB2->getVelocity()) * normal *
@@ -211,7 +211,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(contactVector.normalized());
 		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
 
-		Vector3 correction = ( ( RB1Extent + RB2Extent ) - contactVector ).abs() * normal;
+		Vector3 correction = ( RB1Extent - contactVector ).abs() * normal;
 
 		Vector3 impulse =
 			( RB1->getVelocity() - RB2->getVelocity() ) * normal *
