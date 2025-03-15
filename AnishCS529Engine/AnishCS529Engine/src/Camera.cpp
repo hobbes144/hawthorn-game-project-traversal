@@ -26,9 +26,9 @@
   *
   *****************************************************************************/
 void Camera::updateViewMatrix() {
-  if (oldPosition != getLocalPosition() || oldRotation != getLocalRotation()) {
-    oldPosition = getLocalPosition();
-    oldRotation = getLocalRotation();
+  if (oldPosition != getWorldTransform().getPosition() || oldRotation != getWorldTransform().getRotation()) {
+    oldPosition = getWorldTransform().getPosition();
+    oldRotation = getWorldTransform().getRotation();
 
     // Extract basis vectors (Right, Up, Forward)
     Vector3 right = oldRotation * Vector3(1.0f, 0.0f, 0.0f);

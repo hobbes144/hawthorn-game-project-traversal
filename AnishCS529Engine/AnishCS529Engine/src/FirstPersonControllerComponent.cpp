@@ -59,23 +59,29 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		debugCheck();
 
 		//-----Handling Camera Movement-----//
-		//Update Camera Position
-		float cameraHeight = 1.5f;
-		//camera->setLocalPosition(body->getLocalPosition() + Vector3(0.0f, cameraHeight, 0.0f));
 		//Get Mouse State Data
 		MouseState mouseState = input->getMouseState();
 		float mouseXDelta = 0.0f;
 		float mouseYDelta = 0.0f;
 		if (mouseState.deltaX != 0) {
-			mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseSensitivity;
+			mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseXSensitivity;
 		}
 		if (mouseState.deltaY != 0) {
-			mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseSensitivity;
+			mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseYSensitivity;
 		}
+
+		debugCheck();
 		//Rotate Body
-		
+		physicsBody->applyRotationalForce(Vector3(0.0f, -mouseXDelta, 0.0f));
 		//Rotate Camera
-		
+		/*
+		Quaternion currentCameraRoation = camera->getLocalRotation();
+		Vector3 currentEuler = currentCameraRoation.toEuler();
+		float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
+		newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
+		Quaternion newCameraRotaion = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
+		camera->setLocalRotation(newCameraRotaion);
+		*/
 		//Reset Mouse Delta
 		input->resetMouseDelta();
 

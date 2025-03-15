@@ -153,22 +153,42 @@ int main() {
 
 #pragma endregion
 
+    // Drawable objects
+    int isDebug = 0;
+    std::vector<std::shared_ptr<GameObject>> gameObjects;
+
+#pragma region Initalizations
+
+    auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
+    mainSceneGraph.addNode(playerBox);
+
+    auto camera = std::make_shared<Camera>("mainCamera");
+    playerBox->addChild(camera);
+    //mainSceneGraph.addNode(camera);
+
+    auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
+    //playerBox->addChild(dynamicBox);
+    mainSceneGraph.addNode(dynamicBox);
+
+#pragma endregion
+
 #pragma region Camera
 
-  auto camera = std::make_shared<Camera>("mainCamera");
-  mainSceneGraph.addNode(camera);
-  camera->setPerspectiveProjection(
-    45.0f * 3.14159f / 180.0f,
-    mainWindow->getAspectRatio(),
-    0.1f,
-    5000.0f)
-      ->setLocalPosition(Vector3(0.0f, 10.0f, 20.0f));
+    //Perspective
+    camera->setPerspectiveProjection(
+      45.0f * 3.14159f / 180.0f,
+      mainWindow->getAspectRatio(),
+      0.1f,
+      5000.0f);
+
+    //Transform
+    camera->setLocalPosition(Vector3(0.0f, 1.5f, 0.0f));
 
   auto cameraShape = std::make_shared<OBB>(
       Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
       Vector3(0.5f, 0.5f, 0.5f));
   camera->addComponent<PhysicsBody>()
-    ->setMass(10.0f)->setDrag(100.0f)->setAngularDrag(500.0f)
+    ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
     ->setShape(cameraShape)
     //->setDebug(true)
     ->registerToPhysicsManager(PhysicsManager::Instance());
@@ -258,9 +278,7 @@ int main() {
 
 #pragma endregion
 
-    // Drawable objects
-    int isDebug = 0;
-    std::vector<std::shared_ptr<GameObject>> gameObjects;
+#pragma region ASSIMP
 
 #pragma region Map
     std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
@@ -312,13 +330,14 @@ int main() {
     mainSceneGraph.addNode(cannonballObject);
 #pragma endregion
 
+#pragma endregion
+
 #pragma region PlayerBox
 
-    auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
-    mainSceneGraph.addNode(playerBox);
+    //Transform Values
     playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
-    // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
+
 
     //Render Component
     auto box1RenderComponent = playerBox->addComponent<Render2D>();
@@ -336,7 +355,7 @@ int main() {
     // Create instances of bodies for boxes
     auto playerBoxPB = playerBox->addComponent<RigidBody>()
         ->usingGravity(true)
-        ->setMass(10.0f)->setDrag(100.0f)
+        ->setMass(10.0f)->setDrag(1.0f)
         ->setShape(shape1)
         ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance());
@@ -356,8 +375,6 @@ int main() {
         ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
         ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9);
     
-
-
     //On Move Callback 
     Movement3DListener playerMovementListener(playerBox);
     playerMovementListener.setCallback(onMove);
@@ -368,8 +385,6 @@ int main() {
 
 #pragma region DynamicBox
 
-    auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-    mainSceneGraph.addNode(dynamicBox);
     dynamicBox->setLocalPosition(Vector3(-2.0f, 5.0f, -2.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f))
         ->setLocalRotation(Vector3(0, 0, 0));
@@ -391,7 +406,7 @@ int main() {
     // Create instances of bodies for boxes
     dynamicBox->addComponent<RigidBody>()
         ->usingGravity(false)
-        ->setMass(10.0f)->setDrag(100.0f)
+        ->setMass(10.0f)->setDrag(1.0f)
         ->setShape(dBoxShape)
         ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance())
@@ -423,7 +438,7 @@ int main() {
     shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
     floor->addComponent<RigidBody>()
-        ->setMass(10.0f)->setDrag(100.0f)
+        ->setMass(10.0f)->setDrag(1.0f)
         ->setShape(shape2)
         ->setDebug(isDebug)
         ->setStatic(true)
@@ -457,7 +472,7 @@ int main() {
 
     // Create instances of bodies for boxes
     soundBox->addComponent<RigidBody>()
-        ->setMass(10.0f)->setDrag(100.0f)
+        ->setMass(10.0f)->setDrag(1.0f)
         ->setShape(soundBoxShape)
         ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance())
@@ -527,22 +542,6 @@ int main() {
         }
         if (mainInput->isKeyPressed(KEY_M)) {
             AudioManager::instance().stopSound("radio");
-        }
-
-        //Raycast Testing
-        if (mainInput->isKeyPressed(KEY_SPACE)) {
-            Vector3 rayOrigin = playerBox->getWorldTransform().getPosition();
-            Vector3 rayDirection = Vector3(1, 0, 0);
-
-            Ray testRay(rayOrigin, rayDirection);
-            RaycastHit hit;
-
-            if (RaycastManager::Instance().Raycast(testRay, hit, 100.0f, { GameObject::Tag::SYSTEM })) {
-                std::cout << "Ray hit at: " << hit.point.x << ", " << hit.point.y << ", " << hit.point.z << std::endl;
-            }
-            else {
-                std::cout << "Ray missed!\n";
-            }
         }
 
         //Light Manipulation

@@ -68,7 +68,7 @@ public:
         walkForce(10.0f), maxWalkSpeed(5.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
         jumpForce(1000),
-        mouseSensitivity(100.0f), pitchLimit(80),
+        mouseXSensitivity(10.0f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f),
         slideForce(100), slideCoolDown(5.0f),
         wallRunSpeed(15), wallJumpForce(1000)
@@ -119,7 +119,8 @@ private:
     float jumpForce;
 
     //Player Mouse Members
-    float mouseSensitivity;
+    float mouseXSensitivity;
+    float mouseYSensitivity;
     float pitchLimit;
     float yawRotation = 0.0f;
     float pitchRotation = 0.0;
