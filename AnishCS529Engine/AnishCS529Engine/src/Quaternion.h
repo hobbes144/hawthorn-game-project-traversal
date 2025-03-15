@@ -151,6 +151,28 @@ public:
       return eulerVector;
     normalize();
 
+
+    //Vector3 angles;
+
+    ////Roll
+    //float sinr_cosp = 2 * (data[0] * data[1] + data[2] * data[3]);
+    //float cosr_cosp = 1 - 2 * (data[1] * data[1] + data[2] * data[2]);
+    //angles.z = -std::atan2f(sinr_cosp, cosr_cosp);
+
+    ////Pitch
+    //float sinp = std::sqrt(1 + 2 * (data[0] * data[2] - data[1] * data[3]));
+    //float cosp = std::sqrt(1 - 2 * (data[0] * data[2] - data[1] * data[3]));
+    //angles.x = 2 * std::atan2f(sinp, cosp) - 3.141592f / 2;
+
+    ////Yaw
+    //float siny_cosp = 2 * (data[0] * data[3] + data[1] * data[2]);
+    //float cosy_cosp = 1 - 2 * (data[2] * data[2] + data[3] * data[3]);
+    //angles.y = std::atan2f(siny_cosp, cosy_cosp);
+
+    //return angles;
+
+    //---------------------
+
     float y, x;
 
     // Note: following code was taken from glm
@@ -159,20 +181,20 @@ public:
     x = data[0] * data[0] + data[1] * data[1] - data[2] * data[2] - data[3] * data[3];
 
     if (x == 0 && y == 0) //avoid atan2(0,0) - handle singularity - Matiis
-      eulerVector.x = 0.0f;
+      eulerVector.z = 0.0f;
     else
-      eulerVector.x = atan2(y, x);
+      eulerVector.z = atan2(y, x);
 
     // Pitch (Y-axis rotation)
     y = 2.0f * (data[2] * data[3] + data[0] * data[1]);
     x = data[0] * data[0] - data[1] * data[1] - data[2] * data[2] + data[3] * data[3];
     if (x == 0 && y == 0) //avoid atan2(0,0) - handle singularity - Matiis
-      eulerVector.y = 2.0f * atan2(data[1], data[0]);
+      eulerVector.x = 2.0f * atan2(data[1], data[0]);
     else
-      eulerVector.y = atan2(y, x);
+      eulerVector.x = atan2(y, x);
 
     // Yaw (Z-axis rotation)
-    eulerVector.z = asin(std::min(std::max(-2.0f * (data[1] * data[3] - data[0] * data[2]), -1.0f), 1.0f));
+    eulerVector.y = asin(std::min(std::max(-2.0f * (data[1] * data[3] - data[0] * data[2]), -1.0f), 1.0f));
 
     isEulerVector = true;
     return eulerVector;

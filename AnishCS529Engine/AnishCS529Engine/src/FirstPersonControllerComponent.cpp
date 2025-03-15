@@ -56,32 +56,30 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			physicsBody->setVelocity(pbVelocity);
 		}
 
-		debugCheck();
-
 		//-----Handling Camera Movement-----//
 		//Get Mouse State Data
 		MouseState mouseState = input->getMouseState();
 		float mouseXDelta = 0.0f;
 		float mouseYDelta = 0.0f;
 		if (mouseState.deltaX != 0) {
+			debugCheck();
 			mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseXSensitivity;
+			//Rotate Body
+			Quaternion currentBodyRotation = body->getLocalRotation();
+			Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
+			body->setLocalRotation(currentBodyRotation * mouseRotation);
 		}
 		if (mouseState.deltaY != 0) {
 			mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseYSensitivity;
+			//Rotate Camera
+			Quaternion currentCameraRoation = camera->getLocalRotation();
+			Vector3 currentEuler = currentCameraRoation.toEuler();
+			float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
+			newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
+			Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
+			camera->setLocalRotation(newCameraRotation);
 		}
-
-		debugCheck();
-		//Rotate Body
-		physicsBody->applyRotationalForce(Vector3(0.0f, -mouseXDelta, 0.0f));
-		//Rotate Camera
-		/*
-		Quaternion currentCameraRoation = camera->getLocalRotation();
-		Vector3 currentEuler = currentCameraRoation.toEuler();
-		float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
-		newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
-		Quaternion newCameraRotaion = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
-		camera->setLocalRotation(newCameraRotaion);
-		*/
+		
 		//Reset Mouse Delta
 		input->resetMouseDelta();
 
@@ -255,7 +253,5 @@ void FirstPersonControllerComponent::debugCheck()
 	if (input->isKeyPressed(ActionKey[Debug])) {
 		std::cout << "Here" << std::endl;
 	}
-
-	Vector3 test = camera->getForwardVector();
 
 }

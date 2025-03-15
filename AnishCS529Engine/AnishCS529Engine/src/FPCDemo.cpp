@@ -182,7 +182,7 @@ int main() {
       5000.0f);
 
     //Transform
-    camera->setLocalPosition(Vector3(0.0f, 1.5f, 0.0f));
+    camera->setLocalPosition(Vector3(0.0f, 2.5f, 0.0f));
 
   auto cameraShape = std::make_shared<OBB>(
       Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
@@ -424,7 +424,7 @@ int main() {
     auto floor = std::make_shared<GameObject>("Floor");
     mainSceneGraph.addNode(floor);
     floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
-        ->setLocalScaling(Vector3(20.0f, 0.05f, 20.0f));
+        ->setLocalScaling(Vector3(50.0f, 0.05f, 50.0f));
 
     auto box2RenderComponent = floor->addComponent<Render2D>();
     box2RenderComponent
