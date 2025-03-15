@@ -6,8 +6,9 @@
  * \par    **Course**
  *    GAM541
  * \date   03-01-2025
- * \brief  This is the RaycastManager class it is used to call the Raycast Function
- * This Function Requires the input of a Ray and RaycastHit Object
+ * \brief  This is a singleton Class that needs it's SceneGraph to be set 
+ * before any calls can be made. 
+ * The Raycast() function will perform a raycasting test
  * 
  *****************************************************************************/
 #ifndef RAYCAST_MANAGER
@@ -23,11 +24,26 @@
 class RaycastManager
 {
 
-public: 
-	static bool Raycast(const Ray& ray, const SceneGraph* sceneGraph, RaycastHit& hit, float maxDistance = FLT_MAX, const std::vector<GameObject::Tag> tagToIgnore = {});
+public:
+	static RaycastManager& Instance() {
+		static RaycastManager instance;
+		return instance;
+	}
+	RaycastManager(const RaycastManager&) = delete;
+	RaycastManager& operator=(const RaycastManager&) = delete;
+
+	void setSceneGraph(const SceneGraph* _sceneGraph) {
+		this->sceneGraph = _sceneGraph;
+	}
+
+	bool Raycast(const Ray& ray, RaycastHit& hit, float maxDistance = FLT_MAX, const std::vector<GameObject::Tag> tagToIgnore = {});
 
 private:
-	static bool processNode(const std::shared_ptr<Node>& node,
+	RaycastManager() = default;
+
+	const SceneGraph* sceneGraph = nullptr;
+
+	bool processNode(const std::shared_ptr<Node>& node,
 					 const Ray& ray,
 					 RaycastHit& hit,
 					 float& closeHitDistance,

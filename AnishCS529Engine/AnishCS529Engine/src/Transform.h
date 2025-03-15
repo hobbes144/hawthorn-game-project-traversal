@@ -17,35 +17,45 @@
 
 #include "Matrix4.h"
 #include "Vector3.h"
+#include "Quaternion.h"
 
 class Transform {
 public:
-  Transform() : position(0, 0, 0), rotation(0, 0, 0), scaling(1, 1, 1) {}
+  Transform() : position(0, 0, 0), rotation(1, 0, 0, 0), scaling(1, 1, 1) {}
+
+  Transform operator*(const Transform& other) const {
+    Transform res;
+    res.position = this->position + ( this->rotation * (this->scaling * other.position));
+    res.rotation = this->rotation * other.rotation;
+    res.scaling = this->scaling * other.scaling;
+    return res;
+  }
 
   Vector3 getPosition() const { return position; }
-  Vector3 getRotation() const { return rotation; }
+  Quaternion getRotation() const { return rotation; }
   Vector3 getScaling() const { return scaling; }
 
   Transform& setPosition(const Vector3& newPosition) { position = newPosition; return *this; }
   Transform& setPosition(float x, float y, float z) { position = Vector3(x, y, z); return *this; }
-  Transform& setRotation(const Vector3& newRotation) { rotation = newRotation; return *this; }
-  Transform& setRotation(float x, float y, float z) { rotation = Vector3(x, y, z); return *this; }
+  Transform& setRotation(const Vector3& newRotation) { rotation = Quaternion::fromEuler(newRotation); return *this; }
+  Transform& setRotation(float x, float y, float z) { rotation = Quaternion::fromEuler(Vector3(x, y, z)); return *this; }
+  Transform& setRotation(const Quaternion& quaternion) { rotation = quaternion; return *this; }
   Transform& setScaling(const Vector3& newScaling) { scaling = newScaling; return *this; }
   Transform& setScaling(float x, float y, float z) { scaling = Vector3(x, y, z); return *this; }
 
   Matrix4 getLocalMatrix() const {
     return Matrix4::translation(position) *
-      Matrix4::rotationXYZ(rotation) *
+      Matrix4::rotation(rotation) *
       Matrix4::scale(scaling);
   }
 
-  Matrix4 getInverseLocalMatrix() const {
+  Matrix4 getInverseLocalMatrix() {
     Vector3 invTranslation(-position.x, -position.y, -position.z);
-    Vector3 invRotation(-rotation.x, -rotation.y, -rotation.z);
+    Quaternion invRotation = rotation.inverse();
     Vector3 invScaling(1.0f / scaling.x, 1.0f / scaling.y, 1.0f / scaling.z);
 
     return Matrix4::scale(invScaling) *
-      Matrix4::rotationXYZ(invRotation) *
+      Matrix4::rotation(invRotation) *
       Matrix4::translation(invTranslation);
   }
 
@@ -59,13 +69,20 @@ public:
     return *this;
   }
 
+  Transform& rotate(const Quaternion quaternionDelta) {
+    rotation = rotation * quaternionDelta;
+    return *this;
+  }
+
   Transform& rotate(const Vector3 rotationDelta) {
-    rotation = rotation + rotationDelta;
+    Quaternion quaternionDelta = Quaternion::fromEuler(rotationDelta);
+    rotation = rotation * quaternionDelta;
     return *this;
   }
 
   Transform& rotate(float x, float y, float z) {
-    rotation = rotation + Vector3(x, y, z);
+    Quaternion quaternionDelta = Quaternion::fromEuler(Vector3(x,y,z));
+    rotation = rotation * quaternionDelta;
     return *this;
   }
 
@@ -81,7 +98,7 @@ public:
 
 private:
   Vector3 position;
-  Vector3 rotation;
+  Quaternion rotation;
   Vector3 scaling;
 
 };

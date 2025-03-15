@@ -93,6 +93,15 @@ bool GameObject::isMarkedForDeletion() const {
   return markedForDeletion;
 }
 
+void GameObject::updateComponents(float deltaTime)
+{
+  if (enabled) {
+    for (auto& component : components) {
+      component->update(deltaTime);
+    }
+  }
+}
+
 /*!****************************************************************************
  * \brief Initialize an object
  *
@@ -139,12 +148,6 @@ void GameObject::initialize() {
  *****************************************************************************/
 void GameObject::update(float deltaTime) {
   Node::update(deltaTime);
-
-  if (enabled) {
-    for (auto& component : components) {
-      component->update(deltaTime);
-    }
-  }
 }
 
 /*!****************************************************************************

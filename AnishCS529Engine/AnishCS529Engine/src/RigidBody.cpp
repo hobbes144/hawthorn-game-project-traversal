@@ -10,10 +10,7 @@
  *****************************************************************************/
 #include "precompiled.h"
 
-#include "PhysicsManager.h"
 #include "RigidBody.h"
-#include <cmath>
-#include <algorithm>
 
 float RigidBody::gravity = 9.8f;
 
@@ -22,6 +19,7 @@ float RigidBody::gravity = 9.8f;
  *****************************************************************************/
 RigidBody::RigidBody() :
 	PhysicsBody(), useGravity(false),
+	elasticity(0.5f),
 	listener(nullptr),
 	freezePositionX(false), freezePositionY(false), freezePositionZ(false),
 	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {}
@@ -119,33 +117,6 @@ void RigidBody::integrate(float deltaTime) {
 
 }
 
-bool belongsToXY(Vector3 vert1, Vector3 vert2, Vector3 target) {
-	if (vert1.x > target.x && vert1.y > target.y) {
-		if (vert2.x < target.x && vert2.y < target.y) {
-			return true;
-		}
-	}
-	return false;
-}
-
-bool belongsToYZ(Vector3 vert1, Vector3 vert2, Vector3 target) {
-	if (vert1.z > target.z && vert1.y > target.y) {
-		if (vert2.z < target.z && vert2.y < target.y) {
-			return true;
-		}
-	}
-	return false;
-}
-
-bool belongsToXZ(Vector3 vert1, Vector3 vert2, Vector3 target) {
-	if (vert1.x > target.x && vert1.z > target.z) {
-		if (vert2.x < target.x && vert2.z < target.z) {
-			return true;
-		}
-	}
-	return false;
-}
-
 /*!****************************************************************************
  * \brief A callback function needed to be set up to collisionListener for the
  *		  collision Event of RigidBody
@@ -156,80 +127,118 @@ bool belongsToXZ(Vector3 vert1, Vector3 vert2, Vector3 target) {
  *****************************************************************************/
 void onRBCollide(std::shared_ptr<GameObject> obj1,
 	std::shared_ptr<GameObject> obj2, const Vector3& point) {
+	const std::shared_ptr<RigidBody>& RB1 = obj1->findComponent<RigidBody>();
+	const std::shared_ptr<RigidBody>& RB2 = obj2->findComponent<RigidBody>();
 
-	std::shared_ptr<RigidBody> RB, RB2;
+	if (!RB1 || !RB2) return;
+	if (PhysicsManager::Instance().isHandledCollision(RB1, RB2))
+		return;
 
-	if (obj1->findComponent<RigidBody>()->getIsStatic()) {
-		RB2 = obj1->findComponent<RigidBody>();
-		RB = obj2->findComponent<RigidBody>();
+	Vector3 final = point;
+	const Vector3& RB1Position = obj1->getWorldTransform().getPosition();
+	const Vector3& RB2Position = obj2->getWorldTransform().getPosition();
+
+	Vector3 velocity = RB1->getVelocity();
+	Vector3 velocity2 = RB2->getVelocity();
+
+	float e = std::min(RB1->getElasticity(), RB2->getElasticity());
+
+	if (RB1->getIsStatic() && RB1->getIsStatic()) {
+		PhysicsManager::Instance().addHandledCollision(RB1, RB2);
+		return;
+	}
+
+	if (RB1->getIsStatic()) {
+		Vector3 contactVector = (final - RB2Position);
+		Vector3 normal = RB2->getShape()->getNormalAtVector(contactVector.normalized());
+		contactVector *= (normal);
+		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(contactVector.normalized());
+		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
+
+		Vector3 correction = (RB2Extent - contactVector) * normal;
+
+		Vector3 impulse =
+			(RB1->getVelocity() - RB2->getVelocity()) * normal *
+			(1 + e) *
+			(
+				(RB1->getMass() * RB2->getMass())
+				/
+				(RB1->getMass() + RB2->getMass())
+			);
+
+		if (correction < Vector3(1e-6f)) {
+			PhysicsManager::Instance().addHandledCollision(RB1, RB2);
+			return;
+		}
+		obj2->setWorldPosition(RB2Position + (correction * 2));
+		RB2->setVelocity(velocity + ( velocity * normal.abs() ));
+		RB2->applyForce(impulse);
+		obj2->updateTransforms();
+	}
+	else if (RB2->getIsStatic()) {
+		Vector3 contactVector = (final - RB1Position);
+		Vector3 normal = RB1->getShape()->getNormalAtVector(contactVector.normalized());
+		contactVector = contactVector.abs() * normal;
+		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(-contactVector.normalized());
+		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(contactVector.normalized());
+		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
+
+		Vector3 correction = (RB1Extent - contactVector).abs() * normal;
+
+		Vector3 impulse =
+			(RB1->getVelocity() - RB2->getVelocity()) * normal *
+			(1 + e) *
+			(
+				(RB1->getMass() * RB2->getMass())
+				/
+				(RB1->getMass() + RB2->getMass())
+			);
+
+		if (correction < Vector3(1e-6f)) {
+			PhysicsManager::Instance().addHandledCollision(RB1, RB2);
+			return;
+		}
+		obj1->setWorldPosition(RB1Position - (correction * 2));
+		RB1->setVelocity(velocity - (velocity * normal.abs()));
+		//RB1->applyForce(impulse);
+		obj1->updateTransforms();
 	}
 	else {
-		RB = obj1->findComponent<RigidBody>();
-		RB2 = obj2->findComponent<RigidBody>();
+		Vector3 contactVector = ( final - RB1Position );
+		Vector3 normal = RB1->getShape()->getNormalAtVector(contactVector.normalized());
+		contactVector = contactVector.abs() * normal;
+		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(-contactVector.normalized());
+		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(contactVector.normalized());
+		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
+
+		Vector3 correction = ( RB1Extent - contactVector ).abs() * normal;
+
+		Vector3 impulse =
+			( RB1->getVelocity() - RB2->getVelocity() ) * normal *
+			( 1 + e ) *
+			(
+				( RB1->getMass() * RB2->getMass() )
+				/
+				( RB1->getMass() + RB2->getMass() )
+				);
+
+		if ( correction < Vector3(1e-6f) ) {
+			PhysicsManager::Instance().addHandledCollision(RB1, RB2);
+			return;
+		}
+		RB1->applyForce(-impulse);
+		RB2->applyForce(impulse);
+
+		obj1->setWorldPosition(RB1Position - correction);
+		RB1->updateShapePosition();
+		obj2->setWorldPosition(RB2Position + correction);
+		RB2->updateShapePosition();
+		obj1->updateTransforms();
+		obj2->updateTransforms();
 	}
 
-	if (RB && RB2) {
-		std::cout << "RBcollided between " << RB->getParent()->getName()
-			<< " and " << RB2->getParent()->getName() << std::endl;
-		Vector3 velocity = RB->getVelocity();
-		Vector3 negVelocity = Vector3(-RB->getVelocity().x,
-							  -RB->getVelocity().y, -RB->getVelocity().z);
-		Vector3 Acc = RB->getAcceleration();
-		Vector3 Force = RB->getForce();
+	PhysicsManager::Instance().addHandledCollision(RB1, RB2);
 
-		Vector3 scaleRB = RB->getParent()->getLocalScaling();
-		Vector3 PosRB = RB->getParent()->getLocalPosition() * scaleRB;
-		Vector3 scaleRB2 = RB2->getParent()->getLocalScaling();
-		Vector3 PosRB2 = RB2->getParent()->getLocalPosition() * scaleRB2;
-
-		double dx = (scaleRB.x + scaleRB2.x) / 2;
-		double dy = (scaleRB.y + scaleRB2.y) / 2;
-		double dz = (scaleRB.z + scaleRB2.z) / 2;
-
-		double actualdisX = abs(PosRB.x - PosRB2.x);
-		double actualdisY = abs(PosRB.y - PosRB2.y);
-		double actualdisZ = abs(PosRB.z - PosRB2.z);
-
-		Vector3 utv = (PosRB - PosRB2).normalized();
-
-		bool signX = (velocity.x != 0);
-		bool signY = (velocity.y != 0);
-		bool signZ = (velocity.z != 0);
-
-		Vector3 restore = Vector3(dx - actualdisX, dy - actualdisY, dz - actualdisZ);
-
-		float cntX = abs(restore.x / utv.x);
-		float cntY = abs(restore.y / utv.y);
-		float cntZ = abs(restore.z / utv.z);
-
-		float cnt = fmin(cntX, fmin(cntY, cntZ));
-
-		Vector3 mtv = Vector3(utv.x * cnt, utv.y * cnt, utv.z * cnt);
-
-		float values[3] = { abs(mtv.x), abs(mtv.y), abs(mtv.z) };
-		std::sort(values, values+3);
-
-		float max = values[2];
-		float min = values[0];
-		if (min == 0) min = values[1];
-		if (min == 0) min = values[2];
-		Vector3 final = mtv;
-
-		if (min == abs(mtv.x)) final.y = final.z = 0;
-		else if (min == abs(mtv.y)) final.x = final.z = 0;
-		else if (min == abs(mtv.z)) final.y = final.x = 0;
-
-		if (RB2->getIsStatic()) {
-			RB->setVelocity(Vector3(velocity.x*signX, velocity.y*signY, velocity.z*signZ));
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB);
-		}
-		else {
-			RB->applyForce(negVelocity * 20);
-			RB->getParent()->setLocalPosition(PosRB / scaleRB + final / scaleRB / 2);
-			RB2->applyForce(velocity * 20);
-			RB2->getParent()->setLocalPosition(PosRB2 / scaleRB2 - final / scaleRB2 / 2);
-		}
-	}
 	return;
 }
 

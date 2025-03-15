@@ -70,7 +70,7 @@ public:
     velocity(0, 0, 0), acceleration(0, 0, 0), force(0, 0, 0),
     rotationalVelocity(0, 0, 0), rotationalAcceleration(0, 0, 0),
     rotationalForce(0, 0, 0),
-    restitution(0.5f), drag(0.3f), angularDrag(0.01f), isStatic(false) {}
+    restitution(0.5f), drag(0.3f), angularDrag(0.6f), isStatic(false) {}
   ~PhysicsBody() = default;
 
   /* Component functions */
@@ -88,6 +88,7 @@ public:
   std::shared_ptr<PhysicsBody> setVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setAcceleration(const Vector3& acc);
   std::shared_ptr<PhysicsBody> applyForce(const Vector3& f);
+  std::shared_ptr<PhysicsBody> applyImpulse(const Vector3& i);
   std::shared_ptr<PhysicsBody> setRotationalVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setRotationalAcceleration(const Vector3& acc);
   std::shared_ptr<PhysicsBody> applyRotationalForce(const Vector3& f);
@@ -96,6 +97,7 @@ public:
   std::shared_ptr<PhysicsBody> setAngularDrag(float f);
   std::shared_ptr<PhysicsBody> setStatic(bool staticValue);
   std::shared_ptr<PhysicsBody> setShape(std::shared_ptr<Shape> newShape);
+  std::shared_ptr<PhysicsBody> updateShapePosition();
   std::shared_ptr<PhysicsBody> setDebug(bool _debug);
   std::shared_ptr<PhysicsBody> reset();
 

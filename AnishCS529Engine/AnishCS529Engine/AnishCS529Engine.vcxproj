@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EngineMath.cpp" />
     <ClCompile Include="include\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="include\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="include\imgui\imgui.cpp" />
@@ -40,6 +41,8 @@
     </ClCompile>
     <ClCompile Include="src\DebugPass.cpp" />
     <ClCompile Include="src\EngineDemo.cpp" />
+    <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
+    <ClCompile Include="src\FPCDemo.cpp" />
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\RaycastHit.cpp" />
     <ClCompile Include="src\RaycastManager.cpp" />
@@ -81,6 +84,8 @@
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
+    <ClInclude Include="EngineMath.h" />
+    <ClInclude Include="src\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\FramerateController.inl">
       <FileType>Document</FileType>
     </ClInclude>
@@ -144,6 +149,7 @@
     <ClInclude Include="src\Movement3D.h" />
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\PointLight.h" />
+    <ClInclude Include="src\Quaternion.h" />
     <ClInclude Include="src\Ray.h" />
     <ClInclude Include="src\RaycastHit.h" />
     <ClInclude Include="src\RaycastManager.h" />
@@ -349,7 +355,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);IMGUI_IMPL_OPENGL_LOADER_GLAD</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);IMGUI_IMPL_OPENGL_LOADER_GLAD;ENABLE_ADDITIONAL_ACCUMULATORS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
@@ -395,7 +401,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);IMGUI_IMPL_OPENGL_LOADER_GLAD;ENABLE_ADDITIONAL_ACCUMULATORS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>

@@ -6,7 +6,7 @@
  * \par    **Course**
  *    CS529
  * \date   12-16-2024
- * 
+ *
  *****************************************************************************/
 #include "precompiled.h"
 #include "CollisionGenerator.h"
@@ -15,11 +15,11 @@
 #include "OBB.h"
 #include "Sphere.h"
 
-/* Private functions */
+ /* Private functions */
 
 bool CollisionGenerator::AABBvsAABB(
-  const std::shared_ptr<Shape> a, 
-  const std::shared_ptr<Shape> b, 
+  const std::shared_ptr<Shape> a,
+  const std::shared_ptr<Shape> b,
   Contact& contact) {
 
   //TODO: Implement your algorithm here
@@ -38,7 +38,7 @@ bool CollisionGenerator::AABBvsAABB(
     return false;
   }
 
-  contact.point = 
+  contact.point =
     boxA->getCenter() + ((boxB->getCenter() - boxA->getCenter()) / 2);
 
   return true;
@@ -67,45 +67,54 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
   // A1xB0 =  9, A1xB1 = 10, A1xB2 = 11,
   // A2xB0 = 12, A2xB1 = 13, A2xB2 = 14
 
-  
+  // Reserving space for cross product calculation variables
+  Vector3 C;
+  float CLen;
+
+
   // Vector between two centers (scaled up appropriately)
-  Vector3 T = (boxA->getCenter() - boxB->getCenter());
+  Vector3 unprojT = (boxA->getCenter() - boxB->getCenter());
 
   const Vector3* aAxes = boxA->getAxes();
   const Vector3* bAxes = boxB->getAxes();
   Vector3 aExtents = boxA->getHalfExtents();
   Vector3 bExtents = boxB->getHalfExtents();
 
+  // Reserving space for the Projection matrix
+  Vector3 R[3];
+
   // T projected to A's axes:
-  T = Vector3(T.dot(aAxes[0]), T.dot(aAxes[1]), T.dot(aAxes[2]));
+  Vector3 T = Vector3(unprojT.dot(aAxes[0]), unprojT.dot(aAxes[1]), unprojT.dot(aAxes[2]));
 
   // Projections of B's axes on A:
-  Vector3 R[3];
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      R[i][j] = abs(aAxes[i].dot(bAxes[j])) + 0.0000000001f;
+      R[i][j] = fabs(aAxes[i].dot(bAxes[j])); // Adding offset for when 0;
     }
   }
 
+  Vector3 projectedB = Vector3();
+
   // A0 axis
   // We calculate this separately so we can get the initial pen depth
+  projectedB[0] = (
+    bExtents[0] * R[0][0] +
+    bExtents[1] * R[0][1] +
+    bExtents[2] * R[0][2]);
+
   minPenDepth = penDepth = (aExtents[0] +
-      (
-        bExtents[0] * R[0][0] +
-        bExtents[1] * R[0][1] +
-        bExtents[2] * R[0][2]
-        )) - T[0];
-  if (penDepth <= 0) return false;
+      projectedB[0]) - fabs(T[0]);
+  if (penDepth <= 1e-6f) return false;
 
   // A1 and A2 axes
   for (int i = 1; i < 3; i++) {
+    projectedB[i] = (
+      bExtents[0] * R[i][0] +
+      bExtents[1] * R[i][1] +
+      bExtents[2] * R[i][2]);
     penDepth = (aExtents[i] +
-      (
-        bExtents[0] * R[i][0] +
-        bExtents[1] * R[i][1] +
-        bExtents[2] * R[i][2]
-        )) - T[i];
-    if (penDepth <= 0) return false;
+      projectedB[i]) - fabs(T[i]);
+    if (penDepth <= 1e-6f) return false;
     if (penDepth < minPenDepth) {
       minPenDepth = penDepth;
       minPenAxis = i;
@@ -119,122 +128,171 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
           aExtents[0] * R[0][i] +
           aExtents[1] * R[1][i] +
           aExtents[2] * R[2][i]
-          )) - abs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i]);
-    if (penDepth <= 0) return false;
+          )) - fabs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i]);
+    if (penDepth <= 1e-6f) return false;
     if (penDepth < minPenDepth) {
       minPenDepth = penDepth;
       // B0 = 3, B1 = 4, B2 = 5
-      minPenAxis = i+3;
+      minPenAxis = i + 3;
     }
   }
 
   // A0xB0 axis
-  penDepth = (
+  C = aAxes[0].cross(bAxes[0]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[1] * R[2][0] + aExtents[2] * R[1][0] +
       bExtents[1] * R[0][2] + bExtents[2] * R[0][1]
     ) - abs(T[2] * R[1][0] - T[1] * R[2][0]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A0xB0 = 6
-    minPenAxis = 6;
+    if (penDepth <= 1e-6f) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A0xB0 = 6
+      minPenAxis = 6;
+    }
   }
 
   // A0xB1 axis
-  penDepth = (
+  C = aAxes[0].cross(bAxes[1]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[1] * R[2][1] + aExtents[2] * R[1][1] +
       bExtents[0] * R[0][2] + bExtents[2] * R[0][0]
-    ) - abs(T[2] * R[1][1] - T[1] * R[2][1]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A0xB1 = 7
-    minPenAxis = 6;
+    ) - fabs(T[2] * R[1][1] - T[1] * R[2][1]);
+    if (penDepth <= 0) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A0xB1 = 7
+      minPenAxis = 7;
+    }
   }
 
   // A0xB2 axis
-  penDepth = (
+  C = aAxes[0].cross(bAxes[2]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[1] * R[2][2] + aExtents[2] * R[1][2] +
       bExtents[0] * R[0][1] + bExtents[1] * R[0][0]
-    ) - abs(T[2] * R[1][2] - T[1] * R[2][2]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A0xB2 = 8
-    minPenAxis = 6;
+    ) - fabs(T[2] * R[1][2] - T[1] * R[2][2]);
+    if (penDepth <= 0) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A0xB2 = 8
+      minPenAxis = 8;
+    }
   }
   // A1xB0 axis
-  penDepth = (
+  C = aAxes[1].cross(bAxes[0]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[0] * R[2][0] + aExtents[2] * R[0][0] +
       bExtents[1] * R[1][2] + bExtents[2] * R[1][1]
-    ) - abs(T[0] * R[2][0] - T[2] * R[0][0]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A1xB0 = 9
-    minPenAxis = 6;
+    ) - fabs(T[0] * R[2][0] - T[2] * R[0][0]);
+    if (penDepth <= 0) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A1xB0 = 9
+      minPenAxis = 9;
+    }
   }
 
   // A1xB1 axis
-  penDepth = (
+  C = aAxes[1].cross(bAxes[1]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[0] * R[2][1] + aExtents[2] * R[0][1] +
       bExtents[0] * R[1][2] + bExtents[2] * R[1][0]
-    ) - abs(T[0] * R[2][1] - T[2] * R[0][1]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A1xB1 = 10
-    minPenAxis = 6;
+    ) - fabs(T[0] * R[2][1] - T[2] * R[0][1]);
+    if (penDepth <= 0) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A1xB1 = 10
+      minPenAxis = 10;
+    }
   }
+
   // A1xB2 axis
-  penDepth = (
+  C = aAxes[1].cross(bAxes[2]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[0] * R[2][2] + aExtents[2] * R[0][2] +
       bExtents[0] * R[1][1] + bExtents[1] * R[1][0]
-    ) - abs(T[0] * R[2][2] - T[2] * R[0][2]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A1xB2 = 11
-    minPenAxis = 6;
+    ) - fabs(T[0] * R[2][2] - T[2] * R[0][2]);
+    if (penDepth <= 0) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A1xB2 = 11
+      minPenAxis = 11;
+    }
   }
+
   // A2xB0 axis
-  penDepth = (
+  C = aAxes[2].cross(bAxes[0]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[0] * R[1][0] + aExtents[1] * R[0][0] +
       bExtents[1] * R[2][2] + bExtents[2] * R[2][1]
-    ) - abs(T[1] * R[0][0] - T[0] * R[1][0]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A2xB0 = 12
-    minPenAxis = 6;
+    ) - fabs(T[1] * R[0][0] - T[0] * R[1][0]);
+    if (penDepth <= 0) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A2xB0 = 12
+      minPenAxis = 12;
+    }
   }
+
   // A2xB1 axis
-  penDepth = (
+  C = aAxes[2].cross(bAxes[1]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[0] * R[1][1] + aExtents[1] * R[0][1] +
       bExtents[0] * R[2][2] + bExtents[2] * R[2][0]
-    ) - abs(T[1] * R[0][1] - T[0] * R[1][1]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A2xB1 = 13
-    minPenAxis = 6;
+    ) - fabs(T[1] * R[0][1] - T[0] * R[1][1]);
+    if (penDepth <= 0) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A2xB1 = 13
+      minPenAxis = 13;
+    }
   }
+
   // A2xB2 axis
-  penDepth = (
+  C = aAxes[2].cross(bAxes[2]);
+  CLen = C.magnitudSquared(); // Same as C.dot(C)
+  if (CLen > 1e-6f) { // Checking for 0 cross products
+    penDepth = (
       aExtents[0] * R[1][2] + aExtents[1] * R[0][2] +
       bExtents[0] * R[2][1] + bExtents[1] * R[2][0]
-    ) - abs(T[1] * R[0][2] - T[0] * R[1][2]);
-  if (penDepth <= 0) return false;
-  if (penDepth < minPenDepth) {
-    minPenDepth = penDepth;
-    // A2xB2 = 14
-    minPenAxis = 6;
+    ) - fabs(T[1] * R[0][2] - T[0] * R[1][2]);
+    if (penDepth <= 0) return false;
+    if (penDepth < minPenDepth) {
+      minPenDepth = penDepth;
+      // A2xB2 = 14
+      minPenAxis = 14;
+    }
   }
 
+  Vector3 correction = aExtents * (unprojT / (aExtents + projectedB));
 
-  // Todo: find point of contact
-  // Temporarily adding this:
-  contact.point = boxA->getCenter() + T/2;
+  contact.point = boxA->getCenter() - correction;
+
+  /*if (minPenAxis < 3) {
+    contact.point = aAxes[minPenAxis].normalized() * minPenDepth;
+  }
+  else if (minPenAxis < 6) {
+    contact.point = bAxes[minPenAxis - 3].normalized() * minPenDepth;
+  }
+  else {
+    contact.point = boxA->getAxes()[(minPenAxis - 6)/3].cross(boxB->getAxes()[(minPenAxis - 6) % 3]).normalized() * minPenDepth;
+  }*/
 
   return true;
 }
@@ -263,13 +321,13 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
   Vector3 R[3];
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      R[i][j] = abs(aAxes[i].dot(bAxes[j])) + 0.0000000001f;
+      R[i][j] = fabs(aAxes[i].dot(bAxes[j])) + 0.0000000001f;
     }
   }
 
   // A axes
   for (int i = 0; i < 3; i++) {
-    if (abs(T[i]) > (aExtents[i] +
+    if (fabs(T[i]) > (aExtents[i] +
       (
         bExtents[0] * R[i][0] +
         bExtents[1] * R[i][1] +
@@ -280,8 +338,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
   // B axes
   for (int i = 0; i < 3; i++) {
     if (
-      (abs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i])) >
-      abs(bExtents[i] +
+      (fabs(T[0] * R[0][i] + T[1] * R[1][i] + T[2] * R[2][i])) >
+      fabs(bExtents[i] +
         (
           aExtents[0] * R[0][i] +
           aExtents[1] * R[1][i] +
@@ -291,8 +349,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A0xB0 axis
   if (
-    abs(T[2] * R[1][0] - T[1] * R[2][0]) >
-    abs(
+    fabs(T[2] * R[1][0] - T[1] * R[2][0]) >
+    fabs(
       aExtents[1] * R[2][0] + aExtents[2] * R[1][0] +
       bExtents[1] * R[0][2] + bExtents[2] * R[0][1]
     )
@@ -300,8 +358,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A0xB1 axis
   if (
-    abs(T[2] * R[1][1] - T[1] * R[2][1]) >
-    abs(
+    fabs(T[2] * R[1][1] - T[1] * R[2][1]) >
+    fabs(
       aExtents[1] * R[2][1] + aExtents[2] * R[1][1] +
       bExtents[0] * R[0][2] + bExtents[2] * R[0][0]
     )
@@ -309,8 +367,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A0xB2 axis
   if (
-    abs(T[2] * R[1][2] - T[1] * R[2][2]) >
-    abs(
+    fabs(T[2] * R[1][2] - T[1] * R[2][2]) >
+    fabs(
       aExtents[1] * R[2][2] + aExtents[2] * R[1][2] +
       bExtents[0] * R[0][1] + bExtents[1] * R[0][0]
     )
@@ -318,8 +376,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A1xB0 axis
   if (
-    abs(T[0] * R[2][0] - T[2] * R[0][0]) >
-    abs(
+    fabs(T[0] * R[2][0] - T[2] * R[0][0]) >
+    fabs(
       aExtents[0] * R[2][0] + aExtents[2] * R[0][0] +
       bExtents[1] * R[1][2] + bExtents[2] * R[1][1]
     )
@@ -327,8 +385,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A1xB1 axis
   if (
-    abs(T[0] * R[2][1] - T[2] * R[0][1]) >
-    abs(
+    fabs(T[0] * R[2][1] - T[2] * R[0][1]) >
+    fabs(
       aExtents[0] * R[2][1] + aExtents[2] * R[0][1] +
       bExtents[0] * R[1][2] + bExtents[2] * R[1][0]
     )
@@ -336,8 +394,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A1xB2 axis
   if (
-    abs(T[0] * R[2][2] - T[2] * R[0][2]) >
-    abs(
+    fabs(T[0] * R[2][2] - T[2] * R[0][2]) >
+    fabs(
       aExtents[0] * R[2][2] + aExtents[2] * R[0][2] +
       bExtents[0] * R[1][1] + bExtents[1] * R[1][0]
     )
@@ -345,8 +403,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A2xB0 axis
   if (
-    abs(T[1] * R[0][0] - T[0] * R[1][0]) >
-    abs(
+    fabs(T[1] * R[0][0] - T[0] * R[1][0]) >
+    fabs(
       aExtents[0] * R[1][0] + aExtents[1] * R[0][0] +
       bExtents[1] * R[2][2] + bExtents[2] * R[2][1]
     )
@@ -354,8 +412,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A2xB1 axis
   if (
-    abs(T[1] * R[0][1] - T[0] * R[1][1]) >
-    abs(
+    fabs(T[1] * R[0][1] - T[0] * R[1][1]) >
+    fabs(
       aExtents[0] * R[1][1] + aExtents[1] * R[0][1] +
       bExtents[0] * R[2][2] + bExtents[2] * R[2][0]
     )
@@ -363,8 +421,8 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // A2xB2 axis
   if (
-    abs(T[1] * R[0][2] - T[0] * R[1][2]) >
-    abs(
+    fabs(T[1] * R[0][2] - T[0] * R[1][2]) >
+    fabs(
       aExtents[0] * R[1][2] + aExtents[1] * R[0][2] +
       bExtents[0] * R[2][1] + bExtents[1] * R[2][0]
     )
@@ -372,7 +430,7 @@ bool CollisionGenerator::AABBvsOBB(const std::shared_ptr<Shape> a, const std::sh
 
   // Todo: find point of contact
   // Temporarily adding this:
-  contact.point = boxA->getCenter() + T/2;
+  contact.point = boxA->getCenter() + T / 2;
 
   return true;
 }
@@ -491,15 +549,15 @@ bool CollisionGenerator::OBBvsSphere(const std::shared_ptr<Shape> a, const std::
 
 /*!****************************************************************************
  * \brief Generate a contact based on the collision Shapes
- * 
+ *
  * ## Usage:
- * 
+ *
  * This is to be called by the PhysicsManager
- * 
+ *
  * \param body1
  * \param body2
  * \param contact
- * \return \b 
+ * \return \b
  *****************************************************************************/
 bool CollisionGenerator::generateContact(
   std::shared_ptr<PhysicsBody> body1,
@@ -527,16 +585,16 @@ bool CollisionGenerator::generateContact(
 
 /*!****************************************************************************
  * \brief Initialize the CollisionGenerator
- * 
+ *
  * ## Usage:
- * 
+ *
  * This should be called when the CollisionGenerator is created. Automatically
  * called by the PhysicsManager.
- * 
+ *
  * ## Explanation:
- * 
+ *
  * This sets up the collision matrix to make checks more efficient.
- * 
+ *
  *****************************************************************************/
 void CollisionGenerator::initialize()
 {
@@ -545,13 +603,13 @@ void CollisionGenerator::initialize()
 
 /*!****************************************************************************
  * \brief Dummy update function
- * 
+ *
  * \param deltaTime
  *****************************************************************************/
 void CollisionGenerator::update(float deltaTime) {}
 
 /*!****************************************************************************
  * \brief Dummy shutdown function
- * 
+ *
  *****************************************************************************/
 void CollisionGenerator::shutdown() {}

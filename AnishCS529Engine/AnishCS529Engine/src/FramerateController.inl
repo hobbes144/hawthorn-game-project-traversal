@@ -41,11 +41,11 @@ FramerateController<T>::FramerateController() :
   timeOfLastFPSQuery(static_cast<T>(glfwGetTime())),
   physicsAccumulatorTimestep(1.0f/120.0f),
   physicsAccumulator(0.0f)
-#ifdef ENABLE_ADDITIONAL_ACCUMULATORS
+#ifdef ENABLE_RATE_CONTROLLERS
   ,rateControllersRegistered(0),
   rateControllerTargetRates({}),
   rateControllerTimes({})
-#endif // ENABLE_ADDITIONAL_ACCUMULATORS
+#endif // ENABLE_RATE_CONTROLLERS
 #ifdef ENABLE_ADDITIONAL_ACCUMULATORS
   ,accumulatorsRegistered(0),
   accumulatorTimesteps({}),

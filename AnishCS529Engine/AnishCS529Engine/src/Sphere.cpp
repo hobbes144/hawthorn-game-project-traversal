@@ -8,7 +8,7 @@ Shape::Type Sphere::getType() const {
   return Type::Sphere;
 }
 
-void Sphere::update(Transform& transform) {
+void Sphere::update(const Transform& transform) {
   // Update center position
   Matrix4 transformMatrix = transform.getLocalMatrix();
   center = transformMatrix * center;
@@ -17,6 +17,16 @@ void Sphere::update(Transform& transform) {
   Vector3 scale = transform.getScaling();
   float maxScale = std::max(std::max(std::abs(scale.x), std::abs(scale.y)), std::abs(scale.z));
   radius *= maxScale;
+}
+
+Vector3 Sphere::getFarthestExtent(const Vector3& direction)
+{
+	return direction * radius;
+}
+
+Vector3 Sphere::getSurfacePoint(const Vector3& direction)
+{
+	return direction * radius;
 }
 
 Vector3 Sphere::getCenter() const {

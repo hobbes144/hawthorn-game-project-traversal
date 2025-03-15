@@ -19,6 +19,27 @@ void PhysicsManager::removeBody(std::shared_ptr<PhysicsBody> body) {
   );
 }
 
+bool PhysicsManager::isHandledCollision(const std::shared_ptr<PhysicsBody> A, const std::shared_ptr<PhysicsBody> B) const
+{
+  for (auto it = handledCollisions.begin(); it != handledCollisions.end(); ++it) {
+    if (
+      (it->first == A && it->second == B) || 
+      (it->first == B && it->second == A))
+      return true;
+  }
+  return false;
+}
+
+void PhysicsManager::addHandledCollision(const std::shared_ptr<PhysicsBody> A, const std::shared_ptr<PhysicsBody> B)
+{
+  handledCollisions.push_back(std::make_pair(A, B));
+}
+
+void PhysicsManager::resetHandledCollisions()
+{
+  handledCollisions.clear();
+}
+
 void PhysicsManager::checkCollisions() {
   Contact contact;
   for (size_t i = 0; i < bodies.size(); i++) {
@@ -26,7 +47,6 @@ void PhysicsManager::checkCollisions() {
 
     for (size_t j = i + 1; j < bodies.size(); j++) {
       if (!bodies[j]->getParent()->isEnabled()) continue;
-
       if (collisionGenerator.generateContact(bodies[i], bodies[j], contact)) {
         // Collision detected, broadcast event
         CollisionEvent event(
@@ -38,6 +58,7 @@ void PhysicsManager::checkCollisions() {
       }
     }
   }
+  resetHandledCollisions();
 }
 
 /*!****************************************************************************

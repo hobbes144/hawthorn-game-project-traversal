@@ -11,7 +11,7 @@ Shape::Type AABB::getType() const {
   return Type::AABB;
 }
 
-void AABB::update(Transform& transform) {
+void AABB::update(const Transform& transform) {
   // For 2D AABB, we only need 4 corners
   Vector3 corners[8] = {
       Vector3(localMin[0], localMin[1], localMin[2]), // Bottom-left-Front
@@ -41,6 +41,57 @@ void AABB::update(Transform& transform) {
   }
 }
 
+Vector3 AABB::getFarthestExtent(const Vector3& direction)
+{
+  Vector3 farthestPoint;
+  Vector3 worldHalfExtents = getHalfExtents();
+
+  Vector3 farthestDiagonal = Vector3(
+    worldHalfExtents[0] * ((direction[0] > 0) * 2 - 1),
+    worldHalfExtents[1] * ((direction[1] > 0) * 2 - 1),
+    worldHalfExtents[2] * ((direction[2] > 0) * 2 - 1)
+  );
+
+  farthestPoint = direction * farthestDiagonal.dot(direction);
+
+  return farthestPoint;
+}
+
+Vector3 AABB::getSurfacePoint(const Vector3& direction)
+{
+  Vector3 surfacePoint;
+  Vector3 worldHalfExtents = getHalfExtents();
+  Vector3 localHalfExtents = getLocalHalfExtents();
+
+  Vector3 projectedLengths = direction / worldHalfExtents;
+  int maxIndex = projectedLengths.abs().getMaxIndex();
+  float scaling = fabs(localHalfExtents[maxIndex] / (projectedLengths[maxIndex]));
+
+  surfacePoint = projectedLengths * scaling * (worldHalfExtents / localHalfExtents);
+
+  return surfacePoint;
+}
+
+Vector3 AABB::getNormalAtVector(const Vector3& direction)
+{
+  if (fabs(direction.x) > fabs(direction.y)) {
+    if (fabs(direction.x) > fabs(direction.z)) {
+      return Vector3(1, 0, 0) * ((direction.x >= 0) * 2 - 1);
+    }
+    else {
+      return Vector3(0, 0, 1) * ((direction.z >= 0) * 2 - 1);
+    }
+  }
+  else {
+    if (fabs(direction.y) > fabs(direction.z)) {
+      return Vector3(0, 1, 0) * ((direction.y >= 0) * 2 - 1);
+    }
+    else {
+      return Vector3(0, 0, 1) * ((direction.z >= 0) * 2 - 1);
+    }
+  }
+}
+
 
 
 // Utility functions
@@ -48,6 +99,7 @@ Vector3 AABB::getMin()          const { return worldMin; }
 Vector3 AABB::getMax()          const { return worldMax; }
 Vector3 AABB::getCenter()       const { return (worldMin + worldMax) * 0.5f; }
 Vector3 AABB::getHalfExtents()  const { return (worldMax - worldMin) * 0.5f; }
+Vector3 AABB::getLocalHalfExtents() const { return (localMax - localMax) * 0.5f; }
 float   AABB::getWidth()        const { return worldMax[0] - worldMin[0]; }
 float   AABB::getHeight()       const { return worldMax[1] - worldMin[1]; }
 float   AABB::getDepth()        const { return worldMax[2] - worldMin[2]; }
