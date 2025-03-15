@@ -280,7 +280,7 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
     }
   }
 
-  Vector3 correction = projectedB * (unprojT / (aExtents + projectedB));
+  Vector3 correction = aExtents * (unprojT / (aExtents + projectedB));
 
   contact.point = boxA->getCenter() - correction;
 

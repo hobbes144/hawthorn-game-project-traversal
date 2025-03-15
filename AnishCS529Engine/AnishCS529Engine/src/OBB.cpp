@@ -97,7 +97,7 @@ Vector3 OBB::getSurfacePoint(const Vector3& direction) {
 
 Vector3 OBB::getNormalAtVector(const Vector3& direction)
 {
-  Vector3 projectedDirection = rotation * direction;
+  Vector3 projectedDirection = worldHalfExtents * ( rotation * direction );
 
   if (fabs(projectedDirection.x) > fabs(projectedDirection.y)) {
     if (fabs(projectedDirection.x) > fabs(projectedDirection.z)) {

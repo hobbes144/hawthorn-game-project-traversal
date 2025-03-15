@@ -22,7 +22,8 @@ unsigned int Node::nextID = 0;
  * \param name Name of the node.
  *****************************************************************************/
 Node::Node(std::string name) : 
-  id(nextID++), name(name), parent(nullptr), siblingNumber(0), isLocalSpace(true) {}
+  id(nextID++), name(name), parent(nullptr), siblingNumber(0), isLocalSpace(true),
+  localTransform(Transform()), worldTransform(Transform()) {}
 
 /*!****************************************************************************
  * \brief Add a passed node as a child to the current node
