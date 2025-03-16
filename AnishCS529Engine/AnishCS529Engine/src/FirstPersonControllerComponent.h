@@ -65,12 +65,12 @@ public:
 
     FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
-        walkForce(100.0f), maxWalkSpeed(10.0f),
+        walkForce(10), maxWalkSpeed(10.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        jumpForce(1000),
+        jumpSpeed(50),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f),
-        slideForce(100), slideCoolDown(5.0f),
+        slideForce(100), slideCoolDown(1.0f),
         wallRunSpeed(15), wallJumpForce(1000)
         {}
     ~FirstPersonControllerComponent() = default;
@@ -116,7 +116,7 @@ private:
     float maxWalkSpeed;
     float runForce;
     float maxRunSpeed;
-    float jumpForce;
+    float jumpSpeed;
 
     //Player Mouse Members
     float mouseXSensitivity;
