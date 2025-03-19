@@ -57,15 +57,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
 		}
-		//Clamp Speed
-		/*
-		Vector3 pbVelocity = physicsBody->getVelocity();
-		float pbVelocityMag = pbVelocity.magnitude();
-		if (pbVelocityMag > maxMovementSpeed) {
-			pbVelocity = (pbVelocity / pbVelocityMag) * maxMovementSpeed;
-			physicsBody->setVelocity(pbVelocity);
-		}
-		*/
 
 		//-----Handling Camera Movement-----//
 		//Get Mouse State Data

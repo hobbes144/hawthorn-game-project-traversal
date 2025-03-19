@@ -420,6 +420,36 @@ int main() {
 
 #pragma endregion
 
+#pragma region Running Wall
+
+    auto runningWall = std::make_shared<GameObject>("Running Wall");
+    mainSceneGraph.addNode(runningWall);
+    runningWall->setLocalPosition(Vector3(0.0f, 8.0f, -5.0f))
+        ->setLocalScaling(Vector3(20.0f, 7.0f, 1.0f));
+
+    auto boxWRRenderComponent = runningWall->addComponent<Render2D>();
+    boxWRRenderComponent
+        ->setCamera(camera)
+        ->setMesh(floorMesh)
+        ->setMaterial(cracksMaterial);
+
+    auto shapeWR = std::make_shared<OBB>(
+    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+    Vector3(0.5f, 0.5f, 0.5f));
+    shapeWR->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+
+    runningWall->addComponent<RigidBody>()
+        ->setMass(10.0f)->setDrag(1.0f)
+        ->setShape(shapeWR)
+        ->setDebug(isDebug)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance())
+        ->initialize();
+
+    gameObjects.push_back(runningWall);
+
+#pragma endregion
+
 #pragma region Floor
 
     auto floor = std::make_shared<GameObject>("Floor");
