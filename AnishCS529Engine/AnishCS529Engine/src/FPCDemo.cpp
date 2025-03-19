@@ -355,7 +355,8 @@ int main() {
     // Create instances of bodies for boxes
     auto playerBoxPB = playerBox->addComponent<RigidBody>()
         ->usingGravity(true)
-        ->setMass(10.0f)->setDrag(1.0f)
+        ->setMass(10.0f)
+        ->setDrag(0.5f)
         ->setShape(shape1)
         ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance());
@@ -424,7 +425,7 @@ int main() {
     auto floor = std::make_shared<GameObject>("Floor");
     mainSceneGraph.addNode(floor);
     floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
-        ->setLocalScaling(Vector3(50.0f, 0.05f, 50.0f));
+        ->setLocalScaling(Vector3(20.0f, 0.05f, 20.0f));
 
     auto box2RenderComponent = floor->addComponent<Render2D>();
     box2RenderComponent
@@ -519,9 +520,13 @@ int main() {
             break;
 
         // Physics update loop fixedStepTime
-        while (mainFramerateController->shouldUpdatePhysics()) {
+        /*while (mainFramerateController->shouldUpdatePhysics()) {
             PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
             mainFramerateController->consumePhysicsTime();
+        }*/
+
+        for (int i = 0; i < 2; i++) {
+            PhysicsManager::Instance().update(1.0f/120.0f);
         }
 
         //Affine Demonstration
@@ -561,7 +566,7 @@ int main() {
             testPass->setProperty("lightPos", lightPos);
         }
 
-        mainSceneGraph.update(deltaTime);
+        mainSceneGraph.update(1.0f/60.0f);
         mainFramerateController->endFrame();
 
 #pragma region IMGUI

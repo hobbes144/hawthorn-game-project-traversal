@@ -33,6 +33,15 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			hitGround, (body->getLocalScaling().z) * 2 + 0.25
 		);
 
+		debugCheck();
+
+		if (isGrounded) {
+			physicsBody->setDrag(0.3f);
+		}
+		else {
+			physicsBody->setDrag(0.0f);
+		}
+
 		//---Applying Movement Force---
 		float movementForce = (isSprinting ? runForce : walkForce) * 100;
 		float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
@@ -49,12 +58,14 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			physicsBody->applyForce(movementVector);
 		}
 		//Clamp Speed
+		/*
 		Vector3 pbVelocity = physicsBody->getVelocity();
 		float pbVelocityMag = pbVelocity.magnitude();
 		if (pbVelocityMag > maxMovementSpeed) {
 			pbVelocity = (pbVelocity / pbVelocityMag) * maxMovementSpeed;
 			physicsBody->setVelocity(pbVelocity);
 		}
+		*/
 
 		//-----Handling Camera Movement-----//
 		//Get Mouse State Data
@@ -102,8 +113,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		bool canJump = (isGrounded || lastTimeGrounded < coyoteTime) && (lastTimeJumpPressed < jumpBufferTime);
 		if (canJump) {
 			//Apply Jump Force
-			physicsBody->applyImpulse(Vector3(0.0f, jumpForce, 0.0f));
-
+			Vector3 currentVelocity = physicsBody->getVelocity();
+			Vector3 newVelocity = Vector3(currentVelocity.x, jumpSpeed, currentVelocity.z);
+			physicsBody->setVelocity(newVelocity);
+			
 			// Prevent multiple jumps until grounded again
 			lastTimeJumpPressed = jumpBufferTime + 1.0f;
 			lastTimeGrounded = coyoteTime + 1.0f;
@@ -117,8 +130,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			
 			//Apply a Slide Force
 			slideVector = combinedMotionVector * slideForce;
-			physicsBody->applyImpulse(slideVector);
-			
+			physicsBody->setVelocity(slideVector);
+
 			// Force Transition State
 			playerState = Sliding;
 		}
@@ -132,8 +145,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
 		RaycastHit rightWallHit;
 		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 1.0f);
-		//If Not Grounded
-		if (!isGrounded) {
+		//If Not Grounded and moving forward
+		if (!isGrounded && input->isKeyHeld(ActionKey[MoveForward])) {
 			//If Left is a Wall and moving left
 			if (isLeftWall && input->isKeyHeld(ActionKey[MoveLeft])) {
 				playerState = WallRunning;
@@ -184,7 +197,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 
 		//Exit Wall Running if there is no more Wall
-		if ((!isLeftWall && !isRightWall) || isGrounded || input->isKeyHeld(ActionKey[MoveBackward])) {
+		if ((!isLeftWall && !isRightWall) || isGrounded || !input->isKeyHeld(ActionKey[MoveForward])) {
 			playerState = Free;
 			isWallRunning = false;
 			RigidBody* rb = static_cast<RigidBody*>(physicsBody);
@@ -194,8 +207,21 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	}//End Wallrunning State
 	else if (playerState = Sliding) {
 
-		//Continue to Apply force?
-		physicsBody->applyForce(slideVector);
+		Vector3 driftVector = Vector3(0.0f, 0.0f, 0.0f);  
+		Vector3 driftDirection = Vector3(-slideVector.z, 0.0f, slideVector.x).normalized();
+
+		if (input->isKeyHeld(ActionKey[MoveLeft])) {
+			driftVector = driftDirection * -0.2f;
+		}
+		if (input->isKeyHeld(ActionKey[MoveRight])) {
+			driftVector = driftDirection * 0.2f;
+		}
+
+		Vector3 newSlideVector = slideVector + driftVector;
+		newSlideVector = newSlideVector.normalized() * slideVector.magnitude();
+
+		//Continue to Maintain Velocity
+		physicsBody->setVelocity(newSlideVector);
 
 		//increment slide timer
 		slideCoolDownTimer += 0.01;
