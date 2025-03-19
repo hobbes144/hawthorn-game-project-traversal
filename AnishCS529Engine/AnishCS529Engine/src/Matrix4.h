@@ -22,6 +22,7 @@
 
 #include "Vector3.h"
 #include "VectorTemplated.h"
+#include "Quaternion.h"
 
 /*!****************************************************************************
  * \brief Class that implements a custom 4x4 Matrix for use with OpenGL
@@ -55,7 +56,10 @@ public:
   // Multiplication: * Operator Overloads
   Matrix4 operator*(const float scalar) const;
   Matrix4 operator*(const Matrix4 &other);
-  Vector3 operator*(const Vector3 &vec) const;
+  Vector3 operator*(const Vector3& vec) const;
+  VectorTemplated<float, 4> operator*(const VectorTemplated<float,4>& vec) const;
+
+  //friend Quaternion operator*(const Matrix4&, const Quaternion&);
 
   float* operator[](int row);
   const float* operator[](int row) const;
@@ -76,6 +80,9 @@ public:
   static Matrix4 rotationZ(float angle);
   static Matrix4 rotationXYZ(float angleX, float angleY, float angleZ);
   static Matrix4 rotationXYZ(const Vector3 rotation);
+  static Matrix4 rotationZYX(float angleX, float angleY, float angleZ);
+  static Matrix4 rotationZYX(const Vector3 rotation);
+  static Matrix4 rotation(Quaternion rotation);
   static Matrix4 orthographic(
       const float left,
       const float right,
@@ -91,6 +98,33 @@ public:
   // I encourage to implement the Euler Angles formula: Removes the gimball lock problem
 
   Vector3 transformDirection(const Vector3& direction) const;
+
+  static Matrix4 rotationAxis(const Vector3& axis, float radians);
+
+  Vector3 toEulerAngles() const {
+      float R00 = data[0][0];
+      float R10 = data[1][0];
+      float R20 = data[2][0];
+      float R01 = data[0][1];
+      float R11 = data[1][1];
+      float R21 = data[2][1];
+      float R02 = data[0][2];
+      float R12 = data[1][2];
+      float R22 = data[2][2];
+
+      // Calculate Yaw (around Y-axis)
+      float yaw = std::atan2(R10, R00);
+
+      // Calculate Pitch (around X-axis)
+      float pitch = std::atan2(-R20, std::sqrt(R00 * R00 + R10 * R10));
+
+      // Calculate Roll (around Z-axis)
+      float roll = std::atan2(R21, R22);
+
+      // Return the Euler angles as a Vector3 (yaw, pitch, roll)
+      return Vector3(yaw, pitch, roll);
+}
+
 
 };
 

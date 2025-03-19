@@ -1,0 +1,55 @@
+/*!****************************************************************************
+ * \file   RaycastManager.h
+ * \author Nicholas Shaw (nick_shaw@me.com)
+ * \par    **DigiPen Email**
+ *    nick.shaw@digipen.edu
+ * \par    **Course**
+ *    GAM541
+ * \date   03-01-2025
+ * \brief  This is a singleton Class that needs it's SceneGraph to be set 
+ * before any calls can be made. 
+ * The Raycast() function will perform a raycasting test
+ * 
+ *****************************************************************************/
+#ifndef RAYCAST_MANAGER
+#define RAYCAST_MANAGER
+
+#pragma once
+
+#include "Ray.h"
+#include "RaycastHit.h"
+#include "src/SceneGraph.h"
+#include "src/Node.h"
+
+class RaycastManager
+{
+
+public:
+	static RaycastManager& Instance() {
+		static RaycastManager instance;
+		return instance;
+	}
+	RaycastManager(const RaycastManager&) = delete;
+	RaycastManager& operator=(const RaycastManager&) = delete;
+
+	void setSceneGraph(const SceneGraph* _sceneGraph) {
+		this->sceneGraph = _sceneGraph;
+	}
+
+	bool Raycast(const Ray& ray, RaycastHit& hit, float maxDistance = FLT_MAX, const std::vector<GameObject::Tag> tagToIgnore = {});
+
+private:
+	RaycastManager() = default;
+
+	const SceneGraph* sceneGraph = nullptr;
+
+	bool processNode(const std::shared_ptr<Node>& node,
+					 const Ray& ray,
+					 RaycastHit& hit,
+					 float& closeHitDistance,
+					 const std::vector<GameObject::Tag> tagToIgnore);
+
+};
+
+
+#endif // !RAYCAST_MANAGER

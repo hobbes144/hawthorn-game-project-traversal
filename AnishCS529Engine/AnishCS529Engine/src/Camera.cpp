@@ -26,22 +26,17 @@
   *
   *****************************************************************************/
 void Camera::updateViewMatrix() {
-  if (oldPosition != getLocalPosition() || oldRotation != getLocalRotation()) {
-    oldPosition = getLocalPosition();
-    oldRotation = getLocalRotation();
-
-    Vector3 position = getLocalPosition();
-
-    // Compute rotation matrix from Node's rotation angles
-    Matrix4 rotationMatrix = Matrix4::rotationXYZ(getLocalRotation());
+  if (oldPosition != getWorldTransform().getPosition() || oldRotation != getWorldTransform().getRotation()) {
+    oldPosition = getWorldTransform().getPosition();
+    oldRotation = getWorldTransform().getRotation();
 
     // Extract basis vectors (Right, Up, Forward)
-    Vector3 right = rotationMatrix * Vector3(1.0f, 0.0f, 0.0f);
-    Vector3 up = rotationMatrix * Vector3(0.0f, 1.0f, 0.0f);
-    Vector3 forward = rotationMatrix * Vector3(0.0f, 0.0f, -1.0f);  // Camera forward is -Z
+    Vector3 right = oldRotation * Vector3(1.0f, 0.0f, 0.0f);
+    Vector3 up = oldRotation * Vector3(0.0f, 1.0f, 0.0f);
+    Vector3 forward = oldRotation * Vector3(0.0f, 0.0f, -1.0f);  // Camera forward is -Z
 
     // Compute view matrix using LookAt
-    viewMatrix = Matrix4::lookAt(position, position + forward, up);
+    viewMatrix = Matrix4::lookAt(oldPosition, oldPosition + forward, up);
     inverseViewMatrix = Matrix4::inverse(viewMatrix);
   }
 }
@@ -115,7 +110,7 @@ std::shared_ptr<Camera> Camera::move(const Vector3 & direction, float amount) {
 }
 
 std::shared_ptr<Camera> Camera::rotate(float roll, float pitch, float yaw) {
-  setLocalRotation(getLocalRotation() + Vector3(roll, pitch, yaw));
+  setLocalRotation(getLocalRotation() * Quaternion::fromEuler(roll, pitch, yaw));
   return std::static_pointer_cast<Camera>( shared_from_this() );
 }
 

@@ -23,6 +23,10 @@ public:
     return bodies;
   }
 
+  bool isHandledCollision(const std::shared_ptr<PhysicsBody> A, const std::shared_ptr<PhysicsBody> B) const;
+  void addHandledCollision(const std::shared_ptr<PhysicsBody> A, const std::shared_ptr<PhysicsBody> B);
+  void resetHandledCollisions();
+
 private:
   PhysicsManager() = default;
   PhysicsManager(const PhysicsManager&) = delete;
@@ -31,5 +35,6 @@ private:
   void checkCollisions();
 
   std::vector<std::shared_ptr<PhysicsBody>> bodies;
+  std::vector<std::pair< std::shared_ptr<PhysicsBody>, std::shared_ptr<PhysicsBody>>> handledCollisions;
   CollisionGenerator collisionGenerator;
 };

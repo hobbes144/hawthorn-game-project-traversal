@@ -22,7 +22,7 @@
 
 template <typename T, size_t N>
 class VectorTemplated {
-private:
+protected:
   std::array<T, N> data;
 
 public:
@@ -38,19 +38,42 @@ public:
       data[i] = val;
     }
   }
+
+  VectorTemplated& operator=(const VectorTemplated& other) {
+    if (*this == other) {
+      return *this;
+    }
+    data = other.data;
+    return *this;
+  }
+
   explicit VectorTemplated(const std::array<T, N>& values) : data(values) {}
 
   T& operator[](size_t index) { return data[index]; }
   const T& operator[](size_t index) const { return data[index]; }
 
+  bool operator==(const VectorTemplated& other) const {
+    for (int i = 0; i < N; ++i) {
+      if (data[i] != other[i]) return false;
+    }
+    return true;
+  }
+
+  bool operator!=(const VectorTemplated& other) const {
+    return (!(*this == other));
+  }
+
   // Formula: [v1 + u1, v2 + u2, ..., vn + un]
-  VectorTemplated operator+(const VectorTemplated& other) const {
-    VectorTemplated result;
+  friend VectorTemplated operator+(VectorTemplated vector, const VectorTemplated& other) {
+    return vector+=other;
+  }
+
+  VectorTemplated& operator+=(const VectorTemplated& other) {
     for (int i = 0; i < N; i++) {
-      result.data[i] = data[i] + other.data[i];
+      data[i] += other.data[i];
     }
 
-    return result;
+    return *this;
   }
 
   // Formula: [v1 - u1, v2 - u2, ..., vn - un]
@@ -73,13 +96,16 @@ public:
     return result;
   }
 
-  VectorTemplated operator*(const VectorTemplated& other) const {
-    VectorTemplated result;
+  friend VectorTemplated operator*(VectorTemplated vector, const VectorTemplated& other) {
+    return vector *= other;
+  }
+
+  VectorTemplated& operator*=(const VectorTemplated& other) {
     for (int i = 0; i < N; i++) {
-      result.data[i] = data[i] * other.data[i];
+      data[i] *= other.data[i];
     }
 
-    return result;
+    return *this;
   }
 
   // Formula: v1*u1 + v2*u2 + ... + vn*un
@@ -104,20 +130,25 @@ public:
   T magnitude() const {
     T result = 0;
     for (int i = 0; i < N; i++) {
-      result += pow(data[i], 2);
+      result += static_cast<T>(pow(data[i], 2));
     }
     return sqrt(result);
   }
 
   // Formula: v / |v|, where |v| is the magnitude
-  VectorTemplated normalized() const {
-    VectorTemplated result;
+  void normalize() {
     T magnitude_val = magnitude();
     if (magnitude_val == 0) throw std::runtime_error("Cannot normalize zero vector");
 
     for (int i = 0; i < N; i++) {
-      result.data[i] /= magnitude_val;
+      data[i] /= magnitude_val;
     }
+  }
+
+  // Formula: v / |v|, where |v| is the magnitude
+  VectorTemplated normalized() const {
+    VectorTemplated result = *this;
+    result.normalize();
     return result;
   }
 
@@ -127,5 +158,7 @@ public:
     return VectorTemplated((data[1] * other.data[2] - data[2] * other.data[1]), (data[2] * other.data[0] - data[0] * other.data[2]), (data[0] * other.data[1] - data[1] * other.data[0]));
   }
 };
+
+using Vector4 = VectorTemplated<float, 4>;
 
 #endif // VECTOR_TEMPLATED_H

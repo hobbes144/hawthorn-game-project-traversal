@@ -11,6 +11,7 @@
 #include "precompiled.h"
 
 #include "Node.h"
+#include "GameObject.h"
 
 /* Initializing static Next ID counter. */
 unsigned int Node::nextID = 0;
@@ -21,7 +22,8 @@ unsigned int Node::nextID = 0;
  * \param name Name of the node.
  *****************************************************************************/
 Node::Node(std::string name) : 
-  id(nextID++), name(name), parent(nullptr), siblingNumber(0), isLocalSpace(true) {}
+  id(nextID++), name(name), parent(nullptr), siblingNumber(0), isLocalSpace(true),
+  localTransform(Transform()), worldTransform(Transform()) {}
 
 /*!****************************************************************************
  * \brief Add a passed node as a child to the current node
@@ -162,56 +164,143 @@ void Node::update(float deltaTime) {
   /* Todo: add other update logic here? */
   if (!parent) throw std::runtime_error("ERROR::NODE::UPDATE::NOPARENT");
 
+  updateTransforms();
+
+  if (GameObject* obj = dynamic_cast<GameObject*>(this)) {
+    obj->updateComponents(deltaTime);
+  }
+
+  //// Update all children
+  //for (auto& child : children) {
+  //  child->update(deltaTime);
+  //}
+}
+
+void Node::updateTransforms()
+{
   if (isLocalSpace) {
-    if (parent) {
-      Matrix4 parentWorld = parent->getTransformMatrix();
-      worldTransform.setPosition(parentWorld * localTransform.getPosition());
-      worldTransform.setRotation(parent->worldTransform.getRotation() + localTransform.getRotation());
-      worldTransform.setScaling(parent->worldTransform.getScaling() * localTransform.getScaling());
-    }
-    else {
-      worldTransform = localTransform;
-    }
+    worldTransform = parent->getWorldTransform() * localTransform;
   }
   else {
-    if (parent) {
-      Matrix4 parentWorldInv = parent->worldTransform.getInverseLocalMatrix();
-      localTransform.setPosition(parentWorldInv * worldTransform.getPosition());
-      localTransform.setRotation(worldTransform.getRotation() - parent->worldTransform.getRotation());
-      localTransform.setScaling(worldTransform.getScaling() * parent->worldTransform.getScaling().reciprocal());
-    }
-    else {
-      localTransform = worldTransform;
-    }
+    Transform parentWorldTransform = parent->getWorldTransform();
+    localTransform.setPosition(parentWorldTransform.getInverseLocalMatrix() * worldTransform.getPosition());
+    localTransform.setRotation(worldTransform.getRotation() * parentWorldTransform.getRotation().inverse());
+    localTransform.setScaling(worldTransform.getScaling() * parentWorldTransform.getScaling().reciprocal());
+    isLocalSpace = true;
   }
 }
 
 void Node::worldToLocalSpace() {
+  Transform parentWorldTransform = parent->getWorldTransform();
+  localTransform.setPosition(parentWorldTransform.getInverseLocalMatrix() * worldTransform.getPosition());
+  localTransform.setRotation(worldTransform.getRotation() * parentWorldTransform.getRotation().inverse());
+  localTransform.setScaling(worldTransform.getScaling() * parentWorldTransform.getScaling().reciprocal());
   isLocalSpace = true;
 }
 
 void Node::localToWorldSpace() {
+  worldTransform = (parent->getWorldTransform() * localTransform);
+}
+
+Vector3 Node::getLocalPosition() {
+  if (!isLocalSpace)
+    worldToLocalSpace();
+  return localTransform.getPosition();
+}
+Quaternion Node::getLocalRotation() {
+  if (!isLocalSpace)
+    worldToLocalSpace();
+  return localTransform.getRotation();
+}
+Vector3 Node::getLocalScaling() {
+  if (!isLocalSpace)
+    worldToLocalSpace();
+  return localTransform.getScaling();
+}
+
+std::shared_ptr<Node> Node::setLocalTransform(Transform newTransform) {
+  if (!isLocalSpace)
+    worldToLocalSpace();
+  localTransform = newTransform; return shared_from_this();
+}
+
+std::shared_ptr<Node> Node::setWorldTransform(Transform newTransform) {
+  if (isLocalSpace)
+    localToWorldSpace();
   isLocalSpace = false;
+  worldTransform = newTransform;
+  return shared_from_this();
+}
+
+Vector3 Node::getForwardVector()
+{
+    Vector3 forward = getTransform().getRotation() * Vector3(0.0f, 0.0f, -1.0f);
+    return forward;
+}
+
+Vector3 Node::getRightVector()
+{
+    Vector3 right = getTransform().getRotation() * Vector3(1.0f, 0.0f, 0.0f);
+    return right;
+}
+
+Vector3 Node::getUpVector()
+{
+    Vector3 up = getTransform().getRotation() * Vector3(0.0f, 1.0f, 0.0f);
+    return up;
 }
 
 std::shared_ptr<Node> Node::setLocalPosition(const Vector3& position) {
+  if (!isLocalSpace)
+    worldToLocalSpace();
   localTransform.setPosition(position);
-  isLocalSpace = true;  // Ensure we're in local space after this operation
-
   return shared_from_this();
 }
-
-std::shared_ptr<Node> Node::setLocalRotation(const Vector3& rotation) {
+std::shared_ptr<Node> Node::setLocalRotation(const Quaternion& rotation) {
+  if (!isLocalSpace)
+    worldToLocalSpace();
   localTransform.setRotation(rotation);
-  isLocalSpace = true;  // Ensure we're in local space after this operation
-
+  return shared_from_this();
+}
+std::shared_ptr<Node> Node::setLocalRotation(const Vector3& rotation) {
+  if (!isLocalSpace)
+    worldToLocalSpace();
+  localTransform.setRotation(rotation);
+  return shared_from_this();
+}
+std::shared_ptr<Node> Node::setLocalScaling(const Vector3& scaling) {
+  if (!isLocalSpace)
+    worldToLocalSpace();
+  localTransform.setScaling(scaling);
   return shared_from_this();
 }
 
-std::shared_ptr<Node> Node::setLocalScaling(const Vector3& scaling) {
-  localTransform.setScaling(scaling);
-  isLocalSpace = true;  // Ensure we're in local space after this operation
-
+std::shared_ptr<Node> Node::setWorldPosition(const Vector3& position) {
+  if (isLocalSpace)
+    localToWorldSpace();
+  isLocalSpace = false;
+  worldTransform.setPosition(position);
+  return shared_from_this();
+}
+std::shared_ptr<Node> Node::setWorldRotation(const Quaternion& rotation) {
+  if (isLocalSpace)
+    localToWorldSpace();
+  isLocalSpace = false;
+  worldTransform.setRotation(rotation);
+  return shared_from_this();
+}
+std::shared_ptr<Node> Node::setWorldRotation(const Vector3& rotation) {
+  if (isLocalSpace)
+    localToWorldSpace();
+  isLocalSpace = false;
+  worldTransform.setRotation(rotation);
+  return shared_from_this();
+}
+std::shared_ptr<Node> Node::setWorldScaling(const Vector3& scaling) {
+  if (isLocalSpace)
+    localToWorldSpace();
+  isLocalSpace = false;
+  worldTransform.setScaling(scaling);
   return shared_from_this();
 }
 
