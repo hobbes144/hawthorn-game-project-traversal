@@ -128,14 +128,17 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 
 		//-----WallRunning Check-----//
-		//Check Wall on Left
+		//Continue performing Wall Checks
 		Ray leftRay = Ray(body->getLocalPosition(), -body->getRightVector());
+		Ray left45Ray = Ray(body->getLocalPosition(), (-body->getRightVector() + body->getForwardVector()) * 0.5f);
 		RaycastHit leftWallHit;
-		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 1.0f);
+		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 2.0f) || RaycastManager::Instance().Raycast(left45Ray, leftWallHit, 2.0f);
 		//Check Wall on Right
 		Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
+		Ray right45Ray = Ray(body->getLocalPosition(), (body->getRightVector() + body->getForwardVector()) * 0.5f);
 		RaycastHit rightWallHit;
-		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 1.0f);
+		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 2.0f) || RaycastManager::Instance().Raycast(right45Ray, rightWallHit, 2.0f);
+
 		//If Not Grounded and moving forward
 		if (!isGrounded && input->isKeyHeld(ActionKey[MoveForward])) {
 			//If Left is a Wall and moving left
@@ -161,12 +164,14 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 		//Continue performing Wall Checks
 		Ray leftRay = Ray(body->getLocalPosition(), -body->getRightVector());
+		Ray left45Ray = Ray(body->getLocalPosition(), (-body->getRightVector() + body->getForwardVector()) * 0.5f);
 		RaycastHit leftWallHit;
-		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 1.0f);
+		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 2.0f) || RaycastManager::Instance().Raycast(left45Ray, leftWallHit, 2.0f);
 		//Check Wall on Right
 		Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
+		Ray right45Ray = Ray(body->getLocalPosition(), (body->getRightVector() + body->getForwardVector()) * 0.5f);
 		RaycastHit rightWallHit;
-		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 1.0f);
+		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 2.0f) || RaycastManager::Instance().Raycast(right45Ray, rightWallHit, 2.0f);
 
 		//Get the direction to move along the wall in
 		Vector3 wallRunDirection = Vector3(0, 1, 0).cross(wallNormal);
