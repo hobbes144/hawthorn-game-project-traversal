@@ -424,8 +424,8 @@ int main() {
 
     auto runningWall = std::make_shared<GameObject>("Running Wall");
     mainSceneGraph.addNode(runningWall);
-    runningWall->setLocalPosition(Vector3(0.0f, 8.0f, -5.0f))
-        ->setLocalScaling(Vector3(20.0f, 7.0f, 1.0f));
+    runningWall->setLocalPosition(Vector3(10.0f, 5.0f, -10.0f))
+        ->setLocalScaling(Vector3(20.0f, 14.0f, 1.0f));
 
     auto boxWRRenderComponent = runningWall->addComponent<Render2D>();
     boxWRRenderComponent
