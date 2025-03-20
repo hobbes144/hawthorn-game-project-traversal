@@ -31,6 +31,7 @@
 #include "RaycastHit.h"
 #include "RaycastManager.h"
 #include "FirstPersonControllerComponent.h"
+#include "Maploader.h"
 
 extern "C"
 {
@@ -291,51 +292,15 @@ int main() {
         ->setMesh(mapMesh)
         ->setMaterial(floorMaterial);
 
+    MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera, floorMesh, floorMaterial);
+    
 #pragma endregion
 
-#pragma region Turret
-    std::shared_ptr<Mesh> turretMesh = Mesh::loadMesh("media/Map/Turret.fbx");
-    auto turretObject = std::make_shared<GameObject>("turret");
-    mainSceneGraph.addNode(turretObject);
-    turretObject->setLocalPosition(Vector3(50.0f, 1.0f, 0.0f));
-    turretObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
-    auto turretRenderComponent = turretObject->addComponent<Render2D>();
-    turretRenderComponent->setCamera(camera)
-        ->setMesh(turretMesh)
-        ->setMaterial(brickMaterial);
-#pragma endregion
-
-#pragma region Cannon
-    std::shared_ptr<Mesh> cannonMesh = Mesh::loadMesh("media/Map/Cannon.fbx");
-    auto cannonObject = std::make_shared<GameObject>("Cannon");
-    mainSceneGraph.addNode(cannonObject);
-    cannonObject->setLocalPosition(Vector3(-100.0f, 1.0f, 0.0f));
-    cannonObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
-    cannonObject->setLocalRotation(Vector3(0.0f, 0.0f, 135.0f));
-    auto cannonRenderComponent = cannonObject->addComponent<Render2D>();
-    cannonRenderComponent->setCamera(camera)
-        ->setMesh(cannonMesh)
-        ->setMaterial(boxMaterial);
-#pragma endregion
-
-#pragma region Cannonball
-    std::shared_ptr<Mesh> cannonballMesh = Mesh::loadMesh("media/Map/Cannonball.fbx");
-    auto cannonballObject = std::make_shared<GameObject>("Cannonball");
-    cannonballObject->setLocalPosition(Vector3(-80.0f, 1.0f, 70.0f));
-    cannonballObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
-    auto cannonballRenderComponent = cannonballObject->addComponent<Render2D>();
-    cannonballRenderComponent->setCamera(camera)
-        ->setMesh(cannonballMesh)
-        ->setMaterial(floorMaterial);
-    mainSceneGraph.addNode(cannonballObject);
-#pragma endregion
-
-#pragma endregion
 
 #pragma region PlayerBox
 
     //Transform Values
-    playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
+    playerBox->setLocalPosition(Vector3(-3.0f, 10.0f, 0.0f))
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
 
 
@@ -418,7 +383,7 @@ int main() {
     boxTouch.setCallback(onBoxCollide);
 
 #pragma endregion
-
+    /*
 #pragma region Floor
 
     auto floor = std::make_shared<GameObject>("Floor");
@@ -448,7 +413,7 @@ int main() {
     gameObjects.push_back(floor);
 
 #pragma endregion
-
+    */
 #pragma region Static Sound Box
 
     auto soundBox = std::make_shared<GameObject>("SoundBox");
