@@ -36,31 +36,31 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
 // Left pad
 {
     auto mainFloorLeft = std::make_shared<GameObject>("MainFloorLeft");
+    sceneGraph.addNode(mainFloorLeft);
     mainFloorLeft->setLocalPosition(Vector3(-4.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
     mainFloorLeft->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto renderComp = mainFloorLeft->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    sceneGraph.addNode(mainFloorLeft);
 }
 
 // Right pad
 {
     auto mainFloorRight = std::make_shared<GameObject>("MainFloorRight");
+    sceneGraph.addNode(mainFloorRight);
     mainFloorRight->setLocalPosition(Vector3(40.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
     mainFloorRight->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto renderComp = mainFloorRight->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    sceneGraph.addNode(mainFloorRight);
 }
 
 // Wall for wall running
 {
     auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+    sceneGraph.addNode(wallRunWall);
     wallRunWall->setLocalPosition(Vector3(18.0f + offsetX, 2.5f + offsetY, -4.0f + offsetZ));
     wallRunWall->setLocalScaling(Vector3(30.0f, 8.0f, 1.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    sceneGraph.addNode(wallRunWall);
 }
 
 std::cout << "[MapLoader] Wallrun map loaded with offset ("
@@ -77,11 +77,11 @@ void MapLoader::loadJump(float offsetX, float offsetY, float offsetZ,
 // Starting platform
 {
     auto mainFloor = std::make_shared<GameObject>("MainFloor");
+    sceneGraph.addNode(mainFloor);
     mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
     mainFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto renderComp = mainFloor->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    sceneGraph.addNode(mainFloor);
 }
 
 // Platforms data arrays.
@@ -92,22 +92,22 @@ float xOffset[] = { 2.0f, 2.0f, -3.0f, 3.0f, -4.0f, 4.0f, -5.0f, 5.0f, 8.0f };
 
 for (int i = 0; i < 9; ++i) {
     auto platform = std::make_shared<GameObject>("Platform" + std::to_string(i + 1));
+    sceneGraph.addNode(platform);
     float adjustedX = (i == 0) ? (xSpacing * 1.5f) : ((i + 1) * xSpacing + 5.0f);
     platform->setLocalPosition(Vector3(adjustedX + offsetX, yVariation[i] + offsetY, xOffset[i] + offsetZ));
     platform->setLocalScaling(Vector3(platformSizes[i], 0.5f, platformSizes[i]));
     auto renderComp = platform->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    sceneGraph.addNode(platform);
 }
 
 // Exit platform
 {
     auto upperFloor = std::make_shared<GameObject>("UpperFloor");
+    sceneGraph.addNode(upperFloor);
     upperFloor->setLocalPosition(Vector3(60.0f + offsetX, 0.2f + offsetY, 8.0f + offsetZ));
     upperFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto renderComp = upperFloor->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-    sceneGraph.addNode(upperFloor);
 }
 
 std::cout << "[MapLoader] Jump map loaded with offset ("
