@@ -144,6 +144,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			//If Left is a Wall and moving left
 			if (isLeftWall && input->isKeyHeld(ActionKey[MoveLeft])) {
 				playerState = WallRunning;
+				runningWall = leftWallHit.object;
 				wallNormal = leftWallHit.normal;
 				isWallRunning = true;
 				RigidBody* rb = static_cast<RigidBody*>(physicsBody);
@@ -152,6 +153,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			//If Right is a wall and moving right
 			else if (isRightWall && input->isKeyHeld(ActionKey[MoveRight])) {
 				playerState = WallRunning;
+				runningWall = rightWallHit.object;
 				wallNormal = rightWallHit.normal;
 				isWallRunning = true;
 				RigidBody* rb = static_cast<RigidBody*>(physicsBody);
@@ -188,6 +190,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			physicsBody->applyImpulse(jumpDirection);
 
 			playerState = Free; // Exit wallrunning
+			isWallRunning = false;
+			runningWall = nullptr;
 			RigidBody* rb = static_cast<RigidBody*>(physicsBody);
 			rb->usingGravity(true);
 		}
@@ -196,6 +200,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if ((!isLeftWall && !isRightWall) || isGrounded || !input->isKeyHeld(ActionKey[MoveForward])) {
 			playerState = Free;
 			isWallRunning = false;
+			runningWall = nullptr;
 			RigidBody* rb = static_cast<RigidBody*>(physicsBody);
 			rb->usingGravity(true);
 		}
@@ -267,6 +272,16 @@ std::shared_ptr<FirstPersonControllerComponent>
 {
 	ActionKey[_action] = _key;
 	return shared_from_this();
+}
+
+bool FirstPersonControllerComponent::getIsGrounded()
+{
+	return isGrounded;
+}
+
+std::shared_ptr<GameObject> FirstPersonControllerComponent::getRunningWall()
+{
+	return runningWall;
 }
 
 void FirstPersonControllerComponent::debugCheck()

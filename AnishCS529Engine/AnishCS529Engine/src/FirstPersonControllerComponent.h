@@ -93,7 +93,9 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
         setActionKey(Action _action, Key _key);
 
-
+    //Accessors
+    bool getIsGrounded();
+    std::shared_ptr<GameObject> getRunningWall();
 
 private:
     //PlayerState
@@ -136,6 +138,7 @@ private:
     float slideCoolDown;
     float slideCoolDownTimer = slideCoolDown + 1;
     //WallRunning Members
+    std::shared_ptr<GameObject> runningWall;
     bool isLeftWall = false;
     bool isRightWall = false;
     float wallRunSpeed;
