@@ -292,7 +292,7 @@ int main() {
         ->setMesh(mapMesh)
         ->setMaterial(floorMaterial);
 
-    MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera, floorMesh, floorMaterial);
+    MapLoader::instance().loadMap(2, 0, 0, 0, mainSceneGraph, camera, floorMesh, floorMaterial);
     
 #pragma endregion
 
