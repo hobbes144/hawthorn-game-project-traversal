@@ -171,7 +171,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     auto boxRoomFloor = std::make_shared<GameObject>("BoxRoomFloor");
     sceneGraph.addNode(boxRoomFloor);
     boxRoomFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
-    boxRoomFloor->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+    boxRoomFloor->setLocalScaling(Vector3(20.0f, 1.0f, 20.0f));
     auto renderComp = boxRoomFloor->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>(Vector3(0.5f, 0.5f, 0.5f));
@@ -183,8 +183,8 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
 {
     auto wall = std::make_shared<GameObject>("RoomWallLeft");
     sceneGraph.addNode(wall);
-    wall->setLocalPosition(Vector3(-6.0f + offsetX, 2.0f + offsetY, 0.0f + offsetZ));
-    wall->setLocalScaling(Vector3(1.0f, 4.0f, 12.0f));
+    wall->setLocalPosition(Vector3(-10.5f + offsetX, 7.0f + offsetY, 0.0f + offsetZ));
+    wall->setLocalScaling(Vector3(1.0f, 15.0f, 20.0f));
     auto renderComp = wall->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>(Vector3(0.5f, 0.5f, 0.5f));
@@ -196,8 +196,8 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
 {
     auto wall = std::make_shared<GameObject>("RoomWallRight");
     sceneGraph.addNode(wall);
-    wall->setLocalPosition(Vector3(6.0f + offsetX, 2.0f + offsetY, 0.0f + offsetZ));
-    wall->setLocalScaling(Vector3(1.0f, 4.0f, 12.0f));
+    wall->setLocalPosition(Vector3(10.5f + offsetX, 7.0f + offsetY, 0.0f + offsetZ));
+    wall->setLocalScaling(Vector3(1.0f, 15.0f, 20.0f));
     auto renderComp = wall->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>(Vector3(0.5f, 0.5f, 0.5f));
@@ -209,8 +209,8 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
 {
     auto wall = std::make_shared<GameObject>("RoomWallBack");
     sceneGraph.addNode(wall);
-    wall->setLocalPosition(Vector3(0.0f + offsetX, 2.0f + offsetY, -6.0f + offsetZ));
-    wall->setLocalScaling(Vector3(12.0f, 4.0f, 1.0f));
+    wall->setLocalPosition(Vector3(0.0f + offsetX, 7.0f + offsetY, -10.5f + offsetZ));
+    wall->setLocalScaling(Vector3(20.0f, 15.0f, 1.0f));
     auto renderComp = wall->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>(Vector3(0.5f, 0.5f, 0.5f));
@@ -222,8 +222,8 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
 {
     auto wall = std::make_shared<GameObject>("RoomWallFrontLeft");
     sceneGraph.addNode(wall);
-    wall->setLocalPosition(Vector3(-4.0f + offsetX, 2.0f + offsetY, 6.0f + offsetZ));
-    wall->setLocalScaling(Vector3(4.0f, 4.0f, 1.0f));
+    wall->setLocalPosition(Vector3(-7.0f + offsetX, 7.0f + offsetY, 10.5f + offsetZ));
+    wall->setLocalScaling(Vector3(7.5f, 15.0f, 1.0f));
     auto renderComp = wall->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>(Vector3(0.5f, 0.5f, 0.5f));
@@ -235,8 +235,8 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
 {
     auto wall = std::make_shared<GameObject>("RoomWallFrontRight");
     sceneGraph.addNode(wall);
-    wall->setLocalPosition(Vector3(4.0f + offsetX, 2.0f + offsetY, 6.0f + offsetZ));
-    wall->setLocalScaling(Vector3(4.0f, 4.0f, 1.0f));
+    wall->setLocalPosition(Vector3(7.0f + offsetX, 7.0f + offsetY, 10.5f + offsetZ));
+    wall->setLocalScaling(Vector3(7.5f, 15.0f, 1.0f));
     auto renderComp = wall->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>(Vector3(0.5f, 0.5f, 0.5f));
