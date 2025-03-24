@@ -18,8 +18,12 @@ void FirstPersonControllerComponent::initialize()
 
 void FirstPersonControllerComponent::update(float deltaTime)
 {
+	const float rayDist = parent->getWorldTransform().getScaling().x * 3; 
 
 	if (playerState == Free) {
+
+		RigidBody* rb = static_cast<RigidBody*>(physicsBody);
+		rb->usingGravity(true);
 
 		//-----First Person Movement-----//
 		//Temp States
@@ -128,19 +132,21 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 
 		//-----WallRunning Check-----//
-		//Continue performing Wall Checks
-		Ray leftRay = Ray(body->getLocalPosition(), -body->getRightVector());
-		Ray left45Ray = Ray(body->getLocalPosition(), (-body->getRightVector() + body->getForwardVector()) * 0.5f);
-		RaycastHit leftWallHit;
-		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 2.0f) || RaycastManager::Instance().Raycast(left45Ray, leftWallHit, 2.0f);
-		//Check Wall on Right
-		Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
-		Ray right45Ray = Ray(body->getLocalPosition(), (body->getRightVector() + body->getForwardVector()) * 0.5f);
-		RaycastHit rightWallHit;
-		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 2.0f) || RaycastManager::Instance().Raycast(right45Ray, rightWallHit, 2.0f);
-
 		//If Not Grounded and moving forward
 		if (!isGrounded && input->isKeyHeld(ActionKey[MoveForward])) {
+			
+			//Wall Checks
+			//Continue performing Wall Checks
+			Ray leftRay = Ray(body->getLocalPosition(), -body->getRightVector());
+			Ray left45Ray = Ray(body->getLocalPosition(), (-body->getRightVector() + body->getForwardVector()).normalized());
+			RaycastHit leftWallHit;
+			isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) || RaycastManager::Instance().Raycast(left45Ray, leftWallHit, 2.0f);
+			//Check Wall on Right
+			Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
+			Ray right45Ray = Ray(body->getLocalPosition(), (body->getRightVector() + body->getForwardVector()).normalized());
+			RaycastHit rightWallHit;
+			isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) || RaycastManager::Instance().Raycast(right45Ray, rightWallHit, 2.0f);
+			
 			//If Left is a Wall and moving left
 			if (isLeftWall && input->isKeyHeld(ActionKey[MoveLeft])) {
 				playerState = WallRunning;
