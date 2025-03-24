@@ -20,6 +20,46 @@ void FirstPersonControllerComponent::update(float deltaTime)
 {
 	const float rayDist = parent->getWorldTransform().getScaling().x * 3; 
 
+	//-----Handling Camera Movement-----//
+	//Get Mouse State Data
+	MouseState mouseState = input->getMouseState();
+	float mouseXDelta = 0.0f;
+	float mouseYDelta = 0.0f;
+	if (mouseState.deltaX != 0) {
+		debugCheck();
+		mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseXSensitivity;
+		//Rotate Body
+		Quaternion currentBodyRotation = body->getLocalRotation();
+		Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
+		body->setLocalRotation(currentBodyRotation * mouseRotation);
+	}
+	if (mouseState.deltaY != 0) {
+		mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseYSensitivity;
+		//Rotate Camera
+		Quaternion currentCameraRoation = camera->getLocalRotation();
+		Vector3 currentEuler = currentCameraRoation.toEuler();
+		float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
+		newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
+		Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
+		camera->setLocalRotation(newCameraRotation);
+	}
+	//Reset Mouse Delta
+	input->resetMouseDelta();
+
+	//Check if Grounded
+	RaycastHit hitGround;
+	isGrounded = RaycastManager::Instance().Raycast(
+		Ray(body->getWorldTransform().getPosition(), -body->getUpVector()),
+		hitGround, (body->getLocalScaling().z) * 2 + 0.25
+	);
+	if (isGrounded) {
+		physicsBody->setDrag(0.3f);
+	}
+	else {
+		physicsBody->setDrag(0.0f);
+	}
+
+	//-----STATES-----//
 	if (playerState == Free) {
 
 		RigidBody* rb = static_cast<RigidBody*>(physicsBody);
@@ -30,21 +70,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		bool isSprinting = input->isKeyHeld(ActionKey[Sprint]);
 		float forwardMotion = input->isKeyHeld(ActionKey[MoveForward]) - input->isKeyHeld(ActionKey[MoveBackward]);
 		float lateralMotion = input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]);
-		//Check if Grounded
-		RaycastHit hitGround;
-		isGrounded = RaycastManager::Instance().Raycast(
-			Ray(body->getWorldTransform().getPosition(), -body->getUpVector()),
-			hitGround, (body->getLocalScaling().z) * 2 + 0.25
-		);
-
-		debugCheck();
-
-		if (isGrounded) {
-			physicsBody->setDrag(0.3f);
-		}
-		else {
-			physicsBody->setDrag(0.0f);
-		}
 
 		//---Applying Movement Force---
 		float movementForce = (isSprinting ? runForce : walkForce) * 100;
@@ -61,33 +86,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
 		}
-
-		//-----Handling Camera Movement-----//
-		//Get Mouse State Data
-		MouseState mouseState = input->getMouseState();
-		float mouseXDelta = 0.0f;
-		float mouseYDelta = 0.0f;
-		if (mouseState.deltaX != 0) {
-			debugCheck();
-			mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseXSensitivity;
-			//Rotate Body
-			Quaternion currentBodyRotation = body->getLocalRotation();
-			Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
-			body->setLocalRotation(currentBodyRotation * mouseRotation);
-		}
-		if (mouseState.deltaY != 0) {
-			mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseYSensitivity;
-			//Rotate Camera
-			Quaternion currentCameraRoation = camera->getLocalRotation();
-			Vector3 currentEuler = currentCameraRoation.toEuler();
-			float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
-			newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
-			Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
-			camera->setLocalRotation(newCameraRotation);
-		}
-		
-		//Reset Mouse Delta
-		input->resetMouseDelta();
 
 		//-----Handle Jumping-----//
 		//Track the last time the player was ground
@@ -153,8 +151,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				runningWall = leftWallHit.object;
 				wallNormal = leftWallHit.normal;
 				isWallRunning = true;
-				RigidBody* rb = static_cast<RigidBody*>(physicsBody);
-				rb->usingGravity(false);
 			}
 			//If Right is a wall and moving right
 			else if (isRightWall && input->isKeyHeld(ActionKey[MoveRight])) {
@@ -162,24 +158,30 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				runningWall = rightWallHit.object;
 				wallNormal = rightWallHit.normal;
 				isWallRunning = true;
-				RigidBody* rb = static_cast<RigidBody*>(physicsBody);
-				rb->usingGravity(false);
 			}
 		}
 
 	}//End Free State
 	else if (playerState == WallRunning) {
 
+		//Disable Gravity
+		RigidBody* rb = static_cast<RigidBody*>(physicsBody);
+		rb->usingGravity(false);
+
 		//Continue performing Wall Checks
 		Ray leftRay = Ray(body->getLocalPosition(), -body->getRightVector());
 		Ray left45Ray = Ray(body->getLocalPosition(), (-body->getRightVector() + body->getForwardVector()) * 0.5f);
 		RaycastHit leftWallHit;
-		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, 2.0f) || RaycastManager::Instance().Raycast(left45Ray, leftWallHit, 2.0f);
+		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
+					 RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
 		//Check Wall on Right
 		Ray rightRay = Ray(body->getLocalPosition(), body->getRightVector());
 		Ray right45Ray = Ray(body->getLocalPosition(), (body->getRightVector() + body->getForwardVector()) * 0.5f);
 		RaycastHit rightWallHit;
-		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, 2.0f) || RaycastManager::Instance().Raycast(right45Ray, rightWallHit, 2.0f);
+		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
+					  RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
+
+		const float wallOffset = 0.3f;
 
 		//Get the direction to move along the wall in
 		Vector3 wallRunDirection = Vector3(0, 1, 0).cross(wallNormal);
@@ -190,6 +192,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		// Apply movement along the wall
 		physicsBody->setVelocity(wallRunDirection * wallRunSpeed);
 
+		// Maintain floating offset from the wall
+		Vector3 wallPosition = body->getLocalPosition() - wallNormal * wallOffset;
+		body->setLocalPosition(wallPosition);
+
 		//Jump Off of the Wall
 		if (input->isKeyPressed(ActionKey[Jump])) {
 			Vector3 jumpDirection = wallNormal * wallJumpForce + Vector3(0.0f, wallJumpForce, 0.0f);
@@ -198,8 +204,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			playerState = Free; // Exit wallrunning
 			isWallRunning = false;
 			runningWall = nullptr;
-			RigidBody* rb = static_cast<RigidBody*>(physicsBody);
-			rb->usingGravity(true);
 		}
 
 		//Exit Wall Running if there is no more Wall
@@ -207,8 +211,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			playerState = Free;
 			isWallRunning = false;
 			runningWall = nullptr;
-			RigidBody* rb = static_cast<RigidBody*>(physicsBody);
-			rb->usingGravity(true);
 		}
 
 	}//End Wallrunning State
