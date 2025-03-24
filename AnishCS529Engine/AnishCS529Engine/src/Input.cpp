@@ -203,11 +203,11 @@ bool Input::isKeyHeld(Key k) {
  * 
  *****************************************************************************/
 void Input::initialize() {
-    glfwSetInputMode(window->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetInputMode(window->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     glfwSetWindowUserPointer(window->getNativeWindow(), this);
-    glfwSetMouseButtonCallback(window->getNativeWindow(), MouseButtonCallback);
-    glfwSetCursorPosCallback(window->getNativeWindow(), MouseMotionCallback);
+    //glfwSetMouseButtonCallback(window->getNativeWindow(), MouseButtonCallback);
+    //glfwSetCursorPosCallback(window->getNativeWindow(), MouseMotionCallback);
 }
 
 /*!****************************************************************************

@@ -22,7 +22,9 @@ RigidBody::RigidBody() :
 	elasticity(0.5f),
 	listener(nullptr),
 	freezePositionX(false), freezePositionY(false), freezePositionZ(false),
-	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {}
+	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false),
+	isKinematic(false), kinematicFunction([](std::shared_ptr<GameObject>, float){return;})
+{}
 
 /*!****************************************************************************
  * \brief If is using Gravity
@@ -108,13 +110,28 @@ void RigidBody::initialize()
  * \param deltaTime
  *****************************************************************************/
 void RigidBody::integrate(float deltaTime) {
-
-	if (useGravity) {
-		applyForce(Vector3(0.0f, -gravity*100.0f, 0.0f));
+	if (isKinematic) {
+		kinematicFunction(this->getParent(), deltaTime);
+	}
+	else {
+		applyForce(Vector3(0.0f, -(gravity * static_cast<float>(useGravity)) * 100.0f, 0.0f));
 	}
 
 	PhysicsBody::integrate(deltaTime);
+}
 
+std::shared_ptr<RigidBody> RigidBody::setKinematic(bool value)
+{
+	isKinematic = value;
+	isStatic = value;
+	return std::static_pointer_cast<RigidBody>(shared_from_this());
+}
+
+std::shared_ptr<RigidBody> RigidBody::setKinematicFunction(
+	std::function<void(std::shared_ptr<GameObject>, float)> _kinematicFunction)
+{
+	kinematicFunction = _kinematicFunction;
+	return std::static_pointer_cast<RigidBody>(shared_from_this());
 }
 
 /*!****************************************************************************
@@ -159,7 +176,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 		Vector3 impulse =
 			(RB1->getVelocity() - RB2->getVelocity()) * normal *
-			(1 + e) *
+			(1.0f + e) *
 			(
 				(RB1->getMass() * RB2->getMass())
 				/
@@ -241,5 +258,3 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 	return;
 }
-
-/* Getters */

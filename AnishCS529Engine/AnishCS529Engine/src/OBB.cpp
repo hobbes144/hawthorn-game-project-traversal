@@ -101,18 +101,18 @@ Vector3 OBB::getNormalAtVector(const Vector3& direction)
 
   if (fabs(projectedDirection.x) > fabs(projectedDirection.y)) {
     if (fabs(projectedDirection.x) > fabs(projectedDirection.z)) {
-      return worldAxes[0] * ((projectedDirection.x >= 0) * 2 - 1);
+      return worldAxes[0] * ((projectedDirection.x >= 0.0f) * 2.0f - 1.0f);
     }
     else {
-      return worldAxes[2] * ((projectedDirection.z >= 0) * 2 - 1);
+      return worldAxes[2] * ((projectedDirection.z >= 0.0f) * 2.0f - 1.0f);
     }
   }
   else {
     if (fabs(projectedDirection.y) > fabs(projectedDirection.z)) {
-      return worldAxes[1] * ((projectedDirection.y >= 0) * 2 - 1);
+      return worldAxes[1] * ((projectedDirection.y >= 0.0f) * 2.0f - 1.0f);
     }
     else {
-      return worldAxes[2] * ((projectedDirection.z >= 0) * 2 - 1);
+      return worldAxes[2] * ((projectedDirection.z >= 0.0f) * 2.0f - 1.0f);
     }
   }
 }

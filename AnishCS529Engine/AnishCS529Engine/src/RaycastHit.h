@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include "src/Vector3.h"
-#include "src/GameObject.h"
+#include "Vector3.h"
+#include "GameObject.h"
 
 class RaycastHit
 {

@@ -50,7 +50,7 @@ public:
 	void initialize();
 
 	/* Physics update function */
-	void integrate(float deltaTime);
+	virtual void integrate(float deltaTime);
 
 	/* Utility functions */
 	std::shared_ptr<RigidBody> usingGravity(bool value);
@@ -62,6 +62,10 @@ public:
 	std::shared_ptr<RigidBody> freezingRotationZ(bool value);
 	
 	float getElasticity() const { return elasticity; }
+
+	std::shared_ptr<RigidBody> setKinematic(bool value);
+	std::shared_ptr<RigidBody> setKinematicFunction(
+		std::function<void(std::shared_ptr<GameObject>,float)> _kinematicFunction);
 
 private:
 	/** If it uses gravity */
@@ -78,6 +82,8 @@ private:
 	bool freezeRotationY;
 	bool freezeRotationZ;
 
+	bool isKinematic;
+	std::function<void(std::shared_ptr<GameObject>, float)> kinematicFunction;
 };
 
 void onRBCollide(std::shared_ptr<GameObject> obj1,

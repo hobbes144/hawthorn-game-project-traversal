@@ -24,13 +24,13 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		//-----First Person Movement-----//
 		//Temp States
 		bool isSprinting = input->isKeyHeld(ActionKey[Sprint]);
-		float forwardMotion = input->isKeyHeld(ActionKey[MoveForward]) - input->isKeyHeld(ActionKey[MoveBackward]);
-		float lateralMotion = input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]);
+		float forwardMotion = static_cast<float>(input->isKeyHeld(ActionKey[MoveForward]) - input->isKeyHeld(ActionKey[MoveBackward]));
+		float lateralMotion = static_cast<float>(input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]));
 		//Check if Grounded
 		RaycastHit hitGround;
 		isGrounded = RaycastManager::Instance().Raycast(
 			Ray(body->getWorldTransform().getPosition(), -body->getUpVector()),
-			hitGround, (body->getLocalScaling().z) * 2 + 0.25
+			hitGround, (body->getLocalScaling().z) * 2.0f + 0.25f
 		);
 
 		debugCheck();
@@ -43,7 +43,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 
 		//---Applying Movement Force---
-		float movementForce = (isSprinting ? runForce : walkForce) * 100;
+		float movementForce = (isSprinting ? runForce : walkForce) * 100.0f;
 		float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
 		//Forward
 		Vector3 forwardVector = body->getForwardVector();
@@ -53,7 +53,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		Vector3 lateralMotionVector = rightVector * lateralMotion;
 		//Combine Forward and Lateral Movement and Apply Force
 		Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
-		if (combinedMotionVector.magnitude() > 0) {
+		if (combinedMotionVector.magnitude() > 0.0f) {
 			Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
 		}
@@ -72,7 +72,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		MouseState mouseState = input->getMouseState();
 		float mouseXDelta = 0.0f;
 		float mouseYDelta = 0.0f;
-		if (mouseState.deltaX != 0) {
+		if (mouseState.deltaX != 0.0f) {
 			debugCheck();
 			mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseXSensitivity;
 			//Rotate Body
@@ -123,10 +123,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 
 		//-----Handle Sliding-----//
-		slideCoolDownTimer += 0.01;
+		slideCoolDownTimer += 0.01f;
 		if (slideCoolDownTimer >= slideCoolDown  && input->isKeyPressed(ActionKey[Slide])) {
 			//Reset Timer
-			slideCoolDownTimer = 0;
+			slideCoolDownTimer = 0.0f;
 			
 			//Apply a Slide Force
 			slideVector = combinedMotionVector * slideForce;
@@ -179,7 +179,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 		//Get the direction to move along the wall in
 		Vector3 wallRunDirection = Vector3(0, 1, 0).cross(wallNormal);
-		if (wallRunDirection.dot(physicsBody->getVelocity()) < 0) {
+		if (wallRunDirection.dot(physicsBody->getVelocity()) < 0.0f) {
 			wallRunDirection = -wallRunDirection; // Ensure correct movement direction
 		}
 
@@ -224,9 +224,9 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		physicsBody->setVelocity(newSlideVector);
 
 		//increment slide timer
-		slideCoolDownTimer += 0.01;
+		slideCoolDownTimer += 0.01f;
 
-		if (slideCoolDownTimer >= (slideCoolDown/2)) {
+		if (slideCoolDownTimer >= (slideCoolDown/2.0f)) {
 			playerState = Free;
 		}
 

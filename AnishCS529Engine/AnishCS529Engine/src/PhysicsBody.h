@@ -45,7 +45,7 @@ class PhysicsManager;
  * 
  * Note: This is assuming a movable object with collisions.
  * 
- * - Call setMass(double newMass) to set up the body's mass
+ * - Call setMass(float newMass) to set up the body's mass
  * - Create a Shape object
  * - Call setShape(std::shared_ptr<Shape> newShape)
  * - In main loop, call applyForce() to move the object.
@@ -84,7 +84,7 @@ public:
   /* Utility functions */
   std::shared_ptr<PhysicsBody> registerToPhysicsManager(
     PhysicsManager& manager);
-  std::shared_ptr<PhysicsBody> setMass(double newMass);
+  std::shared_ptr<PhysicsBody> setMass(float newMass);
   std::shared_ptr<PhysicsBody> setVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setAcceleration(const Vector3& acc);
   std::shared_ptr<PhysicsBody> applyForce(const Vector3& f);
@@ -92,8 +92,8 @@ public:
   std::shared_ptr<PhysicsBody> setRotationalVelocity(const Vector3& vel);
   std::shared_ptr<PhysicsBody> setRotationalAcceleration(const Vector3& acc);
   std::shared_ptr<PhysicsBody> applyRotationalForce(const Vector3& f);
-  std::shared_ptr<PhysicsBody> setRestitution(double r);
-  std::shared_ptr<PhysicsBody> setDrag(double f);
+  std::shared_ptr<PhysicsBody> setRestitution(float r);
+  std::shared_ptr<PhysicsBody> setDrag(float f);
   std::shared_ptr<PhysicsBody> setAngularDrag(float f);
   std::shared_ptr<PhysicsBody> setStatic(bool staticValue);
   std::shared_ptr<PhysicsBody> setShape(std::shared_ptr<Shape> newShape);
@@ -101,28 +101,28 @@ public:
   std::shared_ptr<PhysicsBody> setDebug(bool _debug);
   std::shared_ptr<PhysicsBody> reset();
 
-  double      getMass()         const;
-  double      getInverseMass()  const;
+  float      getMass()         const;
+  float      getInverseMass()  const;
   Vector3     getVelocity()     const;
   Vector3     getAcceleration() const;
   Vector3     getForce()        const;
-  double      getRestitution()  const;
-  double      getDrag()			const;
-  double      getAngularDrag()  const;
+  float      getRestitution()  const;
+  float      getDrag()			const;
+  float      getAngularDrag()  const;
   bool        getIsStatic()     const;
   std::shared_ptr<Shape> getShape()        const;
 
 protected:
 	/** The mass of the Object */
-	double mass;
+	float mass;
 	/** Inversed mass value */
-	double inverseMass;
+	float inverseMass;
 	/** The linear drag of the Object */
-	double drag;
+	float drag;
 	/** The angular drag of the Object */
-	double angularDrag;
+	float angularDrag;
 	/** The restitution drag of the Object */
-	double restitution;
+	float restitution;
 	/** Velocity of the RigidBody */
 	Vector3 velocity;
 	/** Acceleration of the RigidBody */
