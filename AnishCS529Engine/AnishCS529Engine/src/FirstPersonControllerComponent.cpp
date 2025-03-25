@@ -323,6 +323,36 @@ std::shared_ptr<FirstPersonControllerComponent>
 	return shared_from_this();
 }
 
+/*!****************************************************************************
+ * \brief Set Camera rotation to a specific angle
+ * 
+ * This function can be used to specifically set the camera to look at a
+ * specific X and Y axis rotation. Note, this is disabled for Z axis.
+ * 
+ * \param rotation Pitch and Yaw to set the camera to, as specified by the
+ * first two elements of the Vector3.
+ * \return \b std::shared_ptr<FirstPersonControllerComponent> Self.
+ *****************************************************************************/
+std::shared_ptr<FirstPersonControllerComponent> 
+	FirstPersonControllerComponent::setCameraRotation(Vector3 rotation)
+{
+	body->setLocalRotation(
+		body->getLocalRotation() * 
+		Quaternion::fromEuler(Vector3(0.0f, rotation.y, 0.0f)));
+
+	Quaternion currentCameraRoation = camera->getLocalRotation();
+	Vector3 currentEuler = currentCameraRoation.toEuler();
+	float newPitch = currentEuler.x + rotation.x;
+	newPitch = std::clamp(
+		newPitch, 
+		-pitchLimit * (3.14159265f / 180.0f), 
+		pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
+	Quaternion newCameraRotation = Quaternion::fromEuler(
+		Vector3(newPitch, currentEuler.y, currentEuler.z));
+	camera->setLocalRotation(newCameraRotation);
+	return shared_from_this();
+}
+
 std::shared_ptr<FirstPersonControllerComponent> 
 	FirstPersonControllerComponent::setActionKey(Action _action, Key _key)
 {
@@ -338,17 +368,6 @@ bool FirstPersonControllerComponent::getIsGrounded()
 std::shared_ptr<GameObject> FirstPersonControllerComponent::getRunningWall()
 {
 	return runningWall;
-}
-
-std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setCameraRotation(Vector3 rotation) {
-	body->setLocalRotation(body->getLocalRotation() * Quaternion::fromEuler(Vector3(0.0f, rotation.y, 0.0f)));
-	Quaternion currentCameraRoation = camera->getLocalRotation();
-	Vector3 currentEuler = currentCameraRoation.toEuler();
-	float newPitch = currentEuler.x + rotation.x;
-	newPitch = std::clamp(newPitch, -pitchLimit * ( 3.14159265f / 180.0f ), pitchLimit * ( 3.14159265f / 180.0f )); // Convert degrees to radians
-	Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
-	camera->setLocalRotation(newCameraRotation);
-	return shared_from_this();
 }
 
 void FirstPersonControllerComponent::debugCheck()

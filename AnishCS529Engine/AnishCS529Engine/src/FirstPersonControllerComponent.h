@@ -88,6 +88,8 @@ public:
         setBody(GameObject* _body);
     std::shared_ptr<FirstPersonControllerComponent>
         setCamera(Camera* _camera);
+    std::shared_ptr<FirstPersonControllerComponent>
+      setCameraRotation(Vector3 rotation);
 
     //Mapping the Actions to the Keys
     std::shared_ptr<FirstPersonControllerComponent>
@@ -96,11 +98,7 @@ public:
     //Accessors
     bool getIsGrounded();
     std::shared_ptr<GameObject> getRunningWall();
-    std::shared_ptr<FirstPersonControllerComponent>
-      setCameraRotation(Quaternion rotation);
 
-    std::shared_ptr<FirstPersonControllerComponent>
-      setCameraRotation(Vector3 rotation);
 
 
 private:
