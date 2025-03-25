@@ -414,6 +414,9 @@
     <ClCompile Include="src\TimeControlTest.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="src\Animate.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -685,6 +688,9 @@
     </ClInclude>
     <ClInclude Include="src\TimeControlledRB.h">
       <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animate.h">
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

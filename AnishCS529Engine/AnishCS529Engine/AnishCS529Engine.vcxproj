@@ -204,7 +204,6 @@
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\TextureMaterial.h" />
     <ClInclude Include="src\TextureParametersOpenGL.h" />
-    <ClInclude Include="src\TimeControlledAnimate.h" />
     <ClInclude Include="src\TimeControlledRB.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\TrianglePrimitive.h" />

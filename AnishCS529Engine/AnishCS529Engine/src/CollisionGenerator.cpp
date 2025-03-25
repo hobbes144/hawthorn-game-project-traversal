@@ -80,6 +80,13 @@ bool CollisionGenerator::OBBvsOBB(const std::shared_ptr<Shape> a, const std::sha
   Vector3 aExtents = boxA->getHalfExtents();
   Vector3 bExtents = boxB->getHalfExtents();
 
+  if (
+    unprojT.magnitudSquared() > 
+    (aExtents.magnitudSquared() + bExtents.magnitudSquared()))
+  {
+    return false;
+  }
+
   // Reserving space for the Projection matrix
   Vector3 R[3];
 

@@ -27,8 +27,8 @@ public:
   void addHandledCollision(const std::shared_ptr<PhysicsBody> A, const std::shared_ptr<PhysicsBody> B);
   void resetHandledCollisions();
 
-  std::vector<GameObject> getContactedObjects(GameObject body);
-  bool isInContact(GameObject body1, GameObject body2);
+  std::vector<std::shared_ptr<GameObject>> getContactedObjects(std::shared_ptr<GameObject> body);
+  bool isInContact(std::shared_ptr<GameObject> body1, std::shared_ptr<GameObject> body2);
   void clearContactCache();
 
 private:
@@ -42,5 +42,5 @@ private:
   std::vector<std::pair< std::shared_ptr<PhysicsBody>, std::shared_ptr<PhysicsBody>>> handledCollisions;
   CollisionGenerator collisionGenerator;
 
-  std::vector<std::pair<GameObject, GameObject>> contactCache;
+  std::vector<std::pair<std::shared_ptr<GameObject>, std::shared_ptr<GameObject>>> contactCache;
 };
