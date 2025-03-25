@@ -384,6 +384,9 @@
     <ClCompile Include="precompiled.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\MapLoader.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Ray.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
@@ -669,6 +672,9 @@
       <Filter>Engine\Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\RaycastManager.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapLoader.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
