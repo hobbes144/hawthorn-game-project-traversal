@@ -16,12 +16,12 @@
 #include <cassert>
 #include <functional>
 
-#include "Component.h"
 #include "Camera.h"
-#include "Input.h"
+#include "Component.h"
 #include "GameObject.h"
-#include "PhysicsBody.h"
 #include "GamePad.h"
+#include "Input.h"
+#include "PhysicsBody.h"
 
 /*!****************************************************************************
  * \brief This is the First Person Contorller responsible for player movement,
@@ -89,6 +89,8 @@ public:
         setBody(GameObject* _body);
     std::shared_ptr<FirstPersonControllerComponent>
         setCamera(Camera* _camera);
+    std::shared_ptr<FirstPersonControllerComponent>
+        setGamePad(GamePad* _gp);
 
     //Mapping the Actions to the Keys
     std::shared_ptr<FirstPersonControllerComponent>
@@ -151,6 +153,8 @@ private:
     float wallrunCooldown;
     float wallrunCooldownTimer = wallrunCooldown + 1;
 
+    //GamePad
+    GamePad* gp;
 
     //Time Ability Members
 

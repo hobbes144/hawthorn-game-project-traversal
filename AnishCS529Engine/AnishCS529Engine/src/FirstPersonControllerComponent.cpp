@@ -32,7 +32,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
 #pragma endregion
+	//GamePad Input
+#pragma region GamePad
 
+#pragma endregion
 	//-----Handling Camera Movement-----//
 #pragma region Camera
 	//Get Mouse State Data
@@ -299,6 +302,12 @@ std::shared_ptr<FirstPersonControllerComponent>
 	FirstPersonControllerComponent::setInputSystem(Input* _inputSystem)
 {
 	input = _inputSystem;
+	return shared_from_this();
+}
+
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setGamePad(GamePad* _gp) {
+	gp = _gp;
 	return shared_from_this();
 }
 

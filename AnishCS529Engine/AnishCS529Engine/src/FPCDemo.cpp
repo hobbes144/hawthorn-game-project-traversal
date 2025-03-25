@@ -2,35 +2,35 @@
 
 #include <windows.h>
 
-#include "Renderer.h"
-#include "GameWindow.h"
-#include "Input.h"
-#include "SceneGraph.h"
-#include "Camera.h"
-#include "RenderableNode.h"
-#include "TrianglePrimitive.h"
-#include "RectanglePrimitive.h"
-#include "FramerateController.h"
-#include "EventManager.h"
-#include "GameObject.h"
-#include "Render2D.h"
-#include "BasicRenderPass.h"
-#include "TextureMaterial.h"
-#include "PhysicsBody.h"
-#include "OBB.h"
-#include "PhysicsManager.h"
-#include "Movement3D.h"
-#include "CollisionListener.h"
 #include "Audio.h"
-#include "TestPass.h"
-#include "MainTestMaterial.h"
+#include "BasicRenderPass.h"
+#include "Camera.h"
+#include "CollisionListener.h"
+#include "EventManager.h"
+#include "FirstPersonControllerComponent.h"
+#include "FramerateController.h"
+#include "GameObject.h"
+#include "GameWindow.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "Input.h"
+#include "MainTestMaterial.h"
+#include "Movement3D.h"
+#include "OBB.h"
+#include "PhysicsBody.h"
+#include "PhysicsManager.h"
 #include "Ray.h"
 #include "RaycastHit.h"
 #include "RaycastManager.h"
-#include "FirstPersonControllerComponent.h"
+#include "RectanglePrimitive.h"
+#include "Render2D.h"
+#include "RenderableNode.h"
+#include "Renderer.h"
+#include "SceneGraph.h"
+#include "TestPass.h"
+#include "TextureMaterial.h"
+#include "TrianglePrimitive.h"
 
 extern "C"
 {
@@ -129,6 +129,8 @@ int main() {
     };
     mainInput->setGameWindow(mainWindow);
     mainInput->initialize();
+
+    GamePad* gamepad = new GamePad;
 
     /* Framerate controller setup */
     FFramerateController* mainFramerateController =
@@ -364,6 +366,7 @@ int main() {
     
     auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
         ->setInputSystem(mainInput)
+        ->setGamePad(gamepad)
         ->setPhysicsBody(playerBoxPB.get())
         ->setBody(playerBox.get())
         ->setCamera(camera.get())
@@ -545,6 +548,9 @@ int main() {
         //Update the Input Manager
         mainInput->update();
         
+        //Update the GamePad
+        gamepad->update();
+
         //If Escape is Pressed Exit Loop
         if (mainInput->isKeyHeld(KEY_ESCAPE))
             break;

@@ -2,7 +2,7 @@
 #include "GamePad.h"
 
 // Returns false if the controller has been disconnected
-bool GamePad::Refresh() {
+bool GamePad::update() {
 	if (cId == -1)
 		CheckConnection();
 
@@ -39,7 +39,7 @@ bool GamePad::Refresh() {
 	return false;
 }
 
-bool GamePad::IsPressed(WORD button) {
+bool GamePad::isPressed(WORD button) {
 	return (state.Gamepad.wButtons & button) != 0;
 }
 
@@ -66,4 +66,52 @@ bool GamePad::CheckConnection() {
 	cId = controllerId;
 
 	return controllerId != -1;
+}
+
+/*!****************************************************************************
+ * \brief If key was released while previously pressed
+ *
+ * \param k Key to be checked.
+ * \return \b bool True if released in this cycle.
+ *****************************************************************************/
+bool GamePad::isReleased(WORD button) {
+	if (keyStates[button].currentState == false &&
+	  keyStates[button].prevState == true)
+		return true;
+	return false;
+}
+
+/*!****************************************************************************
+ * \brief If key is held in pressed state
+ *
+ * \param k Key to be checked.
+ * \return \b bool True if held.
+ *****************************************************************************/
+bool GamePad::isHeld(WORD button) {
+	if (keyStates[button].currentState == true &&
+	  keyStates[button].prevState == true)
+		return true;
+	return false;
+}
+
+void GamePad::registerKey(WORD button) {
+	if (keyStates.find(button) == keyStates.end())
+		keyStates[button] = GPKeyState();
+}
+
+void GamePad::initialize() {
+	registerKey(XINPUT_GAMEPAD_A);
+	registerKey(XINPUT_GAMEPAD_B);
+	registerKey(XINPUT_GAMEPAD_X);
+	registerKey(XINPUT_GAMEPAD_Y);
+	registerKey(XINPUT_GAMEPAD_DPAD_DOWN);
+	registerKey(XINPUT_GAMEPAD_DPAD_LEFT);
+	registerKey(XINPUT_GAMEPAD_DPAD_RIGHT);
+	registerKey(XINPUT_GAMEPAD_DPAD_UP);
+	registerKey(XINPUT_GAMEPAD_LEFT_SHOULDER);
+	registerKey(XINPUT_GAMEPAD_LEFT_THUMB);
+	registerKey(XINPUT_GAMEPAD_RIGHT_SHOULDER);
+	registerKey(XINPUT_GAMEPAD_RIGHT_THUMB);
+	registerKey(XINPUT_GAMEPAD_START);
+	registerKey(XINPUT_GAMEPAD_BACK);
 }
