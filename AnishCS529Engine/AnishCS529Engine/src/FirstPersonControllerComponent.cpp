@@ -34,7 +34,18 @@ void FirstPersonControllerComponent::update(float deltaTime)
 #pragma endregion
 	//GamePad Input
 #pragma region GamePad
-
+	if (gp != nullptr) {
+		if (gp->update()) {
+			if (gp->leftStickY != 0) forwardMotion = gp->leftStickY;
+			if (gp->leftStickX != 0) lateralMotion = gp->leftStickX;
+			if (gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB)) 
+				isSprinting = gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB);
+			if (gp->isPressed(XINPUT_GAMEPAD_B))
+				isJumping = gp->isPressed(XINPUT_GAMEPAD_B);
+			if (gp->isPressed(XINPUT_GAMEPAD_X))
+				isSliding = gp->isPressed(XINPUT_GAMEPAD_X);
+		}
+	}
 #pragma endregion
 	//-----Handling Camera Movement-----//
 #pragma region Camera
