@@ -2,35 +2,35 @@
 //
 //#include <windows.h>
 //
-//#include "Renderer.h"
-//#include "GameWindow.h"
-//#include "Input.h"
-//#include "SceneGraph.h"
-//#include "Camera.h"
-//#include "RenderableNode.h"
-//#include "TrianglePrimitive.h"
-//#include "RectanglePrimitive.h"
-//#include "FramerateController.h"
-//#include "EventManager.h"
-//#include "GameObject.h"
-//#include "Render2D.h"
-//#include "BasicRenderPass.h"
-//#include "TextureMaterial.h"
-//#include "PhysicsBody.h"
-//#include "OBB.h"
-//#include "PhysicsManager.h"
-//#include "Movement3D.h"
-//#include "CollisionListener.h"
 //#include "Audio.h"
-//#include "TestPass.h"
-//#include "MainTestMaterial.h"
+//#include "BasicRenderPass.h"
+//#include "Camera.h"
+//#include "CollisionListener.h"
+//#include "EventManager.h"
+//#include "FirstPersonControllerComponent.h"
+//#include "FramerateController.h"
+//#include "GameObject.h"
+//#include "GameWindow.h"
 //#include "imgui.h"
 //#include "imgui_impl_glfw.h"
 //#include "imgui_impl_opengl3.h"
+//#include "Input.h"
+//#include "MainTestMaterial.h"
+//#include "Movement3D.h"
+//#include "OBB.h"
+//#include "PhysicsBody.h"
+//#include "PhysicsManager.h"
 //#include "Ray.h"
 //#include "RaycastHit.h"
 //#include "RaycastManager.h"
-//#include "FirstPersonControllerComponent.h"
+//#include "RectanglePrimitive.h"
+//#include "Render2D.h"
+//#include "RenderableNode.h"
+//#include "Renderer.h"
+//#include "SceneGraph.h"
+//#include "TestPass.h"
+//#include "TextureMaterial.h"
+//#include "TrianglePrimitive.h"
 //
 //extern "C"
 //{
@@ -130,6 +130,8 @@
 //    mainInput->setGameWindow(mainWindow);
 //    mainInput->initialize();
 //
+//    GamePad* gamepad = new GamePad;
+//
 //    /* Framerate controller setup */
 //    FFramerateController* mainFramerateController =
 //        FFramerateController::getController();
@@ -184,24 +186,24 @@
 //    //Transform
 //    camera->setLocalPosition(Vector3(0.0f, 2.5f, 0.0f));
 //
-//  auto cameraShape = std::make_shared<OBB>(
-//      Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-//      Vector3(0.5f, 0.5f, 0.5f));
-//  camera->addComponent<PhysicsBody>()
-//    ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
-//    ->setShape(cameraShape)
-//    //->setDebug(true)
-//    ->registerToPhysicsManager(PhysicsManager::Instance());
+//    auto cameraShape = std::make_shared<OBB>(
+//        Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+//        Vector3(0.5f, 0.5f, 0.5f));
+//    camera->addComponent<PhysicsBody>()
+//        ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
+//        ->setShape(cameraShape)
+//        //->setDebug(true)
+//        ->registerToPhysicsManager(PhysicsManager::Instance());
 //
-//  auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
-//    ->setAction(Movement3D::Up, KEY_R)
-//    ->setAction(Movement3D::Down, KEY_F)
-//    ->setAction(Movement3D::RollClockwise, KEY_LEFT)
-//    ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
-//    ->setAction(Movement3D::PitchClockwise, KEY_UP)
-//    ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
-//    ->setAction(Movement3D::YawClockwise, KEY_Q)
-//    ->setAction(Movement3D::YawAntiClockwise, KEY_E);
+//    auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
+//        ->setAction(Movement3D::Up, KEY_R)
+//        ->setAction(Movement3D::Down, KEY_F)
+//        ->setAction(Movement3D::RollClockwise, KEY_LEFT)
+//        ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
+//        ->setAction(Movement3D::PitchClockwise, KEY_UP)
+//        ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
+//        ->setAction(Movement3D::YawClockwise, KEY_Q)
+//        ->setAction(Movement3D::YawAntiClockwise, KEY_E);
 //
 //#pragma endregion
 //
@@ -355,14 +357,16 @@
 //    // Create instances of bodies for boxes
 //    auto playerBoxPB = playerBox->addComponent<RigidBody>()
 //        ->usingGravity(true)
-//        ->setMass(10.0f)->setDrag(1.0f)
+//        ->setMass(10.0f)
+//        ->setDrag(0.5f)
 //        ->setShape(shape1)
 //        ->setDebug(isDebug)
 //        ->registerToPhysicsManager(PhysicsManager::Instance());
 //    playerBoxPB->initialize();
-//    
+//
 //    auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
 //        ->setInputSystem(mainInput)
+//        ->setGamePad(gamepad)
 //        ->setPhysicsBody(playerBoxPB.get())
 //        ->setBody(playerBox.get())
 //        ->setCamera(camera.get())
@@ -374,7 +378,7 @@
 //        ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
 //        ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
 //        ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9);
-//    
+//
 //    //On Move Callback 
 //    Movement3DListener playerMovementListener(playerBox);
 //    playerMovementListener.setCallback(onMove);
@@ -419,12 +423,42 @@
 //
 //#pragma endregion
 //
+//#pragma region Running Wall
+//
+//    auto runningWall = std::make_shared<GameObject>("Running Wall");
+//    mainSceneGraph.addNode(runningWall);
+//    runningWall->setLocalPosition(Vector3(0.0f, 7.0f, -10.0f))
+//        ->setLocalScaling(Vector3(60.0f, 11.0f, 1.0f));
+//
+//    auto boxWRRenderComponent = runningWall->addComponent<Render2D>();
+//    boxWRRenderComponent
+//        ->setCamera(camera)
+//        ->setMesh(floorMesh)
+//        ->setMaterial(cracksMaterial);
+//
+//    auto shapeWR = std::make_shared<OBB>(
+//    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+//    Vector3(0.5f, 0.5f, 0.5f));
+//    shapeWR->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+//
+//    runningWall->addComponent<RigidBody>()
+//        ->setMass(10.0f)->setDrag(1.0f)
+//        ->setShape(shapeWR)
+//        ->setDebug(isDebug)
+//        ->setStatic(true)
+//        ->registerToPhysicsManager(PhysicsManager::Instance())
+//        ->initialize();
+//
+//    gameObjects.push_back(runningWall);
+//
+//#pragma endregion
+//
 //#pragma region Floor
 //
 //    auto floor = std::make_shared<GameObject>("Floor");
 //    mainSceneGraph.addNode(floor);
 //    floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
-//        ->setLocalScaling(Vector3(50.0f, 0.05f, 50.0f));
+//        ->setLocalScaling(Vector3(100.0f, 0.5f, 100.0f));
 //
 //    auto box2RenderComponent = floor->addComponent<Render2D>();
 //    box2RenderComponent
@@ -513,15 +547,22 @@
 //
 //        //Update the Input Manager
 //        mainInput->update();
-//        
+//
+//        //Update the GamePad
+//        gamepad->update();
+//
 //        //If Escape is Pressed Exit Loop
 //        if (mainInput->isKeyHeld(KEY_ESCAPE))
 //            break;
 //
 //        // Physics update loop fixedStepTime
-//        while (mainFramerateController->shouldUpdatePhysics()) {
+//        /*while (mainFramerateController->shouldUpdatePhysics()) {
 //            PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
 //            mainFramerateController->consumePhysicsTime();
+//        }*/
+//
+//        for (int i = 0; i < 2; i++) {
+//            PhysicsManager::Instance().update(1.0f / 120.0f);
 //        }
 //
 //        //Affine Demonstration
@@ -561,7 +602,7 @@
 //            testPass->setProperty("lightPos", lightPos);
 //        }
 //
-//        mainSceneGraph.update(deltaTime);
+//        mainSceneGraph.update(1.0f / 60.0f);
 //        mainFramerateController->endFrame();
 //
 //#pragma region IMGUI
