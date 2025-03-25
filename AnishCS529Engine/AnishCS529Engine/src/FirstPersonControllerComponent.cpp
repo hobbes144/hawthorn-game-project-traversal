@@ -167,12 +167,15 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		//-----Handle Sliding-----//
 #pragma region Sliding
 		slideCoolDownTimer += 0.01;
-		if (slideCoolDownTimer >= slideCoolDown  && isSliding) {
+		if (slideCoolDownTimer >= slideCoolDown && isSliding) {
 			//Reset Timer
 			slideCoolDownTimer = 0;
-			
+
 			//Apply a Slide Force
 			slideVector = combinedMotionVector * slideForce;
+			if (slideVector.magnitude() == 0) {
+				slideVector = body->getForwardVector() * slideForce;
+			}
 			physicsBody->setVelocity(slideVector);
 
 			// Force Transition State
