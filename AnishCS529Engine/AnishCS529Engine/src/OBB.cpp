@@ -202,17 +202,17 @@ bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) c
     Vector3 rayOrigin = ray.getOrigin();
     Vector3 rayDir = ray.getDirection();
 
+    /*
     //-------------
     // Hueristically Check if the Object is too far away
-    /*
     if (!(std::abs(rayOrigin.x) - halfExtents.x <= maxDistance &&
           std::abs(rayOrigin.y) - halfExtents.y <= maxDistance &&
           std::abs(rayOrigin.z) - halfExtents.z <= maxDistance
         )) {
         return false;
     }
-    */
     //-------------
+    */
 
     //------------- 
     // Hueristically Check if the ray is pointing away

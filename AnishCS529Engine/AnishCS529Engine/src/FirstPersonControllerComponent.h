@@ -67,11 +67,11 @@ public:
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
         walkForce(10), maxWalkSpeed(10.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        jumpSpeed(40),
+        jumpSpeed(55),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
-        coyoteTime(0.1f), jumpBufferTime(0.2f),
+        coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
         slideForce(100), slideCoolDown(1.0f),
-        wallRunSpeed(30), wallJumpForce(20)
+        wallRunSpeed(30), wallJumpForce(20), wallrunCooldown(0.2f)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -132,6 +132,8 @@ private:
     float lastTimeGrounded = coyoteTime+1;
     float jumpBufferTime;
     float lastTimeJumpPressed = jumpBufferTime + 1;
+    float jumpCooldown;
+    float jumpCooldownTimer = jumpCooldown + 1;
     //Sliding Members
     float slideForce;
     Vector3 slideVector = Vector3();
@@ -145,6 +147,8 @@ private:
     float wallJumpForce;
     Vector3 wallNormal = Vector3();
     bool isWallRunning = false;
+    float wallrunCooldown;
+    float wallrunCooldownTimer = wallrunCooldown + 1;
 
 
     //Time Ability Members

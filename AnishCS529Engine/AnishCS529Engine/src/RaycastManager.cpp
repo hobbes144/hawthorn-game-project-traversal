@@ -62,6 +62,7 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
 
     // If the node has a physics body, check for intersection
     auto gameObject = std::dynamic_pointer_cast<GameObject>(node);
+    //std::string name = gameObject->getName();
     if (gameObject) {
         auto pbComp = gameObject->findComponent<PhysicsBody>();
         if (std::find(tagToIgnore.begin(), tagToIgnore.end(), gameObject->getTag()) == tagToIgnore.end() && pbComp) {
