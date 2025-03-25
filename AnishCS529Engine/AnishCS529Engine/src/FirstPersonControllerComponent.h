@@ -64,6 +64,7 @@ public:
     };
 
     FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
+        anchorSurface(nullptr),
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
         walkForce(10), maxWalkSpeed(10.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
@@ -105,6 +106,7 @@ private:
     //PlayerState
     PlayerState playerState;
     bool isGrounded;
+    std::shared_ptr<GameObject> anchorSurface;
 
     //Sytem Compenet Members
     Input* input;
