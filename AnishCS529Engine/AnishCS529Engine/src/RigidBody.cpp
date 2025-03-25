@@ -143,7 +143,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 	float e = std::min(RB1->getElasticity(), RB2->getElasticity());
 
-	if (RB1->getIsStatic() && RB1->getIsStatic()) {
+	if (RB1->getIsStatic() && RB2->getIsStatic()) {
 		PhysicsManager::Instance().addHandledCollision(RB1, RB2);
 		return;
 	}
@@ -151,7 +151,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 	if (RB1->getIsStatic()) {
 		Vector3 contactVector = (final - RB2Position);
 		Vector3 normal = RB2->getShape()->getNormalAtVector(contactVector.normalized());
-		contactVector *= (normal);
+		contactVector = contactVector.abs() * normal;
 		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(contactVector.normalized());
 		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
 

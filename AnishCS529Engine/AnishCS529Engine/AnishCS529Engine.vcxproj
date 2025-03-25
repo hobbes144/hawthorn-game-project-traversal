@@ -40,6 +40,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\DebugPass.cpp" />
+    <ClCompile Include="src\MapLoader.cpp" />
     <ClCompile Include="src\EngineDemo.cpp" />
     <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\FPCDemo.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="src\GamePad.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\MainTestMaterial.h" />
+    <ClInclude Include="src\MapLoader.h" />
     <ClInclude Include="src\Material.inl" />
     <ClInclude Include="src\InputOld.h" />
     <ClInclude Include="src\GameObject.h" />
