@@ -63,10 +63,6 @@ public:
 	
 	float getElasticity() const { return elasticity; }
 
-	std::shared_ptr<RigidBody> setKinematic(bool value);
-	std::shared_ptr<RigidBody> setKinematicFunction(
-		std::function<void(std::shared_ptr<GameObject>,float)> _kinematicFunction);
-
 private:
 	/** If it uses gravity */
 	bool useGravity;
@@ -81,9 +77,6 @@ private:
 	bool freezeRotationX;
 	bool freezeRotationY;
 	bool freezeRotationZ;
-
-	bool isKinematic;
-	std::function<void(std::shared_ptr<GameObject>, float)> kinematicFunction;
 };
 
 void onRBCollide(std::shared_ptr<GameObject> obj1,

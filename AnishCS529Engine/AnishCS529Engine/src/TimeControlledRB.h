@@ -16,6 +16,10 @@ public:
 	void setTimeScale(float _timeScale) {
 		timeScale = _timeScale;
 	}
+
+	float getTimeScale() {
+		return timeScale;
+	}
 	
 	void integrate(float deltaTime);
 

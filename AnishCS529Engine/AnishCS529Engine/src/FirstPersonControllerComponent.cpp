@@ -265,7 +265,7 @@ std::shared_ptr<FirstPersonControllerComponent>
 	camera = _camera;
 	return shared_from_this();
 }
- 
+
 std::shared_ptr<FirstPersonControllerComponent> 
 	FirstPersonControllerComponent::setActionKey(Action _action, Key _key)
 {
@@ -273,11 +273,20 @@ std::shared_ptr<FirstPersonControllerComponent>
 	return shared_from_this();
 }
 
+std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setCameraRotation(Vector3 rotation) {
+	body->setLocalRotation(body->getLocalRotation() * Quaternion::fromEuler(Vector3(0.0f, rotation.y, 0.0f)));
+	Quaternion currentCameraRoation = camera->getLocalRotation();
+	Vector3 currentEuler = currentCameraRoation.toEuler();
+	float newPitch = currentEuler.x + rotation.x;
+	newPitch = std::clamp(newPitch, -pitchLimit * ( 3.14159265f / 180.0f ), pitchLimit * ( 3.14159265f / 180.0f )); // Convert degrees to radians
+	Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
+	camera->setLocalRotation(newCameraRotation);
+	return shared_from_this();
+}
+
 void FirstPersonControllerComponent::debugCheck()
 {
-
 	if (input->isKeyPressed(ActionKey[Debug])) {
 		std::cout << "Here" << std::endl;
 	}
-
 }

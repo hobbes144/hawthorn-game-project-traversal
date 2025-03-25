@@ -93,6 +93,11 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
         setActionKey(Action _action, Key _key);
 
+    std::shared_ptr<FirstPersonControllerComponent>
+      setCameraRotation(Quaternion rotation);
+
+    std::shared_ptr<FirstPersonControllerComponent>
+      setCameraRotation(Vector3 rotation);
 
 
 private:

@@ -32,6 +32,7 @@
 #include "RaycastManager.h"
 #include "FirstPersonControllerComponent.h"
 #include "TimeControlledRB.h"
+#include "Animate.h"
 
 extern "C"
 {
@@ -339,8 +340,7 @@ int main() {
 
     //Transform Values
     playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
-        ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f))
-        ->setLocalRotation(Vector3(0.5f, 3.49066f, 0.0f));
+      ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
 
 
     //Render Component
@@ -367,18 +367,19 @@ int main() {
     playerBoxPB->initialize();
 
     auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
-        ->setInputSystem(mainInput)
-        ->setPhysicsBody(playerBoxPB.get())
-        ->setBody(playerBox.get())
-        ->setCamera(camera.get())
-        ->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
-        ->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
-        ->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
-        ->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
-        ->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
-        ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
-        ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
-        ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9);
+      ->setInputSystem(mainInput)
+      ->setPhysicsBody(playerBoxPB.get())
+      ->setBody(playerBox.get())
+      ->setCamera(camera.get())
+      ->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
+      ->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
+      ->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
+      ->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
+      ->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
+      ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
+      ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
+      ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
+      ->setCameraRotation(Vector3(0.5f, 3.49066f, 0.0f));
 
     //On Move Callback 
     Movement3DListener playerMovementListener(playerBox);
@@ -477,6 +478,7 @@ int main() {
 
     // Create instances of bodies for boxes
     auto soundBoxRB = soundBox->addComponent<TimeControlledRB>();
+    soundBoxRB->setStatic(true);
     soundBoxRB->setMass(10.0f);
     soundBoxRB->setDrag(1.0f);
     soundBoxRB->setShape(soundBoxShape);
@@ -488,6 +490,36 @@ int main() {
     gameObjects.push_back(soundBox);
 
     AudioManager::instance().playSound("music", soundBox.get()->getWorldTransform().getPosition(), 0.7f);
+
+    auto soundBoxAnimate = soundBox->addComponent<Animate>();
+    soundBoxAnimate->setAnimateFunction(
+      [currentTime = 0.0f](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+        float timeScale = self->findComponent<TimeControlledRB>()->getTimeScale();
+
+        deltaTime *= timeScale;
+
+        /* Affine Transformation Variables */
+        float affineSpeed = 0.5f;
+        Vector3 affinePosStart = Vector3(-10.0f, 0.75f, 10.0f);
+        Vector3 affinePosEnd = Vector3(-10.0f, 10.75f, 10.0f);
+        Vector3 affineRotStart = Vector3(0.0, 0.0, 0.0);
+        Vector3 affineRotEnd = Vector3(0.0, 2.0, 0.0);
+        Vector3 affineSclStart = Vector3(0.5, 0.5, 0.5);
+        Vector3 affineSclEnd = Vector3(0.6, 0.6, 0.6);
+
+        currentTime += deltaTime;
+
+        float t = 0.5f * (sinf(currentTime * affineSpeed) + 1.0f);
+        Vector3 affineCurrPos = affinePosStart + (affinePosEnd - affinePosStart) * t;
+        self->setLocalPosition(affineCurrPos);
+        Vector3 affineCurrRot = affineRotStart + (affineRotEnd - affineRotStart) * t;
+        self->setLocalRotation(affineCurrRot);
+        Vector3 affineCurrScl = affineSclStart + (affineSclEnd - affineSclStart) * t;
+        self->setLocalScaling(affineCurrScl);
+          }
+    );
+
+    soundBoxAnimate->runAnimateFunction(true);
 
 #pragma endregion
 
@@ -501,33 +533,10 @@ int main() {
     mainFramerateController->setTargetFramerate(expectedFrameRate);
     mainSceneGraph.printSceneTree();
 
-
-    soundBoxRB->setKinematic(true);
-    soundBoxRB->setKinematicFunction(
-        [currentTime=0.0f](std::shared_ptr<GameObject> self, float deltaTime) mutable {
-            /* Affine Transformation Variables */
-            float affineSpeed = 0.5f;
-            Vector3 affinePosStart = Vector3(-10.0f, 0.75f, 10.0f);
-            Vector3 affinePosEnd = Vector3(-10.0f, 10.75f, 10.0f);
-            Vector3 affineRotStart = Vector3(0.0, 0.0, 0.0);
-            Vector3 affineRotEnd = Vector3(0.0, 2.0, 0.0);
-            Vector3 affineSclStart = Vector3(0.5, 0.5, 0.5);
-            Vector3 affineSclEnd = Vector3(0.6, 0.6, 0.6);
-
-            currentTime += deltaTime;
-
-            float t = 0.5f * (sinf(currentTime * affineSpeed) + 1.0f);
-            Vector3 affineCurrPos = affinePosStart + (affinePosEnd - affinePosStart) * t;
-            self->setLocalPosition(affineCurrPos);
-            Vector3 affineCurrRot = affineRotStart + (affineRotEnd - affineRotStart) * t;
-            self->setLocalRotation(affineCurrRot);
-            Vector3 affineCurrScl = affineSclStart + (affineSclEnd - affineSclStart) * t;
-            self->setLocalScaling(affineCurrScl);
-        }
-    );
-
     float worldTimeScale = 1.0f;
     float newWorldTimeScale = worldTimeScale;
+
+    bool cursorCaptureMode = true;
 
     /* Main Loop */
     while (!mainWindow->getShouldClose()) {
@@ -542,6 +551,11 @@ int main() {
         //If Escape is Pressed Exit Loop
         if (mainInput->isKeyHeld(KEY_ESCAPE))
             break;
+
+        if (mainInput->isKeyDown(KEY_0)) {
+          glfwSetInputMode(mainWindow->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+          cursorCaptureMode = false;
+        }
 
         // Physics update loop fixedStepTime
         /*while (mainFramerateController->shouldUpdatePhysics()) {
@@ -622,6 +636,17 @@ int main() {
                         }
                     }
 
+                }
+                if (ImGui::MenuItem("CursorCapture", "", cursorCaptureMode)) {
+                  if (cursorCaptureMode) {
+                    glfwSetInputMode(mainWindow->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                    cursorCaptureMode = false;
+                  }
+                  else
+                  {
+                    glfwSetInputMode(mainWindow->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                    cursorCaptureMode = true;
+                  }
                 }
                 ImGui::EndMenu();
             }
