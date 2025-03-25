@@ -71,7 +71,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		physicsBody->setDrag(0.3f);
 	}
 	else {
-		physicsBody->setDrag(0.0f);
+		physicsBody->setDrag(0.1f);
 	}
 #pragma endregion
 
@@ -100,7 +100,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	//-----Timers-----//
 #pragma region Timers
 
-
+	jumpCooldownTimer += deltaTime;
+	wallrunCooldownTimer += deltaTime;
 
 #pragma endregion
 
@@ -146,8 +147,12 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			lastTimeJumpPressed += deltaTime;
 		}
 		//Apply Jump
-		bool canJump = (isGrounded || lastTimeGrounded < coyoteTime) && (lastTimeJumpPressed < jumpBufferTime);
+		bool canJump = (isGrounded || lastTimeGrounded < coyoteTime) 
+					&& (lastTimeJumpPressed < jumpBufferTime) 
+					&& (jumpCooldownTimer > jumpCooldown);
 		if (canJump) {
+			//Reset Cooldown Timer
+			jumpCooldownTimer = 0.0f;
 			//Apply Jump Force
 			Vector3 currentVelocity = physicsBody->getVelocity();
 			Vector3 newVelocity = Vector3(currentVelocity.x, jumpSpeed, currentVelocity.z);
@@ -177,28 +182,34 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 		//-----WallRunning Check-----//
 #pragma region Wallrunning Check
-		//If Not Grounded and moving forward
-		if (!isGrounded && input->isKeyHeld(ActionKey[MoveForward])) {
-			
-			//If Left is a Wall and moving left
-			if (isLeftWall && input->isKeyHeld(ActionKey[MoveLeft])) {
-				playerState = WallRunning;
-				runningWall = leftWallHit.object;
-				wallNormal = leftWallHit.normal;
-				isWallRunning = true;
-			}
-			//If Right is a wall and moving right
-			else if (isRightWall && input->isKeyHeld(ActionKey[MoveRight])) {
-				playerState = WallRunning;
-				runningWall = rightWallHit.object;
-				wallNormal = rightWallHit.normal;
-				isWallRunning = true;
+		//If Wallrun off cooldown
+		if (wallrunCooldownTimer > wallrunCooldown) {
+			//If Not Grounded and moving forward
+			if (!isGrounded && input->isKeyHeld(ActionKey[MoveForward])) {
+
+				//If Left is a Wall and moving left
+				if (isLeftWall && input->isKeyHeld(ActionKey[MoveLeft])) {
+					playerState = WallRunning;
+					runningWall = leftWallHit.object;
+					wallNormal = leftWallHit.normal;
+					isWallRunning = true;
+				}
+				//If Right is a wall and moving right
+				else if (isRightWall && input->isKeyHeld(ActionKey[MoveRight])) {
+					playerState = WallRunning;
+					runningWall = rightWallHit.object;
+					wallNormal = rightWallHit.normal;
+					isWallRunning = true;
+				}
 			}
 		}
 #pragma endregion
 
 	}//End Free State
 	else if (playerState == WallRunning) {
+
+		//Keep Timer at 0
+		wallrunCooldownTimer = 0.0f;
 
 		//Disable Gravity
   		RigidBody* rb = static_cast<RigidBody*>(physicsBody);
@@ -225,8 +236,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 		//Jump Off of the Wall
 		if (isJumping) {
-			Vector3 jumpDirection = wallNormal * wallJumpForce + Vector3(0.0f, wallJumpForce, 0.0f);
-			physicsBody->applyImpulse(jumpDirection);
+			Vector3 currentVelocity = physicsBody->getVelocity();
+			Vector3 wallJumpVelocity = wallNormal * wallJumpForce + Vector3(0.0f, wallJumpForce, 0.0f);
+			Vector3 combinedVelocity = (currentVelocity + wallJumpVelocity) / 2.0f;
+			physicsBody->setVelocity(combinedVelocity);
 
 			playerState = Free; // Exit wallrunning
 			isWallRunning = false;
