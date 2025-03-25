@@ -282,15 +282,15 @@ int main() {
 #pragma region ASSIMP
 
 #pragma region Map
-    std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
-    auto mapObject = std::make_shared<GameObject>("Map");
-    mainSceneGraph.addNode(mapObject);
-    mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
-    mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
-    auto mapRenderComponent = mapObject->addComponent<Render2D>();
-    mapRenderComponent->setCamera(camera)
-        ->setMesh(mapMesh)
-        ->setMaterial(floorMaterial);
+    //std::shared_ptr<Mesh> mapMesh = Mesh::loadMesh("media/Map/Map.fbx");
+    //auto mapObject = std::make_shared<GameObject>("Map");
+    //mainSceneGraph.addNode(mapObject);
+    //mapObject->setLocalPosition(Vector3(350.0f, -50.0f, -100.0f));
+    //mapObject->setLocalScaling(Vector3(0.1f, 0.1f, 0.1f));
+    //auto mapRenderComponent = mapObject->addComponent<Render2D>();
+    //mapRenderComponent->setCamera(camera)
+    //    ->setMesh(mapMesh)
+    //    ->setMaterial(floorMaterial);
 
     MapLoader::instance().loadMap(3, 0, 0, 0, mainSceneGraph, camera, floorMesh, floorMaterial);
     
