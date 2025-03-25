@@ -65,13 +65,13 @@ public:
 
     FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
-        walkForce(100.0f), maxWalkSpeed(10.0f),
+        walkForce(10), maxWalkSpeed(10.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        jumpForce(1000),
+        jumpSpeed(55),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
-        coyoteTime(0.1f), jumpBufferTime(0.2f),
-        slideForce(100), slideCoolDown(5.0f),
-        wallRunSpeed(15), wallJumpForce(1000)
+        coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
+        slideForce(100), slideCoolDown(1.0f),
+        wallRunSpeed(30), wallJumpForce(40), wallrunCooldown(0.2f)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -93,7 +93,9 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
         setActionKey(Action _action, Key _key);
 
-
+    //Accessors
+    bool getIsGrounded();
+    std::shared_ptr<GameObject> getRunningWall();
 
 private:
     //PlayerState
@@ -116,7 +118,7 @@ private:
     float maxWalkSpeed;
     float runForce;
     float maxRunSpeed;
-    float jumpForce;
+    float jumpSpeed;
 
     //Player Mouse Members
     float mouseXSensitivity;
@@ -130,18 +132,23 @@ private:
     float lastTimeGrounded = coyoteTime+1;
     float jumpBufferTime;
     float lastTimeJumpPressed = jumpBufferTime + 1;
+    float jumpCooldown;
+    float jumpCooldownTimer = jumpCooldown + 1;
     //Sliding Members
     float slideForce;
     Vector3 slideVector = Vector3();
     float slideCoolDown;
     float slideCoolDownTimer = slideCoolDown + 1;
     //WallRunning Members
+    std::shared_ptr<GameObject> runningWall;
     bool isLeftWall = false;
     bool isRightWall = false;
     float wallRunSpeed;
     float wallJumpForce;
     Vector3 wallNormal = Vector3();
     bool isWallRunning = false;
+    float wallrunCooldown;
+    float wallrunCooldownTimer = wallrunCooldown + 1;
 
 
     //Time Ability Members

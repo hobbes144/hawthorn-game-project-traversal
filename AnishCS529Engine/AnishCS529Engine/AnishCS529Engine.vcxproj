@@ -47,6 +47,7 @@
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\RaycastHit.cpp" />
     <ClCompile Include="src\RaycastManager.cpp" />
+    <ClCompile Include="src\ReparentingTest.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
     <ClCompile Include="src\AmbientLight.cpp" />

@@ -37,6 +37,8 @@
 //    __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
 //    __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 //}
+//
+//
 //void onBoxCollide(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> obj2, const Vector3& point) {
 //
 //    //std::cout << "OnBoxCollision\n";
@@ -184,24 +186,24 @@
 //    //Transform
 //    camera->setLocalPosition(Vector3(0.0f, 2.5f, 0.0f));
 //
-//  auto cameraShape = std::make_shared<OBB>(
-//      Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-//      Vector3(0.5f, 0.5f, 0.5f));
-//  camera->addComponent<PhysicsBody>()
-//    ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
-//    ->setShape(cameraShape)
-//    //->setDebug(true)
-//    ->registerToPhysicsManager(PhysicsManager::Instance());
+//    auto cameraShape = std::make_shared<OBB>(
+//        Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+//        Vector3(0.5f, 0.5f, 0.5f));
+//    camera->addComponent<PhysicsBody>()
+//        ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
+//        ->setShape(cameraShape)
+//        //->setDebug(true)
+//        ->registerToPhysicsManager(PhysicsManager::Instance());
 //
-//  auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
-//    ->setAction(Movement3D::Up, KEY_R)
-//    ->setAction(Movement3D::Down, KEY_F)
-//    ->setAction(Movement3D::RollClockwise, KEY_LEFT)
-//    ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
-//    ->setAction(Movement3D::PitchClockwise, KEY_UP)
-//    ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
-//    ->setAction(Movement3D::YawClockwise, KEY_Q)
-//    ->setAction(Movement3D::YawAntiClockwise, KEY_E);
+//    auto cameraInputComponent = camera->addComponent<Movement3D>()->setInputSystem(mainInput)
+//        ->setAction(Movement3D::Up, KEY_R)
+//        ->setAction(Movement3D::Down, KEY_F)
+//        ->setAction(Movement3D::RollClockwise, KEY_LEFT)
+//        ->setAction(Movement3D::RollAntiClockwise, KEY_RIGHT)
+//        ->setAction(Movement3D::PitchClockwise, KEY_UP)
+//        ->setAction(Movement3D::PitchAnticlockwise, KEY_DOWN)
+//        ->setAction(Movement3D::YawClockwise, KEY_Q)
+//        ->setAction(Movement3D::YawAntiClockwise, KEY_E);
 //
 //#pragma endregion
 //
@@ -355,12 +357,13 @@
 //    // Create instances of bodies for boxes
 //    auto playerBoxPB = playerBox->addComponent<RigidBody>()
 //        ->usingGravity(true)
-//        ->setMass(10.0f)->setDrag(1.0f)
+//        ->setMass(10.0f)
+//        ->setDrag(0.5f)
 //        ->setShape(shape1)
 //        ->setDebug(isDebug)
 //        ->registerToPhysicsManager(PhysicsManager::Instance());
 //    playerBoxPB->initialize();
-//    
+//
 //    auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
 //        ->setInputSystem(mainInput)
 //        ->setPhysicsBody(playerBoxPB.get())
@@ -374,7 +377,7 @@
 //        ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
 //        ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
 //        ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9);
-//    
+//
 //    //On Move Callback 
 //    Movement3DListener playerMovementListener(playerBox);
 //    playerMovementListener.setCallback(onMove);
@@ -424,7 +427,7 @@
 //    auto floor = std::make_shared<GameObject>("Floor");
 //    mainSceneGraph.addNode(floor);
 //    floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
-//        ->setLocalScaling(Vector3(50.0f, 0.05f, 50.0f));
+//        ->setLocalScaling(Vector3(20.0f, 0.05f, 20.0f));
 //
 //    auto box2RenderComponent = floor->addComponent<Render2D>();
 //    box2RenderComponent
@@ -513,15 +516,19 @@
 //
 //        //Update the Input Manager
 //        mainInput->update();
-//        
+//
 //        //If Escape is Pressed Exit Loop
 //        if (mainInput->isKeyHeld(KEY_ESCAPE))
 //            break;
 //
 //        // Physics update loop fixedStepTime
-//        while (mainFramerateController->shouldUpdatePhysics()) {
+//        /*while (mainFramerateController->shouldUpdatePhysics()) {
 //            PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
 //            mainFramerateController->consumePhysicsTime();
+//        }*/
+//
+//        for (int i = 0; i < 2; i++) {
+//            PhysicsManager::Instance().update(1.0f / 120.0f);
 //        }
 //
 //        //Affine Demonstration
@@ -544,6 +551,17 @@
 //            AudioManager::instance().stopSound("radio");
 //        }
 //
+//        if (mainInput->isKeyPressed(KEY_P)) {
+//            Transform pt = playerBox->getWorldTransform();
+//            playerBox->reparent(soundBox);
+//            playerBox->setWorldTransform(pt);
+//        }
+//        if (mainInput->isKeyPressed(KEY_O)) {
+//            Transform pt = playerBox->getWorldTransform();
+//            playerBox->reparent(mainSceneGraph.getRootNode());
+//            playerBox->setWorldTransform(pt);
+//        }
+//
 //        //Light Manipulation
 //        if (mainInput->isKeyHeld(KEY_T)) {
 //            std::cout << "Spinning Light\n";
@@ -561,7 +579,7 @@
 //            testPass->setProperty("lightPos", lightPos);
 //        }
 //
-//        mainSceneGraph.update(deltaTime);
+//        mainSceneGraph.update(1.0f / 60.0f);
 //        mainFramerateController->endFrame();
 //
 //#pragma region IMGUI

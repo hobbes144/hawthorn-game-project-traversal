@@ -28,7 +28,7 @@ public:
 	Vector3 point;
 	Vector3 normal;
 	float distance;
-	GameObject* object;
+	std::shared_ptr<GameObject> object;
 
 };
 
