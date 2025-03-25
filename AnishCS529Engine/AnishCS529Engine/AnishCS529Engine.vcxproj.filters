@@ -402,6 +402,12 @@
     <ClCompile Include="src\FPCDemo.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="src\ReparentingTest.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GamePad.cpp">
+      <Filter>Engine\Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -670,6 +676,9 @@
     </ClInclude>
     <ClInclude Include="src\RaycastManager.h">
       <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GamePad.h">
+      <Filter>Engine\Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

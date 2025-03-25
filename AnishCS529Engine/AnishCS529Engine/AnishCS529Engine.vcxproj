@@ -43,6 +43,7 @@
     <ClCompile Include="src\EngineDemo.cpp" />
     <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\FPCDemo.cpp" />
+    <ClCompile Include="src\GamePad.cpp" />
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\RaycastHit.cpp" />
     <ClCompile Include="src\RaycastManager.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\DebugMaterial.h" />
     <ClInclude Include="src\DebugPass.h" />
+    <ClInclude Include="src\GamePad.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\MainTestMaterial.h" />
     <ClInclude Include="src\Material.inl" />
