@@ -355,7 +355,8 @@ int main() {
     // Create instances of bodies for boxes
     auto playerBoxPB = playerBox->addComponent<RigidBody>()
         ->usingGravity(true)
-        ->setMass(10.0f)->setDrag(1.0f)
+        ->setMass(10.0f)
+        ->setDrag(0.5f)
         ->setShape(shape1)
         ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance());
@@ -419,12 +420,42 @@ int main() {
 
 #pragma endregion
 
+#pragma region Running Wall
+
+    auto runningWall = std::make_shared<GameObject>("Running Wall");
+    mainSceneGraph.addNode(runningWall);
+    runningWall->setLocalPosition(Vector3(0.0f, 7.0f, -10.0f))
+        ->setLocalScaling(Vector3(60.0f, 11.0f, 1.0f));
+
+    auto boxWRRenderComponent = runningWall->addComponent<Render2D>();
+    boxWRRenderComponent
+        ->setCamera(camera)
+        ->setMesh(floorMesh)
+        ->setMaterial(cracksMaterial);
+
+    auto shapeWR = std::make_shared<OBB>(
+    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+    Vector3(0.5f, 0.5f, 0.5f));
+    shapeWR->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+
+    runningWall->addComponent<RigidBody>()
+        ->setMass(10.0f)->setDrag(1.0f)
+        ->setShape(shapeWR)
+        ->setDebug(isDebug)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance())
+        ->initialize();
+
+    gameObjects.push_back(runningWall);
+
+#pragma endregion
+
 #pragma region Floor
 
     auto floor = std::make_shared<GameObject>("Floor");
     mainSceneGraph.addNode(floor);
     floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
-        ->setLocalScaling(Vector3(50.0f, 0.05f, 50.0f));
+        ->setLocalScaling(Vector3(100.0f, 0.5f, 100.0f));
 
     auto box2RenderComponent = floor->addComponent<Render2D>();
     box2RenderComponent
@@ -519,9 +550,13 @@ int main() {
             break;
 
         // Physics update loop fixedStepTime
-        while (mainFramerateController->shouldUpdatePhysics()) {
+        /*while (mainFramerateController->shouldUpdatePhysics()) {
             PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
             mainFramerateController->consumePhysicsTime();
+        }*/
+
+        for (int i = 0; i < 2; i++) {
+            PhysicsManager::Instance().update(1.0f/120.0f);
         }
 
         //Affine Demonstration
@@ -561,7 +596,7 @@ int main() {
             testPass->setProperty("lightPos", lightPos);
         }
 
-        mainSceneGraph.update(deltaTime);
+        mainSceneGraph.update(1.0f/60.0f);
         mainFramerateController->endFrame();
 
 #pragma region IMGUI
