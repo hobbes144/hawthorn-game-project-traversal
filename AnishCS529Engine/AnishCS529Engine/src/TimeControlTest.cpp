@@ -544,6 +544,7 @@ int main() {
 
         mainRenderer->clear();
         mainFramerateController->startFrame();              // record the time from frame start
+        deltaTime = mainFramerateController->getFrameTime();
 
         //Update the Input Manager
         mainInput->update();
@@ -558,14 +559,14 @@ int main() {
         }
 
         // Physics update loop fixedStepTime
-        /*while (mainFramerateController->shouldUpdatePhysics()) {
+        while (mainFramerateController->shouldUpdatePhysics()) {
             PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
             mainFramerateController->consumePhysicsTime();
-        }*/
-
-        for (int i = 0; i < 2; i++) {
-            PhysicsManager::Instance().update(1.0f / 120.0f);
         }
+
+        /*for (int i = 0; i < 2; i++) {
+            PhysicsManager::Instance().update(1.0f / 120.0f);
+        }*/
 
         //Audio Update
         AudioManager::instance().update();
@@ -605,7 +606,7 @@ int main() {
             testPass->setProperty("lightPos", lightPos);
         }
 
-        mainSceneGraph.update(1.0f / 60.0f);
+        mainSceneGraph.update(deltaTime);
         mainFramerateController->endFrame();
 
 #pragma region IMGUI
