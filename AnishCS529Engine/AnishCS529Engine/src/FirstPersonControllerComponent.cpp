@@ -137,8 +137,8 @@ void FirstPersonControllerComponent::initialize()
 //			lastTimeJumpPressed += deltaTime;
 //		}
 //		//Apply Jump
-//		const bool canJump = (isGrounded || lastTimeGrounded < coyoteTime) 
-//					&& (lastTimeJumpPressed < jumpBufferTime) 
+//		const bool canJump = (isGrounded || lastTimeGrounded < coyoteTime)
+//					&& (lastTimeJumpPressed < jumpBufferTime)
 //					&& (jumpCooldownTimer > jumpCooldown);
 //		if (canJump) {
 //			//Reset Cooldown Timer
@@ -147,7 +147,7 @@ void FirstPersonControllerComponent::initialize()
 //			const Vector3 currentVelocity = physicsBody->getVelocity();
 //			const Vector3 newVelocity = Vector3(currentVelocity.x, jumpSpeed, currentVelocity.z);
 //			physicsBody->setVelocity(newVelocity);
-//			
+//
 //			// Prevent multiple jumps until grounded again
 //			lastTimeJumpPressed = jumpBufferTime + 1.0f;
 //			lastTimeGrounded = coyoteTime + 1.0f;
@@ -310,7 +310,7 @@ void FirstPersonControllerComponent::initialize()
 //}
 
 
-void FirstPersonControllerComponent::switchState(PlayerState originalState, PlayerState newState)
+void FirstPersonControllerComponent::SwitchState(PlayerState originalState, PlayerState newState)
 {
 	switch (originalState)
 	{
@@ -386,48 +386,73 @@ void FirstPersonControllerComponent::switchState(PlayerState originalState, Play
 
 inline void FirstPersonControllerComponent::FreeToGrounded()
 {
-	lastTimeGrounded = 0.0f;
+	unanchoredTime = 0.0f;
+	physicsBody->setDrag(anchoredDrag);
+	playerState = Grounded;
 }
 
 inline void FirstPersonControllerComponent::FreeToSliding()
 {
+	hasSlidSinceAnchored = true;
+	sinceLastSlideTime = 0.0f;
+	playerState = Sliding;
+	physicsBody->setDrag(anchoredDrag);
 }
 
 inline void FirstPersonControllerComponent::FreeToWallRunning()
 {
+	unanchoredTime = 0.0f;
+	physicsBody->setDrag(anchoredDrag);
+
+	playerState = WallRunning;
+	runningWall = anchorInfo.object;
+	wallNormal = anchorInfo.normal;
+	isWallRunning = true;
+
+	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
+	rb->usingGravity(false);
 }
 
 inline void FirstPersonControllerComponent::GroundedToFree()
 {
+	physicsBody->setDrag(airDrag);
+	playerState = Free;
 }
 
 inline void FirstPersonControllerComponent::GroundedToSliding()
 {
+	sinceLastSlideTime = 0.0f;
+	playerState = Sliding;
 }
 
 inline void FirstPersonControllerComponent::WallRunningToFree()
 {
+	physicsBody->setDrag(airDrag);
+
+	playerState = Free;
+	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
+	rb->usingGravity(true);
 }
 
 inline void FirstPersonControllerComponent::WallRunningToGrounded()
 {
-	lastTimeGrounded = 0.0f;
+
+	playerState = Grounded;
+	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
+	rb->usingGravity(true);
 }
 
 inline void FirstPersonControllerComponent::SlidingToGrounded()
 {
-	lastTimeGrounded = 0.0f;
+	unanchoredTime = 0.0f;
+	playerState = Grounded;
+	physicsBody->setDrag(anchoredDrag);
 }
 
 inline void FirstPersonControllerComponent::SlidingToFree()
 {
-}
-
-bool FirstPersonControllerComponent::GroundedCanJump()
-{
-	return (isGrounded || lastTimeGrounded < coyoteTime)
-		&& (lastTimeJumpPressed < jumpBufferTime)
-		&& (jumpCooldownTimer > jumpCooldown);
+	playerState = Free;
+	physicsBody->setDrag(airDrag);
 }
 
 void FirstPersonControllerComponent::GroundedJump()
@@ -437,7 +462,8 @@ void FirstPersonControllerComponent::GroundedJump()
 #pragma region Jumping
 	//Apply Jump
 	//Reset Cooldown Timer
-	jumpCooldownTimer = 0.0f;
+	sinceLastJumpTime = 0.0f;
+
 	//Apply Jump Force
 	const Vector3 currentVelocity = physicsBody->getVelocity();
 	/* Todo: Consider adding forward momentum? */
@@ -445,25 +471,147 @@ void FirstPersonControllerComponent::GroundedJump()
 	physicsBody->setVelocity(newVelocity);
 
 	// Prevent multiple jumps until grounded again
-	lastTimeJumpPressed = jumpBufferTime + 1.0f;
-	lastTimeGrounded = coyoteTime + 1.0f;
+	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
 
 	/* Todo: Add logic to reparent here. */
+	//parent->reparent(sceneRoot);
 #pragma endregion
-
-	lastTimeJumpPressed = 0.0f;
 }
 
 void FirstPersonControllerComponent::SlidingJump()
 {
-
-	lastTimeJumpPressed = 0.0f;
+	sinceLastJumpTime = 0.0f;
+	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
+	Vector3 currentVelocity = physicsBody->getVelocity();
+	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 1.5f, currentVelocity.z / 2);
+	physicsBody->setVelocity(newVelocity);
 }
 
 void FirstPersonControllerComponent::WallrunningJump()
 {
+	sinceLastJumpTime = 0.0f;
+	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
 
-	lastTimeJumpPressed = 0.0f;
+	Vector3 currentVelocity = physicsBody->getVelocity();
+	Vector3 wallJumpVelocity = anchorInfo.normal * wallJumpForce + Vector3(0.0f, wallJumpForce, 0.0f);
+	Vector3 combinedVelocity = (currentVelocity + wallJumpVelocity) / 2.0f;
+	physicsBody->setVelocity(combinedVelocity);
+}
+
+inline bool FirstPersonControllerComponent::passedCoyoteTime()
+{
+	return (unanchoredTime > coyoteTime);
+}
+
+inline bool FirstPersonControllerComponent::JumpBuffered()
+{
+	return (sinceLastJumpPressedTime < jumpBufferTime);
+}
+
+inline bool FirstPersonControllerComponent::CanJump()
+{
+	return (sinceLastJumpTime > jumpCooldown);
+}
+
+inline bool FirstPersonControllerComponent::SlideBuffered()
+{
+	return (sinceLastSlidePressedTime < slideBufferTime);
+}
+
+inline bool FirstPersonControllerComponent::CanSlide()
+{
+	return !hasSlidSinceAnchored && (sinceLastSlideTime > slideCoolDown);
+}
+
+bool FirstPersonControllerComponent::SlidingTimedOut()
+{
+	return (sinceLastSlideTime > slideEffectTime);
+}
+
+void FirstPersonControllerComponent::UpdateAnchorInfo()
+{
+#pragma region Grounded
+	const Transform bodyWorldTransform = body->getWorldTransform();
+	RaycastHit hitGround;
+	/* Todo: This currently assumes z is down, fix for rotated objects. 
+	* Consider using getFarthestExtent()?
+	*/
+	isGrounded = RaycastManager::Instance().Raycast(
+		Ray(bodyWorldTransform.getPosition(), Vector3(0.0f, -1.0f, 0.0f)),
+		hitGround, (bodyWorldTransform.getScaling().z) * 2 + 0.25
+	);
+	if (isGrounded) {
+		anchorInfo.object = hitGround.object;
+		anchorInfo.direction = 'd';
+		return;
+	}
+#pragma endregion
+
+	const Transform bodyLocalTransform = body->getLocalTransform();
+	const Vector3 currentPos = bodyLocalTransform.getPosition();
+	const Vector3 forwardVector = body->getForwardVector();
+	const Vector3 rightVector = body->getRightVector();
+	const float rayDist = parent->getWorldTransform().getScaling().x * 3;
+	Ray leftRay, left45Ray, rightRay, right45Ray;
+	RaycastHit leftWallHit, rightWallHit;
+
+#pragma region RightWallAndBoth
+	if (anchorInfo.direction == 'r' || anchorInfo.direction == '0') {
+		rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
+		right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
+		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
+			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
+		if (isRightWall) {
+			anchorInfo.direction = 'r';
+			anchorInfo.object = rightWallHit.object;
+			return;
+		}
+		else {
+			leftRay = Ray(currentPos, -rightVector);
+			left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
+			isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
+				RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
+			if (isLeftWall) {
+				anchorInfo.direction = 'l';
+				anchorInfo.object = leftWallHit.object;
+				return;
+			}
+			else {
+				anchorInfo.Reset();
+				return;
+			}
+		}
+	}
+#pragma endregion
+#pragma region LeftWall
+	else if (anchorInfo.direction == 'l') {
+		leftRay = Ray(currentPos, -rightVector);
+		left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
+		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
+			RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
+		if (isLeftWall) {
+			anchorInfo.object = leftWallHit.object;
+			return;
+		}
+		else {
+			rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
+			right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
+			isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
+				RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
+			if (isRightWall) {
+				anchorInfo.direction = 'r';
+				anchorInfo.object = rightWallHit.object;
+				return;
+			}
+			else {
+				anchorInfo.Reset();
+				return;
+			}
+		}
+	}
+#pragma endregion
+
+	debugCheck();
 }
 
 void FirstPersonControllerComponent::update(float deltaTime)
@@ -509,119 +657,93 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	const bool isJumping = input->isKeyPressed(ActionKey[Jump]);
 	const bool isSliding = input->isKeyPressed(ActionKey[Slide]);
 
+	if (isJumping) sinceLastJumpPressedTime = 0.0f;
+	if (isSliding) 
+		sinceLastSlidePressedTime = 0.0f;
+
 #pragma endregion
 
 	//----Some Cached Variables----//
 	const Vector3 forwardVector = body->getForwardVector();
 	const Vector3 upVector = body->getUpVector();
 	const Vector3 rightVector = body->getRightVector();
-	const Transform bodyWorldTransform = body->getWorldTransform();
 	const Transform bodyLocalTransform = body->getLocalTransform();
 	const Vector3 currentPos = bodyLocalTransform.getPosition();
 	const float rayDist = parent->getWorldTransform().getScaling().x * 3;
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
 
-	//-----Grounded-----//
-#pragma region Grounded
-	RaycastHit hitGround;
-	isGrounded = RaycastManager::Instance().Raycast(
-		Ray(bodyWorldTransform.getPosition(), -upVector),
-		hitGround, (bodyWorldTransform.getScaling().z) * 2 + 0.25
-	);
-	if (isGrounded) {
-		anchorSurface = hitGround.object;
-		physicsBody->setDrag(0.3f);
-		if ((playerState == Free))
-			rb->usingGravity(true);
-	}
-	else {
-		physicsBody->setDrag(0.1f);
-	}
-#pragma endregion
-
-	//-----Timers-----//
-#pragma region Timers
-
-	jumpCooldownTimer += deltaTime;
-	wallrunCooldownTimer += deltaTime;
-
-#pragma endregion
+	UpdateAnchorInfo();
 
 	//------------------------------STATES------------------------------//
 	//-----State Switching-----//
 #pragma region StateSwitching
 	if (playerState == Free) {
-
-		if (isGrounded)
-			switchState(Free, Grounded);
-		if (isSliding)
-			switchState(Free, Sliding);
-		if (isWallRunning())
-			switchState(Free, WallRunning);
+		if (anchorInfo.direction == 'd')
+			SwitchState(Free, Grounded);
+		else if (SlideBuffered() && CanSlide())
+			SwitchState(Free, Sliding);
+		else if (anchorInfo.direction != '0')
+			if ((isMovingLeft && anchorInfo.direction == 'l')
+				|| (isMovingRight && anchorInfo.direction == 'r'))
+				SwitchState(Free, WallRunning);
 	}
 
 	if (playerState == Grounded) {
-
-		/* Check for change of state */
-		if (!isGrounded)
-			switchState(Grounded, Free);
-		if (isJumping && GroundedCanJump()) {
-			switchState(Grounded, Free);
+		/* If coyote time, preserve state */
+		if (passedCoyoteTime()) {
+			SwitchState(Grounded, Free);
+		}
+		else if (JumpBuffered())
+		{
+			SwitchState(Grounded, Free);
 			GroundedJump();
 		}
-		if (isSliding)
-			switchState(Grounded, Sliding);
+		else if (SlideBuffered() && CanSlide())
+			SwitchState(Grounded, Sliding);
+		else if (anchorInfo.direction != 'd' && anchorInfo.direction != '0')
+		{
+			SwitchState(Grounded, Free);
+			if ((isMovingLeft && anchorInfo.direction == 'l')
+				|| (isMovingRight && anchorInfo.direction == 'r'))
+				SwitchState(Free, WallRunning);
+		}
 	}
 
 	if (playerState == WallRunning) {
-
-		/* Check for change of state */
-		if (isGrounded)
-			switchState(WallRunning, Grounded);
-		if (!isMovingForward || !isWallRunning())
-			switchState(WallRunning, Free);
-		if (isJumping) {
-			switchState(WallRunning, Free);
+		if (passedCoyoteTime()) {
+			SwitchState(WallRunning, Free);
+		}
+		else if (anchorInfo.direction == 'd')
+			SwitchState(WallRunning, Grounded);
+		else if (!isMovingForward || anchorInfo.direction == '0')
+			SwitchState(WallRunning, Free);
+		else if (isJumping) {
+			SwitchState(WallRunning, Free);
 			WallrunningJump();
 		}
 	}
 
 	if (playerState == Sliding) {
-
-		/* Check for change of state */
-		if (slidingTimedOut())
-			switchState(Sliding, isGrounded ? Grounded : Free);
-		if (isJumping)
+		if (SlidingTimedOut())
+			SwitchState(Sliding, (anchorInfo.direction == 'd') ? Grounded : Free);
+		else if (passedCoyoteTime())
+			SwitchState(Sliding, Free);
+		else if (isJumping)
 		{
-			switchState(Sliding, Free);
+			SwitchState(Sliding, Free);
 			SlidingJump();
 		}
 	}
 
 #pragma endregion
 
-	if (!ActionQueue::isEmpty()) {
-		ActionQueue::pop();
-		return;
-	}
-
-#pragma region StateProcessing
 	//-----State Processing-----//
+#pragma region StateProcessing
 
-	if (playerState != Grounded)
-		lastTimeJumpPressed += deltaTime;
-
-	lastTimeGrounded += deltaTime;
-
-	if (playerState == Free) {
-
-		//-----First Person Movement-----//
-#pragma region FPC Movement
-		//---Applying Movement Force---//
-		/* Todo : consider changing this for not grounded so that the player
-		* doesn't abuse physics too much.
-		*/
-		const float movementForce = (isSprinting ? runForce : walkForce) * 100.0f;
+	//-----First Person Ground Movement-----//
+#pragma region GroundMovement
+	if (playerState == Grounded) {
+		const float movementForce = (isSprinting ? runForceMultiplier : 1.0f) * walkForce * 100.0f;
 		const float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
 		//Forward
 		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
@@ -633,86 +755,60 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
 		}
+	}
 #pragma endregion
 
-		//-----Handle Sliding-----//
+
+	//-----First Person Air Movement-----//
+#pragma region FreeMovement
+	else if (playerState == Free) {
+		//---Applying Movement Force---//
+		const float movementForce = (isSprinting ? runForceMultiplier : 1.0f) * walkForce * 10.0f;
+		const float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
+		//Forward
+		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
+		//Lateral
+		const Vector3 lateralMotionVector = rightVector * lateralMotion;
+		//Combine Forward and Lateral Movement and Apply Force
+		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+		if (combinedMotionVector.magnitude() > 0.0f) {
+			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
+			physicsBody->applyForce(movementVector);
+		}
+	}
+#pragma endregion
+
+	//-----Handle Sliding-----//
 #pragma region Sliding
-		slideCoolDownTimer += 0.01;
-		if (slideCoolDownTimer >= slideCoolDown && isSliding) {
-			//Reset Timer
-			slideCoolDownTimer = 0.0f;
-
-			//Apply a Slide Force
-			slideVector = combinedMotionVector * slideForce;
-			if (slideVector.magnitude() == 0) {
-				slideVector = forwardVector * slideForce;
-			}
-			physicsBody->setVelocity(slideVector);
-
-			// Force Transition State
-			playerState = Sliding;
+	else if (playerState == Sliding) {
+		//Apply a Slide Force
+		//Forward
+		if (!forwardMotion && !lateralMotion) {
+			slideVector = forwardVector * slideForce;
 		}
-#pragma endregion
-
-		//-----WallRunning Check-----//
-#pragma region Wallrunning Check
-		//If Wallrun off cooldown
-		if (wallrunCooldownTimer > wallrunCooldown) {
-			//If Not Grounded and moving forward
-			if (!isGrounded && isMovingForward) {
-
-				//-----Wall Checks-----//
-#pragma region WallChecks
-				const Ray leftRay = Ray(currentPos, -rightVector);
-				const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
-				RaycastHit leftWallHit;
-				isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
-					RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
-				//Check Wall on Right
-				const Ray rightRay = Ray(currentPos, rightVector);
-				const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
-				RaycastHit rightWallHit;
-				isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
-					RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
-
-				//if (isLeftWall || isRightWall) {
-				//	std::cout << "Here" << std::endl;
-				//}
-
-				debugCheck();
-
-#pragma endregion
-
-				//If Left is a Wall and moving left
-				if (isLeftWall && isMovingLeft) {
-					playerState = WallRunning;
-					runningWall = leftWallHit.object;
-					wallNormal = leftWallHit.normal;
-					anchorSurface = leftWallHit.object;
-					isWallRunning = true;
-				}
-				//If Right is a wall and moving right
-				else if (isRightWall && isMovingRight) {
-					playerState = WallRunning;
-					runningWall = rightWallHit.object;
-					wallNormal = rightWallHit.normal;
-					anchorSurface = rightWallHit.object;
-					isWallRunning = true;
-				}
-			}
+		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
+		//Lateral
+		const Vector3 lateralMotionVector = rightVector * lateralMotion;
+		//Combine Forward and Lateral Movement and Apply Force
+		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+		slideVector = combinedMotionVector * slideForce;
+		if (slideVector.magnitude() == 0) {
+			slideVector = forwardVector * slideForce;
 		}
+		physicsBody->setVelocity(slideVector);
+		/*
+		// Force based
+		slideVector = combinedMotionVector * slideForce * 10.0f;
+		physicsBody->applyForce(slideVector);
+		*/
+	}
 #pragma endregion
 
-	}//End Free State
+	//-----Handle Wallrunning-----//
+#pragma region WallRunning
 	else if (playerState == WallRunning) {
 		/* Todo: verify that this code works regardless of wall angle. */
 		/* Todo: consider wallrun max time */
-
-		//Keep Timer at 0
-		wallrunCooldownTimer = 0.0f;
-
-		//Disable Gravity
-		rb->usingGravity(false);
 
 		//Get the direction to move along the wall in
 		Vector3 wallRunDirection = Vector3(0, 1, 0).cross(wallNormal);
@@ -732,25 +828,11 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		Vector3 correctedPosition = currentPos - wallNormal * (distanceToWall - wallOffset);
 		body->setLocalPosition(correctedPosition);
 
-		//Jump Off of the Wall
-		if (isJumping) {
-			Vector3 currentVelocity = physicsBody->getVelocity();
-			Vector3 wallJumpVelocity = wallNormal * wallJumpForce + Vector3(0.0f, wallJumpForce, 0.0f);
-			Vector3 combinedVelocity = (currentVelocity + wallJumpVelocity) / 2.0f;
-			physicsBody->setVelocity(combinedVelocity);
-
-			playerState = Free; // Exit wallrunning
-			isWallRunning = false;
-			runningWall = nullptr;
-		}
-
-		//Exit Wall Running if there is no more Wall
-		if ((!isLeftWall && !isRightWall) || isGrounded || !isMovingForward) {
-			playerState = Free;
-			isWallRunning = false;
-			runningWall = nullptr;
-		}
 	} //End Wallrunning State
+#pragma endregion
+
+	//-----Sliding-----//
+#pragma region Sliding
 	else if (playerState = Sliding) {
 
 		Vector3 driftVector = Vector3(0.0f, 0.0f, 0.0f);
@@ -768,23 +850,24 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 		//Continue to Maintain Velocity
 		physicsBody->setVelocity(newSlideVector);
-
-		//increment slide timer
-		slideCoolDownTimer += 0.01f;
-
-		if (slideCoolDownTimer >= (slideCoolDown / 2.0f)) {
-			playerState = Free;
-		}
-
-		if (isJumping) {
-			//Apply Jump Force
-			Vector3 currentVelocity = physicsBody->getVelocity();
-			Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 1.5f, currentVelocity.z / 2);
-			physicsBody->setVelocity(newVelocity);
-			playerState = Free;
-		}
-
 	}//End Sliding State
+#pragma endregion
+
+#pragma endregion
+
+
+	//-----Timers-----//
+#pragma region Timers
+
+	if (!isGrounded && playerState != WallRunning)
+		unanchoredTime += deltaTime;
+
+	sinceLastJumpTime += deltaTime;
+	sinceLastJumpPressedTime += deltaTime;
+	sinceLastSlideTime += deltaTime;
+	sinceLastSlidePressedTime += deltaTime;
+	wallrunCooldownTimer += deltaTime;
+
 #pragma endregion
 }
 
@@ -847,6 +930,13 @@ std::shared_ptr<FirstPersonControllerComponent>
 	Quaternion newCameraRotation = Quaternion::fromEuler(
 		Vector3(newPitch, currentEuler.y, currentEuler.z));
 	camera->setLocalRotation(newCameraRotation);
+	return shared_from_this();
+}
+
+std::shared_ptr<FirstPersonControllerComponent> 
+	FirstPersonControllerComponent::setSceneRoot(std::shared_ptr<GameObject> root)
+{
+	sceneRoot = root;
 	return shared_from_this();
 }
 
