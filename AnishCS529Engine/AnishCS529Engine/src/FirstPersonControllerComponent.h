@@ -49,7 +49,8 @@ public:
     enum PlayerState {
         Free,
         WallRunning,
-        Sliding
+        Sliding,
+        Grounded
     };
 
     enum Action {
@@ -101,8 +102,23 @@ public:
     std::shared_ptr<GameObject> getRunningWall();
 
 
-
 private:
+    //Utility Functions
+    void switchState(PlayerState originalState, PlayerState newState);
+    void FreeToGrounded();
+    void FreeToSliding();
+    void FreeToWallRunning();
+    void GroundedToFree();
+    void GroundedToSliding();
+    void WallRunningToFree();
+    void WallRunningToGrounded();
+    void SlidingToGrounded();
+    void SlidingToFree();
+    bool GroundedCanJump();
+    void GroundedJump();
+    void SlidingJump();
+    void WallrunningJump();
+
     //PlayerState
     PlayerState playerState;
     bool isGrounded;
