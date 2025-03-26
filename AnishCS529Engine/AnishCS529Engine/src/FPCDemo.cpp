@@ -275,7 +275,7 @@ int main() {
 
 #pragma region Map
    
-     MapLoader::instance().loadMap(3, 0, 0, 0, mainSceneGraph, camera, floorMesh, floorMaterial);
+     MapLoader::instance().loadMap(2, 0, 0, 0, mainSceneGraph, camera, floorMesh, floorMaterial);
 
 #pragma endregion
 
@@ -304,7 +304,7 @@ int main() {
     auto playerBoxPB = playerBox->addComponent<RigidBody>()
         ->usingGravity(true)
         ->setMass(10.0f)
-        ->setDrag(0.5f)
+        ->setDrag(1.5f)
         ->setShape(shape1)
         ->setDebug(isDebug)
         ->registerToPhysicsManager(PhysicsManager::Instance());
@@ -408,6 +408,15 @@ int main() {
         }
         if (mainInput->isKeyPressed(KEY_M)) {
             AudioManager::instance().stopSound("radio");
+        }
+
+        if (mainInput->isKeyPressed(KEY_R)) {
+            Vector3 initialPosition(0.0f, 2.0f, 0.0f);
+            playerBox->setLocalPosition(initialPosition);
+
+            if (auto body = playerBox->findComponent<RigidBody>()) {
+                body->setVelocity(Vector3(0.0f, 0.0f, 0.0f));
+            }
         }
 
         //Light Manipulation

@@ -106,7 +106,7 @@ void MapLoader::loadJump(float offsetX, float offsetY, float offsetZ,
     auto mainFloor = std::make_shared<GameObject>("MainFloor");
     sceneGraph.addNode(mainFloor);
     mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
-    mainFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+    mainFloor->setLocalScaling(Vector3(10.0f, 1.0f, 10.0f));
     auto renderComp = mainFloor->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
@@ -120,9 +120,9 @@ void MapLoader::loadJump(float offsetX, float offsetY, float offsetZ,
 }
 
 float platformSizes[] = { 4.0f, 3.5f, 3.0f, 3.2f, 3.6f, 3.1f, 3.4f, 3.7f, 4.2f };
-float yVariation[] = { 0.3f, -0.2f, 0.5f, -0.4f, 0.2f, -0.3f, 0.4f, -0.2f, 0.1f };
+float yVariation[] = { 0.3f, -5.2f, -3.5f, -1.4f, 0.2f, 3.0f, 5.4f, 8.2f, 11.0f };
 float xSpacing = 6.0f;
-float xOffset[] = { 2.0f, 2.0f, -3.0f, 3.0f, -4.0f, 4.0f, -5.0f, 5.0f, 8.0f };
+float xOffset[] = { 2.0f, 2.0f, -3.0f, 3.0f, -4.0f, 4.0f, -5.0f, 5.0f, 0.0f };
 
 for (int i = 0; i < 9; ++i) {
     auto platform = std::make_shared<GameObject>("Platform" + std::to_string(i + 1));
@@ -146,7 +146,7 @@ for (int i = 0; i < 9; ++i) {
 {
     auto upperFloor = std::make_shared<GameObject>("UpperFloor");
     sceneGraph.addNode(upperFloor);
-    upperFloor->setLocalPosition(Vector3(60.0f + offsetX, 0.2f + offsetY, 8.0f + offsetZ));
+    upperFloor->setLocalPosition(Vector3(90.0f + offsetX, -20.2f + offsetY, 8.0f + offsetZ));
     upperFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto renderComp = upperFloor->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);

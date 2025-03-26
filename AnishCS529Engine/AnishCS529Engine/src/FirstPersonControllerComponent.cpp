@@ -85,7 +85,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		hitGround, (body->getWorldTransform().getScaling().z) * 2 + 0.25
 	);
 	if (isGrounded) {
-		physicsBody->setDrag(0.3f);
+		physicsBody->setDrag(0.6f);
 	}
 	else {
 		physicsBody->setDrag(0.1f);

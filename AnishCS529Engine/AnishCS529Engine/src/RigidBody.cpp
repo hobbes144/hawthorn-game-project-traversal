@@ -156,7 +156,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		Vector3 normal = -RB1->getShape()->getNormalAtVector(contactVector1.normalized());
 		contactVector2 = contactVector2.abs() * normal;
 		contactVector1 = contactVector1.abs() * -normal;
-		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(normal);
+		Vector3 RB2Extent = RB2->getShape()->getFarthestExtent(normal);
 		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(-normal);
 		//Vector3 RB1Extent = RB1->getShape()->getFarthestExtent(-normal);
 		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());

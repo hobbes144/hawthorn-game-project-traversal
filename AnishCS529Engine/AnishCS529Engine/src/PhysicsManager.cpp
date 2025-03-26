@@ -42,21 +42,23 @@ void PhysicsManager::resetHandledCollisions()
 
 void PhysicsManager::checkCollisions() {
   Contact contact;
+  bool body1IsStatic;
   for (size_t i = 0; i < bodies.size(); i++) {
-    if (!bodies[i]->getParent()->isEnabled()) continue;
-
-    for (size_t j = i + 1; j < bodies.size(); j++) {
-      if (!bodies[j]->getParent()->isEnabled()) continue;
-      if (collisionGenerator.generateContact(bodies[i], bodies[j], contact)) {
-        // Collision detected, broadcast event
-        CollisionEvent event(
-            contact.bodies[0]->getParent(),
-            contact.bodies[1]->getParent(),
-            contact.point
-            );
-        EventManager::Instance().BroadcastEvent(event);
+      if (!bodies[i]->getParent()->isEnabled()) continue;
+      body1IsStatic = bodies[i]->getIsStatic();
+      for (size_t j = i + 1; j < bodies.size(); j++) {
+          if (!bodies[j]->getParent()->isEnabled()) continue;
+          if (body1IsStatic && bodies[j]->getIsStatic()) continue;
+          if (collisionGenerator.generateContact(bodies[i], bodies[j], contact)) {
+              // Collision detected, broadcast event
+              CollisionEvent event(
+                  contact.bodies[0]->getParent(),
+                  contact.bodies[1]->getParent(),
+                  contact.point
+              );
+              EventManager::Instance().BroadcastEvent(event);
+          }
       }
-    }
   }
   resetHandledCollisions();
 }
