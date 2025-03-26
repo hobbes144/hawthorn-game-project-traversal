@@ -229,7 +229,7 @@ int main() {
     concreteMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
     concreteMaterial->setProperty("shininess", 10.0f);
     concreteMaterial->setProperty("objectId", 5);
-    concreteMaterial->addTexture("media/textures/Concrete.png");
+    concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
 
     /* Grass */
     auto grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
@@ -284,7 +284,7 @@ int main() {
 
 #pragma region Map
    
-     MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera, floorMesh, floorMaterial);
+     MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
 
 #pragma endregion
 
