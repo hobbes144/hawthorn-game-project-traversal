@@ -396,6 +396,7 @@ inline void FirstPersonControllerComponent::FreeToSliding()
 	hasSlidSinceAnchored = true;
 	sinceLastSlideTime = 0.0f;
 	playerState = Sliding;
+	
 	physicsBody->setDrag(anchoredDrag);
 }
 
@@ -483,7 +484,7 @@ void FirstPersonControllerComponent::SlidingJump()
 	sinceLastJumpTime = 0.0f;
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
 	Vector3 currentVelocity = physicsBody->getVelocity();
-	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 1.5f, currentVelocity.z / 2);
+	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 2.5f, currentVelocity.z / 2);
 	physicsBody->setVelocity(newVelocity);
 }
 
@@ -552,13 +553,12 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	const Vector3 forwardVector = body->getForwardVector();
 	const Vector3 rightVector = body->getRightVector();
 	const float rayDist = parent->getWorldTransform().getScaling().x * 3;
-	Ray leftRay, left45Ray, rightRay, right45Ray;
 	RaycastHit leftWallHit, rightWallHit;
 
 #pragma region RightWallAndBoth
 	if (anchorInfo.direction == 'r' || anchorInfo.direction == '0') {
-		rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
-		right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
+		const Ray rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
+		const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
 		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
 			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
 		if (isRightWall) {
@@ -567,8 +567,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 			return;
 		}
 		else {
-			leftRay = Ray(currentPos, -rightVector);
-			left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
+			const Ray leftRay = Ray(currentPos, -rightVector);
+			const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
 			isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
 				RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
 			if (isLeftWall) {
@@ -585,8 +585,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 #pragma endregion
 #pragma region LeftWall
 	else if (anchorInfo.direction == 'l') {
-		leftRay = Ray(currentPos, -rightVector);
-		left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
+		const Ray leftRay = Ray(currentPos, -rightVector);
+		const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
 		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
 			RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
 		if (isLeftWall) {
@@ -594,8 +594,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 			return;
 		}
 		else {
-			rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
-			right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
+			const Ray rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
+			const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
 			isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
 				RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
 			if (isRightWall) {
@@ -616,6 +616,7 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 
 void FirstPersonControllerComponent::update(float deltaTime)
 {
+
 	//-----Handling Camera Movement-----//
 #pragma region Camera
 	//Get Mouse State Data
@@ -650,18 +651,36 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	const bool isMovingLeft = input->isKeyHeld(ActionKey[MoveLeft]);
 	const bool isMovingRight = input->isKeyHeld(ActionKey[MoveRight]);
 
-	const float forwardMotion = isMovingForward - isMovingBackward;
-	const float lateralMotion = isMovingRight - isMovingLeft;
+	float forwardMotion = isMovingForward - isMovingBackward;
+	float lateralMotion = isMovingRight - isMovingLeft;
 
-	const bool isSprinting = input->isKeyHeld(ActionKey[Sprint]);
-	const bool isJumping = input->isKeyPressed(ActionKey[Jump]);
-	const bool isSliding = input->isKeyPressed(ActionKey[Slide]);
+	bool isSprinting = input->isKeyHeld(ActionKey[Sprint]);
+	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
+	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
 
-	if (isJumping) sinceLastJumpPressedTime = 0.0f;
-	if (isSliding) 
-		sinceLastSlidePressedTime = 0.0f;
 
 #pragma endregion
+
+	//GamePad Input
+#pragma region GamePad
+	if (gp != nullptr) {
+		if (gp->update()) {
+			if (gp->leftStickY != 0) forwardMotion = gp->leftStickY;
+			if (gp->leftStickX != 0) lateralMotion = gp->leftStickX;
+			if (gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB))
+				isSprinting = gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB);
+			if (gp->isPressed(XINPUT_GAMEPAD_B))
+				isJumping = gp->isPressed(XINPUT_GAMEPAD_B);
+			if (gp->isPressed(XINPUT_GAMEPAD_X))
+				isSliding = gp->isPressed(XINPUT_GAMEPAD_X);
+		}
+	}
+#pragma endregion
+
+
+	if (isJumping) sinceLastJumpPressedTime = 0.0f;
+	if (isSliding)
+		sinceLastSlidePressedTime = 0.0f;
 
 	//----Some Cached Variables----//
 	const Vector3 forwardVector = body->getForwardVector();
@@ -681,8 +700,23 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (anchorInfo.direction == 'd')
 			SwitchState(Free, Grounded);
 		else if (SlideBuffered() && CanSlide())
+		{
+			if (!forwardMotion && !lateralMotion) {
+				slideVector = forwardVector * slideForce;
+			}
+			const Vector3 forwardMotionVector = forwardVector * forwardMotion;
+			//Lateral
+			const Vector3 lateralMotionVector = rightVector * lateralMotion;
+			//Combine Forward and Lateral Movement and Apply Force
+			const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+			slideVector = combinedMotionVector * slideForce;
+			if (slideVector.magnitude() == 0) {
+				slideVector = forwardVector * slideForce;
+			}
+			physicsBody->setVelocity(slideVector);
 			SwitchState(Free, Sliding);
-		else if (anchorInfo.direction != '0')
+		}
+		else if (anchorInfo.direction != '0' && isMovingForward)
 			if ((isMovingLeft && anchorInfo.direction == 'l')
 				|| (isMovingRight && anchorInfo.direction == 'r'))
 				SwitchState(Free, WallRunning);
@@ -699,7 +733,22 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			GroundedJump();
 		}
 		else if (SlideBuffered() && CanSlide())
+		{
+			if (!forwardMotion && !lateralMotion) {
+				slideVector = forwardVector * slideForce;
+			}
+			const Vector3 forwardMotionVector = forwardVector * forwardMotion;
+			//Lateral
+			const Vector3 lateralMotionVector = rightVector * lateralMotion;
+			//Combine Forward and Lateral Movement and Apply Force
+			const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+			slideVector = combinedMotionVector * slideForce;
+			if (slideVector.magnitude() == 0) {
+				slideVector = forwardVector * slideForce;
+			}
+			physicsBody->setVelocity(slideVector);
 			SwitchState(Grounded, Sliding);
+		}
 		else if (anchorInfo.direction != 'd' && anchorInfo.direction != '0')
 		{
 			SwitchState(Grounded, Free);
@@ -783,24 +832,27 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	else if (playerState == Sliding) {
 		//Apply a Slide Force
 		//Forward
-		if (!forwardMotion && !lateralMotion) {
-			slideVector = forwardVector * slideForce;
-		}
-		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
-		//Lateral
-		const Vector3 lateralMotionVector = rightVector * lateralMotion;
-		//Combine Forward and Lateral Movement and Apply Force
-		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
-		slideVector = combinedMotionVector * slideForce;
-		if (slideVector.magnitude() == 0) {
-			slideVector = forwardVector * slideForce;
-		}
-		physicsBody->setVelocity(slideVector);
 		/*
 		// Force based
 		slideVector = combinedMotionVector * slideForce * 10.0f;
 		physicsBody->applyForce(slideVector);
 		*/
+
+		Vector3 driftVector = Vector3(0.0f, 0.0f, 0.0f);
+		Vector3 driftDirection = Vector3(-slideVector.z, 0.0f, slideVector.x).normalized();
+
+		if ( isMovingLeft ) {
+			driftVector = driftDirection * -0.2f;
+		}
+		if ( isMovingRight ) {
+			driftVector = driftDirection * 0.2f;
+		}
+
+		Vector3 newSlideVector = slideVector + driftVector;
+		newSlideVector = newSlideVector.normalized() * slideVector.magnitude();
+
+		//Continue to Maintain Velocity
+		physicsBody->setVelocity(newSlideVector);
 	}
 #pragma endregion
 
@@ -831,28 +883,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	} //End Wallrunning State
 #pragma endregion
 
-	//-----Sliding-----//
-#pragma region Sliding
-	else if (playerState = Sliding) {
-
-		Vector3 driftVector = Vector3(0.0f, 0.0f, 0.0f);
-		Vector3 driftDirection = Vector3(-slideVector.z, 0.0f, slideVector.x).normalized();
-
-		if (isMovingLeft) {
-			driftVector = driftDirection * -0.2f;
-		}
-		if (isMovingRight) {
-			driftVector = driftDirection * 0.2f;
-		}
-
-		Vector3 newSlideVector = slideVector + driftVector;
-		newSlideVector = newSlideVector.normalized() * slideVector.magnitude();
-
-		//Continue to Maintain Velocity
-		physicsBody->setVelocity(newSlideVector);
-	}//End Sliding State
-#pragma endregion
-
 #pragma endregion
 
 
@@ -879,6 +909,12 @@ std::shared_ptr<FirstPersonControllerComponent>
 	FirstPersonControllerComponent::setInputSystem(Input* _inputSystem)
 {
 	input = _inputSystem;
+	return shared_from_this();
+}
+
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setGamePad(GamePad* _gp) {
+	gp = _gp;
 	return shared_from_this();
 }
 

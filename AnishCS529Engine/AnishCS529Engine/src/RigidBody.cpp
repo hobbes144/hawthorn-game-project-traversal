@@ -114,6 +114,8 @@ void RigidBody::integrate(float deltaTime) {
 	PhysicsBody::integrate(deltaTime);
 }
 
+static std::vector<Vector3> correctHistory;
+
 /*!****************************************************************************
  * \brief A callback function needed to be set up to collisionListener for the
  *		  collision Event of RigidBody
@@ -140,75 +142,83 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 	float e = std::min(RB1->getElasticity(), RB2->getElasticity());
 
-	if (RB1->getIsStatic() && RB1->getIsStatic()) {
+	if (RB1->getIsStatic() && RB2->getIsStatic()) {
 		PhysicsManager::Instance().addHandledCollision(RB1, RB2);
 		return;
 	}
 
 	if (RB1->getIsStatic()) {
-		Vector3 contactVector = (final - RB2Position);
-		Vector3 normal = RB2->getShape()->getNormalAtVector(contactVector.normalized());
-		contactVector *= (normal);
-		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(contactVector.normalized());
+		Vector3 contactVector2 = (final - RB2Position);
+		Vector3 contactVector1 = (final - RB1Position);
+		Vector3 normal = -RB1->getShape()->getNormalAtVector(contactVector1.normalized());
+		contactVector2 = contactVector2.abs() * normal;
+		contactVector1 = contactVector1.abs() * -normal;
+		Vector3 RB2Extent = RB2->getShape()->getFarthestExtent(normal);
+		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(-normal);
+		//Vector3 RB1Extent = RB1->getShape()->getFarthestExtent(-normal);
 		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
 
-		Vector3 correction = (RB2Extent - contactVector) * normal;
+		Vector3 correction = ((RB2Extent - contactVector2).abs() + (RB1Extent - contactVector1).abs()) * normal;
 
-		Vector3 impulse =
+		/*Vector3 impulse =
 			(RB1->getVelocity() - RB2->getVelocity()) * normal *
 			(1.0f + e) *
 			(
 				(RB1->getMass() * RB2->getMass())
 				/
 				(RB1->getMass() + RB2->getMass())
-			);
+			);*/
 
 		if (correction < Vector3(1e-6f)) {
 			PhysicsManager::Instance().addHandledCollision(RB1, RB2);
 			return;
 		}
-		obj2->setWorldPosition(RB2Position + (correction * 2));
-		RB2->setVelocity(velocity + ( velocity * normal.abs() ));
-		RB2->applyForce(impulse);
+		obj2->setWorldPosition(RB2Position - correction);
+		RB2->setVelocity(velocity2 + (velocity2 * normal));
+		//RB2->applyForce(impulse);
 		obj2->updateTransforms();
 	}
 	else if (RB2->getIsStatic()) {
-		Vector3 contactVector = (final - RB1Position);
-		Vector3 normal = RB1->getShape()->getNormalAtVector(contactVector.normalized());
-		contactVector = contactVector.abs() * normal;
-		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(-contactVector.normalized());
-		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(contactVector.normalized());
-		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
+		Vector3 contactVector2 = (final - RB2Position);
+		Vector3 contactVector1 = (final - RB1Position);
+		Vector3 normal = -RB2->getShape()->getNormalAtVector(contactVector2.normalized());
+		contactVector2 = contactVector2.abs() * -normal;
+		contactVector1 = contactVector1.abs() * normal;
+		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(-normal);
+		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(normal);
 
-		Vector3 correction = (RB1Extent - contactVector).abs() * normal;
+		Vector3 correction = ((RB2Extent - contactVector2).abs() + (RB1Extent - contactVector1).abs()) * normal;
 
-		Vector3 impulse =
+
+		/*Vector3 impulse =
 			(RB1->getVelocity() - RB2->getVelocity()) * normal *
 			(1 + e) *
 			(
 				(RB1->getMass() * RB2->getMass())
 				/
 				(RB1->getMass() + RB2->getMass())
-			);
+			);*/
 
 		if (correction < Vector3(1e-6f)) {
 			PhysicsManager::Instance().addHandledCollision(RB1, RB2);
 			return;
 		}
-		obj1->setWorldPosition(RB1Position - (correction * 2));
+		obj1->setWorldPosition(RB1Position - correction);
 		RB1->setVelocity(velocity - (velocity * normal.abs()));
 		//RB1->applyForce(impulse);
 		obj1->updateTransforms();
 	}
 	else {
-		Vector3 contactVector = ( final - RB1Position );
-		Vector3 normal = RB1->getShape()->getNormalAtVector(contactVector.normalized());
-		contactVector = contactVector.abs() * normal;
-		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(-contactVector.normalized());
-		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(contactVector.normalized());
-		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
+		/* This doesn't work right, let's keep everything else static for now. */
+		Vector3 contactVector2 = (final - RB2Position);
+		Vector3 contactVector1 = (final - RB1Position);
+		Vector3 normal = -RB1->getShape()->getNormalAtVector(contactVector1.normalized());
+		contactVector2 = contactVector2.abs() * normal;
+		contactVector1 = contactVector1.abs() * -normal;
+		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(normal);
+		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(-normal);
 
-		Vector3 correction = ( RB1Extent - contactVector ).abs() * normal;
+		Vector3 correction = ((RB2Extent - contactVector2).abs() + (RB1Extent - contactVector1).abs()) * normal;
 
 		Vector3 impulse =
 			( RB1->getVelocity() - RB2->getVelocity() ) * normal *
@@ -226,9 +236,9 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		RB1->applyForce(-impulse);
 		RB2->applyForce(impulse);
 
-		obj1->setWorldPosition(RB1Position - correction);
+		obj1->setWorldPosition(RB1Position + correction/2);
 		RB1->updateShapePosition();
-		obj2->setWorldPosition(RB2Position + correction);
+		obj2->setWorldPosition(RB2Position - correction/2);
 		RB2->updateShapePosition();
 		obj1->updateTransforms();
 		obj2->updateTransforms();

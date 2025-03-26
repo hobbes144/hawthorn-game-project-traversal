@@ -16,10 +16,11 @@
 #include <cassert>
 #include <functional>
 
-#include "Component.h"
 #include "Camera.h"
-#include "Input.h"
+#include "Component.h"
 #include "GameObject.h"
+#include "GamePad.h"
+#include "Input.h"
 #include "PhysicsBody.h"
 
 /*!****************************************************************************
@@ -78,13 +79,13 @@ public:
 
     FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
       anchorInfo(AnchorInfo()),
-        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
+        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
         walkForce(10), maxWalkSpeed(10.0f),
         runForceMultiplier(2.0f), maxRunSpeed(2 * maxWalkSpeed),
-        jumpSpeed(55), airDrag(0.1f), anchoredDrag(0.6f),
+        jumpSpeed(45), airDrag(0.1f), anchoredDrag(0.6f),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
-        slideForce(100), slideCoolDown(0.75f), slideEffectTime(0.5f),
+        slideForce(75), slideCoolDown(2.0f), slideEffectTime(0.5f),
         slideBufferTime(0.2f),
         wallRunSpeed(30), wallJumpForce(40), wallrunCooldown(0.2f),
         sceneRoot(nullptr)
@@ -108,6 +109,8 @@ public:
       setCameraRotation(Vector3 rotation);
     std::shared_ptr<FirstPersonControllerComponent>
       setSceneRoot(std::shared_ptr<GameObject> root);
+    std::shared_ptr<FirstPersonControllerComponent>
+        setGamePad(GamePad* _gp);
 
     //Mapping the Actions to the Keys
     std::shared_ptr<FirstPersonControllerComponent>
@@ -204,6 +207,9 @@ private:
     bool hasSlidSinceAnchored = false;
 
     std::shared_ptr<GameObject> sceneRoot;
+
+    //GamePad
+    GamePad* gp;
 
     //Time Ability Members
 

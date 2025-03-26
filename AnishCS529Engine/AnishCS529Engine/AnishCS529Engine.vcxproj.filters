@@ -381,6 +381,9 @@
     <ClCompile Include="precompiled.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\MapLoader.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Ray.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
@@ -416,6 +419,9 @@
     </ClCompile>
     <ClCompile Include="src\Animate.cpp">
       <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GamePad.cpp">
+      <Filter>Engine\Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -690,6 +696,12 @@
       <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Animate.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GamePad.h">
+      <Filter>Engine\Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapLoader.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
