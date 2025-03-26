@@ -68,10 +68,10 @@ public:
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
         walkForce(10), maxWalkSpeed(10.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        jumpSpeed(35),
+        jumpSpeed(45),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
-        slideForce(100), slideCoolDown(1.0f),
+        slideForce(75), slideCoolDown(2.0f),
         wallRunSpeed(30), wallJumpForce(40), wallrunCooldown(0.2f)
         {}
     ~FirstPersonControllerComponent() = default;

@@ -120,8 +120,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 #pragma endregion
 
-	debugCheck();
-
 	//------------------------------STATES------------------------------//
 	if (playerState == Free) {
 
@@ -184,12 +182,15 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		//-----Handle Sliding-----//
 #pragma region Sliding
 		slideCoolDownTimer += 0.01;
-		if (slideCoolDownTimer >= slideCoolDown  && isSliding) {
+		if (slideCoolDownTimer >= slideCoolDown && isSliding) {
 			//Reset Timer
 			slideCoolDownTimer = 0;
-			
+
 			//Apply a Slide Force
 			slideVector = combinedMotionVector * slideForce;
+			if (slideVector.magnitude() == 0) {
+				slideVector = body->getForwardVector() * slideForce;
+			}
 			physicsBody->setVelocity(slideVector);
 
 			// Force Transition State
@@ -292,14 +293,14 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		//increment slide timer
 		slideCoolDownTimer += 0.01;
 
-		if (slideCoolDownTimer >= (slideCoolDown/2)) {
+		if (slideCoolDownTimer >= (slideCoolDown/3)) {
 			playerState = Free;
 		}
 
 		if (isJumping) {
 			//Apply Jump Force
 			Vector3 currentVelocity = physicsBody->getVelocity();
-			Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 1.5f, currentVelocity.z / 2);
+			Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 2.5f, currentVelocity.z / 2);
 			physicsBody->setVelocity(newVelocity);
 			playerState = Free;
 		}
