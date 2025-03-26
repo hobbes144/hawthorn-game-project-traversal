@@ -131,6 +131,10 @@ int main() {
     mainInput->setGameWindow(mainWindow);
     mainInput->initialize();
 
+    /* XInput setup */
+    GamePad* gamepad = new GamePad;
+    gamepad->initialize();
+
     /* Framerate controller setup */
     FFramerateController* mainFramerateController =
         FFramerateController::getController();
@@ -328,6 +332,7 @@ int main() {
     
     auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
         ->setInputSystem(mainInput)
+        ->setGamePad(gamepad)
         ->setPhysicsBody(playerBoxPB.get())
         ->setBody(playerBox.get())
         ->setCamera(camera.get())
