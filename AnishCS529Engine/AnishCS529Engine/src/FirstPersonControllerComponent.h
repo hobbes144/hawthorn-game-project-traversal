@@ -65,10 +65,10 @@ public:
     };
 
     FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
-        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
+        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
         walkForce(10), maxWalkSpeed(10.0f),
         runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        jumpSpeed(55),
+        jumpSpeed(35),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
         slideForce(100), slideCoolDown(1.0f),

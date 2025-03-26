@@ -18,6 +18,7 @@ void FirstPersonControllerComponent::initialize()
 
 void FirstPersonControllerComponent::update(float deltaTime)
 {
+
 	const float rayDist = parent->getWorldTransform().getScaling().x * 3; 
 
 	//-----Input-----//
@@ -32,6 +33,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
 #pragma endregion
+
 	//GamePad Input
 #pragma region GamePad
 	if (gp != nullptr) {
@@ -47,6 +49,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 	}
 #pragma endregion
+
 	//-----Handling Camera Movement-----//
 #pragma region Camera
 	//Get Mouse State Data
@@ -107,8 +110,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		//std::cout << "Here" << std::endl;
 	}
 
-	debugCheck();
-
 #pragma endregion
 
 	//-----Timers-----//
@@ -118,6 +119,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	wallrunCooldownTimer += deltaTime;
 
 #pragma endregion
+
+	debugCheck();
 
 	//------------------------------STATES------------------------------//
 	if (playerState == Free) {

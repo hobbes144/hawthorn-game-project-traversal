@@ -160,6 +160,7 @@ for (int i = 0; i < 9; ++i) {
     rigidBody->initialize();
 }
 }
+
 void MapLoader::three(float offsetX, float offsetY, float offsetZ,
                       SceneGraph& sceneGraph,
                       std::shared_ptr<Camera> camera,
@@ -173,7 +174,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     rc1->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s1 = std::make_shared<OBB>(Vector3(0.5f, 0.5f, 0.5f));
     auto rb1 = boxRoomFloor->addComponent<RigidBody>();
-    rb1->setMass(0.0f)->setDrag(1.0f)->setShape(s1)->setStatic(true)
+    rb1->setMass(0.0f)->setShape(s1)->setStatic(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());
     rb1->initialize();
 
