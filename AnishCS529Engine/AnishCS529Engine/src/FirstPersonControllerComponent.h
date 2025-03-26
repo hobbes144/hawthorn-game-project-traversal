@@ -77,7 +77,7 @@ public:
       }
     };
 
-    FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
+    FirstPersonControllerComponent() : playerState(Free),
       anchorInfo(AnchorInfo()),
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
         walkForce(10), maxWalkSpeed(10.0f),
@@ -87,7 +87,7 @@ public:
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
         slideForce(75), slideCoolDown(2.0f), slideEffectTime(0.5f),
         slideBufferTime(0.2f),
-        wallRunSpeed(30), wallJumpForce(40), wallrunCooldown(0.2f),
+        wallRunSpeed(30), wallJumpForce(40),
         sceneRoot(nullptr)
         {}
     ~FirstPersonControllerComponent() = default;
@@ -118,7 +118,7 @@ public:
 
     //Accessors
     bool getIsGrounded();
-    std::shared_ptr<GameObject> getRunningWall();
+    std::shared_ptr<GameObject> getAnchoredSurface();
 
 private:
     //Utility Functions
@@ -149,7 +149,6 @@ private:
     //PlayerState
     PlayerState playerState;
     AnchorInfo anchorInfo;
-    bool isGrounded;
     std::shared_ptr<GameObject> anchorSurface;
 
     //Sytem Compenet Members
@@ -195,15 +194,8 @@ private:
     float sinceLastSlidePressedTime = 0.0f;
     float sinceLastSlideTime = 0.0f;
     //WallRunning Members
-    std::shared_ptr<GameObject> runningWall;
-    bool isLeftWall = false;
-    bool isRightWall = false;
     float wallRunSpeed;
     float wallJumpForce;
-    Vector3 wallNormal = Vector3();
-    bool isWallRunning = false;
-    float wallrunCooldown;
-    float wallrunCooldownTimer = wallrunCooldown + 1;
     bool hasSlidSinceAnchored = false;
 
     std::shared_ptr<GameObject> sceneRoot;

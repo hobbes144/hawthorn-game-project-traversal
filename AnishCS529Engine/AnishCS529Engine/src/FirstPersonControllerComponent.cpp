@@ -406,12 +406,9 @@ inline void FirstPersonControllerComponent::FreeToWallRunning()
 	physicsBody->setDrag(anchoredDrag);
 
 	playerState = WallRunning;
-	runningWall = anchorInfo.object;
-	wallNormal = anchorInfo.normal;
-	isWallRunning = true;
 
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
-	rb->usingGravity(false);
+ 	rb->usingGravity(false);
 }
 
 inline void FirstPersonControllerComponent::GroundedToFree()
@@ -537,13 +534,14 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	/* Todo: This currently assumes z is down, fix for rotated objects. 
 	* Consider using getFarthestExtent()?
 	*/
-	isGrounded = RaycastManager::Instance().Raycast(
+	const bool isGrounded = RaycastManager::Instance().Raycast(
 		Ray(bodyWorldTransform.getPosition(), Vector3(0.0f, -1.0f, 0.0f)),
 		hitGround, (bodyWorldTransform.getScaling().z) * 2 + 0.25
 	);
 	if (isGrounded) {
 		anchorInfo.object = hitGround.object;
 		anchorInfo.direction = 'd';
+		anchorInfo.normal = hitGround.normal;
 		return;
 	}
 #pragma endregion
@@ -556,24 +554,26 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	RaycastHit leftWallHit, rightWallHit;
 
 #pragma region RightWallAndBoth
-	if (anchorInfo.direction == 'r' || anchorInfo.direction == '0') {
+	if (anchorInfo.direction == 'r' || anchorInfo.direction == '0' || anchorInfo.direction == 'd') {
 		const Ray rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
 		const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
-		isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
+		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
 			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
 		if (isRightWall) {
 			anchorInfo.direction = 'r';
 			anchorInfo.object = rightWallHit.object;
+			anchorInfo.normal = rightWallHit.normal;
 			return;
 		}
 		else {
 			const Ray leftRay = Ray(currentPos, -rightVector);
 			const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
-			isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
+			const bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
 				RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
 			if (isLeftWall) {
 				anchorInfo.direction = 'l';
 				anchorInfo.object = leftWallHit.object;
+				anchorInfo.normal = leftWallHit.normal;
 				return;
 			}
 			else {
@@ -587,20 +587,22 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	else if (anchorInfo.direction == 'l') {
 		const Ray leftRay = Ray(currentPos, -rightVector);
 		const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
-		isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
+		const bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
 			RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
 		if (isLeftWall) {
 			anchorInfo.object = leftWallHit.object;
+			anchorInfo.normal = leftWallHit.normal;
 			return;
 		}
 		else {
 			const Ray rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
 			const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
-			isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
+			const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
 				RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
 			if (isRightWall) {
 				anchorInfo.direction = 'r';
 				anchorInfo.object = rightWallHit.object;
+				anchorInfo.normal = rightWallHit.normal;
 				return;
 			}
 			else {
@@ -722,7 +724,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				SwitchState(Free, WallRunning);
 	}
 
-	if (playerState == Grounded) {
+	else if (playerState == Grounded) {
 		/* If coyote time, preserve state */
 		if (passedCoyoteTime()) {
 			SwitchState(Grounded, Free);
@@ -758,7 +760,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 	}
 
-	if (playerState == WallRunning) {
+	else if (playerState == WallRunning) {
 		if (passedCoyoteTime()) {
 			SwitchState(WallRunning, Free);
 		}
@@ -772,7 +774,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 	}
 
-	if (playerState == Sliding) {
+	else if (playerState == Sliding) {
 		if (SlidingTimedOut())
 			SwitchState(Sliding, (anchorInfo.direction == 'd') ? Grounded : Free);
 		else if (passedCoyoteTime())
@@ -863,7 +865,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		/* Todo: consider wallrun max time */
 
 		//Get the direction to move along the wall in
-		Vector3 wallRunDirection = Vector3(0, 1, 0).cross(wallNormal);
+		Vector3 wallRunDirection = Vector3(0, 1, 0).cross(anchorInfo.normal);
 		if (wallRunDirection.dot(physicsBody->getVelocity()) < 0.0f) {
 			wallRunDirection = -wallRunDirection; // Ensure correct movement direction
 		}
@@ -871,13 +873,13 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		// Apply movement along the wall
 		physicsBody->setVelocity(wallRunDirection * wallRunSpeed);
 
-		const float wallWidth = (wallNormal * runningWall->getLocalScaling()).magnitude();
+		const float wallWidth = (anchorInfo.normal * anchorInfo.object->getLocalScaling()).magnitude();
 		const float playerWidth = 1.415;
 		const float wallOffset = wallWidth / 2 + playerWidth / 2;
 
 		// Maintain floating offset from the wall
-		float distanceToWall = wallNormal.dot(currentPos - runningWall->getLocalPosition());
-		Vector3 correctedPosition = currentPos - wallNormal * (distanceToWall - wallOffset);
+		float distanceToWall = anchorInfo.normal.dot(currentPos - anchorInfo.object->getLocalPosition());
+		Vector3 correctedPosition = currentPos - anchorInfo.normal * (distanceToWall - wallOffset);
 		body->setLocalPosition(correctedPosition);
 
 	} //End Wallrunning State
@@ -889,14 +891,13 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	//-----Timers-----//
 #pragma region Timers
 
-	if (!isGrounded && playerState != WallRunning)
+	if ((anchorInfo.direction != 'd') && playerState != WallRunning)
 		unanchoredTime += deltaTime;
 
 	sinceLastJumpTime += deltaTime;
 	sinceLastJumpPressedTime += deltaTime;
 	sinceLastSlideTime += deltaTime;
 	sinceLastSlidePressedTime += deltaTime;
-	wallrunCooldownTimer += deltaTime;
 
 #pragma endregion
 }
@@ -985,12 +986,12 @@ std::shared_ptr<FirstPersonControllerComponent>
 
 bool FirstPersonControllerComponent::getIsGrounded()
 {
-	return isGrounded;
+	return (anchorInfo.direction == 'd');
 }
 
-std::shared_ptr<GameObject> FirstPersonControllerComponent::getRunningWall()
+std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface()
 {
-	return runningWall;
+	return anchorInfo.object;
 }
 
 void FirstPersonControllerComponent::debugCheck()
