@@ -311,7 +311,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (isJumping) {
 			//Apply Jump Force
 			Vector3 currentVelocity = physicsBody->getVelocity();
-			Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 2.5f, currentVelocity.z / 2);
+			Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 2.0f, currentVelocity.z / 2);
 			physicsBody->setVelocity(newVelocity);
 			playerState = Free;
 		}

@@ -72,7 +72,7 @@ public:
         jumpSpeed(45),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
-        slideForce(75), slideCoolDown(2.0f),
+        slideForce(50), slideCoolDown(2.0f),
         wallRunSpeed(30), wallJumpForce(40), wallrunCooldown(0.2f)
         {}
     ~FirstPersonControllerComponent() = default;
