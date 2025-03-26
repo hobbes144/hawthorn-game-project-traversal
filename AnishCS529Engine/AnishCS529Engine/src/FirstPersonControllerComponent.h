@@ -22,6 +22,7 @@
 #include "GamePad.h"
 #include "Input.h"
 #include "PhysicsBody.h"
+#include "Audio.h"
 
 /*!****************************************************************************
  * \brief This is the First Person Contorller responsible for player movement,

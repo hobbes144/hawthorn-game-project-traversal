@@ -142,12 +142,14 @@ int main() {
     /* Audio System Initalization */
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/GuanShanYue.mp3", true, true);
+    AudioManager::instance().loadSound("music", "media/audio/BE21-Undertoe-Steele.mp3", true, true);
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
     AudioManager::instance().loadSound("bang", "media/audio/bang.mp3", true);
-    AudioManager::instance().loadSound("footstep", "media/audio/footstep.mp3", true);
+    AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
+    AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
+    AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
-    //AudioManager::instance().playSound("music", Vector3(0, 0, 0));
+    AudioManager::instance().playSound("music", Vector3(0, 0, 0));
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
@@ -284,7 +286,7 @@ int main() {
 
 #pragma region Map
    
-     MapLoader::instance().loadMap(2, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
+     MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
 
 #pragma endregion
 

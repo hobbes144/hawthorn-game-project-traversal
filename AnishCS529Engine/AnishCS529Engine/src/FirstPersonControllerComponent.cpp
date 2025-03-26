@@ -142,6 +142,16 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (combinedMotionVector.magnitude() > 0) {
 			Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
+			if (isGrounded) {
+				if (isSprinting) {
+					AudioManager::instance().playSound("run", Vector3(body->getLocalPosition()));
+				}
+				else {
+					AudioManager::instance().playSound("walk", Vector3(body->getLocalPosition()));
+				}
+				
+			}
+			
 		}
 #pragma endregion
 
@@ -195,6 +205,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 			// Force Transition State
 			playerState = Sliding;
+			AudioManager::instance().playSound("slide", Vector3(body->getLocalPosition()));
 		}
 #pragma endregion
 
