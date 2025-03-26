@@ -41,11 +41,11 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
                             std::shared_ptr<Camera> camera,
                             std::shared_ptr<Mesh> floorMesh,
                             std::shared_ptr<Material> floorMaterial) {
-    // Left pad
+    // Start pad
     {
         auto mainFloorLeft = std::make_shared<GameObject>("MainFloorLeft");
         sceneGraph.addNode(mainFloorLeft);
-        mainFloorLeft->setLocalPosition(Vector3(-4.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        mainFloorLeft->setLocalPosition(Vector3(-1.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
         mainFloorLeft->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
         auto renderComp = mainFloorLeft->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
@@ -61,16 +61,16 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
 
     }
 
-    // Right pad
+    // Rest pad
     {
-        auto mainFloorRight = std::make_shared<GameObject>("MainFloorRight");
-        sceneGraph.addNode(mainFloorRight);
-        mainFloorRight->setLocalPosition(Vector3(40.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
-        mainFloorRight->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
-        auto renderComp = mainFloorRight->addComponent<Render2D>();
+        auto RestPad = std::make_shared<GameObject>("RestPad");
+        sceneGraph.addNode(RestPad);
+        RestPad->setLocalPosition(Vector3(40.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        RestPad->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+        auto renderComp = RestPad->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
-        auto rigidBody = mainFloorRight->addComponent<RigidBody>();
+        auto rigidBody = RestPad->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)
@@ -84,11 +84,137 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(18.0f + offsetX, 2.5f + offsetY, 4.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(30.0f, 8.0f, 1.0f));
+        wallRunWall->setLocalScaling(Vector3(30.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Wall2 for wall running
+    {
+        auto wallRunWall2 = std::make_shared<GameObject>("WallRunWall2");
+        sceneGraph.addNode(wallRunWall2);
+        wallRunWall2->setLocalPosition(Vector3(60.0f + offsetX, 2.5f + offsetY, -4.0f + offsetZ));
+        wallRunWall2->setLocalScaling(Vector3(30.0f, 8.0f, 1.0f));
+        auto renderComp = wallRunWall2->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall2->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Wall3 for wall running
+    {
+        auto wallRunWall3 = std::make_shared<GameObject>("WallRunWall3");
+        sceneGraph.addNode(wallRunWall3);
+        wallRunWall3->setLocalPosition(Vector3(80.0f + offsetX, 5.0f + offsetY, 4.0f + offsetZ));
+        wallRunWall3->setLocalScaling(Vector3(40.0f, 12.0f, 1.0f));
+        auto renderComp = wallRunWall3->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall3->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Wall4 for wall running
+    {
+        auto wallRunWall4 = std::make_shared<GameObject>("WallRunWall4");
+        sceneGraph.addNode(wallRunWall4);
+        wallRunWall4->setLocalPosition(Vector3(120.0f + offsetX, offsetY, -4.0f + offsetZ));
+        wallRunWall4->setLocalScaling(Vector3(30.0f, 8.0f, 1.0f));
+        auto renderComp = wallRunWall4->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall4->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Rest pad2
+    {
+        auto RestPad2 = std::make_shared<GameObject>("RestPad2");
+        sceneGraph.addNode(RestPad2);
+        RestPad2->setLocalPosition(Vector3(140.0f + offsetX, -3.0f + offsetY, 0.0f + offsetZ));
+        RestPad2->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+        auto renderComp = RestPad2->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = RestPad2->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Wall5 for wall running
+    {
+        auto wallRunWall5 = std::make_shared<GameObject>("WallRunWall5");
+        sceneGraph.addNode(wallRunWall5);
+        wallRunWall5->setLocalPosition(Vector3(190.0f + offsetX,-20.0f + offsetY, 10.0f + offsetZ));
+        wallRunWall5->setLocalScaling(Vector3(80.0f, 20.0f, 1.0f));
+        auto renderComp = wallRunWall5->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall5->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Wall6 for wall running
+    {
+        auto wallRunWall6 = std::make_shared<GameObject>("WallRunWall6");
+        sceneGraph.addNode(wallRunWall6);
+        wallRunWall6->setLocalPosition(Vector3(280.0f + offsetX, -50 + offsetY, -15.0f + offsetZ));
+        wallRunWall6->setLocalScaling(Vector3(50.0f, 8.0f, 1.0f));
+        auto renderComp = wallRunWall6->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall6->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Rest pad3
+    {
+        auto RestPad3 = std::make_shared<GameObject>("RestPad3");
+        sceneGraph.addNode(RestPad3);
+        RestPad3->setLocalPosition(Vector3(310.0f + offsetX, -55 + offsetY, -10.0f + offsetZ));
+        RestPad3->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+        auto renderComp = RestPad3->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = RestPad3->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)
