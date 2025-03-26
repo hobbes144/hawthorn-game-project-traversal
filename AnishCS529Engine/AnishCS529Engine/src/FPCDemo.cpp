@@ -222,6 +222,15 @@ int main() {
     floorMaterial->addTexture("media/textures/6670-diffuse.jpg");
     floorMaterial->addTexture("media/textures/6670-normal.jpg");
 
+    /* Concrete */
+    auto concreteMesh = Mesh::createMesh("box", Mesh::Cube);
+    auto concreteMaterial = Material::getMaterial<MainTestMaterial>("concrete", mainRenderer->getRenderGraph());
+    concreteMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    concreteMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    concreteMaterial->setProperty("shininess", 10.0f);
+    concreteMaterial->setProperty("objectId", 5);
+    concreteMaterial->addTexture("media/textures/Concrete.png");
+
     /* Grass */
     auto grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
     grassMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
