@@ -279,6 +279,7 @@ int main() {
 
 #pragma endregion
 
+
 #pragma region PlayerBox
 
     //Transform Values
@@ -332,38 +333,35 @@ int main() {
     gameObjects.push_back(playerBox);
 #pragma endregion
 
-/*
-#pragma region Floor
-
-    auto floor = std::make_shared<GameObject>("Floor");
-    mainSceneGraph.addNode(floor);
-    floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
-        ->setLocalScaling(Vector3(100.0f, 0.5f, 100.0f));
-
-    auto box2RenderComponent = floor->addComponent<Render2D>();
-    box2RenderComponent
-        ->setCamera(camera)
-        ->setMesh(floorMesh)
-        ->setMaterial(cracksMaterial);
-
-    auto shape2 = std::make_shared<OBB>(
-    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-    Vector3(0.5f, 0.5f, 0.5f));
-    shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
-
-    floor->addComponent<RigidBody>()
-        ->setMass(10.0f)->setDrag(1.0f)
-        ->setShape(shape2)
-        ->setDebug(isDebug)
-        ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance())
-        ->initialize();
-
-    gameObjects.push_back(floor);
-
-#pragma endregion
-*/
-
+//#pragma region Floor
+//
+//    auto floor = std::make_shared<GameObject>("Floor");
+//    mainSceneGraph.addNode(floor);
+//    floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
+//      ->setLocalScaling(Vector3(100.0f, 100.0f, 100.0f));
+//
+//    auto box2RenderComponent = floor->addComponent<Render2D>();
+//    box2RenderComponent
+//      ->setCamera(camera)
+//      ->setMesh(floorMesh)
+//      ->setMaterial(cracksMaterial);
+//
+//    auto shape2 = std::make_shared<OBB>(
+//    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+//    Vector3(0.5f, 0.5f, 0.5f));
+//    shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
+//
+//    floor->addComponent<RigidBody>()
+//      ->setMass(10.0f)->setDrag(1.0f)
+//      ->setShape(shape2)
+//      ->setDebug(isDebug)
+//      ->setStatic(true)
+//      ->registerToPhysicsManager(PhysicsManager::Instance())
+//      ->initialize();
+//
+//    gameObjects.push_back(floor);
+//
+//#pragma endregion
 
     /* Main Loop Variables */
     float angleX = 0.0f;

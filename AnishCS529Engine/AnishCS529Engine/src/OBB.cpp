@@ -97,24 +97,25 @@ Vector3 OBB::getSurfacePoint(const Vector3& direction) {
 
 Vector3 OBB::getNormalAtVector(const Vector3& direction)
 {
-  Vector3 projectedDirection = worldHalfExtents * ( rotation * direction );
-
+  Vector3 projectedDirection = ( rotation * direction ) / worldHalfExtents;
+  Vector3 result;
   if (fabs(projectedDirection.x) > fabs(projectedDirection.y)) {
     if (fabs(projectedDirection.x) > fabs(projectedDirection.z)) {
-      return worldAxes[0] * ((projectedDirection.x >= 0) * 2 - 1);
+      result = worldAxes[0] * ((projectedDirection.x >= 0) * 2 - 1);
     }
     else {
-      return worldAxes[2] * ((projectedDirection.z >= 0) * 2 - 1);
+      result = worldAxes[2] * ((projectedDirection.z >= 0) * 2 - 1);
     }
   }
   else {
     if (fabs(projectedDirection.y) > fabs(projectedDirection.z)) {
-      return worldAxes[1] * ((projectedDirection.y >= 0) * 2 - 1);
+      result = worldAxes[1] * ((projectedDirection.y >= 0) * 2 - 1);
     }
     else {
-      return worldAxes[2] * ((projectedDirection.z >= 0) * 2 - 1);
+      result = worldAxes[2] * ((projectedDirection.z >= 0) * 2 - 1);
     }
   }
+  return result;
 }
 
 void OBB::getCorners(Vector3 corners[4]) const {
