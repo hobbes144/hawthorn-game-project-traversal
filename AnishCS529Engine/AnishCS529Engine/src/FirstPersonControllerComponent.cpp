@@ -387,8 +387,7 @@ void FirstPersonControllerComponent::SwitchState(PlayerState originalState, Play
 	assert("Invalid state transition triggered for FPC" && false);
 }
 
-inline void FirstPersonControllerComponent::FreeToGrounded()
-{
+inline void FirstPersonControllerComponent::FreeToGrounded() {
 	unanchoredTime = 0.0f;
 	hasSlidSinceAnchored = false;
 	physicsBody->setDrag(anchoredDrag);
@@ -396,17 +395,15 @@ inline void FirstPersonControllerComponent::FreeToGrounded()
 	playerState = Grounded;
 }
 
-inline void FirstPersonControllerComponent::FreeToSliding()
-{
+inline void FirstPersonControllerComponent::FreeToSliding() {
 	hasSlidSinceAnchored = true;
 	sinceLastSlideTime = 0.0f;
 	playerState = Sliding;
-	
+
 	physicsBody->setDrag(anchoredDrag);
 }
 
-inline void FirstPersonControllerComponent::FreeToWallRunning()
-{
+inline void FirstPersonControllerComponent::FreeToWallRunning() {
 	unanchoredTime = 0.0f;
 	hasSlidSinceAnchored = false;
 	physicsBody->setDrag(anchoredDrag);
@@ -415,25 +412,22 @@ inline void FirstPersonControllerComponent::FreeToWallRunning()
 	playerState = WallRunning;
 
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
- 	rb->usingGravity(false);
+	rb->usingGravity(false);
 }
 
-inline void FirstPersonControllerComponent::GroundedToFree()
-{
+inline void FirstPersonControllerComponent::GroundedToFree() {
 	physicsBody->setDrag(airDrag);
 	physicsToAir();
 	playerState = Free;
 }
 
-inline void FirstPersonControllerComponent::GroundedToSliding()
-{
+inline void FirstPersonControllerComponent::GroundedToSliding() {
 	sinceLastSlideTime = 0.0f;
 	physicsToAir();
 	playerState = Sliding;
 }
 
-inline void FirstPersonControllerComponent::WallRunningToFree()
-{
+inline void FirstPersonControllerComponent::WallRunningToFree() {
 	physicsBody->setDrag(airDrag);
 
 	physicsToAir();
@@ -442,17 +436,14 @@ inline void FirstPersonControllerComponent::WallRunningToFree()
 	rb->usingGravity(true);
 }
 
-inline void FirstPersonControllerComponent::WallRunningToGrounded()
-{
-
+inline void FirstPersonControllerComponent::WallRunningToGrounded() {
 	physicsToAnchor();
 	playerState = Grounded;
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
 	rb->usingGravity(true);
 }
 
-inline void FirstPersonControllerComponent::SlidingToGrounded()
-{
+inline void FirstPersonControllerComponent::SlidingToGrounded() {
 	unanchoredTime = 0.0f;
 	hasSlidSinceAnchored = false;
 	physicsToAnchor();
@@ -460,16 +451,13 @@ inline void FirstPersonControllerComponent::SlidingToGrounded()
 	physicsBody->setDrag(anchoredDrag);
 }
 
-inline void FirstPersonControllerComponent::SlidingToFree()
-{
+inline void FirstPersonControllerComponent::SlidingToFree() {
 	physicsToAir();
 	playerState = Free;
 	physicsBody->setDrag(airDrag);
 }
 
-void FirstPersonControllerComponent::GroundedJump()
-{
-
+void FirstPersonControllerComponent::GroundedJump() {
 	//-----Handle Jumping-----//
 #pragma region Jumping
 	//Apply Jump
@@ -489,8 +477,7 @@ void FirstPersonControllerComponent::GroundedJump()
 #pragma endregion
 }
 
-void FirstPersonControllerComponent::SlidingJump()
-{
+void FirstPersonControllerComponent::SlidingJump() {
 	sinceLastJumpTime = 0.0f;
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
 	Vector3 currentVelocity = physicsBody->getVelocity();
@@ -500,8 +487,7 @@ void FirstPersonControllerComponent::SlidingJump()
 	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
 }
 
-void FirstPersonControllerComponent::WallrunningJump()
-{
+void FirstPersonControllerComponent::WallrunningJump() {
 	sinceLastJumpTime = 0.0f;
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
 
@@ -513,43 +499,36 @@ void FirstPersonControllerComponent::WallrunningJump()
 	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
 }
 
-inline bool FirstPersonControllerComponent::passedCoyoteTime()
-{
+inline bool FirstPersonControllerComponent::passedCoyoteTime() {
 	return (unanchoredTime > coyoteTime);
 }
 
-inline bool FirstPersonControllerComponent::JumpBuffered()
-{
+inline bool FirstPersonControllerComponent::JumpBuffered() {
 	return (sinceLastJumpPressedTime < jumpBufferTime);
 }
 
-inline bool FirstPersonControllerComponent::CanJump()
-{
+inline bool FirstPersonControllerComponent::CanJump() {
 	return (sinceLastJumpTime > jumpCooldown);
 }
 
-inline bool FirstPersonControllerComponent::SlideBuffered()
-{
+inline bool FirstPersonControllerComponent::SlideBuffered() {
 	return (sinceLastSlidePressedTime < slideBufferTime);
 }
 
-inline bool FirstPersonControllerComponent::CanSlide()
-{
+inline bool FirstPersonControllerComponent::CanSlide() {
 	return !hasSlidSinceAnchored && (sinceLastSlideTime > slideCoolDown);
 }
 
-bool FirstPersonControllerComponent::SlidingTimedOut()
-{
+bool FirstPersonControllerComponent::SlidingTimedOut() {
 	return (sinceLastSlideTime > slideEffectTime);
 }
 
-void FirstPersonControllerComponent::UpdateAnchorInfo()
-{
+void FirstPersonControllerComponent::UpdateAnchorInfo() {
 #pragma region Grounded
 	const Transform bodyWorldTransform = body->getWorldTransform();
 	const Vector3 currentPos = bodyWorldTransform.getPosition();
 	RaycastHit hitGround;
-	/* Todo: This currently assumes z is down, fix for rotated objects. 
+	/* Todo: This currently assumes z is down, fix for rotated objects.
 	* Consider using getFarthestExtent()?
 	*/
 	const bool isGrounded = RaycastManager::Instance().Raycast(
@@ -629,13 +608,10 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	}
 #pragma endregion
 
-
-
 	debugCheck();
 }
 
-void FirstPersonControllerComponent::physicsToAir()
-{
+void FirstPersonControllerComponent::physicsToAir() {
 	Transform currentWorld = parent->getWorldTransform();
 	std::shared_ptr<GameObject> parentGameObject = std::dynamic_pointer_cast<GameObject>(parent->getParent());
 	if (parentGameObject) {
@@ -653,8 +629,7 @@ void FirstPersonControllerComponent::physicsToAir()
 	parent->setWorldTransform(currentWorld);
 }
 
-void FirstPersonControllerComponent::physicsToAnchor()
-{
+void FirstPersonControllerComponent::physicsToAnchor() {
 	Transform currentWorld = parent->getWorldTransform();
 	std::shared_ptr<GameObject> anchorGameObject = std::dynamic_pointer_cast<GameObject>(anchorInfo.object);
 	if (anchorGameObject) {
@@ -676,11 +651,7 @@ void FirstPersonControllerComponent::physicsToAnchor()
 	parent->setWorldTransform(currentWorld);
 }
 
-void FirstPersonControllerComponent::update(float deltaTime)
-{
-
-	
-
+void FirstPersonControllerComponent::update(float deltaTime) {
 	//-----Input-----//
 #pragma region Input
 	bool isMovingForward = input->isKeyHeld(ActionKey[MoveForward]);
@@ -699,26 +670,26 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 	//GamePad Input
 #pragma region GamePad
-	if ( gp != nullptr ) {
-		if ( gp->update() ) {
-			if ( gp->leftStickY != 0 ) {
+	if (gp != nullptr) {
+		if (gp->update()) {
+			if (gp->leftStickY != 0) {
 				forwardMotion = gp->leftStickY;
-				if ( forwardMotion > 0 ) {
+				if (forwardMotion > 0) {
 					isMovingForward = true;
 					isMovingBackward = false;
 				}
-				else if ( forwardMotion < 0 ) {
+				else if (forwardMotion < 0) {
 					isMovingForward = false;
 					isMovingBackward = true;
 				}
 			}
-			if ( gp->leftStickX != 0 ) {
+			if (gp->leftStickX != 0) {
 				lateralMotion = gp->leftStickX;
-				if ( lateralMotion < 0 ) {
+				if (lateralMotion < 0) {
 					isMovingLeft = true;
 					isMovingBackward = false;
 				}
-				else if ( forwardMotion < 0 ) {
+				else if (forwardMotion < 0) {
 					isMovingLeft = false;
 					isMovingBackward = true;
 				}
@@ -726,7 +697,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			if (gp->rightStickX != 0) {
 				mouseXDelta = static_cast<float>(gp->rightStickX) * gp->gpRXSensitivity;
 				Quaternion currentBodyRotation = body->getLocalRotation();
-				Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), ( -mouseXDelta * 3.14159265f / 180.0f ));
+				Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
 				body->setLocalRotation(currentBodyRotation * mouseRotation);
 			}
 			if (gp->rightStickY != 0) {
@@ -734,16 +705,16 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				//Rotate Camera
 				Quaternion currentCameraRoation = camera->getLocalRotation();
 				Vector3 currentEuler = currentCameraRoation.toEuler();
-				float newPitch = currentEuler.x + ( -mouseYDelta * 3.14159265f / 180.0f );
-				newPitch = std::clamp(newPitch, -pitchLimit * ( 3.14159265f / 180.0f ), pitchLimit * ( 3.14159265f / 180.0f )); // Convert degrees to radians
+				float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
+				newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
 				Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
 				camera->setLocalRotation(newCameraRotation);
 			}
-			if ( gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB) )
+			if (gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB))
 				isSprinting = gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB);
-			if ( gp->isPressed(XINPUT_GAMEPAD_B) )
+			if (gp->isPressed(XINPUT_GAMEPAD_B))
 				isJumping = gp->isPressed(XINPUT_GAMEPAD_B);
-			if ( gp->isPressed(XINPUT_GAMEPAD_X) )
+			if (gp->isPressed(XINPUT_GAMEPAD_X))
 				isSliding = gp->isPressed(XINPUT_GAMEPAD_X);
 		}
 	}
@@ -753,26 +724,25 @@ void FirstPersonControllerComponent::update(float deltaTime)
 #pragma region Camera
 	//Get Mouse State Data
 	const MouseState mouseState = input->getMouseState();
-	if ( mouseState.deltaX != 0 ) {
-		mouseXDelta = static_cast<float>( mouseState.deltaX ) * mouseXSensitivity;
+	if (mouseState.deltaX != 0) {
+		mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseXSensitivity;
 		//Rotate Body
 		const Quaternion currentBodyRotation = body->getLocalRotation();
-		const Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), ( -mouseXDelta * 3.14159265f / 180.0f ));
+		const Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
 		body->setLocalRotation(currentBodyRotation * mouseRotation);
 	}
-	if ( mouseState.deltaY != 0 ) {
-		mouseYDelta = static_cast<float>( mouseState.deltaY ) * mouseYSensitivity;
+	if (mouseState.deltaY != 0) {
+		mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseYSensitivity;
 		//Rotate Camera
 		const Vector3 currentEuler = camera->getLocalRotation().toEuler();
-		float newPitch = currentEuler.x + ( -mouseYDelta * 3.14159265f / 180.0f );
-		newPitch = std::clamp(newPitch, -pitchLimit * ( 3.14159265f / 180.0f ), pitchLimit * ( 3.14159265f / 180.0f )); // Convert degrees to radians
+		float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
+		newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
 		const Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
 		camera->setLocalRotation(newCameraRotation);
 	}
 	//Reset Mouse Delta
 	input->resetMouseDelta();
 #pragma endregion
-
 
 	if (isJumping) sinceLastJumpPressedTime = 0.0f;
 	if (isSliding)
@@ -900,7 +870,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (combinedMotionVector.magnitude() > 0.0f) {
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
-			if ( isSprinting ) {
+			if (isSprinting) {
 				AudioManager::instance().playSound("run", Vector3(body->getLocalPosition()));
 			}
 			else {
@@ -944,10 +914,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		Vector3 driftVector = Vector3(0.0f, 0.0f, 0.0f);
 		Vector3 driftDirection = Vector3(-slideVector.z, 0.0f, slideVector.x).normalized();
 
-		if ( isMovingLeft ) {
+		if (isMovingLeft) {
 			driftVector = driftDirection * -0.2f;
 		}
-		if ( isMovingRight ) {
+		if (isMovingRight) {
 			driftVector = driftDirection * 0.2f;
 		}
 
@@ -1003,13 +973,12 @@ void FirstPersonControllerComponent::update(float deltaTime)
 #pragma endregion
 }
 
-void FirstPersonControllerComponent::shutdown()
-{
+void FirstPersonControllerComponent::shutdown() {
+
 }
 
-std::shared_ptr<FirstPersonControllerComponent> 
-	FirstPersonControllerComponent::setInputSystem(Input* _inputSystem)
-{
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setInputSystem(Input* _inputSystem) {
 	input = _inputSystem;
 	return shared_from_this();
 }
@@ -1020,56 +989,51 @@ FirstPersonControllerComponent::setGamePad(GamePad* _gp) {
 	return shared_from_this();
 }
 
-std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setState(PlayerState state)
-{
+std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setState(PlayerState state) {
 	SwitchState(playerState, state);
 	return shared_from_this();
 }
 
-std::shared_ptr<FirstPersonControllerComponent> 
-	FirstPersonControllerComponent::setPhysicsBody(PhysicsBody* _physicsBody)
-{
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setPhysicsBody(PhysicsBody* _physicsBody) {
 	physicsBody = _physicsBody;
 	return shared_from_this();
 }
 
-std::shared_ptr<FirstPersonControllerComponent> 
-	FirstPersonControllerComponent::setBody(GameObject* _body)
-{
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setBody(GameObject* _body) {
 	body = _body;
 	return shared_from_this();
 }
 
-std::shared_ptr<FirstPersonControllerComponent> 
-	FirstPersonControllerComponent::setCamera(Camera* _camera)
-{
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setCamera(Camera* _camera) {
 	camera = _camera;
 	return shared_from_this();
 }
 
 /*!****************************************************************************
  * \brief Set Camera rotation to a specific angle
- * 
+ *
  * This function can be used to specifically set the camera to look at a
  * specific X and Y axis rotation. Note, this is disabled for Z axis.
- * 
+ *
  * \param rotation Pitch and Yaw to set the camera to, as specified by the
  * first two elements of the Vector3.
  * \return \b std::shared_ptr<FirstPersonControllerComponent> Self.
  *****************************************************************************/
-std::shared_ptr<FirstPersonControllerComponent> 
-	FirstPersonControllerComponent::setCameraRotation(Vector3 rotation)
-{
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setCameraRotation(Vector3 rotation) {
 	body->setLocalRotation(
-		body->getLocalRotation() * 
+		body->getLocalRotation() *
 		Quaternion::fromEuler(Vector3(0.0f, rotation.y, 0.0f)));
 
 	Quaternion currentCameraRoation = camera->getLocalRotation();
 	Vector3 currentEuler = currentCameraRoation.toEuler();
 	float newPitch = currentEuler.x + rotation.x;
 	newPitch = std::clamp(
-		newPitch, 
-		-pitchLimit * (3.14159265f / 180.0f), 
+		newPitch,
+		-pitchLimit * (3.14159265f / 180.0f),
 		pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
 	Quaternion newCameraRotation = Quaternion::fromEuler(
 		Vector3(newPitch, currentEuler.y, currentEuler.z));
@@ -1077,32 +1041,27 @@ std::shared_ptr<FirstPersonControllerComponent>
 	return shared_from_this();
 }
 
-std::shared_ptr<FirstPersonControllerComponent> 
-	FirstPersonControllerComponent::setSceneRoot(std::shared_ptr<Node> root)
-{
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setSceneRoot(std::shared_ptr<Node> root) {
 	sceneRoot = root;
 	return shared_from_this();
 }
 
-std::shared_ptr<FirstPersonControllerComponent> 
-	FirstPersonControllerComponent::setActionKey(Action _action, Key _key)
-{
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setActionKey(Action _action, Key _key) {
 	ActionKey[_action] = _key;
 	return shared_from_this();
 }
 
-bool FirstPersonControllerComponent::getIsGrounded()
-{
+bool FirstPersonControllerComponent::getIsGrounded() {
 	return (anchorInfo.direction == 'd');
 }
 
-std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface()
-{
+std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface() {
 	return anchorInfo.object;
 }
 
-void FirstPersonControllerComponent::debugCheck()
-{
+void FirstPersonControllerComponent::debugCheck() {
 	if (input->isKeyPressed(ActionKey[Debug])) {
 		std::cout << "Here" << std::endl;
 	}
