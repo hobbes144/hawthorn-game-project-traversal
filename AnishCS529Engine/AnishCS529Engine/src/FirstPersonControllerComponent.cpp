@@ -32,14 +32,53 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	float lateralMotion = input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]);
 	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
+	//Mouse
+	float mouseXDelta = 0.0f;
+	float mouseYDelta = 0.0f;
 #pragma endregion
 
 	//GamePad Input
 #pragma region GamePad
 	if (gp != nullptr) {
 		if (gp->update()) {
-			if (gp->leftStickY != 0) forwardMotion = gp->leftStickY;
-			if (gp->leftStickX != 0) lateralMotion = gp->leftStickX;
+			if (gp->leftStickY != 0) {
+				forwardMotion = gp->leftStickY;
+				if (forwardMotion > 0) {
+					isMovingForward = true;
+					isMovingBackward = false;
+				}
+				else if (forwardMotion < 0) {
+					isMovingForward = false;
+					isMovingBackward = true;
+				}
+			}
+			if (gp->leftStickX != 0) {
+				lateralMotion = gp->leftStickX;
+				if (lateralMotion < 0) {
+					isMovingLeft = true;
+					isMovingBackward = false;
+				}
+				else if (forwardMotion < 0) {
+					isMovingLeft = false;
+					isMovingBackward = true;
+				}
+			}
+			if (gp->rightStickX != 0) {
+				mouseXDelta = static_cast<float>(gp->rightStickX) * 2;
+				Quaternion currentBodyRotation = body->getLocalRotation();
+				Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
+				body->setLocalRotation(currentBodyRotation * mouseRotation);
+			}
+			if (gp->rightStickY != 0) {
+				mouseYDelta = -static_cast<float>(gp->rightStickY) * 2;
+				//Rotate Camera
+				Quaternion currentCameraRoation = camera->getLocalRotation();
+				Vector3 currentEuler = currentCameraRoation.toEuler();
+				float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
+				newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
+				Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
+				camera->setLocalRotation(newCameraRotation);
+			}
 			if (gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB)) 
 				isSprinting = gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB);
 			if (gp->isPressed(XINPUT_GAMEPAD_B))
@@ -54,8 +93,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 #pragma region Camera
 	//Get Mouse State Data
 	MouseState mouseState = input->getMouseState();
-	float mouseXDelta = 0.0f;
-	float mouseYDelta = 0.0f;
 	if (mouseState.deltaX != 0) {
 		mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseXSensitivity;
 		//Rotate Body
