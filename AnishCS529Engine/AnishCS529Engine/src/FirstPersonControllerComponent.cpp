@@ -629,6 +629,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	}
 #pragma endregion
 
+
+
 	debugCheck();
 }
 
@@ -813,7 +815,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 		else if (anchorInfo.direction != '0' && isMovingForward)
 			if ((isMovingLeft && anchorInfo.direction == 'l')
-				|| (isMovingRight && anchorInfo.direction == 'r'))
+				|| (isMovingRight && anchorInfo.direction == 'r')) //NICK TODO - Wallrunning Angles Wall Surface
 				SwitchState(Free, WallRunning);
 	}
 
