@@ -374,6 +374,9 @@ void FirstPersonControllerComponent::SwitchState(PlayerState originalState, Play
 			GroundedToSliding();
 			return;
 			break;
+		case FirstPersonControllerComponent::Grounded:
+			return;
+			break;
 		default:
 			break;
 		}
@@ -632,15 +635,17 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 void FirstPersonControllerComponent::physicsToAir()
 {
 	Transform currentWorld = parent->getWorldTransform();
-	std::shared_ptr<PhysicsBody> anchorPhysics =
-		std::static_pointer_cast<GameObject>(parent->getParent())->findComponent<PhysicsBody>();
-	if (anchorPhysics) {
-		physicsBody->setVelocity(anchorPhysics->getVelocity() + physicsBody->getVelocity());
-		physicsBody->setAcceleration(anchorPhysics->getAcceleration() + physicsBody->getAcceleration());
-		physicsBody->setForce(anchorPhysics->getAcceleration() + physicsBody->getAcceleration());
-		physicsBody->setRotationalVelocity(anchorPhysics->getRotationalVelocity() + physicsBody->getRotationalVelocity());
-		physicsBody->setRotationalAcceleration(anchorPhysics->getRotationalAcceleration() + physicsBody->getRotationalAcceleration());
-		physicsBody->setRotationalForce(anchorPhysics->getRotationalAcceleration() + physicsBody->getRotationalAcceleration());
+	std::shared_ptr<GameObject> parentGameObject = std::dynamic_pointer_cast<GameObject>(parent->getParent());
+	if (parentGameObject) {
+		std::shared_ptr<PhysicsBody> anchorPhysics = parentGameObject->findComponent<PhysicsBody>();
+		if (anchorPhysics) {
+			physicsBody->setVelocity(anchorPhysics->getVelocity() + physicsBody->getVelocity());
+			physicsBody->setAcceleration(anchorPhysics->getAcceleration() + physicsBody->getAcceleration());
+			physicsBody->setForce(anchorPhysics->getAcceleration() + physicsBody->getAcceleration());
+			physicsBody->setRotationalVelocity(anchorPhysics->getRotationalVelocity() + physicsBody->getRotationalVelocity());
+			physicsBody->setRotationalAcceleration(anchorPhysics->getRotationalAcceleration() + physicsBody->getRotationalAcceleration());
+			physicsBody->setRotationalForce(anchorPhysics->getRotationalAcceleration() + physicsBody->getRotationalAcceleration());
+		}
 	}
 	parent->reparent(sceneRoot);
 	parent->setWorldTransform(currentWorld);
@@ -649,17 +654,23 @@ void FirstPersonControllerComponent::physicsToAir()
 void FirstPersonControllerComponent::physicsToAnchor()
 {
 	Transform currentWorld = parent->getWorldTransform();
-	std::shared_ptr<PhysicsBody> anchorPhysics =
-		anchorInfo.object->findComponent<PhysicsBody>();
-	if (anchorPhysics) {
-		physicsBody->setVelocity(physicsBody->getVelocity() - anchorPhysics->getVelocity());
-		physicsBody->setAcceleration(physicsBody->getAcceleration() - anchorPhysics->getAcceleration());
-		physicsBody->setForce(physicsBody->getAcceleration() - anchorPhysics->getAcceleration());
-		physicsBody->setRotationalVelocity(physicsBody->getRotationalVelocity() - anchorPhysics->getRotationalVelocity());
-		physicsBody->setRotationalAcceleration(physicsBody->getRotationalAcceleration() - anchorPhysics->getRotationalAcceleration());
-		physicsBody->setRotationalForce(physicsBody->getRotationalAcceleration() - anchorPhysics->getRotationalAcceleration());
+	std::shared_ptr<GameObject> anchorGameObject = std::dynamic_pointer_cast<GameObject>(anchorInfo.object);
+	if (anchorGameObject) {
+		std::shared_ptr<PhysicsBody> anchorPhysics =
+			anchorInfo.object->findComponent<PhysicsBody>();
+		if (anchorPhysics) {
+			physicsBody->setVelocity(physicsBody->getVelocity() - anchorPhysics->getVelocity());
+			physicsBody->setAcceleration(physicsBody->getAcceleration() - anchorPhysics->getAcceleration());
+			physicsBody->setForce(physicsBody->getAcceleration() - anchorPhysics->getAcceleration());
+			physicsBody->setRotationalVelocity(physicsBody->getRotationalVelocity() - anchorPhysics->getRotationalVelocity());
+			physicsBody->setRotationalAcceleration(physicsBody->getRotationalAcceleration() - anchorPhysics->getRotationalAcceleration());
+			physicsBody->setRotationalForce(physicsBody->getRotationalAcceleration() - anchorPhysics->getRotationalAcceleration());
+		}
+		parent->reparent(anchorInfo.object);
 	}
-	parent->reparent(anchorInfo.object);
+	else {
+		parent->reparent(sceneRoot);
+	}
 	parent->setWorldTransform(currentWorld);
 }
 
@@ -1004,6 +1015,12 @@ std::shared_ptr<FirstPersonControllerComponent>
 std::shared_ptr<FirstPersonControllerComponent>
 FirstPersonControllerComponent::setGamePad(GamePad* _gp) {
 	gp = _gp;
+	return shared_from_this();
+}
+
+std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setState(PlayerState state)
+{
+	SwitchState(playerState, state);
 	return shared_from_this();
 }
 

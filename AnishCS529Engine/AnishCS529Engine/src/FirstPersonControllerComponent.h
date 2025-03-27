@@ -113,6 +113,9 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
         setGamePad(GamePad* _gp);
 
+    std::shared_ptr<FirstPersonControllerComponent>
+      setState(PlayerState state);
+
     //Mapping the Actions to the Keys
     std::shared_ptr<FirstPersonControllerComponent>
         setActionKey(Action _action, Key _key);

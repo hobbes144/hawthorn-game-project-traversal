@@ -150,6 +150,7 @@ void Node::reparent(SharedNode dstNode) {
 
   // 2. attach this to dstNode
   dstNode->addChild(shared_from_this());
+  updateTransforms();
 }
 
 /*!****************************************************************************
