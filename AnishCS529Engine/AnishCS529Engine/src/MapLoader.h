@@ -17,12 +17,23 @@
 #define MAPLOADER_H
 
 #include <memory>
+#include <iostream>
+#include <string>
+
 #include "GameObject.h"
 #include "SceneGraph.h"
 #include "Vector3.h"
 #include "Camera.h"
 #include "Mesh.h"
 #include "Material.h"
+#include "Render2D.h"
+#include "RigidBody.h"
+#include "OBB.h"
+#include "Animate.h"
+#include "TimeControlledRB.h"
+
+#include "GlobalVariables.h"
+
 
 class MapLoader {
 public:

@@ -1,10 +1,5 @@
 #include "precompiled.h"
 #include "MapLoader.h"
-#include <iostream>
-#include <string>
-#include "Render2D.h"
-#include "RigidBody.h"
-#include "OBB.h"
 
 MapLoader& MapLoader::instance() {
     static MapLoader instance;
@@ -262,13 +257,54 @@ for (int i = 0; i < 9; ++i) {
     auto renderComp = platform->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
-    auto rigidBody = platform->addComponent<RigidBody>();
-    rigidBody->setMass(0.0f)
+    if (i == 0) {
+      auto rigidBody = platform->addComponent<TimeControlledRB>();
+      rigidBody->setTimeScale(timeScale);
+      rigidBody->setMass(0.0f)
+          ->setDrag(1.0f)
+          ->setShape(shape)
+          ->setStatic(true)
+          ->registerToPhysicsManager(PhysicsManager::Instance());
+      rigidBody->initialize();
+
+      auto platformAnimate = platform->addComponent<Animate>();
+      platformAnimate->setAnimateFunction(
+            [currentTime = 0.0f, initialPos = platform->getLocalPosition().z, phase = 1.0f](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+              std::shared_ptr<TimeControlledRB> rb = self->findComponent<TimeControlledRB>();
+              float timeScale = rb->getTimeScale();
+      
+              deltaTime *= timeScale;
+      
+              /* Affine Transformation Variables */
+              float affineSpeed = 10.0f;
+              float affinePosVarianceZ = 5.0f;
+      
+              currentTime += deltaTime;
+
+              if ((phase == -1.0f) && (initialPos - affinePosVarianceZ) > self->getWorldPosition().z)
+                phase = 1.0f;
+              else if ((phase == 1.0f) && (initialPos + affinePosVarianceZ) < self->getWorldPosition().z)
+                phase = -1.0f;
+
+              Vector3 velocity = Vector3(0.0f, 0.0f, affineSpeed * phase);
+              
+              rb->setVelocity(velocity);
+              Vector3 newPos = self->getWorldPosition() + (velocity * deltaTime);
+              self->setWorldPosition(newPos);
+            }
+          );
+      
+      platformAnimate->runAnimateFunction(true);
+    }
+    else {
+      auto rigidBody = platform->addComponent<RigidBody>();
+      rigidBody->setMass(0.0f)
         ->setDrag(1.0f)
         ->setShape(shape)
         ->setStatic(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());
-    rigidBody->initialize();
+      rigidBody->initialize();
+    }
 }
 
 // Exit platform

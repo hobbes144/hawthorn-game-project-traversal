@@ -145,6 +145,7 @@
     <ClInclude Include="src\DebugPass.h" />
     <ClInclude Include="src\GamePad.h" />
     <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\GlobalVariables.h" />
     <ClInclude Include="src\MainTestMaterial.h" />
     <ClInclude Include="src\MapLoader.h" />
     <ClInclude Include="src\Material.inl" />

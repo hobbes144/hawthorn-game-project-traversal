@@ -704,6 +704,9 @@
     <ClInclude Include="src\MapLoader.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GlobalVariables.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">

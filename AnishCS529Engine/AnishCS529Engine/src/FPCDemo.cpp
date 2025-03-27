@@ -33,6 +33,8 @@
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
 
+#include "GlobalVariables.h"
+
 extern "C"
 {
     __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
@@ -284,7 +286,7 @@ int main() {
 
 #pragma region Map
    
-     MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
+     MapLoader::instance().loadMap(2, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
 
 #pragma endregion
 
