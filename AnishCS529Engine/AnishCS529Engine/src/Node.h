@@ -94,6 +94,10 @@ public:
   Quaternion getLocalRotation();
   Vector3 getLocalScaling();
 
+  Vector3 getWorldPosition();
+  Quaternion getWorldRotation();
+  Vector3 getWorldScaling();
+
   SharedNode setLocalTransform(Transform newTransform);
   SharedNode setWorldTransform(Transform newTransform);
 

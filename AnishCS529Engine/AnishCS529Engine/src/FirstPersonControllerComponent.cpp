@@ -387,7 +387,9 @@ void FirstPersonControllerComponent::SwitchState(PlayerState originalState, Play
 inline void FirstPersonControllerComponent::FreeToGrounded()
 {
 	unanchoredTime = 0.0f;
+	hasSlidSinceAnchored = false;
 	physicsBody->setDrag(anchoredDrag);
+	physicsToAnchor();
 	playerState = Grounded;
 }
 
@@ -403,8 +405,10 @@ inline void FirstPersonControllerComponent::FreeToSliding()
 inline void FirstPersonControllerComponent::FreeToWallRunning()
 {
 	unanchoredTime = 0.0f;
+	hasSlidSinceAnchored = false;
 	physicsBody->setDrag(anchoredDrag);
 
+	physicsToAnchor();
 	playerState = WallRunning;
 
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
@@ -414,12 +418,14 @@ inline void FirstPersonControllerComponent::FreeToWallRunning()
 inline void FirstPersonControllerComponent::GroundedToFree()
 {
 	physicsBody->setDrag(airDrag);
+	physicsToAir();
 	playerState = Free;
 }
 
 inline void FirstPersonControllerComponent::GroundedToSliding()
 {
 	sinceLastSlideTime = 0.0f;
+	physicsToAir();
 	playerState = Sliding;
 }
 
@@ -427,6 +433,7 @@ inline void FirstPersonControllerComponent::WallRunningToFree()
 {
 	physicsBody->setDrag(airDrag);
 
+	physicsToAir();
 	playerState = Free;
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
 	rb->usingGravity(true);
@@ -435,6 +442,7 @@ inline void FirstPersonControllerComponent::WallRunningToFree()
 inline void FirstPersonControllerComponent::WallRunningToGrounded()
 {
 
+	physicsToAnchor();
 	playerState = Grounded;
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
 	rb->usingGravity(true);
@@ -443,12 +451,15 @@ inline void FirstPersonControllerComponent::WallRunningToGrounded()
 inline void FirstPersonControllerComponent::SlidingToGrounded()
 {
 	unanchoredTime = 0.0f;
+	hasSlidSinceAnchored = false;
+	physicsToAnchor();
 	playerState = Grounded;
 	physicsBody->setDrag(anchoredDrag);
 }
 
 inline void FirstPersonControllerComponent::SlidingToFree()
 {
+	physicsToAir();
 	playerState = Free;
 	physicsBody->setDrag(airDrag);
 }
@@ -470,9 +481,6 @@ void FirstPersonControllerComponent::GroundedJump()
 
 	// Prevent multiple jumps until grounded again
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
-
-	/* Todo: Add logic to reparent here. */
-	//parent->reparent(sceneRoot);
 #pragma endregion
 }
 
@@ -530,12 +538,13 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 {
 #pragma region Grounded
 	const Transform bodyWorldTransform = body->getWorldTransform();
+	const Vector3 currentPos = bodyWorldTransform.getPosition();
 	RaycastHit hitGround;
 	/* Todo: This currently assumes z is down, fix for rotated objects. 
 	* Consider using getFarthestExtent()?
 	*/
 	const bool isGrounded = RaycastManager::Instance().Raycast(
-		Ray(bodyWorldTransform.getPosition(), Vector3(0.0f, -1.0f, 0.0f)),
+		Ray(currentPos, Vector3(0.0f, -1.0f, 0.0f)),
 		hitGround, (bodyWorldTransform.getScaling().z) * 2 + 0.25
 	);
 	if (isGrounded) {
@@ -546,8 +555,6 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	}
 #pragma endregion
 
-	const Transform bodyLocalTransform = body->getLocalTransform();
-	const Vector3 currentPos = bodyLocalTransform.getPosition();
 	const Vector3 forwardVector = body->getForwardVector();
 	const Vector3 rightVector = body->getRightVector();
 	const float rayDist = parent->getWorldTransform().getScaling().x * 3;
@@ -555,7 +562,7 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 
 #pragma region RightWallAndBoth
 	if (anchorInfo.direction == 'r' || anchorInfo.direction == '0' || anchorInfo.direction == 'd') {
-		const Ray rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
+		const Ray rightRay = Ray(currentPos, rightVector);
 		const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
 		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
 			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
@@ -595,7 +602,7 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 			return;
 		}
 		else {
-			const Ray rightRay = Ray(bodyWorldTransform.getPosition(), rightVector);
+			const Ray rightRay = Ray(currentPos, rightVector);
 			const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
 			const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
 				RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
@@ -614,6 +621,40 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 #pragma endregion
 
 	debugCheck();
+}
+
+void FirstPersonControllerComponent::physicsToAir()
+{
+	Transform currentWorld = parent->getWorldTransform();
+	std::shared_ptr<PhysicsBody> anchorPhysics =
+		std::static_pointer_cast<GameObject>(parent->getParent())->findComponent<PhysicsBody>();
+	if (anchorPhysics) {
+		physicsBody->setVelocity(anchorPhysics->getVelocity() + physicsBody->getVelocity());
+		physicsBody->setAcceleration(anchorPhysics->getAcceleration() + physicsBody->getAcceleration());
+		physicsBody->setForce(anchorPhysics->getAcceleration() + physicsBody->getAcceleration());
+		physicsBody->setRotationalVelocity(anchorPhysics->getRotationalVelocity() + physicsBody->getRotationalVelocity());
+		physicsBody->setRotationalAcceleration(anchorPhysics->getRotationalAcceleration() + physicsBody->getRotationalAcceleration());
+		physicsBody->setRotationalForce(anchorPhysics->getRotationalAcceleration() + physicsBody->getRotationalAcceleration());
+	}
+	parent->reparent(sceneRoot);
+	parent->setWorldTransform(currentWorld);
+}
+
+void FirstPersonControllerComponent::physicsToAnchor()
+{
+	Transform currentWorld = parent->getWorldTransform();
+	std::shared_ptr<PhysicsBody> anchorPhysics =
+		anchorInfo.object->findComponent<PhysicsBody>();
+	if (anchorPhysics) {
+		physicsBody->setVelocity(physicsBody->getVelocity() - anchorPhysics->getVelocity());
+		physicsBody->setAcceleration(physicsBody->getAcceleration() - anchorPhysics->getAcceleration());
+		physicsBody->setForce(physicsBody->getAcceleration() - anchorPhysics->getAcceleration());
+		physicsBody->setRotationalVelocity(physicsBody->getRotationalVelocity() - anchorPhysics->getRotationalVelocity());
+		physicsBody->setRotationalAcceleration(physicsBody->getRotationalAcceleration() - anchorPhysics->getRotationalAcceleration());
+		physicsBody->setRotationalForce(physicsBody->getRotationalAcceleration() - anchorPhysics->getRotationalAcceleration());
+	}
+	parent->reparent(anchorInfo.object);
+	parent->setWorldTransform(currentWorld);
 }
 
 void FirstPersonControllerComponent::update(float deltaTime)
@@ -688,8 +729,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	const Vector3 forwardVector = body->getForwardVector();
 	const Vector3 upVector = body->getUpVector();
 	const Vector3 rightVector = body->getRightVector();
-	const Transform bodyLocalTransform = body->getLocalTransform();
-	const Vector3 currentPos = bodyLocalTransform.getPosition();
+	const Transform bodyWorldTransform = body->getWorldTransform();
+	const Vector3 currentPos = bodyWorldTransform.getPosition();
 	const float rayDist = parent->getWorldTransform().getScaling().x * 3;
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
 
@@ -699,7 +740,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	//-----State Switching-----//
 #pragma region StateSwitching
 	if (playerState == Free) {
-		if (anchorInfo.direction == 'd')
+		if (sinceLastJumpTime > jumpCooldown && anchorInfo.direction == 'd')
 			SwitchState(Free, Grounded);
 		else if (SlideBuffered() && CanSlide())
 		{
@@ -777,8 +818,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	else if (playerState == Sliding) {
 		if (SlidingTimedOut())
 			SwitchState(Sliding, (anchorInfo.direction == 'd') ? Grounded : Free);
-		else if (passedCoyoteTime())
-			SwitchState(Sliding, Free);
 		else if (isJumping)
 		{
 			SwitchState(Sliding, Free);
@@ -873,14 +912,14 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		// Apply movement along the wall
 		physicsBody->setVelocity(wallRunDirection * wallRunSpeed);
 
-		const float wallWidth = (anchorInfo.normal * anchorInfo.object->getLocalScaling()).magnitude();
+		const float wallWidth = (anchorInfo.normal * anchorInfo.object->getWorldScaling()).magnitude();
 		const float playerWidth = 1.415;
 		const float wallOffset = wallWidth / 2 + playerWidth / 2;
 
 		// Maintain floating offset from the wall
-		float distanceToWall = anchorInfo.normal.dot(currentPos - anchorInfo.object->getLocalPosition());
+		float distanceToWall = anchorInfo.normal.dot(currentPos - anchorInfo.object->getWorldPosition());
 		Vector3 correctedPosition = currentPos - anchorInfo.normal * (distanceToWall - wallOffset);
-		body->setLocalPosition(correctedPosition);
+		body->setWorldPosition(correctedPosition);
 
 	} //End Wallrunning State
 #pragma endregion
@@ -971,7 +1010,7 @@ std::shared_ptr<FirstPersonControllerComponent>
 }
 
 std::shared_ptr<FirstPersonControllerComponent> 
-	FirstPersonControllerComponent::setSceneRoot(std::shared_ptr<GameObject> root)
+	FirstPersonControllerComponent::setSceneRoot(std::shared_ptr<Node> root)
 {
 	sceneRoot = root;
 	return shared_from_this();

@@ -82,12 +82,12 @@ public:
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
         walkForce(10), maxWalkSpeed(10.0f),
         runForceMultiplier(2.0f), maxRunSpeed(2 * maxWalkSpeed),
-        jumpSpeed(45), airDrag(0.1f), anchoredDrag(0.6f),
+        jumpSpeed(36), airDrag(0.1f), anchoredDrag(0.6f),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
         slideForce(75), slideCoolDown(2.0f), slideEffectTime(0.5f),
-        slideBufferTime(0.2f),
-        wallRunSpeed(30), wallJumpForce(40),
+        slideBufferTime(0.2f), hasSlidSinceAnchored(false),
+        wallRunSpeed(30), wallJumpForce(31),
         sceneRoot(nullptr)
         {}
     ~FirstPersonControllerComponent() = default;
@@ -108,7 +108,7 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
       setCameraRotation(Vector3 rotation);
     std::shared_ptr<FirstPersonControllerComponent>
-      setSceneRoot(std::shared_ptr<GameObject> root);
+      setSceneRoot(std::shared_ptr<Node> root);
     std::shared_ptr<FirstPersonControllerComponent>
         setGamePad(GamePad* _gp);
 
@@ -145,6 +145,9 @@ private:
     bool SlidingTimedOut();
 
     void UpdateAnchorInfo();
+
+    void physicsToAir();
+    void physicsToAnchor();
 
     //PlayerState
     PlayerState playerState;
@@ -198,7 +201,7 @@ private:
     float wallJumpForce;
     bool hasSlidSinceAnchored = false;
 
-    std::shared_ptr<GameObject> sceneRoot;
+    std::shared_ptr<Node> sceneRoot;
 
     //GamePad
     GamePad* gp;

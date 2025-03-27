@@ -218,6 +218,22 @@ Vector3 Node::getLocalScaling() {
   return localTransform.getScaling();
 }
 
+Vector3 Node::getWorldPosition() {
+  if (isLocalSpace)
+    localToWorldSpace();
+  return worldTransform.getPosition();
+}
+Quaternion Node::getWorldRotation() {
+  if (isLocalSpace)
+    localToWorldSpace();
+  return worldTransform.getRotation();
+}
+Vector3 Node::getWorldScaling() {
+  if (isLocalSpace)
+    localToWorldSpace();
+  return worldTransform.getScaling();
+}
+
 std::shared_ptr<Node> Node::setLocalTransform(Transform newTransform) {
   if (!isLocalSpace)
     worldToLocalSpace();

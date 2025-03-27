@@ -324,6 +324,7 @@ int main() {
         ->setGamePad(gamepad)
         ->setPhysicsBody(playerBoxPB.get())
         ->setBody(playerBox.get())
+        ->setSceneRoot(mainSceneGraph.getRootNode())
         ->setCamera(camera.get())
         ->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
         ->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)

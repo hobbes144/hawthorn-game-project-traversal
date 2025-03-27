@@ -109,7 +109,9 @@ void RigidBody::initialize()
  * \param deltaTime
  *****************************************************************************/
 void RigidBody::integrate(float deltaTime) {
-	applyForce(Vector3(0.0f, -(gravity * static_cast<float>(useGravity)) * 100.0f, 0.0f));
+	if (useGravity) {
+		applyForce(Vector3(0.0f, -gravity * 100.0f, 0.0f));
+	}
 
 	PhysicsBody::integrate(deltaTime);
 }
