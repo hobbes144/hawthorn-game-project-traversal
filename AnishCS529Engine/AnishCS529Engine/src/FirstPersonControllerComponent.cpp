@@ -182,7 +182,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			Vector3 currentVelocity = physicsBody->getVelocity();
 			Vector3 newVelocity = Vector3(currentVelocity.x, jumpSpeed, currentVelocity.z);
 			physicsBody->setVelocity(newVelocity);
-			
+			AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
+
 			// Prevent multiple jumps until grounded again
 			lastTimeJumpPressed = jumpBufferTime + 1.0f;
 			lastTimeGrounded = coyoteTime + 1.0f;

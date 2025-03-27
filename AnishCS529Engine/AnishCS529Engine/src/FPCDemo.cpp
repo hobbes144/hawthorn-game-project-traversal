@@ -148,6 +148,7 @@ int main() {
     AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
     AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
     AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
+    AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
     AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
     AudioManager::instance().playSound("music", Vector3(0, 0, 0));
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
