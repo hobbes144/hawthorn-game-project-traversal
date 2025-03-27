@@ -27,7 +27,7 @@ class Ray
 	Vector3 direction;
 
 public:
-	Ray(const Vector3& o = Vector3(), const Vector3& d = Vector3()) : origin(o), direction(d.normalized()) {}
+	Ray(const Vector3& o = Vector3(), const Vector3& d = Vector3()) : origin(o), direction(d!=Vector3() ? d.normalized() : Vector3(0)) {}
 
 	Ray transformRay(const Matrix4& transform) const {
 		Ray transformedRay = Ray(transform * origin, transform.transformDirection(direction));

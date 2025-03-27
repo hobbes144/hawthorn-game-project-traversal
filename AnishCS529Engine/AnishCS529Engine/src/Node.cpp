@@ -150,6 +150,7 @@ void Node::reparent(SharedNode dstNode) {
 
   // 2. attach this to dstNode
   dstNode->addChild(shared_from_this());
+  updateTransforms();
 }
 
 /*!****************************************************************************
@@ -216,6 +217,22 @@ Vector3 Node::getLocalScaling() {
   if (!isLocalSpace)
     worldToLocalSpace();
   return localTransform.getScaling();
+}
+
+Vector3 Node::getWorldPosition() {
+  if (isLocalSpace)
+    localToWorldSpace();
+  return worldTransform.getPosition();
+}
+Quaternion Node::getWorldRotation() {
+  if (isLocalSpace)
+    localToWorldSpace();
+  return worldTransform.getRotation();
+}
+Vector3 Node::getWorldScaling() {
+  if (isLocalSpace)
+    localToWorldSpace();
+  return worldTransform.getScaling();
 }
 
 std::shared_ptr<Node> Node::setLocalTransform(Transform newTransform) {

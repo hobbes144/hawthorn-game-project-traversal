@@ -22,7 +22,8 @@ RigidBody::RigidBody() :
 	elasticity(0.5f),
 	listener(nullptr),
 	freezePositionX(false), freezePositionY(false), freezePositionZ(false),
-	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false) {}
+	freezeRotationX(false), freezeRotationY(false), freezeRotationZ(false)
+{}
 
 /*!****************************************************************************
  * \brief If is using Gravity
@@ -108,13 +109,11 @@ void RigidBody::initialize()
  * \param deltaTime
  *****************************************************************************/
 void RigidBody::integrate(float deltaTime) {
-
 	if (useGravity) {
-		applyForce(Vector3(0.0f, -gravity*100.0f, 0.0f));
+		applyForce(Vector3(0.0f, -gravity * 100.0f, 0.0f));
 	}
 
 	PhysicsBody::integrate(deltaTime);
-
 }
 
 static std::vector<Vector3> correctHistory;
@@ -165,7 +164,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 		/*Vector3 impulse =
 			(RB1->getVelocity() - RB2->getVelocity()) * normal *
-			(1 + e) *
+			(1.0f + e) *
 			(
 				(RB1->getMass() * RB2->getMass())
 				/
@@ -251,5 +250,3 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 
 	return;
 }
-
-/* Getters */

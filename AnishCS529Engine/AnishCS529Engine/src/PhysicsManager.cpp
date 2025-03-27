@@ -23,14 +23,16 @@ bool PhysicsManager::isHandledCollision(const std::shared_ptr<PhysicsBody> A, co
 {
   for (auto it = handledCollisions.begin(); it != handledCollisions.end(); ++it) {
     if (
-      (it->first == A && it->second == B) || 
+      (it->first == A && it->second == B) ||
       (it->first == B && it->second == A))
       return true;
   }
   return false;
 }
 
-void PhysicsManager::addHandledCollision(const std::shared_ptr<PhysicsBody> A, const std::shared_ptr<PhysicsBody> B)
+void PhysicsManager::addHandledCollision(
+  const std::shared_ptr<PhysicsBody> A,
+  const std::shared_ptr<PhysicsBody> B)
 {
   handledCollisions.push_back(std::make_pair(A, B));
 }
@@ -38,6 +40,38 @@ void PhysicsManager::addHandledCollision(const std::shared_ptr<PhysicsBody> A, c
 void PhysicsManager::resetHandledCollisions()
 {
   handledCollisions.clear();
+}
+
+std::vector<std::shared_ptr<GameObject>> PhysicsManager::getContactedObjects(
+  std::shared_ptr<GameObject> body)
+{
+  std::vector<std::shared_ptr<GameObject>> results;
+  for (const auto& pair : contactCache) {
+    if (pair.first == body) {
+      results.push_back(pair.second);
+    }
+    else if(pair.second == body) {
+      results.push_back(pair.first);
+    }
+  }
+  return results;
+}
+
+bool PhysicsManager::isInContact(
+  std::shared_ptr<GameObject> body1, std::shared_ptr<GameObject> body2)
+{
+  return std::any_of(
+    contactCache.begin(),
+    contactCache.end(),
+    [body1, body2](
+      const std::pair<std::shared_ptr<GameObject>,
+      std::shared_ptr<GameObject>>& p)
+    {
+      return
+        (p.first == body1 && p.second == body2) ||
+        (p.first == body2 && p.second == body1);
+    }
+  );
 }
 
 void PhysicsManager::checkCollisions() {

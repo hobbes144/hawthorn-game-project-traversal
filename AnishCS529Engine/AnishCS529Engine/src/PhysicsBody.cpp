@@ -6,7 +6,7 @@
  * \par    **Course**
  *    CS529
  * \date   12-16-2024
- * 
+ *
  *****************************************************************************/
 #include "precompiled.h"
 
@@ -14,17 +14,17 @@
 #include "PhysicsManager.h"
 
 
-/*!****************************************************************************
- * \brief Register self to the PhysicsManager
- * 
- * ## Usage:
- * 
- * If a collision Shape exists and collisions need to be properly calculated,
- * the PhysicsBody must be registered to the PhysicsManager.
- * 
- * \param manager PhysicsManager
- * \return \b std::shared_ptr<PhysicsBody> Self
- *****************************************************************************/
+ /*!****************************************************************************
+  * \brief Register self to the PhysicsManager
+  *
+  * ## Usage:
+  *
+  * If a collision Shape exists and collisions need to be properly calculated,
+  * the PhysicsBody must be registered to the PhysicsManager.
+  *
+  * \param manager PhysicsManager
+  * \return \b std::shared_ptr<PhysicsBody> Self
+  *****************************************************************************/
 std::shared_ptr<PhysicsBody> PhysicsBody::registerToPhysicsManager(
   PhysicsManager& manager)
 {
@@ -34,14 +34,14 @@ std::shared_ptr<PhysicsBody> PhysicsBody::registerToPhysicsManager(
 
 /*!****************************************************************************
  * \brief Set the mass
- * 
+ *
  * ## Usage:
- * 
+ *
  * If the object is allowed to move, it must have a mass that the forces can
  * be applied on.
- * 
+ *
  * This can be skipped for static objects.
- * 
+ *
  * \param newMass Mass of the PhysicsBody
  * \return \b std::shared_ptr<PhysicsBody> Self
  *****************************************************************************/
@@ -94,6 +94,13 @@ std::shared_ptr<PhysicsBody> PhysicsBody::setAcceleration(const Vector3& acc) {
   return shared_from_this();
 }
 
+std::shared_ptr<PhysicsBody> PhysicsBody::setForce(const Vector3& f)
+{
+  force = f;
+
+  return shared_from_this();
+}
+
 /*!****************************************************************************
  * \brief Apply a force
  *
@@ -118,14 +125,14 @@ std::shared_ptr<PhysicsBody> PhysicsBody::applyForce(const Vector3& f) {
 
 std::shared_ptr<PhysicsBody> PhysicsBody::applyImpulse(const Vector3& i)
 {
-    if (mass == 0.0f) return shared_from_this();
+  if (mass == 0.0f) return shared_from_this();
 
-    Vector3 modifier = (i / mass);
-    Vector3 newVelocity = velocity + modifier;
+  Vector3 modifier = (i / mass);
+  Vector3 newVelocity = velocity + modifier;
 
-    velocity = newVelocity;
+  velocity = newVelocity;
 
-    return shared_from_this();
+  return shared_from_this();
 }
 
 std::shared_ptr<PhysicsBody> PhysicsBody::setRotationalVelocity(const Vector3& vel)
@@ -142,6 +149,13 @@ std::shared_ptr<PhysicsBody> PhysicsBody::setRotationalAcceleration(const Vector
   return shared_from_this();
 }
 
+std::shared_ptr<PhysicsBody> PhysicsBody::setRotationalForce(const Vector3& f)
+{
+  rotationalForce = f;
+
+  return shared_from_this();
+}
+
 std::shared_ptr<PhysicsBody> PhysicsBody::applyRotationalForce(const Vector3& f)
 {
   rotationalForce = rotationalForce + f;
@@ -151,12 +165,12 @@ std::shared_ptr<PhysicsBody> PhysicsBody::applyRotationalForce(const Vector3& f)
 
 /*!****************************************************************************
  * \brief Reset the force on the object
- * 
+ *
  * ## Usage:
- * 
+ *
  * This can be used when the object should be forced to stop all motion.
- * 
- * \return \b 
+ *
+ * \return \b
  *****************************************************************************/
 std::shared_ptr<PhysicsBody> PhysicsBody::reset()
 {
@@ -207,9 +221,9 @@ std::shared_ptr<PhysicsBody> PhysicsBody::setDrag(double f) {
  * \return \b std::shared_ptr<PhysicsBody> Self
  *****************************************************************************/
 std::shared_ptr<PhysicsBody> PhysicsBody::setAngularDrag(float f) {
-    angularDrag = f;
+  angularDrag = f;
 
-    return shared_from_this();
+  return shared_from_this();
 }
 
 /*!****************************************************************************
@@ -269,49 +283,64 @@ std::shared_ptr<PhysicsBody> PhysicsBody::updateShapePosition()
 
 /*!****************************************************************************
  * \brief Get the mass
- * 
+ *
  * \return \b double Mass
  *****************************************************************************/
 double PhysicsBody::getMass()            const { return mass; }
 
 /*!****************************************************************************
  * \brief Get the inverse mass
- * 
+ *
  * \return \b double Inverse mass
  *****************************************************************************/
 double PhysicsBody::getInverseMass()     const { return inverseMass; }
 
 /*!****************************************************************************
  * \brief Get the velocity
- * 
+ *
  * \return \b Vector3 Velocity
  *****************************************************************************/
 Vector3 PhysicsBody::getVelocity()      const { return velocity; }
 
 /*!****************************************************************************
  * \brief Get the acceleration
- * 
+ *
  * \return \b Vector3 Acceleration
  *****************************************************************************/
 Vector3 PhysicsBody::getAcceleration()  const { return acceleration; }
 
 /*!****************************************************************************
  * \brief Get the force
- * 
+ *
  * \return \b Vector3 Force
  *****************************************************************************/
 Vector3 PhysicsBody::getForce()         const { return force; }
 
+Vector3 PhysicsBody::getRotationalVelocity() const
+{
+  return rotationalVelocity;
+}
+
+Vector3 PhysicsBody::getRotationalAcceleration() const
+{
+  return rotationalAcceleration;
+}
+
+Vector3 PhysicsBody::getRotationalForce() const
+{
+  return rotationalForce;
+}
+
 /*!****************************************************************************
  * \brief Get the restitution
- * 
+ *
  * \return \b double Restitution
  *****************************************************************************/
 double PhysicsBody::getRestitution()     const { return restitution; }
 
 /*!****************************************************************************
  * \brief Get the friction
- * 
+ *
  * \return \b double Friction
  *****************************************************************************/
 double PhysicsBody::getDrag()        const { return drag; }
@@ -325,14 +354,14 @@ double PhysicsBody::getAngularDrag()        const { return angularDrag; }
 
 /*!****************************************************************************
  * \brief Get if the object is static
- * 
+ *
  * \return \b bool True if static
  *****************************************************************************/
 bool PhysicsBody::getIsStatic()         const { return isStatic; }
 
 /*!****************************************************************************
  * \brief Get the Collision Shape
- * 
+ *
  * \return \b Shape* Collision Shape
  *****************************************************************************/
 std::shared_ptr<Shape> PhysicsBody::getShape() const { return collisionShape; }
@@ -343,22 +372,23 @@ std::shared_ptr<PhysicsBody> PhysicsBody::setDebug(bool _debug)
   return shared_from_this();
 }
 
+static float maxY = 0.0;
 /*!****************************************************************************
  * \brief Update the GameObject and its related collision
- * 
+ *
  * ## Usage:
- * 
- * This should be called in the main loop to update the object's position 
+ *
+ * This should be called in the main loop to update the object's position
  * according to all external forces acting upon it.
- * 
+ *
  * ## Note:
- * 
+ *
  * This is not used in the update call since physics is usually handled
  * separately to ensure consistent physics.
- * 
+ *
  * Look into how collision Shape and the PhysicsManager system work to ensure
  * collisions are handled correctly.
- * 
+ *
  * \param deltaTime
  *****************************************************************************/
 void PhysicsBody::integrate(float deltaTime) {
@@ -368,7 +398,7 @@ void PhysicsBody::integrate(float deltaTime) {
     Vector3 netFriction;
     Vector3 deltaVelocity;
     if (velocity.magnitude() > 1e-6f) {
-        netFriction = velocity * float(-drag);
+      netFriction = velocity * float(-drag);
     }
     else {
       netFriction = Vector3(0.0f, 0.0f, 0.0f);
@@ -415,17 +445,24 @@ void PhysicsBody::integrate(float deltaTime) {
   acceleration = Vector3(0, 0, 0);
   rotationalForce = Vector3(0, 0, 0);
   rotationalAcceleration = Vector3(0, 0, 0);
+
+  if (parent->getName() == "PlayerBox")
+  {
+    if (parent->getWorldTransform().getPosition().y > maxY)
+      maxY = parent->getWorldTransform().getPosition().y;
+    std::cerr << "Max y: " << maxY << "\n";
+  }
 }
 
 /*!****************************************************************************
  * \brief Dummy initialize function
- * 
+ *
  *****************************************************************************/
 void PhysicsBody::initialize() {}
 
 /*!****************************************************************************
  * \brief Dummy update function
- * 
+ *
  *****************************************************************************/
 void PhysicsBody::update(float deltaTime) {
   if (debug) {

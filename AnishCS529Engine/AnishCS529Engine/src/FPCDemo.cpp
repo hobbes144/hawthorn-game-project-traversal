@@ -33,6 +33,8 @@
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
 
+#include "GlobalVariables.h"
+
 extern "C"
 {
     __declspec(dllexport) unsigned long NvOptimusEnablement = 0x00000001;
@@ -192,14 +194,14 @@ int main() {
     //Transform
     camera->setLocalPosition(Vector3(0.0f, 2.5f, 0.0f));
 
-    auto cameraShape = std::make_shared<OBB>(
-        Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-        Vector3(0.5f, 0.5f, 0.5f));
-    camera->addComponent<PhysicsBody>()
-        ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
-        ->setShape(cameraShape)
-        //->setDebug(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
+    //auto cameraShape = std::make_shared<OBB>(
+    //    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+    //    Vector3(0.5f, 0.5f, 0.5f));
+    //camera->addComponent<PhysicsBody>()
+    //    ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
+    //    ->setShape(cameraShape)
+    //    //->setDebug(true)
+    //    ->registerToPhysicsManager(PhysicsManager::Instance());
 
 #pragma endregion
 
@@ -327,6 +329,7 @@ int main() {
         ->setGamePad(gamepad)
         ->setPhysicsBody(playerBoxPB.get())
         ->setBody(playerBox.get())
+        ->setSceneRoot(mainSceneGraph.getRootNode())
         ->setCamera(camera.get())
         ->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
         ->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
@@ -429,6 +432,7 @@ int main() {
             if (auto body = playerBox->findComponent<RigidBody>()) {
                 body->setVelocity(Vector3(0.0f, 0.0f, 0.0f));
             }
+            playerBoxInputComponent->setState(FirstPersonControllerComponent::Grounded);
         }
 
         //Light Manipulation

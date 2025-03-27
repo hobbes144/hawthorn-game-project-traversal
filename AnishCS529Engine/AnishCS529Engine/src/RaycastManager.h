@@ -18,8 +18,8 @@
 
 #include "Ray.h"
 #include "RaycastHit.h"
-#include "src/SceneGraph.h"
-#include "src/Node.h"
+#include "SceneGraph.h"
+#include "Node.h"
 
 class RaycastManager
 {
