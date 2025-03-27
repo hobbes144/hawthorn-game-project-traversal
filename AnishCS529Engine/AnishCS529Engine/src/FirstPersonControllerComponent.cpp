@@ -38,8 +38,28 @@ void FirstPersonControllerComponent::update(float deltaTime)
 #pragma region GamePad
 	if (gp != nullptr) {
 		if (gp->update()) {
-			if (gp->leftStickY != 0) forwardMotion = gp->leftStickY;
-			if (gp->leftStickX != 0) lateralMotion = gp->leftStickX;
+			if (gp->leftStickY != 0) {
+				forwardMotion = gp->leftStickY;
+				if (forwardMotion > 0) {
+					isMovingForward = true;
+					isMovingBackward = false;
+				}
+				else if (forwardMotion < 0) {
+					isMovingForward = false;
+					isMovingBackward = true;
+				}
+			}
+			if (gp->leftStickX != 0) {
+				lateralMotion = gp->leftStickX;
+				if (lateralMotion < 0) {
+					isMovingLeft = true;
+					isMovingBackward = false;
+				}
+				else if (forwardMotion < 0) {
+					isMovingLeft = false;
+					isMovingBackward = true;
+				}
+			}
 			if (gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB)) 
 				isSprinting = gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB);
 			if (gp->isPressed(XINPUT_GAMEPAD_B))
