@@ -17,19 +17,20 @@ class GamePad {
 private:
 	int cId;
 	XINPUT_STATE state;
-
 	float deadzoneX;
 	float deadzoneY;
 	void registerKey(WORD);
 
 public:
-	GamePad() : deadzoneX(0.02f), deadzoneY(0.02f) {}
+	GamePad() : deadzoneX(0.02f), deadzoneY(0.02f),gpXSensitivity(2.0f),gpYSensitivity(2.0f) {}
 	GamePad(float dzX, float dzY) : deadzoneX(dzX), deadzoneY(dzY) {}
 
 	float leftStickX;
 	float leftStickY;
 	float rightStickX;
 	float rightStickY;
+	float gpXSensitivity;
+	float gpYSensitivity;
 	float leftTrigger;
 	float rightTrigger;
 	std::unordered_map<WORD, GPKeyState> keyStates;
