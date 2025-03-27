@@ -479,6 +479,8 @@ void FirstPersonControllerComponent::GroundedJump()
 	const Vector3 newVelocity = Vector3(currentVelocity.x, jumpSpeed, currentVelocity.z);
 	physicsBody->setVelocity(newVelocity);
 
+	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
+
 	// Prevent multiple jumps until grounded again
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
 #pragma endregion
@@ -489,8 +491,10 @@ void FirstPersonControllerComponent::SlidingJump()
 	sinceLastJumpTime = 0.0f;
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
 	Vector3 currentVelocity = physicsBody->getVelocity();
-	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 2.5f, currentVelocity.z / 2);
+	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 2.0f, currentVelocity.z / 2);
 	physicsBody->setVelocity(newVelocity);
+
+	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
 }
 
 void FirstPersonControllerComponent::WallrunningJump()
@@ -502,6 +506,8 @@ void FirstPersonControllerComponent::WallrunningJump()
 	Vector3 wallJumpVelocity = anchorInfo.normal * wallJumpForce + Vector3(0.0f, wallJumpForce, 0.0f);
 	Vector3 combinedVelocity = (currentVelocity + wallJumpVelocity) / 2.0f;
 	physicsBody->setVelocity(combinedVelocity);
+
+	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
 }
 
 inline bool FirstPersonControllerComponent::passedCoyoteTime()
@@ -660,64 +666,98 @@ void FirstPersonControllerComponent::physicsToAnchor()
 void FirstPersonControllerComponent::update(float deltaTime)
 {
 
+	
+
+	//-----Input-----//
+#pragma region Input
+	bool isMovingForward = input->isKeyHeld(ActionKey[MoveForward]);
+	bool isMovingBackward = input->isKeyHeld(ActionKey[MoveBackward]);
+	bool isMovingLeft = input->isKeyHeld(ActionKey[MoveLeft]);
+	bool isMovingRight = input->isKeyHeld(ActionKey[MoveRight]);
+	bool isSprinting = input->isKeyHeld(ActionKey[Sprint]);
+	float forwardMotion = input->isKeyHeld(ActionKey[MoveForward]) - input->isKeyHeld(ActionKey[MoveBackward]);
+	float lateralMotion = input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]);
+	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
+	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
+	//Mouse
+	float mouseXDelta = 0.0f;
+	float mouseYDelta = 0.0f;
+#pragma endregion
+
+	//GamePad Input
+#pragma region GamePad
+	if ( gp != nullptr ) {
+		if ( gp->update() ) {
+			if ( gp->leftStickY != 0 ) {
+				forwardMotion = gp->leftStickY;
+				if ( forwardMotion > 0 ) {
+					isMovingForward = true;
+					isMovingBackward = false;
+				}
+				else if ( forwardMotion < 0 ) {
+					isMovingForward = false;
+					isMovingBackward = true;
+				}
+			}
+			if ( gp->leftStickX != 0 ) {
+				lateralMotion = gp->leftStickX;
+				if ( lateralMotion < 0 ) {
+					isMovingLeft = true;
+					isMovingBackward = false;
+				}
+				else if ( forwardMotion < 0 ) {
+					isMovingLeft = false;
+					isMovingBackward = true;
+				}
+			}
+			if ( gp->rightStickX != 0 ) {
+				mouseXDelta = static_cast<float>( gp->rightStickX ) * 2;
+				Quaternion currentBodyRotation = body->getLocalRotation();
+				Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), ( -mouseXDelta * 3.14159265f / 180.0f ));
+				body->setLocalRotation(currentBodyRotation * mouseRotation);
+			}
+			if ( gp->rightStickY != 0 ) {
+				mouseYDelta = -static_cast<float>( gp->rightStickY ) * 2;
+				//Rotate Camera
+				Quaternion currentCameraRoation = camera->getLocalRotation();
+				Vector3 currentEuler = currentCameraRoation.toEuler();
+				float newPitch = currentEuler.x + ( -mouseYDelta * 3.14159265f / 180.0f );
+				newPitch = std::clamp(newPitch, -pitchLimit * ( 3.14159265f / 180.0f ), pitchLimit * ( 3.14159265f / 180.0f )); // Convert degrees to radians
+				Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
+				camera->setLocalRotation(newCameraRotation);
+			}
+			if ( gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB) )
+				isSprinting = gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB);
+			if ( gp->isPressed(XINPUT_GAMEPAD_B) )
+				isJumping = gp->isPressed(XINPUT_GAMEPAD_B);
+			if ( gp->isPressed(XINPUT_GAMEPAD_X) )
+				isSliding = gp->isPressed(XINPUT_GAMEPAD_X);
+		}
+	}
+#pragma endregion
+
 	//-----Handling Camera Movement-----//
 #pragma region Camera
 	//Get Mouse State Data
 	const MouseState mouseState = input->getMouseState();
-	float mouseXDelta = 0.0f;
-	float mouseYDelta = 0.0f;
-	if (mouseState.deltaX != 0) {
-		mouseXDelta = static_cast<float>(mouseState.deltaX) * mouseXSensitivity;
+	if ( mouseState.deltaX != 0 ) {
+		mouseXDelta = static_cast<float>( mouseState.deltaX ) * mouseXSensitivity;
 		//Rotate Body
 		const Quaternion currentBodyRotation = body->getLocalRotation();
-		const Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
+		const Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), ( -mouseXDelta * 3.14159265f / 180.0f ));
 		body->setLocalRotation(currentBodyRotation * mouseRotation);
 	}
-	if (mouseState.deltaY != 0) {
-		mouseYDelta = static_cast<float>(mouseState.deltaY) * mouseYSensitivity;
+	if ( mouseState.deltaY != 0 ) {
+		mouseYDelta = static_cast<float>( mouseState.deltaY ) * mouseYSensitivity;
 		//Rotate Camera
 		const Vector3 currentEuler = camera->getLocalRotation().toEuler();
-		float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
-		newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
+		float newPitch = currentEuler.x + ( -mouseYDelta * 3.14159265f / 180.0f );
+		newPitch = std::clamp(newPitch, -pitchLimit * ( 3.14159265f / 180.0f ), pitchLimit * ( 3.14159265f / 180.0f )); // Convert degrees to radians
 		const Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
 		camera->setLocalRotation(newCameraRotation);
 	}
 	//Reset Mouse Delta
 	input->resetMouseDelta();
-#pragma endregion
-
-
-	//-----Input-----//
-#pragma region Input
-	const bool isMovingForward = input->isKeyHeld(ActionKey[MoveForward]);
-	const bool isMovingBackward = input->isKeyHeld(ActionKey[MoveBackward]);
-	const bool isMovingLeft = input->isKeyHeld(ActionKey[MoveLeft]);
-	const bool isMovingRight = input->isKeyHeld(ActionKey[MoveRight]);
-
-	float forwardMotion = isMovingForward - isMovingBackward;
-	float lateralMotion = isMovingRight - isMovingLeft;
-
-	bool isSprinting = input->isKeyHeld(ActionKey[Sprint]);
-	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
-	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
-
-
-#pragma endregion
-
-	//GamePad Input
-#pragma region GamePad
-	if (gp != nullptr) {
-		if (gp->update()) {
-			if (gp->leftStickY != 0) forwardMotion = gp->leftStickY;
-			if (gp->leftStickX != 0) lateralMotion = gp->leftStickX;
-			if (gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB))
-				isSprinting = gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB);
-			if (gp->isPressed(XINPUT_GAMEPAD_B))
-				isJumping = gp->isPressed(XINPUT_GAMEPAD_B);
-			if (gp->isPressed(XINPUT_GAMEPAD_X))
-				isSliding = gp->isPressed(XINPUT_GAMEPAD_X);
-		}
-	}
 #pragma endregion
 
 
@@ -757,6 +797,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				slideVector = forwardVector * slideForce;
 			}
 			physicsBody->setVelocity(slideVector);
+			AudioManager::instance().playSound("slide", Vector3(body->getLocalPosition()));
 			SwitchState(Free, Sliding);
 		}
 		else if (anchorInfo.direction != '0' && isMovingForward)
@@ -790,6 +831,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				slideVector = forwardVector * slideForce;
 			}
 			physicsBody->setVelocity(slideVector);
+			AudioManager::instance().playSound("slide", Vector3(body->getLocalPosition()));
 			SwitchState(Grounded, Sliding);
 		}
 		else if (anchorInfo.direction != 'd' && anchorInfo.direction != '0')
@@ -833,6 +875,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	//-----First Person Ground Movement-----//
 #pragma region GroundMovement
 	if (playerState == Grounded) {
+
 		const float movementForce = (isSprinting ? runForceMultiplier : 1.0f) * walkForce * 100.0f;
 		const float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
 		//Forward
@@ -844,6 +887,12 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (combinedMotionVector.magnitude() > 0.0f) {
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
+			if ( isSprinting ) {
+				AudioManager::instance().playSound("run", Vector3(body->getLocalPosition()));
+			}
+			else {
+				AudioManager::instance().playSound("walk", Vector3(body->getLocalPosition()));
+			}
 		}
 	}
 #pragma endregion
