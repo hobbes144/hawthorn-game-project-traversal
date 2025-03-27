@@ -85,7 +85,7 @@ private:
           std::shared_ptr<Camera> camera,
           std::shared_ptr<Mesh> floorMesh,
           std::shared_ptr<Material> floorMaterial);
-    void testing(float offsetX, float offsetY, float offsetZ,
+    void zero(float offsetX, float offsetY, float offsetZ,
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera,
               std::shared_ptr<Mesh> floorMesh,

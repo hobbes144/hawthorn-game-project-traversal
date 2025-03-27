@@ -288,8 +288,8 @@ int main() {
 #pragma endregion
 
 #pragma region Map
-   
-     MapLoader::instance().loadMap(4, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
+    auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f);
+    MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
 
 #pragma endregion
 
@@ -297,7 +297,7 @@ int main() {
 #pragma region PlayerBox
 
     //Transform Values
-    playerBox->setLocalPosition(Vector3(-4.0f, 5.0f, -2.0f))
+    playerBox->setLocalPosition(checkPoint)
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
 
 
@@ -426,8 +426,7 @@ int main() {
         }
 
         if (mainInput->isKeyPressed(KEY_R)) {
-            Vector3 initialPosition(0.0f, 2.0f, 0.0f);
-            playerBox->setLocalPosition(initialPosition);
+            playerBox->setLocalPosition(checkPoint);
 
             if (auto body = playerBox->findComponent<RigidBody>()) {
                 body->setVelocity(Vector3(0.0f, 0.0f, 0.0f));
