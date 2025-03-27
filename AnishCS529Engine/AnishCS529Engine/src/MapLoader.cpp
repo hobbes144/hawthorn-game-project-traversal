@@ -29,6 +29,9 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
     case 3:
         three(offsetX, offsetY, offsetZ, sceneGraph, camera, floorMesh, floorMaterial);
         break;
+    case 4:
+        four(offsetX, offsetY, offsetZ, sceneGraph, camera, floorMesh, floorMaterial);
+        break;
     default:
         std::cerr << "[MapLoader] Map ID " << mapId << " is not recognized.\n";
         break;
@@ -454,6 +457,89 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     rb10->setMass(0.0f)->setDrag(1.0f)->setShape(s10)->setStatic(true)
         ->registerToPhysicsManager(PhysicsManager::Instance());
     rb10->initialize();
+}
+
+void MapLoader::four(float offsetX, float offsetY, float offsetZ,
+                         SceneGraph& sceneGraph,
+                         std::shared_ptr<Camera> camera,
+                         std::shared_ptr<Mesh> floorMesh,
+                         std::shared_ptr<Material> floorMaterial) {
+    // Starting platform
+    {
+        auto mainFloor = std::make_shared<GameObject>("MainFloor");
+        sceneGraph.addNode(mainFloor);
+        mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        mainFloor->setLocalScaling(Vector3(10.0f, 1.0f, 10.0f));
+        auto renderComp = mainFloor->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = mainFloor->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    float platformSizes[] = { 4.0f, 4.0f, 4.0f, 4.0f};
+    float yVariation[] = { 0.0f, 0.0f, 0.0f, 0.0f};
+    float xSpacing = 6.0f;
+    float xOffset[] = { 0.0f, 0.0f, 0.0f, 0.0f};
+
+    for (int i = 0; i < 4; ++i) {
+        auto platform = std::make_shared<GameObject>("Platform" + std::to_string(i + 1));
+        sceneGraph.addNode(platform);
+        float adjustedX = (i == 0) ? (xSpacing * 1.5f) : ((i + 1) * xSpacing + 5.0f);
+        platform->setLocalPosition(Vector3(adjustedX + offsetX, yVariation[i] + offsetY, xOffset[i] + offsetZ));
+        platform->setLocalScaling(Vector3(platformSizes[i], 0.5f, platformSizes[i]));
+        auto renderComp = platform->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = platform->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Wall blocking player
+    {
+        auto wall = std::make_shared<GameObject>("wall");
+        sceneGraph.addNode(wall);
+        wall->setLocalPosition(Vector3(35.0f + offsetX, 4 + offsetY, offsetZ));
+        wall->setLocalScaling(Vector3(1.0f, 10.0f, 10.0f));
+        auto renderComp = wall->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    // Exit platform
+    {
+        auto upperFloor = std::make_shared<GameObject>("UpperFloor");
+        sceneGraph.addNode(upperFloor);
+        upperFloor->setLocalPosition(Vector3(40.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        upperFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+        auto renderComp = upperFloor->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = upperFloor->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
 }
 
 void MapLoader::testing(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera, std::shared_ptr<Mesh> floorMesh, std::shared_ptr<Material> floorMaterial)

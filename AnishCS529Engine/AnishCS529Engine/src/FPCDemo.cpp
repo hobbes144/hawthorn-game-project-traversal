@@ -287,7 +287,7 @@ int main() {
 
 #pragma region Map
    
-     MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
+     MapLoader::instance().loadMap(4, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
 
 #pragma endregion
 
