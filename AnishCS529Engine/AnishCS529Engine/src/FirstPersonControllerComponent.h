@@ -63,6 +63,7 @@ public:
         Sprint,
         Jump,
         Slide,
+        Respawn,
         Debug
     };
 

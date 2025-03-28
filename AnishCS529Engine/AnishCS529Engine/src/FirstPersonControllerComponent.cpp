@@ -309,6 +309,7 @@ void FirstPersonControllerComponent::initialize()
 //
 //}
 
+#pragma region State Switching Function
 
 void FirstPersonControllerComponent::SwitchState(PlayerState originalState, PlayerState newState)
 {
@@ -467,6 +468,10 @@ inline void FirstPersonControllerComponent::SlidingToFree()
 	physicsBody->setDrag(airDrag);
 }
 
+#pragma endregion
+
+#pragma region Jumping
+
 void FirstPersonControllerComponent::GroundedJump()
 {
 
@@ -533,6 +538,10 @@ inline bool FirstPersonControllerComponent::CanJump()
 	return (sinceLastJumpTime > jumpCooldown);
 }
 
+#pragma endregion
+
+#pragma region Sliding
+
 inline bool FirstPersonControllerComponent::SlideBuffered()
 {
 	return (sinceLastSlidePressedTime < slideBufferTime);
@@ -547,6 +556,10 @@ bool FirstPersonControllerComponent::SlidingTimedOut()
 {
 	return (sinceLastSlideTime > slideEffectTime);
 }
+
+#pragma endregion
+
+#pragma region Physics Anchoring
 
 void FirstPersonControllerComponent::UpdateAnchorInfo()
 {
@@ -566,6 +579,12 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 		anchorInfo.object = hitGround.object;
 		anchorInfo.direction = 'd';
 		anchorInfo.normal = hitGround.normal;
+
+		//If the ground is a checkpoint
+		if (hitGround.object->getTag() == GameObject::CHECKPOINT) {
+			setRespawnCheckpoint(hitGround.object->getLocalPosition() + Vector3(0.0f, 2.0f, 0.0f));
+		}
+
 		return;
 	}
 #pragma endregion
@@ -679,6 +698,8 @@ void FirstPersonControllerComponent::physicsToAnchor()
 	parent->setWorldTransform(currentWorld);
 }
 
+#pragma endregion
+
 void FirstPersonControllerComponent::update(float deltaTime)
 {
 
@@ -693,6 +714,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	float lateralMotion = input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]);
 	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
+	bool isRespawning = input->isKeyPressed(ActionKey[Respawn]);
 	//Mouse
 	float mouseXDelta = 0.0f;
 	float mouseYDelta = 0.0f;
@@ -787,6 +809,11 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
 
 	UpdateAnchorInfo();
+
+	//Check if the player is Respawning
+	if (isRespawning) {
+		respawnPlayer();
+	}
 
 	//------------------------------STATES------------------------------//
 	//-----State Switching-----//
@@ -1110,8 +1137,13 @@ std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface()
 	return anchorInfo.object;
 }
 
+#pragma region Respawn
+
 void FirstPersonControllerComponent::respawnPlayer()
 {
+
+	//Set the player state to Free
+	setState(Free);
 
 	//Reset Velocity
 	physicsBody->setVelocity(Vector3());
@@ -1130,6 +1162,8 @@ Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
 {
 	return respawnCheckpoint;
 }
+
+#pragma endregion
 
 void FirstPersonControllerComponent::debugCheck()
 {
