@@ -5,9 +5,7 @@
 #include "RaycastManager.h"
 #include "RigidBody.h"
 
-void FirstPersonControllerComponent::initialize()
-{
-
+void FirstPersonControllerComponent::initialize() {
 	//Checks to make sure the values have been initialized
 	assert(input && "Input system is null!");
 	assert(physicsBody && "Physics body is null!");
