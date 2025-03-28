@@ -601,4 +601,22 @@ void MapLoader::testing(float offsetX, float offsetY, float offsetZ, SceneGraph&
 
     }
 
+    //Running Wall
+    {
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+        sceneGraph.addNode(wallRunWall);
+        wallRunWall->setLocalPosition(Vector3(0.0f + offsetX, 2.5f + offsetY, -31.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
+        auto renderComp = wallRunWall->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
 }

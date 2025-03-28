@@ -76,14 +76,43 @@ public:
         this->object = nullptr;
         this->normal = Vector3();
       }
+
+      bool isLargestFace() const {
+
+          if (!object) return false;
+
+          Vector3 localNormal = object->getLocalTransform().getLocalMatrix().transformDirection(normal);
+
+          // Get the scale of the GameObject
+          Vector3 scale = object->getLocalScaling();
+
+          float areaX = scale.y * scale.z;
+          float areaY = scale.x * scale.z;
+          float areaZ = scale.x * scale.y;
+
+          Vector3 largestFaceNormal;
+          if (areaX >= areaY && areaX >= areaZ) {
+              largestFaceNormal = Vector3(1, 0, 0);
+          }
+          else if (areaY >= areaX && areaY >= areaZ) {
+              largestFaceNormal = Vector3(0, 1, 0);
+          }
+          else {
+              largestFaceNormal = Vector3(0, 0, 1);
+          }
+
+          bool result = std::abs(localNormal.dot(largestFaceNormal)) > 0.99f;
+          return result;
+      }
+
     };
 
     FirstPersonControllerComponent() : playerState(Free),
       anchorInfo(AnchorInfo()),
         input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
-        walkForce(10), maxWalkSpeed(10.0f),
+        walkForce(15), maxWalkSpeed(15.0f),
         runForceMultiplier(2.0f), maxRunSpeed(2 * maxWalkSpeed),
-        jumpSpeed(36), airDrag(0.1f), anchoredDrag(0.6f),
+        jumpSpeed(40), airDrag(0.1f), anchoredDrag(0.6f),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
         slideForce(50), slideCoolDown(2.0f), slideEffectTime(0.5f),

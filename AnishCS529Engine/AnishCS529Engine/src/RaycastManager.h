@@ -36,7 +36,7 @@ public:
 		this->sceneGraph = _sceneGraph;
 	}
 
-	bool Raycast(const Ray& ray, RaycastHit& hit, float maxDistance = FLT_MAX, const std::vector<GameObject::Tag> tagToIgnore = {});
+	bool Raycast(const Ray& ray, RaycastHit& hit, float maxDistance = FLT_MAX, const std::vector<GameObject::Tag> tagToCollide = {}, const std::vector<GameObject::Tag> tagToIgnore = {});
 
 private:
 	RaycastManager() = default;
@@ -47,6 +47,7 @@ private:
 					 const Ray& ray,
 					 RaycastHit& hit,
 					 float& closeHitDistance,
+					 const std::vector<GameObject::Tag> tagToCollide,
 					 const std::vector<GameObject::Tag> tagToIgnore);
 
 };
