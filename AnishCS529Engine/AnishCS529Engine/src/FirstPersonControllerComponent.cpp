@@ -1110,6 +1110,27 @@ std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface()
 	return anchorInfo.object;
 }
 
+void FirstPersonControllerComponent::respawnPlayer()
+{
+
+	//Reset Velocity
+	physicsBody->setVelocity(Vector3());
+
+	//Set Position
+	body->setLocalPosition(respawnCheckpoint);
+
+}
+
+void FirstPersonControllerComponent::setRespawnCheckpoint(Vector3 _checkpoint)
+{
+	respawnCheckpoint = _checkpoint;
+}
+
+Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
+{
+	return respawnCheckpoint;
+}
+
 void FirstPersonControllerComponent::debugCheck()
 {
 	if (input->isKeyPressed(ActionKey[Debug])) {

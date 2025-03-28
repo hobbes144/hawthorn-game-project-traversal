@@ -153,6 +153,11 @@ public:
     bool getIsGrounded();
     std::shared_ptr<GameObject> getAnchoredSurface();
 
+    //Respawn
+    void respawnPlayer();
+    void setRespawnCheckpoint(Vector3 _checkpoint);
+    Vector3 getRespawnCheckpoint();
+
 private:
     //Utility Functions
     void SwitchState(PlayerState originalState, PlayerState newState);
@@ -186,6 +191,9 @@ private:
     PlayerState playerState;
     AnchorInfo anchorInfo;
     std::shared_ptr<GameObject> anchorSurface;
+
+    //Respawn
+    Vector3 respawnCheckpoint = Vector3();
 
     //Sytem Compenet Members
     Input* input;
