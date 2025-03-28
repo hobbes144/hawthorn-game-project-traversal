@@ -90,6 +90,11 @@ private:
               std::shared_ptr<Camera> camera,
               std::shared_ptr<Mesh> floorMesh,
               std::shared_ptr<Material> floorMaterial);
+    void one(float offsetX, float offsetY, float offsetZ,
+          SceneGraph& sceneGraph,
+          std::shared_ptr<Camera> camera,
+          std::shared_ptr<Mesh> floorMesh,
+          std::shared_ptr<Material> floorMaterial);
 };
 
 #endif // MAPLOADER_H

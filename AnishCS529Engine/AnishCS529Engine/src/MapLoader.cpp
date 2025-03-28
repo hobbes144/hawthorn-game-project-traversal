@@ -16,7 +16,7 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
         zero(offsetX, offsetY, offsetZ, sceneGraph, camera, floorMesh, floorMaterial);
         break;
     case 1:
-        loadWallrun(offsetX, offsetY, offsetZ, sceneGraph, camera, floorMesh, floorMaterial);
+        one(offsetX, offsetY, offsetZ, sceneGraph, camera, floorMesh, floorMaterial);
         break;
     case 2:
         loadJump(offsetX, offsetY, offsetZ, sceneGraph, camera, floorMesh, floorMaterial);
@@ -27,11 +27,15 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
     case 4:
         four(offsetX, offsetY, offsetZ, sceneGraph, camera, floorMesh, floorMaterial);
         break;
+    case 5:
+        loadWallrun(offsetX, offsetY, offsetZ, sceneGraph, camera, floorMesh, floorMaterial);
+        break;
     default:
         std::cerr << "[MapLoader] Map ID " << mapId << " is not recognized.\n";
         break;
     }
 }
+
 
 //std::shared_ptr<GameObject> CreateBlock(
 //    const std::string& name,
@@ -61,190 +65,214 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
 
 
 
-void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera, std::shared_ptr<Mesh> floorMesh, std::shared_ptr<Material> floorMaterial)
+void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera, std::shared_ptr<Mesh> floorMesh, std::shared_ptr<Material> floorMaterial){
 {
-
-    // Floor pad
-    {
-        auto mainFloor = std::make_shared<GameObject>("mainFloor");
-        sceneGraph.addNode(mainFloor);
-        mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
-        mainFloor->setLocalScaling(Vector3(300.0f, 1.0f, 300.0f));
-        auto renderComp = mainFloor->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = mainFloor->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-    // ------------
-    //   Wall run
-    // ------------
-    // 
-    // Checkpoint pad
-    {
-        auto checkPoint1 = std::make_shared<GameObject>("checkPoint1");
-        sceneGraph.addNode(checkPoint1);
-        checkPoint1->setLocalPosition(Vector3(-130.5f + offsetX, 6.0f + offsetY, -130.0f + offsetZ));
-        checkPoint1->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
-        auto renderComp = checkPoint1->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = checkPoint1->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    // Wall for wall running
-    {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
-        sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 20.0f + offsetY, -110.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 30.0f, 30.0f));
-        auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = wallRunWall->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    // Checkpoint2 
-    {
-        auto checkPoint2 = std::make_shared<GameObject>("checkPoint2");
-        sceneGraph.addNode(checkPoint2);
-        checkPoint2->setLocalPosition(Vector3(-130.5f + offsetX, 10.0f + offsetY, -95.0f + offsetZ));
-        checkPoint2->setLocalScaling(Vector3(8.0f, 1.0f, 12.0f));
-        auto renderComp = checkPoint2->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = checkPoint2->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    // Walls
-    {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
-        sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
-        auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = wallRunWall->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
-        sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
-        auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = wallRunWall->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
-        sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-110.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
-        auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = wallRunWall->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
-        sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -50.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(30.0f, 50.0f, 1.0f));
-        auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = wallRunWall->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    // Checkpoint3
-    {
-        auto checkPoint3 = std::make_shared<GameObject>("checkPoint3");
-        sceneGraph.addNode(checkPoint3);
-        checkPoint3->setLocalPosition(Vector3(-130.5f + offsetX, 17.0f + offsetY, -95.0f + offsetZ));
-        checkPoint3->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
-        auto renderComp = checkPoint3->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = checkPoint3->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
-        sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-100.0f + offsetX, 22.0f + offsetY, -100.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(50.0f, 10.0f, 1.0f));
-        auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = wallRunWall->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
+    auto mainFloor = std::make_shared<GameObject>("mainFloor");
+    sceneGraph.addNode(mainFloor);
+    mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+    mainFloor->setLocalScaling(Vector3(300.0f, 1.0f, 300.0f));
+    auto renderComp = mainFloor->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = mainFloor->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
 
 }
 
+void MapLoader::one(float offsetX, float offsetY, float offsetZ,
+                            SceneGraph& sceneGraph,
+                            std::shared_ptr<Camera> camera,
+                            std::shared_ptr<Mesh> floorMesh,
+                            std::shared_ptr<Material> floorMaterial) {
+
+
+// Floor pad
+{
+    auto mainFloor = std::make_shared<GameObject>("mainFloor");
+    sceneGraph.addNode(mainFloor);
+    mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+    mainFloor->setLocalScaling(Vector3(300.0f, 1.0f, 300.0f));
+    auto renderComp = mainFloor->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = mainFloor->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+// ------------
+//   Wall run
+// ------------
+// 
+// Checkpoint pad
+{
+    auto checkPoint1 = std::make_shared<GameObject>("checkPoint1");
+    sceneGraph.addNode(checkPoint1);
+    checkPoint1->setLocalPosition(Vector3(-130.5f + offsetX, 6.0f + offsetY, -130.0f + offsetZ));
+    checkPoint1->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+    auto renderComp = checkPoint1->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = checkPoint1->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Wall for wall running
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 20.0f + offsetY, -110.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(1.0f, 30.0f, 30.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Checkpoint2 
+{
+    auto checkPoint2 = std::make_shared<GameObject>("checkPoint2");
+    sceneGraph.addNode(checkPoint2);
+    checkPoint2->setLocalPosition(Vector3(-130.5f + offsetX, 10.0f + offsetY, -95.0f + offsetZ));
+    checkPoint2->setLocalScaling(Vector3(8.0f, 1.0f, 12.0f));
+    auto renderComp = checkPoint2->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = checkPoint2->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Walls
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(-110.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -50.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(30.0f, 50.0f, 1.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Checkpoint3
+{
+    auto checkPoint3 = std::make_shared<GameObject>("checkPoint3");
+    sceneGraph.addNode(checkPoint3);
+    checkPoint3->setLocalPosition(Vector3(-130.5f + offsetX, 17.0f + offsetY, -95.0f + offsetZ));
+    checkPoint3->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+    auto renderComp = checkPoint3->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = checkPoint3->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(-100.0f + offsetX, 22.0f + offsetY, -100.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(50.0f, 10.0f, 1.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+
+}
 // Wallrun map 
 void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
                             SceneGraph& sceneGraph,
