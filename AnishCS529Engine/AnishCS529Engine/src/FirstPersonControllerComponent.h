@@ -194,7 +194,7 @@ private:
     std::shared_ptr<GameObject> anchorSurface;
 
     //Respawn
-    Vector3 respawnCheckpoint = Vector3();
+    Vector3 respawnCheckpoint = Vector3(0.0f, 2.0f, 0.0f);
 
     //Sytem Compenet Members
     Input* input;

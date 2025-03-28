@@ -1143,7 +1143,9 @@ void FirstPersonControllerComponent::respawnPlayer()
 {
 
 	//Set the player state to Free
-	setState(Free);
+	if (playerState != Free) {
+		setState(Free);
+	}
 
 	//Reset Velocity
 	physicsBody->setVelocity(Vector3());
