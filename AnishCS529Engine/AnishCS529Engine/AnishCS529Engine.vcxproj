@@ -41,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="src\Animate.cpp" />
     <ClCompile Include="src\DebugPass.cpp" />
+    <ClCompile Include="src\Door.cpp" />
+    <ClCompile Include="src\Key.cpp" />
+    <ClCompile Include="src\KeyList.cpp" />
     <ClCompile Include="src\MapLoader.cpp" />
     <ClCompile Include="src\EngineDemo.cpp" />
     <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
@@ -91,6 +94,7 @@
     <ClCompile Include="src\EventManager.cpp" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="src\Animate.h" />
+    <ClInclude Include="src\Door.h" />
     <ClInclude Include="src\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\FramerateController.inl">
       <FileType>Document</FileType>
@@ -146,6 +150,8 @@
     <ClInclude Include="src\GamePad.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\GlobalVariables.h" />
+    <ClInclude Include="src\Key.h" />
+    <ClInclude Include="src\KeyList.h" />
     <ClInclude Include="src\MainTestMaterial.h" />
     <ClInclude Include="src\MapLoader.h" />
     <ClInclude Include="src\Material.inl" />

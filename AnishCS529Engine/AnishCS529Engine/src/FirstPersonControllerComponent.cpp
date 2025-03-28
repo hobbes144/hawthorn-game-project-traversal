@@ -687,11 +687,11 @@ void FirstPersonControllerComponent::update(float deltaTime) {
 				lateralMotion = gp->leftStickX;
 				if (lateralMotion < 0) {
 					isMovingLeft = true;
-					isMovingBackward = false;
+					isMovingRight = false;
 				}
-				else if (forwardMotion < 0) {
+				else if (lateralMotion > 0) {
 					isMovingLeft = false;
-					isMovingBackward = true;
+					isMovingRight = true;
 				}
 			}
 			if (gp->rightStickX != 0) {
