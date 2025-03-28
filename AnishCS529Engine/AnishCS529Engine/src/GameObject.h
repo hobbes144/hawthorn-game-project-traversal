@@ -55,6 +55,8 @@ public:
 		PLAYER,
 		ENEMY,
 		WALL,
+		RUNNABLE_WALL,
+		CHECKPOINT,
 		SYSTEM
 	};
 

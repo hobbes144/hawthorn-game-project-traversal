@@ -16,9 +16,9 @@
  * @param tagToIgnore A Vector containing Tags of Gameobject that should be ignored for collisions
  * @return Boolean signifying if there was a successful intersection. The data of the intersection is stored in the RaycastHit object
  */
-bool RaycastManager::Raycast(const Ray& ray, RaycastHit& hit, float maxDistance, const std::vector<GameObject::Tag> tagToIgnore) {
+bool RaycastManager::Raycast(const Ray& ray, RaycastHit& hit, float maxDistance, const std::vector<GameObject::Tag> tagToCollide, const std::vector<GameObject::Tag> tagToIgnore) {
     if (!sceneGraph) { return false; }
-	return processNode(sceneGraph->getRootNode(), ray, hit, maxDistance, tagToIgnore);
+	return processNode(sceneGraph->getRootNode(), ray, hit, maxDistance, tagToCollide, tagToIgnore);
 
 }
 
@@ -35,6 +35,7 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
                                  const Ray& ray,
                                  RaycastHit& hit,
                                  float& closeHitDistance,
+                                 const std::vector<GameObject::Tag> tagToCollide,
                                  const std::vector<GameObject::Tag> tagToIgnore
 ) {
     if (!node) {
@@ -65,7 +66,13 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
     //std::string name = gameObject->getName();
     if (gameObject) {
         auto pbComp = gameObject->findComponent<PhysicsBody>();
-        if (std::find(tagToIgnore.begin(), tagToIgnore.end(), gameObject->getTag()) == tagToIgnore.end() && pbComp) {
+
+        bool isIgnored = (std::find(tagToIgnore.begin(), tagToIgnore.end(), gameObject->getTag()) != tagToIgnore.end());
+
+        bool isValidForCollision = tagToCollide.empty() ||
+            (std::find(tagToCollide.begin(), tagToCollide.end(), gameObject->getTag()) != tagToCollide.end());
+
+        if (!isIgnored && isValidForCollision && pbComp) {
             if (pbComp->getShape()->raycastIntersect(localRay, tempHit, localClosestHitDistance)) {
 
                 tempHit.distance /= scaleFactor;
@@ -89,7 +96,7 @@ bool RaycastManager::processNode(const std::shared_ptr<Node>& node,
 
     // Recursively check children
     for (const auto& child : node->getChildren()) {
-        if (processNode(child, ray, hit, closeHitDistance, tagToIgnore)) {
+        if (processNode(child, ray, hit, closeHitDistance, tagToCollide, tagToIgnore)) {
             hasHit = true;
         }
     }

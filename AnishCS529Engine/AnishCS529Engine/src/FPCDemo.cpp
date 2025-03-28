@@ -339,6 +339,7 @@ int main() {
         ->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
         ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
         ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
+        ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
         ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9);
 
     //On Move Callback 
@@ -434,6 +435,7 @@ int main() {
             }
             playerBoxInputComponent->setState(FirstPersonControllerComponent::Grounded);
         }
+
 
         //Light Manipulation
         if (mainInput->isKeyHeld(KEY_T)) {

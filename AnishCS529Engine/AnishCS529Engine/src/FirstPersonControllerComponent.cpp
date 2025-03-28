@@ -309,6 +309,7 @@ void FirstPersonControllerComponent::initialize()
 //
 //}
 
+#pragma region State Switching Function
 
 void FirstPersonControllerComponent::SwitchState(PlayerState originalState, PlayerState newState)
 {
@@ -457,7 +458,13 @@ inline void FirstPersonControllerComponent::SlidingToFree() {
 	physicsBody->setDrag(airDrag);
 }
 
-void FirstPersonControllerComponent::GroundedJump() {
+#pragma endregion
+
+#pragma region Jumping
+
+void FirstPersonControllerComponent::GroundedJump()
+{
+
 	//-----Handle Jumping-----//
 #pragma region Jumping
 	//Apply Jump
@@ -480,8 +487,11 @@ void FirstPersonControllerComponent::GroundedJump() {
 void FirstPersonControllerComponent::SlidingJump() {
 	sinceLastJumpTime = 0.0f;
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
+
+	const float slideJumpMultiplier = 1.5f;
+
 	Vector3 currentVelocity = physicsBody->getVelocity();
-	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * 2.0f, currentVelocity.z / 2);
+	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * slideJumpMultiplier, currentVelocity.z / 2);
 	physicsBody->setVelocity(newVelocity);
 
 	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
@@ -491,8 +501,10 @@ void FirstPersonControllerComponent::WallrunningJump() {
 	sinceLastJumpTime = 0.0f;
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
 
+	const float wallJumpMultiplier = 2.0f;
+
 	Vector3 currentVelocity = physicsBody->getVelocity();
-	Vector3 wallJumpVelocity = anchorInfo.normal * wallJumpForce + Vector3(0.0f, wallJumpForce, 0.0f);
+	Vector3 wallJumpVelocity = anchorInfo.normal * wallJumpForce * wallJumpMultiplier + Vector3(0.0f, wallJumpForce * 2 * wallJumpMultiplier, 0.0f);
 	Vector3 combinedVelocity = (currentVelocity + wallJumpVelocity) / 2.0f;
 	physicsBody->setVelocity(combinedVelocity);
 
@@ -511,7 +523,12 @@ inline bool FirstPersonControllerComponent::CanJump() {
 	return (sinceLastJumpTime > jumpCooldown);
 }
 
-inline bool FirstPersonControllerComponent::SlideBuffered() {
+#pragma endregion
+
+#pragma region Sliding
+
+inline bool FirstPersonControllerComponent::SlideBuffered()
+{
 	return (sinceLastSlidePressedTime < slideBufferTime);
 }
 
@@ -523,7 +540,13 @@ bool FirstPersonControllerComponent::SlidingTimedOut() {
 	return (sinceLastSlideTime > slideEffectTime);
 }
 
-void FirstPersonControllerComponent::UpdateAnchorInfo() {
+#pragma endregion
+
+#pragma region Physics Anchoring
+
+void FirstPersonControllerComponent::UpdateAnchorInfo()
+{
+
 #pragma region Grounded
 	const Transform bodyWorldTransform = body->getWorldTransform();
 	const Vector3 currentPos = bodyWorldTransform.getPosition();
@@ -539,6 +562,12 @@ void FirstPersonControllerComponent::UpdateAnchorInfo() {
 		anchorInfo.object = hitGround.object;
 		anchorInfo.direction = 'd';
 		anchorInfo.normal = hitGround.normal;
+
+		//If the ground is a checkpoint
+		if (hitGround.object->getTag() == GameObject::CHECKPOINT) {
+			setRespawnCheckpoint(hitGround.object->getLocalPosition() + Vector3(0.0f, 2.0f, 0.0f));
+		}
+
 		return;
 	}
 #pragma endregion
@@ -552,8 +581,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo() {
 	if (anchorInfo.direction == 'r' || anchorInfo.direction == '0' || anchorInfo.direction == 'd') {
 		const Ray rightRay = Ray(currentPos, rightVector);
 		const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
-		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
-			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
+		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist, {GameObject::RUNNABLE_WALL}) ||
+			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL });
 		if (isRightWall) {
 			anchorInfo.direction = 'r';
 			anchorInfo.object = rightWallHit.object;
@@ -563,8 +592,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo() {
 		else {
 			const Ray leftRay = Ray(currentPos, -rightVector);
 			const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
-			const bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
-				RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
+			const bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
+				RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist, { GameObject::RUNNABLE_WALL });
 			if (isLeftWall) {
 				anchorInfo.direction = 'l';
 				anchorInfo.object = leftWallHit.object;
@@ -582,8 +611,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo() {
 	else if (anchorInfo.direction == 'l') {
 		const Ray leftRay = Ray(currentPos, -rightVector);
 		const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
-		const bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist) ||
-			RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist);
+		const bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
+			RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist, { GameObject::RUNNABLE_WALL });
 		if (isLeftWall) {
 			anchorInfo.object = leftWallHit.object;
 			anchorInfo.normal = leftWallHit.normal;
@@ -592,8 +621,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo() {
 		else {
 			const Ray rightRay = Ray(currentPos, rightVector);
 			const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
-			const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist) ||
-				RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist);
+			const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
+				RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL });
 			if (isRightWall) {
 				anchorInfo.direction = 'r';
 				anchorInfo.object = rightWallHit.object;
@@ -608,7 +637,6 @@ void FirstPersonControllerComponent::UpdateAnchorInfo() {
 	}
 #pragma endregion
 
-	debugCheck();
 }
 
 void FirstPersonControllerComponent::physicsToAir() {
@@ -651,7 +679,11 @@ void FirstPersonControllerComponent::physicsToAnchor() {
 	parent->setWorldTransform(currentWorld);
 }
 
-void FirstPersonControllerComponent::update(float deltaTime) {
+#pragma endregion
+
+void FirstPersonControllerComponent::update(float deltaTime)
+{
+
 	//-----Input-----//
 #pragma region Input
 	bool isMovingForward = input->isKeyHeld(ActionKey[MoveForward]);
@@ -663,6 +695,7 @@ void FirstPersonControllerComponent::update(float deltaTime) {
 	float lateralMotion = input->isKeyHeld(ActionKey[MoveRight]) - input->isKeyHeld(ActionKey[MoveLeft]);
 	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
+	bool isRespawning = input->isKeyPressed(ActionKey[Respawn]);
 	//Mouse
 	float mouseXDelta = 0.0f;
 	float mouseYDelta = 0.0f;
@@ -745,8 +778,7 @@ void FirstPersonControllerComponent::update(float deltaTime) {
 #pragma endregion
 
 	if (isJumping) sinceLastJumpPressedTime = 0.0f;
-	if (isSliding)
-		sinceLastSlidePressedTime = 0.0f;
+	if (isSliding) sinceLastSlidePressedTime = 0.0f;
 
 	//----Some Cached Variables----//
 	const Vector3 forwardVector = body->getForwardVector();
@@ -754,10 +786,15 @@ void FirstPersonControllerComponent::update(float deltaTime) {
 	const Vector3 rightVector = body->getRightVector();
 	const Transform bodyWorldTransform = body->getWorldTransform();
 	const Vector3 currentPos = bodyWorldTransform.getPosition();
-	const float rayDist = parent->getWorldTransform().getScaling().x * 3;
+	const float rayDist = parent->getWorldTransform().getScaling().x * 2.5f;
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
 
 	UpdateAnchorInfo();
+
+	//Check if the player is Respawning
+	if (isRespawning) {
+		respawnPlayer();
+	}
 
 	//------------------------------STATES------------------------------//
 	//-----State Switching-----//
@@ -783,10 +820,20 @@ void FirstPersonControllerComponent::update(float deltaTime) {
 			AudioManager::instance().playSound("slide", Vector3(body->getLocalPosition()));
 			SwitchState(Free, Sliding);
 		}
-		else if (anchorInfo.direction != '0' && isMovingForward)
+		else if (anchorInfo.direction != '0' && isMovingForward) { //If anchor is not the ground and moving forward
 			if ((isMovingLeft && anchorInfo.direction == 'l')
-				|| (isMovingRight && anchorInfo.direction == 'r')) //NICK TODO - Wallrunning Angles Wall Surface
-				SwitchState(Free, WallRunning);
+				|| (isMovingRight && anchorInfo.direction == 'r')) { // If anchor is a wall
+				if (anchorInfo.isLargestFace()) { //if wall face is the big side
+					const float maxAngle = 45.0f;
+					const float maxDotThreshold = std::cos(maxAngle * (3.14159265f / 180.0f));
+					float dotProduct = std::abs(forwardVector.dot(anchorInfo.normal));
+					if (dotProduct > -maxDotThreshold && dotProduct < maxDotThreshold) { // If angle is within limits (not too steep)
+						SwitchState(Free, WallRunning);
+					}
+				}
+
+			}
+		}
 	}
 
 	else if (playerState == Grounded) {
@@ -885,7 +932,7 @@ void FirstPersonControllerComponent::update(float deltaTime) {
 #pragma region FreeMovement
 	else if (playerState == Free) {
 		//---Applying Movement Force---//
-		const float movementForce = (isSprinting ? runForceMultiplier : 1.0f) * walkForce * 10.0f;
+		const float movementForce = (isSprinting ? runForceMultiplier : 1.0f) * walkForce * 50.0f;
 		const float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
 		//Forward
 		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
@@ -1061,7 +1108,38 @@ std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface()
 	return anchorInfo.object;
 }
 
-void FirstPersonControllerComponent::debugCheck() {
+#pragma region Respawn
+
+void FirstPersonControllerComponent::respawnPlayer()
+{
+
+	//Set the player state to Free
+	if (playerState != Free) {
+		setState(Free);
+	}
+
+	//Reset Velocity
+	physicsBody->setVelocity(Vector3());
+
+	//Set Position
+	body->setLocalPosition(respawnCheckpoint);
+
+}
+
+void FirstPersonControllerComponent::setRespawnCheckpoint(Vector3 _checkpoint)
+{
+	respawnCheckpoint = _checkpoint;
+}
+
+Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
+{
+	return respawnCheckpoint;
+}
+
+#pragma endregion
+
+void FirstPersonControllerComponent::debugCheck()
+{
 	if (input->isKeyPressed(ActionKey[Debug])) {
 		std::cout << "Here" << std::endl;
 	}
