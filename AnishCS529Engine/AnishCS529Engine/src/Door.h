@@ -1,4 +1,5 @@
 #include "CollisionListener.h"
+#include "KeyList.h"
 #include "RigidBody.h"
 
 class Door : public RigidBody {
@@ -13,6 +14,9 @@ public:
 	~Door() = default;
 
 	void initialize();
+
+	int getID();
+	DoorType getType();
 
 private:
 	int id;

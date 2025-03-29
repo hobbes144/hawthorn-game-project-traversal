@@ -14,9 +14,7 @@ public:
 
 	void initialize();
 
-	int getID() {
-		return id;
-	}
+	int getID();
 
 private:
 	int id;
