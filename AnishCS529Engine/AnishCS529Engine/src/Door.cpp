@@ -11,7 +11,7 @@ int Door::getID() {
 }
 
 Door::DoorType Door::getType() {
-
+	return type;
 }
 
 void onDoorCollide(std::shared_ptr<GameObject> obj1,
