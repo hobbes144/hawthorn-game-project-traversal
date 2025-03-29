@@ -3,25 +3,24 @@
 
 #pragma once
 
-#include <memory>
-#include <string>
+#include "CollisionListener.h"
+#include "KeyList.h"
+#include "RigidBody.h"
 
-class Key {
+class Key : public RigidBody {
 public:
-	Key(int _id) : id(_id) {}
-	~Key();
+	Key(int _id) : id(_id), RigidBody() {}
+	~Key() = default;
+
+	void initialize();
 
 	int getID() {
 		return id;
 	}
 
-	bool isMatch(int doorID) {
-		if (doorID == id) return true;
-		else return false;
-	}
-
 private:
 	int id;
+	CollisionListener* keyListener;
 };
 
 #endif
