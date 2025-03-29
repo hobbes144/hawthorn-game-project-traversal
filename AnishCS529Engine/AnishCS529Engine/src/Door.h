@@ -9,12 +9,13 @@ public:
 		DISAPPEAR
 	};
 
-	Door(int _id) : id(_id), RigidBody() {}
+	Door(int _id, DoorType _type) : id(_id), type(_type), RigidBody() {}
 	~Door() = default;
 
 	void initialize();
 
 private:
 	int id;
+	DoorType type;
 	CollisionListener* doorListener;
 };
