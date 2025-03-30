@@ -149,6 +149,8 @@ public:
     //Mapping the Actions to the Keys
     std::shared_ptr<FirstPersonControllerComponent>
         setActionKey(Action _action, Key _key);
+    std::shared_ptr<FirstPersonControllerComponent>
+        setGPActionKey(Action _action, WORD _key);
 
     //Accessors
     bool getIsGrounded();
@@ -206,6 +208,7 @@ private:
 
     //Action Key Mapping
     std::unordered_map<Action, Key> ActionKey;
+    std::unordered_map<Action, WORD> GamePadActionKey;
 
     //PlayerMovement Members
     float walkForce;

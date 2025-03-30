@@ -343,7 +343,12 @@ int main() {
         ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
         ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
         ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
-        ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9);
+        ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
+        ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
+        ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
+        ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
+        ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
+        ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X);
 
     //On Move Callback 
     Movement3DListener playerMovementListener(playerBox);

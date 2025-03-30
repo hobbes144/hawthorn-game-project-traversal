@@ -752,12 +752,14 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
 				camera->setLocalRotation(newCameraRotation);
 			}
-			if (gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB))
-				isSprinting = gp->isPressed(XINPUT_GAMEPAD_LEFT_THUMB);
-			if (gp->isPressed(XINPUT_GAMEPAD_B))
-				isJumping = gp->isPressed(XINPUT_GAMEPAD_B);
-			if (gp->isPressed(XINPUT_GAMEPAD_X))
-				isSliding = gp->isPressed(XINPUT_GAMEPAD_X);
+			if (gp->isPressed(GamePadActionKey[Sprint]))
+				isSprinting = gp->isPressed(GamePadActionKey[Sprint]);
+			if (gp->isPressed(GamePadActionKey[Jump]))
+				isJumping = gp->isPressed(GamePadActionKey[Jump]);
+			if (gp->isPressed(GamePadActionKey[Slide]))
+				isSliding = gp->isPressed(GamePadActionKey[Slide]);
+			if (gp->isPressed(GamePadActionKey[Respawn]))
+				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
 		}
 	}
 #pragma endregion
@@ -1109,6 +1111,12 @@ FirstPersonControllerComponent::setActionKey(Action _action, Key _key) {
 	return shared_from_this();
 }
 
+std::shared_ptr<FirstPersonControllerComponent>
+FirstPersonControllerComponent::setGPActionKey(Action _action, WORD _key) {
+	GamePadActionKey[_action] = _key;
+	return shared_from_this();
+}
+
 bool FirstPersonControllerComponent::getIsGrounded() {
 	return (anchorInfo.direction == 'd');
 }
@@ -1150,6 +1158,9 @@ Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
 void FirstPersonControllerComponent::debugCheck()
 {
 	if (input->isKeyPressed(ActionKey[Debug])) {
+		std::cout << "Here" << std::endl;
+	}
+	if (gp->isPressed(GamePadActionKey[Respawn])) {
 		std::cout << "Here" << std::endl;
 	}
 }

@@ -63,7 +63,7 @@ public:
 	
 	float getElasticity() const { return elasticity; }
 
-private:
+protected:
 	/** If it uses gravity */
 	bool useGravity;
 	float elasticity;
