@@ -291,6 +291,7 @@ int main() {
 
     //auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
     auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f);
+    //auto checkPoint = Vector3(-100.5f, 25.0f, -40.0f); //checkpoint 5
     std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
     MapLoader::instance().initializeResources(rg);
     MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera);
@@ -510,6 +511,7 @@ int main() {
 
         Vector3 playerPos = playerBox->getWorldTransform().getPosition();
         ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
+        ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
 
         ImGui::End();
 
