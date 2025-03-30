@@ -80,8 +80,6 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
 
 
 void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera){
-    
-
 
     // Room walls
     {

@@ -289,11 +289,11 @@ int main() {
 
 #pragma region Map
 
-    auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
-    //auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f);
+    //auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
+    auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f);
     std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
     MapLoader::instance().initializeResources(rg);
-    MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera);
+    MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera);
 
 #pragma endregion
 
