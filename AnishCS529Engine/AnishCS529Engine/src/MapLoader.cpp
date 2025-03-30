@@ -94,6 +94,9 @@ void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sc
         wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setProperty("texScale0",
+    VectorTemplated<float, 2>(std::array<float, 2>{100.0f, 100.0f}));
+
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)

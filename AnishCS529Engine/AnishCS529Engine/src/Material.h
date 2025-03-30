@@ -44,6 +44,15 @@ public:
     properties[name] = value;
   }
 
+  template<typename T>
+  void setTempProperty(const std::string& name, const T& value) {
+    tempProperties[name] = value;
+  }
+
+  void clearTempProperties() {
+    tempProperties.clear();
+  }
+
   virtual void draw(std::shared_ptr<Mesh> mesh) const;
 
   /* Material factory */
@@ -57,6 +66,7 @@ public:
 protected:
   std::shared_ptr<RenderGraph> renderGraph;
   PropertyMap properties;
+  PropertyMap tempProperties;
 };
 
 #include "Material.inl"

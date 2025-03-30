@@ -29,5 +29,11 @@ std::shared_ptr<RenderGraph> Material::getRenderGraph() const {
 //}
 
 void Material::draw(std::shared_ptr<Mesh> mesh) const {
-  renderGraph->draw(mesh, properties);
+  
+  PropertyMap temp = properties;
+  for (const auto& property : tempProperties) {
+    temp[property.first] = property.second;
+  }
+
+  renderGraph->draw(mesh, temp);
 }

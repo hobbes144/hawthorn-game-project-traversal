@@ -33,6 +33,7 @@
 class Render2D : 
   public Component, public std::enable_shared_from_this<Render2D> {
 public:
+  using PropertyMap = RenderPass::PropertyMap;
   Render2D() = default;
   ~Render2D() = default;
 
@@ -46,10 +47,16 @@ public:
   std::shared_ptr<Render2D> setMesh(std::shared_ptr<Mesh> _mesh);
   std::shared_ptr<Render2D> setMaterial(std::shared_ptr<Material> _material);
 
+  template<typename T>
+  void setProperty(const std::string& name, const T& value) {
+    properties[name] = value;
+  }
+
 private:
   std::shared_ptr<Camera> camera;
   std::shared_ptr<Mesh> mesh;
   std::shared_ptr<Material> material;
+  PropertyMap properties;
 };
 
 #endif // !RENDER_3D_H

@@ -105,7 +105,14 @@ void Render2D::update(float deltaTime)
   material->setProperty("ProjectionMatrix", camera->getProjectionMatrix());
   material->setProperty("ModelMatrix", parent->getTransformMatrix());
   material->setProperty("InvModelMatrix", parent->getTransform().getInverseLocalMatrix());
+
+  for (const auto& property : properties) {
+    material->setTempProperty(property.first, property.second);
+  }
+
   material->draw(mesh);
+
+  material->clearTempProperties();
 }
 
 /*!****************************************************************************
