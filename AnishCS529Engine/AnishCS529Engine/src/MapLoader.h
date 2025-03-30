@@ -31,6 +31,7 @@
 #include "OBB.h"
 #include "Animate.h"
 #include "TimeControlledRB.h"
+#include "RenderGraph.h" 
 
 #include "GlobalVariables.h"
 
@@ -52,11 +53,12 @@ public:
      * \param floorMesh     Shared pointer to the Mesh used by map objects.
      * \param floorMaterial Shared pointer to the Material used by map objects.
      */
+
+    void initializeResources(std::shared_ptr<RenderGraph> renderGraph);
+
     void loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
                  SceneGraph& sceneGraph,
-                 std::shared_ptr<Camera> camera,
-                 std::shared_ptr<Mesh> floorMesh,
-                 std::shared_ptr<Material> floorMaterial);
+                 std::shared_ptr<Camera> camera);
 
 private:
     MapLoader() = default;
@@ -64,37 +66,42 @@ private:
     MapLoader(const MapLoader&) = delete;
     MapLoader& operator=(const MapLoader&) = delete;
 
+    // Materials
+    std::shared_ptr<Mesh> boxMesh;
+    std::shared_ptr<Mesh> sphereMesh;
+
+    std::shared_ptr<Material> boxMaterial;
+    std::shared_ptr<Material> floorMaterial;
+    std::shared_ptr<Material> concreteMaterial;
+    std::shared_ptr<Material> grassMaterial;
+    std::shared_ptr<Material> cracksMaterial;
+    std::shared_ptr<Material> myhouseMaterial;
+    std::shared_ptr<Material> brickMaterial;
+    std::shared_ptr<Material> skyBoxMaterial;
+
     void loadWallrun(float offsetX, float offsetY, float offsetZ,
-                     SceneGraph& sceneGraph,
-                     std::shared_ptr<Camera> camera,
-                     std::shared_ptr<Mesh> floorMesh,
-                     std::shared_ptr<Material> floorMaterial);
+                         SceneGraph& sceneGraph,
+                         std::shared_ptr<Camera> camera);
 
     void loadJump(float offsetX, float offsetY, float offsetZ,
                   SceneGraph& sceneGraph,
-                  std::shared_ptr<Camera> camera,
-                  std::shared_ptr<Mesh> floorMesh,
-                  std::shared_ptr<Material> floorMaterial);
+                  std::shared_ptr<Camera> camera);
+
     void three(float offsetX, float offsetY, float offsetZ,
-              SceneGraph& sceneGraph,
-              std::shared_ptr<Camera> camera,
-              std::shared_ptr<Mesh> floorMesh,
-              std::shared_ptr<Material> floorMaterial);
+               SceneGraph& sceneGraph,
+               std::shared_ptr<Camera> camera);
+
     void four(float offsetX, float offsetY, float offsetZ,
-          SceneGraph& sceneGraph,
-          std::shared_ptr<Camera> camera,
-          std::shared_ptr<Mesh> floorMesh,
-          std::shared_ptr<Material> floorMaterial);
+              SceneGraph& sceneGraph,
+              std::shared_ptr<Camera> camera);
+
     void zero(float offsetX, float offsetY, float offsetZ,
               SceneGraph& sceneGraph,
-              std::shared_ptr<Camera> camera,
-              std::shared_ptr<Mesh> floorMesh,
-              std::shared_ptr<Material> floorMaterial);
+              std::shared_ptr<Camera> camera);
+
     void one(float offsetX, float offsetY, float offsetZ,
-          SceneGraph& sceneGraph,
-          std::shared_ptr<Camera> camera,
-          std::shared_ptr<Mesh> floorMesh,
-          std::shared_ptr<Material> floorMaterial);
+             SceneGraph& sceneGraph,
+             std::shared_ptr<Camera> camera);
 };
 
 #endif // MAPLOADER_H

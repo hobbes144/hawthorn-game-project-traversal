@@ -563,7 +563,18 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 
 		//If the ground is a checkpoint
 		if (hitGround.object->getTag() == GameObject::CHECKPOINT) {
-			setRespawnCheckpoint(hitGround.object->getLocalPosition() + Vector3(0.0f, 2.0f, 0.0f));
+			static std::shared_ptr<GameObject> currentCheckpoint = nullptr;
+			if (currentCheckpoint != hitGround.object) {
+				currentCheckpoint = hitGround.object;
+				Vector3 newCheckpoint = hitGround.object->getLocalPosition() + Vector3(0.0f, 2.0f, 0.0f);
+				setRespawnCheckpoint(newCheckpoint);
+				std::cout << "Checkpoint reset to new checkpoint at ("
+					<< newCheckpoint.x << ", " << newCheckpoint.y << ", " << newCheckpoint.z << ")"
+					<< std::endl;
+			}
+			else {
+				//std::cout << "Checkpoint already set to this object." << std::endl;
+			}
 		}
 
 		return;
