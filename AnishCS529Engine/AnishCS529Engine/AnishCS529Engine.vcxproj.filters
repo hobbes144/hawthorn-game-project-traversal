@@ -363,9 +363,6 @@
     <ClCompile Include="src\DebugPass.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RigidBody.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Audio.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
@@ -406,6 +403,21 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="src\ReparentingTest.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RigidBody.cpp">
+      <Filter>Engine\Source Files\Systems\PhysicsSystem\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimeControlledRB.cpp">
+      <Filter>Engine\Source Files\Systems\PhysicsSystem\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quaternion.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimeControlTest.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animate.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GamePad.cpp">
@@ -635,9 +647,6 @@
     <ClInclude Include="src\Audio.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\RigidBody.h">
-      <Filter>Engine\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="precompiled.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
@@ -680,11 +689,23 @@
     <ClInclude Include="src\RaycastManager.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\RigidBody.h">
+      <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TimeControlledRB.h">
+      <Filter>Engine\Header Files\Systems\PhysicsSystem\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animate.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\GamePad.h">
       <Filter>Engine\Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\MapLoader.h">
       <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GlobalVariables.h">
+      <Filter>Tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

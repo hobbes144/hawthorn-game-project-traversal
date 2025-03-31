@@ -50,7 +50,7 @@ public:
 	void initialize();
 
 	/* Physics update function */
-	void integrate(float deltaTime);
+	virtual void integrate(float deltaTime);
 
 	/* Utility functions */
 	std::shared_ptr<RigidBody> usingGravity(bool value);
@@ -63,7 +63,7 @@ public:
 	
 	float getElasticity() const { return elasticity; }
 
-private:
+protected:
 	/** If it uses gravity */
 	bool useGravity;
 	float elasticity;
@@ -77,7 +77,6 @@ private:
 	bool freezeRotationX;
 	bool freezeRotationY;
 	bool freezeRotationZ;
-
 };
 
 void onRBCollide(std::shared_ptr<GameObject> obj1,

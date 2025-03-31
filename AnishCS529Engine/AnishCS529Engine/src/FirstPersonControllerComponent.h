@@ -22,6 +22,7 @@
 #include "GamePad.h"
 #include "Input.h"
 #include "PhysicsBody.h"
+#include "Audio.h"
 
 /*!****************************************************************************
  * \brief This is the First Person Contorller responsible for player movement,
@@ -50,7 +51,8 @@ public:
     enum PlayerState {
         Free,
         WallRunning,
-        Sliding
+        Sliding,
+        Grounded
     };
 
     enum Action {
@@ -61,18 +63,63 @@ public:
         Sprint,
         Jump,
         Slide,
+        Respawn,
         Debug
     };
 
-    FirstPersonControllerComponent() : playerState(Free), isGrounded(false),
-        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
-        walkForce(10), maxWalkSpeed(10.0f),
-        runForce(2 * walkForce), maxRunSpeed(2 * maxWalkSpeed),
-        jumpSpeed(55),
+    struct AnchorInfo {
+      char direction = '0';
+      std::shared_ptr<GameObject> object = nullptr;
+      Vector3 normal = Vector3();
+
+      void Reset() {
+        this->direction = '0';
+        this->object = nullptr;
+        this->normal = Vector3();
+      }
+
+      bool isLargestFace() const {
+
+          if (!object) return false;
+
+          Vector3 localNormal = object->getLocalTransform().getLocalMatrix().transformDirection(normal);
+
+          // Get the scale of the GameObject
+          Vector3 scale = object->getLocalScaling();
+
+          float areaX = scale.y * scale.z;
+          float areaY = scale.x * scale.z;
+          float areaZ = scale.x * scale.y;
+
+          Vector3 largestFaceNormal;
+          if (areaX >= areaY && areaX >= areaZ) {
+              largestFaceNormal = Vector3(1, 0, 0);
+          }
+          else if (areaY >= areaX && areaY >= areaZ) {
+              largestFaceNormal = Vector3(0, 1, 0);
+          }
+          else {
+              largestFaceNormal = Vector3(0, 0, 1);
+          }
+
+          bool result = std::abs(localNormal.dot(largestFaceNormal)) > 0.99f;
+          return result;
+      }
+
+    };
+
+    FirstPersonControllerComponent() : playerState(Free),
+      anchorInfo(AnchorInfo()),
+        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
+        walkForce(15), maxWalkSpeed(15.0f),
+        runForceMultiplier(2.0f), maxRunSpeed(2 * maxWalkSpeed),
+        jumpSpeed(40), airDrag(0.1f), anchoredDrag(0.6f),
         mouseXSensitivity(0.1f), mouseYSensitivity(0.1f), pitchLimit(80),
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
-        slideForce(100), slideCoolDown(1.0f),
-        wallRunSpeed(30), wallJumpForce(40), wallrunCooldown(0.2f)
+        slideForce(50), slideCoolDown(2.0f), slideEffectTime(0.5f),
+        slideBufferTime(0.2f), hasSlidSinceAnchored(false),
+        wallRunSpeed(30), wallJumpForce(15),
+        sceneRoot(nullptr)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -90,20 +137,66 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
         setCamera(Camera* _camera);
     std::shared_ptr<FirstPersonControllerComponent>
+      setCameraRotation(Vector3 rotation);
+    std::shared_ptr<FirstPersonControllerComponent>
+      setSceneRoot(std::shared_ptr<Node> root);
+    std::shared_ptr<FirstPersonControllerComponent>
         setGamePad(GamePad* _gp);
+
+    std::shared_ptr<FirstPersonControllerComponent>
+      setState(PlayerState state);
 
     //Mapping the Actions to the Keys
     std::shared_ptr<FirstPersonControllerComponent>
         setActionKey(Action _action, Key _key);
+    std::shared_ptr<FirstPersonControllerComponent>
+        setGPActionKey(Action _action, WORD _key);
 
     //Accessors
     bool getIsGrounded();
-    std::shared_ptr<GameObject> getRunningWall();
+    std::shared_ptr<GameObject> getAnchoredSurface();
+
+    //Respawn
+    void respawnPlayer();
+    void setRespawnCheckpoint(Vector3 _checkpoint);
+    Vector3 getRespawnCheckpoint();
 
 private:
+    //Utility Functions
+    void SwitchState(PlayerState originalState, PlayerState newState);
+    void FreeToGrounded();
+    void FreeToSliding();
+    void FreeToWallRunning();
+    void GroundedToFree();
+    void GroundedToSliding();
+    void WallRunningToFree();
+    void WallRunningToGrounded();
+    void SlidingToGrounded();
+    void SlidingToFree();
+
+    void GroundedJump();
+    void SlidingJump();
+    void WallrunningJump();
+
+    bool passedCoyoteTime();
+    bool JumpBuffered();
+    bool CanJump();
+    bool SlideBuffered();
+    bool CanSlide();
+    bool SlidingTimedOut();
+
+    void UpdateAnchorInfo();
+
+    void physicsToAir();
+    void physicsToAnchor();
+
     //PlayerState
     PlayerState playerState;
-    bool isGrounded;
+    AnchorInfo anchorInfo;
+    std::shared_ptr<GameObject> anchorSurface;
+
+    //Respawn
+    Vector3 respawnCheckpoint = Vector3(0.0f, 2.0f, 0.0f);
 
     //Sytem Compenet Members
     Input* input;
@@ -115,13 +208,16 @@ private:
 
     //Action Key Mapping
     std::unordered_map<Action, Key> ActionKey;
+    std::unordered_map<Action, WORD> GamePadActionKey;
 
     //PlayerMovement Members
     float walkForce;
     float maxWalkSpeed;
-    float runForce;
+    float runForceMultiplier;
     float maxRunSpeed;
     float jumpSpeed;
+    float anchoredDrag;
+    float airDrag;
 
     //Player Mouse Members
     float mouseXSensitivity;
@@ -132,26 +228,25 @@ private:
 
     //Jumping Members
     float coyoteTime;
-    float lastTimeGrounded = coyoteTime+1;
+    float unanchoredTime = 0.0f;
     float jumpBufferTime;
-    float lastTimeJumpPressed = jumpBufferTime + 1;
+    float sinceLastJumpPressedTime = 0.0f;
     float jumpCooldown;
-    float jumpCooldownTimer = jumpCooldown + 1;
+    float sinceLastJumpTime = 0.0f;
     //Sliding Members
     float slideForce;
     Vector3 slideVector = Vector3();
+    float slideBufferTime;
     float slideCoolDown;
-    float slideCoolDownTimer = slideCoolDown + 1;
+    float slideEffectTime;
+    float sinceLastSlidePressedTime = 0.0f;
+    float sinceLastSlideTime = 0.0f;
     //WallRunning Members
-    std::shared_ptr<GameObject> runningWall;
-    bool isLeftWall = false;
-    bool isRightWall = false;
     float wallRunSpeed;
     float wallJumpForce;
-    Vector3 wallNormal = Vector3();
-    bool isWallRunning = false;
-    float wallrunCooldown;
-    float wallrunCooldownTimer = wallrunCooldown + 1;
+    bool hasSlidSinceAnchored = false;
+
+    std::shared_ptr<Node> sceneRoot;
 
     //GamePad
     GamePad* gp;

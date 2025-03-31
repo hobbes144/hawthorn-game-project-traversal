@@ -47,9 +47,9 @@ Vector3 AABB::getFarthestExtent(const Vector3& direction)
   Vector3 worldHalfExtents = getHalfExtents();
 
   Vector3 farthestDiagonal = Vector3(
-    worldHalfExtents[0] * ((direction[0] > 0) * 2 - 1),
-    worldHalfExtents[1] * ((direction[1] > 0) * 2 - 1),
-    worldHalfExtents[2] * ((direction[2] > 0) * 2 - 1)
+    worldHalfExtents[0] * ((direction[0] > 0.0f) * 2.0f - 1.0f),
+    worldHalfExtents[1] * ((direction[1] > 0.0f) * 2.0f - 1.0f),
+    worldHalfExtents[2] * ((direction[2] > 0.0f) * 2.0f - 1.0f)
   );
 
   farthestPoint = direction * farthestDiagonal.dot(direction);
@@ -76,18 +76,18 @@ Vector3 AABB::getNormalAtVector(const Vector3& direction)
 {
   if (fabs(direction.x) > fabs(direction.y)) {
     if (fabs(direction.x) > fabs(direction.z)) {
-      return Vector3(1, 0, 0) * ((direction.x >= 0) * 2 - 1);
+      return Vector3(1, 0, 0) * ((direction.x >= 0.0f) * 2.0f - 1.0f);
     }
     else {
-      return Vector3(0, 0, 1) * ((direction.z >= 0) * 2 - 1);
+      return Vector3(0, 0, 1) * ((direction.z >= 0.0f) * 2.0f - 1.0f);
     }
   }
   else {
     if (fabs(direction.y) > fabs(direction.z)) {
-      return Vector3(0, 1, 0) * ((direction.y >= 0) * 2 - 1);
+      return Vector3(0, 1, 0) * ((direction.y >= 0.0f) * 2.0f - 1.0f);
     }
     else {
-      return Vector3(0, 0, 1) * ((direction.z >= 0) * 2 - 1);
+      return Vector3(0, 0, 1) * ((direction.z >= 0.0f) * 2.0f - 1.0f);
     }
   }
 }
