@@ -693,6 +693,8 @@ void FirstPersonControllerComponent::physicsToAnchor() {
 void FirstPersonControllerComponent::update(float deltaTime)
 {
 
+	debugCheck();
+
 	//-----Input-----//
 #pragma region Input
 	bool isMovingForward = input->isKeyHeld(ActionKey[MoveForward]);
@@ -1199,7 +1201,5 @@ void FirstPersonControllerComponent::debugCheck()
 	if (input->isKeyPressed(ActionKey[Debug])) {
 		std::cout << "Here" << std::endl;
 	}
-	if (gp->isPressed(GamePadActionKey[Respawn])) {
-		std::cout << "Here" << std::endl;
-	}
+
 }

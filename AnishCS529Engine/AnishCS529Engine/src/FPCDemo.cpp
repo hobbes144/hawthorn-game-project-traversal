@@ -443,15 +443,6 @@ int main() {
             AudioManager::instance().stopSound("radio");
         }
 
-        if (mainInput->isKeyPressed(KEY_R)) {
-            playerBox->setLocalPosition(checkPoint);
-
-            if (auto body = playerBox->findComponent<RigidBody>()) {
-                body->setVelocity(Vector3(0.0f, 0.0f, 0.0f));
-            }
-            playerBoxInputComponent->setState(FirstPersonControllerComponent::Grounded);
-        }
-
 
         //Light Manipulation
         if (mainInput->isKeyHeld(KEY_T)) {
