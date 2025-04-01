@@ -1112,6 +1112,190 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     rigidBody->initialize();
 }
 
+// Moving platform going up
+{
+    std::vector<std::shared_ptr<GameObject>> movingBlocks;
+    float spawnInterval = 5.0f;
+    int maxBlocks = 4;
+    Vector3 startPos(130.0f, 65.0f, 123.0f);
+    Vector3 velocity(0.0f, 1.0f, -5.0f);
+
+    auto spawnTimer = std::make_shared<float>(0.0f);
+    auto spawnedCount = std::make_shared<int>(0);
+
+    auto spawner = std::make_shared<GameObject>("BlockSpawner");
+    sceneGraph.addNode(spawner);
+
+    spawner->addComponent<Animate>()->setAnimateFunction(
+        [=](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+            *spawnTimer += deltaTime;
+
+            if (*spawnedCount < maxBlocks && *spawnTimer >= spawnInterval) {
+                *spawnTimer = 0.0f;
+
+                auto block = std::make_shared<GameObject>("MovingBlock_" + std::to_string(*spawnedCount));
+                sceneGraph.addNode(block);
+                block->setLocalPosition(startPos);
+                block->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+                block->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
+
+                block->addComponent<Render2D>()->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+
+                block->addComponent<RigidBody>()
+                    ->setMass(0.0f)
+                    ->setDrag(1.0f)
+                    ->setShape(std::make_shared<OBB>())
+                    ->setStatic(true)
+                    ->registerToPhysicsManager(PhysicsManager::Instance())
+                    ->initialize();
+
+                // Animate block movement and reset after 20 seconds
+                block->addComponent<Animate>()->setAnimateFunction(
+                    [velocity, startPos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
+                        time += dt;
+                        if (time >= 20.0f) { // changed from 12.0f to 20.0f
+                            self->setLocalPosition(startPos);
+                            time = 0.0f;
+                        }
+                        else {
+                            self->setLocalPosition(self->getLocalPosition() + velocity * dt);
+                        }
+                    }
+                )->runAnimateFunction(true);
+
+                movingBlocks.push_back(block);
+                (*spawnedCount)++;
+            }
+        }
+    )->runAnimateFunction(true);
+}
+
+// Moving platform going down
+{
+    std::vector<std::shared_ptr<GameObject>> movingBlocks;
+    float spawnInterval = 5.0f;
+    int maxBlocks = 4;
+    Vector3 startPos(143.0f, 85.0f, 23.0f);
+    Vector3 velocity(0.0f, -1.0f, 5.0f);
+
+    auto spawnTimer = std::make_shared<float>(0.0f);
+    auto spawnedCount = std::make_shared<int>(0);
+
+    auto spawner = std::make_shared<GameObject>("BlockSpawner");
+    sceneGraph.addNode(spawner);
+
+    spawner->addComponent<Animate>()->setAnimateFunction(
+        [=](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+            *spawnTimer += deltaTime;
+
+            if (*spawnedCount < maxBlocks && *spawnTimer >= spawnInterval) {
+                *spawnTimer = 0.0f;
+
+                auto block = std::make_shared<GameObject>("MovingBlock_" + std::to_string(*spawnedCount));
+                sceneGraph.addNode(block);
+                block->setLocalPosition(startPos);
+                block->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+                block->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
+
+                block->addComponent<Render2D>()->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+
+                block->addComponent<RigidBody>()
+                    ->setMass(0.0f)
+                    ->setDrag(1.0f)
+                    ->setShape(std::make_shared<OBB>())
+                    ->setStatic(true)
+                    ->registerToPhysicsManager(PhysicsManager::Instance())
+                    ->initialize();
+
+                // Animate block movement and reset after 20 seconds
+                block->addComponent<Animate>()->setAnimateFunction(
+                    [velocity, startPos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
+                        time += dt;
+                        if (time >= 20.0f) {
+                            self->setLocalPosition(startPos);
+                            time = 0.0f;
+                        }
+                        else {
+                            self->setLocalPosition(self->getLocalPosition() + velocity * dt);
+                        }
+                    }
+                )->runAnimateFunction(true);
+
+                movingBlocks.push_back(block);
+                (*spawnedCount)++;
+            }
+        }
+    )->runAnimateFunction(true);
+}
+
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(153.0f + offsetX, 90.0f + offsetY, 15.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 30.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(125.0f + offsetX, 68.0f + offsetY, -40.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 50.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+{
+    auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+    sceneGraph.addNode(wallRunWall);
+    wallRunWall->setLocalPosition(Vector3(100.0f + offsetX, 68.0f + offsetY, -65.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(30.0f, 10.0f, 1.0f));
+    auto renderComp = wallRunWall->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = wallRunWall->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Checkpoint7
+{
+    auto checkPoint7 = std::make_shared<GameObject>("checkPoint7", GameObject::CHECKPOINT);
+    sceneGraph.addNode(checkPoint7);
+    checkPoint7->setLocalPosition(Vector3(78.0f + offsetX, 63.0f + offsetY, -72.0f + offsetZ));
+    checkPoint7->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+    auto renderComp = checkPoint7->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = checkPoint7->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
 
 }
 // Wallrun map 
@@ -1650,3 +1834,4 @@ void MapLoader::four(float offsetX, float offsetY, float offsetZ,
         rigidBody->initialize();
     }
 }
+
