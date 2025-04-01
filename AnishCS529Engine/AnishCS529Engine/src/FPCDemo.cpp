@@ -347,6 +347,8 @@ int main() {
         ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
         ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
         ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
+        ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
+        ->setActionKey(FirstPersonControllerComponent::Regular, KEY_N)
         ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)

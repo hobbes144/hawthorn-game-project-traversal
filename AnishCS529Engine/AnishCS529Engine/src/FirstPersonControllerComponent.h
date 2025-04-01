@@ -64,7 +64,9 @@ public:
         Jump,
         Slide,
         Respawn,
-        Debug
+        Debug,
+        Creative,
+        Regular
     };
 
     struct AnchorInfo {
@@ -119,7 +121,7 @@ public:
         slideForce(50), slideCoolDown(2.0f), slideEffectTime(0.5f),
         slideBufferTime(0.2f), hasSlidSinceAnchored(false),
         wallRunSpeed(30), wallJumpForce(15),
-        sceneRoot(nullptr)
+        sceneRoot(nullptr), isCreative(false)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -245,6 +247,7 @@ private:
     float wallRunSpeed;
     float wallJumpForce;
     bool hasSlidSinceAnchored = false;
+    bool isCreative = false;
 
     std::shared_ptr<Node> sceneRoot;
 

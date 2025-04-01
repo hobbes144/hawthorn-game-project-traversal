@@ -590,7 +590,7 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	if (anchorInfo.direction == 'r' || anchorInfo.direction == '0' || anchorInfo.direction == 'd') {
 		const Ray rightRay = Ray(currentPos, rightVector);
 		const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
-		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist, {GameObject::RUNNABLE_WALL}) ||
+		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
 			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL });
 		if (isRightWall) {
 			anchorInfo.direction = 'r';
@@ -705,11 +705,14 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
 	bool isRespawning = input->isKeyPressed(ActionKey[Respawn]);
+	bool creative = input->isKeyPressed(ActionKey[Creative]);
+	bool regular = input->isKeyPressed(ActionKey[Regular]);
+	float upMotion = input->isKeyHeld(ActionKey[Jump]) - input->isKeyHeld(ActionKey[Slide]);
 	//Mouse
 	float mouseXDelta = 0.0f;
 	float mouseYDelta = 0.0f;
 #pragma endregion
-
+	
 	//GamePad Input
 #pragma region GamePad
 	if (gp != nullptr) {
@@ -760,9 +763,23 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				isSliding = gp->isPressed(GamePadActionKey[Slide]);
 			if (gp->isPressed(GamePadActionKey[Respawn]))
 				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
+			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide])) 
+				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
 		}
 	}
 #pragma endregion
+	//Creative mode
+	if (isCreative) {
+		isSliding = false;
+		isJumping = false;
+		isCreative = !regular;
+		if (!isCreative) body->findComponent<RigidBody>()->usingGravity(true);
+	}
+	else {
+		upMotion = 0;
+		isCreative = creative;
+		if (isCreative) body->findComponent<RigidBody>()->usingGravity(false);
+	}
 
 	//-----Handling Camera Movement-----//
 #pragma region Camera
@@ -915,7 +932,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 	//-----First Person Ground Movement-----//
 #pragma region GroundMovement
-	if (playerState == Grounded) {
+	if (playerState == Grounded || isCreative) {
 
 		const float movementForce = (isSprinting ? runForceMultiplier : 1.0f) * walkForce * 100.0f;
 		const float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
@@ -923,8 +940,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
 		//Lateral
 		const Vector3 lateralMotionVector = rightVector * lateralMotion;
+		const Vector3 verticalMotionVector = upVector * upMotion;
 		//Combine Forward and Lateral Movement and Apply Force
-		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector + verticalMotionVector;
+		std::cout << combinedMotionVector << std::endl;
 		if (combinedMotionVector.magnitude() > 0.0f) {
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
