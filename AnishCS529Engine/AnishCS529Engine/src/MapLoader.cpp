@@ -1011,43 +1011,87 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
         ->registerToPhysicsManager(PhysicsManager::Instance());
     rigidBody->initialize();
 }
+//{
+//    std::random_device rd;
+//    std::mt19937 gen(rd());
+//    std::uniform_real_distribution<float> zDist(-30.0f, 30.0f);
+//    //std::uniform_real_distribution<float> tiltDist(-10.0f, 10.0f);
+//
+//    for (float x = -100.0f; x <= 130.0f; x += 30.0f) {
+//        auto JumpPad = std::make_shared<GameObject>("JumpPad");
+//        sceneGraph.addNode(JumpPad);
+//
+//        float randomZOffset = zDist(gen);
+//        //float tiltX = tiltDist(gen);
+//        //float tiltZ = tiltDist(gen);
+//        JumpPad->setLocalPosition(Vector3(x + offsetX, 65 + offsetY, 130.0f + randomZOffset + offsetZ));
+//        //JumpPad->setLocalRotation(Vector3(tiltX, 0.0f, tiltZ));
+//        JumpPad->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+//
+//        auto renderComp = JumpPad->addComponent<Render2D>();
+//        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+//
+//        auto shape = std::make_shared<OBB>();
+//        auto rigidBody = JumpPad->addComponent<RigidBody>();
+//        rigidBody->setMass(0.0f)
+//            ->setDrag(1.0f)
+//            ->setShape(shape)
+//            ->setStatic(true)
+//            ->registerToPhysicsManager(PhysicsManager::Instance());
+//        rigidBody->initialize();
+//    }
+//}
+// 
+
+// ----------------
+// Moving Platforms
+// ----------------
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> zDist(-30.0f, 30.0f);
-    //std::uniform_real_distribution<float> tiltDist(-10.0f, 10.0f);
+    auto createJumpPad = [&](const std::string& name, const Vector3& pos, const Vector3& scale, float rotationSpeed) {
+        auto pad = std::make_shared<GameObject>(name);
+        sceneGraph.addNode(pad);
+        pad->setLocalPosition(pos);
+        pad->setLocalScaling(scale);
+        pad->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
 
-    for (float x = -100.0f; x <= 130.0f; x += 30.0f) {
-        auto JumpPad = std::make_shared<GameObject>("JumpPad");
-        sceneGraph.addNode(JumpPad);
+        pad->addComponent<Render2D>()->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
 
-        float randomZOffset = zDist(gen);
-        //float tiltX = tiltDist(gen);
-        //float tiltZ = tiltDist(gen);
-        JumpPad->setLocalPosition(Vector3(x + offsetX, 65 + offsetY, 130.0f + randomZOffset + offsetZ));
-        //JumpPad->setLocalRotation(Vector3(tiltX, 0.0f, tiltZ));
-        JumpPad->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
-
-        auto renderComp = JumpPad->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
-
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = JumpPad->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
+        pad->addComponent<RigidBody>()
+            ->setMass(0.0f)
             ->setDrag(1.0f)
-            ->setShape(shape)
+            ->setShape(std::make_shared<OBB>())
             ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
+            ->registerToPhysicsManager(PhysicsManager::Instance())
+            ->initialize();
+
+        pad->addComponent<Animate>()->setAnimateFunction(
+            [rotationSpeed](std::shared_ptr<GameObject> self, float deltaTime) {
+                float radians = rotationSpeed * deltaTime * (3.14159265f / 180.0f);
+                self->setLocalRotation(Quaternion::fromEuler(0.0f, radians, 0.0f) * self->getLocalRotation());
+            }
+        )->runAnimateFunction(true);
+        };
+
+    float startX = -110.0f;
+    float endX = 120.0f;
+    float step = 60.0f;
+
+    Vector3 scaleTop(30.0f, 3.0f, 20.0f);
+    Vector3 scaleBottom(20.0f, 3.0f, 30.0f); 
+
+    int count = 0;
+    for (float x = startX; x <= endX; x += step) {
+
+        Vector3 posTop(x + offsetX, 66.0f + offsetY, 135.0f + offsetZ);
+        createJumpPad("JumpPad" + std::to_string(count), posTop, scaleTop, +45.0f);
+
+
+        Vector3 posBottom((x + 30.0f) + offsetX, 69.0f + offsetY, 110.0f + offsetZ);
+        createJumpPad("JumpPad" + std::to_string(count), posBottom, scaleBottom, -45.0f);
+
+        count++;
     }
 }
- 
-
-
-
-
-
-
 
 
 // Checkpoint6
@@ -1067,6 +1111,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
         ->registerToPhysicsManager(PhysicsManager::Instance());
     rigidBody->initialize();
 }
+
 
 }
 // Wallrun map 
