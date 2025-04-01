@@ -66,7 +66,8 @@ public:
         Respawn,
         Debug,
         Creative,
-        Regular
+        Regular,
+        Freeze
     };
 
     struct AnchorInfo {
@@ -247,14 +248,15 @@ private:
     float wallRunSpeed;
     float wallJumpForce;
     bool hasSlidSinceAnchored = false;
-    bool isCreative = false;
 
     std::shared_ptr<Node> sceneRoot;
 
     //GamePad
     GamePad* gp;
 
-    //Time Ability Members
+    //Special States
+    bool isCreative = false;
+    bool isFrozen = false;
 
     //Debugging
     void debugCheck();

@@ -118,6 +118,8 @@ public:
   bool isMouseButtonDown(int button) const;
   void resetMouseDelta();
 
+  void controlMouse(bool capture);
+
 private:
   /** GameWindow object to read keys from */
   GameWindow* window;

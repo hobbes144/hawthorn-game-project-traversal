@@ -707,6 +707,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool isRespawning = input->isKeyPressed(ActionKey[Respawn]);
 	bool creative = input->isKeyPressed(ActionKey[Creative]);
 	bool regular = input->isKeyPressed(ActionKey[Regular]);
+	bool freezePressed = input->isKeyPressed(ActionKey[Freeze]);
 	float upMotion = input->isKeyHeld(ActionKey[Jump]) - input->isKeyHeld(ActionKey[Slide]);
 	//Mouse
 	float mouseXDelta = 0.0f;
@@ -783,6 +784,15 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		upMotion = 0;
 		isCreative = creative;
 		if (isCreative) body->findComponent<RigidBody>()->usingGravity(false);
+	}
+
+	//Frozen Mode
+	if (freezePressed) {
+		isFrozen = !isFrozen;
+		input->controlMouse(!isFrozen);
+	}
+	if (isFrozen) {
+		return;
 	}
 
 	//-----Handling Camera Movement-----//
