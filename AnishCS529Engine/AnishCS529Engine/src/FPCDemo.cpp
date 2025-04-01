@@ -353,7 +353,9 @@ int main() {
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
         ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
-        ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X);
+        ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
+        ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
+        ->setGPActionKey(FirstPersonControllerComponent::Regular, XINPUT_GAMEPAD_RIGHT_SHOULDER);
 
     //On Move Callback 
     Movement3DListener playerMovementListener(playerBox);

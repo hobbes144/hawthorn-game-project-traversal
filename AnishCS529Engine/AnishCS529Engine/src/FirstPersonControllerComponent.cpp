@@ -765,6 +765,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
 			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide])) 
 				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
+			if (gp->isPressed(GamePadActionKey[Creative]))
+				creative = gp->isPressed(GamePadActionKey[Creative]);
+			if (gp->isPressed(GamePadActionKey[Regular]))
+				regular = gp->isPressed(GamePadActionKey[Regular]);
 		}
 	}
 #pragma endregion
@@ -932,7 +936,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 	//-----First Person Ground Movement-----//
 #pragma region GroundMovement
-	if (playerState == Grounded || isCreative) {
+	if (playerState == Grounded) {
 
 		const float movementForce = (isSprinting ? runForceMultiplier : 1.0f) * walkForce * 100.0f;
 		const float maxMovementSpeed = isSprinting ? maxRunSpeed : maxWalkSpeed;
@@ -943,7 +947,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		const Vector3 verticalMotionVector = upVector * upMotion;
 		//Combine Forward and Lateral Movement and Apply Force
 		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector + verticalMotionVector;
-		std::cout << combinedMotionVector << std::endl;
 		if (combinedMotionVector.magnitude() > 0.0f) {
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
@@ -968,8 +971,9 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
 		//Lateral
 		const Vector3 lateralMotionVector = rightVector * lateralMotion;
+		const Vector3 verticalMotionVector = upVector * upMotion;
 		//Combine Forward and Lateral Movement and Apply Force
-		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector + verticalMotionVector;
 		if (combinedMotionVector.magnitude() > 0.0f) {
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
