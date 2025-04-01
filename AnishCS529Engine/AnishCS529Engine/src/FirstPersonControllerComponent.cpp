@@ -708,7 +708,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
 	bool isRespawning = input->isKeyPressed(ActionKey[Respawn]);
 	bool creative = input->isKeyPressed(ActionKey[Creative]);
-	bool regular = input->isKeyPressed(ActionKey[Regular]);
 	bool freezePressed = input->isKeyPressed(ActionKey[Freeze]);
 	float upMotion = input->isKeyHeld(ActionKey[Jump]) - input->isKeyHeld(ActionKey[Slide]);
 	//Mouse
@@ -770,8 +769,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
 			if (gp->isPressed(GamePadActionKey[Creative]))
 				creative = gp->isPressed(GamePadActionKey[Creative]);
-			if (gp->isPressed(GamePadActionKey[Regular]))
-				regular = gp->isPressed(GamePadActionKey[Regular]);
 		}
 	}
 #pragma endregion
@@ -779,7 +776,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	if (isCreative) {
 		isSliding = false;
 		isJumping = false;
-		isCreative = !regular;
+		isCreative = !creative;
 		if (!isCreative) body->findComponent<RigidBody>()->usingGravity(true);
 	}
 	else {

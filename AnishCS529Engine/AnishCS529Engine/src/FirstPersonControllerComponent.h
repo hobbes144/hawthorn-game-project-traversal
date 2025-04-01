@@ -66,7 +66,6 @@ public:
         Respawn,
         Debug,
         Creative,
-        Regular,
         Freeze
     };
 
