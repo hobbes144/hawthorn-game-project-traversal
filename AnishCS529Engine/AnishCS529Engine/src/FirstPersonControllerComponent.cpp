@@ -957,7 +957,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		const Vector3 verticalMotionVector = upVector * upMotion;
 		//Combine Forward and Lateral Movement and Apply Force
 		if (upMotion == 0 && isCreative && physicsBody->getVelocity().y != 0) {
-			physicsBody->applyForce(Vector3(0.0f, -200 * physicsBody->getVelocity().y, 0.0f));
+			physicsBody->applyForce(Vector3(0.0f, -100 * physicsBody->getVelocity().y, 0.0f));
 		}
 		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector + verticalMotionVector;
 		if (combinedMotionVector.magnitude() > 0.0f) {
@@ -986,7 +986,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		const Vector3 lateralMotionVector = rightVector * lateralMotion;
 		const Vector3 verticalMotionVector = upVector * upMotion;
 		if (upMotion == 0 && isCreative && physicsBody->getVelocity().y != 0) {
-			physicsBody->applyForce(Vector3(0.0f, -200 * physicsBody->getVelocity().y, 0.0f));
+			physicsBody->applyForce(Vector3(0.0f, -100 * physicsBody->getVelocity().y, 0.0f));
 		}
 		//Combine Forward and Lateral Movement and Apply Force
 		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector + verticalMotionVector;
