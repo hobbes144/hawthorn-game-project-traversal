@@ -290,8 +290,10 @@ int main() {
 #pragma region Map
 
     //auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
-    auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f);
-    //auto checkPoint = Vector3(-100.5f, 25.0f, -40.0f); //checkpoint 5
+    //auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f);
+    //auto checkPoint = Vector3(-110.5f, 25.0f, -40.0f); 
+    //auto checkPoint = Vector3(-115.5f, 45.0f, 54.0f); //checkpoint 5
+    auto checkPoint = Vector3(-140.0f, 67.0f, 130.0f);
     std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
     MapLoader::instance().initializeResources(rg);
     MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera);
