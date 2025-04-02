@@ -1196,7 +1196,9 @@ Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
 void FirstPersonControllerComponent::debugCheck()
 {
 	if (input->isKeyPressed(ActionKey[Debug])) {
+		
 		std::cout << "Here" << std::endl;
+	
 	}
 
 }
