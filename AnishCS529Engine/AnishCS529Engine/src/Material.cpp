@@ -28,12 +28,28 @@ std::shared_ptr<RenderGraph> Material::getRenderGraph() const {
 //  (*textureData)[name] = { texture, unit };
 //}
 
-void Material::draw(std::shared_ptr<Mesh> mesh) const {
-  
-  PropertyMap temp = properties;
-  for (const auto& property : tempProperties) {
-    temp[property.first] = property.second;
+void Material::apply(std::shared_ptr<Shader> shader) const {
+  for (const auto& [name, value] : properties) {
+    if (auto item = std::get_if<unsigned int>(&value)) {
+      shader->setUInt(name, *item);
+    }
+    else if (auto item = std::get_if<int>(&value)) {
+      shader->setInt(name, *item);
+    }
+    else if (auto item = std::get_if<float>(&value)) {
+      shader->setFloat(name, *item);
+    }
+    else if (auto item = std::get_if<VectorTemplated<float, 2>>(&value)) {
+      shader->setVec2(name, (*item)[0], (*item)[1]);
+    }
+    else if (auto item = std::get_if<Vector3>(&value)) {
+      shader->setVec3(name, *item);
+    }
+    else if (auto item = std::get_if<Matrix4>(&value)) {
+      shader->setMat4(name, *item);
+    }
+    else if (auto item = std::get_if<TextureManager::TextureID>(&value)) {
+      texturesToBind.emplace_back(name, *item);
+    }
   }
-
-  renderGraph->draw(mesh, temp);
 }

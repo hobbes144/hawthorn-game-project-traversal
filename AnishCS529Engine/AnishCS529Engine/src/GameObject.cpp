@@ -102,6 +102,10 @@ void GameObject::updateComponents(float deltaTime)
   }
 }
 
+void GameObject::draw() {
+  renderableComponent->draw();
+}
+
 /*!****************************************************************************
  * \brief Initialize an object
  *

@@ -19,6 +19,7 @@
 
 /* Used classes */
 #include "Component.h"
+#include "Render2D.h"
 
 /*!****************************************************************************
  * \brief GameObject class that implements a single object in the scene
@@ -60,7 +61,9 @@ public:
 		SYSTEM
 	};
 
-  GameObject(std::string name, Tag t = UNTAGGED) : Node(name), tag(t), enabled(true), markedForDeletion(false) {};
+  GameObject(std::string name, Tag t = UNTAGGED) : 
+    Node(name), tag(t), enabled(true), markedForDeletion(false),
+    renderableComponent(nullptr) {};
   ~GameObject() = default;
 
   Tag getTag() { return tag; }
@@ -70,6 +73,8 @@ public:
   virtual void update(float deltaTime);
   virtual void shutdown();
   virtual void updateComponents(float deltaTime);
+
+  virtual void draw();
 
   /* Utility functions */
   template<typename T>
@@ -91,6 +96,7 @@ public:
 protected:
   /** Vector of components attached to the GameObject */
   std::vector<std::shared_ptr<Component>> components;
+  std::shared_ptr<Render2D> renderableComponent;
 
   /** Is GameObject enabled */
   bool enabled;

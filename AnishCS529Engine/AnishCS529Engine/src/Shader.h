@@ -53,6 +53,8 @@ public:
   void setVec4(const std::string& name, float x, float y, float z, float w) const;
   void setMat4(const std::string& name, const Matrix4& value) const;
 
+  void bindTexture() const;
+
   unsigned int getId() { return programID; };
   
 private:

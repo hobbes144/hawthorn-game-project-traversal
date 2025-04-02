@@ -73,7 +73,7 @@ void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sc
         mainFloorLeft->setLocalPosition(Vector3(-4.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
         mainFloorLeft->setLocalScaling(Vector3(60.0f, 1.0f, 60.0f));
         auto renderComp = mainFloorLeft->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = mainFloorLeft->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -93,7 +93,7 @@ void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sc
         wallRunWall->setLocalPosition(Vector3(0.0f + offsetX, 2.5f + offsetY, -31.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         renderComp->setProperty("texScale0",
     VectorTemplated<float, 2>(std::array<float, 2>{100.0f, 100.0f}));
 
@@ -123,7 +123,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
     mainFloor->setLocalScaling(Vector3(300.0f, 1.0f, 300.0f));
     auto renderComp = mainFloor->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = mainFloor->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -144,7 +144,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     checkPoint1->setLocalPosition(Vector3(-130.5f + offsetX, 6.0f + offsetY, -130.0f + offsetZ));
     checkPoint1->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
     auto renderComp = checkPoint1->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = checkPoint1->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -162,7 +162,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 20.0f + offsetY, -110.0f + offsetZ));
     wallRunWall->setLocalScaling(Vector3(1.0f, 30.0f, 30.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = wallRunWall->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -180,7 +180,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     checkPoint2->setLocalPosition(Vector3(-130.5f + offsetX, 10.0f + offsetY, -95.0f + offsetZ));
     checkPoint2->setLocalScaling(Vector3(8.0f, 1.0f, 12.0f));
     auto renderComp = checkPoint2->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = checkPoint2->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -198,7 +198,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
     wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = wallRunWall->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -215,7 +215,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
     wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = wallRunWall->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -232,7 +232,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     wallRunWall->setLocalPosition(Vector3(-110.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
     wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = wallRunWall->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -249,7 +249,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -50.0f + offsetZ));
     wallRunWall->setLocalScaling(Vector3(30.0f, 50.0f, 1.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = wallRunWall->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -267,7 +267,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     checkPoint3->setLocalPosition(Vector3(-130.5f + offsetX, 17.0f + offsetY, -95.0f + offsetZ));
     checkPoint3->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto renderComp = checkPoint3->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = checkPoint3->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -284,7 +284,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
     wallRunWall->setLocalPosition(Vector3(-100.0f + offsetX, 22.0f + offsetY, -100.0f + offsetZ));
     wallRunWall->setLocalScaling(Vector3(50.0f, 10.0f, 1.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = wallRunWall->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -310,7 +310,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         mainFloorLeft->setLocalPosition(Vector3(-1.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
         mainFloorLeft->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
         auto renderComp = mainFloorLeft->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = mainFloorLeft->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -330,7 +330,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         RestPad->setLocalPosition(Vector3(40.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
         RestPad->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
         auto renderComp = RestPad->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = RestPad->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -348,7 +348,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(18.0f + offsetX, 2.5f + offsetY, 4.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(30.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -366,7 +366,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         wallRunWall2->setLocalPosition(Vector3(60.0f + offsetX, 2.5f + offsetY, -4.0f + offsetZ));
         wallRunWall2->setLocalScaling(Vector3(30.0f, 8.0f, 1.0f));
         auto renderComp = wallRunWall2->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall2->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -384,7 +384,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         wallRunWall3->setLocalPosition(Vector3(80.0f + offsetX, 5.0f + offsetY, 4.0f + offsetZ));
         wallRunWall3->setLocalScaling(Vector3(40.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall3->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall3->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -402,7 +402,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         wallRunWall4->setLocalPosition(Vector3(120.0f + offsetX, offsetY, -4.0f + offsetZ));
         wallRunWall4->setLocalScaling(Vector3(30.0f, 8.0f, 1.0f));
         auto renderComp = wallRunWall4->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall4->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -420,7 +420,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         RestPad2->setLocalPosition(Vector3(140.0f + offsetX, -3.0f + offsetY, 0.0f + offsetZ));
         RestPad2->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
         auto renderComp = RestPad2->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = RestPad2->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -438,7 +438,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         wallRunWall5->setLocalPosition(Vector3(190.0f + offsetX,-20.0f + offsetY, 10.0f + offsetZ));
         wallRunWall5->setLocalScaling(Vector3(80.0f, 20.0f, 1.0f));
         auto renderComp = wallRunWall5->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall5->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -456,7 +456,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         wallRunWall6->setLocalPosition(Vector3(280.0f + offsetX, -50 + offsetY, -15.0f + offsetZ));
         wallRunWall6->setLocalScaling(Vector3(50.0f, 8.0f, 1.0f));
         auto renderComp = wallRunWall6->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall6->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -474,7 +474,7 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
         RestPad3->setLocalPosition(Vector3(310.0f + offsetX, -55 + offsetY, -10.0f + offsetZ));
         RestPad3->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
         auto renderComp = RestPad3->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = RestPad3->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -499,7 +499,7 @@ void MapLoader::loadJump(float offsetX, float offsetY, float offsetZ,
     mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
     mainFloor->setLocalScaling(Vector3(10.0f, 1.0f, 10.0f));
     auto renderComp = mainFloor->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = mainFloor->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -522,7 +522,7 @@ for (int i = 0; i < 9; ++i) {
     platform->setLocalPosition(Vector3(adjustedX + offsetX, yVariation[i] + offsetY, xOffset[i] + offsetZ));
     platform->setLocalScaling(Vector3(platformSizes[i], 0.5f, platformSizes[i]));
     auto renderComp = platform->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     if (i == 0) {
       auto rigidBody = platform->addComponent<TimeControlledRB>();
@@ -581,7 +581,7 @@ for (int i = 0; i < 9; ++i) {
     upperFloor->setLocalPosition(Vector3(90.0f + offsetX, -20.2f + offsetY, 8.0f + offsetZ));
     upperFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto renderComp = upperFloor->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto shape = std::make_shared<OBB>();
     auto rigidBody = upperFloor->addComponent<RigidBody>();
     rigidBody->setMass(0.0f)
@@ -603,7 +603,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     boxRoomFloor->setLocalPosition(Vector3(offsetX, offsetY, offsetZ));
     boxRoomFloor->setLocalScaling(Vector3(20.0f, 1.0f, 20.0f));
     auto rc1 = boxRoomFloor->addComponent<Render2D>();
-    rc1->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc1->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s1 = std::make_shared<OBB>();
     auto rb1 = boxRoomFloor->addComponent<RigidBody>();
     rb1->setMass(0.0f)->setShape(s1)->setStatic(true)
@@ -615,7 +615,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     wallRight->setLocalPosition(Vector3(10.5f + offsetX, 7.0f + offsetY, offsetZ));
     wallRight->setLocalScaling(Vector3(1.0f, 15.0f, 20.0f));
     auto rc2 = wallRight->addComponent<Render2D>();
-    rc2->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc2->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s2 = std::make_shared<OBB>();
     auto rb2 = wallRight->addComponent<RigidBody>();
     rb2->setMass(0.0f)->setDrag(1.0f)->setShape(s2)->setStatic(true)
@@ -627,7 +627,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     wallBack->setLocalPosition(Vector3(offsetX, 7.0f + offsetY, -10.5f + offsetZ));
     wallBack->setLocalScaling(Vector3(20.0f, 15.0f, 1.0f));
     auto rc3 = wallBack->addComponent<Render2D>();
-    rc3->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc3->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s3 = std::make_shared<OBB>();
     auto rb3 = wallBack->addComponent<RigidBody>();
     rb3->setMass(0.0f)->setDrag(1.0f)->setShape(s3)->setStatic(true)
@@ -639,7 +639,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     wallFrontLeft->setLocalPosition(Vector3(-7.0f + offsetX, 7.0f + offsetY, 10.5f + offsetZ));
     wallFrontLeft->setLocalScaling(Vector3(7.5f, 15.0f, 1.0f));
     auto rc4 = wallFrontLeft->addComponent<Render2D>();
-    rc4->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc4->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s4 = std::make_shared<OBB>();
     auto rb4 = wallFrontLeft->addComponent<RigidBody>();
     rb4->setMass(0.0f)->setDrag(1.0f)->setShape(s4)->setStatic(true)
@@ -651,7 +651,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     wallFrontRight->setLocalPosition(Vector3(7.0f + offsetX, 7.0f + offsetY, 10.5f + offsetZ));
     wallFrontRight->setLocalScaling(Vector3(7.5f, 15.0f, 1.0f));
     auto rc5 = wallFrontRight->addComponent<Render2D>();
-    rc5->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc5->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s5 = std::make_shared<OBB>();
     auto rb5 = wallFrontRight->addComponent<RigidBody>();
     rb5->setMass(0.0f)->setDrag(1.0f)->setShape(s5)->setStatic(true)
@@ -663,7 +663,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     roomCeiling->setLocalPosition(Vector3(offsetX, 15.0f + offsetY, offsetZ));
     roomCeiling->setLocalScaling(Vector3(20.0f, 1.0f, 20.0f));
     auto rc6 = roomCeiling->addComponent<Render2D>();
-    rc6->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc6->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s6 = std::make_shared<OBB>();
     auto rb6 = roomCeiling->addComponent<RigidBody>();
     rb6->setMass(0.0f)->setDrag(1.0f)->setShape(s6)->setStatic(true)
@@ -676,7 +676,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     tunnelFloor1->setLocalPosition(Vector3(-65.0f + offsetX, -15.5f + offsetY, offsetZ));
     tunnelFloor1->setLocalScaling(Vector3(10.0f, 1.0f, 10.0f));
     auto rc7a = tunnelFloor1->addComponent<Render2D>();
-    rc7a->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc7a->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s7a = std::make_shared<OBB>();
     auto rb7a = tunnelFloor1->addComponent<RigidBody>();
     rb7a->setMass(0.0f)->setDrag(1.0f)->setShape(s7a)->setStatic(true)
@@ -689,7 +689,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     tunnelFloor2->setLocalPosition(Vector3(-15.0f + offsetX, -15.5f + offsetY, offsetZ));
     tunnelFloor2->setLocalScaling(Vector3(10.0f, 1.0f, 10.0f));
     auto rc7b = tunnelFloor2->addComponent<Render2D>();
-    rc7b->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc7b->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s7b = std::make_shared<OBB>();
     auto rb7b = tunnelFloor2->addComponent<RigidBody>();
     rb7b->setMass(0.0f)->setDrag(1.0f)->setShape(s7b)->setStatic(true)
@@ -703,7 +703,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     tunnelWallLeft->setLocalPosition(Vector3(-40.0f + offsetX, 0.0f + offsetY, -5.0f + offsetZ));
     tunnelWallLeft->setLocalScaling(Vector3(60.0f, 30.0f, 0.5f));
     auto rc8 = tunnelWallLeft->addComponent<Render2D>();
-    rc8->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc8->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s8 = std::make_shared<OBB>();
     auto rb8 = tunnelWallLeft->addComponent<RigidBody>();
     rb8->setMass(0.0f)->setDrag(1.0f)->setShape(s8)->setStatic(true)
@@ -715,7 +715,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     tunnelWallRight->setLocalPosition(Vector3(-40.0f + offsetX, 0.0f + offsetY, 5.0f + offsetZ));
     tunnelWallRight->setLocalScaling(Vector3(60.0f, 30.0f, 0.5f));
     auto rc9 = tunnelWallRight->addComponent<Render2D>();
-    rc9->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc9->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s9 = std::make_shared<OBB>();
     auto rb9 = tunnelWallRight->addComponent<RigidBody>();
     rb9->setMass(0.0f)->setDrag(1.0f)->setShape(s9)->setStatic(true)
@@ -727,7 +727,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     dropWall->setLocalPosition(Vector3(-10.0f + offsetX, -7.5f + offsetY, offsetZ));
     dropWall->setLocalScaling(Vector3(0.5f, 15.0f, 10.0f));
     auto rcDW = dropWall->addComponent<Render2D>();
-    rcDW->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rcDW->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto sDW = std::make_shared<OBB>();
     auto rbDW = dropWall->addComponent<RigidBody>();
     rbDW->setMass(0.0f)->setDrag(1.0f)->setShape(sDW)->setStatic(true)
@@ -739,7 +739,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     dropWall2->setLocalPosition(Vector3(-20.0f + offsetX, 5.0f + offsetY, offsetZ));
     dropWall2->setLocalScaling(Vector3(0.5f, 20.0f, 10.0f));
     auto rcDW2 = dropWall2->addComponent<Render2D>();
-    rcDW2->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rcDW2->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto sDW2 = std::make_shared<OBB>();
     auto rbDW2 = dropWall2->addComponent<RigidBody>();
     rbDW2->setMass(0.0f)->setDrag(1.0f)->setShape(sDW2)->setStatic(true)
@@ -751,7 +751,7 @@ void MapLoader::three(float offsetX, float offsetY, float offsetZ,
     landingPlatform->setLocalPosition(Vector3(offsetX, 5.0f + offsetY, 20.0f + offsetZ));
     landingPlatform->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto rc10 = landingPlatform->addComponent<Render2D>();
-    rc10->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+    rc10->setMesh(floorMesh)->setMaterial(floorMaterial);
     auto s10 = std::make_shared<OBB>();
     auto rb10 = landingPlatform->addComponent<RigidBody>();
     rb10->setMass(0.0f)->setDrag(1.0f)->setShape(s10)->setStatic(true)
@@ -771,7 +771,7 @@ void MapLoader::four(float offsetX, float offsetY, float offsetZ,
         mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
         mainFloor->setLocalScaling(Vector3(10.0f, 1.0f, 10.0f));
         auto renderComp = mainFloor->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = mainFloor->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -794,7 +794,7 @@ void MapLoader::four(float offsetX, float offsetY, float offsetZ,
         platform->setLocalPosition(Vector3(adjustedX + offsetX, yVariation[i] + offsetY, xOffset[i] + offsetZ));
         platform->setLocalScaling(Vector3(platformSizes[i], 0.5f, platformSizes[i]));
         auto renderComp = platform->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = platform->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -812,7 +812,7 @@ void MapLoader::four(float offsetX, float offsetY, float offsetZ,
         wall->setLocalPosition(Vector3(35.0f + offsetX, 4 + offsetY, offsetZ));
         wall->setLocalScaling(Vector3(1.0f, 10.0f, 10.0f));
         auto renderComp = wall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -830,7 +830,7 @@ void MapLoader::four(float offsetX, float offsetY, float offsetZ,
         upperFloor->setLocalPosition(Vector3(40.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
         upperFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
         auto renderComp = upperFloor->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+        renderComp->setMesh(floorMesh)->setMaterial(floorMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = upperFloor->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)

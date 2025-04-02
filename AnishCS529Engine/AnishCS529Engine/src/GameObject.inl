@@ -72,6 +72,9 @@ std::shared_ptr<T> GameObject::addComponent(std::shared_ptr<T> _component)
 {
   _component->setParent(shared_from_this());
   components.push_back(_component);
+
+  if ( std::dynamic_pointer_cast<Render2D>( _component ) )
+    renderableComponent = _component;
   return _component;
 }
 

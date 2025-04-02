@@ -10,6 +10,7 @@
  *****************************************************************************/
 #include "precompiled.h"
 #include "SceneGraph.h"
+#include "GameObject.h"
 
 
 void SceneGraph::addNode(std::shared_ptr<Node> node) {
@@ -58,13 +59,18 @@ void SceneGraph::updateNode(const std::shared_ptr<Node>& node, float deltaTime) 
 
 void SceneGraph::drawNode(const std::shared_ptr<Node>& node,
   const Matrix4& view, const Matrix4& projection) const {
-  auto renderableNode = std::dynamic_pointer_cast<RenderableNode>(node);
-  if (renderableNode != nullptr) {
-    renderableNode->draw(view, projection);
-  }
-
-  for (const auto& child : node->getChildren()) {
-    drawNode(child, view, projection);
+  std::stack<std::shared_ptr<Node>> nodeDrawStack;
+  nodeDrawStack.push(node);
+  std::shared_ptr<Node> currNode;
+  while ( nodeDrawStack.size() > 0 ) {
+    currNode = nodeDrawStack.top();
+    nodeDrawStack.pop();
+    auto gameObjectNode = std::dynamic_pointer_cast<GameObject>( currNode );
+    if ( gameObjectNode )
+      gameObjectNode->draw();
+    for ( auto child : currNode->getChildren() ) {
+      nodeDrawStack.push(child);
+    }
   }
 }
 

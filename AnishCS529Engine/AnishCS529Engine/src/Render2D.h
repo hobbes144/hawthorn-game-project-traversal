@@ -9,8 +9,8 @@
  * \brief  Render component for 2D objects
  * 
  *****************************************************************************/
-#ifndef RENDER_3D_H
-#define RENDER_3D_H
+#ifndef RENDER_2D_H
+#define RENDER_2D_H
 
 #pragma once
 
@@ -18,8 +18,6 @@
 #include "Component.h"
 
 /* Used classes */
-#include "Camera.h"
-#include "GameObject.h"
 #include "Material.h"
 #include "Mesh.h"
 #include "Renderer.h"
@@ -42,8 +40,9 @@ public:
   void update(float deltaTime);
   void shutdown();
 
+  void draw(std::shared_ptr<Shader> shader);
+
   /* Pre-initialization functions */
-  std::shared_ptr<Render2D> setCamera(std::shared_ptr<Camera> _camera);
   std::shared_ptr<Render2D> setMesh(std::shared_ptr<Mesh> _mesh);
   std::shared_ptr<Render2D> setMaterial(std::shared_ptr<Material> _material);
 
@@ -53,10 +52,11 @@ public:
   }
 
 private:
-  std::shared_ptr<Camera> camera;
   std::shared_ptr<Mesh> mesh;
   std::shared_ptr<Material> material;
   PropertyMap properties;
+
+  GLenum drawMode = GL_TRIANGLES;
 };
 
 #endif // !RENDER_3D_H

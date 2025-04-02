@@ -7,6 +7,36 @@ void Quaternion::setDirty() {
     //isRotationMatrix = false;
 }
 
+Vector3 Quaternion::forward() {
+  normalize();
+
+  return Vector3(
+    2.0f * ( data[1] * data[3] + data[0] * data[2] ),
+    2.0f * ( data[2] * data[3] - data[0] * data[1] ),
+    1.0f - 2.0f * ( data[1] * data[1] + data[2] * data[2] )
+  );
+}
+
+Vector3 Quaternion::right() {
+  normalize();
+
+  return Vector3(
+    1.0f - 2.0f * ( data[2] * data[2] + data[3] * data[3] ),
+    2.0f * ( data[1] * data[2] + data[0] * data[3] ),
+    2.0f * ( data[1] * data[3] - data[0] * data[2] )
+  );
+}
+
+Vector3 Quaternion::up() {
+  normalize();
+
+  return Vector3(
+    2.0f * ( data[1] * data[2] - data[0] * data[3] ),
+    1.0f - 2.0f * ( data[1] * data[1] + data[3] * data[3] ),
+    2.0f * ( data[2] * data[3] + data[0] * data[1] )
+  );
+}
+
 
 // Axis 0 = x, 1 = y, 2 = z
 
@@ -121,4 +151,13 @@ Quaternion Quaternion::axisAngleToQuaternion(const Vector3& axis, float angle) {
     float halfAngle = angle * 0.5f;
     float s = std::sin(halfAngle);
     return Quaternion(std::cos(halfAngle), axis.x * s, axis.y * s, axis.z * s);
+}
+
+std::ostream& operator<<(std::ostream& os, const Quaternion& q) {
+
+  os << "[ ";
+  os << q.w() << " " << q.x() << " " << q.y() << " " << q.z();
+  os << " ]";
+
+  return os;
 }

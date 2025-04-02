@@ -36,9 +36,6 @@ public:
   Material() = default;
   virtual ~Material() = default;
 
-  void setRenderGraph(std::shared_ptr<RenderGraph> newRenderGraph);
-  std::shared_ptr<RenderGraph> getRenderGraph() const;
-
   template<typename T>
   void setProperty(const std::string& name, const T& value) {
     properties[name] = value;
@@ -53,7 +50,7 @@ public:
     tempProperties.clear();
   }
 
-  virtual void draw(std::shared_ptr<Mesh> mesh) const;
+  virtual void apply(std::shared_ptr<Shader> shader) const;
 
   /* Material factory */
   static std::unordered_map<std::string, std::shared_ptr<Material>> basicMaterials;
