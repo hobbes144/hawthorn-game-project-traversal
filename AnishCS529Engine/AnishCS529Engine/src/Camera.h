@@ -28,6 +28,7 @@ public:
     up = rotation.up();
     right = rotation.right();
     viewMatrix = Matrix4::lookAt(position, position + forward, up);
+    inverseViewMatrix = Matrix4::inverse(viewMatrix);
   };
 
   ~Camera() = default;

@@ -41,6 +41,12 @@ std::shared_ptr<Node> SceneGraph::findNodeFast(unsigned int id) {
 
 void SceneGraph::update(float deltaTime) {
   updateNode(root, deltaTime);
+
+  for (const auto& light : lightStack)
+    light->update();
+
+  for (const auto& camera : cameraStack)
+    camera->update();
 }
 
 void SceneGraph::updateNode(const std::shared_ptr<Node>& node, float deltaTime) {
@@ -57,25 +63,26 @@ void SceneGraph::updateNode(const std::shared_ptr<Node>& node, float deltaTime) 
   
 }
 
-void SceneGraph::drawNode(const std::shared_ptr<Node>& node,
-  const Matrix4& view, const Matrix4& projection) const {
+void SceneGraph::drawNode(const std::shared_ptr<Node>& node, std::shared_ptr<Shader> shader) {
   std::stack<std::shared_ptr<Node>> nodeDrawStack;
   nodeDrawStack.push(node);
   std::shared_ptr<Node> currNode;
   while ( nodeDrawStack.size() > 0 ) {
     currNode = nodeDrawStack.top();
     nodeDrawStack.pop();
+    
     auto gameObjectNode = std::dynamic_pointer_cast<GameObject>( currNode );
     if ( gameObjectNode )
-      gameObjectNode->draw();
+      gameObjectNode->draw(shader);
+
     for ( auto child : currNode->getChildren() ) {
       nodeDrawStack.push(child);
     }
   }
 }
 
-void SceneGraph::draw(const Matrix4& view, const Matrix4& projection) const {
-  drawNode(root, view, projection);
+void SceneGraph::draw(std::shared_ptr<Shader> shader) {
+  drawNode(root, shader);
 }
 
 void SceneGraph::printSceneTree() {

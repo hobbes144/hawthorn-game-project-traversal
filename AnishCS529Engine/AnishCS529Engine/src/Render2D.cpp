@@ -100,21 +100,6 @@ void Render2D::draw(std::shared_ptr<Shader> shader) {
   material->apply(shader);
 
   mesh->draw(drawMode);
-
-  auto geometryBuffer = mesh->getGeometryBuffer();
-  if (!geometryBuffer) return;
-  geometryBuffer->bind();
-
-  if (mesh->hasAttribute(GeometryBuffer::AttributeType::Position)) {
-    if (mesh->getIndexCount() > 0) {
-      renderer->draw(GL_TRIANGLES, geometryBuffer->getIndexCount(), true);
-    }
-    else {
-      renderer->draw(GL_TRIANGLES, geometryBuffer->getVertexCount(), false);
-    }
-  }
-
-  geometryBuffer->unbind();
 }
 
 

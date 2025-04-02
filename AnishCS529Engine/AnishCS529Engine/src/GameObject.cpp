@@ -102,8 +102,9 @@ void GameObject::updateComponents(float deltaTime)
   }
 }
 
-void GameObject::draw() {
-  renderableComponent->draw();
+void GameObject::draw(std::shared_ptr<Shader> shader) {
+  if (renderableComponent)
+    renderableComponent->draw(shader);
 }
 
 /*!****************************************************************************

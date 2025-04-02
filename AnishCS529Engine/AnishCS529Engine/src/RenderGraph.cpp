@@ -1,17 +1,17 @@
 #include "precompiled.h"
 #include "RenderGraph.h"
 
-void RenderGraph::addLight(std::shared_ptr<Light> light)
+void RenderGraph::draw(std::shared_ptr<SceneGraph> scene)
 {
-  lightStack.push_back(light);
-}
+  for (const auto& camera : scene->getCameras()) {
 
-void RenderGraph::draw(
-  std::shared_ptr<Mesh> mesh,
-  RenderPass::PropertyMap properties,
-  GLenum mode)
-{
-  for (const auto& pass : renderStack) {
-    pass->draw(mesh, mode, properties, lightStack);
+    // Setup camera specific stuff here
+    // For now, we completely ignore this and just assume only one camera.
+    // Adding multiple cameras is too complex for me now.
+
+    for (const auto& pass : renderStack) {
+      pass->draw(camera, scene);
+    }
+
   }
 }

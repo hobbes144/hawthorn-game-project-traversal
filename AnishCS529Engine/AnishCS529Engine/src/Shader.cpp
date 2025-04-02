@@ -307,3 +307,14 @@ void Shader::setVec4(const std::string& name, float x, float y, float z, float w
 void Shader::setMat4(const std::string& name, const Matrix4& value) const {
   glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, value.getData());
 }
+
+void Shader::bindTexture(
+  unsigned int textureUnit, 
+  const std::string& name, 
+  TextureManager::TextureID textureID) const
+{
+  glActiveTexture(GL_TEXTURE0 + textureUnit);
+  glBindTexture(TEXTURE_2D, textureID.id);
+
+  setInt(name, textureUnit);
+}

@@ -24,6 +24,7 @@
 #include "Light.h"
 #include "VectorTemplated.h"
 #include "Mesh.h"
+#include "SceneGraph.h"
 
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
@@ -82,9 +83,9 @@ public:
 
   void setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit);
 
-  virtual void draw(std::shared_ptr<Mesh> mesh, GLenum mode,
-    const PropertyMap& materialProperties = {},
-    const LightStack& lightStack = {}) const;
+  virtual void draw(
+    std::shared_ptr<Camera> camera,
+    std::shared_ptr<SceneGraph> scene) const;
 
   /* Utility functions */
   void enable();
@@ -100,9 +101,7 @@ protected:
 
   std::optional<std::unordered_map<std::string, TextureManager::TextureID>> textureData;
 
-  void applyProperties(
-    const PropertyMap& passProperties,
-    const PropertyMap& materialProperties) const;
+  void applyProperties() const;
 
 };
 

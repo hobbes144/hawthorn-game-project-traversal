@@ -15,10 +15,8 @@
 #pragma once
 
 #include "Mesh.h"
+#include "SceneGraph.h"
 #include "RenderPass.h"
-#include "Light.h"
-
-#include "LightingPass.h"
 
 class RenderGraph {
 public:
@@ -29,16 +27,10 @@ public:
   template <typename T>
   std::shared_ptr<T> getPass(const std::string& name);
 
-  void addLight(std::shared_ptr<Light> light);
-
-  void draw(
-    std::shared_ptr<Mesh> mesh, 
-    RenderPass::PropertyMap properties, 
-    GLenum mode = GL_TRIANGLES);
+  void draw(std::shared_ptr<SceneGraph> scene);
 
 private:
   std::vector<std::shared_ptr<RenderPass>> renderStack;
-  std::vector<std::shared_ptr<Light>> lightStack;
   std::unordered_map<std::string, std::shared_ptr<RenderPass>> registeredPasses;
 };
 

@@ -33,6 +33,9 @@
 
 #include "Matrix4.h"
 #include "Vector3.h"
+#include "TextureManager.h"
+
+class Renderer;
 
 class Shader {
 public:
@@ -53,7 +56,10 @@ public:
   void setVec4(const std::string& name, float x, float y, float z, float w) const;
   void setMat4(const std::string& name, const Matrix4& value) const;
 
-  void bindTexture() const;
+  void bindTexture(
+    unsigned int textureUnit,
+    const std::string& name,
+    TextureManager::TextureID textureID) const;
 
   unsigned int getId() { return programID; };
   

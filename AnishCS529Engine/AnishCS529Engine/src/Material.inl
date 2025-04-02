@@ -22,7 +22,6 @@ std::shared_ptr<T> Material::getMaterial(
     return std::dynamic_pointer_cast<T>(basicMaterials[name]);
 
   auto material = std::make_shared<T>();
-  material->setRenderGraph(renderGraph);
   basicMaterials[name] = material;
   return material;
 }

@@ -15,7 +15,8 @@
 #pragma once
 
 #include "Node.h"
-#include "RenderableNode.h"
+#include "Camera.h"
+#include "Light.h"
 
 class SceneGraph {
 private:
@@ -49,8 +50,11 @@ private:
   std::shared_ptr<RootNode> root;
   std::stack<std::shared_ptr<Node>> nodeUpdateStack;
 
-  void drawNode(const std::shared_ptr<Node>& node, 
-    const Matrix4& view, const Matrix4& projection) const;
+  void drawNode(const std::shared_ptr<Node>& node, std::shared_ptr<Shader> shader);
+
+
+  std::vector<std::shared_ptr<Light>> lightStack;
+  std::vector<std::shared_ptr<Camera>> cameraStack;
 
 public:
   SceneGraph() : root(std::make_shared<RootNode>()) {}
@@ -65,7 +69,7 @@ public:
 
   void update(float deltaTime);
   void updateNode(const std::shared_ptr<Node>& node, float deltaTime);
-  void draw(const Matrix4& view, const Matrix4& projection) const;
+  void draw(std::shared_ptr<Shader> shader);
   void printSceneTree();
 
   Vector3 getRootPosition() const { return root->getLocalPosition(); }
@@ -75,6 +79,16 @@ public:
   void setRootPosition(const Vector3& position) { root->setLocalPosition(position); }
   void setRootRotation(const Vector3& rotation) { root->setLocalRotation(rotation); }
   void setRootScaling(const Vector3& scaling) { root->setLocalScaling(scaling); }
+
+  // Lights
+  void addLight(std::shared_ptr<Light> light) { lightStack.push_back(light); }
+  void clearLights() { lightStack.clear(); }
+  std::vector<std::shared_ptr<Light>> getLights() { return lightStack; }
+
+  // Cameras
+  void addCamera(std::shared_ptr<Camera> camera) { cameraStack.push_back(camera); }
+  void clearCameras() { cameraStack.clear(); }
+  std::vector<std::shared_ptr<Camera>> getCameras() { return cameraStack; }
 
 };
 

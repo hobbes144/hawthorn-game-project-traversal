@@ -74,7 +74,7 @@ public:
   virtual void shutdown();
   virtual void updateComponents(float deltaTime);
 
-  virtual void draw();
+  virtual void draw(std::shared_ptr<Shader> shader);
 
   /* Utility functions */
   template<typename T>
