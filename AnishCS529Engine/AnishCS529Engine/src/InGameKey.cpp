@@ -1,10 +1,10 @@
 #include "precompiled.h"
-#include "Key.h"
+#include "InGameKey.h"
 
 void onKeyCollide(std::shared_ptr<GameObject> obj1,
 	std::shared_ptr<GameObject> obj2, const Vector3& point) {
-	const std::shared_ptr<Key>& K1 = obj1->findComponent<Key>();
-	const std::shared_ptr<Key>& K2 = obj2->findComponent<Key>();
+	const std::shared_ptr<InGameKey>& K1 = obj1->findComponent<InGameKey>();
+	const std::shared_ptr<InGameKey>& K2 = obj2->findComponent<InGameKey>();
 	const std::shared_ptr<KeyList>& S1 = obj1->findComponent<KeyList>();
 	const std::shared_ptr<KeyList>& S2 = obj2->findComponent<KeyList>();
 
@@ -19,11 +19,15 @@ void onKeyCollide(std::shared_ptr<GameObject> obj1,
 	return;
 }
 
-void Key::initialize() {
+void InGameKey::initialize() {
 	keyListener = new CollisionListener(this->parent);
 	keyListener->setCallback(onKeyCollide);
 }
 
-int Key::getID() {
+int InGameKey::getID() {
 	return id;
+}
+
+void InGameKey::setID(int _id) {
+	id = _id;
 }

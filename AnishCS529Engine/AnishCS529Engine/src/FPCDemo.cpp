@@ -32,7 +32,9 @@
 #include "TestPass.h"
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
-
+#include "InGameKey.h"
+#include "KeyList.h"
+#include "Door.h"
 #include "GlobalVariables.h"
 
 extern "C"
@@ -293,7 +295,7 @@ int main() {
     auto checkPoint = Vector3(130.0f, 72.0f, 130.0f);
     std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
     MapLoader::instance().initializeResources(rg);
-    MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera);
+    MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera);
 
 #pragma endregion
 
@@ -302,6 +304,7 @@ int main() {
     //Transform Values
     playerBox->setLocalPosition(checkPoint)
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+    playerBox->addComponent<KeyList>();
 
 
     //Render Component

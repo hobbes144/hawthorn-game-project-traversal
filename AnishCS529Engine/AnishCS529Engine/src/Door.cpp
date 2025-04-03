@@ -37,6 +37,15 @@ int Door::getID() {
 	return id;
 }
 
+
+void Door::setID(int _id) {
+	id = _id;
+}
+
 Door::DoorType Door::getType() {
 	return type;
+}
+
+void Door::setType(Door::DoorType _type) {
+	type = _type;
 }

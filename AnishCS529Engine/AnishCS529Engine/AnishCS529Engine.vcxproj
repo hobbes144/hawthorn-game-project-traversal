@@ -42,7 +42,7 @@
     <ClCompile Include="src\Animate.cpp" />
     <ClCompile Include="src\DebugPass.cpp" />
     <ClCompile Include="src\Door.cpp" />
-    <ClCompile Include="src\Key.cpp" />
+    <ClCompile Include="src\InGameKey.cpp" />
     <ClCompile Include="src\KeyList.cpp" />
     <ClCompile Include="src\LevelManager.cpp" />
     <ClCompile Include="src\MapLoader.cpp" />
@@ -151,7 +151,7 @@
     <ClInclude Include="src\GamePad.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\GlobalVariables.h" />
-    <ClInclude Include="src\Key.h" />
+    <ClInclude Include="src\InGameKey.h" />
     <ClInclude Include="src\KeyList.h" />
     <ClInclude Include="src\LevelManager.h" />
     <ClInclude Include="src\MainTestMaterial.h" />

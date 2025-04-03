@@ -1,5 +1,5 @@
-#ifndef KEY_H
-#define KEY_H
+#ifndef INGAMEKEY_H
+#define INGAMEKEY_H
 
 #pragma once
 
@@ -7,14 +7,15 @@
 #include "KeyList.h"
 #include "RigidBody.h"
 
-class Key : public RigidBody {
+class InGameKey : public RigidBody {
 public:
-	Key(int _id) : id(_id), RigidBody() {}
-	~Key() = default;
+	InGameKey() : id(0), RigidBody() {}
+	~InGameKey() = default;
 
 	void initialize();
 
 	int getID();
+	void setID(int _id);
 
 private:
 	int id;

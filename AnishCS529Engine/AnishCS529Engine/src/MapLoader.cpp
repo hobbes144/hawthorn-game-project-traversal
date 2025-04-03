@@ -2,6 +2,9 @@
 #include "MapLoader.h"
 #include <random>
 #include "Matrix4.h"
+#include "InGameKey.h"
+#include "Door.h"
+#include "KeyList.h"
 
 MapLoader& MapLoader::instance() {
     static MapLoader instance;
@@ -82,7 +85,43 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
 
 
 void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera){
+    // Keys & Doors test
+    {
+        auto testKey = std::make_shared<GameObject>("TestKey", GameObject::WALL);
+        sceneGraph.addNode(testKey);
+        testKey->setLocalPosition(Vector3(10.0f + offsetX, 10.0f + offsetY, 20.0f + offsetZ));
+        testKey->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+        auto renderComp = testKey->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto keyComp = testKey->addComponent<InGameKey>();
+        keyComp->setID(0);
+        keyComp->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        keyComp->initialize();
+    }
 
+    {
+        auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
+        sceneGraph.addNode(testDoor);
+        testDoor->setLocalPosition(Vector3(-10.0f + offsetX, 10.0f + offsetY, 20.0f + offsetZ));
+        testDoor->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+        auto renderComp = testDoor->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto doorComp = testDoor->addComponent<Door>();
+        doorComp->setID(0);
+        doorComp->setType(Door::DoorType::DISAPPEAR);
+        doorComp->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        doorComp->initialize();
+    }
     // Room walls
     {
         auto LeftWall = std::make_shared<GameObject>("LeftWall", GameObject::WALL);
