@@ -84,8 +84,8 @@ void LevelManager::SystemInitalization()
     AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
     AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
-    AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
-    AudioManager::instance().playSound("music", Vector3(0, 0, 0));
+    
+    AudioManager::instance().playSound2D("music", 0.25f);
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
@@ -259,6 +259,8 @@ void LevelManager::ExecuteMainLoop()
             AudioManager::instance().stopSound("radio");
         }
 
+        AudioManager::instance().setListenerPosition(playerBox->getLocalPosition());
+
         mainSceneGraph.update(1.0f / 60.0f);
         mainFramerateController->endFrame();
 
@@ -392,7 +394,7 @@ void LevelManager::createPlayerObject()
     playerBox->setLocalPosition(startingPos1)
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
 
-
+    playerBox->addComponent<KeyList>();
     //Render Component
     auto box1RenderComponent = playerBox->addComponent<Render2D>();
     box1RenderComponent
