@@ -5,6 +5,7 @@
 
 #include "CollisionListener.h"
 #include "KeyList.h"
+#include "LevelManager.h"
 #include "RigidBody.h"
 
 class Door : public RigidBody {

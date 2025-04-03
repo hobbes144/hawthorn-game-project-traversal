@@ -15,6 +15,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "Input.h"
+#include "KeyList.h"
 #include "MainTestMaterial.h"
 #include "MapLoader.h"
 #include "Movement3D.h"
@@ -39,7 +40,12 @@
 class LevelManager {
 
 public:
-	LevelManager() = default;
+	static LevelManager& Instance() {
+		static LevelManager instance;
+		return instance;
+	}
+	LevelManager(const LevelManager&) = delete;
+	LevelManager& operator=(const LevelManager&) = delete;
 
 	void SystemInitalization();
 
@@ -61,6 +67,8 @@ public:
 	void initalizePlayerInLevel();
 
 private:
+	LevelManager() = default;
+
 	//Level Counter
 	int currentLevel = 0;
 	int numLevels = 3;

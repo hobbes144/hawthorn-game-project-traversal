@@ -144,7 +144,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         auto shape = std::make_shared<OBB>();
         auto doorComp = testDoor->addComponent<Door>();
         doorComp->setID(0);
-        doorComp->setType(Door::DoorType::DISAPPEAR);
+        doorComp->setType(Door::DoorType::NEXTLEVEL);
         doorComp->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)
