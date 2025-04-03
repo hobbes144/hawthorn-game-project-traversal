@@ -95,13 +95,18 @@ private:
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
-    void zero(float offsetX, float offsetY, float offsetZ,
+    void tutorial(float offsetX, float offsetY, float offsetZ,
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
-    void one(float offsetX, float offsetY, float offsetZ,
+    void intermediate(float offsetX, float offsetY, float offsetZ,
+         SceneGraph& sceneGraph,
+         std::shared_ptr<Camera> camera);
+
+    void advanced(float offsetX, float offsetY, float offsetZ,
              SceneGraph& sceneGraph,
              std::shared_ptr<Camera> camera);
+
 };
 
 #endif // MAPLOADER_H

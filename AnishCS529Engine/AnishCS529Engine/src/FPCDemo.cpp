@@ -288,11 +288,11 @@ int main() {
 
 #pragma region Map
 
-    //auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
+    auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
     //auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f);
     //auto checkPoint = Vector3(-110.5f, 25.0f, -40.0f); 
     //auto checkPoint = Vector3(-115.5f, 45.0f, 54.0f); //checkpoint 5
-    auto checkPoint = Vector3(130.0f, 72.0f, 130.0f);
+    //auto checkPoint = Vector3(130.0f, 72.0f, 130.0f); //checkpoint 6 or 7?
     std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
     MapLoader::instance().initializeResources(rg);
     MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera);
@@ -411,6 +411,8 @@ int main() {
         }
 
 
+
+
         //Light Manipulation
         if (mainInput->isKeyHeld(KEY_T)) {
             std::cout << "Spinning Light\n";
@@ -427,6 +429,27 @@ int main() {
                                lightDist * sin(lightSpin * rad) * sin(lightTilt * rad));
             testPass->setProperty("lightPos", lightPos);
         }
+        // Check for WASD key events
+        if (mainInput->isKeyPressed(KEY_W)) std::cout << "W pressed\n";
+        if (mainInput->isKeyReleased(KEY_W)) std::cout << "W released\n";
+
+        if (mainInput->isKeyPressed(KEY_A)) std::cout << "A pressed\n";
+        if (mainInput->isKeyReleased(KEY_A)) std::cout << "A released\n";
+
+        if (mainInput->isKeyPressed(KEY_S)) std::cout << "S pressed\n";
+        if (mainInput->isKeyReleased(KEY_S)) std::cout << "S released\n";
+
+        if (mainInput->isKeyPressed(KEY_D)) std::cout << "D pressed\n";
+        if (mainInput->isKeyReleased(KEY_D)) std::cout << "D released\n";
+
+        if (mainInput->isKeyPressed(KEY_LEFT_CONTROL)) std::cout << "LControl pressed\n";
+        if (mainInput->isKeyReleased(KEY_LEFT_CONTROL)) std::cout << "FControl released\n";
+
+        if (mainInput->isKeyPressed(KEY_LEFT_SHIFT)) std::cout << "LShift pressed\n";
+        if (mainInput->isKeyReleased(KEY_LEFT_SHIFT)) std::cout << "LShift released\n";
+
+        if (mainInput->isKeyPressed(KEY_SPACE)) std::cout << "Space pressed\n";
+        if (mainInput->isKeyReleased(KEY_SPACE)) std::cout << "Space released\n";
 
         mainSceneGraph.update(1.0f / 60.0f);
         mainFramerateController->endFrame();

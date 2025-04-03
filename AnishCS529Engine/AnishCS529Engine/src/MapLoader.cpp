@@ -32,13 +32,13 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
 
     switch (mapId) {
     case 0:
-        zero(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        tutorial(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
     case 1:
-        one(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        intermediate(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
     case 2:
-        loadJump(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        advanced(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
     case 3:
         three(offsetX, offsetY, offsetZ, sceneGraph, camera);
@@ -84,12 +84,12 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
 
 
 
-void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera){
+void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera){
     // Keys & Doors test
     {
         auto testKey = std::make_shared<GameObject>("TestKey", GameObject::WALL);
         sceneGraph.addNode(testKey);
-        testKey->setLocalPosition(Vector3(10.0f + offsetX, 10.0f + offsetY, 20.0f + offsetZ));
+        testKey->setLocalPosition(Vector3(-383.0f + offsetX, 2.0f + offsetY, -2.0f + offsetZ));
         testKey->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
         auto renderComp = testKey->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -103,12 +103,11 @@ void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sc
             ->registerToPhysicsManager(PhysicsManager::Instance());
         keyComp->initialize();
     }
-
     {
         auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(-10.0f + offsetX, 10.0f + offsetY, 20.0f + offsetZ));
-        testDoor->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+        testDoor->setLocalPosition(Vector3(-399.7f + offsetX, 2.5f + offsetY, 0.0f + offsetZ));
+        testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         auto renderComp = testDoor->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -657,7 +656,136 @@ void MapLoader::zero(float offsetX, float offsetY, float offsetZ, SceneGraph& sc
 
 }
 
-void MapLoader::one(float offsetX, float offsetY, float offsetZ,
+void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera) {
+    // Starting platform
+    {
+        auto mainFloor = std::make_shared<GameObject>("MainFloor", GameObject::CHECKPOINT);
+        sceneGraph.addNode(mainFloor);
+        mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        mainFloor->setLocalScaling(Vector3(10.0f, 1.0f, 10.0f));
+        auto renderComp = mainFloor->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = mainFloor->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    float platformSizes[] = { 4.0f, 3.5f, 3.0f, 3.2f, 3.6f, 3.1f, 3.4f, 3.7f, 4.2f };
+    float yVariation[] = { 0.3f, -5.2f, -3.5f, -1.4f, 0.f, 0.0f, 3.4f, 7.2f, 11.0f };
+    float xSpacing = 8.0f;
+    float xOffset[] = { 2.0f, 2.0f, -3.0f, 3.0f, -4.0f, 5.0f, -5.0f, 5.0f, 0.0f };
+
+    for (int i = 0; i < 9; ++i) {
+        auto platform = std::make_shared<GameObject>("Platform" + std::to_string(i + 1));
+        sceneGraph.addNode(platform);
+        float adjustedX = (i == 0) ? (xSpacing * 1.5f) : ((i + 1) * xSpacing + 5.0f);
+        platform->setLocalPosition(Vector3(adjustedX + offsetX, yVariation[i] + offsetY, xOffset[i] + offsetZ));
+        platform->setLocalScaling(Vector3(8.0f, 3.0f, 8.0f));
+        auto renderComp = platform->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        if (i == 7) {
+            auto rigidBody = platform->addComponent<RigidBody>();
+            rigidBody->setMass(0.0f)
+                ->setDrag(1.0f)
+                ->setShape(shape)
+                ->setStatic(true)
+                ->registerToPhysicsManager(PhysicsManager::Instance());
+            rigidBody->initialize();
+
+            auto platformAnimate = platform->addComponent<Animate>();
+            platformAnimate->setAnimateFunction(
+                  [currentTime = 0.0f, initialPos = platform->getLocalPosition().y, phase = 1.0f](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                            
+
+                            deltaTime *= timeScale;
+
+                            /* Affine Transformation Variables */
+                            float affineSpeed = 5.0f;
+                            float affinePosVarianceZ = 5.0f;
+
+                            currentTime += deltaTime;
+
+                            if ((phase == -1.0f) && (initialPos - affinePosVarianceZ) > self->getWorldPosition().y)
+                                phase = 1.0f;
+                            else if ((phase == 1.0f) && (initialPos + affinePosVarianceZ) < self->getWorldPosition().y)
+                                phase = -1.0f;
+
+                            Vector3 velocity = Vector3(0.0f, affineSpeed * phase, 0.0f);
+
+                            Vector3 newPos = self->getWorldPosition() + (velocity * deltaTime);
+                            self->setWorldPosition(newPos);
+                  }
+            );
+
+            platformAnimate->runAnimateFunction(true);
+        }
+        else if (i == 5 || i == 6) {
+            auto rigidBody = platform->addComponent<RigidBody>();
+            rigidBody->setMass(0.0f)
+                ->setDrag(1.0f)
+                ->setShape(shape)
+                ->setStatic(true)
+                ->registerToPhysicsManager(PhysicsManager::Instance());
+            rigidBody->initialize();
+            auto platformAnimate = platform->addComponent<Animate>();
+            float direction = (i == 5) ? 1.0f : -1.0f;
+            platformAnimate->setAnimateFunction(
+                [currentTime = 0.0f, initialPos = platform->getLocalPosition().x, phase = direction](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                        deltaTime *= timeScale;
+                        float affineSpeed = 5.0f;
+                        float affinePosVarianceX = 5.0f;
+
+                        currentTime += deltaTime;
+
+                        if ((phase == -1.0f) && (initialPos - affinePosVarianceX) > self->getWorldPosition().x)
+                            phase = 1.0f;
+                        else if ((phase == 1.0f) && (initialPos + affinePosVarianceX) < self->getWorldPosition().x)
+                            phase = -1.0f;
+
+                        Vector3 velocity = Vector3(affineSpeed * phase, 0.0f, 0.0f);
+                        Vector3 newPos = self->getWorldPosition() + (velocity * deltaTime);
+                        self->setWorldPosition(newPos);
+                }
+            );
+            platformAnimate->runAnimateFunction(true);
+        }
+        else {
+            auto rigidBody = platform->addComponent<RigidBody>();
+            rigidBody->setMass(0.0f)
+                ->setDrag(1.0f)
+                ->setShape(shape)
+                ->setStatic(true)
+                ->registerToPhysicsManager(PhysicsManager::Instance());
+            rigidBody->initialize();
+        }
+    }
+
+    // Exit platform
+    {
+        auto upperFloor = std::make_shared<GameObject>("UpperFloor");
+        sceneGraph.addNode(upperFloor);
+        upperFloor->setLocalPosition(Vector3(90.0f + offsetX, -20.2f + offsetY, 8.0f + offsetZ));
+        upperFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+        auto renderComp = upperFloor->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = upperFloor->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+}
+
+void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
                             SceneGraph& sceneGraph,
                             std::shared_ptr<Camera> camera) {
 
@@ -1035,7 +1163,7 @@ void MapLoader::one(float offsetX, float offsetY, float offsetZ,
 
 // Jump Pad2
 {
-    auto JumpPad2 = std::make_shared<GameObject>("JumpPad2", GameObject::CHECKPOINT);
+    auto JumpPad2 = std::make_shared<GameObject>("JumpPad2");
     sceneGraph.addNode(JumpPad2);
     JumpPad2->setLocalPosition(Vector3(-140.0f + offsetX, 65 + offsetY, 130.0f + offsetZ));
     JumpPad2->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
@@ -1524,110 +1652,6 @@ void MapLoader::loadWallrun(float offsetX, float offsetY, float offsetZ,
     }
 }
 
-// Jump map
-void MapLoader::loadJump(float offsetX, float offsetY, float offsetZ,
-                         SceneGraph& sceneGraph,
-                         std::shared_ptr<Camera> camera) {
-    // Starting platform
-{
-    auto mainFloor = std::make_shared<GameObject>("MainFloor");
-    sceneGraph.addNode(mainFloor);
-    mainFloor->setLocalPosition(Vector3(0.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
-    mainFloor->setLocalScaling(Vector3(10.0f, 1.0f, 10.0f));
-    auto renderComp = mainFloor->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
-    auto shape = std::make_shared<OBB>();
-    auto rigidBody = mainFloor->addComponent<RigidBody>();
-    rigidBody->setMass(0.0f)
-        ->setDrag(1.0f)
-        ->setShape(shape)
-        ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
-    rigidBody->initialize();
-}
-
-float platformSizes[] = { 4.0f, 3.5f, 3.0f, 3.2f, 3.6f, 3.1f, 3.4f, 3.7f, 4.2f };
-float yVariation[] = { 0.3f, -5.2f, -3.5f, -1.4f, 0.2f, 3.0f, 5.4f, 8.2f, 11.0f };
-float xSpacing = 6.0f;
-float xOffset[] = { 2.0f, 2.0f, -3.0f, 3.0f, -4.0f, 4.0f, -5.0f, 5.0f, 0.0f };
-
-for (int i = 0; i < 9; ++i) {
-    auto platform = std::make_shared<GameObject>("Platform" + std::to_string(i + 1));
-    sceneGraph.addNode(platform);
-    float adjustedX = (i == 0) ? (xSpacing * 1.5f) : ((i + 1) * xSpacing + 5.0f);
-    platform->setLocalPosition(Vector3(adjustedX + offsetX, yVariation[i] + offsetY, xOffset[i] + offsetZ));
-    platform->setLocalScaling(Vector3(platformSizes[i], 0.5f, platformSizes[i]));
-    auto renderComp = platform->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
-    auto shape = std::make_shared<OBB>();
-    if (i == 0) {
-      auto rigidBody = platform->addComponent<TimeControlledRB>();
-      rigidBody->setTimeScale(timeScale);
-      rigidBody->setMass(0.0f)
-          ->setDrag(1.0f)
-          ->setShape(shape)
-          ->setStatic(true)
-          ->registerToPhysicsManager(PhysicsManager::Instance());
-      rigidBody->initialize();
-
-      auto platformAnimate = platform->addComponent<Animate>();
-      platformAnimate->setAnimateFunction(
-            [currentTime = 0.0f, initialPos = platform->getLocalPosition().y, phase = 1.0f](std::shared_ptr<GameObject> self, float deltaTime) mutable {
-              std::shared_ptr<TimeControlledRB> rb = self->findComponent<TimeControlledRB>();
-              float timeScale = rb->getTimeScale();
-      
-              deltaTime *= timeScale;
-      
-              /* Affine Transformation Variables */
-              float affineSpeed = 5.0f;
-              float affinePosVarianceZ = 5.0f;
-      
-              currentTime += deltaTime;
-
-              if ((phase == -1.0f) && (initialPos - affinePosVarianceZ) > self->getWorldPosition().y)
-                phase = 1.0f;
-              else if ((phase == 1.0f) && (initialPos + affinePosVarianceZ) < self->getWorldPosition().y)
-                phase = -1.0f;
-
-              Vector3 velocity = Vector3(0.0f, affineSpeed * phase, 0.0f);
-              
-              rb->setVelocity(velocity);
-              Vector3 newPos = self->getWorldPosition() + (velocity * deltaTime);
-              self->setWorldPosition(newPos);
-            }
-          );
-      
-      platformAnimate->runAnimateFunction(true);
-    }
-    else {
-      auto rigidBody = platform->addComponent<RigidBody>();
-      rigidBody->setMass(0.0f)
-        ->setDrag(1.0f)
-        ->setShape(shape)
-        ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
-      rigidBody->initialize();
-    }
-}
-
-// Exit platform
-{
-    auto upperFloor = std::make_shared<GameObject>("UpperFloor");
-    sceneGraph.addNode(upperFloor);
-    upperFloor->setLocalPosition(Vector3(90.0f + offsetX, -20.2f + offsetY, 8.0f + offsetZ));
-    upperFloor->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
-    auto renderComp = upperFloor->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
-    auto shape = std::make_shared<OBB>();
-    auto rigidBody = upperFloor->addComponent<RigidBody>();
-    rigidBody->setMass(0.0f)
-        ->setDrag(1.0f)
-        ->setShape(shape)
-        ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
-    rigidBody->initialize();
-}
-}
 
 void MapLoader::three(float offsetX, float offsetY, float offsetZ,
                       SceneGraph& sceneGraph,
