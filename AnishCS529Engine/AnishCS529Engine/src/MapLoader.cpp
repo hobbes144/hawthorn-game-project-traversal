@@ -221,6 +221,25 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         rigidBody->initialize();
     }
 
+    // deathplane test
+    {
+        auto DP1 = std::make_shared<GameObject>("DP1");
+        sceneGraph.addNode(DP1);
+        DP1->setLocalPosition(Vector3(-10.0f + offsetX, 1.0f + offsetY, 5.0f + offsetZ));
+        DP1->setLocalScaling(Vector3(5.0f, 1.0f, 5.0f));
+        DP1->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
+        auto renderComp = DP1->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(cracksMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = DP1->addComponent<DeathPlane>();
+        rigidBody->setPlayerName("PlayerBox");
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
 
     // Floor1 pad
     {
