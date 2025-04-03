@@ -17,9 +17,8 @@ int main() {
 
     //Main Loop
     while (!LevelManager::Instance().GameComplete()) {
-        
+        LevelManager::Instance().RunLevels();
     }
-    LevelManager::Instance().RunLevels();
     LevelManager::Instance().ShutdownLevels();
 
     return 0;
