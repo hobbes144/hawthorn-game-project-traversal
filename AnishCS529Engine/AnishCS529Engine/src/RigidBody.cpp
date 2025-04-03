@@ -151,7 +151,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 	if (RB1->getIsStatic()) {
 		Vector3 contactVector2 = (final - RB2Position);
 		Vector3 contactVector1 = (final - RB1Position);
-		Vector3 normal = -RB1->getShape()->getNormalAtVector(contactVector1.normalized());
+		Vector3 normal = -RB1->getShape()->getNormalClosestToPoint(contactVector1);
 		contactVector2 = contactVector2.abs() * normal;
 		contactVector1 = contactVector1.abs() * -normal;
 		Vector3 RB2Extent = RB2->getShape()->getFarthestExtent(normal);
@@ -159,7 +159,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 		//Vector3 RB1Extent = RB1->getShape()->getFarthestExtent(-normal);
 		//Vector3 RB1Point = RB1->getShape()->getSurfacePoint(contactVector.normalized());
 
-		Vector3 correction = ((RB2Extent - contactVector2).abs() + (RB1Extent - contactVector1).abs()) * normal;
+		Vector3 correction = (RB1Extent - RB2Extent - contactVector1 + contactVector2).abs() * normal;
 
 		/*Vector3 impulse =
 			(RB1->getVelocity() - RB2->getVelocity()) * normal *
@@ -182,13 +182,13 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 	else if (RB2->getIsStatic()) {
 		Vector3 contactVector2 = (final - RB2Position);
 		Vector3 contactVector1 = (final - RB1Position);
-		Vector3 normal = -RB2->getShape()->getNormalAtVector(contactVector2.normalized());
-		contactVector2 = contactVector2.abs() * -normal;
+		Vector3 normal = -RB2->getShape()->getNormalClosestToPoint(contactVector2);
 		contactVector1 = contactVector1.abs() * normal;
+		contactVector2 = contactVector2.abs() * -normal;
+		Vector3 RB1Extent = RB1->getShape()->getFarthestExtent(normal);
 		Vector3 RB2Extent = RB2->getShape()->getSurfacePoint(-normal);
-		Vector3 RB1Extent = RB1->getShape()->getSurfacePoint(normal);
 
-		Vector3 correction = ((RB2Extent - contactVector2).abs() + (RB1Extent - contactVector1).abs()) * normal;
+		Vector3 correction = (RB1Extent - RB2Extent - contactVector1 + contactVector2).abs() * normal;
 
 
 		/*Vector3 impulse =
@@ -205,7 +205,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 			return;
 		}
 		obj1->setWorldPosition(RB1Position - correction);
-		RB1->setVelocity(velocity + (velocity * correction.normalized()));
+		RB1->setVelocity(velocity - (velocity.abs() * normal));
 		//RB1->applyForce(impulse);
 		obj1->updateTransforms();
 	}
