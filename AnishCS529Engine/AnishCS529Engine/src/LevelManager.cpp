@@ -100,77 +100,100 @@ void LevelManager::MeshMatInitializations()
 {
 
 #pragma region Meshs/Materials
-
-    /* Boxes */
+    // Create meshes
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
+    sphereMesh = Mesh::createSphereMesh("sphere", 32);
+
+    // Box Material
     boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
-    boxMaterial.get()->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-    boxMaterial.get()->setProperty("specular", Vector3(0.009, 0.009, 0.009));
-    boxMaterial.get()->setProperty("shininess", 10.0f);
-    boxMaterial.get()->setProperty("objectId", 5);
-    boxMaterial.get()->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
-    boxMaterial.get()->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
+    boxMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    boxMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    boxMaterial->setProperty("shininess", 10.0f);
+    boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
+    boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
 
-    /* Floor */
-    floorMesh = Mesh::createMesh("box", Mesh::Cube);
+    // Floor Material
     floorMaterial = Material::getMaterial<MainTestMaterial>("floor", mainRenderer->getRenderGraph());
-    floorMaterial.get()->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-    floorMaterial.get()->setProperty("specular", Vector3(0.009, 0.009, 0.009));
-    floorMaterial.get()->setProperty("shininess", 10.0f);
-    floorMaterial.get()->setProperty("objectId", 5);
-    floorMaterial.get()->addTexture("media/textures/6670-diffuse.jpg");
-    floorMaterial.get()->addTexture("media/textures/6670-normal.jpg");
+    floorMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    floorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    floorMaterial->setProperty("shininess", 10.0f);
+    floorMaterial->addTexture("media/textures/6670-diffuse.jpg");
+    floorMaterial->addTexture("media/textures/6670-normal.jpg");
 
-    /* Concrete */
-    concreteMesh = Mesh::createMesh("box", Mesh::Cube);
+    // Concrete Material
     concreteMaterial = Material::getMaterial<MainTestMaterial>("concrete", mainRenderer->getRenderGraph());
-    concreteMaterial.get()->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-    concreteMaterial.get()->setProperty("specular", Vector3(0.009, 0.009, 0.009));
-    concreteMaterial.get()->setProperty("shininess", 10.0f);
-    concreteMaterial.get()->setProperty("objectId", 5);
-    concreteMaterial.get()->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
+    concreteMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    concreteMaterial->setProperty("shininess", 10.0f);
+    concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
 
-    /* Grass 
-    auto grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
-    grassMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-    grassMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    // Grass Material
+    grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
+    grassMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    grassMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     grassMaterial->setProperty("shininess", 10.0f);
-    grassMaterial->setProperty("objectId", 5);
     grassMaterial->addTexture("media/textures/grass.jpg");
-    */
 
-    /* Cracks */
+    // Cracks Material
     cracksMaterial = Material::getMaterial<MainTestMaterial>("cracks", mainRenderer->getRenderGraph());
-    cracksMaterial.get()->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-    cracksMaterial.get()->setProperty("specular", Vector3(0.009, 0.009, 0.009));
-    cracksMaterial.get()->setProperty("shininess", 10.0f);
-    cracksMaterial.get()->setProperty("objectId", 5);
-    cracksMaterial.get()->addTexture("media/textures/cracks.png");
+    cracksMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    cracksMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    cracksMaterial->setProperty("shininess", 10.0f);
+    cracksMaterial->addTexture("media/textures/cracks.png");
 
-    /* MyHouse 
-    auto myhouseMaterial = Material::getMaterial<MainTestMaterial>("myhouse", mainRenderer->getRenderGraph());
-    myhouseMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-    myhouseMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    // MyHouse Material
+    myhouseMaterial = Material::getMaterial<MainTestMaterial>("myhouse", mainRenderer->getRenderGraph());
+    myhouseMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    myhouseMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     myhouseMaterial->setProperty("shininess", 10.0f);
-    myhouseMaterial->setProperty("objectId", 5);
     myhouseMaterial->addTexture("media/textures/my-house-01.png");
-    */
 
-    /* Brick 
-    auto brickMaterial = Material::getMaterial<MainTestMaterial>("brick", mainRenderer->getRenderGraph());
-    brickMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-    brickMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    // Brick Material
+    brickMaterial = Material::getMaterial<MainTestMaterial>("brick", mainRenderer->getRenderGraph());
+    brickMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    brickMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     brickMaterial->setProperty("shininess", 10.0f);
-    brickMaterial->setProperty("objectId", 5);
     brickMaterial->addTexture("media/textures/Standard_red_pxr128.png");
     brickMaterial->addTexture("media/textures/Standard_red_pxr128_normal.png");
-    */
 
-    /*Sky Box*/
+    // Sky Box Material
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
     skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
     skyBoxMaterial.get()->addTexture("media/beach.jpg");
     skyBoxMaterial.get()->setProperty("objectId", 1);
+
+    // Additional Materials
+
+    LightBlueConcrete = Material::getMaterial<MainTestMaterial>("LightBlueConcrete", mainRenderer->getRenderGraph());
+    LightBlueConcrete->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    LightBlueConcrete->setProperty("shininess", 10.0f);
+    LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 20.0f, 20.0f);
+
+    YellowConcrete = Material::getMaterial<MainTestMaterial>("YellowConcrete", mainRenderer->getRenderGraph());
+    YellowConcrete->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    YellowConcrete->setProperty("shininess", 10.0f);
+    YellowConcrete->addTexture("media/textures/YellowConcrete.png", 20.0f, 20.0f);
+
+    BrownConcrete = Material::getMaterial<MainTestMaterial>("BrownConcrete", mainRenderer->getRenderGraph());
+    BrownConcrete->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    BrownConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    BrownConcrete->setProperty("shininess", 10.0f);
+    BrownConcrete->addTexture("media/textures/BrownConcrete.png", 20.0f, 20.0f);
+
+    BlueConcrete = Material::getMaterial<MainTestMaterial>("BlueConcrete", mainRenderer->getRenderGraph());
+    BlueConcrete->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    BlueConcrete->setProperty("shininess", 10.0f);
+    BlueConcrete->addTexture("media/textures/BlueConcrete.png", 20.0f, 20.0f);
+
+    WhiteFloorTiles = Material::getMaterial<MainTestMaterial>("WhiteFloorTiles", mainRenderer->getRenderGraph());
+    WhiteFloorTiles->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
+    WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    WhiteFloorTiles->setProperty("shininess", 10.0f);
+    WhiteFloorTiles->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
+
 
 #pragma endregion
 

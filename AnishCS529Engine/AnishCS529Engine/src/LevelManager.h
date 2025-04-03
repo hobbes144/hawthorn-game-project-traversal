@@ -93,6 +93,14 @@ private:
 	std::shared_ptr<MainTestMaterial> concreteMaterial;
 	std::shared_ptr<MainTestMaterial> cracksMaterial;
 	std::shared_ptr<Mesh> sphereMesh;
+	std::shared_ptr<MainTestMaterial> grassMaterial;
+	std::shared_ptr<MainTestMaterial> myhouseMaterial;
+	std::shared_ptr<MainTestMaterial> brickMaterial;
+	std::shared_ptr<MainTestMaterial> LightBlueConcrete;
+	std::shared_ptr<MainTestMaterial> YellowConcrete;
+	std::shared_ptr<MainTestMaterial> BrownConcrete;
+	std::shared_ptr<MainTestMaterial> BlueConcrete;
+	std::shared_ptr<MainTestMaterial> WhiteFloorTiles;
 	std::shared_ptr<MainTestMaterial> skyBoxMaterial;
 
 	//Player References

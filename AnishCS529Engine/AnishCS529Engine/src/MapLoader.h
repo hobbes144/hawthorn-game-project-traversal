@@ -90,10 +90,6 @@ private:
                          SceneGraph& sceneGraph,
                          std::shared_ptr<Camera> camera);
 
-    void loadJump(float offsetX, float offsetY, float offsetZ,
-                  SceneGraph& sceneGraph,
-                  std::shared_ptr<Camera> camera);
-
     void three(float offsetX, float offsetY, float offsetZ,
                SceneGraph& sceneGraph,
                std::shared_ptr<Camera> camera);

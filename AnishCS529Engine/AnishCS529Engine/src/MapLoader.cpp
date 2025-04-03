@@ -7,6 +7,7 @@
 #include "MapLoader.h"
 #include "Matrix4.h"
 #include <random>
+#include <math.h>
 
 MapLoader& MapLoader::instance() {
     static MapLoader instance;
@@ -226,7 +227,8 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         auto Floor1 = std::make_shared<GameObject>("Floor1");
         sceneGraph.addNode(Floor1);
         Floor1->setLocalPosition(Vector3(-20.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
-        Floor1->setLocalScaling(Vector3(60.0f, 1.0f, 20.0f));
+        Floor1->setLocalScaling(Vector3(20.0f, 1.0f, 60.0f));
+        Floor1->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
         auto renderComp = Floor1->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
