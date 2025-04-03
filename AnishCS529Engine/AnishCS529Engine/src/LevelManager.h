@@ -62,7 +62,7 @@ public:
 
 private:
 	//Level Counter
-	int currentLevel = 0;
+	int currentLevel = 1;
 	int numLevels = 3;
 	bool levelSwapFlag = false;
 
