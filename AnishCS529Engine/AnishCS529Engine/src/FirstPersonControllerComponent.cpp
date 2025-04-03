@@ -566,11 +566,9 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 			static std::shared_ptr<GameObject> currentCheckpoint = nullptr;
 			if (currentCheckpoint != hitGround.object) {
 				currentCheckpoint = hitGround.object;
-				Vector3 newCheckpoint = hitGround.object->getLocalPosition() + Vector3(0.0f, 2.0f, 0.0f);
-				setRespawnCheckpoint(newCheckpoint);
-				std::cout << "Checkpoint reset to new checkpoint at ("
-					<< newCheckpoint.x << ", " << newCheckpoint.y << ", " << newCheckpoint.z << ")"
-					<< std::endl;
+				Vector3 newRespawCheckpoint = hitGround.object->getLocalPosition() + Vector3(0.0f, 2.0f, 0.0f);
+				Quaternion newRespawnRotation = hitGround.object->getLocalRotation();
+				setRespawnCheckpoint(newRespawCheckpoint, newRespawnRotation);
 			}
 			else {
 				//std::cout << "Checkpoint already set to this object." << std::endl;
@@ -1179,11 +1177,15 @@ void FirstPersonControllerComponent::respawnPlayer()
 	//Set Position
 	body->setLocalPosition(respawnCheckpoint);
 
+	//Set Rotation
+	body->setLocalRotation(respawnRotation);
+
 }
 
-void FirstPersonControllerComponent::setRespawnCheckpoint(Vector3 _checkpoint)
+void FirstPersonControllerComponent::setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation)
 {
 	respawnCheckpoint = _checkpoint;
+	respawnRotation = _rotation;
 }
 
 Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
