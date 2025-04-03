@@ -334,7 +334,7 @@ void LevelManager::checkPlayerBoundaries() {
     switch (currentLevel) {
     case 0:
         maxX = 10.0f; minX = -400.0f;
-        maxY = 100.0f; minY = -20.0f;
+        maxY = 100.0f; minY = -40.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 1:
@@ -357,8 +357,7 @@ void LevelManager::checkPlayerBoundaries() {
     if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
         if (fpc) {
-            Vector3 checkpoint = fpc->getRespawnCheckpoint();
-            playerBox->setLocalPosition(checkpoint);
+            fpc->respawnPlayer();
 
             auto rigidBody = playerBox->findComponent<FirstPersonControllerComponent>();
             if (rigidBody) {

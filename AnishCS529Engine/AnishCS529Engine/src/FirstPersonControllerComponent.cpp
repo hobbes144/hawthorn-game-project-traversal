@@ -1178,7 +1178,7 @@ void FirstPersonControllerComponent::respawnPlayer()
 	body->setLocalPosition(respawnCheckpoint);
 
 	//Set Rotation
-	body->setLocalRotation(respawnRotation);
+	//body->setLocalRotation(respawnRotation);
 
 }
 
