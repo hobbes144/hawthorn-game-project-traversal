@@ -5,6 +5,7 @@
 #include "InGameKey.h"
 #include "Door.h"
 #include "KeyList.h"
+#include "MainTestMaterial.h"
 
 MapLoader& MapLoader::instance() {
     static MapLoader instance;

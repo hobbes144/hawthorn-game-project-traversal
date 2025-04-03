@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include <cassert>
+#include <functional>
+
 #include "CollisionListener.h"
 #include "RigidBody.h"
 #include "FirstPersonControllerComponent.h"
@@ -14,7 +17,7 @@ public:
 
 	void initialize();
 
-	std::shared_ptr<DeathPlane> setPlayerName(std::string name);
+	void setPlayerName(std::string name);
 	std::string getPlayerName();
 
 private:
