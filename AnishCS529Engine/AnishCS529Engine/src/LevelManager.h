@@ -70,7 +70,7 @@ private:
 	LevelManager() = default;
 
 	//Level Counter
-	int currentLevel = 1;
+	int currentLevel = 0;
 	int numLevels = 3;
 	bool levelSwapFlag = false;
 

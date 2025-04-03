@@ -90,4 +90,7 @@ void SceneGraph::clear()
         }
         currNode->deleteNode();
     }
+
+    root->removeChildren();
+
 }
