@@ -40,6 +40,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Animate.cpp" />
+    <ClCompile Include="src\DeathPlane.cpp" />
     <ClCompile Include="src\DebugPass.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\InGameKey.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="src\EventManager.cpp" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="src\Animate.h" />
+    <ClInclude Include="src\DeathPlane.h" />
     <ClInclude Include="src\Door.h" />
     <ClInclude Include="src\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\FramerateController.inl">
