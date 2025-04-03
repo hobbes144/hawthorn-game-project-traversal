@@ -154,8 +154,6 @@ int main() {
     AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
     AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
-    AudioManager::instance().setListenerPosition(Vector3(0, 0, 0));
-    AudioManager::instance().playSound("music", Vector3(0, 0, 0));
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
@@ -306,7 +304,6 @@ int main() {
         ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
     playerBox->addComponent<KeyList>();
 
-
     //Render Component
     auto box1RenderComponent = playerBox->addComponent<Render2D>();
     box1RenderComponent
@@ -386,6 +383,9 @@ int main() {
         //Update the GamePad
         gamepad->update();
 
+        //music playing pos update
+        AudioManager::instance().setListenerPosition(playerBox->getLocalPosition());
+        AudioManager::instance().playSound2D("music", 0.5f);
         //If Escape is Pressed Exit Loop
         if (mainInput->isKeyHeld(KEY_ESCAPE))
             break;
