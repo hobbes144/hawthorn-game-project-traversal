@@ -290,9 +290,46 @@ int main() {
 #pragma region Map
     //auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f)
     auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
-    MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
+    //MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
 
 #pragma endregion
+
+    {
+      auto mainFloorLeft = std::make_shared<GameObject>("MainFloorLeft");
+      mainSceneGraph.addNode(mainFloorLeft);
+      mainFloorLeft->setLocalPosition(Vector3(-4.0f, 0.0f, 0.0f));
+      mainFloorLeft->setLocalScaling(Vector3(60.0f, 1.0f, 60.0f));
+      auto renderComp = mainFloorLeft->addComponent<Render2D>();
+      renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+      auto shape = std::make_shared<OBB>();
+      auto rigidBody = mainFloorLeft->addComponent<RigidBody>();
+      rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+      rigidBody->initialize();
+
+
+    }
+
+    //Running Wall
+    {
+      auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+      mainSceneGraph.addNode(wallRunWall);
+      wallRunWall->setLocalPosition(Vector3(0.0f, 2.5f, -15.0f));
+      wallRunWall->setLocalScaling(Vector3(30.0f, 12.0f, 1.0f));
+      auto renderComp = wallRunWall->addComponent<Render2D>();
+      renderComp->setCamera(camera)->setMesh(floorMesh)->setMaterial(floorMaterial);
+      auto shape = std::make_shared<OBB>();
+      auto rigidBody = wallRunWall->addComponent<RigidBody>();
+      rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+      rigidBody->initialize();
+    }
 
 
 #pragma region PlayerBox
@@ -417,6 +454,9 @@ int main() {
             PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
             mainFramerateController->consumePhysicsTime();
         }*/
+
+        if (mainInput->isKeyDown(KEY_9))
+          std::cout << "Break";
 
         for (int i = 0; i < 2; i++) {
             PhysicsManager::Instance().update(1.0f / 120.0f);

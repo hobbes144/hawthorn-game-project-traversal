@@ -109,14 +109,13 @@ void RigidBody::initialize()
  * \param deltaTime
  *****************************************************************************/
 void RigidBody::integrate(float deltaTime) {
+	lastPosition = parent->getWorldPosition();
 	if (useGravity) {
 		applyForce(Vector3(0.0f, -gravity * 100.0f, 0.0f));
 	}
 
 	PhysicsBody::integrate(deltaTime);
 }
-
-static std::vector<Vector3> correctHistory;
 
 /*!****************************************************************************
  * \brief A callback function needed to be set up to collisionListener for the
@@ -176,7 +175,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 			return;
 		}
 		obj2->setWorldPosition(RB2Position - correction);
-		RB2->setVelocity(velocity2 + (velocity2 * normal));
+		RB2->setVelocity(velocity2 - (velocity2.abs() * normal));
 		//RB2->applyForce(impulse);
 		obj2->updateTransforms();
 	}
@@ -206,7 +205,7 @@ void onRBCollide(std::shared_ptr<GameObject> obj1,
 			return;
 		}
 		obj1->setWorldPosition(RB1Position - correction);
-		RB1->setVelocity(velocity - (velocity * normal.abs()));
+		RB1->setVelocity(velocity + (velocity * correction.normalized()));
 		//RB1->applyForce(impulse);
 		obj1->updateTransforms();
 	}
