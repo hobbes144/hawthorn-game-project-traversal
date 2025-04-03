@@ -1,11 +1,12 @@
 #include "precompiled.h"
-#include "MapLoader.h"
-#include <random>
-#include "Matrix4.h"
-#include "InGameKey.h"
+#include "DeathPlane.h"
 #include "Door.h"
+#include "InGameKey.h"
 #include "KeyList.h"
 #include "MainTestMaterial.h"
+#include "MapLoader.h"
+#include "Matrix4.h"
+#include <random>
 
 MapLoader& MapLoader::instance() {
     static MapLoader instance;
