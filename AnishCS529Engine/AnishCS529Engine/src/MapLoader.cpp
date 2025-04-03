@@ -5,6 +5,7 @@
 #include "InGameKey.h"
 #include "Door.h"
 #include "KeyList.h"
+#include "MainTestMaterial.h"
 
 MapLoader& MapLoader::instance() {
     static MapLoader instance;
@@ -13,15 +14,15 @@ MapLoader& MapLoader::instance() {
 
 void MapLoader::initializeResources(std::shared_ptr<RenderGraph> renderGraph) {
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
-    boxMaterial = Material::getMaterial<Material>("box", renderGraph);
-    floorMaterial = Material::getMaterial<Material>("floor", renderGraph);
-    concreteMaterial = Material::getMaterial<Material>("concrete", renderGraph);
-    grassMaterial = Material::getMaterial<Material>("grass", renderGraph);
-    cracksMaterial = Material::getMaterial<Material>("cracks", renderGraph);
-    myhouseMaterial = Material::getMaterial<Material>("myhouse", renderGraph);
-    brickMaterial = Material::getMaterial<Material>("brick", renderGraph);
+    boxMaterial = Material::getMaterial<MainTestMaterial>("box", renderGraph);
+    floorMaterial = Material::getMaterial<MainTestMaterial>("floor", renderGraph);
+    concreteMaterial = Material::getMaterial<MainTestMaterial>("concrete", renderGraph);
+    grassMaterial = Material::getMaterial<MainTestMaterial>("grass", renderGraph);
+    cracksMaterial = Material::getMaterial<MainTestMaterial>("cracks", renderGraph);
+    myhouseMaterial = Material::getMaterial<MainTestMaterial>("myhouse", renderGraph);
+    brickMaterial = Material::getMaterial<MainTestMaterial>("brick", renderGraph);
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
-    skyBoxMaterial = Material::getMaterial<Material>("skyBox", renderGraph);
+    skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", renderGraph);
 }
 
 

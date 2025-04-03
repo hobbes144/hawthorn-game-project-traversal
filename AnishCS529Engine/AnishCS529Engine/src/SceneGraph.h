@@ -76,6 +76,8 @@ public:
   void setRootRotation(const Vector3& rotation) { root->setLocalRotation(rotation); }
   void setRootScaling(const Vector3& scaling) { root->setLocalScaling(scaling); }
 
+  void clear();
+
 };
 
 #endif // SCENE_GRAPH_H

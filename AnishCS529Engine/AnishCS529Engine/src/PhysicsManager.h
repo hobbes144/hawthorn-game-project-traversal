@@ -31,6 +31,8 @@ public:
   bool isInContact(std::shared_ptr<GameObject> body1, std::shared_ptr<GameObject> body2);
   void clearContactCache();
 
+  void clearPhysicsManager();
+
 private:
   PhysicsManager() = default;
   PhysicsManager(const PhysicsManager&) = delete;

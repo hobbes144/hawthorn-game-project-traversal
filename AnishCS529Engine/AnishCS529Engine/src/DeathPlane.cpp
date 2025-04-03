@@ -26,7 +26,7 @@ void DeathPlane::initialize() {
 	deathListener->setCallback(onDeathCollide);
 }
 
-std::shared_ptr<DeathPlane> DeathPlane::setPlayerName(std::string name){
+void DeathPlane::setPlayerName(std::string name){
 	playerName = name;
 }
 
