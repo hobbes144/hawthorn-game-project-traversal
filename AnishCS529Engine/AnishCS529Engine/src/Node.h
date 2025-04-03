@@ -115,6 +115,8 @@ public:
   SharedNode setWorldRotation(const Vector3& rotation);
   SharedNode setWorldScaling(const Vector3& scaling);
 
+  void deleteNode();
+  
 };
 
 #endif // NODE_H

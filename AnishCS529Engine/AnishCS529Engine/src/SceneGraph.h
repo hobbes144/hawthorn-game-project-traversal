@@ -44,6 +44,11 @@ private:
         child->update(deltaTime);
       }*/
     }
+
+    void removeChildren() {
+        children.clear();
+    }
+
   };
 
   std::shared_ptr<RootNode> root;
@@ -75,6 +80,8 @@ public:
   void setRootPosition(const Vector3& position) { root->setLocalPosition(position); }
   void setRootRotation(const Vector3& rotation) { root->setLocalRotation(rotation); }
   void setRootScaling(const Vector3& scaling) { root->setLocalScaling(scaling); }
+
+  void clear();
 
 };
 

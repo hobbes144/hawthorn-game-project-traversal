@@ -450,7 +450,7 @@ void PhysicsBody::integrate(float deltaTime) {
   {
     if (parent->getWorldTransform().getPosition().y > maxY)
       maxY = parent->getWorldTransform().getPosition().y;
-    std::cerr << "Max y: " << maxY << "\n";
+    //std::cerr << "Max y: " << maxY << "\n";
   }
 }
 

@@ -1,3 +1,8 @@
+#ifndef KEYLIST_H
+#define KEYLIST_H
+
+#pragma once
+
 #include "Component.h"
 #include <vector>
 
@@ -15,3 +20,5 @@ public:
 private:
 	std::vector<int> list;
 };
+
+#endif

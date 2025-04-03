@@ -74,6 +74,13 @@ bool PhysicsManager::isInContact(
   );
 }
 
+void PhysicsManager::clearPhysicsManager()
+{
+
+    bodies.clear();
+
+}
+
 void PhysicsManager::checkCollisions() {
   Contact contact;
   bool body1IsStatic;
