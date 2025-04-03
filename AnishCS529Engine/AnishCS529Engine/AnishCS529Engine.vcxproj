@@ -44,6 +44,7 @@
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Key.cpp" />
     <ClCompile Include="src\KeyList.cpp" />
+    <ClCompile Include="src\LevelManager.cpp" />
     <ClCompile Include="src\MapLoader.cpp" />
     <ClCompile Include="src\EngineDemo.cpp" />
     <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="src\GlobalVariables.h" />
     <ClInclude Include="src\Key.h" />
     <ClInclude Include="src\KeyList.h" />
+    <ClInclude Include="src\LevelManager.h" />
     <ClInclude Include="src\MainTestMaterial.h" />
     <ClInclude Include="src\MapLoader.h" />
     <ClInclude Include="src\Material.inl" />

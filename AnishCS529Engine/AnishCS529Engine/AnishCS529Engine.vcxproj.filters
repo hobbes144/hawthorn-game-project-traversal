@@ -423,6 +423,18 @@
     <ClCompile Include="src\GamePad.cpp">
       <Filter>Engine\Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="src\Door.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Key.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KeyList.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LevelManager.cpp">
+      <Filter>Engine\Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -706,6 +718,18 @@
     </ClInclude>
     <ClInclude Include="src\GlobalVariables.h">
       <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Door.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Key.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KeyList.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LevelManager.h">
+      <Filter>Engine\Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
