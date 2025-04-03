@@ -235,6 +235,51 @@ int main() {
     concreteMaterial->setProperty("objectId", 5);
     concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
 
+    /* Light Blue Concrete */
+    auto lightBlueConcreteMesh = Mesh::createMesh("box", Mesh::Cube);
+    auto lightBlueConcreteMaterial = Material::getMaterial<MainTestMaterial>("lightBlueConcrete", mainRenderer->getRenderGraph());
+    lightBlueConcreteMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    lightBlueConcreteMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    lightBlueConcreteMaterial->setProperty("shininess", 10.0f);
+    lightBlueConcreteMaterial->setProperty("objectId", 5);
+    lightBlueConcreteMaterial->addTexture("media/textures/LightBlueConcrete.png", 20.0f, 20.0f);
+
+    /* Yellow Concrete */
+    auto yellowConcreteMesh = Mesh::createMesh("box", Mesh::Cube);
+    auto yellowConcreteMaterial = Material::getMaterial<MainTestMaterial>("yellowConcrete", mainRenderer->getRenderGraph());
+    yellowConcreteMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    yellowConcreteMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    yellowConcreteMaterial->setProperty("shininess", 10.0f);
+    yellowConcreteMaterial->setProperty("objectId", 5);
+    yellowConcreteMaterial->addTexture("media/textures/YellowConcrete.png", 20.0f, 20.0f);
+
+    /* BrownConcrete */
+    auto BrownConcreteMesh = Mesh::createMesh("box", Mesh::Cube);
+    auto BrownConcreteMaterial = Material::getMaterial<MainTestMaterial>("BrownConcrete", mainRenderer->getRenderGraph());
+    BrownConcreteMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    BrownConcreteMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    BrownConcreteMaterial->setProperty("shininess", 10.0f);
+    BrownConcreteMaterial->setProperty("objectId", 5);
+    BrownConcreteMaterial->addTexture("media/textures/BrownConcrete.png", 1.0f, 1.0f);
+
+    /* BlueConcrete */
+    auto BlueConcreteMesh = Mesh::createMesh("box", Mesh::Cube);
+    auto BlueConcreteMaterial = Material::getMaterial<MainTestMaterial>("BlueConcrete", mainRenderer->getRenderGraph());
+    BlueConcreteMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    BlueConcreteMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    BlueConcreteMaterial->setProperty("shininess", 10.0f);
+    BlueConcreteMaterial->setProperty("objectId", 5);
+    BlueConcreteMaterial->addTexture("media/textures/BlueConcrete.png", 20.0f, 20.0f);
+
+    /* WhiteFloorTiles */
+    auto WhiteFloorTilesMesh = Mesh::createMesh("box", Mesh::Cube);
+    auto WhiteFloorTilesMaterial = Material::getMaterial<MainTestMaterial>("WhiteFloorTiles", mainRenderer->getRenderGraph());
+    WhiteFloorTilesMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+    WhiteFloorTilesMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+    WhiteFloorTilesMaterial->setProperty("shininess", 10.0f);
+    WhiteFloorTilesMaterial->setProperty("objectId", 5);
+    WhiteFloorTilesMaterial->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
+
     /* Grass */
     auto grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
     grassMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
@@ -295,7 +340,7 @@ int main() {
     //auto checkPoint = Vector3(130.0f, 72.0f, 130.0f); //checkpoint 6 or 7?
     std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
     MapLoader::instance().initializeResources(rg);
-    MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera);
+    MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera);
 
 #pragma endregion
 
