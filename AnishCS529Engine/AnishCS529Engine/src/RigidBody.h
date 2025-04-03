@@ -63,6 +63,8 @@ public:
 	
 	float getElasticity() const { return elasticity; }
 
+	Vector3 getLastPosition() const { return lastPosition; }
+
 protected:
 	/** If it uses gravity */
 	bool useGravity;
@@ -77,6 +79,8 @@ protected:
 	bool freezeRotationX;
 	bool freezeRotationY;
 	bool freezeRotationZ;
+
+	Vector3 lastPosition;
 };
 
 void onRBCollide(std::shared_ptr<GameObject> obj1,
