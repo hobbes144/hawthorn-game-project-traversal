@@ -53,6 +53,7 @@ public:
 
 	void RunLevels();
 	void ExecuteMainLoop();
+	void checkPlayerBoundaries();
 	void NextLevel();
 	void ClearLevel();
 	void ShutdownLevels();

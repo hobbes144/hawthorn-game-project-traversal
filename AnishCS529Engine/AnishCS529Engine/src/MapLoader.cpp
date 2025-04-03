@@ -1377,7 +1377,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 {
     auto JumpPad = std::make_shared<GameObject>("JumpPad");
     sceneGraph.addNode(JumpPad);
-    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 60 + offsetY, 70.0f + offsetZ));
+    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 55 + offsetY, 70.0f + offsetZ));
     JumpPad->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
     auto renderComp = JumpPad->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1395,7 +1395,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 {
     auto JumpPad = std::make_shared<GameObject>("JumpPad");
     sceneGraph.addNode(JumpPad);
-    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 63 + offsetY, 100.0f + offsetZ));
+    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 58 + offsetY, 90.0f + offsetZ));
     JumpPad->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
     auto renderComp = JumpPad->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1413,7 +1413,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 {
     auto JumpPad2 = std::make_shared<GameObject>("JumpPad2");
     sceneGraph.addNode(JumpPad2);
-    JumpPad2->setLocalPosition(Vector3(-140.0f + offsetX, 65 + offsetY, 130.0f + offsetZ));
+    JumpPad2->setLocalPosition(Vector3(-135.0f + offsetX, 62 + offsetY, 110.0f + offsetZ));
     JumpPad2->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
     auto renderComp = JumpPad2->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1497,11 +1497,11 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     int count = 0;
     for (float x = startX; x <= endX; x += step) {
 
-        Vector3 posTop(x + offsetX, 66.0f + offsetY, 135.0f + offsetZ);
+        Vector3 posTop(x + offsetX, 65.0f + offsetY, 135.0f + offsetZ);
         createJumpPad("JumpPad" + std::to_string(count), posTop, scaleTop, +45.0f);
 
 
-        Vector3 posBottom((x + 30.0f) + offsetX, 69.0f + offsetY, 110.0f + offsetZ);
+        Vector3 posBottom((x + 30.0f) + offsetX, 68.0f + offsetY, 110.0f + offsetZ);
         createJumpPad("JumpPad" + std::to_string(count), posBottom, scaleBottom, -45.0f);
 
         count++;

@@ -262,6 +262,7 @@ void LevelManager::ExecuteMainLoop()
         AudioManager::instance().setListenerPosition(playerBox->getLocalPosition());
 
         mainSceneGraph.update(1.0f / 60.0f);
+        checkPlayerBoundaries();
         mainFramerateController->endFrame();
 
 #pragma region IMGUI
@@ -301,6 +302,49 @@ void LevelManager::ExecuteMainLoop()
 
     }
 }
+
+void LevelManager::checkPlayerBoundaries() {
+    Vector3 playerPos = playerBox->getWorldTransform().getPosition();
+
+    // Boundaries for each lvl
+    float maxX, minX, maxY, minY, minZ, maxZ;
+    switch (currentLevel) {
+    case 0:
+        maxX = 10.0f; minX = -400.0f;
+        maxY = 100.0f; minY = -20.0f;
+        maxZ = 11.0f; minZ = -11.0f;
+        break;
+    case 1:
+        maxX = 150.0f; minX = -400.0f;
+        maxY = 150.0f; minY = -20.0f;
+        maxZ = 11.0f; minZ = -11.0f;
+        break;
+    case 2:
+        maxX = 160.0f; minX = -160.0f;
+        maxY = 200.0f; minY = 5.0f;
+        maxZ = 160.0f; minZ = -160.0f;
+        break;
+    default:
+        maxX = 1000.0f; minX = -1000.0f;
+        maxY = 1000.0f; minY = -20.0f;
+        maxZ = 1000.0f; minZ = -1000.0f;
+        break;
+    }
+
+    if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
+        auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
+        if (fpc) {
+            Vector3 checkpoint = fpc->getRespawnCheckpoint();
+            playerBox->setLocalPosition(checkpoint);
+
+            auto rigidBody = playerBox->findComponent<FirstPersonControllerComponent>();
+            if (rigidBody) {
+                rigidBody->Respawn;
+            }
+        }
+    }
+}
+
 
 void LevelManager::NextLevel()
 {
@@ -460,6 +504,8 @@ void LevelManager::createPlayerObject()
     mainSceneGraph.addNode(skyBox);
 
 }
+
+
 
 void LevelManager::initalizePlayerInLevel()
 {
