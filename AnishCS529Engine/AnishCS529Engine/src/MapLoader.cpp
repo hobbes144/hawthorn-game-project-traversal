@@ -682,7 +682,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
         auto keyComp = key->addComponent<InGameKey>();
-        keyComp->setID(0);
+        keyComp->setID(1);
         keyComp->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)
@@ -701,8 +701,8 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
         auto doorComp = testDoor->addComponent<Door>();
-        doorComp->setID(0);
-        doorComp->setType(Door::DoorType::DISAPPEAR);
+        doorComp->setID(1);
+        doorComp->setType(Door::DoorType::NEXTLEVEL);
         doorComp->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)
