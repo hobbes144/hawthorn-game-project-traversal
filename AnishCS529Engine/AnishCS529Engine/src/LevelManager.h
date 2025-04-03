@@ -106,8 +106,11 @@ private:
 	//Player References
 	std::shared_ptr<GameObject> playerBox;
 	Vector3 startingPos0 = Vector3(0.0f, 7.0f, 0.0f);
+	Quaternion startingRot0 = Quaternion();
 	Vector3 startingPos1 = Vector3(0.0f, 7.0f, 0.0f);
+	Quaternion startingRot1 = Quaternion();
 	Vector3 startingPos2 = Vector3(-131.0f, 7.0f, -130.0f);
+	Quaternion startingRot2 = Quaternion();
 
 	const float rad = PI / 180.0f;
 

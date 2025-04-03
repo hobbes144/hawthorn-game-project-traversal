@@ -534,17 +534,21 @@ void LevelManager::initalizePlayerInLevel()
 {
 
     Vector3 activeSpawnPoint;
+    Quaternion activeSpawnRotation;
 
     switch (currentLevel)
     {
     case 0:
         activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
         break;
     case 1:
         activeSpawnPoint = startingPos1;
+        activeSpawnRotation = startingRot1;
         break;
     case 2:
         activeSpawnPoint = startingPos2;
+        activeSpawnRotation = startingRot2;
         break;
     default:
         activeSpawnPoint = Vector3();
@@ -552,6 +556,6 @@ void LevelManager::initalizePlayerInLevel()
     }
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
-    pbFPCController->setRespawnCheckpoint(activeSpawnPoint);
+    pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
 
 }

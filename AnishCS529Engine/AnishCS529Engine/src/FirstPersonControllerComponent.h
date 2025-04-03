@@ -160,7 +160,7 @@ public:
 
     //Respawn
     void respawnPlayer();
-    void setRespawnCheckpoint(Vector3 _checkpoint);
+    void setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation);
     Vector3 getRespawnCheckpoint();
 
 private:
@@ -199,6 +199,7 @@ private:
 
     //Respawn
     Vector3 respawnCheckpoint = Vector3(0.0f, 2.0f, 0.0f);
+    Quaternion respawnRotation;
 
     //Sytem Compenet Members
     Input* input;
