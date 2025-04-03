@@ -73,19 +73,22 @@ private:
     std::shared_ptr<Material> boxMaterial;
     std::shared_ptr<Material> floorMaterial;
     std::shared_ptr<Material> concreteMaterial;
+    std::shared_ptr<Material> LightBlueConcrete;
+    std::shared_ptr<Material> YellowConcrete;
+    std::shared_ptr<Material> BrownConcrete;
+    std::shared_ptr<Material> BlueConcrete;
+    std::shared_ptr<Material> WhiteFloorTiles;
     std::shared_ptr<Material> grassMaterial;
     std::shared_ptr<Material> cracksMaterial;
     std::shared_ptr<Material> myhouseMaterial;
     std::shared_ptr<Material> brickMaterial;
     std::shared_ptr<Material> skyBoxMaterial;
+    
+
 
     void loadWallrun(float offsetX, float offsetY, float offsetZ,
                          SceneGraph& sceneGraph,
                          std::shared_ptr<Camera> camera);
-
-    void loadJump(float offsetX, float offsetY, float offsetZ,
-                  SceneGraph& sceneGraph,
-                  std::shared_ptr<Camera> camera);
 
     void three(float offsetX, float offsetY, float offsetZ,
                SceneGraph& sceneGraph,
@@ -95,13 +98,18 @@ private:
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
-    void zero(float offsetX, float offsetY, float offsetZ,
+    void tutorial(float offsetX, float offsetY, float offsetZ,
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
-    void one(float offsetX, float offsetY, float offsetZ,
+    void intermediate(float offsetX, float offsetY, float offsetZ,
+         SceneGraph& sceneGraph,
+         std::shared_ptr<Camera> camera);
+
+    void advanced(float offsetX, float offsetY, float offsetZ,
              SceneGraph& sceneGraph,
              std::shared_ptr<Camera> camera);
+
 };
 
 #endif // MAPLOADER_H

@@ -64,7 +64,9 @@ public:
         Jump,
         Slide,
         Respawn,
-        Debug
+        Debug,
+        Creative,
+        Freeze
     };
 
     struct AnchorInfo {
@@ -119,7 +121,7 @@ public:
         slideForce(50), slideCoolDown(2.0f), slideEffectTime(0.5f),
         slideBufferTime(0.2f), hasSlidSinceAnchored(false),
         wallRunSpeed(30), wallJumpForce(15),
-        sceneRoot(nullptr)
+        sceneRoot(nullptr), isCreative(false)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -158,7 +160,7 @@ public:
 
     //Respawn
     void respawnPlayer();
-    void setRespawnCheckpoint(Vector3 _checkpoint);
+    void setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation);
     Vector3 getRespawnCheckpoint();
 
 private:
@@ -197,6 +199,7 @@ private:
 
     //Respawn
     Vector3 respawnCheckpoint = Vector3(0.0f, 2.0f, 0.0f);
+    Quaternion respawnRotation;
 
     //Sytem Compenet Members
     Input* input;
@@ -251,7 +254,9 @@ private:
     //GamePad
     GamePad* gp;
 
-    //Time Ability Members
+    //Special States
+    bool isCreative = false;
+    bool isFrozen = false;
 
     //Debugging
     void debugCheck();

@@ -203,7 +203,7 @@ bool Input::isKeyHeld(Key k) {
  * 
  *****************************************************************************/
 void Input::initialize() {
-    glfwSetInputMode(window->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    controlMouse(true);
 
     glfwSetWindowUserPointer(window->getNativeWindow(), this);
     glfwSetMouseButtonCallback(window->getNativeWindow(), MouseButtonCallback);
@@ -262,4 +262,14 @@ bool Input::isMouseButtonDown(int button) const {
 void Input::resetMouseDelta() {
     mouseState.deltaX = 0.0f;
     mouseState.deltaY = 0.0f;
+}
+
+void Input::controlMouse(bool capture)
+{
+    if (capture) {
+        glfwSetInputMode(window->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+    else {
+        glfwSetInputMode(window->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
 }

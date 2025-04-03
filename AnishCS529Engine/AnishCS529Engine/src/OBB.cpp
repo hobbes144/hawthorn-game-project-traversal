@@ -97,6 +97,10 @@ Vector3 OBB::getSurfacePoint(const Vector3& direction) {
 
 Vector3 OBB::getNormalAtVector(const Vector3& direction)
 {
+  Vector3 rotatedDirection = (rotation * direction);
+  double projX = static_cast<double>(rotatedDirection.x) / static_cast<double>(worldHalfExtents.x);
+  double projY = static_cast<double>(rotatedDirection.y) / static_cast<double>(worldHalfExtents.y);
+  double projZ = static_cast<double>(rotatedDirection.z) / static_cast<double>(worldHalfExtents.z);
   Vector3 projectedDirection = ( rotation * direction ) / worldHalfExtents;
   Vector3 result;
   if (fabs(projectedDirection.x) > fabs(projectedDirection.y)) {
@@ -116,6 +120,28 @@ Vector3 OBB::getNormalAtVector(const Vector3& direction)
     }
   }
   return result;
+}
+
+Vector3 OBB::getNormalClosestToPoint(const Vector3& point)
+{
+  Vector3 halfExtents = getHalfExtents();
+  if ((halfExtents.x - fabs(point.x)) < (halfExtents.y - fabs(point.y))) {
+    if ((halfExtents.x - fabs(point.x)) < (halfExtents.z - fabs(point.z))) {
+      return Vector3(1, 0, 0) * ((point.x >= 0.0f) * 2.0f - 1.0f);
+    }
+    else {
+      return Vector3(0, 0, 1) * ((point.z >= 0.0f) * 2.0f - 1.0f);
+    }
+  }
+  else {
+    if ((halfExtents.y - fabs(point.y)) < (halfExtents.z - fabs(point.z))) {
+      return Vector3(0, 1, 0) * ((point.y >= 0.0f) * 2.0f - 1.0f);
+    }
+    else {
+      return Vector3(0, 0, 1) * ((point.z >= 0.0f) * 2.0f - 1.0f);
+    }
+  }
+  return Vector3();
 }
 
 void OBB::getCorners(Vector3 corners[4]) const {
