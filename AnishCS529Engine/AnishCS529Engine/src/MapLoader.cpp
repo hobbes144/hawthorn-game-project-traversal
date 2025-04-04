@@ -1156,10 +1156,12 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 }
 
 // Walls
+
+
 {
     auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
     sceneGraph.addNode(wallRunWall);
-    wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
+    wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
     wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1176,8 +1178,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 {
     auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
     sceneGraph.addNode(wallRunWall);
-    wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
-    wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
+    wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -80.0f + offsetZ));
+    wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
     auto renderComp = wallRunWall->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
     auto shape = std::make_shared<OBB>();
@@ -1228,7 +1230,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 {
     auto checkPoint3 = std::make_shared<GameObject>("checkPoint3", GameObject::CHECKPOINT);
     sceneGraph.addNode(checkPoint3);
-    checkPoint3->setLocalPosition(Vector3(-130.5f + offsetX, 17.0f + offsetY, -95.0f + offsetZ));
+    checkPoint3->setLocalPosition(Vector3(-115.0f + offsetX, 16.0f + offsetY, -55.0f + offsetZ));
     checkPoint3->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
     auto renderComp = checkPoint3->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
@@ -1419,8 +1421,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 {
     auto JumpPad = std::make_shared<GameObject>("JumpPad");
     sceneGraph.addNode(JumpPad);
-    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 55 + offsetY, 70.0f + offsetZ));
-    JumpPad->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 26.0f + offsetY, 70.0f + offsetZ));
+    JumpPad->setLocalScaling(Vector3(12.0f, 52.0f, 12.0f));
     auto renderComp = JumpPad->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
     auto shape = std::make_shared<OBB>();
@@ -1437,8 +1439,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 {
     auto JumpPad = std::make_shared<GameObject>("JumpPad");
     sceneGraph.addNode(JumpPad);
-    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 58 + offsetY, 90.0f + offsetZ));
-    JumpPad->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 28.5f + offsetY, 90.0f + offsetZ));
+    JumpPad->setLocalScaling(Vector3(12.0f, 57.0f, 12.0f));
     auto renderComp = JumpPad->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
     auto shape = std::make_shared<OBB>();
@@ -1455,8 +1457,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 {
     auto JumpPad2 = std::make_shared<GameObject>("JumpPad2");
     sceneGraph.addNode(JumpPad2);
-    JumpPad2->setLocalPosition(Vector3(-135.0f + offsetX, 62 + offsetY, 110.0f + offsetZ));
-    JumpPad2->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+    JumpPad2->setLocalPosition(Vector3(-135.0f + offsetX, 31 + offsetY, 110.0f + offsetZ));
+    JumpPad2->setLocalScaling(Vector3(12.0f, 62.0f, 12.0f));
     auto renderComp = JumpPad2->addComponent<Render2D>();
     renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
     auto shape = std::make_shared<OBB>();
