@@ -169,6 +169,15 @@
     <Filter Include="Engine\Source Files\Systems\Raycasting">
       <UniqueIdentifier>{973930a1-31cd-47f3-9059-a3f5ae35f9ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Images">
+      <UniqueIdentifier>{75df0f37-a552-4845-bba0-0bba3735a842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Audio">
+      <UniqueIdentifier>{5e0bdad1-f90b-4b30-8d3c-ffe574efc310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models">
+      <UniqueIdentifier>{4eaa3592-81ad-4499-8edf-fea55ab8f95c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -772,17 +781,108 @@
     <None Include="shaders\debug.vert.glsl">
       <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="shaders\main.vert">
-      <Filter>Tests\TestShaders</Filter>
-    </None>
-    <None Include="shaders\main.frag">
-      <Filter>Tests\TestShaders</Filter>
+    <None Include="shaders\lighting.frag">
+      <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\lighting.vert">
-      <Filter>Tests\TestShaders</Filter>
+      <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="shaders\lighting.frag">
-      <Filter>Tests\TestShaders</Filter>
+    <None Include="shaders\main.frag">
+      <Filter>Engine\Shaders</Filter>
     </None>
+    <None Include="shaders\main.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="media\Map\Big_Button.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\button.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Cannon.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Cannonball.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Environment.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Floor.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Map.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Turret.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="media\textures\6670-diffuse.jpg">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\6670-normal.jpg">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\BlueConcrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\BrownConcrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\colormap.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\Concrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\cracks.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\LightBlueConcrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\Standard_red_pxr128.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\Standard_red_pxr128_normal.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\YellowConcrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\WhiteFloorTiles.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\beach.jpg">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="media\audio\pew.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\radio.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\BE21-Undertoe-Steele.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\bang.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\walk.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\slide.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\footstep.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\jump.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
   </ItemGroup>
 </Project>
