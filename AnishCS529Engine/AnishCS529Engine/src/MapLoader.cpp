@@ -123,7 +123,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         testDoor->setLocalPosition(Vector3(-399.7f + offsetX, 2.5f + offsetY, 0.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         auto renderComp = testDoor->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(BrownConcrete);
         auto shape = std::make_shared<OBB>();
         auto doorComp = testDoor->addComponent<Door>();
         doorComp->setID(0);
@@ -719,7 +719,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         testDoor->setLocalPosition(Vector3(-189.7f + offsetX, 8.5f + offsetY, 0.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         auto renderComp = testDoor->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(BrownConcrete);
         auto shape = std::make_shared<OBB>();
         auto doorComp = testDoor->addComponent<Door>();
         doorComp->setID(1);

@@ -141,13 +141,6 @@ void LevelManager::MeshMatInitializations()
     cracksMaterial->setProperty("shininess", 10.0f);
     cracksMaterial->addTexture("media/textures/cracks.png");
 
-    // MyHouse Material
-    myhouseMaterial = Material::getMaterial<MainTestMaterial>("myhouse", mainRenderer->getRenderGraph());
-    myhouseMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
-    myhouseMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    myhouseMaterial->setProperty("shininess", 10.0f);
-    myhouseMaterial->addTexture("media/textures/my-house-01.png");
-
     // Brick Material
     brickMaterial = Material::getMaterial<MainTestMaterial>("brick", mainRenderer->getRenderGraph());
     brickMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));

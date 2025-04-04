@@ -120,7 +120,7 @@ public:
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
         slideForce(50), slideCoolDown(2.0f), slideEffectTime(0.5f),
         slideBufferTime(0.2f), hasSlidSinceAnchored(false),
-        wallRunSpeed(30), wallJumpForce(15),
+        wallRunSpeed(30), wallJumpForce(17),
         sceneRoot(nullptr), isCreative(false)
         {}
     ~FirstPersonControllerComponent() = default;
