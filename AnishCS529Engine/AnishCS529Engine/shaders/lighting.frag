@@ -208,8 +208,14 @@ vec3 LightingFragment()
     float VN = max(dot(V,N),0.0);
     float LH = max(dot(L,H),0.0);
 
+    if (mode == -1) {
+      FragColor = Kd;
+      return FragColor;
+    }
+
     if (mode == 0) {
       FragColor = vec3(0.5,0.5,0.5)*Kd + Kd*max(dot(L,N),0.0);
+      return FragColor;
     }
 
     if (mode == 1) {

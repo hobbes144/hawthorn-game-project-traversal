@@ -16,6 +16,7 @@
 
 class AmbientLight : public Light {
 public:
+  void update() {};
   void applyToShader(const std::shared_ptr<Shader>& shader, int lightIndex) const;
 };
 

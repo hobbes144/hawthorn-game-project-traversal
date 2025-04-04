@@ -19,6 +19,8 @@ std::shared_ptr<FreeCamera> FreeCamera::lookAt(const Vector3 & target, const Vec
 std::shared_ptr<FreeCamera> FreeCamera::move(const Vector3 & direction, float amount) {
   position = position + ( direction * amount );
 
+  viewMatrix = Matrix4::lookAt(position, position + forward, up);
+  inverseViewMatrix = Matrix4::inverse(viewMatrix);
   return shared_from_this();
 }
 

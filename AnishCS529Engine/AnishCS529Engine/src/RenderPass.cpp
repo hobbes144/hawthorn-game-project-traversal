@@ -46,6 +46,10 @@ void RenderPass::draw(
   shader->setMat4("ViewMatrix", camera->getViewMatrix());
   shader->setMat4("InverseViewMatrix", camera->getInverseViewMatrix());
 
+  unsigned int lightIndex = 0;
+  for (auto light : sceneGraph->getLights())
+    light->applyToShader(shader, lightIndex);
+
   shader->setDrawMode(drawMode);
   sceneGraph->draw(shader);
   shader->setDrawMode(NULL);

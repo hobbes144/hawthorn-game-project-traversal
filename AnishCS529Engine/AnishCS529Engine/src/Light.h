@@ -27,7 +27,8 @@ public:
 
   virtual void update() = 0;
 
-  virtual void applyToShader(const std::shared_ptr<Shader>& shader, int lightIndex) const = 0;
+  virtual void applyToShader(
+    const std::shared_ptr<Shader>& shader, int lightIndex) const = 0;
 
   // ToDo: Add shadow logic here
 };

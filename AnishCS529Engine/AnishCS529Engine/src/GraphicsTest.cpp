@@ -1,6 +1,8 @@
 #include "precompiled.h"
 #include <windows.h>
 
+#include "AmbientLight.h"
+#include "PointLight.h"
 #include "Renderer.h"
 #include "GameWindow.h"
 #include "Input.h"
@@ -51,24 +53,6 @@ int main() {
   //mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
   std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");
 
-  /* Test stuff for lighting */
-  double lightSpin = 150.0;
-  double lightTilt = -45.0;
-  double lightDist = 100.0;
-  Vector3 lightPos = Vector3(lightDist * cos(lightSpin * rad) * sin(lightTilt * rad),
-                         lightDist * sin(lightSpin * rad) * sin(lightTilt * rad),
-                         lightDist * cos(lightTilt * rad));
-  testPass->setProperty("lightPos", lightPos);
-  testPass->setProperty("mode", 2);
-  testPass->setProperty("mode", 2);
-
-  Vector3 Light, Ambient;
-  Light = Vector3(4.0, 4.0, 4.0);
-  Ambient = Vector3(0.2, 0.2, 0.2);
-
-  testPass->setProperty("Light", Light);
-  testPass->setProperty("Ambient", Ambient);
-
   //mainWindow->setVsync(true);
 
   /* Input setup */
@@ -86,9 +70,29 @@ int main() {
   /* Scenegraph setup */
   SceneGraph mainSceneGraph;
 
+
+  /* Test stuff for lighting */
+  double lightSpin = 150.0;
+  double lightTilt = -45.0;
+  double lightDist = 100.0;
+  Vector3 lightPos = Vector3(lightDist * cos(lightSpin * rad) * sin(lightTilt * rad),
+                         lightDist * sin(lightSpin * rad) * sin(lightTilt * rad),
+                         lightDist * cos(lightTilt * rad));
+  testPass->setProperty("lightPos", lightPos);
+  testPass->setProperty("mode", 2);
+
+  //Vector3 Light, Ambient;
+  //Light = Vector3(4.0, 4.0, 4.0);
+  //Ambient = Vector3(0.2, 0.2, 0.2);
+
+  auto aLight = std::make_shared<AmbientLight>();
+
+  mainSceneGraph.addLight(aLight);
+
   /* Camera setup */
   Vector3 cameraPos(0.0f, 0.0f, 10.0f);
   auto camera = std::make_shared<FreeCamera>("mainCamera");
+  camera->setPosition(cameraPos);
   camera->setPerspectiveProjection(
     45.0f * 3.14159f / 180.0f,
     mainWindow->getAspectRatio(),
@@ -109,18 +113,27 @@ int main() {
 
   auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
   auto skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
-  skyBoxMaterial->setProperty("diffuse", Vector3(1.0f));
-  //skyBoxMaterial->addTexture("media/beach.jpg");
+  skyBoxMaterial->addTexture("media/beach.jpg");
+  //skyBoxMaterial->setProperty("mode", -1);
   //skyBoxMaterial->setProperty("objectId", 1);
 
-  auto skyBox = std::make_shared<GameObject>("SkyBox");
+  /*auto skyBox = std::make_shared<GameObject>("SkyBox");
+  mainSceneGraph.addNode(skyBox);
   skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
     ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
   auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
   skyBoxRenderComponent
     ->setMesh(sphereMesh)
-    ->setMaterial(skyBoxMaterial)
-    ->setDrawMode(GL_TRIANGLES);
+    ->setMaterial(skyBoxMaterial);*/
+
+  auto testSphere = std::make_shared<GameObject>("TestSphere");
+  mainSceneGraph.addNode(testSphere);
+  testSphere->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
+    ->setLocalScaling(Vector3(2.0f, 2.0f, 2.0f));
+  auto testSphereRenderComponent = testSphere->addComponent<Render2D>();
+  testSphereRenderComponent
+    ->setMesh(sphereMesh)
+    ->setMaterial(skyBoxMaterial);
 
 // Drawable objects
   auto box1 = std::make_shared<GameObject>("Box1");
@@ -144,7 +157,6 @@ int main() {
 
   /*mainSceneGraph.addNode(box1);
   mainSceneGraph.addNode(box2);*/
-  mainSceneGraph.addNode(skyBox);
 
   float angleX = 0.0f;
   float angleY = 0.0f;
@@ -166,34 +178,34 @@ int main() {
       break;
 
     if (mainInput->isKeyDown(KEY_UP))
-      camera->rotate(Quaternion::fromEuler(1.0f / 3.14159f, 0.0f, 0.0f));
+      camera->rotate(Quaternion::fromEuler(0.1f / 3.14159f, 0.0f, 0.0f));
     if (mainInput->isKeyDown(KEY_DOWN))
-      camera->rotate(Quaternion::fromEuler(-1.0f / 3.14159f, 0.0f, 0.0f));
+      camera->rotate(Quaternion::fromEuler(-0.1f / 3.14159f, 0.0f, 0.0f));
 
     if (mainInput->isKeyDown(KEY_LEFT))
-      camera->rotate(Quaternion::fromEuler(0.0f, 1.0f / 3.14159f, 0.0f));
+      camera->rotate(Quaternion::fromEuler(0.0f, 0.1f / 3.14159f, 0.0f));
     if (mainInput->isKeyDown(KEY_RIGHT))
-      camera->rotate(Quaternion::fromEuler(0.0f, -1.0f / 3.14159f, 0.0f));
+      camera->rotate(Quaternion::fromEuler(0.0f, -0.1f / 3.14159f, 0.0f));
 
     if (mainInput->isKeyDown(KEY_Q))
-      camera->rotate(Quaternion::fromEuler(0.0f, 0.0f, 1.0f / 3.14159f));
+      camera->rotate(Quaternion::fromEuler(0.0f, 0.0f, 0.1f / 3.14159f));
     if (mainInput->isKeyDown(KEY_E))
-      camera->rotate(Quaternion::fromEuler(0.0f, 0.0f, -1.0f / 3.14159f));
+      camera->rotate(Quaternion::fromEuler(0.0f, 0.0f, -0.1f / 3.14159f));
 
     if (mainInput->isKeyDown(KEY_R))
-      camera->move(Vector3(0.0f, 1.0f, 0.0f), 0.1f);
+      camera->move(Vector3(0.0f, 1.0f, 0.0f), 0.2f);
     if (mainInput->isKeyDown(KEY_F))
-      camera->move(Vector3(0.0f, 1.0f, 0.0f), -0.1f);
+      camera->move(Vector3(0.0f, 1.0f, 0.0f), -0.2f);
 
     if (mainInput->isKeyDown(KEY_W))
-      camera->move(Vector3(0.0f, 0.0f, 1.0f), -0.1f);
+      camera->move(Vector3(0.0f, 0.0f, 1.0f), -0.2f);
     if (mainInput->isKeyDown(KEY_S))
-      camera->move(Vector3(0.0f, 0.0f, 1.0f), 0.1f);
+      camera->move(Vector3(0.0f, 0.0f, 1.0f), 0.2f);
 
     if (mainInput->isKeyDown(KEY_A))
-      camera->move(Vector3(1.0f, 0.0f, 0.0f), 0.1f);
+      camera->move(Vector3(1.0f, 0.0f, 0.0f), -0.2f);
     if (mainInput->isKeyDown(KEY_D))
-      camera->move(Vector3(1.0f, 0.0f, 0.0f), -0.1f);
+      camera->move(Vector3(1.0f, 0.0f, 0.0f), 0.2f);
 
     mainSceneGraph.update(deltaTime);
 
