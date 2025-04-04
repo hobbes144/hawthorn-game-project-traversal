@@ -45,6 +45,7 @@ public:
   /* Pre-initialization functions */
   std::shared_ptr<Render2D> setMesh(std::shared_ptr<Mesh> _mesh);
   std::shared_ptr<Render2D> setMaterial(std::shared_ptr<Material> _material);
+  std::shared_ptr<Render2D> setDrawMode(GLenum _drawMode);
 
   template<typename T>
   void setProperty(const std::string& name, const T& value) {

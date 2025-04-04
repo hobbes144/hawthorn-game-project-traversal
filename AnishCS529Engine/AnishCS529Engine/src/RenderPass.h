@@ -83,9 +83,13 @@ public:
 
   void setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit);
 
+  void setDrawMode(GLenum _drawMode);
+
+  GLenum getDrawMode();
+
   virtual void draw(
     std::shared_ptr<Camera> camera,
-    std::shared_ptr<SceneGraph> scene) const;
+    SceneGraph* scene) const;
 
   /* Utility functions */
   void enable();
@@ -96,6 +100,7 @@ protected:
   bool enabled;
   std::shared_ptr<Shader> shader;
   PropertyMap properties;
+  GLenum drawMode = NULL;
 
   //std::optional<std::shared_ptr<FBO>> FBO;
 

@@ -64,7 +64,7 @@ public:
   GameObject(std::string name, Tag t = UNTAGGED) : 
     Node(name), tag(t), enabled(true), markedForDeletion(false),
     renderableComponent(nullptr) {};
-  ~GameObject() = default;
+  ~GameObject();
 
   Tag getTag() { return tag; }
 

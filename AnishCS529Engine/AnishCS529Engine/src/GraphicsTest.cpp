@@ -94,31 +94,33 @@ int main() {
     mainWindow->getAspectRatio(),
     0.1f,
     5000.0f);
+  mainSceneGraph.addCamera(camera);
 
-  /* Create relevant Meshes*/
-  auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
-  auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
-  boxMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-  boxMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
-  boxMaterial->setProperty("shininess", 10.0f);
-  boxMaterial->setProperty("objectId", 5);
-  boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
-  boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
+  ///* Create relevant Meshes*/
+  //auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
+  //auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
+  //boxMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+  //boxMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+  //boxMaterial->setProperty("shininess", 10.0f);
+  //boxMaterial->setProperty("objectId", 5);
+  //boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
+  //boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
 
 
   auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
   auto skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
-  skyBoxMaterial->addTexture("media/beach.jpg");
-  skyBoxMaterial->setProperty("objectId", 1);
+  skyBoxMaterial->setProperty("diffuse", Vector3(1.0f));
+  //skyBoxMaterial->addTexture("media/beach.jpg");
+  //skyBoxMaterial->setProperty("objectId", 1);
 
   auto skyBox = std::make_shared<GameObject>("SkyBox");
   skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
     ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
   auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
   skyBoxRenderComponent
-    ->setCamera(camera)
     ->setMesh(sphereMesh)
-    ->setMaterial(skyBoxMaterial);
+    ->setMaterial(skyBoxMaterial)
+    ->setDrawMode(GL_TRIANGLES);
 
 // Drawable objects
   auto box1 = std::make_shared<GameObject>("Box1");
@@ -126,53 +128,22 @@ int main() {
     ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
-  auto box1RenderComponent = box1->addComponent<Render2D>();
+  /*auto box1RenderComponent = box1->addComponent<Render2D>();
   box1RenderComponent
-    ->setCamera(camera)
     ->setMesh(boxMesh)
-    ->setMaterial(boxMaterial);
+    ->setMaterial(boxMaterial);*/
 
-  auto box2 = std::make_shared<GameObject>("Box2");
+  /*auto box2 = std::make_shared<GameObject>("Box2");
   box1->setLocalPosition(Vector3(-4.0f, 0.0f, 0.0f))
     ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
 
   auto box2RenderComponent = box2->addComponent<Render2D>();
   box2RenderComponent
-    ->setCamera(camera)
     ->setMesh(boxMesh)
-    ->setMaterial(boxMaterial);
+    ->setMaterial(boxMaterial);*/
 
-
-  // Create OBBs
-  auto shape1 = std::make_shared<OBB>(
-      Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
-      Vector3(0.5f, 0.5f, 0.5f));
-  //shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
-  // Todo: When Z scale is set to 0, the box no longer follows the object in
-  // the Z axis.
-  auto shape2 = std::make_shared<OBB>(
-      Vector3(-0.5f, -0.5f, -0.5f),  // half width/height of 50 for 100x100 box
-      Vector3(0.5f, 0.5f, 0.5f));
-  //shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
-
-
-  // Create instances of bodies for boxes
-  box1->addComponent<PhysicsBody>()
-    ->setMass(10.0f)->setDrag(100.0f)
-    ->setShape(shape1)
-    //->setDebug(true)
-    ->registerToPhysicsManager(PhysicsManager::Instance());
-
-  box2->addComponent<PhysicsBody>()
-    ->setMass(10.0f)->setDrag(100.0f)
-    ->setShape(shape2)
-    //->setDebug(true)
-    ->registerToPhysicsManager(PhysicsManager::Instance());
-
-  CollisionListener boxTouch(box2);
-
-  mainSceneGraph.addNode(box1);
-  mainSceneGraph.addNode(box2);
+  /*mainSceneGraph.addNode(box1);
+  mainSceneGraph.addNode(box2);*/
   mainSceneGraph.addNode(skyBox);
 
   float angleX = 0.0f;
@@ -194,13 +165,39 @@ int main() {
     if (mainInput->isKeyHeld(KEY_ESCAPE))
       break;
 
-    // Physics update loop fixedStepTime
-    while (mainFramerateController->shouldUpdatePhysics()) {
-      PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
-      mainFramerateController->consumePhysicsTime();
-    }
+    if (mainInput->isKeyDown(KEY_UP))
+      camera->rotate(Quaternion::fromEuler(1.0f / 3.14159f, 0.0f, 0.0f));
+    if (mainInput->isKeyDown(KEY_DOWN))
+      camera->rotate(Quaternion::fromEuler(-1.0f / 3.14159f, 0.0f, 0.0f));
+
+    if (mainInput->isKeyDown(KEY_LEFT))
+      camera->rotate(Quaternion::fromEuler(0.0f, 1.0f / 3.14159f, 0.0f));
+    if (mainInput->isKeyDown(KEY_RIGHT))
+      camera->rotate(Quaternion::fromEuler(0.0f, -1.0f / 3.14159f, 0.0f));
+
+    if (mainInput->isKeyDown(KEY_Q))
+      camera->rotate(Quaternion::fromEuler(0.0f, 0.0f, 1.0f / 3.14159f));
+    if (mainInput->isKeyDown(KEY_E))
+      camera->rotate(Quaternion::fromEuler(0.0f, 0.0f, -1.0f / 3.14159f));
+
+    if (mainInput->isKeyDown(KEY_R))
+      camera->move(Vector3(0.0f, 1.0f, 0.0f), 0.1f);
+    if (mainInput->isKeyDown(KEY_F))
+      camera->move(Vector3(0.0f, 1.0f, 0.0f), -0.1f);
+
+    if (mainInput->isKeyDown(KEY_W))
+      camera->move(Vector3(0.0f, 0.0f, 1.0f), -0.1f);
+    if (mainInput->isKeyDown(KEY_S))
+      camera->move(Vector3(0.0f, 0.0f, 1.0f), 0.1f);
+
+    if (mainInput->isKeyDown(KEY_A))
+      camera->move(Vector3(1.0f, 0.0f, 0.0f), 0.1f);
+    if (mainInput->isKeyDown(KEY_D))
+      camera->move(Vector3(1.0f, 0.0f, 0.0f), -0.1f);
 
     mainSceneGraph.update(deltaTime);
+
+    mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
 
     mainFramerateController->endFrame();
     mainRenderer->swapBuffers();
@@ -214,6 +211,10 @@ int main() {
   mainInput->shutdown();
   mainRenderer->shutdown();
   mainWindow->shutdown();
+
+  delete(mainInput);
+  delete(mainRenderer);
+  delete(mainWindow);
 
   return 0;
 }

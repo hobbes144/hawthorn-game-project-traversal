@@ -58,6 +58,10 @@ private:
 
 public:
   SceneGraph() : root(std::make_shared<RootNode>()) {}
+  ~SceneGraph() {
+    clearLights();
+    clearCameras();
+  }
 
   std::shared_ptr<RootNode> getRootNode() const { return root; }
 

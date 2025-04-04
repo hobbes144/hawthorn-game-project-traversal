@@ -173,3 +173,7 @@ void GameObject::shutdown() {
   }
   components.clear();
 }
+
+GameObject::~GameObject() {
+  shutdown();
+}

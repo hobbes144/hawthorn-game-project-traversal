@@ -24,7 +24,10 @@ void RenderableNode::draw(const Matrix4& view, const Matrix4& projection) {
   material->setProperty("ViewMatrix", view);
   material->setProperty("ProjectionMatrix", projection);
   material->setProperty("ModelMatrix", getTransformMatrix());
-  material->draw(mesh);
+
+  // Todo: decide what to do with RenderableNode. We might want to delete it
+  // entirely. Or rework to work with the new sceneGraph and render system.
+  //material->draw(mesh);
 
   for (auto& child : getChildren()) {
     /* This line will return null if child is of type Node, and return the

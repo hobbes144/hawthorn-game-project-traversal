@@ -26,9 +26,19 @@ void RenderPass::setTexture(const std::string& name, TextureManager::TextureID t
   (*textureData)[name] = textureID;
 }
 
+void RenderPass::setDrawMode(GLenum _drawMode)
+{
+  drawMode = _drawMode;
+}
+
+GLenum RenderPass::getDrawMode()
+{
+  return drawMode;
+}
+
 void RenderPass::draw(
     std::shared_ptr<Camera> camera,
-    std::shared_ptr<SceneGraph> sceneGraph) const
+    SceneGraph* sceneGraph) const
 {
   shader->use();
   applyProperties();
@@ -36,7 +46,9 @@ void RenderPass::draw(
   shader->setMat4("ViewMatrix", camera->getViewMatrix());
   shader->setMat4("InverseViewMatrix", camera->getInverseViewMatrix());
 
+  shader->setDrawMode(drawMode);
   sceneGraph->draw(shader);
+  shader->setDrawMode(NULL);
 }
 
 void RenderPass::applyProperties() const

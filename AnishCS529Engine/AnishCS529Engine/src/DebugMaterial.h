@@ -19,8 +19,6 @@ public:
   DebugMaterial() : Material() {
     this->setProperty("isDebug", 1);
   }
-
-  void draw(std::shared_ptr<Mesh> mesh) const;
 };
 
 #endif // !DEBUG_MATERIAL_H

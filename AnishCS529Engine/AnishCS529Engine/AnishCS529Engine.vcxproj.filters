@@ -169,6 +169,9 @@
     <Filter Include="Engine\Source Files\Systems\Raycasting">
       <UniqueIdentifier>{973930a1-31cd-47f3-9059-a3f5ae35f9ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Source Files\Systems\RenderingSystem\RenderPasses">
+      <UniqueIdentifier>{84badcd2-4bfa-48c7-bcae-32664c35590a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -291,9 +294,6 @@
     <ClCompile Include="src\Renderer.cpp">
       <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderPass.cpp">
-      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
-    </ClCompile>
     <ClCompile Include="src\MaterialDeprecated.cpp">
       <Filter>Engine\Source Files\Deprecated</Filter>
     </ClCompile>
@@ -330,9 +330,6 @@
     <ClCompile Include="src\ShaderManager.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DebugMaterial.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\TextureMaterial.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
@@ -358,9 +355,6 @@
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui\imgui_widgets.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DebugPass.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Audio.cpp">
@@ -422,6 +416,24 @@
     </ClCompile>
     <ClCompile Include="src\GamePad.cpp">
       <Filter>Engine\Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AttachedCamera.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Door.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FreeCamera.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Key.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KeyList.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderPass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -706,6 +718,21 @@
     </ClInclude>
     <ClInclude Include="src\GlobalVariables.h">
       <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AttachedCamera.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Door.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FreeCamera.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Key.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KeyList.h">
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

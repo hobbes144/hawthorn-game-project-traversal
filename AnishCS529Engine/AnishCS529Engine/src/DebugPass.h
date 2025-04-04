@@ -18,12 +18,10 @@ class DebugPass : public RenderPass {
 public:
   DebugPass() : RenderPass() {
     this->addShader("shaders/debug.vert.glsl\nshaders/debug.frag.glsl");
-    this->setProperty("isDebug", 0);
+    // Todo: This needs to be replaced with a passMask.
+    //this->setProperty("isDebug", 0);
+    this->setDrawMode(GL_LINES);
   };
-
-  virtual void draw(std::shared_ptr<Mesh> mesh, GLenum mode,
-    const PropertyMap& materialProperties = {},
-    const LightStack& lightStack = {}) const;
 };
 
 #endif // !DEBUG_PASS_H

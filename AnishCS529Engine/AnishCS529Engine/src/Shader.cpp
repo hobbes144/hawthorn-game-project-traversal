@@ -11,6 +11,16 @@
 #include "precompiled.h"
 #include "Shader.h"
 
+void Shader::setDrawMode(GLenum _drawMode)
+{
+  drawMode = _drawMode;
+}
+
+GLenum Shader::getDrawMode()
+{
+  return drawMode;
+}
+
 /*!****************************************************************************
  * \brief Shader constructor
  * 

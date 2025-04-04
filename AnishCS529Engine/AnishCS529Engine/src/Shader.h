@@ -62,6 +62,9 @@ public:
     TextureManager::TextureID textureID) const;
 
   unsigned int getId() { return programID; };
+
+  void setDrawMode(GLenum _drawMode);
+  GLenum getDrawMode();
   
 private:
   Shader(const std::string& shaderFilePaths);
@@ -69,6 +72,7 @@ private:
   std::unordered_map<GLenum, std::vector<GLuint>> shaderIDs;
   mutable std::unordered_map<std::string, GLint> uniformLocationCache; // Todo: Why is this mutable?
   GLuint programID;
+  GLenum drawMode = NULL;
 
   GLenum readShaderType(std::string path);
   std::string readShaderFile(std::string path);

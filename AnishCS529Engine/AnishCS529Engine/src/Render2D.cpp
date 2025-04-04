@@ -54,6 +54,11 @@ std::shared_ptr<Render2D> Render2D::setMaterial(std::shared_ptr<Material> _mater
   return shared_from_this();
 }
 
+std::shared_ptr<Render2D> Render2D::setDrawMode(GLenum _drawMode) {
+  drawMode = _drawMode;
+  return shared_from_this();
+}
+
 /*!****************************************************************************
  * \brief Dummy initialize function
  * 
@@ -99,7 +104,10 @@ void Render2D::draw(std::shared_ptr<Shader> shader) {
 
   material->apply(shader);
 
-  mesh->draw(drawMode);
+  if (shader->getDrawMode())
+    mesh->draw(shader->getDrawMode());
+  else
+    mesh->draw(drawMode);
 }
 
 

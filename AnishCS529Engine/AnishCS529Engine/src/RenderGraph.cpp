@@ -1,7 +1,7 @@
 #include "precompiled.h"
 #include "RenderGraph.h"
 
-void RenderGraph::draw(std::shared_ptr<SceneGraph> scene)
+void RenderGraph::draw(SceneGraph* scene)
 {
   for (const auto& camera : scene->getCameras()) {
 

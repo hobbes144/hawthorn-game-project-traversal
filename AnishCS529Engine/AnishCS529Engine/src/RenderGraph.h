@@ -27,7 +27,7 @@ public:
   template <typename T>
   std::shared_ptr<T> getPass(const std::string& name);
 
-  void draw(std::shared_ptr<SceneGraph> scene);
+  void draw(SceneGraph* scene);
 
 private:
   std::vector<std::shared_ptr<RenderPass>> renderStack;
