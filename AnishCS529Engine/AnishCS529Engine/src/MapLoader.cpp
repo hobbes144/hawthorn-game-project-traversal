@@ -1,4 +1,4 @@
-#include "precompiled.h"
+﻿#include "precompiled.h"
 #include "DeathPlane.h"
 #include "Door.h"
 #include "InGameKey.h"
@@ -1472,60 +1472,6 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     rigidBody->initialize();
 }
 
-// Jump Pad
-{
-    auto JumpPad = std::make_shared<GameObject>("JumpPad");
-    sceneGraph.addNode(JumpPad);
-    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 26.0f + offsetY, 70.0f + offsetZ));
-    JumpPad->setLocalScaling(Vector3(12.0f, 52.0f, 12.0f));
-    auto renderComp = JumpPad->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
-    auto shape = std::make_shared<OBB>();
-    auto rigidBody = JumpPad->addComponent<RigidBody>();
-    rigidBody->setMass(0.0f)
-        ->setDrag(1.0f)
-        ->setShape(shape)
-        ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
-    rigidBody->initialize();
-}
-
-// Jump Pad
-{
-    auto JumpPad = std::make_shared<GameObject>("JumpPad");
-    sceneGraph.addNode(JumpPad);
-    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 28.5f + offsetY, 90.0f + offsetZ));
-    JumpPad->setLocalScaling(Vector3(12.0f, 57.0f, 12.0f));
-    auto renderComp = JumpPad->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
-    auto shape = std::make_shared<OBB>();
-    auto rigidBody = JumpPad->addComponent<RigidBody>();
-    rigidBody->setMass(0.0f)
-        ->setDrag(1.0f)
-        ->setShape(shape)
-        ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
-    rigidBody->initialize();
-}
-
-// Jump Pad2
-{
-    auto JumpPad2 = std::make_shared<GameObject>("JumpPad2");
-    sceneGraph.addNode(JumpPad2);
-    JumpPad2->setLocalPosition(Vector3(-135.0f + offsetX, 31 + offsetY, 110.0f + offsetZ));
-    JumpPad2->setLocalScaling(Vector3(12.0f, 62.0f, 12.0f));
-    auto renderComp = JumpPad2->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
-    auto shape = std::make_shared<OBB>();
-    auto rigidBody = JumpPad2->addComponent<RigidBody>();
-    rigidBody->setMass(0.0f)
-        ->setDrag(1.0f)
-        ->setShape(shape)
-        ->setStatic(true)
-        ->registerToPhysicsManager(PhysicsManager::Instance());
-    rigidBody->initialize();
-}
-
 // Moving platform going up/down
 {
     auto MovingPlatform = std::make_shared<GameObject>("MovingPlatform");
@@ -1549,27 +1495,81 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
           [currentTime = 0.0f, initialPos = MovingPlatform->getLocalPosition().y, phase = 1.0f](std::shared_ptr<GameObject> self, float deltaTime) mutable {
 
 
-      deltaTime *= timeScale;
+              deltaTime *= timeScale;
 
-      /* Affine Transformation Variables */
-      float affineSpeed = 5.0f;
-      float affinePosVarianceZ = 5.0f;
+              /* Affine Transformation Variables */
+              float affineSpeed = 5.0f;
+              float affinePosVarianceZ = 5.0f;
 
-      currentTime += deltaTime;
+              currentTime += deltaTime;
 
-      if ((phase == -1.0f) && (initialPos - affinePosVarianceZ) > self->getWorldPosition().y)
-          phase = 1.0f;
-      else if ((phase == 1.0f) && (initialPos + affinePosVarianceZ) < self->getWorldPosition().y)
-          phase = -1.0f;
+              if ((phase == -1.0f) && (initialPos - affinePosVarianceZ) > self->getWorldPosition().y)
+                  phase = 1.0f;
+              else if ((phase == 1.0f) && (initialPos + affinePosVarianceZ) < self->getWorldPosition().y)
+                  phase = -1.0f;
 
-      Vector3 velocity = Vector3(0.0f, affineSpeed * phase, 0.0f);
+              Vector3 velocity = Vector3(0.0f, affineSpeed * phase, 0.0f);
 
-      Vector3 newPos = self->getWorldPosition() + (velocity * deltaTime);
-      self->setWorldPosition(newPos);
+              Vector3 newPos = self->getWorldPosition() + (velocity * deltaTime);
+              self->setWorldPosition(newPos);
           }
     );
 
     platformAnimate->runAnimateFunction(true);
+}
+
+// Pillar 1
+{
+    auto Pillar = std::make_shared<GameObject>("Pillar");
+    sceneGraph.addNode(Pillar);
+    Pillar->setLocalPosition(Vector3(-130.0f + offsetX, 26.0f + offsetY, 70.0f + offsetZ));
+    Pillar->setLocalScaling(Vector3(12.0f, 52.0f, 12.0f));
+    auto renderComp = Pillar->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = Pillar->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Pillar 2
+{
+    auto JumpPad = std::make_shared<GameObject>("JumpPad");
+    sceneGraph.addNode(JumpPad);
+    JumpPad->setLocalPosition(Vector3(-130.0f + offsetX, 28.5f + offsetY, 90.0f + offsetZ));
+    JumpPad->setLocalScaling(Vector3(12.0f, 57.0f, 12.0f));
+    auto renderComp = JumpPad->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = JumpPad->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Pillar 3
+{
+    auto JumpPad2 = std::make_shared<GameObject>("JumpPad2");
+    sceneGraph.addNode(JumpPad2);
+    JumpPad2->setLocalPosition(Vector3(-135.0f + offsetX, 31 + offsetY, 110.0f + offsetZ));
+    JumpPad2->setLocalScaling(Vector3(12.0f, 62.0f, 12.0f));
+    auto renderComp = JumpPad2->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = JumpPad2->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
 }
 
 
@@ -1606,19 +1606,17 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 // 
 
 // ----------------
-// Moving Platforms
+// Platforms Going in Circle
 // ----------------
 {
-    auto createJumpPad = [&](const std::string& name, const Vector3& pos, const Vector3& scale, float rotationSpeed) {
-        auto pad = std::make_shared<GameObject>(name);
-        sceneGraph.addNode(pad);
-        pad->setLocalPosition(pos);
-        pad->setLocalScaling(scale);
-        pad->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
-
-        pad->addComponent<Render2D>()->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
-
-        pad->addComponent<RigidBody>()
+    auto createCircularPlatform = [&](const std::string& name, const Vector3& center, const Vector3& scale, float dirFactor, float initialAngle = 0.0f) {
+        auto platform = std::make_shared<GameObject>(name);
+        sceneGraph.addNode(platform);
+        platform->setLocalPosition(center);
+        platform->setLocalScaling(scale);
+        platform->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
+        platform->addComponent<Render2D>()->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        platform->addComponent<RigidBody>()
             ->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(std::make_shared<OBB>())
@@ -1626,34 +1624,64 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             ->registerToPhysicsManager(PhysicsManager::Instance())
             ->initialize();
 
-        pad->addComponent<Animate>()->setAnimateFunction(
-            [rotationSpeed](std::shared_ptr<GameObject> self, float deltaTime) {
-                float radians = rotationSpeed * deltaTime * (3.14159265f / 180.0f);
-                self->setLocalRotation(Quaternion::fromEuler(0.0f, radians, 0.0f) * self->getLocalRotation());
+        // Parameters for platform creation
+        float radius = 20.0f;
+        float angularSpeed = 0.5f;
+
+        platform->addComponent<Animate>()->setAnimateFunction(
+            [angle = initialAngle, center, radius, angularSpeed, dirFactor](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                angle += deltaTime * angularSpeed * dirFactor;
+                float xOffset = radius * std::cos(angle);
+                float zOffset = radius * std::sin(angle);
+                self->setLocalPosition(center + Vector3(xOffset, 0.0f, zOffset));
             }
         )->runAnimateFunction(true);
         };
 
-    float startX = -110.0f;
-    float endX = 120.0f;
-    float step = 60.0f;
-
-    Vector3 scaleTop(30.0f, 3.0f, 20.0f);
-    Vector3 scaleBottom(20.0f, 3.0f, 30.0f); 
-
+    // First set
+    float startX = -90.0f;
+    float endX = 90.0f;
+    float step = 90.0f;
+    Vector3 scale(20.0f, 3.0f, 20.0f);
     int count = 0;
     for (float x = startX; x <= endX; x += step) {
+        Vector3 center(x + offsetX, 65.0f + offsetY, 115.0f + offsetZ);
 
-        Vector3 posTop(x + offsetX, 65.0f + offsetY, 135.0f + offsetZ);
-        createJumpPad("JumpPad" + std::to_string(count), posTop, scaleTop, +45.0f);
+        // Left side
+        for (int i = 0; i < 4; i++) {
+            float initialAngle = i * (3.14159265f / 2.0f); // 0, π/2, π, 3π/2
+            createCircularPlatform("Platform" + std::to_string(count) + "Left" + std::to_string(i), center, scale, 1.0f, initialAngle);
+        }
+        // Right side
+        for (int i = 0; i < 4; i++) {
+            float initialAngle = i * (3.14159265f / 2.0f) + 3.14159265f; // π, 3π/2, 2π, 5π/2
+            createCircularPlatform("Platform" + std::to_string(count) + "Right" + std::to_string(i), center, scale, 1.0f, initialAngle);
+        }
+        count++;
+    }
 
+    // Second set
+    count = 0;
+    for (float x = startX; x <= endX - 10; x += step) {
+        Vector3 center(x + offsetX + 45.0f, 65.0f + offsetY, (115.0f + offsetZ) + 50.0f);
 
-        Vector3 posBottom((x + 30.0f) + offsetX, 68.0f + offsetY, 110.0f + offsetZ);
-        createJumpPad("JumpPad" + std::to_string(count), posBottom, scaleBottom, -45.0f);
-
+        // Left side
+        for (int i = 0; i < 4; i++) {
+            float initialAngle = i * (3.14159265f / 2.0f);
+            createCircularPlatform("PlatformAlt" + std::to_string(count) + "Left" + std::to_string(i), center, scale, -1.0f, initialAngle);
+        }
+        // Right side
+        for (int i = 0; i < 4; i++) {
+            float initialAngle = i * (3.14159265f / 2.0f) + 3.14159265f;
+            createCircularPlatform("PlatformAlt" + std::to_string(count) + "Right" + std::to_string(i), center, scale, -1.0f, initialAngle);
+        }
         count++;
     }
 }
+
+
+
+
 
 
 // Checkpoint6
