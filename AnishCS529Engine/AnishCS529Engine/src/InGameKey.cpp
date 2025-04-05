@@ -20,8 +20,8 @@ void onKeyCollide(std::shared_ptr<GameObject> obj1,
 }
 
 void InGameKey::initialize() {
-	keyListener = new CollisionListener(this->parent);
-	keyListener->setCallback(onKeyCollide);
+	listener = new CollisionListener(this->parent);
+	listener->setCallback(onKeyCollide);
 }
 
 int InGameKey::getID() {
