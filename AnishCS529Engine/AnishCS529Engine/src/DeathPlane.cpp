@@ -10,12 +10,12 @@ void onDeathCollide(std::shared_ptr<GameObject> obj1,
 
 	if (FPC1 && S2) {
 		if (obj1->getName() == S2->getPlayerName()) {
-			FPC1->respawnPlayer();
+			FPC1->takeDamage();
 		}
 	}
 	else if (FPC2 && S1) {
 		if (obj2->getName() == S1->getPlayerName()) {
-			FPC2->respawnPlayer();
+			FPC2->takeDamage();
 		}
 	}
 	return;

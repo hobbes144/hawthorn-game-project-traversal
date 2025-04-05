@@ -347,6 +347,7 @@ void LevelManager::ExecuteMainLoop()
         Vector3 playerPos = playerBox->getWorldTransform().getPosition();
         ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
         ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
+        ImGui::Text("HP: %d", fpc->getHP());
 
         ImGui::End();
 

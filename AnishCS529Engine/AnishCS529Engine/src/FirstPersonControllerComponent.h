@@ -166,6 +166,9 @@ public:
     void setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation);
     Vector3 getRespawnCheckpoint();
 
+    void takeDamage();
+    int getHP() const { return hp; }
+
 private:
     //Utility Functions
     void SwitchState(PlayerState originalState, PlayerState newState);
@@ -199,6 +202,13 @@ private:
     PlayerState playerState;
     AnchorInfo anchorInfo;
     std::shared_ptr<GameObject> anchorSurface;
+
+    int hp = 3;
+    const int maxHP = 3;
+    float timeSinceDamage = 0.0f;
+    const float recoveryDelay = 5.0f;
+    float damageCooldown = 0.5f;
+    float damageTimer = 0.0f;
 
     //Respawn
     Vector3 respawnCheckpoint = Vector3(0.0f, 2.0f, 0.0f);
