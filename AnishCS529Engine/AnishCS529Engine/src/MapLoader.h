@@ -99,6 +99,14 @@ private:
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
+    void tutorial2(float offsetX, float offsetY, float offsetZ,
+              SceneGraph& sceneGraph,
+              std::shared_ptr<Camera> camera);
+
+    void tutorial3(float offsetX, float offsetY, float offsetZ,
+              SceneGraph& sceneGraph,
+              std::shared_ptr<Camera> camera);
+
     void intermediate(float offsetX, float offsetY, float offsetZ,
          SceneGraph& sceneGraph,
          std::shared_ptr<Camera> camera);
