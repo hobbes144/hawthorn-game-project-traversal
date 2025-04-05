@@ -1054,6 +1054,63 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
     //    rigidBody->initialize();
     //}
 
+    // Moving platform going up
+    {
+        std::vector<std::shared_ptr<GameObject>> movingBlocks;
+        float spawnInterval = 5.0f;
+        int maxBlocks = 3;
+        Vector3 startPos(-138.0f, -1.0f, -6.0f);
+        Vector3 velocity(-3.0f, 0.41f, 0.0f);
+
+        auto spawnTimer = std::make_shared<float>(0.0f);
+        auto spawnedCount = std::make_shared<int>(0);
+
+        auto spawner = std::make_shared<GameObject>("BlockSpawner");
+        sceneGraph.addNode(spawner);
+
+        spawner->addComponent<Animate>()->setAnimateFunction(
+            [=](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                    *spawnTimer += deltaTime;
+
+                    if (*spawnedCount < maxBlocks && *spawnTimer >= spawnInterval) {
+                        *spawnTimer = 0.0f;
+
+                        auto block = std::make_shared<GameObject>("MovingBlock_" + std::to_string(*spawnedCount));
+                        sceneGraph.addNode(block);
+                        block->setLocalPosition(startPos);
+                        block->setLocalScaling(Vector3(15.0f, 2.5f, 5.0f));
+                        block->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
+
+                        block->addComponent<Render2D>()->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+
+                        block->addComponent<RigidBody>()
+                            ->setMass(0.0f)
+                            ->setDrag(1.0f)
+                            ->setShape(std::make_shared<OBB>())
+                            ->setStatic(true)
+                            ->registerToPhysicsManager(PhysicsManager::Instance())
+                            ->initialize();
+
+
+                        block->addComponent<Animate>()->setAnimateFunction(
+                            [velocity, startPos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
+                                        time += dt;
+                                        if (time >= 15.0f) {
+                                            self->setLocalPosition(startPos);
+                                            time = 0.0f;
+                                        }
+                                        else {
+                                            self->setLocalPosition(self->getLocalPosition() + velocity * dt);
+                                        }
+                            }
+                        )->runAnimateFunction(true);
+
+                        movingBlocks.push_back(block);
+                        (*spawnedCount)++;
+                    }
+            }
+        )->runAnimateFunction(true);
+    }
 
     // Checkpoint 2
     {
@@ -1470,6 +1527,54 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         ->registerToPhysicsManager(PhysicsManager::Instance());
     rigidBody->initialize();
 }
+
+// Moving platform going up/down
+{
+    auto MovingPlatform = std::make_shared<GameObject>("MovingPlatform");
+    sceneGraph.addNode(MovingPlatform);
+    MovingPlatform->setLocalPosition(Vector3(-130.0f + offsetX, 47 + offsetY, 54.0f + offsetZ));
+    MovingPlatform->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+    auto renderComp = MovingPlatform->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    auto shape = std::make_shared<OBB>();
+
+    auto rigidBody = MovingPlatform->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+
+    auto platformAnimate = MovingPlatform->addComponent<Animate>();
+    platformAnimate->setAnimateFunction(
+          [currentTime = 0.0f, initialPos = MovingPlatform->getLocalPosition().y, phase = 1.0f](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+
+
+      deltaTime *= timeScale;
+
+      /* Affine Transformation Variables */
+      float affineSpeed = 5.0f;
+      float affinePosVarianceZ = 5.0f;
+
+      currentTime += deltaTime;
+
+      if ((phase == -1.0f) && (initialPos - affinePosVarianceZ) > self->getWorldPosition().y)
+          phase = 1.0f;
+      else if ((phase == 1.0f) && (initialPos + affinePosVarianceZ) < self->getWorldPosition().y)
+          phase = -1.0f;
+
+      Vector3 velocity = Vector3(0.0f, affineSpeed * phase, 0.0f);
+
+      Vector3 newPos = self->getWorldPosition() + (velocity * deltaTime);
+      self->setWorldPosition(newPos);
+          }
+    );
+
+    platformAnimate->runAnimateFunction(true);
+}
+
+
 //{
 //    std::random_device rd;
 //    std::mt19937 gen(rd());
@@ -1608,11 +1713,10 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
                     ->registerToPhysicsManager(PhysicsManager::Instance())
                     ->initialize();
 
-                // Animate block movement and reset after 20 seconds
                 block->addComponent<Animate>()->setAnimateFunction(
                     [velocity, startPos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
                         time += dt;
-                        if (time >= 20.0f) { // changed from 12.0f to 20.0f
+                        if (time >= 20.0f) {
                             self->setLocalPosition(startPos);
                             time = 0.0f;
                         }
