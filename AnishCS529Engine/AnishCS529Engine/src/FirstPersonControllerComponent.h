@@ -203,8 +203,8 @@ private:
     AnchorInfo anchorInfo;
     std::shared_ptr<GameObject> anchorSurface;
 
-    int hp = 3;
-    const int maxHP = 3;
+    int hp = 1;
+    const int maxHP = 1;
     float timeSinceDamage = 0.0f;
     const float recoveryDelay = 5.0f;
     float damageCooldown = 0.5f;
