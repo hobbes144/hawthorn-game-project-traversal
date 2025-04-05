@@ -99,7 +99,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/Big_Button.fbx");
         auto key = std::make_shared<GameObject>("key", GameObject::WALL);
         sceneGraph.addNode(key);
-        key->setLocalPosition(Vector3(-396.0f + offsetX, 0.5f + offsetY, 4.0f + offsetZ));
+        key->setLocalPosition(Vector3(-396.0f + offsetX, -4.5f + offsetY, 4.0f + offsetZ));
         key->setLocalScaling(Vector3(0.03f, 0.01f, 0.03f));
         auto renderComp = key->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(concreteMaterial);
@@ -118,7 +118,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
     {
         auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(-399.7f + offsetX, 2.5f + offsetY, 0.0f + offsetZ));
+        testDoor->setLocalPosition(Vector3(-399.7f + offsetX, -2.5f + offsetY, 0.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         auto renderComp = testDoor->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(BrownConcrete);
@@ -653,8 +653,8 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
     {
         auto pitWall2 = std::make_shared<GameObject>("pitWall2");
         sceneGraph.addNode(pitWall2);
-        pitWall2->setLocalPosition(Vector3(-375.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
-        pitWall2->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
+        pitWall2->setLocalPosition(Vector3(-375.5f + offsetX, -7.5f + offsetY, 0.0f + offsetZ));
+        pitWall2->setLocalScaling(Vector3(1.0f, 5.0f, 20.0f));
         auto renderComp = pitWall2->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -671,7 +671,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
     {
         auto Floor6 = std::make_shared<GameObject>("Floor6");
         sceneGraph.addNode(Floor6);
-        Floor6->setLocalPosition(Vector3(-390.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        Floor6->setLocalPosition(Vector3(-390.0f + offsetX, -5.0f + offsetY, 0.0f + offsetZ));
         Floor6->setLocalScaling(Vector3(30.0f, 1.0f, 20.0f));
         auto renderComp = Floor6->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
