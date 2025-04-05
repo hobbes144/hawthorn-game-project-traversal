@@ -158,6 +158,9 @@ public:
     bool getIsGrounded();
     std::shared_ptr<GameObject> getAnchoredSurface();
 
+    bool isCreativeMode() const { return isCreative; }
+
+
     //Respawn
     void respawnPlayer();
     void setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation);
