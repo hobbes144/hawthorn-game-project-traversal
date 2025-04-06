@@ -30,6 +30,7 @@ void MapLoader::initializeResources(std::shared_ptr<RenderGraph> renderGraph) {
     BrownConcrete = Material::getMaterial<Material>("BrownConcrete", renderGraph);
     BlueConcrete = Material::getMaterial<Material>("BlueConcrete", renderGraph);
     WhiteFloorTiles = Material::getMaterial<Material>("WhiteFloorTiles", renderGraph);
+    keyMaterial = Material::getMaterial<Material>("key", renderGraph);
 }
 
 
@@ -96,14 +97,15 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
     
     // Keys & Doors test
     {
-        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/Big_Button.fbx");
+        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
         auto key = std::make_shared<GameObject>("key", GameObject::WALL);
         sceneGraph.addNode(key);
-        key->setLocalPosition(Vector3(-396.0f + offsetX, -4.5f + offsetY, 4.0f + offsetZ));
-        key->setLocalScaling(Vector3(0.03f, 0.01f, 0.03f));
+        key->setLocalPosition(Vector3(-396.0f + offsetX, -2.5f + offsetY, 4.0f + offsetZ));
+        key->setLocalScaling(Vector3(0.005f, 0.005f, 0.005f));
         auto renderComp = key->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(concreteMaterial);
-        auto shape = std::make_shared<OBB>();
+        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(keyMaterial);
+
+        auto shape = std::make_shared<OBB>(Vector3(0, 0, 0), Vector3(1.0f / 0.005f, 2.0f / 0.005f, 1.0f / 0.005f));
         auto keyComp = key->addComponent<InGameKey>();
         keyComp->setID(0);
         keyComp->setMass(0.0f)
@@ -113,7 +115,18 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
             ->registerToPhysicsManager(PhysicsManager::Instance());
         keyComp->initialize();
 
-
+        key->addComponent<Animate>()->setAnimateFunction(
+             [rotationSpeed = 45.0f, amplitude = 1.0f, currentTime = 0.0f, initialPos = key->getLocalPosition()]
+             (std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                     currentTime += deltaTime;
+                     float yOffset = amplitude * std::sin(currentTime);
+                     Vector3 newPos = initialPos;
+                     newPos.y += yOffset;
+                     self->setLocalPosition(newPos);
+                     float radians = rotationSpeed * deltaTime * (3.14159265f / 180.0f);
+                     self->setLocalRotation(Quaternion::fromEuler(0.0f, radians, 0.0f) * self->getLocalRotation());
+             }
+        )->runAnimateFunction(true);
     }
     {
         auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
@@ -694,14 +707,15 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
 
     // Keys & Doors test
     {
-        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/Big_Button.fbx");
+        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
         auto key = std::make_shared<GameObject>("key", GameObject::WALL);
         sceneGraph.addNode(key);
         key->setLocalPosition(Vector3(-396.0f + offsetX, 0.5f + offsetY, 4.0f + offsetZ));
         key->setLocalScaling(Vector3(0.03f, 0.01f, 0.03f));
         auto renderComp = key->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(concreteMaterial);
-        auto shape = std::make_shared<OBB>();
+        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(keyMaterial);
+
+        auto shape = std::make_shared<OBB>(Vector3(0, 0, 0), Vector3(1.0f / 0.005f, 2.0f / 0.005f, 1.0f / 0.005f));
         auto keyComp = key->addComponent<InGameKey>();
         keyComp->setID(0);
         keyComp->setMass(0.0f)
@@ -711,7 +725,18 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
             ->registerToPhysicsManager(PhysicsManager::Instance());
         keyComp->initialize();
 
-
+        key->addComponent<Animate>()->setAnimateFunction(
+             [rotationSpeed = 45.0f, amplitude = 1.0f, currentTime = 0.0f, initialPos = key->getLocalPosition()]
+             (std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                 currentTime += deltaTime;
+                 float yOffset = amplitude * std::sin(currentTime);
+                 Vector3 newPos = initialPos;
+                 newPos.y += yOffset;
+                 self->setLocalPosition(newPos);
+                 float radians = rotationSpeed * deltaTime * (3.14159265f / 180.0f);
+                 self->setLocalRotation(Quaternion::fromEuler(0.0f, radians, 0.0f) * self->getLocalRotation());
+             }
+        )->runAnimateFunction(true);
     }
     {
         auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
@@ -1292,14 +1317,15 @@ void MapLoader::tutorial3(float offsetX, float offsetY, float offsetZ, SceneGrap
 
     // Keys & Doors test
     {
-        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/Big_Button.fbx");
+        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
         auto key = std::make_shared<GameObject>("key", GameObject::WALL);
         sceneGraph.addNode(key);
         key->setLocalPosition(Vector3(-396.0f + offsetX, 0.5f + offsetY, 4.0f + offsetZ));
         key->setLocalScaling(Vector3(0.03f, 0.01f, 0.03f));
         auto renderComp = key->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(concreteMaterial);
-        auto shape = std::make_shared<OBB>();
+        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(keyMaterial);
+
+        auto shape = std::make_shared<OBB>(Vector3(0, 0, 0), Vector3(1.0f / 0.005f, 2.0f / 0.005f, 1.0f / 0.005f));
         auto keyComp = key->addComponent<InGameKey>();
         keyComp->setID(0);
         keyComp->setMass(0.0f)
@@ -1309,7 +1335,18 @@ void MapLoader::tutorial3(float offsetX, float offsetY, float offsetZ, SceneGrap
             ->registerToPhysicsManager(PhysicsManager::Instance());
         keyComp->initialize();
 
-
+        key->addComponent<Animate>()->setAnimateFunction(
+             [rotationSpeed = 45.0f, amplitude = 1.0f, currentTime = 0.0f, initialPos = key->getLocalPosition()]
+             (std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                 currentTime += deltaTime;
+                 float yOffset = amplitude * std::sin(currentTime);
+                 Vector3 newPos = initialPos;
+                 newPos.y += yOffset;
+                 self->setLocalPosition(newPos);
+                 float radians = rotationSpeed * deltaTime * (3.14159265f / 180.0f);
+                 self->setLocalRotation(Quaternion::fromEuler(0.0f, radians, 0.0f) * self->getLocalRotation());
+             }
+        )->runAnimateFunction(true);
     }
     {
         auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
@@ -1887,15 +1924,17 @@ void MapLoader::tutorial3(float offsetX, float offsetY, float offsetZ, SceneGrap
 void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera) {
 
     // Keys & Doors test
+
     {
-        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/Big_Button.fbx");
+        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
         auto key = std::make_shared<GameObject>("key", GameObject::WALL);
         sceneGraph.addNode(key);
-        key->setLocalPosition(Vector3(-186.0f + offsetX, 6.5f + offsetY, 4.0f + offsetZ));
-        key->setLocalScaling(Vector3(0.03f, 0.01f, 0.03f));
+        key->setLocalPosition(Vector3(-186.0f + offsetX, 8.5f + offsetY, 4.0f + offsetZ));
+        key->setLocalScaling(Vector3(0.005f, 0.005f, 0.005f));
         auto renderComp = key->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(concreteMaterial);
-        auto shape = std::make_shared<OBB>();
+        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(keyMaterial);
+
+        auto shape = std::make_shared<OBB>(Vector3(0, 0, 0), Vector3(1.0f / 0.005f, 2.0f / 0.005f, 1.0f / 0.005f));
         auto keyComp = key->addComponent<InGameKey>();
         keyComp->setID(1);
         keyComp->setMass(0.0f)
@@ -1905,8 +1944,20 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
             ->registerToPhysicsManager(PhysicsManager::Instance());
         keyComp->initialize();
 
-
+        key->addComponent<Animate>()->setAnimateFunction(
+             [rotationSpeed = 45.0f, amplitude = 1.0f, currentTime = 0.0f, initialPos = key->getLocalPosition()]
+             (std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                 currentTime += deltaTime;
+                 float yOffset = amplitude * std::sin(currentTime);
+                 Vector3 newPos = initialPos;
+                 newPos.y += yOffset;
+                 self->setLocalPosition(newPos);
+                 float radians = rotationSpeed * deltaTime * (3.14159265f / 180.0f);
+                 self->setLocalRotation(Quaternion::fromEuler(0.0f, radians, 0.0f) * self->getLocalRotation());
+             }
+        )->runAnimateFunction(true);
     }
+
     {
         auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
         sceneGraph.addNode(testDoor);
