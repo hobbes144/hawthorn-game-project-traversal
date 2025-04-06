@@ -141,7 +141,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         auto LeftWall = std::make_shared<GameObject>("LeftWall", GameObject::WALL);
         sceneGraph.addNode(LeftWall);
         LeftWall->setLocalPosition(Vector3(-200.0f + offsetX, 4.0f + offsetY, 10.1f + offsetZ));
-        LeftWall->setLocalScaling(Vector3(420.0f, 40.0f, 1.0f));
+        LeftWall->setLocalScaling(Vector3(420.0f, 150.0f, 1.0f));
         auto renderComp = LeftWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -158,7 +158,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         auto RightWall = std::make_shared<GameObject>("RightWall", GameObject::WALL);
         sceneGraph.addNode(RightWall);
         RightWall->setLocalPosition(Vector3(-200.0f + offsetX, 4.0f + offsetY, -10.1f + offsetZ));
-        RightWall->setLocalScaling(Vector3(420.0f, 40.0f, 1.0f));
+        RightWall->setLocalScaling(Vector3(420.0f, 150.0f, 1.0f));
         auto renderComp = RightWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -175,7 +175,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         auto BackWall = std::make_shared<GameObject>("BackWall", GameObject::WALL);
         sceneGraph.addNode(BackWall);
         BackWall->setLocalPosition(Vector3(10.5f + offsetX, 4.0f + offsetY, 0.0f + offsetZ));
-        BackWall->setLocalScaling(Vector3(1.0f, 40.0f, 20.0f));
+        BackWall->setLocalScaling(Vector3(1.0f, 150.0f, 20.0f));
         auto renderComp = BackWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -192,7 +192,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         auto FrontWall = std::make_shared<GameObject>("FrontWall", GameObject::WALL);
         sceneGraph.addNode(FrontWall);
         FrontWall->setLocalPosition(Vector3(-400.5f + offsetX, 4.0f + offsetY, 0.0f + offsetZ));
-        FrontWall->setLocalScaling(Vector3(1.0f, 40.0f, 20.0f));
+        FrontWall->setLocalScaling(Vector3(1.0f, 150.0f, 20.0f));
         auto renderComp = FrontWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -208,8 +208,8 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
     {
         auto TopWall = std::make_shared<GameObject>("TopWall", GameObject::WALL);
         sceneGraph.addNode(TopWall);
-        TopWall->setLocalPosition(Vector3(-200.0f + offsetX, 24.0f + offsetY, 0.0f + offsetZ));
-        TopWall->setLocalScaling(Vector3(420.0f, 1.0f, 20.0f));
+        TopWall->setLocalPosition(Vector3(-200.0f + offsetX, 30.0f + offsetY, 0.0f + offsetZ));
+        TopWall->setLocalScaling(Vector3(420.0f, 10.0f, 20.0f));
         auto renderComp = TopWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -226,7 +226,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
     {
         auto DP1 = std::make_shared<GameObject>("DP1");
         sceneGraph.addNode(DP1);
-        DP1->setLocalPosition(Vector3(-200.0f + offsetX, -12.0f + offsetY, 0.0f + offsetZ));
+        DP1->setLocalPosition(Vector3(-200.0f + offsetX, -50.0f + offsetY, 0.0f + offsetZ));
         DP1->setLocalScaling(Vector3(420.0f, 1.0f, 20.0f));
         //DP1->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
         auto renderComp = DP1->addComponent<Render2D>();
@@ -824,7 +824,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto DP1 = std::make_shared<GameObject>("DP1");
         sceneGraph.addNode(DP1);
-        DP1->setLocalPosition(Vector3(-200.0f + offsetX, -12.0f + offsetY, 0.0f + offsetZ));
+        DP1->setLocalPosition(Vector3(-200.0f + offsetX, -50.0f + offsetY, 0.0f + offsetZ));
         DP1->setLocalScaling(Vector3(420.0f, 1.0f, 20.0f));
         //DP1->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
         auto renderComp = DP1->addComponent<Render2D>();
@@ -1299,7 +1299,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         auto LeftWall = std::make_shared<GameObject>("LeftWall", GameObject::WALL);
         sceneGraph.addNode(LeftWall);
         LeftWall->setLocalPosition(Vector3(-200.0f + offsetX, 4.0f + offsetY, 10.1f + offsetZ));
-        LeftWall->setLocalScaling(Vector3(420.0f, 40.0f, 1.0f));
+        LeftWall->setLocalScaling(Vector3(420.0f, 150.0f, 1.0f));
         auto renderComp = LeftWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -1316,7 +1316,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         auto RightWall = std::make_shared<GameObject>("RightWall", GameObject::WALL);
         sceneGraph.addNode(RightWall);
         RightWall->setLocalPosition(Vector3(-200.0f + offsetX, 4.0f + offsetY, -10.1f + offsetZ));
-        RightWall->setLocalScaling(Vector3(420.0f, 40.0f, 1.0f));
+        RightWall->setLocalScaling(Vector3(420.0f, 150.0f, 1.0f));
         auto renderComp = RightWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -1333,7 +1333,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         auto BackWall = std::make_shared<GameObject>("BackWall", GameObject::WALL);
         sceneGraph.addNode(BackWall);
         BackWall->setLocalPosition(Vector3(10.5f + offsetX, 4.0f + offsetY, 0.0f + offsetZ));
-        BackWall->setLocalScaling(Vector3(1.0f, 40.0f, 20.0f));
+        BackWall->setLocalScaling(Vector3(1.0f, 150.0f, 20.0f));
         auto renderComp = BackWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -1350,7 +1350,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         auto FrontWall = std::make_shared<GameObject>("FrontWall", GameObject::WALL);
         sceneGraph.addNode(FrontWall);
         FrontWall->setLocalPosition(Vector3(-190.5f + offsetX, 4.0f + offsetY, 0.0f + offsetZ));
-        FrontWall->setLocalScaling(Vector3(1.0f, 40.0f, 20.0f));
+        FrontWall->setLocalScaling(Vector3(1.0f, 150.0f, 20.0f));
         auto renderComp = FrontWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -1367,7 +1367,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         auto TopWall = std::make_shared<GameObject>("TopWall", GameObject::WALL);
         sceneGraph.addNode(TopWall);
         TopWall->setLocalPosition(Vector3(-200.0f + offsetX, 24.0f + offsetY, 0.0f + offsetZ));
-        TopWall->setLocalScaling(Vector3(420.0f, 1.0f, 20.0f));
+        TopWall->setLocalScaling(Vector3(420.0f, 10.0f, 20.0f));
         auto renderComp = TopWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -1385,7 +1385,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
     {
         auto DP1 = std::make_shared<GameObject>("DP1");
         sceneGraph.addNode(DP1);
-        DP1->setLocalPosition(Vector3(-200.0f + offsetX, -12.0f + offsetY, 0.0f + offsetZ));
+        DP1->setLocalPosition(Vector3(-200.0f + offsetX, -50.0f + offsetY, 0.0f + offsetZ));
         DP1->setLocalScaling(Vector3(420.0f, 1.0f, 20.0f));
         //DP1->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
         auto renderComp = DP1->addComponent<Render2D>();
@@ -1641,7 +1641,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
                         auto block = std::make_shared<GameObject>("MovingBlock_" + std::to_string(*spawnedCount));
                         sceneGraph.addNode(block);
                         block->setLocalPosition(startPos);
-                        block->setLocalScaling(Vector3(15.0f, 2.5f, 5.0f));
+                        block->setLocalScaling(Vector3(5.0f, 2.5f, 5.0f));
                         block->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
 
                         block->addComponent<Render2D>()->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
