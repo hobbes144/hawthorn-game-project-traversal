@@ -250,6 +250,9 @@ void LevelManager::ExecuteMainLoop()
     float speed = 10.0f;
     float deltaTime = 0.0f;
     int expectedFrameRate = 60; // 1000;
+    static bool isFullscreen = false;
+    static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
+
     mainFramerateController->setTargetFramerate(expectedFrameRate);
     mainSceneGraph.printSceneTree();
 
@@ -268,6 +271,28 @@ void LevelManager::ExecuteMainLoop()
         if (mainInput->isKeyHeld(KEY_ESCAPE)) {
             currentLevel = numLevels + 1;
             break;
+        }
+
+        if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
+            GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
+            if (!isFullscreen) {
+                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
+                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
+                GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+                const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+                glfwSetWindowMonitor(nativeWindow, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+                isFullscreen = true;
+            }
+            else {
+                glfwSetWindowMonitor(nativeWindow, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
+                isFullscreen = false;
+            }
+
+            int fbWidth, fbHeight;
+            glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
+            glViewport(0, 0, fbWidth, fbHeight);
+            float newAspect = static_cast<float>(fbWidth) / static_cast<float>(fbHeight);
+            camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
         }
 
         // Physics update loop fixedStepTime
