@@ -4,7 +4,6 @@
 
 /* Private functions */
 
-
 /*!****************************************************************************
  * \brief Update the view matrix based on the location of the camera
  *
@@ -17,14 +16,14 @@
  *
  *****************************************************************************/
 void AttachedCamera::updateViewMatrix() {
-  if ( position != attachedNode->getWorldTransform().getPosition() || rotation != attachedNode->getWorldTransform().getRotation() ) {
+  if (position != attachedNode->getWorldTransform().getPosition() || rotation != attachedNode->getWorldTransform().getRotation()) {
     position = attachedNode->getWorldTransform().getPosition();
     rotation = attachedNode->getWorldTransform().getRotation();
 
     // Extract basis vectors (Right, Up, Forward)
-    Vector3 forward = rotation.forward();
-    Vector3 up = rotation.up();
-    Vector3 right = rotation.right();
+    forward = rotation.forward();
+    up = rotation.up();
+    right = rotation.right();
 
     // Compute view matrix using LookAt
     viewMatrix = Matrix4::lookAt(position, position + forward, up);
@@ -32,23 +31,8 @@ void AttachedCamera::updateViewMatrix() {
   }
 }
 
-/*!****************************************************************************
- * \brief Update the camera transforms
- *
- * ## Usage:
- *
- * This must be called after making changes to the camera's transforms to make
- * sure that viewMatrix is correctly updated.
- *
- * \param deltaTime
- *****************************************************************************/
-void AttachedCamera::update() {
-  updateViewMatrix();
-}
-
 std::shared_ptr<AttachedCamera> AttachedCamera::attachToNode(std::shared_ptr<Node> node) {
   attachedNode = node;
-  updateViewMatrix();
 
   return shared_from_this();
 }

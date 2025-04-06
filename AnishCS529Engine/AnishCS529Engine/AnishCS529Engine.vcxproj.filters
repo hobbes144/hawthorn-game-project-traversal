@@ -172,12 +172,6 @@
     <Filter Include="Engine\Source Files\Systems\RenderingSystem\RenderPasses">
       <UniqueIdentifier>{84badcd2-4bfa-48c7-bcae-32664c35590a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Header Files\ObjectResources\Lights">
-      <UniqueIdentifier>{c24246d2-4294-49fa-94de-cd9f7b70f44e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Source Files\ObjectResources\Lights">
-      <UniqueIdentifier>{68f7d823-106f-4971-b7b2-a6c9f6f5fe28}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -431,12 +425,6 @@
     </ClCompile>
     <ClCompile Include="src\RenderPass.cpp">
       <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AmbientLight.cpp">
-      <Filter>Engine\Source Files\ObjectResources\Lights</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PointLight.cpp">
-      <Filter>Engine\Source Files\ObjectResources\Lights</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -725,14 +713,8 @@
     <ClInclude Include="src\KeyList.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\AmbientLight.h">
-      <Filter>Engine\Header Files\ObjectResources\Lights</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Light.h">
-      <Filter>Engine\Header Files\ObjectResources\Lights</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PointLight.h">
-      <Filter>Engine\Header Files\ObjectResources\Lights</Filter>
+    <ClInclude Include="src\Lights.h">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

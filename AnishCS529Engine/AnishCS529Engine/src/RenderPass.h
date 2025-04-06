@@ -21,7 +21,6 @@
 #include "ShaderManager.h"
 #include "Vector3.h"
 #include "TextureManager.h"
-#include "Light.h"
 #include "VectorTemplated.h"
 #include "Mesh.h"
 #include "SceneGraph.h"

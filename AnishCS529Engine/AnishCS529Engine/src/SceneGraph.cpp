@@ -42,9 +42,6 @@ std::shared_ptr<Node> SceneGraph::findNodeFast(unsigned int id) {
 void SceneGraph::update(float deltaTime) {
   updateNode(root, deltaTime);
 
-  for (const auto& light : lightStack)
-    light->update();
-
   for (const auto& camera : cameraStack)
     camera->update();
 }

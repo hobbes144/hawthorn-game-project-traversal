@@ -16,7 +16,7 @@
 
 #include "Node.h"
 #include "Camera.h"
-#include "Light.h"
+#include "Lights.h"
 
 class SceneGraph {
 private:
@@ -53,7 +53,7 @@ private:
   void drawNode(const std::shared_ptr<Node>& node, std::shared_ptr<Shader> shader);
 
 
-  std::vector<std::shared_ptr<Light>> lightStack;
+  Lights lights;
   std::vector<std::shared_ptr<Camera>> cameraStack;
 
 public:
@@ -85,9 +85,11 @@ public:
   void setRootScaling(const Vector3& scaling) { root->setLocalScaling(scaling); }
 
   // Lights
-  void addLight(std::shared_ptr<Light> light) { lightStack.push_back(light); }
-  void clearLights() { lightStack.clear(); }
-  std::vector<std::shared_ptr<Light>> getLights() { return lightStack; }
+  void addDirectionalLight(DirectionalLight light) { lights.sunLight = light; }
+  void addAmbientLight(AmbientLight light) { lights.ambientLight = light; }
+  void addPointLight(PointLight light) { lights.pointLights.push_back(light); }
+  void clearLights() { lights = {}; }
+  Lights getLights() { return lights; }
 
   // Cameras
   void addCamera(std::shared_ptr<Camera> camera) { cameraStack.push_back(camera); }

@@ -24,7 +24,7 @@ public:
   ~AttachedCamera() = default;
 
   /* Component functions */
-  virtual void update();
+  virtual void update() override;
 
   std::shared_ptr<AttachedCamera> attachToNode(std::shared_ptr<Node> node);
 

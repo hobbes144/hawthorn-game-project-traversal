@@ -12,8 +12,50 @@
 
 #include "Camera.h"
 
+/* Protected functions */
+
+void Camera::updateViewProjectionMatrix() {
+  viewProjectionMatrix = projectionMatrix * viewMatrix;
+}
+
+/*!****************************************************************************
+ * \brief Update the view matrix based on the location of the camera
+ *
+ * ## Explanation:
+ *
+ * The view matrix is always calculated as the same rotation of the camera, but
+ * with the negative of the position of the camera. This ensures that all
+ * objects in front of the camera are moved to the relative position from the
+ * world origin.
+ *
+ *****************************************************************************/
+void Camera::updateViewMatrix() {
+  // Extract basis vectors (Right, Up, Forward)
+  forward = rotation.forward();
+  up = rotation.up();
+  right = rotation.right();
+
+  // Compute view matrix using LookAt
+  viewMatrix = Matrix4::lookAt(position, position + forward, up);
+  inverseViewMatrix = Matrix4::inverse(viewMatrix);
+}
 
 /* Public functions */
+
+/*!****************************************************************************
+ * \brief Update the camera transforms
+ *
+ * ## Usage:
+ *
+ * This must be called after making changes to the camera's transforms to make
+ * sure that viewMatrix is correctly updated.
+ *
+ * \param deltaTime
+ *****************************************************************************/
+void Camera::update() {
+  updateViewMatrix();
+  updateViewProjectionMatrix();
+}
 
 /*!****************************************************************************
  * \brief Set the projection matrix to a perspective transformation
@@ -102,4 +144,12 @@ const Matrix4& Camera::getInverseViewMatrix()
 const Matrix4& Camera::getProjectionMatrix()
 {
   return projectionMatrix;
+}
+
+const Matrix4 & Camera::getViewProjectionMatrix() {
+  return viewProjectionMatrix;
+}
+
+const Matrix4 & Camera::getViewProjectionWithoutPositionMatrix() {
+  return projectionMatrix * Matrix4::rotation(rotation);
 }
