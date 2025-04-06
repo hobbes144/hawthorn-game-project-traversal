@@ -40,7 +40,7 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
 
     switch (mapId) {
     case 0:
-        tutorial(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        tutorial2(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
     case 1:
         intermediate(offsetX, offsetY, offsetZ, sceneGraph, camera);
@@ -566,7 +566,7 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
     {
         auto pitWall2 = std::make_shared<GameObject>("pitWall2");
         sceneGraph.addNode(pitWall2);
-        pitWall2->setLocalPosition(Vector3(-245.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
+        pitWall2->setLocalPosition(Vector3(-244.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
         pitWall2->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
         auto renderComp = pitWall2->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -697,7 +697,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
         std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/Big_Button.fbx");
         auto key = std::make_shared<GameObject>("key", GameObject::WALL);
         sceneGraph.addNode(key);
-        key->setLocalPosition(Vector3(-396.0f + offsetX, 0.5f + offsetY, 4.0f + offsetZ));
+        key->setLocalPosition(Vector3(-396.0f + offsetX, -4.5f + offsetY, 4.0f + offsetZ));
         key->setLocalScaling(Vector3(0.03f, 0.01f, 0.03f));
         auto renderComp = key->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(concreteMaterial);
@@ -714,9 +714,9 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
 
     }
     {
-        auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
+        auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(-399.7f + offsetX, 2.5f + offsetY, 0.0f + offsetZ));
+        testDoor->setLocalPosition(Vector3(-399.7f + offsetX, -2.5f + offsetY, 0.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         auto renderComp = testDoor->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(BrownConcrete);
@@ -841,8 +841,8 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto Floor1 = std::make_shared<GameObject>("Floor1");
         sceneGraph.addNode(Floor1);
-        Floor1->setLocalPosition(Vector3(-20.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
-        Floor1->setLocalScaling(Vector3(60.0f, 1.0f, 20.0f));
+        Floor1->setLocalPosition(Vector3(-10.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        Floor1->setLocalScaling(Vector3(50.0f, 1.0f, 20.0f));
         Floor1->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
         auto renderComp = Floor1->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -878,7 +878,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitWall1 = std::make_shared<GameObject>("pitWall1");
         sceneGraph.addNode(pitWall1);
-        pitWall1->setLocalPosition(Vector3(-49.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
+        pitWall1->setLocalPosition(Vector3(-34.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
         pitWall1->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
         auto renderComp = pitWall1->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -913,8 +913,8 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitFloor = std::make_shared<GameObject>("pitFloor");
         sceneGraph.addNode(pitFloor);
-        pitFloor->setLocalPosition(Vector3(-58.0f + offsetX, -10.0f + offsetY, 0.0f + offsetZ));
-        pitFloor->setLocalScaling(Vector3(20.0f, 1.0f, 20.0f));
+        pitFloor->setLocalPosition(Vector3(-54.0f + offsetX, -10.0f + offsetY, 0.0f + offsetZ));
+        pitFloor->setLocalScaling(Vector3(30.0f, 1.0f, 20.0f));
         auto renderComp = pitFloor->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -931,7 +931,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitBox = std::make_shared<GameObject>("pitBox");
         sceneGraph.addNode(pitBox);
-        pitBox->setLocalPosition(Vector3(-45.0f + offsetX, -10.0f + offsetY, 0.0f + offsetZ));
+        pitBox->setLocalPosition(Vector3(-35.0f + offsetX, -10.0f + offsetY, 0.0f + offsetZ));
         pitBox->setLocalScaling(Vector3(20.0f, 10.0f, 20.0f));
         auto renderComp = pitBox->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -984,7 +984,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitWall2 = std::make_shared<GameObject>("pitWall2");
         sceneGraph.addNode(pitWall2);
-        pitWall2->setLocalPosition(Vector3(-105.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
+        pitWall2->setLocalPosition(Vector3(-125.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
         pitWall2->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
         auto renderComp = pitWall2->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1003,8 +1003,8 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto Floor3 = std::make_shared<GameObject>("Floor3");
         sceneGraph.addNode(Floor3);
-        Floor3->setLocalPosition(Vector3(-120.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
-        Floor3->setLocalScaling(Vector3(30.0f, 1.0f, 20.0f));
+        Floor3->setLocalPosition(Vector3(-135.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        Floor3->setLocalScaling(Vector3(20.0f, 1.0f, 20.0f));
         auto renderComp = Floor3->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -1021,7 +1021,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitWall1 = std::make_shared<GameObject>("pitWall1");
         sceneGraph.addNode(pitWall1);
-        pitWall1->setLocalPosition(Vector3(-134.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
+        pitWall1->setLocalPosition(Vector3(-144.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
         pitWall1->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
         auto renderComp = pitWall1->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1057,7 +1057,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitFloor = std::make_shared<GameObject>("pitFloor");
         sceneGraph.addNode(pitFloor);
-        pitFloor->setLocalPosition(Vector3(-160.0f + offsetX, -10.0f + offsetY, 0.0f + offsetZ));
+        pitFloor->setLocalPosition(Vector3(-170.0f + offsetX, -10.0f + offsetY, 0.0f + offsetZ));
         pitFloor->setLocalScaling(Vector3(50.0f, 1.0f, 20.0f));
         auto renderComp = pitFloor->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1075,30 +1075,12 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitBox = std::make_shared<GameObject>("pitBox");
         sceneGraph.addNode(pitBox);
-        pitBox->setLocalPosition(Vector3(-135.0f + offsetX, -10.0f + offsetY, 0.0f + offsetZ));
-        pitBox->setLocalScaling(Vector3(10.0f, 10.0f, 20.0f));
+        pitBox->setLocalPosition(Vector3(-145.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        pitBox->setLocalScaling(Vector3(10.0f, 30.0f, 20.0f));
         auto renderComp = pitBox->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = pitBox->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    // Wall Running
-    {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
-        sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-160.0f + offsetX, 4.0f + offsetY, -9.4f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
-        auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)
@@ -1117,24 +1099,6 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = Floor4->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
-
-    // Wall Running 2
-    {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
-        sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-230.0f + offsetX, 4.0f + offsetY, 9.4f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
-        auto renderComp = wallRunWall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)
@@ -1164,7 +1128,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitWall2 = std::make_shared<GameObject>("pitWall2");
         sceneGraph.addNode(pitWall2);
-        pitWall2->setLocalPosition(Vector3(-245.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
+        pitWall2->setLocalPosition(Vector3(-244.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
         pitWall2->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
         auto renderComp = pitWall2->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1196,11 +1160,10 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
         rigidBody->initialize();
     }
 
-    // Wall Running 3 & 4
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-295.0f + offsetX, 4.0f + offsetY, -9.4f + offsetZ));
+        wallRunWall->setLocalPosition(Vector3(-340.0f + offsetX, 4.0f + offsetY, 9.4f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
@@ -1213,10 +1176,11 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-350.0f + offsetX, 4.0f + offsetY, 9.4f + offsetZ));
+        wallRunWall->setLocalPosition(Vector3(-340.0f + offsetX, 4.0f + offsetY, -9.4f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
@@ -1251,8 +1215,8 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitWall2 = std::make_shared<GameObject>("pitWall2");
         sceneGraph.addNode(pitWall2);
-        pitWall2->setLocalPosition(Vector3(-375.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
-        pitWall2->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
+        pitWall2->setLocalPosition(Vector3(-375.5f + offsetX, -7.5f + offsetY, 0.0f + offsetZ));
+        pitWall2->setLocalScaling(Vector3(1.0f, 5.0f, 20.0f));
         auto renderComp = pitWall2->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -1269,7 +1233,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto Floor6 = std::make_shared<GameObject>("Floor6");
         sceneGraph.addNode(Floor6);
-        Floor6->setLocalPosition(Vector3(-390.0f + offsetX, 0.0f + offsetY, 0.0f + offsetZ));
+        Floor6->setLocalPosition(Vector3(-390.0f + offsetX, -5.0f + offsetY, 0.0f + offsetZ));
         Floor6->setLocalScaling(Vector3(30.0f, 1.0f, 20.0f));
         auto renderComp = Floor6->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
@@ -1762,7 +1726,7 @@ void MapLoader::tutorial3(float offsetX, float offsetY, float offsetZ, SceneGrap
     {
         auto pitWall2 = std::make_shared<GameObject>("pitWall2");
         sceneGraph.addNode(pitWall2);
-        pitWall2->setLocalPosition(Vector3(-245.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
+        pitWall2->setLocalPosition(Vector3(-244.5f + offsetX, -5.5f + offsetY, 0.0f + offsetZ));
         pitWall2->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
         auto renderComp = pitWall2->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
