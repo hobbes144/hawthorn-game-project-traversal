@@ -187,6 +187,12 @@ void LevelManager::MeshMatInitializations()
     WhiteFloorTiles->setProperty("shininess", 10.0f);
     WhiteFloorTiles->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
 
+    keyMaterial = Material::getMaterial<MainTestMaterial>("key", mainRenderer->getRenderGraph());
+    keyMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
+    keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    keyMaterial->setProperty("shininess", 20.0f);
+    keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
+
 
 #pragma endregion
 
@@ -214,6 +220,12 @@ void LevelManager::RunLevels()
         break;
     case 2:
         LoadLevel2();
+        break;
+    case 3:
+        LoadLevel3();
+        break;
+    case 4:
+        LoadLevel4();
         break;
     default:        
         break;
@@ -260,6 +272,36 @@ void LevelManager::ExecuteMainLoop()
             PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
             mainFramerateController->consumePhysicsTime();
         }*/
+
+        auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
+        if (fpc && fpc->isCreativeMode()) {
+            for (int level = 0; level < 10; ++level) {
+                Key levelKey;
+                switch (level) {
+                case 0: levelKey = KEY_0; break;
+                case 1: levelKey = KEY_1; break;
+                case 2: levelKey = KEY_2; break;
+                case 3: levelKey = KEY_3; break;
+                case 4: levelKey = KEY_4; break;
+                case 5: levelKey = KEY_5; break;
+                case 6: levelKey = KEY_6; break;
+                case 7: levelKey = KEY_7; break;
+                case 8: levelKey = KEY_8; break;
+                case 9: levelKey = KEY_9; break;
+                default: continue;
+                }
+                if (mainInput->isKeyPressed(levelKey)) {
+                    if (level < numLevels) {
+                        currentLevel = level;
+                        levelSwapFlag = true;
+                    }
+                    else {
+                        std::cerr << "[MapLoader] Invalid level!\n";
+                    }
+                    break;
+                }
+            }
+        }
 
         for (int i = 0; i < 2; i++) {
             PhysicsManager::Instance().update(1.0f / 120.0f);
@@ -321,24 +363,23 @@ void LevelManager::ExecuteMainLoop()
 
 void LevelManager::checkPlayerBoundaries() {
     Vector3 playerPos = playerBox->getWorldTransform().getPosition();
-
     // Boundaries for each lvl
     float maxX, minX, maxY, minY, minZ, maxZ;
     switch (currentLevel) {
     case 0:
         maxX = 10.0f; minX = -400.0f;
-        maxY = 100.0f; minY = -40.0f;
+        maxY = 100.0f; minY = -60.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 1:
         maxX = 150.0f; minX = -400.0f;
-        maxY = 150.0f; minY = -20.0f;
+        maxY = 150.0f; minY = -60.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 2:
         maxX = 160.0f; minX = -160.0f;
         maxY = 200.0f; minY = 5.0f;
-        maxZ = 160.0f; minZ = -160.0f;
+        maxZ = 200.0f; minZ = -160.0f;
         break;
     default:
         maxX = 1000.0f; minX = -1000.0f;
@@ -349,13 +390,8 @@ void LevelManager::checkPlayerBoundaries() {
 
     if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
-        if (fpc) {
+        if (fpc && !fpc->isCreativeMode()) {
             fpc->respawnPlayer();
-
-            auto rigidBody = playerBox->findComponent<FirstPersonControllerComponent>();
-            if (rigidBody) {
-                rigidBody->Respawn;
-            }
         }
     }
 }
@@ -405,6 +441,16 @@ void LevelManager::LoadLevel1()
 void LevelManager::LoadLevel2()
 {
     MapLoader::instance().loadMap(2, 0, 0, 0, mainSceneGraph, camera);
+}
+
+void LevelManager::LoadLevel3()
+{
+    MapLoader::instance().loadMap(3, 0, 0, 0, mainSceneGraph, camera);
+}
+
+void LevelManager::LoadLevel4()
+{
+    MapLoader::instance().loadMap(4, 0, 0, 0, mainSceneGraph, camera);
 }
 
 bool LevelManager::GameComplete()

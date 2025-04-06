@@ -792,6 +792,23 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		return;
 	}
 
+
+	//Player HP system
+
+	if (damageTimer < damageCooldown)
+		damageTimer += deltaTime;
+
+	if (timeSinceDamage < recoveryDelay) {
+		timeSinceDamage += deltaTime;
+	}
+	else {
+		if (hp < maxHP) {
+			hp = maxHP;
+			std::cout << "HP recovered to full";
+		}
+	}
+
+
 	//-----Handling Camera Movement-----//
 #pragma region Camera
 	//Get Mouse State Data
@@ -1177,6 +1194,8 @@ void FirstPersonControllerComponent::respawnPlayer()
 	//Set Position
 	body->setLocalPosition(respawnCheckpoint);
 
+	hp = maxHP;
+
 	//Set Rotation
 	//body->setLocalRotation(respawnRotation);
 
@@ -1194,6 +1213,28 @@ Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
 }
 
 #pragma endregion
+
+
+void FirstPersonControllerComponent::takeDamage() {
+	if (damageTimer < damageCooldown)
+		return;
+
+	hp--;
+	// reset the damage timer
+	damageTimer = 0;   
+	timeSinceDamage = 0.0f;
+
+
+	// TODO: Sound
+	//AudioManager::instance().playSound("hurt", body->getLocalPosition());
+
+	// Respawn if no hp
+	if (hp <= 0) {
+		respawnPlayer();
+	}
+
+	std::cerr << "Current HP: " << hp << "\n";
+}
 
 void FirstPersonControllerComponent::debugCheck()
 {

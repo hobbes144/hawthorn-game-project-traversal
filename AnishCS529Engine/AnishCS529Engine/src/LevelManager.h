@@ -61,6 +61,8 @@ public:
 	void LoadLevel0();
 	void LoadLevel1();
 	void LoadLevel2();
+	void LoadLevel3();
+	void LoadLevel4();
 
 	bool GameComplete();
 
@@ -72,7 +74,7 @@ private:
 
 	//Level Counter
 	int currentLevel = 0;
-	int numLevels = 3;
+	int numLevels = 5;
 	bool levelSwapFlag = false;
 
 	//Systems
@@ -102,6 +104,7 @@ private:
 	std::shared_ptr<MainTestMaterial> BlueConcrete;
 	std::shared_ptr<MainTestMaterial> WhiteFloorTiles;
 	std::shared_ptr<MainTestMaterial> skyBoxMaterial;
+	std::shared_ptr<MainTestMaterial> keyMaterial;
 
 	//Player References
 	std::shared_ptr<GameObject> playerBox;

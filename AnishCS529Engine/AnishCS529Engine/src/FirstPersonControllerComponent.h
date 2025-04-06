@@ -158,10 +158,16 @@ public:
     bool getIsGrounded();
     std::shared_ptr<GameObject> getAnchoredSurface();
 
+    bool isCreativeMode() const { return isCreative; }
+
+
     //Respawn
     void respawnPlayer();
     void setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation);
     Vector3 getRespawnCheckpoint();
+
+    void takeDamage();
+    int getHP() const { return hp; }
 
 private:
     //Utility Functions
@@ -196,6 +202,13 @@ private:
     PlayerState playerState;
     AnchorInfo anchorInfo;
     std::shared_ptr<GameObject> anchorSurface;
+
+    int hp = 1;
+    const int maxHP = 1;
+    float timeSinceDamage = 0.0f;
+    const float recoveryDelay = 5.0f;
+    float damageCooldown = 0.5f;
+    float damageTimer = 0.0f;
 
     //Respawn
     Vector3 respawnCheckpoint = Vector3(0.0f, 2.0f, 0.0f);

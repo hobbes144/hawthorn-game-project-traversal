@@ -83,6 +83,7 @@ private:
     std::shared_ptr<Material> myhouseMaterial;
     std::shared_ptr<Material> brickMaterial;
     std::shared_ptr<Material> skyBoxMaterial;
+    std::shared_ptr<Material> keyMaterial;
     
 
 
@@ -94,11 +95,16 @@ private:
                SceneGraph& sceneGraph,
                std::shared_ptr<Camera> camera);
 
-    void four(float offsetX, float offsetY, float offsetZ,
+
+    void tutorial(float offsetX, float offsetY, float offsetZ,
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
-    void tutorial(float offsetX, float offsetY, float offsetZ,
+    void tutorial2(float offsetX, float offsetY, float offsetZ,
+              SceneGraph& sceneGraph,
+              std::shared_ptr<Camera> camera);
+
+    void tutorial3(float offsetX, float offsetY, float offsetZ,
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
