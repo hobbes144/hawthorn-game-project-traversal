@@ -194,11 +194,11 @@ void LevelManager::MeshMatInitializations()
     WhiteFloorTiles->setProperty("shininess", 10.0f);
     WhiteFloorTiles->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
 
-    WhiteFloorTiles = Material::getMaterial<MainTestMaterial>("key", mainRenderer->getRenderGraph());
-    WhiteFloorTiles->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
-    WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    WhiteFloorTiles->setProperty("shininess", 20.0f);
-    WhiteFloorTiles->addTexture("media/textures/key.png", 1.0f, 1.0f);
+    keyMaterial = Material::getMaterial<MainTestMaterial>("key", mainRenderer->getRenderGraph());
+    keyMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
+    keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    keyMaterial->setProperty("shininess", 20.0f);
+    keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
 
 
 #pragma endregion
