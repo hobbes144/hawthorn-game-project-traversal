@@ -40,18 +40,21 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
 
     switch (mapId) {
     case 0:
-        tutorial2(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        tutorial(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
     case 1:
-        intermediate(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        tutorial2(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
     case 2:
-        advanced(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        intermediate(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
     case 3:
-        three(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        advanced(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
     case 4:
+        three(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        break;
+    case 5:
         loadWallrun(offsetX, offsetY, offsetZ, sceneGraph, camera);
         break;
 

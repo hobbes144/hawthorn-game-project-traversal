@@ -228,6 +228,9 @@ void LevelManager::RunLevels()
     case 4:
         LoadLevel4();
         break;
+    case 5:
+        LoadLevel5();
+        break;
     default:        
         break;
     }
@@ -373,11 +376,11 @@ void LevelManager::checkPlayerBoundaries() {
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 1:
-        maxX = 150.0f; minX = -400.0f;
-        maxY = 150.0f; minY = -20.0f;
+        maxX = 10.0f; minX = -400.0f;
+        maxY = 100.0f; minY = -40.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
-    case 2:
+    case 3:
         maxX = 160.0f; minX = -160.0f;
         maxY = 200.0f; minY = 5.0f;
         maxZ = 200.0f; minZ = -160.0f;
@@ -390,6 +393,7 @@ void LevelManager::checkPlayerBoundaries() {
     }
 
     if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
+        std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
         auto rigidBody = playerBox->findComponent<FirstPersonControllerComponent>();
         if (fpc && !fpc->isCreativeMode() && rigidBody) {
@@ -453,6 +457,11 @@ void LevelManager::LoadLevel3()
 void LevelManager::LoadLevel4()
 {
     MapLoader::instance().loadMap(4, 0, 0, 0, mainSceneGraph, camera);
+}
+
+void LevelManager::LoadLevel5()
+{
+    MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph, camera);
 }
 
 bool LevelManager::GameComplete()
@@ -589,6 +598,10 @@ void LevelManager::initalizePlayerInLevel()
     case 2:
         activeSpawnPoint = startingPos2;
         activeSpawnRotation = startingRot2;
+        break;
+    case 3:
+        activeSpawnPoint = startingPos3;
+        activeSpawnRotation = startingRot3;
         break;
     default:
         activeSpawnPoint = Vector3();
