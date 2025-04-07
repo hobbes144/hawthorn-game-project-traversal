@@ -383,7 +383,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
     //}
 
     // Moving platform going up
-    {
+   /* {
         std::vector<std::shared_ptr<GameObject>> movingBlocks;
         float spawnInterval = 5.0f;
         int maxBlocks = 3;
@@ -438,7 +438,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
                 }
             }
         )->runAnimateFunction(true);
-    }
+    }*/
 
     // Checkpoint 2
     {
