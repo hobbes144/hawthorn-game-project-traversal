@@ -377,6 +377,11 @@ void LevelManager::checkPlayerBoundaries() {
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 2:
+        maxX = 150.0f; minX = -400.0f;
+        maxY = 150.0f; minY = -60.0f;
+        maxZ = 11.0f; minZ = -11.0f;
+        break;
+    case 3:
         maxX = 160.0f; minX = -160.0f;
         maxY = 200.0f; minY = 5.0f;
         maxZ = 200.0f; minZ = -160.0f;
@@ -593,6 +598,10 @@ void LevelManager::initalizePlayerInLevel()
         activeSpawnPoint = startingPos2;
         activeSpawnRotation = startingRot2;
         break;
+    case 3:
+        activeSpawnPoint = startingPos3;
+        activeSpawnRotation = startingRot3;
+        break;
     default:
         activeSpawnPoint = Vector3();
         break;
@@ -600,5 +609,6 @@ void LevelManager::initalizePlayerInLevel()
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
+    pbFPCController->respawnPlayer();
 
 }
