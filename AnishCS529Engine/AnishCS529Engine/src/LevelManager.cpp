@@ -428,6 +428,11 @@ void LevelManager::ShutdownLevels()
 
 }
 
+void LevelManager::LoadLevelMenu()
+{
+    MapLoader::instance().loadMap(-1, 0, 0, 0, mainSceneGraph, camera);
+}
+
 void LevelManager::LoadLevel0()
 {
     MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera);

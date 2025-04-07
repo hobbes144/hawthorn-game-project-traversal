@@ -58,6 +58,7 @@ public:
 	void ClearLevel();
 	void ShutdownLevels();
 
+	void LoadLevelMenu();
 	void LoadLevel0();
 	void LoadLevel1();
 	void LoadLevel2();

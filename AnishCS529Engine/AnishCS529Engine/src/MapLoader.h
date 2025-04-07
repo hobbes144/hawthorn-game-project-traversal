@@ -5,6 +5,9 @@
  * \brief  Map loader that loads different maps based on an ID.
  *
  * Usage:
+ * 
+ *   std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
+ *   MapLoader::instance().initializeResources(rg);
  *   MapLoader::instance().loadMap(mapId, offsetX, offsetY, offsetZ,
  *       sceneGraph, camera, floorMesh, floorMaterial);
  *
@@ -87,24 +90,19 @@ private:
     
 
 
-    void loadWallrun(float offsetX, float offsetY, float offsetZ,
-                         SceneGraph& sceneGraph,
-                         std::shared_ptr<Camera> camera);
+    //void loadWallrun(float offsetX, float offsetY, float offsetZ,
+    //                     SceneGraph& sceneGraph,
+    //                     std::shared_ptr<Camera> camera);
 
-    void three(float offsetX, float offsetY, float offsetZ,
-               SceneGraph& sceneGraph,
-               std::shared_ptr<Camera> camera);
-
+    void menu(float offsetX, float offsetY, float offsetZ,
+          SceneGraph& sceneGraph,
+          std::shared_ptr<Camera> camera);
 
     void tutorial(float offsetX, float offsetY, float offsetZ,
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
     void tutorial2(float offsetX, float offsetY, float offsetZ,
-              SceneGraph& sceneGraph,
-              std::shared_ptr<Camera> camera);
-
-    void tutorial3(float offsetX, float offsetY, float offsetZ,
               SceneGraph& sceneGraph,
               std::shared_ptr<Camera> camera);
 
@@ -116,6 +114,9 @@ private:
              SceneGraph& sceneGraph,
              std::shared_ptr<Camera> camera);
 
+    void victory(float offsetX, float offsetY, float offsetZ,
+      SceneGraph& sceneGraph,
+      std::shared_ptr<Camera> camera);
 };
 
 #endif // MAPLOADER_H
