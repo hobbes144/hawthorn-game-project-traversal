@@ -413,7 +413,7 @@ void LevelManager::checkPlayerBoundaries() {
     }
 
     if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
-        std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
+        //std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
         if (fpc && !fpc->isCreativeMode()) {
             fpc->respawnPlayer();
