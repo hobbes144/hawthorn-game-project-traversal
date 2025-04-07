@@ -68,7 +68,7 @@ public:
   ~GameWindow() = default;
 
   /* Component functions */
-  void initialize();
+  void initialize(GLFWmonitor* monitor = nullptr);
   void update();
   void shutdown();
 
@@ -84,9 +84,11 @@ public:
   int getWidth();
   int getHeight();
   float getAspectRatio();
+  bool borderlessFullscreen = false;
   bool getShouldClose() const;
   void setShouldClose() const;
   GLFWwindow* getNativeWindow() const;
+  GameWindow* setBorderlessFullscreen(bool flag);
 
 private:
   /** Width of the window */
