@@ -77,7 +77,7 @@ void LevelManager::SystemInitalization()
     /* Audio System Initalization */
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/BE21-Undertoe-Steele.mp3", true, true);
+    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", true, true);
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
     AudioManager::instance().loadSound("bang", "media/audio/bang.mp3", true);
     AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
