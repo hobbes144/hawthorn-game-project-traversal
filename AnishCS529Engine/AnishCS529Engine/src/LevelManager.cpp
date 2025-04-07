@@ -227,6 +227,9 @@ void LevelManager::RunLevels()
     case 4:
         LoadLevel4();
         break;
+    case 5:
+        LoadLevel5();
+        break;
     default:        
         break;
     }
@@ -338,10 +341,6 @@ void LevelManager::ExecuteMainLoop()
         if (mainInput->isKeyPressed(KEY_V)) {
             AudioManager::instance().togglePlaybackSpeed(0.7f);
         }
-        if (mainInput->isKeyPressed(KEY_M)) {
-            AudioManager::instance().stopSound("radio");
-        }
-
         AudioManager::instance().setListenerPosition(playerBox->getLocalPosition());
 
         mainSceneGraph.update(1.0f / 60.0f);
@@ -401,7 +400,7 @@ void LevelManager::checkPlayerBoundaries() {
         maxY = 150.0f; minY = -60.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
-    case 2:
+    case 3:
         maxX = 160.0f; minX = -160.0f;
         maxY = 200.0f; minY = 5.0f;
         maxZ = 200.0f; minZ = -160.0f;
@@ -414,6 +413,7 @@ void LevelManager::checkPlayerBoundaries() {
     }
 
     if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
+        //std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
         if (fpc && !fpc->isCreativeMode()) {
             fpc->respawnPlayer();
@@ -476,6 +476,11 @@ void LevelManager::LoadLevel3()
 void LevelManager::LoadLevel4()
 {
     MapLoader::instance().loadMap(4, 0, 0, 0, mainSceneGraph, camera);
+}
+
+void LevelManager::LoadLevel5()
+{
+    MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph, camera);
 }
 
 bool LevelManager::GameComplete()
@@ -564,13 +569,15 @@ void LevelManager::createPlayerObject()
         ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
         ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
         ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
+        ->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
         ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
         ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
         ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
         ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
-        ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER);
+        ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
+        ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
 
     //On Move Callback 
     Movement3DListener playerMovementListener(playerBox);
@@ -612,6 +619,10 @@ void LevelManager::initalizePlayerInLevel()
     case 2:
         activeSpawnPoint = startingPos2;
         activeSpawnRotation = startingRot2;
+        break;
+    case 3:
+        activeSpawnPoint = startingPos3;
+        activeSpawnRotation = startingRot3;
         break;
     default:
         activeSpawnPoint = Vector3();

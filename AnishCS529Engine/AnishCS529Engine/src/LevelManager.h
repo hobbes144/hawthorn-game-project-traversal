@@ -63,6 +63,7 @@ public:
 	void LoadLevel2();
 	void LoadLevel3();
 	void LoadLevel4();
+	void LoadLevel5();
 
 	bool GameComplete();
 
@@ -74,7 +75,7 @@ private:
 
 	//Level Counter
 	int currentLevel = 0;
-	int numLevels = 5;
+	int numLevels = 6;
 	bool levelSwapFlag = false;
 
 	//Systems
@@ -112,8 +113,10 @@ private:
 	Quaternion startingRot0 = Quaternion();
 	Vector3 startingPos1 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot1 = Quaternion();
-	Vector3 startingPos2 = Vector3(-131.0f, 7.0f, -130.0f);
+	Vector3 startingPos2 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot2 = Quaternion();
+	Vector3 startingPos3 = Vector3(-131.0f, 7.0f, -130.0f);
+	Quaternion startingRot3 = Quaternion();
 
 	const float rad = PI / 180.0f;
 
