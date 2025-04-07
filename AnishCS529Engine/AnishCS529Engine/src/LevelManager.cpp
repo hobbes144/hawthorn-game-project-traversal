@@ -212,6 +212,8 @@ void LevelManager::RunLevels()
 
     switch (currentLevel)
     {
+    case -1:
+        LoadLevelMenu();
     case 0:
         LoadLevel0();
         break;
@@ -586,6 +588,10 @@ void LevelManager::initalizePlayerInLevel()
 
     switch (currentLevel)
     {
+    case -1:
+        activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
+        break;
     case 0:
         activeSpawnPoint = startingPos0;
         activeSpawnRotation = startingRot0;

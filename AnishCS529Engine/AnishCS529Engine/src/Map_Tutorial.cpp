@@ -2,11 +2,43 @@
 #include "MapLoader.h"
 #include "Door.h"
 #include "DeathPlane.h"
+#include "InGameKey.h"
 
 void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera) {
 
 
+    {
+        std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
+        auto key = std::make_shared<GameObject>("key", GameObject::WALL);
+        sceneGraph.addNode(key);
+        key->setLocalPosition(Vector3(-396.0f + offsetX, -3.0f + offsetY, 4.0f + offsetZ));
+        key->setLocalScaling(Vector3(0.005f, 0.005f, 0.005f));
+        auto renderComp = key->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(keyMaterial);
 
+        auto shape = std::make_shared<OBB>(Vector3(0, 0, 0), Vector3(1.0f / 0.005f, 2.0f / 0.005f, 1.0f / 0.005f));
+        auto keyComp = key->addComponent<InGameKey>();
+        keyComp->setID(0);
+        keyComp->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        keyComp->initialize();
+
+        key->addComponent<Animate>()->setAnimateFunction(
+             [rotationSpeed = 45.0f, amplitude = 1.0f, currentTime = 0.0f, initialPos = key->getLocalPosition()]
+             (std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                 currentTime += deltaTime;
+                 float yOffset = amplitude * std::sin(currentTime);
+                 Vector3 newPos = initialPos;
+                 newPos.y += yOffset;
+                 self->setLocalPosition(newPos);
+                 float radians = rotationSpeed * deltaTime * (3.14159265f / 180.0f);
+                 self->setLocalRotation(Quaternion::fromEuler(0.0f, radians, 0.0f) * self->getLocalRotation());
+             }
+        )->runAnimateFunction(true);
+    }
 
     {
         auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
@@ -19,7 +51,6 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
         auto doorComp = testDoor->addComponent<Door>();
         doorComp->setID(0);
         doorComp->setType(Door::DoorType::NEXTLEVEL);
-        doorComp->setRequiresKey(false);
         doorComp->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)

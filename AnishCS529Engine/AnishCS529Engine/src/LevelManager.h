@@ -110,7 +110,7 @@ private:
 	//Player References
 	std::shared_ptr<GameObject> playerBox;
 	Vector3 startingPos0 = Vector3(0.0f, 7.0f, 0.0f);
-	Quaternion startingRot0 = Quaternion();
+	Quaternion startingRot0 = Quaternion(0.0f, 0.0f, 0.0f);
 	Vector3 startingPos1 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot1 = Quaternion();
 	Vector3 startingPos2 = Vector3(0.0f, 7.0f, 0.0f);
