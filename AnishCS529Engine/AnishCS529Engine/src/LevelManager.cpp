@@ -229,6 +229,9 @@ void LevelManager::RunLevels()
     case 4:
         LoadLevel4();
         break;
+    case 5:
+        LoadLevel5();
+        break;
     default:        
         break;
     }
@@ -249,6 +252,9 @@ void LevelManager::ExecuteMainLoop()
     float speed = 10.0f;
     float deltaTime = 0.0f;
     int expectedFrameRate = 60; // 1000;
+    static bool isFullscreen = false;
+    static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
+
     mainFramerateController->setTargetFramerate(expectedFrameRate);
     mainSceneGraph.printSceneTree();
 
@@ -267,6 +273,28 @@ void LevelManager::ExecuteMainLoop()
         if (mainInput->isKeyHeld(KEY_ESCAPE)) {
             currentLevel = numLevels + 1;
             break;
+        }
+
+        if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
+            GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
+            if (!isFullscreen) {
+                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
+                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
+                GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+                const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+                glfwSetWindowMonitor(nativeWindow, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+                isFullscreen = true;
+            }
+            else {
+                glfwSetWindowMonitor(nativeWindow, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
+                isFullscreen = false;
+            }
+
+            int fbWidth, fbHeight;
+            glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
+            glViewport(0, 0, fbWidth, fbHeight);
+            float newAspect = static_cast<float>(fbWidth) / static_cast<float>(fbHeight);
+            camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
         }
 
         // Physics update loop fixedStepTime
@@ -315,10 +343,6 @@ void LevelManager::ExecuteMainLoop()
         if (mainInput->isKeyPressed(KEY_V)) {
             AudioManager::instance().togglePlaybackSpeed(0.7f);
         }
-        if (mainInput->isKeyPressed(KEY_M)) {
-            AudioManager::instance().stopSound("radio");
-        }
-
         AudioManager::instance().setListenerPosition(playerBox->getLocalPosition());
 
         mainSceneGraph.update(1.0f / 60.0f);
@@ -396,6 +420,7 @@ void LevelManager::checkPlayerBoundaries() {
     }
 
     if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
+        //std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
         if (fpc && !fpc->isCreativeMode()) {
             fpc->respawnPlayer();
@@ -463,6 +488,11 @@ void LevelManager::LoadLevel3()
 void LevelManager::LoadLevel4()
 {
     MapLoader::instance().loadMap(4, 0, 0, 0, mainSceneGraph, camera);
+}
+
+void LevelManager::LoadLevel5()
+{
+    MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph, camera);
 }
 
 bool LevelManager::GameComplete()
@@ -551,13 +581,15 @@ void LevelManager::createPlayerObject()
         ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
         ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
         ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
+        ->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
         ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
         ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
         ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
         ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
-        ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER);
+        ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
+        ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
 
     //On Move Callback 
     Movement3DListener playerMovementListener(playerBox);

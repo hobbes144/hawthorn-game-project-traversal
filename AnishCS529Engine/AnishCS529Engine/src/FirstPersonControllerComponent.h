@@ -66,7 +66,8 @@ public:
         Respawn,
         Debug,
         Creative,
-        Freeze
+        Freeze,
+        Music
     };
 
     struct AnchorInfo {
@@ -269,6 +270,7 @@ private:
 
     //Special States
     bool isCreative = false;
+    bool playsMusic = true;
     bool isFrozen = false;
 
     //Debugging

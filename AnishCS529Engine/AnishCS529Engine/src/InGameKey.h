@@ -7,9 +7,9 @@
 #include "KeyList.h"
 #include "RigidBody.h"
 
-class InGameKey : public RigidBody {
+class InGameKey : public PhysicsBody {
 public:
-	InGameKey() : id(0), RigidBody() {}
+	InGameKey() : id(0), listener(nullptr), PhysicsBody() {}
 	~InGameKey() = default;
 
 	void initialize();
@@ -19,6 +19,7 @@ public:
 
 private:
 	int id;
+	CollisionListener* listener;
 };
 
 #endif

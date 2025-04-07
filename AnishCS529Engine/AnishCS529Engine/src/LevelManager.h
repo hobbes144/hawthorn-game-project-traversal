@@ -64,6 +64,7 @@ public:
 	void LoadLevel2();
 	void LoadLevel3();
 	void LoadLevel4();
+	void LoadLevel5();
 
 	bool GameComplete();
 
@@ -75,7 +76,7 @@ private:
 
 	//Level Counter
 	int currentLevel = 0;
-	int numLevels = 5;
+	int numLevels = 6;
 	bool levelSwapFlag = false;
 
 	//Systems
