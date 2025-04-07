@@ -84,6 +84,7 @@ void LevelManager::SystemInitalization()
     AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
     AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
+    AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
     
     AudioManager::instance().playSound2D("music", 0.25f);
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
@@ -343,7 +344,7 @@ void LevelManager::ExecuteMainLoop()
         if (mainInput->isKeyPressed(KEY_V)) {
             AudioManager::instance().togglePlaybackSpeed(0.7f);
         }
-        AudioManager::instance().setListenerPosition(playerBox->getLocalPosition());
+        AudioManager::instance().setListenerPosition(playerBox->getWorldPosition());
 
         mainSceneGraph.update(1.0f / 60.0f);
         checkPlayerBoundaries();
@@ -372,6 +373,9 @@ void LevelManager::ExecuteMainLoop()
         Vector3 playerPos = playerBox->getWorldTransform().getPosition();
         ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
         ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
+        Vector3 listenerPos = AudioManager::instance().getListenerPosition();
+        ImGui::Text("Listener: x: %.2f  y: %.2f  z: %.2f", listenerPos.x, listenerPos.y, listenerPos.z);
+
 
         ImGui::End();
 

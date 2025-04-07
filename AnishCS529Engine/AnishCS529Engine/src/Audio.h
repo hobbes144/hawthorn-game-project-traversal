@@ -109,6 +109,7 @@ public:
     void setListenerPosition(const Vector3& position);
     void setPlaybackSpeed(float speed);
     void togglePlaybackSpeed(float speed = 1);
+    Vector3 getListenerPosition() const { return listenerPosition; }
 
 private:
     AudioManager() = default;
@@ -120,6 +121,7 @@ private:
     std::unordered_map<std::string, FMOD::Sound*> sounds_;
 
     float currentPlaybackSpeed_ = 1.0f;
+    Vector3 listenerPosition = Vector3();
 
     AudioListener* engineListener;
 };

@@ -323,6 +323,7 @@ void AudioManager::stopSound(const std::string& name) {
 void AudioManager::setListenerPosition(const Vector3& position) {
     assert(fmodSystem_ && "FMOD system not initialized in setListenerPosition");
 
+    listenerPosition = position;
     // The orientation vectors can be adjusted based on camera property
     FMOD_VECTOR pos = { position.x, position.y, position.z };
     FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f };
