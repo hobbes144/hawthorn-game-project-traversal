@@ -290,20 +290,21 @@ void LevelManager::ExecuteMainLoop()
             const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
             if (isFullscreen) {
-                // Go to windowed mode with fixed size
+                // Windowed mode
                 int windowWidth = 1280;
                 int windowHeight = 720;
-
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE); // Enable borders
-                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0); // Reposition to center-ish
+                // Enable borders
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
+                // Reposition the window
+                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
                 isFullscreen = false;
             }
             else {
-                // Save current windowed size and position for next toggle
+                // Save current window attributes
                 glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
                 glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
 
-                // Go to borderless fullscreen
+                // Borderless fullscreen
                 glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
                 glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
                 isFullscreen = true;
