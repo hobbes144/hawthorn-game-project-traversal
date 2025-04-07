@@ -1,15 +1,15 @@
 #include "precompiled.h"
 #include "LevelManager.h"
 
-void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
-
-    //std::cout << "onMove\n";
-
-    AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
-
-    return;
-
-}
+//void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
+//
+//    //std::cout << "onMove\n";
+//
+//    AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
+//
+//    return;
+//
+//}
 
 void LevelManager::SystemInitalization()
 {
@@ -596,9 +596,9 @@ void LevelManager::createPlayerObject()
         ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
 
     //On Move Callback 
-    Movement3DListener playerMovementListener(playerBox);
-    playerMovementListener.setCallback(onMove);
-    EventManager::Instance().AddListener(&playerMovementListener);
+    //Movement3DListener playerMovementListener(playerBox);
+    //playerMovementListener.setCallback(onMove);
+    //EventManager::Instance().AddListener(&playerMovementListener);
 
 #pragma endregion
 
