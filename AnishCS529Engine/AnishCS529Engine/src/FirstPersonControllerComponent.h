@@ -66,7 +66,8 @@ public:
         Respawn,
         Debug,
         Creative,
-        Freeze
+        Freeze,
+        Music
     };
 
     struct AnchorInfo {
@@ -121,7 +122,7 @@ public:
         slideForce(50), slideCoolDown(2.0f), slideEffectTime(0.5f),
         slideBufferTime(0.2f), hasSlidSinceAnchored(false),
         wallRunSpeed(30), wallJumpForce(15),
-        sceneRoot(nullptr), isCreative(false)
+        sceneRoot(nullptr), isCreative(false),playsMusic(true)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -269,6 +270,7 @@ private:
 
     //Special States
     bool isCreative = false;
+    bool playsMusic = true;
     bool isFrozen = false;
 
     //Debugging

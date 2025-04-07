@@ -706,6 +706,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
 	bool isRespawning = input->isKeyPressed(ActionKey[Respawn]);
 	bool creative = input->isKeyPressed(ActionKey[Creative]);
+	bool music = input->isKeyPressed(ActionKey[Music]);
 	bool freezePressed = input->isKeyPressed(ActionKey[Freeze]);
 	float upMotion = input->isKeyHeld(ActionKey[Jump]) - input->isKeyHeld(ActionKey[Slide]);
 	//Mouse
@@ -767,6 +768,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
 			if (gp->isPressed(GamePadActionKey[Creative]))
 				creative = gp->isPressed(GamePadActionKey[Creative]);
+			if (gp->isPressed(GamePadActionKey[Music]))
+				music = gp->isPressed(GamePadActionKey[Music]);
 		}
 	}
 #pragma endregion
@@ -781,6 +784,16 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		upMotion = 0;
 		isCreative = creative;
 		if (isCreative) body->findComponent<RigidBody>()->usingGravity(false);
+	}
+
+	//music on/off
+	if (playsMusic) {
+		playsMusic = !music;
+		if (!playsMusic) AudioManager::instance().stopSound("music");
+	}
+	else {
+		playsMusic = music;
+		if (playsMusic)  AudioManager::instance().playSound2D("music", 0.5f);
 	}
 
 	//Frozen Mode
