@@ -80,7 +80,7 @@ public:
   //void setFBO(std::shared_ptr<FBO> FBO);
   //std::shared_ptr<FBO> getFBO() const;
 
-  void setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit);
+  void setTexture(const std::string& name, TextureManager::TextureID textureID);
 
   void setDrawMode(GLenum _drawMode);
 
@@ -106,6 +106,9 @@ protected:
   std::optional<std::unordered_map<std::string, TextureManager::TextureID>> textureData;
 
   void applyProperties() const;
+
+  // Todo: turn this into per point light.
+  //void applyLights(Lights lights) const;
 
 };
 

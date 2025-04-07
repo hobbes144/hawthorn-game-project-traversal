@@ -22,6 +22,8 @@
 class Transform {
 public:
   Transform() : position(0, 0, 0), rotation(1, 0, 0, 0), scaling(1, 1, 1) {}
+  Transform(Vector3 _position, Quaternion _rotation, Vector3 _scale) :
+    position(_position), rotation(_rotation), scaling(_scale) {}
 
   Transform operator*(const Transform& other) const {
     Transform res;

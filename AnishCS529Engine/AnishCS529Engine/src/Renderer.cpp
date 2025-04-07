@@ -403,6 +403,8 @@ void Renderer::initialize() {
 
   state.viewport = Viewport{0,0,gameWindow->getWidth(), gameWindow->getHeight()};
   setState(state, true);
+
+  renderGraph->initialize();
 }
 
 /*!****************************************************************************

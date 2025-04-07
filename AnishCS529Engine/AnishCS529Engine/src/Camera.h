@@ -21,10 +21,11 @@
 
 class Camera {
 public:
-  Camera(std::string _name) : 
+  Camera(std::string _name) :
     name(_name), position(Vector3()),
-    rotation(Quaternion(0.0f,0.0f,1.0f,0.0f)),
-    viewProjectionMatrix(Matrix4())
+    rotation(Quaternion(0.0f, 0.0f, 1.0f, 0.0f)),
+    viewProjectionMatrix(Matrix4()),
+    exposure(1.0f)
   {
     forward = rotation.forward();
     up = rotation.up();
@@ -51,12 +52,14 @@ public:
     const float top,
     const float near,
     const float far);
+  void setExposure(float _exposure) { exposure = _exposure; }
 
   const Matrix4& getViewMatrix();
   const Matrix4& getInverseViewMatrix();
   const Matrix4& getProjectionMatrix();
   const Matrix4& getViewProjectionMatrix();
   const Matrix4& getViewProjectionWithoutPositionMatrix();
+  const float& getExposure() { return exposure; }
 
 protected:
   std::string name;
@@ -66,6 +69,8 @@ protected:
   Matrix4 viewProjectionMatrix;
   Vector3 position = Vector3();
   Quaternion rotation = Quaternion();
+
+  float exposure;
 
   Vector3 forward;
   Vector3 right;

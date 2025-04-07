@@ -20,6 +20,9 @@
 
 class RenderGraph {
 public:
+
+  void initialize();
+
   template <typename T>
   std::shared_ptr<T> addPass(const std::string& name);
   template <typename T>
@@ -32,6 +35,14 @@ public:
 private:
   std::vector<std::shared_ptr<RenderPass>> renderStack;
   std::unordered_map<std::string, std::shared_ptr<RenderPass>> registeredPasses;
+  unsigned int uboLights;
+  unsigned int uboCamera;
+
+  void initializeLightUBOs();
+  void initializeCameraUBO();
+
+  void updateLightUBOs(Lights lights);
+  void updateCameraUBO(std::shared_ptr<Camera> camera);
 };
 
 #include "RenderGraph.inl"

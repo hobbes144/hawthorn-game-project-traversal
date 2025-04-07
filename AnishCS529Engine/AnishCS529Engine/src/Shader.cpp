@@ -186,7 +186,7 @@ void Shader::cacheUniforms()
   glGetProgramInterfaceiv(
     programID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &uniformCount);
 
-  const GLenum properties[4] = { 
+  const GLenum properties[4] = {
     GL_BLOCK_INDEX, GL_TYPE, GL_NAME_LENGTH, GL_LOCATION
   };
 
@@ -236,6 +236,13 @@ GLint Shader::getUniformLocation(const std::string& name) const {
   }
 
   return location;
+}
+
+void Shader::initializeUBO(const std::string& name, unsigned int blockBinding)
+{
+  unsigned int uniformBlockIndex = 
+    glGetUniformBlockIndex(programID, name.c_str());
+  glUniformBlockBinding(programID, uniformBlockIndex, blockBinding);
 }
 
 /*!****************************************************************************

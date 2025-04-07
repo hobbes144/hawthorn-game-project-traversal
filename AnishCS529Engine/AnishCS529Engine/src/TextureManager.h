@@ -87,6 +87,8 @@ public:
   void setTextureParameters(
     TextureID id, TextureParameters textureParameters);
 
+  bool isHDR(TextureID id);
+
 private:
   TextureManager() = default;
   std::unordered_map<GLuint, TextureInfo> textures;

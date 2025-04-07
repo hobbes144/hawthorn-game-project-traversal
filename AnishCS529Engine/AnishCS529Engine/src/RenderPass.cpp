@@ -18,7 +18,7 @@ std::shared_ptr<Shader> RenderPass::getShader() const
   return shader;
 }
 
-void RenderPass::setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit)
+void RenderPass::setTexture(const std::string& name, TextureManager::TextureID textureID)
 {
   if (!textureData) {
     textureData = std::unordered_map<std::string, TextureManager::TextureID>();
@@ -42,13 +42,6 @@ void RenderPass::draw(
 {
   shader->use();
   applyProperties();
-  shader->setMat4("ProjectionMatrix", camera->getProjectionMatrix());
-  shader->setMat4("ViewMatrix", camera->getViewMatrix());
-  shader->setMat4("InverseViewMatrix", camera->getInverseViewMatrix());
-
-  unsigned int lightIndex = 0;
-  for (auto light : sceneGraph->getLights())
-    light->applyToShader(shader, lightIndex);
 
   shader->setDrawMode(drawMode);
   sceneGraph->draw(shader);

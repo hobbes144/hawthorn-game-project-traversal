@@ -176,6 +176,7 @@
     <ClInclude Include="src\RigidBody.h" />
     <ClInclude Include="src\Shoot.h" />
     <ClInclude Include="src\simplexnoise.h" />
+    <ClInclude Include="src\SkyboxPass.h" />
     <ClInclude Include="src\SolidColorMaterial.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\CollisionEvent.h" />
@@ -242,6 +243,8 @@
     <ClInclude Include="src\RenderGraph.inl">
       <FileType>Document</FileType>
     </ClInclude>
+    <None Include="shaders\skybox.frag" />
+    <None Include="shaders\skybox.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -17,6 +17,7 @@
 #include "Node.h"
 #include "Camera.h"
 #include "Lights.h"
+#include "Shader.h"
 
 class SceneGraph {
 private:

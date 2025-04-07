@@ -1,8 +1,6 @@
 #include "precompiled.h"
 #include <windows.h>
 
-#include "AmbientLight.h"
-#include "PointLight.h"
 #include "Renderer.h"
 #include "GameWindow.h"
 #include "Input.h"
@@ -72,22 +70,17 @@ int main() {
 
 
   /* Test stuff for lighting */
-  double lightSpin = 150.0;
-  double lightTilt = -45.0;
-  double lightDist = 100.0;
-  Vector3 lightPos = Vector3(lightDist * cos(lightSpin * rad) * sin(lightTilt * rad),
-                         lightDist * sin(lightSpin * rad) * sin(lightTilt * rad),
-                         lightDist * cos(lightTilt * rad));
-  testPass->setProperty("lightPos", lightPos);
+  Vector3 LightDirection = Vector3(-0.2f, -1.0f, -0.3f).normalized();
   testPass->setProperty("mode", 2);
 
   //Vector3 Light, Ambient;
   //Light = Vector3(4.0, 4.0, 4.0);
   //Ambient = Vector3(0.2, 0.2, 0.2);
 
-  auto aLight = std::make_shared<AmbientLight>();
-
-  mainSceneGraph.addLight(aLight);
+  mainSceneGraph.addAmbientLight(
+    AmbientLight(Vector3(0.2, 0.2, 0.2), 1.0f));
+  mainSceneGraph.addDirectionalLight(
+    DirectionalLight(LightDirection, Vector3(1.0f), 4.0f));
 
   /* Camera setup */
   Vector3 cameraPos(0.0f, 0.0f, 10.0f);
@@ -117,23 +110,23 @@ int main() {
   //skyBoxMaterial->setProperty("mode", -1);
   //skyBoxMaterial->setProperty("objectId", 1);
 
-  /*auto skyBox = std::make_shared<GameObject>("SkyBox");
+  auto skyBox = std::make_shared<GameObject>("SkyBox");
   mainSceneGraph.addNode(skyBox);
   skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
     ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
   auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
   skyBoxRenderComponent
     ->setMesh(sphereMesh)
-    ->setMaterial(skyBoxMaterial);*/
+    ->setMaterial(skyBoxMaterial);
 
-  auto testSphere = std::make_shared<GameObject>("TestSphere");
+  /*auto testSphere = std::make_shared<GameObject>("TestSphere");
   mainSceneGraph.addNode(testSphere);
   testSphere->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
     ->setLocalScaling(Vector3(2.0f, 2.0f, 2.0f));
   auto testSphereRenderComponent = testSphere->addComponent<Render2D>();
   testSphereRenderComponent
     ->setMesh(sphereMesh)
-    ->setMaterial(skyBoxMaterial);
+    ->setMaterial(skyBoxMaterial);*/
 
 // Drawable objects
   auto box1 = std::make_shared<GameObject>("Box1");

@@ -65,6 +65,8 @@ public:
 
   void setDrawMode(GLenum _drawMode);
   GLenum getDrawMode();
+
+  void initializeUBO(const std::string& name, unsigned int blockBinding);
   
 private:
   Shader(const std::string& shaderFilePaths);

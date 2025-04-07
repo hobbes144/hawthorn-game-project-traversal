@@ -47,6 +47,11 @@ void TextureManager::setTextureParameters(TextureID id, TextureParameters textur
   glBindTexture(TEXTURE_2D, 0);
 }
 
+bool TextureManager::isHDR(TextureID id)
+{
+  return (textures[id].format == TEXTURE_RGBA32F);
+}
+
 TextureManager::TextureID TextureManager::loadHDRFile(const std::string& filepath)
 {
   TextureParameters textureParameters = TextureParameters(
