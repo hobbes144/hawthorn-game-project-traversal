@@ -212,6 +212,8 @@ void LevelManager::RunLevels()
 
     switch (currentLevel)
     {
+    case -1:
+        LoadLevelMenu();
     case 0:
         LoadLevel0();
         break;
@@ -400,6 +402,11 @@ void LevelManager::checkPlayerBoundaries() {
         maxY = 150.0f; minY = -60.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
+    case 2:
+        maxX = 150.0f; minX = -400.0f;
+        maxY = 150.0f; minY = -60.0f;
+        maxZ = 11.0f; minZ = -11.0f;
+        break;
     case 3:
         maxX = 160.0f; minX = -160.0f;
         maxY = 200.0f; minY = 5.0f;
@@ -451,6 +458,11 @@ void LevelManager::ShutdownLevels()
     delete mainRenderer;
     delete mainWindow;
 
+}
+
+void LevelManager::LoadLevelMenu()
+{
+    MapLoader::instance().loadMap(-1, 0, 0, 0, mainSceneGraph, camera);
 }
 
 void LevelManager::LoadLevel0()
@@ -608,6 +620,10 @@ void LevelManager::initalizePlayerInLevel()
 
     switch (currentLevel)
     {
+    case -1:
+        activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
+        break;
     case 0:
         activeSpawnPoint = startingPos0;
         activeSpawnRotation = startingRot0;
@@ -631,5 +647,6 @@ void LevelManager::initalizePlayerInLevel()
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
+    pbFPCController->respawnPlayer();
 
 }
