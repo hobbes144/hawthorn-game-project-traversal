@@ -8,25 +8,26 @@ void onDoorCollide(std::shared_ptr<GameObject> obj1,
 	const std::shared_ptr<KeyList>& S1 = obj1->findComponent<KeyList>();
 	const std::shared_ptr<KeyList>& S2 = obj2->findComponent<KeyList>();
 
-	if (D1 && S2) {
-		if (S2->hasKey(D1->getID())) {
+	if (D1) {
+		bool canOpen = !D1->getRequiresKey() || (S2 && S2->hasKey(D1->getID()));
+		if (canOpen) {
 			if (D1->getType() == Door::DoorType::DISAPPEAR) obj1->disable();
-			if (D1->getType() == Door::DoorType::NEXTLEVEL && D1->getLevelSwitchStatus() == false) {
+			if (D1->getType() == Door::DoorType::NEXTLEVEL && !D1->getLevelSwitchStatus()) {
 				LevelManager::Instance().NextLevel();
 				D1->setLevelSwitchStatus(true);
 			}
 		}
-
 	}
-	else if (D2 && S1) {
-		if (S1->hasKey(D2->getID())) {
+	else if (D2) {
+		bool canOpen = !D2->getRequiresKey() || (S1 && S1->hasKey(D2->getID()));
+		if (canOpen) {
 			if (D2->getType() == Door::DoorType::DISAPPEAR) obj2->disable();
-			if (D2->getType() == Door::DoorType::NEXTLEVEL) {
+			if (D2->getType() == Door::DoorType::NEXTLEVEL && !D2->getLevelSwitchStatus()) {
 				LevelManager::Instance().NextLevel();
+				D2->setLevelSwitchStatus(true);
 			}
 		}
 	}
-	return;
 }
 
 void Door::initialize() {
@@ -57,4 +58,12 @@ bool Door::getLevelSwitchStatus() {
 
 void Door::setLevelSwitchStatus(bool status) {
 	LevelSwitched = status;
+}
+
+bool Door::getRequiresKey() {
+	return requiresKey;
+}
+
+void Door::setRequiresKey(bool reqKey) {
+	requiresKey = reqKey;
 }

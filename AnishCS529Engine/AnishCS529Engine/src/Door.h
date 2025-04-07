@@ -16,7 +16,7 @@ public:
 		DISAPPEAR
 	};
 
-	Door() : id(0), LevelSwitched(false), type(DISAPPEAR), RigidBody() {}
+	Door() : id(0), LevelSwitched(false), type(DISAPPEAR), requiresKey(true), RigidBody() {}
 	~Door() = default;
 
 	void initialize();
@@ -27,12 +27,15 @@ public:
 	void setType(DoorType _type);
 	bool getLevelSwitchStatus();
 	void setLevelSwitchStatus(bool status);
+	bool getRequiresKey();
+	void setRequiresKey(bool reqKey);
 
 private:
 	int id;
 	bool LevelSwitched;
 	DoorType type;
 	CollisionListener* doorListener;
+	bool requiresKey;
 };
 
 #endif
