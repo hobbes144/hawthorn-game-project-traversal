@@ -15,11 +15,19 @@ void LevelManager::SystemInitalization()
 {
 
     /* Game Window setup */
-    int windowWidth = 1280;
-    int windowHeight = 720;
+    glfwInit();
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+    int windowWidth = mode->width;
+    int windowHeight = mode->height;
+
     mainWindow = new GameWindow;
-    mainWindow->setTitle("EngineDemo")->setHeight(windowHeight)->setWidth(windowWidth);
-    mainWindow->initialize();
+    mainWindow->setTitle("EngineDemo")
+        ->setWidth(windowWidth)
+        ->setHeight(windowHeight)
+        ->setBorderlessFullscreen(true);
+    mainWindow->initialize(monitor);
 
     /* Renderer setup */
     mainRenderer = new Renderer;
@@ -253,7 +261,7 @@ void LevelManager::ExecuteMainLoop()
     float speed = 10.0f;
     float deltaTime = 0.0f;
     int expectedFrameRate = 60; // 1000;
-    static bool isFullscreen = false;
+    static bool isFullscreen = true;
     static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
     mainFramerateController->setTargetFramerate(expectedFrameRate);
@@ -278,19 +286,30 @@ void LevelManager::ExecuteMainLoop()
 
         if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
             GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
-            if (!isFullscreen) {
-                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
-                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
-                GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-                const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-                glfwSetWindowMonitor(nativeWindow, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
-                isFullscreen = true;
-            }
-            else {
-                glfwSetWindowMonitor(nativeWindow, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+            if (isFullscreen) {
+                // Go to windowed mode with fixed size
+                int windowWidth = 1280;
+                int windowHeight = 720;
+
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE); // Enable borders
+                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0); // Reposition to center-ish
                 isFullscreen = false;
             }
+            else {
+                // Save current windowed size and position for next toggle
+                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
+                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
 
+                // Go to borderless fullscreen
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
+                glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
+                isFullscreen = true;
+            }
+
+            // Adjust viewport and camera aspect ratio
             int fbWidth, fbHeight;
             glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
             glViewport(0, 0, fbWidth, fbHeight);
