@@ -86,7 +86,7 @@ void LevelManager::SystemInitalization()
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
     AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
     
-    AudioManager::instance().playSound2D("music", 0.25f);
+    AudioManager::instance().playSound2D("music", 0.15f);
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */

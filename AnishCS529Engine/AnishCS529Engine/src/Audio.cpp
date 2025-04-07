@@ -211,6 +211,9 @@ void AudioManager::playSound(const std::string& name, const Vector3& position, f
         channel->set3DAttributes(&pos, &vel);
         channel->set3DMinMaxDistance(1.0f, 50.0f);
     }
+    if (channel) {
+        channel->setVolume(volume);
+    }
 }
 
 void AudioManager::playSound2D(const std::string& name, float volume) {
@@ -254,6 +257,9 @@ void AudioManager::playSound2D(const std::string& name, float volume) {
     FMOD::Channel* channel = nullptr;
     result = fmodSystem_->playSound(sound, nullptr, false, &channel);
     assert(result == FMOD_OK && "Failed to play sound");
+    if (channel) {
+        channel->setVolume(volume);
+    }
 }
 
 /*!****************************************************************************
