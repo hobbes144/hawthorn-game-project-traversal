@@ -317,10 +317,6 @@ void LevelManager::ExecuteMainLoop()
         if (mainInput->isKeyPressed(KEY_V)) {
             AudioManager::instance().togglePlaybackSpeed(0.7f);
         }
-        if (mainInput->isKeyPressed(KEY_M)) {
-            AudioManager::instance().stopSound("radio");
-        }
-
         AudioManager::instance().setListenerPosition(playerBox->getLocalPosition());
 
         mainSceneGraph.update(1.0f / 60.0f);
