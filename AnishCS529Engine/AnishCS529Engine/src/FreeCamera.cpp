@@ -1,8 +1,6 @@
 #include "precompiled.h"
 #include "FreeCamera.h"
 
-void FreeCamera::update() {}
-
 std::shared_ptr<FreeCamera> FreeCamera::lookAt(const Vector3 & target, const Vector3 & upVector) {
   viewMatrix = Matrix4::lookAt(position, target, upVector);
 

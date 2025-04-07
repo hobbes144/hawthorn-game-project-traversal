@@ -22,9 +22,6 @@ public:
   FreeCamera(std::string _name) : Camera(_name) {};
   ~FreeCamera() = default;
 
-  /* Component functions */
-  virtual void update();
-
   std::shared_ptr<FreeCamera> lookAt(
     const Vector3 & target,
     const Vector3 & upVector = Vector3(0, 1, 0));

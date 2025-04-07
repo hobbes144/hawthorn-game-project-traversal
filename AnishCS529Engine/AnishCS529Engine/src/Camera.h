@@ -24,7 +24,6 @@ public:
   Camera(std::string _name) :
     name(_name), position(Vector3()),
     rotation(Quaternion(0.0f, 0.0f, 1.0f, 0.0f)),
-    viewProjectionMatrix(Matrix4()),
     exposure(1.0f)
   {
     forward = rotation.forward();
@@ -57,8 +56,6 @@ public:
   const Matrix4& getViewMatrix();
   const Matrix4& getInverseViewMatrix();
   const Matrix4& getProjectionMatrix();
-  const Matrix4& getViewProjectionMatrix();
-  const Matrix4& getViewProjectionWithoutPositionMatrix();
   const float& getExposure() { return exposure; }
 
 protected:
@@ -66,7 +63,6 @@ protected:
   Matrix4 viewMatrix;
   Matrix4 projectionMatrix;
   Matrix4 inverseViewMatrix;
-  Matrix4 viewProjectionMatrix;
   Vector3 position = Vector3();
   Quaternion rotation = Quaternion();
 
@@ -76,7 +72,6 @@ protected:
   Vector3 right;
   Vector3 up;
 
-  virtual void updateViewProjectionMatrix();
   virtual void updateViewMatrix();
 };
 

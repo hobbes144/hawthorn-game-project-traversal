@@ -14,10 +14,6 @@
 
 /* Protected functions */
 
-void Camera::updateViewProjectionMatrix() {
-  viewProjectionMatrix = projectionMatrix * viewMatrix;
-}
-
 /*!****************************************************************************
  * \brief Update the view matrix based on the location of the camera
  *
@@ -54,7 +50,6 @@ void Camera::updateViewMatrix() {
  *****************************************************************************/
 void Camera::update() {
   updateViewMatrix();
-  updateViewProjectionMatrix();
 }
 
 /*!****************************************************************************
@@ -144,12 +139,4 @@ const Matrix4& Camera::getInverseViewMatrix()
 const Matrix4& Camera::getProjectionMatrix()
 {
   return projectionMatrix;
-}
-
-const Matrix4 & Camera::getViewProjectionMatrix() {
-  return viewProjectionMatrix;
-}
-
-const Matrix4 & Camera::getViewProjectionWithoutPositionMatrix() {
-  return projectionMatrix * Matrix4::rotation(rotation);
 }

@@ -77,6 +77,7 @@ private:
   GLenum drawMode = NULL;
 
   GLenum readShaderType(std::string path);
+  std::string shaderTypeToString(GLenum type);
   std::string readShaderFile(std::string path);
   GLuint loadShader(GLenum type, const GLchar* source);
   void deleteShader(GLuint id);

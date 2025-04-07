@@ -92,6 +92,20 @@ GLenum Shader::readShaderType(std::string path) {
     return GL_VERTEX_SHADER;
 }
 
+std::string Shader::shaderTypeToString(GLenum type)
+{
+  if (type == GL_VERTEX_SHADER)
+    return "VERTEX";
+  if (type == GL_FRAGMENT_SHADER)
+    return "FRAGMENT";
+  if (type == GL_GEOMETRY_SHADER)
+    return "GEOMETRY";
+  if (type == GL_COMPUTE_SHADER)
+    return "COMPUTE";
+  else
+    return "VERTEX";
+}
+
 /*!****************************************************************************
  * \brief Read shader data from a file
  * 
@@ -135,7 +149,7 @@ GLuint Shader::loadShader(GLenum type, const GLchar* source) {
   if (!success)
   {
     glGetShaderInfoLog(shaderId, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog <<
+    std::cerr << "ERROR::SHADER::" << shaderTypeToString(type) << "::COMPILATION_FAILED\n" << infoLog <<
       std::endl;
   }
 
@@ -243,6 +257,7 @@ void Shader::initializeUBO(const std::string& name, unsigned int blockBinding)
   unsigned int uniformBlockIndex = 
     glGetUniformBlockIndex(programID, name.c_str());
   glUniformBlockBinding(programID, uniformBlockIndex, blockBinding);
+  std::cout << "UBO initialized at: " << uniformBlockIndex << std::endl;
 }
 
 /*!****************************************************************************

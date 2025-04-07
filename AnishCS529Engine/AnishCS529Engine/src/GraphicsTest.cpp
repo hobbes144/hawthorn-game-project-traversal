@@ -23,6 +23,7 @@
 #include "TestPass.h"
 #include "MainTestMaterial.h"
 #include "FreeCamera.h"
+#include "SkydomePass.h"
 
 
 extern "C"
@@ -49,7 +50,7 @@ int main() {
   mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
 
   //mainRenderer->getRenderGraph()->addPass<BasicRenderPass>("DirectRenderPass");
-  std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");
+  /*std::shared_ptr<TestPass> testPass = mainRenderer->getRenderGraph()->addPass<TestPass>("TestPass");*/
 
   //mainWindow->setVsync(true);
 
@@ -71,11 +72,13 @@ int main() {
 
   /* Test stuff for lighting */
   Vector3 LightDirection = Vector3(-0.2f, -1.0f, -0.3f).normalized();
-  testPass->setProperty("mode", 2);
+  /*testPass->setProperty("mode", 2);*/
 
   //Vector3 Light, Ambient;
   //Light = Vector3(4.0, 4.0, 4.0);
   //Ambient = Vector3(0.2, 0.2, 0.2);
+  auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
+  mainRenderer->getRenderGraph()->addPass<SkydomePass>("skydome", skydomePass);
 
   mainSceneGraph.addAmbientLight(
     AmbientLight(Vector3(0.2, 0.2, 0.2), 1.0f));
@@ -86,6 +89,7 @@ int main() {
   Vector3 cameraPos(0.0f, 0.0f, 10.0f);
   auto camera = std::make_shared<FreeCamera>("mainCamera");
   camera->setPosition(cameraPos);
+  camera->setExposure(1.0f);
   camera->setPerspectiveProjection(
     45.0f * 3.14159f / 180.0f,
     mainWindow->getAspectRatio(),
@@ -104,20 +108,20 @@ int main() {
   //boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
 
 
-  auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
-  auto skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
-  skyBoxMaterial->addTexture("media/beach.jpg");
-  //skyBoxMaterial->setProperty("mode", -1);
-  //skyBoxMaterial->setProperty("objectId", 1);
+  //auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
+  //auto skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
+  //skyBoxMaterial->addTexture("media/beach.jpg");
+  ////skyBoxMaterial->setProperty("mode", -1);
+  ////skyBoxMaterial->setProperty("objectId", 1);
 
-  auto skyBox = std::make_shared<GameObject>("SkyBox");
-  mainSceneGraph.addNode(skyBox);
-  skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
-    ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
-  auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
-  skyBoxRenderComponent
-    ->setMesh(sphereMesh)
-    ->setMaterial(skyBoxMaterial);
+  //auto skyBox = std::make_shared<GameObject>("SkyBox");
+  //mainSceneGraph.addNode(skyBox);
+  //skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
+  //  ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
+  //auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
+  //skyBoxRenderComponent
+  //  ->setMesh(sphereMesh)
+  //  ->setMaterial(skyBoxMaterial);
 
   /*auto testSphere = std::make_shared<GameObject>("TestSphere");
   mainSceneGraph.addNode(testSphere);

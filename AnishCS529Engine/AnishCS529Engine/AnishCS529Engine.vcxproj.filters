@@ -716,6 +716,9 @@
     <ClInclude Include="src\Lights.h">
       <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </ClInclude>
+    <ClInclude Include="src\SkydomePass.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -759,6 +762,12 @@
     </None>
     <None Include="shaders\lighting.frag">
       <Filter>Tests\TestShaders</Filter>
+    </None>
+    <None Include="shaders\skydome.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\skydome.vert">
+      <Filter>Engine\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
