@@ -427,6 +427,9 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
         rigidBody->initialize();
     }
 
+    writeLetter(sceneGraph, "media/Map/words/dUP.fbx", Vector3(-303.0f + offsetX, 5.0f + offsetY, -7.0f + offsetZ),
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+
     writeLetter(sceneGraph, "media/Map/words/A.fbx", Vector3(-320.0f + offsetX, 12.0f + offsetY, 7.0f + offsetZ),
 Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-320.0f + offsetX, 12.0f + offsetY, 4.0f + offsetZ),
