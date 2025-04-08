@@ -90,7 +90,7 @@ public:
   void addAmbientLight(AmbientLight light) { lights.ambientLight = light; }
   void addPointLight(PointLight light) { lights.pointLights.push_back(light); }
   void clearLights() { lights = {}; }
-  Lights getLights() { return lights; }
+  Lights* getLights() { return &lights; }
 
   // Cameras
   void addCamera(std::shared_ptr<Camera> camera) { cameraStack.push_back(camera); }

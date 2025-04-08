@@ -1,20 +1,18 @@
 /*!****************************************************************************
- * \file   Render2D.h
+ * \file   Render3D.h
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
- * \par    **Course**
- *    CS529
- * \date   12-14-2024
- * \brief  Render component for 2D objects
+ * \date   04-07-2025
+ * \brief  Render component for 3D objects
  * 
  *****************************************************************************/
-#ifndef RENDER_2D_H
-#define RENDER_2D_H
+#ifndef RENDER_3D_H
+#define RENDER_3D_H
 
 #pragma once
 
-/* Base class */
+ /* Base class */
 #include "Component.h"
 
 /* Used classes */
@@ -24,17 +22,17 @@
 #include "Renderable.h"
 
 /*!****************************************************************************
- * \brief Render2D object that performs rendering to the screen
- * 
- * 
- * 
+ * \brief Render3D object that performs rendering to the screen
+ *
+ *
+ *
  *****************************************************************************/
-class Render2D : 
-  public Renderable, public std::enable_shared_from_this<Render2D> {
+class Render3D :
+  public Renderable, public std::enable_shared_from_this<Render3D> {
 public:
   using PropertyMap = RenderPass::PropertyMap;
-  Render2D() = default;
-  ~Render2D() = default;
+  Render3D() = default;
+  ~Render3D() = default;
 
   /* Component functions */
   void initialize();
@@ -44,9 +42,9 @@ public:
   void draw(std::shared_ptr<Shader> shader);
 
   /* Pre-initialization functions */
-  std::shared_ptr<Render2D> setMesh(std::shared_ptr<Mesh> _mesh);
-  std::shared_ptr<Render2D> setMaterial(std::shared_ptr<Material> _material);
-  std::shared_ptr<Render2D> setDrawMode(GLenum _drawMode);
+  std::shared_ptr<Render3D> setMesh(std::shared_ptr<Mesh> _mesh);
+  std::shared_ptr<Render3D> setMaterial(std::shared_ptr<Material> _material);
+  std::shared_ptr<Render3D> setDrawMode(GLenum _drawMode);
 
   template<typename T>
   void setProperty(const std::string& name, const T& value) {

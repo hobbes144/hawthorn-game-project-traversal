@@ -50,14 +50,16 @@ public:
   void draw(
     std::shared_ptr<Camera> camera,
     SceneGraph* scene) const override {
+    glDepthMask(GL_FALSE);
 
     shader->use();
 
     shader->setInt("HDR", HDR);
-    shader->setMat4("ModelMatrix", Matrix4::scale(Vector3(2000.0f)));
     shader->bindTexture(0, "skydomeTexture", skydomeTexture);
 
     sphereMesh->draw(GL_TRIANGLES);
+
+    glDepthMask(GL_TRUE);
   }
 };
 

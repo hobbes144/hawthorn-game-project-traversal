@@ -166,7 +166,7 @@ void OBB::initializeDebugDraw(
   debugMesh = Mesh::getShapeMesh(Mesh::Cube);
 
   // Get debug material
-  debugMaterial = Material::getMaterial<DebugMaterial>("Debug", renderGraph);
+  debugMaterial = Material::getMaterial<DebugMaterial>("Debug");
 
   renderGraph->addPass<DebugPass>("DebugPass");
 }

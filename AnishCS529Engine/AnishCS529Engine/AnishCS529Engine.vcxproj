@@ -54,6 +54,7 @@
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\RaycastHit.cpp" />
     <ClCompile Include="src\RaycastManager.cpp" />
+    <ClCompile Include="src\Render3D.cpp" />
     <ClCompile Include="src\ReparentingTest.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
@@ -167,6 +168,8 @@
     <ClInclude Include="src\RaycastHit.h" />
     <ClInclude Include="src\RaycastManager.h" />
     <ClInclude Include="src\Render2D.h" />
+    <ClInclude Include="src\Render3D.h" />
+    <ClInclude Include="src\Renderable.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\RendererStateSaver.h" />
     <ClInclude Include="src\RenderGraph.h" />
@@ -228,8 +231,6 @@
     <None Include="shaders\factory_vertex_shader.vert.glsl" />
     <None Include="shaders\lighting.frag" />
     <None Include="shaders\lighting.vert" />
-    <None Include="shaders\main.frag" />
-    <None Include="shaders\main.vert" />
     <None Include="shaders\main_fragment_shader.glsl" />
     <None Include="shaders\main_vertex_shader.glsl" />
     <None Include="shaders\physics_test_fragment_shader.glsl" />
@@ -245,6 +246,8 @@
     </ClInclude>
     <None Include="shaders\skydome.frag" />
     <None Include="shaders\skydome.vert" />
+    <None Include="shaders\untextured_lighting.frag" />
+    <None Include="shaders\untextured_lighting.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

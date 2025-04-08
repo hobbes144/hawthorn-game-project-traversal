@@ -12,7 +12,7 @@
 #include "FramerateController.h"
 #include "EventManager.h"
 #include "GameObject.h"
-#include "Render2D.h"
+#include "Render3D.h"
 #include "BasicRenderPass.h"
 #include "TextureMaterial.h"
 #include "PhysicsBody.h"
@@ -24,6 +24,7 @@
 #include "MainTestMaterial.h"
 #include "FreeCamera.h"
 #include "SkydomePass.h"
+#include "LightingPass.h"
 
 
 extern "C"
@@ -81,9 +82,11 @@ int main() {
   mainRenderer->getRenderGraph()->addPass<SkydomePass>("skydome", skydomePass);
 
   mainSceneGraph.addAmbientLight(
-    AmbientLight(Vector3(0.2, 0.2, 0.2), 1.0f));
+    AmbientLight(Vector3(1, 1, 1), 0.0f));
   mainSceneGraph.addDirectionalLight(
-    DirectionalLight(LightDirection, Vector3(1.0f), 4.0f));
+    DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
+
+  mainRenderer->getRenderGraph()->addPass<LightingPass>("lightingPass");
 
   /* Camera setup */
   Vector3 cameraPos(0.0f, 0.0f, 10.0f);
@@ -97,31 +100,14 @@ int main() {
     5000.0f);
   mainSceneGraph.addCamera(camera);
 
-  ///* Create relevant Meshes*/
-  //auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
-  //auto boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
-  //boxMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
-  //boxMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
-  //boxMaterial->setProperty("shininess", 10.0f);
-  //boxMaterial->setProperty("objectId", 5);
-  //boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
-  //boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
-
-
-  //auto sphereMesh = Mesh::createSphereMesh("sphere", 32);
-  //auto skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
-  //skyBoxMaterial->addTexture("media/beach.jpg");
-  ////skyBoxMaterial->setProperty("mode", -1);
-  ////skyBoxMaterial->setProperty("objectId", 1);
-
-  //auto skyBox = std::make_shared<GameObject>("SkyBox");
-  //mainSceneGraph.addNode(skyBox);
-  //skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
-  //  ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
-  //auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
-  //skyBoxRenderComponent
-  //  ->setMesh(sphereMesh)
-  //  ->setMaterial(skyBoxMaterial);
+  /* Create relevant Meshes*/
+  auto boxMesh = Mesh::createMesh("box", Mesh::Cube);
+  auto boxMaterial = Material::getMaterial<TextureMaterial>("box");
+  boxMaterial->setProperty("diffuse", Vector3(87.0 / 255.0, 51.0 / 255.0, 35.0 / 255.0));
+  boxMaterial->setProperty("specular", Vector3(0.009, 0.009, 0.009));
+  boxMaterial->setProperty("shininess", 10.0f);
+  boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
+  boxMaterial->addNormalMap("media/textures/Brazilian_rosewood_pxr128_normal.png");
 
   /*auto testSphere = std::make_shared<GameObject>("TestSphere");
   mainSceneGraph.addNode(testSphere);
@@ -138,10 +124,12 @@ int main() {
     ->setLocalScaling(Vector3(1.0f, 1.f, 1.0f));
   // Todo: when z is set to 1.0f, the bounding box debug gets very messed up.
 
-  /*auto box1RenderComponent = box1->addComponent<Render2D>();
+  auto box1RenderComponent = box1->addComponent<Render3D>();
   box1RenderComponent
     ->setMesh(boxMesh)
-    ->setMaterial(boxMaterial);*/
+    ->setMaterial(boxMaterial);
+
+  mainSceneGraph.addNode(box1);
 
   /*auto box2 = std::make_shared<GameObject>("Box2");
   box1->setLocalPosition(Vector3(-4.0f, 0.0f, 0.0f))
@@ -203,6 +191,16 @@ int main() {
       camera->move(Vector3(1.0f, 0.0f, 0.0f), -0.2f);
     if (mainInput->isKeyDown(KEY_D))
       camera->move(Vector3(1.0f, 0.0f, 0.0f), 0.2f);
+
+    Lights* lights = mainSceneGraph.getLights();
+    if (mainInput->isKeyDown(KEY_I))
+      lights->sunLight.direction += Vector3(0.0f, 0.0f, -0.1f);
+    if (mainInput->isKeyDown(KEY_K))
+      lights->sunLight.direction += Vector3(0.0f, 0.0f, 0.1f);
+    if (mainInput->isKeyDown(KEY_J))
+      lights->sunLight.direction += Vector3(0.1f, 0.0f, 0.0f);
+    if (mainInput->isKeyDown(KEY_L))
+      lights->sunLight.direction += Vector3(-0.1f, 0.0f, 0.0f);
 
     mainSceneGraph.update(deltaTime);
 

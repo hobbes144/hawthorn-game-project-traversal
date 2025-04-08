@@ -426,6 +426,9 @@
     <ClCompile Include="src\RenderPass.cpp">
       <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClCompile>
+    <ClCompile Include="src\Render3D.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -719,6 +722,12 @@
     <ClInclude Include="src\SkydomePass.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClInclude>
+    <ClInclude Include="src\Render3D.h">
+      <Filter>Engine\Header Files\ObjectResources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderable.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -751,22 +760,22 @@
     <None Include="shaders\debug.vert.glsl">
       <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="shaders\main.vert">
-      <Filter>Tests\TestShaders</Filter>
-    </None>
-    <None Include="shaders\main.frag">
-      <Filter>Tests\TestShaders</Filter>
-    </None>
-    <None Include="shaders\lighting.vert">
-      <Filter>Tests\TestShaders</Filter>
-    </None>
-    <None Include="shaders\lighting.frag">
-      <Filter>Tests\TestShaders</Filter>
-    </None>
     <None Include="shaders\skydome.frag">
       <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\skydome.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\lighting.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\lighting.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\untextured_lighting.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\untextured_lighting.frag">
       <Filter>Engine\Shaders</Filter>
     </None>
   </ItemGroup>

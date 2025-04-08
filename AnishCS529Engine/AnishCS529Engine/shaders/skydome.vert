@@ -16,8 +16,6 @@ layout (binding = 0) uniform camera
     float exposure;
 };
 
-uniform mat4 ModelMatrix;
-
 out vec3 eyePos;
 
 void main()

@@ -19,12 +19,11 @@ void RenderGraph::draw(SceneGraph* scene)
   for (const auto& camera : scene->getCameras()) {
 
     updateCameraUBO(camera);
-    updateLightUBOs(scene->getLights());
+    updateLightUBOs(*(scene->getLights()));
 
     for (const auto& pass : renderStack) {
       pass->draw(camera, scene);
     }
-
   }
 }
 
@@ -44,12 +43,12 @@ void RenderGraph::initializeLightUBOs()
   glBindBuffer(GL_UNIFORM_BUFFER, uboLights);
   glBufferData(
     GL_UNIFORM_BUFFER,
-    sizeof(DirectionalLight) + sizeof(AmbientLight),
+    sizeof(LightingPassLights),
     NULL, GL_STATIC_DRAW);
   glBindBuffer(GL_UNIFORM_BUFFER, 0);
   glBindBufferRange(
-    GL_UNIFORM_BUFFER, 1, uboLights, 0, 
-    sizeof(DirectionalLight) + sizeof(AmbientLight));
+    GL_UNIFORM_BUFFER, 1, uboLights, 0,
+    sizeof(LightingPassLights));
 }
 
 /*!****************************************************************************
@@ -73,13 +72,11 @@ void RenderGraph::initializeCameraUBO()
 
 void RenderGraph::updateLightUBOs(Lights lights)
 {
+  LightingPassLights lpLights = { lights.sunLight, lights.ambientLight };
   glBindBuffer(GL_UNIFORM_BUFFER, uboLights);
   glBufferSubData(GL_UNIFORM_BUFFER,
-    0, sizeof(DirectionalLight),
-    &(lights.sunLight));
-  glBufferSubData(GL_UNIFORM_BUFFER,
-    sizeof(DirectionalLight), sizeof(AmbientLight),
-    &(lights.ambientLight));
+    0, sizeof(LightingPassLights),
+    &lpLights);
   glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 

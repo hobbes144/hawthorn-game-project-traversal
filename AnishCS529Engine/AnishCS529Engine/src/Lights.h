@@ -16,14 +16,15 @@
 
 struct DirectionalLight {
   Vector3 direction;
-  Vector3 color;
   float intensity;
+  Vector3 color;
+  float padding0 = 0.0f; // Padding to align the data correctly for OpenGL.
 };
 
 struct PointLight {
   Vector3 position;
-  Vector3 color;
   float intensity;
+  Vector3 color;
   float range;
 };
 
@@ -32,9 +33,14 @@ struct AmbientLight {
   float intensity;
 };
 
+struct LightingPassLights {
+  DirectionalLight sunLight;
+  AmbientLight ambientLight;
+};
+
 struct Lights {
-  std::optional<DirectionalLight> sunLight;
-  std::optional<AmbientLight> ambientLight;
+  DirectionalLight sunLight;
+  AmbientLight ambientLight;
   std::vector<PointLight> pointLights;
 };
 

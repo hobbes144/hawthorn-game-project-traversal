@@ -33,7 +33,11 @@ class Material : public std::enable_shared_from_this<Material> {
 public:
   using PropertyMap = RenderPass::PropertyMap;
 
-  Material() = default;
+  Material() {
+    this->setProperty("useTexture", false);
+    this->setProperty("useNormalMap", false);
+  }
+
   virtual ~Material() = default;
 
   template<typename T>
@@ -57,8 +61,7 @@ public:
 
   template <typename T>
   static std::shared_ptr<T> getMaterial(
-    const std::string& name,
-    std::shared_ptr<RenderGraph> renderGraph);
+    const std::string& name);
 
 protected:
   std::shared_ptr<RenderGraph> renderGraph;

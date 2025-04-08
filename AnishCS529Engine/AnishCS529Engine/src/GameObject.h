@@ -96,7 +96,7 @@ public:
 protected:
   /** Vector of components attached to the GameObject */
   std::vector<std::shared_ptr<Component>> components;
-  std::shared_ptr<Render2D> renderableComponent;
+  std::shared_ptr<Renderable> renderableComponent;
 
   /** Is GameObject enabled */
   bool enabled;

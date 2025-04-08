@@ -76,9 +76,9 @@ void APIENTRY openglCallbackFunction(
  * ## Explanation:
  * 
  * This function initializes OpenGL and sets up basic config so we can start
- * using it. 
+ * using it.
  * 
- * \return \b 
+ * \return \b bool true if run successfully
  *****************************************************************************/
 bool Renderer::loadGraphicsAPIFunctions() const {
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

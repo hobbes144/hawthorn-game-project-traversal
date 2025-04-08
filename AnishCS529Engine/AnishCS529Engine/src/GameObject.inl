@@ -45,8 +45,8 @@ std::shared_ptr<T> GameObject::addComponent() {
   component->setParent(std::static_pointer_cast<GameObject>(shared_from_this()));
   components.push_back(component);
 
-  if constexpr (std::is_same_v<T, Render2D>) {
-    // Special behavior for Render2D
+  if constexpr (std::is_base_of<Renderable, T>::value) {
+    // Special behavior for Renderable
     renderableComponent = component;
   }
 
@@ -80,8 +80,8 @@ std::shared_ptr<T> GameObject::addComponent(std::shared_ptr<T> _component)
     std::static_pointer_cast<GameObject>(shared_from_this()));
   components.push_back(_component);
 
-  if constexpr (std::is_same_v<T, Render2D>) {
-    // Special behavior for Render2D
+  if constexpr (std::is_base_of<Renderable, T>::value) {
+    // Special behavior for Renderable
     renderableComponent = _component;
   }
 
@@ -113,8 +113,8 @@ void GameObject::removeComponent() {
     found->shutdown();
     components.erase(it);
 
-    if constexpr (std::is_same_v<T, Render2D>) {
-      // Special behavior for Render2D
+    if constexpr (std::is_base_of<Renderable, T>::value) {
+      // Special behavior for Renderable
       renderableComponent = nullptr;
     }
   }
