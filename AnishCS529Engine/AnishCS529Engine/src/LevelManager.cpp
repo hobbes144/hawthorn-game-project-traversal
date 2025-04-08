@@ -9,15 +9,24 @@ void LevelManager::SystemInitalization()
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
+
     int windowWidth = mode->width;
     int windowHeight = mode->height;
 
     mainWindow = new GameWindow;
-    mainWindow->setTitle("EngineDemo")
-        ->setWidth(windowWidth)
-        ->setHeight(windowHeight)
-        ->setBorderlessFullscreen(true);
-    mainWindow->initialize(monitor);
+
+    if (isFullscreen) {
+        int windowWidth = mode->width;
+        int windowHeight = mode->height;
+        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(true);
+        mainWindow->initialize(monitor);
+    }
+    else {
+        int windowWidth = 1280;
+        int windowHeight = 720;
+        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(false);
+        mainWindow->initialize(nullptr);
+    }
 
     /* Renderer setup */
     mainRenderer = new Renderer;
@@ -253,7 +262,6 @@ void LevelManager::ExecuteMainLoop()
     float speed = 10.0f;
     float deltaTime = 0.0f;
     int expectedFrameRate = 60; // 1000;
-    static bool isFullscreen = true;
     static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
     mainFramerateController->setTargetFramerate(expectedFrameRate);
