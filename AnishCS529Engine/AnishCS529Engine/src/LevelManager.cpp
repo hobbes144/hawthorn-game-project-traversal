@@ -1,25 +1,23 @@
 #include "precompiled.h"
 #include "LevelManager.h"
 
-void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
-
-    //std::cout << "onMove\n";
-
-    AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
-
-    return;
-
-}
-
 void LevelManager::SystemInitalization()
 {
 
     /* Game Window setup */
-    int windowWidth = 1280;
-    int windowHeight = 720;
+    glfwInit();
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+    int windowWidth = mode->width;
+    int windowHeight = mode->height;
+
     mainWindow = new GameWindow;
-    mainWindow->setTitle("EngineDemo")->setHeight(windowHeight)->setWidth(windowWidth);
-    mainWindow->initialize();
+    mainWindow->setTitle("EngineDemo")
+        ->setWidth(windowWidth)
+        ->setHeight(windowHeight)
+        ->setBorderlessFullscreen(true);
+    mainWindow->initialize(monitor);
 
     /* Renderer setup */
     mainRenderer = new Renderer;
@@ -86,7 +84,7 @@ void LevelManager::SystemInitalization()
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
     AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
     
-    AudioManager::instance().playSound2D("music", 0.25f);
+    AudioManager::instance().playSound2D("music", 0.15f);
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
@@ -253,7 +251,7 @@ void LevelManager::ExecuteMainLoop()
     float speed = 10.0f;
     float deltaTime = 0.0f;
     int expectedFrameRate = 60; // 1000;
-    static bool isFullscreen = false;
+    static bool isFullscreen = true;
     static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
     mainFramerateController->setTargetFramerate(expectedFrameRate);
@@ -278,19 +276,31 @@ void LevelManager::ExecuteMainLoop()
 
         if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
             GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
-            if (!isFullscreen) {
-                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
-                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
-                GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-                const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-                glfwSetWindowMonitor(nativeWindow, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
-                isFullscreen = true;
-            }
-            else {
-                glfwSetWindowMonitor(nativeWindow, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+            if (isFullscreen) {
+                // Windowed mode
+                int windowWidth = 1280;
+                int windowHeight = 720;
+                // Enable borders
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
+                // Reposition the window
+                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
                 isFullscreen = false;
             }
+            else {
+                // Save current window attributes
+                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
+                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
 
+                // Borderless fullscreen
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
+                glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
+                isFullscreen = true;
+            }
+
+            // Adjust viewport and camera aspect ratio
             int fbWidth, fbHeight;
             glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
             glViewport(0, 0, fbWidth, fbHeight);
@@ -594,11 +604,6 @@ void LevelManager::createPlayerObject()
         ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
         ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
         ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
-
-    //On Move Callback 
-    Movement3DListener playerMovementListener(playerBox);
-    playerMovementListener.setCallback(onMove);
-    EventManager::Instance().AddListener(&playerMovementListener);
 
 #pragma endregion
 
