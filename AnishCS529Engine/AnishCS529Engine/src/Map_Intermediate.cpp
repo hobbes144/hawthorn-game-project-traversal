@@ -12,7 +12,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
         std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
         auto key = std::make_shared<GameObject>("key", GameObject::WALL);
         sceneGraph.addNode(key);
-        key->setLocalPosition(Vector3(-151.0f + offsetX, 3.5f + offsetY, offsetZ));
+        key->setLocalPosition(Vector3(-151.0f + offsetX, 5.5f + offsetY, offsetZ));
         key->setLocalScaling(Vector3(0.005f, 0.005f, 0.005f));
         auto renderComp = key->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(keyMaterial);
@@ -131,7 +131,7 @@ void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneG
     {
         auto TopWall = std::make_shared<GameObject>("TopWall", GameObject::WALL);
         sceneGraph.addNode(TopWall);
-        TopWall->setLocalPosition(Vector3(-200.0f + offsetX, 24.0f + offsetY, 0.0f + offsetZ));
+        TopWall->setLocalPosition(Vector3(-200.0f + offsetX, 50.0f + offsetY, 0.0f + offsetZ));
         TopWall->setLocalScaling(Vector3(420.0f, 10.0f, 20.0f));
         auto renderComp = TopWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);

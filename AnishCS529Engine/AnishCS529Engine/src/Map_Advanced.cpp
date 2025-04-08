@@ -264,8 +264,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-130.0f + offsetX, 38.0f + offsetY, 0.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 30.0f));
+        wallRunWall->setLocalPosition(Vector3(-130.0f + offsetX, 33.0f + offsetY, 0.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.0f, 20.0f, 30.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -281,8 +281,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-140.0f + offsetX, 42.0f + offsetY, 30.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 30.0f));
+        wallRunWall->setLocalPosition(Vector3(-140.0f + offsetX, 38.0f + offsetY, 30.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.0f, 20.0f, 32.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
