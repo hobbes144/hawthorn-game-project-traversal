@@ -24,6 +24,16 @@ Vector3 Sphere::getFarthestExtent(const Vector3& direction)
 	return direction * radius;
 }
 
+Vector3 Sphere::getNormalAtVector(const Vector3& direction)
+{
+	return direction.normalized();
+}
+
+Vector3 Sphere::getNormalClosestToPoint(const Vector3& point)
+{
+	return point.normalized();
+}
+
 Vector3 Sphere::getSurfacePoint(const Vector3& direction)
 {
 	return direction * radius;

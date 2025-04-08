@@ -63,7 +63,10 @@ public:
         Jump,
         Slide,
         Respawn,
-        Debug
+        Debug,
+        Creative,
+        Freeze,
+        Music
     };
 
     struct AnchorInfo {
@@ -117,8 +120,8 @@ public:
         coyoteTime(0.1f), jumpBufferTime(0.2f), jumpCooldown(0.2f),
         slideForce(50), slideCoolDown(2.0f), slideEffectTime(0.5f),
         slideBufferTime(0.2f), hasSlidSinceAnchored(false),
-        wallRunSpeed(30), wallJumpForce(31),
-        sceneRoot(nullptr)
+        wallRunSpeed(30), wallJumpForce(17),
+        sceneRoot(nullptr), isCreative(false)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -155,10 +158,16 @@ public:
     bool getIsGrounded();
     std::shared_ptr<GameObject> getAnchoredSurface();
 
+    bool isCreativeMode() const { return isCreative; }
+
+
     //Respawn
     void respawnPlayer();
-    void setRespawnCheckpoint(Vector3 _checkpoint);
+    void setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation);
     Vector3 getRespawnCheckpoint();
+
+    void takeDamage();
+    int getHP() const { return hp; }
 
 private:
     //Utility Functions
@@ -194,8 +203,16 @@ private:
     AnchorInfo anchorInfo;
     std::shared_ptr<GameObject> anchorSurface;
 
+    int hp = 1;
+    const int maxHP = 1;
+    float timeSinceDamage = 0.0f;
+    const float recoveryDelay = 5.0f;
+    float damageCooldown = 0.5f;
+    float damageTimer = 0.0f;
+
     //Respawn
     Vector3 respawnCheckpoint = Vector3(0.0f, 2.0f, 0.0f);
+    Quaternion respawnRotation;
 
     //Sytem Compenet Members
     Input* input;
@@ -250,7 +267,10 @@ private:
     //GamePad
     GamePad* gp;
 
-    //Time Ability Members
+    //Special States
+    bool isCreative = false;
+    bool playsMusic = true;
+    bool isFrozen = false;
 
     //Debugging
     void debugCheck();

@@ -172,6 +172,15 @@
     <Filter Include="Engine\Source Files\Systems\RenderingSystem\RenderPasses">
       <UniqueIdentifier>{84badcd2-4bfa-48c7-bcae-32664c35590a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Images">
+      <UniqueIdentifier>{75df0f37-a552-4845-bba0-0bba3735a842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Audio">
+      <UniqueIdentifier>{5e0bdad1-f90b-4b30-8d3c-ffe574efc310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models">
+      <UniqueIdentifier>{4eaa3592-81ad-4499-8edf-fea55ab8f95c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Matrix4.cpp">
@@ -417,9 +426,6 @@
     <ClCompile Include="src\FreeCamera.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Key.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\KeyList.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
@@ -428,6 +434,24 @@
     </ClCompile>
     <ClCompile Include="src\Render3D.cpp">
       <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Door.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KeyList.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LevelManager.cpp">
+      <Filter>Engine\Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InGameKey.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeathPlane.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LMMain.cpp">
+      <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -710,9 +734,6 @@
     <ClInclude Include="src\FreeCamera.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Key.h">
-      <Filter>Engine\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\KeyList.h">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
@@ -727,6 +748,21 @@
     </ClInclude>
     <ClInclude Include="src\Renderable.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Door.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KeyList.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LevelManager.h">
+      <Filter>Engine\Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InGameKey.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DeathPlane.h">
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -763,11 +799,44 @@
     <None Include="shaders\skydome.frag">
       <Filter>Engine\Shaders</Filter>
     </None>
+    <None Include="shaders\lighting.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
     <None Include="shaders\skydome.vert">
       <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\lighting.vert">
       <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\main.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\lighting.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\main.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="media\Map\Big_Button.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\button.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Cannon.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Cannonball.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Environment.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Floor.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="media\Map\Map.fbx">
+      <Filter>Resource Files\Models</Filter>
     </None>
     <None Include="shaders\lighting.frag">
       <Filter>Engine\Shaders</Filter>
@@ -778,5 +847,75 @@
     <None Include="shaders\untextured_lighting.frag">
       <Filter>Engine\Shaders</Filter>
     </None>
+    <None Include="media\Map\Turret.fbx">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="media\textures\6670-diffuse.jpg">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\6670-normal.jpg">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\BlueConcrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\BrownConcrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\colormap.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\Concrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\cracks.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\LightBlueConcrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\Standard_red_pxr128.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\Standard_red_pxr128_normal.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\YellowConcrete.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\textures\WhiteFloorTiles.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="media\beach.jpg">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="media\audio\pew.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\radio.wav">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\BE21-Undertoe-Steele.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\bang.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\walk.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\slide.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\footstep.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
+    <Media Include="media\audio\jump.mp3">
+      <Filter>Resource Files\Audio</Filter>
+    </Media>
   </ItemGroup>
 </Project>

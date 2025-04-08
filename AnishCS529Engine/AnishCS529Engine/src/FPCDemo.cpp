@@ -66,7 +66,7 @@
 //
 //}
 //
-//void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
+//void onMoveMain(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
 //
 //    //std::cout << "onMove\n";
 //
@@ -76,7 +76,9 @@
 //
 //}
 //
+//
 //int main() {
+//
 //    const float rad = PI / 180.0f;
 //
 //#pragma region System Init
@@ -167,6 +169,7 @@
 //    int isDebug = 0;
 //    std::vector<std::shared_ptr<GameObject>> gameObjects;
 //
+//
 //#pragma region Initalizations
 //
 //    auto playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
@@ -174,11 +177,6 @@
 //
 //    auto camera = std::make_shared<Camera>("mainCamera");
 //    playerBox->addChild(camera);
-//    //mainSceneGraph.addNode(camera);
-//
-//    auto dynamicBox = std::make_shared<GameObject>("DynamicBox");
-//    //playerBox->addChild(dynamicBox);
-//    mainSceneGraph.addNode(dynamicBox);
 //
 //#pragma endregion
 //
@@ -288,12 +286,17 @@
 //#pragma endregion
 //
 //#pragma region Map
-//    //auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f)
-//    auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
-//    MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph, camera, concreteMesh, concreteMaterial);
+//
+//    //auto checkPoint = Vector3(0.0f, 7.0f, 0.0f);
+//    //auto checkPoint = Vector3(-131.0f, 7.0f, -130.0f);
+//    //auto checkPoint = Vector3(-110.5f, 25.0f, -40.0f); 
+//    //auto checkPoint = Vector3(-115.5f, 45.0f, 54.0f); //checkpoint 5
+//    auto checkPoint = Vector3(0.0f, 2.0f, 0.0f);
+//    std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
+//    MapLoader::instance().initializeResources(rg);
+//    MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph, camera);
 //
 //#pragma endregion
-//
 //
 //#pragma region PlayerBox
 //
@@ -341,49 +344,22 @@
 //        ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
 //        ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
 //        ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
+//        ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
+//        ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
 //        ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
 //        ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
 //        ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
 //        ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
-//        ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X);
+//        ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
+//        ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER);
 //
 //    //On Move Callback 
 //    Movement3DListener playerMovementListener(playerBox);
-//    playerMovementListener.setCallback(onMove);
+//    playerMovementListener.setCallback(onMoveMain);
 //    EventManager::Instance().AddListener(&playerMovementListener);
 //
 //    gameObjects.push_back(playerBox);
 //#pragma endregion
-//
-////#pragma region Floor
-////
-////    auto floor = std::make_shared<GameObject>("Floor");
-////    mainSceneGraph.addNode(floor);
-////    floor->setLocalPosition(Vector3(0.0f, -1.0f, 0.0f))
-////      ->setLocalScaling(Vector3(100.0f, 100.0f, 100.0f));
-////
-////    auto box2RenderComponent = floor->addComponent<Render2D>();
-////    box2RenderComponent
-////      ->setCamera(camera)
-////      ->setMesh(floorMesh)
-////      ->setMaterial(cracksMaterial);
-////
-////    auto shape2 = std::make_shared<OBB>(
-////    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-////    Vector3(0.5f, 0.5f, 0.5f));
-////    shape2->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
-////
-////    floor->addComponent<RigidBody>()
-////      ->setMass(10.0f)->setDrag(1.0f)
-////      ->setShape(shape2)
-////      ->setDebug(isDebug)
-////      ->setStatic(true)
-////      ->registerToPhysicsManager(PhysicsManager::Instance())
-////      ->initialize();
-////
-////    gameObjects.push_back(floor);
-////
-////#pragma endregion
 //
 //    /* Main Loop Variables */
 //    float angleX = 0.0f;
@@ -430,15 +406,6 @@
 //        }
 //        if (mainInput->isKeyPressed(KEY_M)) {
 //            AudioManager::instance().stopSound("radio");
-//        }
-//
-//        if (mainInput->isKeyPressed(KEY_R)) {
-//            playerBox->setLocalPosition(checkPoint);
-//
-//            if (auto body = playerBox->findComponent<RigidBody>()) {
-//                body->setVelocity(Vector3(0.0f, 0.0f, 0.0f));
-//            }
-//            playerBoxInputComponent->setState(FirstPersonControllerComponent::Grounded);
 //        }
 //
 //
@@ -507,6 +474,7 @@
 //
 //        Vector3 playerPos = playerBox->getWorldTransform().getPosition();
 //        ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
+//        ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
 //
 //        ImGui::End();
 //

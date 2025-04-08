@@ -31,6 +31,7 @@ public:
   Vector3 getFarthestExtent(const Vector3& direction) override;
   Vector3 getSurfacePoint(const Vector3& direction) override;
   Vector3 getNormalAtVector(const Vector3& direction) override;
+  Vector3 getNormalClosestToPoint(const Vector3& point) override;
   void debugDaw();
 
   void getCorners(Vector3 corners[4]) const;

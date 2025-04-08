@@ -563,7 +563,16 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 
 		//If the ground is a checkpoint
 		if (hitGround.object->getTag() == GameObject::CHECKPOINT) {
-			setRespawnCheckpoint(hitGround.object->getLocalPosition() + Vector3(0.0f, 2.0f, 0.0f));
+			static std::shared_ptr<GameObject> currentCheckpoint = nullptr;
+			if (currentCheckpoint != hitGround.object) {
+				currentCheckpoint = hitGround.object;
+				Vector3 newRespawCheckpoint = hitGround.object->getLocalPosition() + Vector3(0.0f, 2.0f, 0.0f);
+				Quaternion newRespawnRotation = hitGround.object->getLocalRotation();
+				setRespawnCheckpoint(newRespawCheckpoint, newRespawnRotation);
+			}
+			else {
+				//std::cout << "Checkpoint already set to this object." << std::endl;
+			}
 		}
 
 		return;
@@ -579,7 +588,7 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 	if (anchorInfo.direction == 'r' || anchorInfo.direction == '0' || anchorInfo.direction == 'd') {
 		const Ray rightRay = Ray(currentPos, rightVector);
 		const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
-		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist, {GameObject::RUNNABLE_WALL}) ||
+		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
 			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL });
 		if (isRightWall) {
 			anchorInfo.direction = 'r';
@@ -682,6 +691,8 @@ void FirstPersonControllerComponent::physicsToAnchor() {
 void FirstPersonControllerComponent::update(float deltaTime)
 {
 
+	debugCheck();
+
 	//-----Input-----//
 #pragma region Input
 	bool isMovingForward = input->isKeyHeld(ActionKey[MoveForward]);
@@ -694,11 +705,15 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool isJumping = input->isKeyPressed(ActionKey[Jump]);
 	bool isSliding = input->isKeyPressed(ActionKey[Slide]);
 	bool isRespawning = input->isKeyPressed(ActionKey[Respawn]);
+	bool creative = input->isKeyPressed(ActionKey[Creative]);
+	bool music = input->isKeyPressed(ActionKey[Music]);
+	bool freezePressed = input->isKeyPressed(ActionKey[Freeze]);
+	float upMotion = input->isKeyHeld(ActionKey[Jump]) - input->isKeyHeld(ActionKey[Slide]);
 	//Mouse
 	float mouseXDelta = 0.0f;
 	float mouseYDelta = 0.0f;
 #pragma endregion
-
+	
 	//GamePad Input
 #pragma region GamePad
 	if (gp != nullptr) {
@@ -749,9 +764,63 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				isSliding = gp->isPressed(GamePadActionKey[Slide]);
 			if (gp->isPressed(GamePadActionKey[Respawn]))
 				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
+			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide])) 
+				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
+			if (gp->isPressed(GamePadActionKey[Creative]))
+				creative = gp->isPressed(GamePadActionKey[Creative]);
+			if (gp->isPressed(GamePadActionKey[Music]))
+				music = gp->isPressed(GamePadActionKey[Music]);
 		}
 	}
 #pragma endregion
+	//Creative mode
+	if (isCreative) {
+		isSliding = false;
+		isJumping = false;
+		isCreative = !creative;
+		if (!isCreative) body->findComponent<RigidBody>()->usingGravity(true);
+	}
+	else {
+		upMotion = 0;
+		isCreative = creative;
+		if (isCreative) body->findComponent<RigidBody>()->usingGravity(false);
+	}
+
+	//music on/off
+	if (playsMusic) {
+		playsMusic = !music;
+		if (!playsMusic) AudioManager::instance().stopSound("music");
+	}
+	else {
+		playsMusic = music;
+		if (playsMusic)  AudioManager::instance().playSound2D("music", 0.5f);
+	}
+
+	//Frozen Mode
+	if (freezePressed) {
+		isFrozen = !isFrozen;
+		input->controlMouse(!isFrozen);
+	}
+	if (isFrozen) {
+		return;
+	}
+
+
+	//Player HP system
+
+	if (damageTimer < damageCooldown)
+		damageTimer += deltaTime;
+
+	if (timeSinceDamage < recoveryDelay) {
+		timeSinceDamage += deltaTime;
+	}
+	else {
+		if (hp < maxHP) {
+			hp = maxHP;
+			std::cout << "HP recovered to full";
+		}
+	}
+
 
 	//-----Handling Camera Movement-----//
 #pragma region Camera
@@ -912,8 +981,12 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
 		//Lateral
 		const Vector3 lateralMotionVector = rightVector * lateralMotion;
+		const Vector3 verticalMotionVector = upVector * upMotion;
 		//Combine Forward and Lateral Movement and Apply Force
-		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+		if (upMotion == 0 && isCreative && physicsBody->getVelocity().y != 0) {
+			physicsBody->applyForce(Vector3(0.0f, -100 * physicsBody->getVelocity().y, 0.0f));
+		}
+		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector + verticalMotionVector;
 		if (combinedMotionVector.magnitude() > 0.0f) {
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
@@ -938,8 +1011,12 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		const Vector3 forwardMotionVector = forwardVector * forwardMotion;
 		//Lateral
 		const Vector3 lateralMotionVector = rightVector * lateralMotion;
+		const Vector3 verticalMotionVector = upVector * upMotion;
+		if (upMotion == 0 && isCreative && physicsBody->getVelocity().y != 0) {
+			physicsBody->applyForce(Vector3(0.0f, -100 * physicsBody->getVelocity().y, 0.0f));
+		}
 		//Combine Forward and Lateral Movement and Apply Force
-		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector;
+		const Vector3 combinedMotionVector = forwardMotionVector + lateralMotionVector + verticalMotionVector;
 		if (combinedMotionVector.magnitude() > 0.0f) {
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
@@ -1130,11 +1207,17 @@ void FirstPersonControllerComponent::respawnPlayer()
 	//Set Position
 	body->setLocalPosition(respawnCheckpoint);
 
+	hp = maxHP;
+
+	//Set Rotation
+	//body->setLocalRotation(respawnRotation);
+
 }
 
-void FirstPersonControllerComponent::setRespawnCheckpoint(Vector3 _checkpoint)
+void FirstPersonControllerComponent::setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation)
 {
 	respawnCheckpoint = _checkpoint;
+	respawnRotation = _rotation;
 }
 
 Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
@@ -1144,12 +1227,34 @@ Vector3 FirstPersonControllerComponent::getRespawnCheckpoint()
 
 #pragma endregion
 
+
+void FirstPersonControllerComponent::takeDamage() {
+	if (damageTimer < damageCooldown)
+		return;
+
+	hp--;
+	// reset the damage timer
+	damageTimer = 0;   
+	timeSinceDamage = 0.0f;
+
+
+	// TODO: Sound
+	//AudioManager::instance().playSound("hurt", body->getLocalPosition());
+
+	// Respawn if no hp
+	if (hp <= 0) {
+		respawnPlayer();
+	}
+
+	std::cerr << "Current HP: " << hp << "\n";
+}
+
 void FirstPersonControllerComponent::debugCheck()
 {
 	if (input->isKeyPressed(ActionKey[Debug])) {
+		
 		std::cout << "Here" << std::endl;
+	
 	}
-	if (gp->isPressed(GamePadActionKey[Respawn])) {
-		std::cout << "Here" << std::endl;
-	}
+
 }

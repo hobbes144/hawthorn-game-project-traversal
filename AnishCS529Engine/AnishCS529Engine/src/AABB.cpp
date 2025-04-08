@@ -92,6 +92,28 @@ Vector3 AABB::getNormalAtVector(const Vector3& direction)
   }
 }
 
+Vector3 AABB::getNormalClosestToPoint(const Vector3& point)
+{
+  Vector3 halfExtents = getHalfExtents();
+  if ((halfExtents.x - fabs(point.x)) < (halfExtents.y - fabs(point.y))) {
+    if ((halfExtents.x - fabs(point.x)) < (halfExtents.z - fabs(point.z))) {
+      return Vector3(1, 0, 0) * ((point.x >= 0.0f) * 2.0f - 1.0f);
+    }
+    else {
+      return Vector3(0, 0, 1) * ((point.z >= 0.0f) * 2.0f - 1.0f);
+    }
+  }
+  else {
+    if ((halfExtents.y - fabs(point.y)) < (halfExtents.z - fabs(point.z))) {
+      return Vector3(0, 1, 0) * ((point.y >= 0.0f) * 2.0f - 1.0f);
+    }
+    else {
+      return Vector3(0, 0, 1) * ((point.z >= 0.0f) * 2.0f - 1.0f);
+    }
+  }
+  return Vector3();
+}
+
 
 
 // Utility functions

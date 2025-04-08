@@ -11,12 +11,19 @@ void onDoorCollide(std::shared_ptr<GameObject> obj1,
 	if (D1 && S2) {
 		if (S2->hasKey(D1->getID())) {
 			if (D1->getType() == Door::DoorType::DISAPPEAR) obj1->disable();
+			if (D1->getType() == Door::DoorType::NEXTLEVEL && D1->getLevelSwitchStatus() == false) {
+				LevelManager::Instance().NextLevel();
+				D1->setLevelSwitchStatus(true);
+			}
 		}
 
 	}
 	else if (D2 && S1) {
 		if (S1->hasKey(D2->getID())) {
 			if (D2->getType() == Door::DoorType::DISAPPEAR) obj2->disable();
+			if (D2->getType() == Door::DoorType::NEXTLEVEL) {
+				LevelManager::Instance().NextLevel();
+			}
 		}
 	}
 	return;
@@ -31,6 +38,23 @@ int Door::getID() {
 	return id;
 }
 
+
+void Door::setID(int _id) {
+	id = _id;
+}
+
 Door::DoorType Door::getType() {
 	return type;
+}
+
+void Door::setType(Door::DoorType _type) {
+	type = _type;
+}
+
+bool Door::getLevelSwitchStatus() {
+	return LevelSwitched;
+}
+
+void Door::setLevelSwitchStatus(bool status) {
+	LevelSwitched = status;
 }

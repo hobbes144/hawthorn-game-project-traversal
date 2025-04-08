@@ -345,6 +345,13 @@ void Node::printNodeRecursive(std::ostream& os, Node* node, int depth) {
   }
 }
 
+void Node::deleteNode()
+{
+    children.clear();
+    parent = nullptr;
+    siblingNumber = 0;
+}
+
 /*!****************************************************************************
  * \brief Debugging printing
  * 

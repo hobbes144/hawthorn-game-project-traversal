@@ -85,3 +85,22 @@ void SceneGraph::draw(std::shared_ptr<Shader> shader) {
 void SceneGraph::printSceneTree() {
   std::cout << *root << std::endl;
 }
+
+void SceneGraph::clear()
+{
+    for (auto child : root->getChildren()) {
+        nodeUpdateStack.push(child);
+    }
+    std::shared_ptr<Node> currNode;
+    while (nodeUpdateStack.size() > 0) {
+        currNode = nodeUpdateStack.top();
+        nodeUpdateStack.pop();
+        for (auto child : currNode->getChildren()) {
+            nodeUpdateStack.push(child);
+        }
+        currNode->deleteNode();
+    }
+
+    root->removeChildren();
+
+}

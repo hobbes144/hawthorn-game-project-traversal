@@ -46,6 +46,11 @@ private:
         child->update(deltaTime);
       }*/
     }
+
+    void removeChildren() {
+        children.clear();
+    }
+
   };
 
   std::shared_ptr<RootNode> root;
