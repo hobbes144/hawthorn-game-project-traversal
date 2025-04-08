@@ -211,6 +211,9 @@ void AudioManager::playSound(const std::string& name, const Vector3& position, f
         channel->set3DAttributes(&pos, &vel);
         channel->set3DMinMaxDistance(1.0f, 50.0f);
     }
+    if (channel) {
+        channel->setVolume(volume);
+    }
 }
 
 void AudioManager::playSound2D(const std::string& name, float volume) {
@@ -254,6 +257,9 @@ void AudioManager::playSound2D(const std::string& name, float volume) {
     FMOD::Channel* channel = nullptr;
     result = fmodSystem_->playSound(sound, nullptr, false, &channel);
     assert(result == FMOD_OK && "Failed to play sound");
+    if (channel) {
+        channel->setVolume(volume);
+    }
 }
 
 /*!****************************************************************************
@@ -323,6 +329,7 @@ void AudioManager::stopSound(const std::string& name) {
 void AudioManager::setListenerPosition(const Vector3& position) {
     assert(fmodSystem_ && "FMOD system not initialized in setListenerPosition");
 
+    listenerPosition = position;
     // The orientation vectors can be adjusted based on camera property
     FMOD_VECTOR pos = { position.x, position.y, position.z };
     FMOD_VECTOR vel = { 0.0f, 0.0f, 0.0f };

@@ -475,7 +475,7 @@ void FirstPersonControllerComponent::GroundedJump()
 	const Vector3 newVelocity = Vector3(currentVelocity.x, jumpSpeed, currentVelocity.z);
 	physicsBody->setVelocity(newVelocity);
 
-	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
+	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()));
 
 	// Prevent multiple jumps until grounded again
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
@@ -492,7 +492,7 @@ void FirstPersonControllerComponent::SlidingJump() {
 	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * slideJumpMultiplier, currentVelocity.z / 2);
 	physicsBody->setVelocity(newVelocity);
 
-	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
+	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()));
 }
 
 void FirstPersonControllerComponent::WallrunningJump() {
@@ -506,7 +506,7 @@ void FirstPersonControllerComponent::WallrunningJump() {
 	Vector3 combinedVelocity = (currentVelocity + wallJumpVelocity) / 2.0f;
 	physicsBody->setVelocity(combinedVelocity);
 
-	AudioManager::instance().playSound("jump", Vector3(body->getLocalPosition()));
+	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()));
 }
 
 inline bool FirstPersonControllerComponent::passedCoyoteTime() {
@@ -886,7 +886,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				slideVector = forwardVector * slideForce;
 			}
 			physicsBody->setVelocity(slideVector);
-			AudioManager::instance().playSound("slide", Vector3(body->getLocalPosition()));
+			AudioManager::instance().playSound("slide", Vector3(body->getWorldPosition()));
 			SwitchState(Free, Sliding);
 		}
 		else if (anchorInfo.direction != '0' && isMovingForward) { //If anchor is not the ground and moving forward
@@ -930,7 +930,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				slideVector = forwardVector * slideForce;
 			}
 			physicsBody->setVelocity(slideVector);
-			AudioManager::instance().playSound("slide", Vector3(body->getLocalPosition()));
+			AudioManager::instance().playSound("slide", Vector3(body->getWorldPosition()));
 			SwitchState(Grounded, Sliding);
 		}
 		else if (anchorInfo.direction != 'd' && anchorInfo.direction != '0')
@@ -991,10 +991,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
 			if (isSprinting) {
-				AudioManager::instance().playSound("run", Vector3(body->getLocalPosition()));
+				AudioManager::instance().playSound("run", Vector3(body->getWorldPosition()));
 			}
 			else {
-				AudioManager::instance().playSound("walk", Vector3(body->getLocalPosition()));
+				AudioManager::instance().playSound("walk", Vector3(body->getWorldPosition()));
 			}
 		}
 	}
@@ -1067,7 +1067,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 		// Apply movement along the wall
 		physicsBody->setVelocity(wallRunDirection * wallRunSpeed);
-
+		AudioManager::instance().playSound("run", Vector3(body->getWorldPosition()));
 		const float wallWidth = (anchorInfo.normal * anchorInfo.object->getWorldScaling()).magnitude();
 		const float playerWidth = 1.415;
 		const float wallOffset = wallWidth / 2 + playerWidth / 2;
@@ -1239,7 +1239,7 @@ void FirstPersonControllerComponent::takeDamage() {
 
 
 	// TODO: Sound
-	//AudioManager::instance().playSound("hurt", body->getLocalPosition());
+	//AudioManager::instance().playSound("hurt", body->getWorldPosition());
 
 	// Respawn if no hp
 	if (hp <= 0) {

@@ -239,7 +239,7 @@ float GameWindow::getAspectRatio() {
  * This must be called at the start of the program to create the game window.
  *
  *****************************************************************************/
-void GameWindow::initialize()
+void GameWindow::initialize(GLFWmonitor* monitor)
 {
   if (!width || !height || title == "") {
     throw std::runtime_error("ERROR::GAMEWINDOW::INITIALIZE::PREINITFAILED");
@@ -248,14 +248,34 @@ void GameWindow::initialize()
   {
     throw std::runtime_error("Failed to initialize GLFW");
   }
-  pWindow = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+  
+  if (borderlessFullscreen)
+      glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+  else
+      glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+
+  pWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+
   if (!pWindow)
   {
     std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
     throw std::runtime_error("Failed to create GLFW window");
   }
+
+  if (borderlessFullscreen && monitor) {
+      const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+      glfwSetWindowPos(pWindow, 0, 0);
+      glfwSetWindowSize(pWindow, mode->width, mode->height);
+  }
 }
+
+GameWindow* GameWindow::setBorderlessFullscreen(bool flag)
+{
+    borderlessFullscreen = flag;
+    return this;
+}
+
 
 /*!****************************************************************************
  * \brief Update function

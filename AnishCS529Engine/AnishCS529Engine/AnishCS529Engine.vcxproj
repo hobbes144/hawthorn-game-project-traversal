@@ -53,6 +53,12 @@
     <ClCompile Include="src\EngineDemo.cpp" />
     <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
     <ClCompile Include="src\FPCDemo.cpp" />
+    <ClCompile Include="src\Map_Advanced.cpp" />
+    <ClCompile Include="src\Map_Intermediate.cpp" />
+    <ClCompile Include="src\Map_Menu.cpp" />
+    <ClCompile Include="src\Map_Tutorial.cpp" />
+    <ClCompile Include="src\Map_Tutorial2.cpp" />
+    <ClCompile Include="src\Map_Victory.cpp" />
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\GamePad.cpp" />
     <ClCompile Include="src\Ray.cpp" />

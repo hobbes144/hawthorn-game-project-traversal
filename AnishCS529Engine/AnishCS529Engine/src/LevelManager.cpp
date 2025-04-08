@@ -1,25 +1,23 @@
 #include "precompiled.h"
 #include "LevelManager.h"
 
-void onMove(std::shared_ptr<GameObject> object, const Movement3D::Action action) {
-
-    //std::cout << "onMove\n";
-
-    AudioManager::instance().playSound("footstep", Vector3(object->getLocalPosition()));
-
-    return;
-
-}
-
 void LevelManager::SystemInitalization()
 {
 
     /* Game Window setup */
-    int windowWidth = 1280;
-    int windowHeight = 720;
+    glfwInit();
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+    int windowWidth = mode->width;
+    int windowHeight = mode->height;
+
     mainWindow = new GameWindow;
-    mainWindow->setTitle("EngineDemo")->setHeight(windowHeight)->setWidth(windowWidth);
-    mainWindow->initialize();
+    mainWindow->setTitle("EngineDemo")
+        ->setWidth(windowWidth)
+        ->setHeight(windowHeight)
+        ->setBorderlessFullscreen(true);
+    mainWindow->initialize(monitor);
 
     /* Renderer setup */
     mainRenderer = new Renderer;
@@ -77,15 +75,16 @@ void LevelManager::SystemInitalization()
     /* Audio System Initalization */
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/BE21-Undertoe-Steele.mp3", true, true);
+    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", true, true);
     AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
     AudioManager::instance().loadSound("bang", "media/audio/bang.mp3", true);
     AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
     AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
     AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
+    AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
     
-    AudioManager::instance().playSound2D("music", 0.25f);
+    AudioManager::instance().playSound2D("music", 0.15f);
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
@@ -212,6 +211,8 @@ void LevelManager::RunLevels()
 
     switch (currentLevel)
     {
+    case -1:
+        LoadLevelMenu();
     case 0:
         LoadLevel0();
         break;
@@ -250,7 +251,7 @@ void LevelManager::ExecuteMainLoop()
     float speed = 10.0f;
     float deltaTime = 0.0f;
     int expectedFrameRate = 60; // 1000;
-    static bool isFullscreen = false;
+    static bool isFullscreen = true;
     static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
     mainFramerateController->setTargetFramerate(expectedFrameRate);
@@ -275,19 +276,31 @@ void LevelManager::ExecuteMainLoop()
 
         if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
             GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
-            if (!isFullscreen) {
-                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
-                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
-                GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-                const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-                glfwSetWindowMonitor(nativeWindow, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
-                isFullscreen = true;
-            }
-            else {
-                glfwSetWindowMonitor(nativeWindow, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+            if (isFullscreen) {
+                // Windowed mode
+                int windowWidth = 1280;
+                int windowHeight = 720;
+                // Enable borders
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
+                // Reposition the window
+                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
                 isFullscreen = false;
             }
+            else {
+                // Save current window attributes
+                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
+                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
 
+                // Borderless fullscreen
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
+                glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
+                isFullscreen = true;
+            }
+
+            // Adjust viewport and camera aspect ratio
             int fbWidth, fbHeight;
             glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
             glViewport(0, 0, fbWidth, fbHeight);
@@ -341,7 +354,7 @@ void LevelManager::ExecuteMainLoop()
         if (mainInput->isKeyPressed(KEY_V)) {
             AudioManager::instance().togglePlaybackSpeed(0.7f);
         }
-        AudioManager::instance().setListenerPosition(playerBox->getLocalPosition());
+        AudioManager::instance().setListenerPosition(playerBox->getWorldPosition());
 
         mainSceneGraph.update(1.0f / 60.0f);
         checkPlayerBoundaries();
@@ -370,6 +383,9 @@ void LevelManager::ExecuteMainLoop()
         Vector3 playerPos = playerBox->getWorldTransform().getPosition();
         ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
         ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
+        Vector3 listenerPos = AudioManager::instance().getListenerPosition();
+        ImGui::Text("Listener: x: %.2f  y: %.2f  z: %.2f", listenerPos.x, listenerPos.y, listenerPos.z);
+
 
         ImGui::End();
 
@@ -396,6 +412,11 @@ void LevelManager::checkPlayerBoundaries() {
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 1:
+        maxX = 150.0f; minX = -400.0f;
+        maxY = 150.0f; minY = -60.0f;
+        maxZ = 11.0f; minZ = -11.0f;
+        break;
+    case 2:
         maxX = 150.0f; minX = -400.0f;
         maxY = 150.0f; minY = -60.0f;
         maxZ = 11.0f; minZ = -11.0f;
@@ -451,6 +472,11 @@ void LevelManager::ShutdownLevels()
     delete mainRenderer;
     delete mainWindow;
 
+}
+
+void LevelManager::LoadLevelMenu()
+{
+    MapLoader::instance().loadMap(-1, 0, 0, 0, mainSceneGraph, camera);
 }
 
 void LevelManager::LoadLevel0()
@@ -579,11 +605,6 @@ void LevelManager::createPlayerObject()
         ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
         ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
 
-    //On Move Callback 
-    Movement3DListener playerMovementListener(playerBox);
-    playerMovementListener.setCallback(onMove);
-    EventManager::Instance().AddListener(&playerMovementListener);
-
 #pragma endregion
 
     auto skyBox = std::make_shared<GameObject>("SkyBox");
@@ -608,6 +629,10 @@ void LevelManager::initalizePlayerInLevel()
 
     switch (currentLevel)
     {
+    case -1:
+        activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
+        break;
     case 0:
         activeSpawnPoint = startingPos0;
         activeSpawnRotation = startingRot0;
@@ -631,5 +656,6 @@ void LevelManager::initalizePlayerInLevel()
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
+    pbFPCController->respawnPlayer();
 
 }
