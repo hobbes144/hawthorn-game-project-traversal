@@ -8,24 +8,82 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
                             SceneGraph& sceneGraph,
                             std::shared_ptr<Camera> camera) {
 
+    // Create box around the map
+    Vector3 center(offsetX, offsetY, offsetZ);
+    auto createWall = [&](const std::string& name, const Vector3& localPos, const Vector3& localScale) {
+        auto wall = std::make_shared<GameObject>(name, GameObject::RUNNABLE_WALL);
+        sceneGraph.addNode(wall);
+        wall->setLocalPosition(center + localPos);
+        wall->setLocalScaling(localScale);
 
-    // Floor pad
-    {
-        auto mainFloor = std::make_shared<GameObject>("mainFloor");
-        sceneGraph.addNode(mainFloor);
-        mainFloor->setLocalPosition(Vector3(0.0f + offsetX, -25.0f + offsetY, 0.0f + offsetZ));
-        mainFloor->setLocalScaling(Vector3(300.0f, 50.0f, 300.0f));
-        auto renderComp = mainFloor->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto renderComp = wall->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(BlueConcrete);
+
         auto shape = std::make_shared<OBB>();
-        auto rigidBody = mainFloor->addComponent<RigidBody>();
+        auto rigidBody = wall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
             ->setDrag(1.0f)
             ->setShape(shape)
             ->setStatic(true)
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
+        };
+
+    // Dimensions
+    float size = 400.0f;
+    float wallThickness = 1.0f;
+
+    float width = size;
+    float height = 200.0f;
+    float depth = size;
+
+
+
+    // Walls
+    createWall("LeftWall", Vector3(-width / 2.0f, height / 2.0f, 0.0f), Vector3(wallThickness, height, depth));
+    createWall("RightWall", Vector3(width / 2.0f, height / 2.0f, 0.0f), Vector3(wallThickness, height, depth));
+    createWall("BackWall", Vector3(0.0f, height / 2.0f, depth / 2.0f), Vector3(width, height, wallThickness));
+    createWall("FrontWall", Vector3(0.0f, height / 2.0f, -depth / 2.0f), Vector3(width, height, wallThickness));
+    createWall("TopWall", Vector3(0.0f, height, 0.0f), Vector3(width, wallThickness, depth));
+    createWall("BottomWall", Vector3(0.0f, 0.0f, 0.0f), Vector3(width, wallThickness, depth));
+
+    // Door to next level
+    {
+        auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
+        sceneGraph.addNode(testDoor);
+        testDoor->setLocalPosition(Vector3(72.0f + offsetX, 66.0f + offsetY, -72.0f + offsetZ));
+        testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
+        auto renderComp = testDoor->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(BrownConcrete);
+        auto shape = std::make_shared<OBB>();
+        auto doorComp = testDoor->addComponent<Door>();
+        doorComp->setID(0);
+        doorComp->setType(Door::DoorType::NEXTLEVEL);
+        doorComp->setRequiresKey(false);
+        doorComp->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        doorComp->initialize();
     }
+    // Floor pad
+    //{
+    //    auto mainFloor = std::make_shared<GameObject>("mainFloor");
+    //    sceneGraph.addNode(mainFloor);
+    //    mainFloor->setLocalPosition(Vector3(0.0f + offsetX, -25.0f + offsetY, 0.0f + offsetZ));
+    //    mainFloor->setLocalScaling(Vector3(300.0f, 50.0f, 300.0f));
+    //    auto renderComp = mainFloor->addComponent<Render2D>();
+    //    renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
+    //    auto shape = std::make_shared<OBB>();
+    //    auto rigidBody = mainFloor->addComponent<RigidBody>();
+    //    rigidBody->setMass(0.0f)
+    //        ->setDrag(1.0f)
+    //        ->setShape(shape)
+    //        ->setStatic(true)
+    //        ->registerToPhysicsManager(PhysicsManager::Instance());
+    //    rigidBody->initialize();
+    //}
     // ------------
     //   Wall run
     // ------------
@@ -245,8 +303,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-130.0f + offsetX, 38.0f + offsetY, 0.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 30.0f));
+        wallRunWall->setLocalPosition(Vector3(-130.0f + offsetX, 33.0f + offsetY, 0.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.0f, 20.0f, 30.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -262,8 +320,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-140.0f + offsetX, 42.0f + offsetY, 30.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 30.0f));
+        wallRunWall->setLocalPosition(Vector3(-140.0f + offsetX, 38.0f + offsetY, 30.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.0f, 20.0f, 32.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
@@ -759,5 +817,6 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
 
 }
