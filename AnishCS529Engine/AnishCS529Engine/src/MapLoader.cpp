@@ -31,6 +31,7 @@ void MapLoader::initializeResources(std::shared_ptr<RenderGraph> renderGraph) {
     BlueConcrete = Material::getMaterial<Material>("BlueConcrete", renderGraph);
     WhiteFloorTiles = Material::getMaterial<Material>("WhiteFloorTiles", renderGraph);
     keyMaterial = Material::getMaterial<Material>("key", renderGraph);
+    //doorMaterial = Material::getMaterial<Material>("door", renderGraph);
 }
 
 

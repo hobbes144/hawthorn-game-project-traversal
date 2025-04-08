@@ -87,6 +87,7 @@ private:
     std::shared_ptr<Material> brickMaterial;
     std::shared_ptr<Material> skyBoxMaterial;
     std::shared_ptr<Material> keyMaterial;
+    //std::shared_ptr<Material> doorMaterial;
     
 
 

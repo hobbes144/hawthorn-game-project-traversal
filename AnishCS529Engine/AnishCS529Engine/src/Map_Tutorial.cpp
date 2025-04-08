@@ -8,6 +8,8 @@
 
 void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera) {
 
+    writeLetter(sceneGraph, "media/Map/words/pickup.fbx", Vector3(-396.0f + offsetX, 0.0f + offsetY, 4.0f + offsetZ),
+Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
 
     {
         std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
@@ -40,6 +42,40 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
                  self->setLocalRotation(Quaternion::fromEuler(0.0f, radians, 0.0f) * self->getLocalRotation());
              }
         )->runAnimateFunction(true);
+    }
+
+    {
+        std::shared_ptr<Mesh> arrowMesh = Mesh::loadMesh("media/Map/words/arrow.fbx");
+        auto arrow = std::make_shared<GameObject>("arrow", GameObject::WALL);
+        sceneGraph.addNode(arrow);
+        arrow->setLocalPosition(Vector3(-396.0f + offsetX, -1.0f + offsetY, 4.0f + offsetZ));
+        arrow->setLocalScaling(Vector3(0.01f, 0.01f, 0.01f));
+        arrow->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
+        auto renderComp = arrow->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(arrowMesh)->setMaterial(BrownConcrete);
+
+        arrow->addComponent<Animate>()->setAnimateFunction(
+             [amplitude = 1.0f, currentTime = 0.0f, initialPos = arrow->getLocalPosition()]
+             (std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                 currentTime += deltaTime;
+                 float yOffset = amplitude * std::sin(currentTime);
+                 Vector3 newPos = initialPos;
+                 newPos.y += yOffset;
+                 self->setLocalPosition(newPos);
+             }
+        )->runAnimateFunction(true);
+    }
+
+    // Pad
+    {
+        std::shared_ptr<Mesh> padMesh = Mesh::loadMesh("media/Map/Big_Button.fbx");
+        auto pad = std::make_shared<GameObject>("pad", GameObject::WALL);
+        sceneGraph.addNode(pad);
+        pad->setLocalPosition(Vector3(-396.0f + offsetX, -5.0f + offsetY, 4.0f + offsetZ));
+        pad->setLocalScaling(Vector3(0.03f, 0.03f, 0.03f));
+        auto renderComp = pad->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(padMesh)->setMaterial(concreteMaterial);
+
     }
 
     {
@@ -341,8 +377,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-160.0f + offsetX, 4.0f + offsetY, -9.4f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
+        wallRunWall->setLocalPosition(Vector3(-160.0f + offsetX, 4.0f + offsetY, -9.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
         auto shape = std::make_shared<OBB>();
@@ -377,8 +413,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-230.0f + offsetX, 4.0f + offsetY, 9.4f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
+        wallRunWall->setLocalPosition(Vector3(-230.0f + offsetX, 4.0f + offsetY, 9.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
         auto shape = std::make_shared<OBB>();
@@ -413,8 +449,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-295.0f + offsetX, 4.0f + offsetY, -9.4f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
+        wallRunWall->setLocalPosition(Vector3(-295.0f + offsetX, 4.0f + offsetY, -9.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
         auto shape = std::make_shared<OBB>();
@@ -427,8 +463,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
         rigidBody->initialize();
     }
 
-    writeLetter(sceneGraph, "media/Map/words/dUP.fbx", Vector3(-303.0f + offsetX, 5.0f + offsetY, -7.0f + offsetZ),
-Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+//    writeLetter(sceneGraph, "media/Map/words/dUP.fbx", Vector3(-303.0f + offsetX, 5.0f + offsetY, -7.0f + offsetZ),
+//Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
 
     writeLetter(sceneGraph, "media/Map/words/A.fbx", Vector3(-320.0f + offsetX, 12.0f + offsetY, 7.0f + offsetZ),
 Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
@@ -442,8 +478,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-350.0f + offsetX, 4.0f + offsetY, 9.4f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
+        wallRunWall->setLocalPosition(Vector3(-350.0f + offsetX, 4.0f + offsetY, 9.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
         auto shape = std::make_shared<OBB>();
