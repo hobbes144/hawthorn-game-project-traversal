@@ -103,4 +103,7 @@ void SceneGraph::clear()
 
     root->removeChildren();
 
+    clearCameras();
+    clearLights();
+
 }

@@ -104,7 +104,7 @@ void LevelManager::MeshMatInitializations()
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
 
     // Box Material
-    boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
+    boxMaterial = Material::getMaterial<TextureMaterial>("box");
     boxMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     boxMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     boxMaterial->setProperty("shininess", 10.0f);
@@ -112,7 +112,7 @@ void LevelManager::MeshMatInitializations()
     boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
 
     // Floor Material
-    floorMaterial = Material::getMaterial<MainTestMaterial>("floor", mainRenderer->getRenderGraph());
+    floorMaterial = Material::getMaterial<TextureMaterial>("floor");
     floorMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     floorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     floorMaterial->setProperty("shininess", 10.0f);
@@ -120,73 +120,67 @@ void LevelManager::MeshMatInitializations()
     floorMaterial->addTexture("media/textures/6670-normal.jpg");
 
     // Concrete Material
-    concreteMaterial = Material::getMaterial<MainTestMaterial>("concrete", mainRenderer->getRenderGraph());
+    concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
     concreteMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     concreteMaterial->setProperty("shininess", 10.0f);
     concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
 
     // Grass Material
-    grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
+    grassMaterial = Material::getMaterial<TextureMaterial>("grass");
     grassMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     grassMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     grassMaterial->setProperty("shininess", 10.0f);
     grassMaterial->addTexture("media/textures/grass.jpg");
 
     // Cracks Material
-    cracksMaterial = Material::getMaterial<MainTestMaterial>("cracks", mainRenderer->getRenderGraph());
+    cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
     cracksMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     cracksMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     cracksMaterial->setProperty("shininess", 10.0f);
     cracksMaterial->addTexture("media/textures/cracks.png");
 
     // Brick Material
-    brickMaterial = Material::getMaterial<MainTestMaterial>("brick", mainRenderer->getRenderGraph());
+    brickMaterial = Material::getMaterial<TextureMaterial>("brick");
     brickMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     brickMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     brickMaterial->setProperty("shininess", 10.0f);
     brickMaterial->addTexture("media/textures/Standard_red_pxr128.png");
     brickMaterial->addTexture("media/textures/Standard_red_pxr128_normal.png");
 
-    // Sky Box Material
-    sphereMesh = Mesh::createSphereMesh("sphere", 32);
-    skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
-    skyBoxMaterial.get()->addTexture("media/beach.jpg");
-    skyBoxMaterial.get()->setProperty("objectId", 1);
-
     // Additional Materials
 
-    LightBlueConcrete = Material::getMaterial<MainTestMaterial>("LightBlueConcrete", mainRenderer->getRenderGraph());
+    LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
     LightBlueConcrete->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     LightBlueConcrete->setProperty("shininess", 10.0f);
     LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 20.0f, 20.0f);
 
-    YellowConcrete = Material::getMaterial<MainTestMaterial>("YellowConcrete", mainRenderer->getRenderGraph());
+    YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
     YellowConcrete->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     YellowConcrete->setProperty("shininess", 10.0f);
     YellowConcrete->addTexture("media/textures/YellowConcrete.png", 20.0f, 20.0f);
 
-    BrownConcrete = Material::getMaterial<MainTestMaterial>("BrownConcrete", mainRenderer->getRenderGraph());
+    BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
     BrownConcrete->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     BrownConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     BrownConcrete->setProperty("shininess", 10.0f);
     BrownConcrete->addTexture("media/textures/BrownConcrete.png", 20.0f, 20.0f);
 
-    BlueConcrete = Material::getMaterial<MainTestMaterial>("BlueConcrete", mainRenderer->getRenderGraph());
+    BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
     BlueConcrete->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     BlueConcrete->setProperty("shininess", 10.0f);
     BlueConcrete->addTexture("media/textures/BlueConcrete.png", 20.0f, 20.0f);
 
-    WhiteFloorTiles = Material::getMaterial<MainTestMaterial>("WhiteFloorTiles", mainRenderer->getRenderGraph());
+    WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
     WhiteFloorTiles->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     WhiteFloorTiles->setProperty("shininess", 10.0f);
     WhiteFloorTiles->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
 
-    keyMaterial = Material::getMaterial<MainTestMaterial>("key", mainRenderer->getRenderGraph());
+    keyMaterial = Material::getMaterial<TextureMaterial>("key");
     keyMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
     keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     keyMaterial->setProperty("shininess", 20.0f);
@@ -197,7 +191,11 @@ void LevelManager::MeshMatInitializations()
 
     /*Map Loader*/
     std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
-    MapLoader::instance().initializeResources(rg);
+
+    auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
+    rg->addPass<SkydomePass>("skydome", skydomePass);
+
+    MapLoader::instance().initializeResources();
 
 }
 
@@ -521,15 +519,18 @@ void LevelManager::createPlayerObject()
     playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
     mainSceneGraph.addNode(playerBox);
 
-    camera = std::make_shared<Camera>("mainCamera");
+    camera = std::make_shared<GameObject>("mainCamera");
     playerBox->addChild(camera);
+
+    auto attachedCamera = std::make_shared<AttachedCamera>("mainCamera");
+    attachedCamera->attachToNode(camera);
 
 #pragma endregion
 
 #pragma region Camera
 
     //Perspective
-    camera->setPerspectiveProjection(
+    attachedCamera->setPerspectiveProjection(
       45.0f * 3.14159f / 180.0f,
       mainWindow->getAspectRatio(),
       0.1f,
@@ -557,9 +558,8 @@ void LevelManager::createPlayerObject()
 
     playerBox->addComponent<KeyList>();
     //Render Component
-    auto box1RenderComponent = playerBox->addComponent<Render2D>();
+    auto box1RenderComponent = playerBox->addComponent<Render3D>();
     box1RenderComponent
-        ->setCamera(camera)
         ->setMesh(boxMesh)
         ->setMaterial(cracksMaterial);
 
@@ -567,7 +567,6 @@ void LevelManager::createPlayerObject()
     auto shape1 = std::make_shared<OBB>(
     Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
     Vector3(0.5f, 0.5f, 0.5f));
-    shape1->initializeDebugDraw(mainRenderer->getRenderGraph(), camera);
 
     // Create instances of bodies for boxes
     auto playerBoxPB = playerBox->addComponent<RigidBody>()
@@ -610,9 +609,8 @@ void LevelManager::createPlayerObject()
     auto skyBox = std::make_shared<GameObject>("SkyBox");
     skyBox->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f))
         ->setLocalScaling(Vector3(2000.0f, 2000.f, 2000.0f));
-    auto skyBoxRenderComponent = skyBox->addComponent<Render2D>();
+    auto skyBoxRenderComponent = skyBox->addComponent<Render3D>();
     skyBoxRenderComponent
-        ->setCamera(camera)
         ->setMesh(sphereMesh)
         ->setMaterial(skyBoxMaterial);
     mainSceneGraph.addNode(skyBox);

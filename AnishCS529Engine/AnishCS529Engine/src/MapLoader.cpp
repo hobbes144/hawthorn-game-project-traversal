@@ -17,20 +17,20 @@ MapLoader& MapLoader::instance() {
 void MapLoader::initializeResources(std::shared_ptr<RenderGraph> renderGraph) {
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
-    boxMaterial = Material::getMaterial<Material>("box", renderGraph);
-    floorMaterial = Material::getMaterial<Material>("floor", renderGraph);
-    concreteMaterial = Material::getMaterial<Material>("concrete", renderGraph);
-    grassMaterial = Material::getMaterial<Material>("grass", renderGraph);
-    cracksMaterial = Material::getMaterial<Material>("cracks", renderGraph);
-    myhouseMaterial = Material::getMaterial<Material>("myhouse", renderGraph);
-    brickMaterial = Material::getMaterial<Material>("brick", renderGraph);
-    skyBoxMaterial = Material::getMaterial<Material>("skyBox", renderGraph);
-    LightBlueConcrete = Material::getMaterial<Material>("LightBlueConcrete", renderGraph);
-    YellowConcrete = Material::getMaterial<Material>("YellowConcrete", renderGraph);
-    BrownConcrete = Material::getMaterial<Material>("BrownConcrete", renderGraph);
-    BlueConcrete = Material::getMaterial<Material>("BlueConcrete", renderGraph);
-    WhiteFloorTiles = Material::getMaterial<Material>("WhiteFloorTiles", renderGraph);
-    keyMaterial = Material::getMaterial<Material>("key", renderGraph);
+    boxMaterial = Material::getMaterial<TextureMaterial>("box");
+    floorMaterial = Material::getMaterial<TextureMaterial>("floor");
+    concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
+    grassMaterial = Material::getMaterial<TextureMaterial>("grass");
+    cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
+    myhouseMaterial = Material::getMaterial<TextureMaterial>("myhouse");
+    brickMaterial = Material::getMaterial<TextureMaterial>("brick");
+    skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox");
+    LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
+    YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
+    BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
+    BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
+    WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
+    keyMaterial = Material::getMaterial<TextureMaterial>("key");
 }
 
 

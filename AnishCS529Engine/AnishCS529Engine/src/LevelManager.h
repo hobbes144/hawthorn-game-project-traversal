@@ -2,8 +2,8 @@
 
 #include <windows.h>
 
+#include "AttachedCamera.h"
 #include "Audio.h"
-#include "BasicRenderPass.h"
 #include "Camera.h"
 #include "CollisionListener.h"
 #include "EventManager.h"
@@ -16,7 +16,7 @@
 #include "imgui_impl_opengl3.h"
 #include "Input.h"
 #include "KeyList.h"
-#include "MainTestMaterial.h"
+#include "TextureMaterial.h"
 #include "MapLoader.h"
 #include "Movement3D.h"
 #include "OBB.h"
@@ -26,10 +26,11 @@
 #include "RaycastHit.h"
 #include "RaycastManager.h"
 #include "RectanglePrimitive.h"
-#include "Render2D.h"
+#include "Render3D.h"
 #include "RenderableNode.h"
 #include "Renderer.h"
 #include "SceneGraph.h"
+#include "SkydomePass.h"
 #include "TestPass.h"
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
@@ -86,27 +87,27 @@ private:
 	GamePad* gamepad;
 	FFramerateController* mainFramerateController;
 	SceneGraph mainSceneGraph;
-	std::shared_ptr<Camera> camera;
+	std::shared_ptr<GameObject> camera;
 
 	//Materials and Meshes
 	std::shared_ptr<Mesh> boxMesh;
-	std::shared_ptr<MainTestMaterial> boxMaterial;
+	std::shared_ptr<TextureMaterial> boxMaterial;
 	std::shared_ptr<Mesh> floorMesh;
-	std::shared_ptr<MainTestMaterial> floorMaterial;
+	std::shared_ptr<TextureMaterial> floorMaterial;
 	std::shared_ptr<Mesh> concreteMesh;
-	std::shared_ptr<MainTestMaterial> concreteMaterial;
-	std::shared_ptr<MainTestMaterial> cracksMaterial;
+	std::shared_ptr<TextureMaterial> concreteMaterial;
+	std::shared_ptr<TextureMaterial> cracksMaterial;
 	std::shared_ptr<Mesh> sphereMesh;
-	std::shared_ptr<MainTestMaterial> grassMaterial;
-	std::shared_ptr<MainTestMaterial> myhouseMaterial;
-	std::shared_ptr<MainTestMaterial> brickMaterial;
-	std::shared_ptr<MainTestMaterial> LightBlueConcrete;
-	std::shared_ptr<MainTestMaterial> YellowConcrete;
-	std::shared_ptr<MainTestMaterial> BrownConcrete;
-	std::shared_ptr<MainTestMaterial> BlueConcrete;
-	std::shared_ptr<MainTestMaterial> WhiteFloorTiles;
-	std::shared_ptr<MainTestMaterial> skyBoxMaterial;
-	std::shared_ptr<MainTestMaterial> keyMaterial;
+	std::shared_ptr<TextureMaterial> grassMaterial;
+	std::shared_ptr<TextureMaterial> myhouseMaterial;
+	std::shared_ptr<TextureMaterial> brickMaterial;
+	std::shared_ptr<TextureMaterial> LightBlueConcrete;
+	std::shared_ptr<TextureMaterial> YellowConcrete;
+	std::shared_ptr<TextureMaterial> BrownConcrete;
+	std::shared_ptr<TextureMaterial> BlueConcrete;
+	std::shared_ptr<TextureMaterial> WhiteFloorTiles;
+	std::shared_ptr<TextureMaterial> skyBoxMaterial;
+	std::shared_ptr<TextureMaterial> keyMaterial;
 
 	//Player References
 	std::shared_ptr<GameObject> playerBox;

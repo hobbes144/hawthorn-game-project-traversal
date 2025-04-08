@@ -102,6 +102,8 @@ public:
   void clearCameras() { cameraStack.clear(); }
   std::vector<std::shared_ptr<Camera>> getCameras() { return cameraStack; }
 
+  void clear();
+
 };
 
 #endif // SCENE_GRAPH_H

@@ -23,15 +23,12 @@ public:
   AttachedCamera(std::string _name) : Camera(_name) {};
   ~AttachedCamera() = default;
 
-  /* Component functions */
-  virtual void update() override;
-
   std::shared_ptr<AttachedCamera> attachToNode(std::shared_ptr<Node> node);
 
 private:
   std::shared_ptr<Node> attachedNode;
 
-  void updateViewMatrix();
+  virtual void updateViewMatrix() override;
 };
 
 #endif // !ATTACHED_CAMERA_H
