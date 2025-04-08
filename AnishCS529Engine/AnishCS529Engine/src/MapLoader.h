@@ -57,11 +57,10 @@ public:
      * \param floorMaterial Shared pointer to the Material used by map objects.
      */
 
-    void initializeResources(std::shared_ptr<RenderGraph> renderGraph);
+    void initializeResources();
 
     void loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
-                 SceneGraph& sceneGraph,
-                 std::shared_ptr<Camera> camera);
+                 SceneGraph& sceneGraph);
 
 private:
     MapLoader() = default;
@@ -95,28 +94,22 @@ private:
     //                     std::shared_ptr<Camera> camera);
 
     void menu(float offsetX, float offsetY, float offsetZ,
-          SceneGraph& sceneGraph,
-          std::shared_ptr<Camera> camera);
+          SceneGraph& sceneGraph);
 
     void tutorial(float offsetX, float offsetY, float offsetZ,
-              SceneGraph& sceneGraph,
-              std::shared_ptr<Camera> camera);
+              SceneGraph& sceneGraph);
 
     void tutorial2(float offsetX, float offsetY, float offsetZ,
-              SceneGraph& sceneGraph,
-              std::shared_ptr<Camera> camera);
+              SceneGraph& sceneGraph);
 
     void intermediate(float offsetX, float offsetY, float offsetZ,
-         SceneGraph& sceneGraph,
-         std::shared_ptr<Camera> camera);
+         SceneGraph& sceneGraph);
 
     void advanced(float offsetX, float offsetY, float offsetZ,
-             SceneGraph& sceneGraph,
-             std::shared_ptr<Camera> camera);
+             SceneGraph& sceneGraph);
 
     void victory(float offsetX, float offsetY, float offsetZ,
-      SceneGraph& sceneGraph,
-      std::shared_ptr<Camera> camera);
+      SceneGraph& sceneGraph);
 };
 
 #endif // MAPLOADER_H

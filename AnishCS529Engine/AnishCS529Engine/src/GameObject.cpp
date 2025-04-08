@@ -103,7 +103,7 @@ void GameObject::updateComponents(float deltaTime)
 }
 
 void GameObject::draw(std::shared_ptr<Shader> shader) {
-  if (renderableComponent)
+  if (enabled && renderableComponent)
     renderableComponent->draw(shader);
 }
 

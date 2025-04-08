@@ -33,10 +33,7 @@ class Material : public std::enable_shared_from_this<Material> {
 public:
   using PropertyMap = RenderPass::PropertyMap;
 
-  Material() {
-    this->setProperty("useTexture", false);
-    this->setProperty("useNormalMap", false);
-  }
+  Material() = default;
 
   virtual ~Material() = default;
 

@@ -14,7 +14,7 @@ MapLoader& MapLoader::instance() {
     return instance;
 }
 
-void MapLoader::initializeResources(std::shared_ptr<RenderGraph> renderGraph) {
+void MapLoader::initializeResources() {
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
     boxMaterial = Material::getMaterial<TextureMaterial>("box");
@@ -35,28 +35,27 @@ void MapLoader::initializeResources(std::shared_ptr<RenderGraph> renderGraph) {
 
 
 void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
-                        SceneGraph& sceneGraph,
-                        std::shared_ptr<Camera> camera) {
+                        SceneGraph& sceneGraph) {
 
 
     switch (mapId) {
     case -1:
-        menu(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        menu(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 0:
-        tutorial(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        tutorial(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 1:
-        tutorial2(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        tutorial2(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 2:
-        intermediate(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        intermediate(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 3:
-        advanced(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        advanced(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 4:
-        victory(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        victory(offsetX, offsetY, offsetZ, sceneGraph);
         break;
 
     default:

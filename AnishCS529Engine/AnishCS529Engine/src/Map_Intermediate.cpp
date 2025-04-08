@@ -4,7 +4,9 @@
 #include "DeathPlane.h"
 #include "InGameKey.h"
 
-void MapLoader::intermediate(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera) {
+void MapLoader::intermediate(
+    float offsetX, float offsetY, float offsetZ,
+    SceneGraph& sceneGraph) {
 
     // Keys & Doors test
 

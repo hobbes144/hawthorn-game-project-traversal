@@ -16,7 +16,7 @@
 #include "imgui_impl_opengl3.h"
 #include "Input.h"
 #include "KeyList.h"
-#include "TextureMaterial.h"
+#include "LightingPass.h"
 #include "MapLoader.h"
 #include "Movement3D.h"
 #include "OBB.h"
@@ -31,7 +31,6 @@
 #include "Renderer.h"
 #include "SceneGraph.h"
 #include "SkydomePass.h"
-#include "TestPass.h"
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
 
@@ -87,7 +86,8 @@ private:
 	GamePad* gamepad;
 	FFramerateController* mainFramerateController;
 	SceneGraph mainSceneGraph;
-	std::shared_ptr<GameObject> camera;
+	std::shared_ptr<GameObject> cameraGameObject;
+	std::shared_ptr<AttachedCamera> camera;
 
 	//Materials and Meshes
 	std::shared_ptr<Mesh> boxMesh;

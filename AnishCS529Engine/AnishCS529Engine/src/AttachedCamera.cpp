@@ -26,7 +26,7 @@ void AttachedCamera::updateViewMatrix() {
     right = rotation.right();
 
     // Compute view matrix using LookAt
-    viewMatrix = Matrix4::lookAt(position, position + forward, up);
+    viewMatrix = Matrix4::lookAt(position, position - forward, up);
     inverseViewMatrix = Matrix4::inverse(viewMatrix);
   }
 }

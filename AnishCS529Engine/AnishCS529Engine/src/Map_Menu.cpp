@@ -5,8 +5,7 @@
 #include "InGameKey.h"
 
 void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
-                            SceneGraph& sceneGraph,
-                            std::shared_ptr<Camera> camera) {
+                            SceneGraph& sceneGraph) {
 
     auto boxRoomFloor = std::make_shared<GameObject>("BoxRoomFloor");
     sceneGraph.addNode(boxRoomFloor);

@@ -41,7 +41,6 @@
     </ClCompile>
     <ClCompile Include="src\Animate.cpp" />
     <ClCompile Include="src\DeathPlane.cpp" />
-    <ClCompile Include="src\DebugPass.cpp" />
     <ClCompile Include="src\AttachedCamera.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\FreeCamera.cpp" />
