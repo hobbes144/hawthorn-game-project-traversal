@@ -107,6 +107,7 @@ private:
 	std::shared_ptr<MainTestMaterial> WhiteFloorTiles;
 	std::shared_ptr<MainTestMaterial> skyBoxMaterial;
 	std::shared_ptr<MainTestMaterial> keyMaterial;
+	//std::shared_ptr<MainTestMaterial> doorMaterial;
 
 	//Player References
 	std::shared_ptr<GameObject> playerBox;
