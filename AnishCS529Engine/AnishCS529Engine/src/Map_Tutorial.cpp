@@ -4,6 +4,8 @@
 #include "DeathPlane.h"
 #include "InGameKey.h"
 
+
+
 void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph& sceneGraph, std::shared_ptr<Camera> camera) {
 
 
@@ -182,6 +184,12 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
+    writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-16.0f + offsetX, 6.5f + offsetY, 3.5f + offsetZ),
+        Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    writeLetter(sceneGraph, "media/Map/words/tojump.fbx", Vector3(-16.0f + offsetX, 6.5f + offsetY, -4.5f + offsetZ),
+    Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+
     // Box1
     {
         auto Box1 = std::make_shared<GameObject>("Box1");
@@ -235,6 +243,12 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
+    writeLetter(sceneGraph, "media/Map/words/shift.fbx", Vector3(-43.0f + offsetX, 1.0f + offsetY, 1.5f + offsetZ),
+    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    writeLetter(sceneGraph, "media/Map/words/torun.fbx", Vector3(-43.0f + offsetX, 0.7f + offsetY, -4.5f + offsetZ),
+    Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+
 
     // Floor2 pad
     {
@@ -308,6 +322,20 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
+    writeLetter(sceneGraph, "media/Map/words/W.fbx", Vector3(-132.0f + offsetX, 3.0f + offsetY, 6.0f + offsetZ),
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-132.0f + offsetX, 3.0f + offsetY, 4.0f + offsetZ),
+    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    writeLetter(sceneGraph, "media/Map/words/D.fbx", Vector3(-132.0f + offsetX, 3.0f + offsetY, 2.0f + offsetZ),
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-132.0f + offsetX, 3.0f + offsetY, 0.0f + offsetZ),
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-132.0f + offsetX, 2.4f + offsetY, -5.0f + offsetZ),
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+
+    writeLetter(sceneGraph, "media/Map/words/towallrun.fbx", Vector3(-132.0f + offsetX, -0.0f + offsetY, 0.5f + offsetZ),
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
 
     // Wall Running
     {
@@ -398,6 +426,16 @@ void MapLoader::tutorial(float offsetX, float offsetY, float offsetZ, SceneGraph
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
+    writeLetter(sceneGraph, "media/Map/words/A.fbx", Vector3(-320.0f + offsetX, 12.0f + offsetY, 7.0f + offsetZ),
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-320.0f + offsetX, 12.0f + offsetY, 4.0f + offsetZ),
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-320.0f + offsetX, 11.0f + offsetY, -3.5f + offsetZ),
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+
+
+
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);

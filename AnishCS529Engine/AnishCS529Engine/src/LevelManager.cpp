@@ -213,6 +213,7 @@ void LevelManager::RunLevels()
     {
     case -1:
         LoadLevelMenu();
+        break;
     case 0:
         LoadLevel0();
         break;
@@ -648,6 +649,10 @@ void LevelManager::initalizePlayerInLevel()
     case 3:
         activeSpawnPoint = startingPos3;
         activeSpawnRotation = startingRot3;
+        break;
+    case 4:
+        activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
         break;
     default:
         activeSpawnPoint = Vector3();

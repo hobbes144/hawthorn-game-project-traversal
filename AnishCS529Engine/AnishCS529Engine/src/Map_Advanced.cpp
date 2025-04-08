@@ -8,7 +8,26 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
                             SceneGraph& sceneGraph,
                             std::shared_ptr<Camera> camera) {
 
-
+    // Door to next level
+    {
+        auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
+        sceneGraph.addNode(testDoor);
+        testDoor->setLocalPosition(Vector3(72.0f + offsetX, 66.0f + offsetY, -72.0f + offsetZ));
+        testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
+        auto renderComp = testDoor->addComponent<Render2D>();
+        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(BrownConcrete);
+        auto shape = std::make_shared<OBB>();
+        auto doorComp = testDoor->addComponent<Door>();
+        doorComp->setID(0);
+        doorComp->setType(Door::DoorType::NEXTLEVEL);
+        doorComp->setRequiresKey(false);
+        doorComp->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        doorComp->initialize();
+    }
     // Floor pad
     {
         auto mainFloor = std::make_shared<GameObject>("mainFloor");
@@ -759,5 +778,6 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
 
 }
