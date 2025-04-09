@@ -869,4 +869,108 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 
     }
 
+    {
+        auto deathPlane = std::make_shared<GameObject>("deathPlane");
+        sceneGraph.addNode(deathPlane);
+        deathPlane->setLocalPosition(Vector3(120.0f + offsetX, 160.0f + offsetY, 10.0f + offsetZ));
+        deathPlane->setLocalScaling(Vector3(30.0f, 1.0f, 300.0f));
+        auto renderComp = deathPlane->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(cracksMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = deathPlane->addComponent<DeathPlane>();
+        rigidBody->setPlayerName("PlayerBox");
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    {
+        auto movingWallRun = [&](const std::string& name, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir) {
+            auto wall = std::make_shared<GameObject>(name, GameObject::RUNNABLE_WALL);
+            sceneGraph.addNode(wall);
+            wall->setLocalPosition(basePos);
+            wall->setLocalScaling(scale);
+            auto renderComp = wall->addComponent<Render3D>();
+            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            auto rigidBody = wall->addComponent<RigidBody>();
+            auto shape = std::make_shared<OBB>();
+            rigidBody->setMass(0.0f)->setDrag(1.0f)->setShape(shape)->setStatic(true)->registerToPhysicsManager(PhysicsManager::Instance());
+            rigidBody->initialize();
+            wall->addComponent<Animate>()->setAnimateFunction(
+                [elapsedTime = 0.0f, basePos, moveDir](std::shared_ptr<GameObject> self, float dt) mutable {
+                    elapsedTime += dt;
+                    self->setLocalPosition(basePos + moveDir * std::sin(elapsedTime));
+                }
+            )->runAnimateFunction(true);
+
+            };
+        movingWallRun("wallRight1", Vector3(105.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+        movingWallRun("wallLeft1", Vector3(135.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+        movingWallRun("wallRight2", Vector3(105.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+        movingWallRun("wallLeft2", Vector3(135.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+        movingWallRun("wallRight3", Vector3(105.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+        movingWallRun("wallLeft3", Vector3(135.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+
+        movingWallRun("wallRight1", Vector3(105.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+        movingWallRun("wallLeft1", Vector3(135.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+        movingWallRun("wallRight2", Vector3(105.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+        movingWallRun("wallLeft2", Vector3(135.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+        movingWallRun("wallRight3", Vector3(105.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+        movingWallRun("wallLeft3", Vector3(135.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+
+    }
+
+    {
+        auto createFerrisWheelZ = [&](const std::string& name, const Vector3& center, int platformCount, float radius, float speed) {
+            for (int i = 0; i < platformCount; ++i) {
+                float initialAngle = (2.0f * 3.14159265f / platformCount) * i;
+                std::string platformName = name + "_" + std::to_string(i);
+                auto platform = std::make_shared<GameObject>(platformName);
+                sceneGraph.addNode(platform);
+                float yOffset = radius * std::cos(initialAngle);
+                float zOffset = radius * std::sin(initialAngle);
+                platform->setLocalPosition(center + Vector3(0.0f, yOffset, zOffset));
+                platform->setLocalScaling(Vector3(15.0f, 2.0f, 15.0f));
+                platform->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(concreteMaterial);
+                auto rigidBody = platform->addComponent<RigidBody>();
+                auto shape = std::make_shared<OBB>();
+                rigidBody->setMass(0.0f)->setDrag(1.0f)->setShape(shape)->setStatic(true)
+                    ->registerToPhysicsManager(PhysicsManager::Instance());
+                rigidBody->initialize();
+                platform->addComponent<Animate>()->setAnimateFunction(
+                    [angle = initialAngle, center, radius, speed](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                        angle += deltaTime * speed;
+                        float newY = center.y + radius * std::cos(angle);
+                        float newZ = center.z + radius * std::sin(angle);
+                        self->setLocalPosition(Vector3(center.x, newY, newZ));
+                    }
+                )->runAnimateFunction(true);
+            }
+            };
+
+
+        createFerrisWheelZ("FerrisPlatformZ", Vector3(120.0f + offsetX, 160.0f + offsetY, 151.0f + offsetZ), 8, 30.0f, 0.2f);
+        createFerrisWheelZ("FerrisPlatformZ", Vector3(150.0f + offsetX, 160.0f + offsetY, 151.0f + offsetZ), 8, 30.0f, 0.1f);
+    }
+
+    {
+        auto checkPoint9 = std::make_shared<GameObject>("checkPoint9", GameObject::CHECKPOINT);
+        sceneGraph.addNode(checkPoint9);
+        checkPoint9->setLocalPosition(Vector3(120.5f + offsetX, 162.0f + offsetY, 151.0f + offsetZ));
+        checkPoint9->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+        auto renderComp = checkPoint9->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = checkPoint9->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+
+    }
 }
