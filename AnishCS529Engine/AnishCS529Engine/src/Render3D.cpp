@@ -51,11 +51,18 @@ std::shared_ptr<Render3D> Render3D::setMesh(std::shared_ptr<Mesh> _mesh)
 std::shared_ptr<Render3D> Render3D::setMaterial(std::shared_ptr<Material> _material)
 {
   material = _material;
+  renderMask = _material->getDefaultRenderMask();
   return shared_from_this();
 }
 
 std::shared_ptr<Render3D> Render3D::setDrawMode(GLenum _drawMode) {
   drawMode = _drawMode;
+  return shared_from_this();
+}
+
+std::shared_ptr<Render3D> Render3D::setRenderMask(uint32_t _renderMask)
+{
+  renderMask = _renderMask;
   return shared_from_this();
 }
 

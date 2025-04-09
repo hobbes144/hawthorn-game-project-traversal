@@ -15,12 +15,14 @@
 #include <array>
 #include <cassert>
 #include <cmath>
+#include <cstdint>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <stdexcept>
 #include <stdlib.h>
 #include <string>
+#include <typeindex>
 #include <unordered_map>
 #include <vector>
 

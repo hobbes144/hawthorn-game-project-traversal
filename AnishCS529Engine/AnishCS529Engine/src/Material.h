@@ -23,6 +23,7 @@
 #include "RenderGraph.h"
 #include "Vector3.h"
 #include "Texture.h"
+#include "RenderFlags.h"
 
  /*!****************************************************************************
   * \brief Class to manage Materials used by objects
@@ -60,10 +61,13 @@ public:
   static std::shared_ptr<T> getMaterial(
     const std::string& name);
 
+  uint32_t getDefaultRenderMask() { return defaultRenderMask; }
+
 protected:
   std::shared_ptr<RenderGraph> renderGraph;
   PropertyMap properties;
   PropertyMap tempProperties;
+  uint32_t defaultRenderMask = RenderMask::None;
 };
 
 #include "Material.inl"

@@ -45,6 +45,7 @@ public:
   std::shared_ptr<Render3D> setMesh(std::shared_ptr<Mesh> _mesh);
   std::shared_ptr<Render3D> setMaterial(std::shared_ptr<Material> _material);
   std::shared_ptr<Render3D> setDrawMode(GLenum _drawMode);
+  std::shared_ptr<Render3D> setRenderMask(uint32_t _renderMask);
 
   template<typename T>
   void setProperty(const std::string& name, const T& value) {
@@ -55,6 +56,8 @@ private:
   std::shared_ptr<Mesh> mesh;
   std::shared_ptr<Material> material;
   PropertyMap properties;
+
+  uint32_t renderMask;
 
   GLenum drawMode = GL_TRIANGLES;
 };

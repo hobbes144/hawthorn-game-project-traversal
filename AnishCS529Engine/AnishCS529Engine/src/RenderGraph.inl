@@ -14,34 +14,60 @@
 
 
 template <typename T>
-std::shared_ptr<T> RenderGraph::addPass(const std::string& name) {
+std::shared_ptr<T> RenderGraph::addPass() {
   static_assert(std::is_base_of<RenderPass, T>::value,
     "Pass must be derived from RenderPass class");
 
-  if (registeredPasses.contains(name))
-    return std::dynamic_pointer_cast<T>(registeredPasses[name]);
+  std::type_index type = typeid(T);
+  if (addedPassTypes.count(type) > 0) {
+    // Already added, ignore second call
+    return nullptr;
+  }
 
   auto pass = std::make_shared<T>();
-  registeredPasses[name] = pass;
+  addedPassTypes.insert(type);
   renderStack.push_back(pass);
+
+  std::sort(renderStack.begin(), renderStack.end(),
+    [&](const std::shared_ptr<RenderPass>& a, const std::shared_ptr<RenderPass>& b) {
+      return maskSortIndex[a->getRenderMask()] < maskSortIndex[b->getRenderMask()];
+    });
+
   return pass;
 }
 
 
 template <typename T>
-std::shared_ptr<T> RenderGraph::addPass(const std::string& name, std::shared_ptr<T> pass) {
-  if (registeredPasses.contains(name))
-    return std::dynamic_pointer_cast<T>(registeredPasses[name]);
+std::shared_ptr<T> RenderGraph::addPass(std::shared_ptr<T> pass) {
+  std::type_index type = typeid(T);
+  if (addedPassTypes.count(type) > 0) {
+    // Already added, ignore second call
+    return nullptr;
+  }
 
-  registeredPasses[name] = pass;
   renderStack.push_back(pass);
+  addedPassTypes.insert(type);
+
+  std::sort(renderStack.begin(), renderStack.end(),
+    [&](const std::shared_ptr<RenderPass>& a, const std::shared_ptr<RenderPass>& b) {
+      return maskSortIndex[a->getRenderMask()] < maskSortIndex[b->getRenderMask()];
+    });
+
   return pass;
 }
 
 template<typename T>
-inline std::shared_ptr<T> RenderGraph::getPass(const std::string& name)
+std::shared_ptr<T> RenderGraph::getPass()
 {
-  return std::dynamic_pointer_cast<T>(registeredPasses[name]);
+  static_assert(std::is_base_of<RenderPass, T>::value,
+    "Pass must be derived from RenderPass class");
+
+  for (const auto& pass : renderStack) {
+    if (auto specificPass = std::dynamic_pointer_cast<T>(pass)) {
+      return specificPass;
+    }
+  }
+  return nullptr;
 }
 
 #endif // !RENDER_PASS_INL

@@ -471,6 +471,9 @@
     <ClCompile Include="src\Map_Tutorial2.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderFlags.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -775,6 +778,9 @@
     </ClInclude>
     <ClInclude Include="src\DeathPlane.h">
       <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderFlags.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

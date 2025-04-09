@@ -24,6 +24,7 @@
 #include "VectorTemplated.h"
 #include "Mesh.h"
 #include "SceneGraph.h"
+#include "RenderFlags.h"
 
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
@@ -86,6 +87,8 @@ public:
 
   GLenum getDrawMode();
 
+  uint32_t getRenderMask() { return renderMask; }
+
   virtual void draw(
     std::shared_ptr<Camera> camera,
     SceneGraph* scene) const;
@@ -100,6 +103,8 @@ protected:
   std::shared_ptr<Shader> shader;
   PropertyMap properties;
   GLenum drawMode = NULL;
+
+  uint32_t renderMask = RenderMask::None;
 
   //std::optional<std::shared_ptr<FBO>> FBO;
 

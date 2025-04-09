@@ -32,6 +32,8 @@ public:
 
     skydomeTexture = textureID;
     HDR = TextureManager::getInstance().isHDR(skydomeTexture);
+
+    renderMask = RenderMask::SkydomePass;
   }
 
   SkydomePass(const std::string& textureName) :
@@ -43,6 +45,8 @@ public:
 
     skydomeTexture = TextureManager::getInstance().loadFile(textureName);
     HDR = TextureManager::getInstance().isHDR(skydomeTexture);
+
+    renderMask = RenderMask::SkydomePass;
   }
 
   SkydomePass() = delete;
