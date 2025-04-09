@@ -11,7 +11,7 @@ void MapLoader::tutorial2(float offsetX, float offsetY, float offsetZ, SceneGrap
         std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
         auto key = std::make_shared<GameObject>("key", GameObject::WALL);
         sceneGraph.addNode(key);
-        key->setLocalPosition(Vector3(Vector3(-155.0f + offsetX, 16.0f + offsetY, 0.0f + offsetZ)));
+        key->setLocalPosition(Vector3(Vector3(-238.0f + offsetX, 5.0f + offsetY, 0.0f + offsetZ)));
         key->setLocalScaling(Vector3(0.005f, 0.005f, 0.005f));
         auto renderComp = key->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(keyMesh)->setMaterial(keyMaterial);
@@ -504,8 +504,8 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, -9.4f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
+        wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, -9.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
         auto shape = std::make_shared<OBB>();
@@ -520,8 +520,8 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, 9.4f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
+        wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, 9.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render2D>();
         renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
         auto shape = std::make_shared<OBB>();
