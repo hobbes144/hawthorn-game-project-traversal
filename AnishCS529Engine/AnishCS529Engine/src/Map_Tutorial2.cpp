@@ -202,11 +202,11 @@ void MapLoader::tutorial2(
     //}
     
     writeLetter(sceneGraph, "media/Map/words/ctrl.fbx", Vector3(-43.0f + offsetX, 1.0f + offsetY, 1.5f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-43.0f + offsetX, 1.7f + offsetY, 0.0f + offsetZ),
-    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-43.0f + offsetX, 0.9f + offsetY, -5.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
     // Pit wall
     /*{
@@ -261,13 +261,13 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
         rigidBody->initialize();
     }
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-148.0f + offsetX, 5.9f + offsetY, 5.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-148.0f + offsetX, 6.7f + offsetY, 3.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/ctrl.fbx", Vector3(-148.0f + offsetX, 6.0f + offsetY, -2.5f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-148.0f + offsetX, 5.9f + offsetY, -7.5f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
 
     // Pit box

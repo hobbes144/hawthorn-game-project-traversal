@@ -48,18 +48,18 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     createWall("BottomWall", Vector3(0.0f, 0.0f, 0.0f), Vector3(width, wallThickness, depth));
 
     writeLetter(sceneGraph, "media/Map/words/start.fbx", Vector3(-19.0f + offsetX, 6.5f + offsetY, -3.5f + offsetZ),
-            Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, keyMaterial);
+            Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), keyMaterial);
 
     writeLetter(sceneGraph, "media/Map/words/W.fbx", Vector3(-18.0f + offsetX, 3.2f + offsetY, -3.5f + offsetZ),
-                Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+                Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/A.fbx", Vector3(-18.0f + offsetX, 2.0f + offsetY, -2.3f + offsetZ),
-            Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+            Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/S.fbx", Vector3(-18.0f + offsetX, 2.0f + offsetY, -3.5f + offsetZ),
-                Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+                Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/D.fbx", Vector3(-18.0f + offsetX, 2.0f + offsetY, -4.7f + offsetZ),
-                Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+                Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/tomove.fbx", Vector3(-18.0f + offsetX, 2.5f + offsetY, -7.5f + offsetZ),
-            Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+            Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
 
 

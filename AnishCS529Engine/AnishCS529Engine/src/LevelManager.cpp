@@ -108,7 +108,7 @@ void LevelManager::MeshMatInitializations()
 
     // Sky Box Material
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
-    skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
+    skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox");
     skyBoxMaterial.get()->addTexture("media/beach.jpg");
     skyBoxMaterial.get()->setProperty("objectId", 1);
 

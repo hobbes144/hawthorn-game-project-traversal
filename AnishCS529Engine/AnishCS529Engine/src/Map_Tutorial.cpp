@@ -9,7 +9,7 @@ void MapLoader::tutorial(
     SceneGraph& sceneGraph) {
 
     writeLetter(sceneGraph, "media/Map/words/pickup.fbx", Vector3(-396.0f + offsetX, 0.0f + offsetY, 4.0f + offsetZ),
-Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
     {
         std::shared_ptr<Mesh> keyMesh = Mesh::loadMesh("media/Map/key.fbx");
@@ -52,7 +52,7 @@ Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
         arrow->setLocalScaling(Vector3(0.01f, 0.01f, 0.01f));
         arrow->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
         auto renderComp = arrow->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(arrowMesh)->setMaterial(BrownConcrete);
+        renderComp->setMesh(arrowMesh)->setMaterial(BrownConcrete);
 
         arrow->addComponent<Animate>()->setAnimateFunction(
              [amplitude = 1.0f, currentTime = 0.0f, initialPos = arrow->getLocalPosition()]
@@ -74,7 +74,7 @@ Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
         pad->setLocalPosition(Vector3(-396.0f + offsetX, -5.0f + offsetY, 4.0f + offsetZ));
         pad->setLocalScaling(Vector3(0.03f, 0.03f, 0.03f));
         auto renderComp = pad->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(padMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(padMesh)->setMaterial(concreteMaterial);
 
     }
 
@@ -222,9 +222,9 @@ Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     }
 
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-16.0f + offsetX, 6.5f + offsetY, 3.5f + offsetZ),
-        Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+        Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/tojump.fbx", Vector3(-16.0f + offsetX, 6.5f + offsetY, -4.5f + offsetZ),
-    Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
     // Box1
     {
@@ -281,9 +281,9 @@ Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     }
 
     writeLetter(sceneGraph, "media/Map/words/shift.fbx", Vector3(-43.0f + offsetX, 1.0f + offsetY, 1.5f + offsetZ),
-    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/torun.fbx", Vector3(-43.0f + offsetX, 0.7f + offsetY, -4.5f + offsetZ),
-    Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
 
     // Floor2 pad
@@ -360,18 +360,18 @@ Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
     }
 
     writeLetter(sceneGraph, "media/Map/words/W.fbx", Vector3(-132.0f + offsetX, 3.0f + offsetY, 6.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-132.0f + offsetX, 3.0f + offsetY, 4.0f + offsetZ),
-    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/D.fbx", Vector3(-132.0f + offsetX, 3.0f + offsetY, 2.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-132.0f + offsetX, 3.0f + offsetY, 0.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-132.0f + offsetX, 2.4f + offsetY, -5.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
     writeLetter(sceneGraph, "media/Map/words/towallrun.fbx", Vector3(-132.0f + offsetX, -0.0f + offsetY, 0.5f + offsetZ),
-Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
     // Wall Running
     {
@@ -467,11 +467,11 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete
 //Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
 
     writeLetter(sceneGraph, "media/Map/words/A.fbx", Vector3(-320.0f + offsetX, 12.0f + offsetY, 7.0f + offsetZ),
-Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-320.0f + offsetX, 12.0f + offsetY, 4.0f + offsetZ),
-Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-320.0f + offsetX, 11.0f + offsetY, -3.5f + offsetZ),
-Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), camera, BrownConcrete);
+Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
 
 
