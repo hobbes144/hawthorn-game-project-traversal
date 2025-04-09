@@ -9,15 +9,24 @@ void LevelManager::SystemInitalization()
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
+
     int windowWidth = mode->width;
     int windowHeight = mode->height;
 
     mainWindow = new GameWindow;
-    mainWindow->setTitle("EngineDemo")
-        ->setWidth(windowWidth)
-        ->setHeight(windowHeight)
-        ->setBorderlessFullscreen(true);
-    mainWindow->initialize(monitor);
+
+    if (isFullscreen) {
+        int windowWidth = mode->width;
+        int windowHeight = mode->height;
+        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(true);
+        mainWindow->initialize(monitor);
+    }
+    else {
+        int windowWidth = 1280;
+        int windowHeight = 720;
+        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(false);
+        mainWindow->initialize(nullptr);
+    }
 
     /* Renderer setup */
     mainRenderer = new Renderer;
@@ -74,17 +83,15 @@ void LevelManager::SystemInitalization()
 
     /* Audio System Initalization */
     AudioManager::instance().initialize();
-    AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", true, true);
-    AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
-    AudioManager::instance().loadSound("bang", "media/audio/bang.mp3", true);
+    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", false, true);
     AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
     AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
     AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
     AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
+    AudioManager::instance().loadSound("hurt", "media/audio/hurt.mp3", true);
     
-    AudioManager::instance().playSound2D("music", 0.15f);
+    AudioManager::instance().playSound("music", Vector3(0.0f, 0.0f, 0.0f), 0.15f);
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
@@ -193,6 +200,12 @@ void LevelManager::MeshMatInitializations()
     keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
 
 
+    //doorMaterial = Material::getMaterial<MainTestMaterial>("door", mainRenderer->getRenderGraph());
+    //doorMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
+    //doorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    //doorMaterial->setProperty("shininess", 20.0f);
+    //doorMaterial->addTexture("media/textures/door.png", 1.0f, 1.0f);
+
 #pragma endregion
 
     /*Map Loader*/
@@ -213,6 +226,7 @@ void LevelManager::RunLevels()
     {
     case -1:
         LoadLevelMenu();
+        break;
     case 0:
         LoadLevel0();
         break;
@@ -251,7 +265,6 @@ void LevelManager::ExecuteMainLoop()
     float speed = 10.0f;
     float deltaTime = 0.0f;
     int expectedFrameRate = 60; // 1000;
-    static bool isFullscreen = true;
     static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
     mainFramerateController->setTargetFramerate(expectedFrameRate);
@@ -649,6 +662,10 @@ void LevelManager::initalizePlayerInLevel()
         activeSpawnPoint = startingPos3;
         activeSpawnRotation = startingRot3;
         break;
+    case 4:
+        activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
+        break;
     default:
         activeSpawnPoint = Vector3();
         break;
@@ -656,6 +673,6 @@ void LevelManager::initalizePlayerInLevel()
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
-    pbFPCController->respawnPlayer();
+    pbFPCController->respawnPlayer(true);
 
 }

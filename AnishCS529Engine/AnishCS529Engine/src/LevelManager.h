@@ -75,9 +75,10 @@ private:
 	LevelManager() = default;
 
 	//Level Counter
-	int currentLevel = 0;
+	int currentLevel = -1;
 	int numLevels = 6;
 	bool levelSwapFlag = false;
+	bool isFullscreen = true;
 
 	//Systems
 	GameWindow* mainWindow;
@@ -107,6 +108,7 @@ private:
 	std::shared_ptr<MainTestMaterial> WhiteFloorTiles;
 	std::shared_ptr<MainTestMaterial> skyBoxMaterial;
 	std::shared_ptr<MainTestMaterial> keyMaterial;
+	//std::shared_ptr<MainTestMaterial> doorMaterial;
 
 	//Player References
 	std::shared_ptr<GameObject> playerBox;

@@ -31,6 +31,7 @@ void MapLoader::initializeResources(std::shared_ptr<RenderGraph> renderGraph) {
     BlueConcrete = Material::getMaterial<Material>("BlueConcrete", renderGraph);
     WhiteFloorTiles = Material::getMaterial<Material>("WhiteFloorTiles", renderGraph);
     keyMaterial = Material::getMaterial<Material>("key", renderGraph);
+    //doorMaterial = Material::getMaterial<Material>("door", renderGraph);
 }
 
 
@@ -63,6 +64,24 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
         std::cerr << "[MapLoader] Map ID " << mapId << " is not recognized.\n";
         break;
     }
+}
+
+void MapLoader::writeLetter(SceneGraph& sceneGraph,
+                            const std::string& meshPath,
+                            const Vector3& position,
+                            const Vector3& scale,
+                            const Vector3& rotation,
+                            std::shared_ptr<Camera> camera,
+                            std::shared_ptr<Material> keyMaterial)
+{
+    std::shared_ptr<Mesh> mesh = Mesh::loadMesh(meshPath);
+    auto letter = std::make_shared<GameObject>("letter", GameObject::WALL);
+    sceneGraph.addNode(letter);
+    letter->setLocalPosition(position);
+    letter->setLocalScaling(scale);
+    letter->setLocalRotation(rotation);
+    auto renderComp = letter->addComponent<Render2D>();
+    renderComp->setCamera(camera)->setMesh(mesh)->setMaterial(keyMaterial);
 }
 
 

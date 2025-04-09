@@ -104,7 +104,6 @@ public:
     void shutdown();
     void loadSound(const std::string& name, const std::string& path, bool is3D = false, bool loop = false);
     void playSound(const std::string& name, const Vector3& position = Vector3(), float volume = 1.0f);
-    void playSound2D(const std::string& name, float volume = 1.0f);
     void stopSound(const std::string& name);
     void setListenerPosition(const Vector3& position);
     void setPlaybackSpeed(float speed);
