@@ -14,50 +14,48 @@ MapLoader& MapLoader::instance() {
     return instance;
 }
 
-void MapLoader::initializeResources(std::shared_ptr<RenderGraph> renderGraph) {
+void MapLoader::initializeResources() {
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
-    boxMaterial = Material::getMaterial<Material>("box", renderGraph);
-    floorMaterial = Material::getMaterial<Material>("floor", renderGraph);
-    concreteMaterial = Material::getMaterial<Material>("concrete", renderGraph);
-    grassMaterial = Material::getMaterial<Material>("grass", renderGraph);
-    cracksMaterial = Material::getMaterial<Material>("cracks", renderGraph);
-    myhouseMaterial = Material::getMaterial<Material>("myhouse", renderGraph);
-    brickMaterial = Material::getMaterial<Material>("brick", renderGraph);
-    skyBoxMaterial = Material::getMaterial<Material>("skyBox", renderGraph);
-    LightBlueConcrete = Material::getMaterial<Material>("LightBlueConcrete", renderGraph);
-    YellowConcrete = Material::getMaterial<Material>("YellowConcrete", renderGraph);
-    BrownConcrete = Material::getMaterial<Material>("BrownConcrete", renderGraph);
-    BlueConcrete = Material::getMaterial<Material>("BlueConcrete", renderGraph);
-    WhiteFloorTiles = Material::getMaterial<Material>("WhiteFloorTiles", renderGraph);
-    keyMaterial = Material::getMaterial<Material>("key", renderGraph);
-    //doorMaterial = Material::getMaterial<Material>("door", renderGraph);
+    boxMaterial = Material::getMaterial<TextureMaterial>("box");
+    floorMaterial = Material::getMaterial<TextureMaterial>("floor");
+    concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
+    grassMaterial = Material::getMaterial<TextureMaterial>("grass");
+    cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
+    myhouseMaterial = Material::getMaterial<TextureMaterial>("myhouse");
+    brickMaterial = Material::getMaterial<TextureMaterial>("brick");
+    skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox");
+    LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
+    YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
+    BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
+    BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
+    WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
+    keyMaterial = Material::getMaterial<TextureMaterial>("key");
 }
 
 
 void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
-                        SceneGraph& sceneGraph,
-                        std::shared_ptr<Camera> camera) {
+                        SceneGraph& sceneGraph) {
 
 
     switch (mapId) {
     case -1:
-        menu(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        menu(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 0:
-        tutorial(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        tutorial(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 1:
-        tutorial2(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        tutorial2(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 2:
-        intermediate(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        intermediate(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 3:
-        advanced(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        advanced(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 4:
-        victory(offsetX, offsetY, offsetZ, sceneGraph, camera);
+        victory(offsetX, offsetY, offsetZ, sceneGraph);
         break;
 
     default:
@@ -71,7 +69,6 @@ void MapLoader::writeLetter(SceneGraph& sceneGraph,
                             const Vector3& position,
                             const Vector3& scale,
                             const Vector3& rotation,
-                            std::shared_ptr<Camera> camera,
                             std::shared_ptr<Material> keyMaterial)
 {
     std::shared_ptr<Mesh> mesh = Mesh::loadMesh(meshPath);
@@ -80,8 +77,8 @@ void MapLoader::writeLetter(SceneGraph& sceneGraph,
     letter->setLocalPosition(position);
     letter->setLocalScaling(scale);
     letter->setLocalRotation(rotation);
-    auto renderComp = letter->addComponent<Render2D>();
-    renderComp->setCamera(camera)->setMesh(mesh)->setMaterial(keyMaterial);
+    auto renderComp = letter->addComponent<Render3D>();
+    renderComp->setMesh(mesh)->setMaterial(keyMaterial);
 }
 
 

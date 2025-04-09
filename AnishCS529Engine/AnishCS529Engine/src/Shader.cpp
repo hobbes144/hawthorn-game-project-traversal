@@ -11,6 +11,16 @@
 #include "precompiled.h"
 #include "Shader.h"
 
+void Shader::setDrawMode(GLenum _drawMode)
+{
+  drawMode = _drawMode;
+}
+
+GLenum Shader::getDrawMode()
+{
+  return drawMode;
+}
+
 /*!****************************************************************************
  * \brief Shader constructor
  * 
@@ -82,6 +92,20 @@ GLenum Shader::readShaderType(std::string path) {
     return GL_VERTEX_SHADER;
 }
 
+std::string Shader::shaderTypeToString(GLenum type)
+{
+  if (type == GL_VERTEX_SHADER)
+    return "VERTEX";
+  if (type == GL_FRAGMENT_SHADER)
+    return "FRAGMENT";
+  if (type == GL_GEOMETRY_SHADER)
+    return "GEOMETRY";
+  if (type == GL_COMPUTE_SHADER)
+    return "COMPUTE";
+  else
+    return "VERTEX";
+}
+
 /*!****************************************************************************
  * \brief Read shader data from a file
  * 
@@ -125,7 +149,7 @@ GLuint Shader::loadShader(GLenum type, const GLchar* source) {
   if (!success)
   {
     glGetShaderInfoLog(shaderId, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog <<
+    std::cerr << "ERROR::SHADER::" << shaderTypeToString(type) << "::COMPILATION_FAILED\n" << infoLog <<
       std::endl;
   }
 
@@ -176,7 +200,7 @@ void Shader::cacheUniforms()
   glGetProgramInterfaceiv(
     programID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &uniformCount);
 
-  const GLenum properties[4] = { 
+  const GLenum properties[4] = {
     GL_BLOCK_INDEX, GL_TYPE, GL_NAME_LENGTH, GL_LOCATION
   };
 
@@ -226,6 +250,14 @@ GLint Shader::getUniformLocation(const std::string& name) const {
   }
 
   return location;
+}
+
+void Shader::initializeUBO(const std::string& name, unsigned int blockBinding)
+{
+  unsigned int uniformBlockIndex = 
+    glGetUniformBlockIndex(programID, name.c_str());
+  glUniformBlockBinding(programID, uniformBlockIndex, blockBinding);
+  std::cout << "UBO initialized at: " << uniformBlockIndex << std::endl;
 }
 
 /*!****************************************************************************
@@ -306,4 +338,15 @@ void Shader::setVec4(const std::string& name, float x, float y, float z, float w
  *****************************************************************************/
 void Shader::setMat4(const std::string& name, const Matrix4& value) const {
   glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, value.getData());
+}
+
+void Shader::bindTexture(
+  unsigned int textureUnit, 
+  const std::string& name, 
+  TextureManager::TextureID textureID) const
+{
+  glActiveTexture(GL_TEXTURE0 + textureUnit);
+  glBindTexture(TEXTURE_2D, textureID.id);
+
+  setInt(name, textureUnit);
 }

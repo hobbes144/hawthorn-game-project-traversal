@@ -16,20 +16,38 @@
 
 class TextureMaterial : public Material {
 public:
-  TextureMaterial() : Material() {
+  TextureMaterial() = default;
 
-    TextureManager::TextureID texture = 
-      TextureManager::getInstance().loadFile("media/FactoryMaterial.bmp");
+  TextureMaterial(
+    const std::string& textureFile,
+    float scaleX = 1.0f, float scaleY = 1.0f) : Material() {
 
-    this->setProperty("mainTexture", texture);
-    this->setProperty("useTexture", 1);
-    this->setProperty("isTransparent", 0);
+    addTexture(textureFile, scaleX, scaleY);
   }
 
-  TextureManager::TextureID addTexture(const std::string& textureFile);
-  TextureManager::TextureID addDefaultTexture();
+  TextureMaterial(
+    TextureManager::TextureID textureID,
+    float scaleX = 1.0f, float scaleY = 1.0f) : Material() {
+
+    addTexture(textureID, scaleX, scaleY);
+  }
+
+  TextureManager::TextureID addTexture(
+    const std::string& textureFile, float scaleX = 1.0f, float scaleY = 1.0f);
+  TextureManager::TextureID addTexture(
+    TextureManager::TextureID textureID, float scaleX = 1.0f, float scaleY = 1.0f);
+
+  TextureManager::TextureID addNormalMap(
+    const std::string& textureFile,
+    float scaleX = 1.0f, float scaleY = 1.0f);
+  TextureManager::TextureID addNormalMap(
+    TextureManager::TextureID textureID,
+    float scaleX = 1.0f, float scaleY = 1.0f);
+
+  void addDefaultTexture();
 private:
   static const std::string defaultTextureFile;
+
 };
 
 #endif // !TEXTURE_MATERIAL_H

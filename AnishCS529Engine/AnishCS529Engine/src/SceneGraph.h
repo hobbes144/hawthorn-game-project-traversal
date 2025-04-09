@@ -15,7 +15,9 @@
 #pragma once
 
 #include "Node.h"
-#include "RenderableNode.h"
+#include "Camera.h"
+#include "Lights.h"
+#include "Shader.h"
 
 class SceneGraph {
 private:
@@ -54,11 +56,18 @@ private:
   std::shared_ptr<RootNode> root;
   std::stack<std::shared_ptr<Node>> nodeUpdateStack;
 
-  void drawNode(const std::shared_ptr<Node>& node, 
-    const Matrix4& view, const Matrix4& projection) const;
+  void drawNode(const std::shared_ptr<Node>& node, std::shared_ptr<Shader> shader);
+
+
+  Lights lights;
+  std::vector<std::shared_ptr<Camera>> cameraStack;
 
 public:
   SceneGraph() : root(std::make_shared<RootNode>()) {}
+  ~SceneGraph() {
+    clearLights();
+    clearCameras();
+  }
 
   std::shared_ptr<RootNode> getRootNode() const { return root; }
 
@@ -70,7 +79,7 @@ public:
 
   void update(float deltaTime);
   void updateNode(const std::shared_ptr<Node>& node, float deltaTime);
-  void draw(const Matrix4& view, const Matrix4& projection) const;
+  void draw(std::shared_ptr<Shader> shader);
   void printSceneTree();
 
   Vector3 getRootPosition() const { return root->getLocalPosition(); }
@@ -80,6 +89,18 @@ public:
   void setRootPosition(const Vector3& position) { root->setLocalPosition(position); }
   void setRootRotation(const Vector3& rotation) { root->setLocalRotation(rotation); }
   void setRootScaling(const Vector3& scaling) { root->setLocalScaling(scaling); }
+
+  // Lights
+  void addDirectionalLight(DirectionalLight light) { lights.sunLight = light; }
+  void addAmbientLight(AmbientLight light) { lights.ambientLight = light; }
+  void addPointLight(PointLight light) { lights.pointLights.push_back(light); }
+  void clearLights() { lights = {}; }
+  Lights* getLights() { return &lights; }
+
+  // Cameras
+  void addCamera(std::shared_ptr<Camera> camera) { cameraStack.push_back(camera); }
+  void clearCameras() { cameraStack.clear(); }
+  std::vector<std::shared_ptr<Camera>> getCameras() { return cameraStack; }
 
   void clear();
 

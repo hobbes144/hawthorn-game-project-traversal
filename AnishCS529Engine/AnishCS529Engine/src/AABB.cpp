@@ -134,29 +134,34 @@ void AABB::initializeDebugDraw(
   debugMesh = Mesh::getShapeMesh(Mesh::Cube);
 
   // Get debug material
-  debugMaterial = Material::getMaterial<DebugMaterial>("Debug", renderGraph);
+  debugMaterial = Material::getMaterial<DebugMaterial>("Debug");
 
   renderGraph->addPass<DebugPass>("DebugPass");
 }
 
 void AABB::debugDaw() {
-  assert(("AABB::DEBUGDRAW::NOT_INITIALIZED") && renderGraph);
+  assert(("AABB::DEBUGDRAW::NOT_IMPLEMENTED") && false);
 
-  const Vector3 worldHalfExtents = this->getHalfExtents();
-  const Vector3 worldCenter = this->getCenter();
+  // Todo: Need to rework the entire debug draw system to work with the new
+  // render system.
 
-  // Create model matrix that will transform our normalized box to the OBB's position and orientation
-  Matrix4 scale = Matrix4::scale(worldHalfExtents.x * 2, worldHalfExtents.y * 2, worldHalfExtents.z * 2);
-  Matrix4 rotation = Matrix4();
-  Matrix4 translation = Matrix4::translation(
-    worldCenter.x, worldCenter.y, worldCenter.z);
-  Matrix4 model = translation * rotation * scale;
+  //assert(("AABB::DEBUGDRAW::NOT_INITIALIZED") && renderGraph);
 
-  debugMaterial->setProperty("ViewMatrix", camera->getViewMatrix());
-  debugMaterial->setProperty("ProjectionMatrix", camera->getProjectionMatrix());
-  debugMaterial->setProperty("ModelMatrix", model);
+  //const Vector3 worldHalfExtents = this->getHalfExtents();
+  //const Vector3 worldCenter = this->getCenter();
 
-  debugMaterial->draw(debugMesh);
+  //// Create model matrix that will transform our normalized box to the OBB's position and orientation
+  //Matrix4 scale = Matrix4::scale(worldHalfExtents.x * 2, worldHalfExtents.y * 2, worldHalfExtents.z * 2);
+  //Matrix4 rotation = Matrix4();
+  //Matrix4 translation = Matrix4::translation(
+  //  worldCenter.x, worldCenter.y, worldCenter.z);
+  //Matrix4 model = translation * rotation * scale;
+
+  //debugMaterial->setProperty("ViewMatrix", camera->getViewMatrix());
+  //debugMaterial->setProperty("ProjectionMatrix", camera->getProjectionMatrix());
+  //debugMaterial->setProperty("ModelMatrix", model);
+
+  ////debugMaterial->draw(debugMesh);
 }
 
 bool AABB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const {

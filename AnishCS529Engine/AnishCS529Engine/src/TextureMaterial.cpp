@@ -11,14 +11,53 @@
 
 const std::string TextureMaterial::defaultTextureFile = "media/FactoryMaterial.bmp";
 
-TextureManager::TextureID TextureMaterial::addTexture(const std::string& textureFile)
+TextureManager::TextureID TextureMaterial::addTexture(
+  const std::string& textureFile,
+  float scaleX, float scaleY)
 {
   TextureManager::TextureID texture = TextureManager::getInstance().loadFile(textureFile);
   this->setProperty("mainTexture", texture);
+  this->setProperty("mainTextureScale", 
+    VectorTemplated<float, 2>({ scaleX, scaleY }));
+  this->setProperty("useNormalMap", false);
   return texture;
 }
 
-TextureManager::TextureID TextureMaterial::addDefaultTexture()
+TextureManager::TextureID TextureMaterial::addTexture(
+  TextureManager::TextureID textureID,
+  float scaleX, float scaleY)
 {
-  return addTexture("media/FactoryMaterial.bmp");
+  this->setProperty("mainTexture", textureID);
+  this->setProperty("mainTextureScale",
+    VectorTemplated<float, 2>({ scaleX, scaleY }));
+  this->setProperty("useNormalMap", false);
+  return textureID;
+}
+
+TextureManager::TextureID TextureMaterial::addNormalMap(
+  const std::string& textureFile,
+  float scaleX, float scaleY)
+{
+  TextureManager::TextureID texture = TextureManager::getInstance().loadFile(textureFile);
+  this->setProperty("normalMap", texture);
+  this->setProperty("normalMapScale",
+    VectorTemplated<float, 2>({ scaleX, scaleY }));
+  this->setProperty("useNormalMap", true);
+  return texture;
+}
+
+TextureManager::TextureID TextureMaterial::addNormalMap(
+  TextureManager::TextureID textureID,
+  float scaleX, float scaleY)
+{
+  this->setProperty("normalMap", textureID);
+  this->setProperty("normalMapScale",
+    VectorTemplated<float, 2>({ scaleX, scaleY }));
+  this->setProperty("useNormalMap", true);
+  return textureID;
+}
+
+void TextureMaterial::addDefaultTexture()
+{
+  addTexture("media/FactoryMaterial.bmp", 1.0f, 1.0f);
 }

@@ -102,6 +102,11 @@ void GameObject::updateComponents(float deltaTime)
   }
 }
 
+void GameObject::draw(std::shared_ptr<Shader> shader) {
+  if (enabled && renderableComponent)
+    renderableComponent->draw(shader);
+}
+
 /*!****************************************************************************
  * \brief Initialize an object
  *
@@ -167,4 +172,8 @@ void GameObject::shutdown() {
     }
   }
   components.clear();
+}
+
+GameObject::~GameObject() {
+  shutdown();
 }

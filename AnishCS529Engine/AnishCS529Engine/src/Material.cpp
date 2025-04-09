@@ -13,21 +13,69 @@
 
 std::unordered_map<std::string, std::shared_ptr<Material>> Material::basicMaterials;
 
-void Material::setRenderGraph(std::shared_ptr<RenderGraph> newRenderGraph) {
-  renderGraph = newRenderGraph;
-}
+void Material::apply(std::shared_ptr<Shader> shader) const {
 
-std::shared_ptr<RenderGraph> Material::getRenderGraph() const {
-  return renderGraph;
-}
+  /* Todo: this is VERY inefficient. We don't need to be using variant
+  * and doing TWO loops over the same variant data is really bad for
+  * performance. Please fix this when you get time.
+  *
+  * Also a nightmare to manage. I forgot to add Vector2 to one and
+  * took half an hour to realise.
+  */
+  std::vector<std::pair<std::string, TextureManager::TextureID>> texturesToBind;
 
-//void Material::setTexture(const std::string& name, std::shared_ptr<Texture> texture, unsigned int unit) {
-//  if (!textureData) {
-//    textureData = std::unordered_map<std::string, TextureInfo>();
-//  }
-//  (*textureData)[name] = { texture, unit };
-//}
+  for (const auto& [name, value] : properties) {
+    if (auto item = std::get_if<unsigned int>(&value)) {
+      shader->setUInt(name, *item);
+    }
+    else if (auto item = std::get_if<int>(&value)) {
+      shader->setInt(name, *item);
+    }
+    else if (auto item = std::get_if<float>(&value)) {
+      shader->setFloat(name, *item);
+    }
+    else if (auto item = std::get_if<VectorTemplated<float, 2>>(&value)) {
+      shader->setVec2(name, (*item)[0], (*item)[1]);
+    }
+    else if (auto item = std::get_if<Vector3>(&value)) {
+      shader->setVec3(name, *item);
+    }
+    else if (auto item = std::get_if<Matrix4>(&value)) {
+      shader->setMat4(name, *item);
+    }
+    else if (auto item = std::get_if<TextureManager::TextureID>(&value)) {
+      texturesToBind.emplace_back(name, *item);
+    }
+  }
 
-void Material::draw(std::shared_ptr<Mesh> mesh) const {
-  renderGraph->draw(mesh, properties);
+  for (const auto& [name, value] : tempProperties) {
+    if (auto item = std::get_if<unsigned int>(&value)) {
+      shader->setUInt(name, *item);
+    }
+    else if (auto item = std::get_if<int>(&value)) {
+      shader->setInt(name, *item);
+    }
+    else if (auto item = std::get_if<float>(&value)) {
+      shader->setFloat(name, *item);
+    }
+    else if (auto item = std::get_if<VectorTemplated<float, 2>>(&value)) {
+      shader->setVec2(name, (*item)[0], (*item)[1]);
+    }
+    else if (auto item = std::get_if<Vector3>(&value)) {
+      shader->setVec3(name, *item);
+    }
+    else if (auto item = std::get_if<Matrix4>(&value)) {
+      shader->setMat4(name, *item);
+    }
+    else if (auto item = std::get_if<TextureManager::TextureID>(&value)) {
+      texturesToBind.emplace_back(name, *item);
+    }
+  }
+
+  unsigned int textureUnit = 10;
+
+  for (const auto& [name, textureID] : texturesToBind) {
+    shader->bindTexture(textureUnit, name, textureID);
+    ++textureUnit;
+  }
 }

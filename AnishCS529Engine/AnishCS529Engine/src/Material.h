@@ -34,29 +34,36 @@ public:
   using PropertyMap = RenderPass::PropertyMap;
 
   Material() = default;
-  virtual ~Material() = default;
 
-  void setRenderGraph(std::shared_ptr<RenderGraph> newRenderGraph);
-  std::shared_ptr<RenderGraph> getRenderGraph() const;
+  virtual ~Material() = default;
 
   template<typename T>
   void setProperty(const std::string& name, const T& value) {
     properties[name] = value;
   }
 
-  virtual void draw(std::shared_ptr<Mesh> mesh) const;
+  template<typename T>
+  void setTempProperty(const std::string& name, const T& value) {
+    tempProperties[name] = value;
+  }
+
+  void clearTempProperties() {
+    tempProperties.clear();
+  }
+
+  virtual void apply(std::shared_ptr<Shader> shader) const;
 
   /* Material factory */
   static std::unordered_map<std::string, std::shared_ptr<Material>> basicMaterials;
 
   template <typename T>
   static std::shared_ptr<T> getMaterial(
-    const std::string& name,
-    std::shared_ptr<RenderGraph> renderGraph);
+    const std::string& name);
 
 protected:
   std::shared_ptr<RenderGraph> renderGraph;
   PropertyMap properties;
+  PropertyMap tempProperties;
 };
 
 #include "Material.inl"

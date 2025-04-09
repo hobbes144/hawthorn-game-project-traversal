@@ -44,14 +44,20 @@ std::shared_ptr<T> GameObject::addComponent() {
   auto component = std::make_shared<T>();
   component->setParent(std::static_pointer_cast<GameObject>(shared_from_this()));
   components.push_back(component);
+
+  if constexpr (std::is_base_of<Renderable, T>::value) {
+    // Special behavior for Renderable
+    renderableComponent = component;
+  }
+
   return component;
 }
 
 /*!****************************************************************************
- * \brief Add a component by input
- * 
+ * \brief Add a component by input, specialized for Renderable
+ *
  * ## Usage:
- * 
+ *
  * Game behaviour and properties are handled through components. This function
  * adds components to the GameObject by accepting a component as input.
  *
@@ -63,15 +69,22 @@ std::shared_ptr<T> GameObject::addComponent() {
  * ## Note:
  *
  * Adding duplicates of a Component type leads to undefined behaviour.
- * 
+ *
  * \param _component Component to be added to the GameObject
  * \return \b std::shared_ptr<T> Component added
  *****************************************************************************/
 template<typename T>
 std::shared_ptr<T> GameObject::addComponent(std::shared_ptr<T> _component)
 {
-  _component->setParent(shared_from_this());
+  _component->setParent(
+    std::static_pointer_cast<GameObject>(shared_from_this()));
   components.push_back(_component);
+
+  if constexpr (std::is_base_of<Renderable, T>::value) {
+    // Special behavior for Renderable
+    renderableComponent = _component;
+  }
+
   return _component;
 }
 
@@ -99,6 +112,11 @@ void GameObject::removeComponent() {
   if (it != components.end()) {
     found->shutdown();
     components.erase(it);
+
+    if constexpr (std::is_base_of<Renderable, T>::value) {
+      // Special behavior for Renderable
+      renderableComponent = nullptr;
+    }
   }
 }
 

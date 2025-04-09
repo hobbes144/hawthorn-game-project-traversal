@@ -21,9 +21,9 @@
 #include "ShaderManager.h"
 #include "Vector3.h"
 #include "TextureManager.h"
-#include "Light.h"
 #include "VectorTemplated.h"
 #include "Mesh.h"
+#include "SceneGraph.h"
 
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
@@ -80,11 +80,15 @@ public:
   //void setFBO(std::shared_ptr<FBO> FBO);
   //std::shared_ptr<FBO> getFBO() const;
 
-  void setTexture(const std::string& name, TextureManager::TextureID textureID, unsigned int unit);
+  void setTexture(const std::string& name, TextureManager::TextureID textureID);
 
-  virtual void draw(std::shared_ptr<Mesh> mesh, GLenum mode,
-    const PropertyMap& materialProperties = {},
-    const LightStack& lightStack = {}) const;
+  void setDrawMode(GLenum _drawMode);
+
+  GLenum getDrawMode();
+
+  virtual void draw(
+    std::shared_ptr<Camera> camera,
+    SceneGraph* scene) const;
 
   /* Utility functions */
   void enable();
@@ -95,14 +99,16 @@ protected:
   bool enabled;
   std::shared_ptr<Shader> shader;
   PropertyMap properties;
+  GLenum drawMode = NULL;
 
   //std::optional<std::shared_ptr<FBO>> FBO;
 
   std::optional<std::unordered_map<std::string, TextureManager::TextureID>> textureData;
 
-  void applyProperties(
-    const PropertyMap& passProperties,
-    const PropertyMap& materialProperties) const;
+  void applyProperties() const;
+
+  // Todo: turn this into per point light.
+  //void applyLights(Lights lights) const;
 
 };
 

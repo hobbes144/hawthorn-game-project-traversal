@@ -1,24 +1,23 @@
 /*!****************************************************************************
- * \file   AmbientLight.h
+ * \file   Renderable.h
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
- * \date   02-03-2025
- * \brief  Ambient Light source
+ * \date   04-07-2025
+ * \brief  Renderable base class for Render classes
  * 
  *****************************************************************************/
-#ifndef AMBIENT_LIGHT_H
-#define AMBIENT_LIGHT_H
+#ifndef RENDERABLE_H
+#define RENDERABLE_H
 
 #pragma once
 
-#include "Light.h"
+#include "Shader.h"
+#include "Component.h"
 
-class AmbientLight : public Light {
+class Renderable : public Component {
 public:
-  void applyToShader(const std::shared_ptr<Shader>& shader, int lightIndex) const;
+  virtual void draw(std::shared_ptr<Shader> shader) = 0;
 };
 
-#endif // !AMBIENT_LIGHT_H
-
-
+#endif // !RENDERABLE_H

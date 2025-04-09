@@ -16,7 +16,6 @@
 #include <cassert>
 #include <functional>
 
-#include "Camera.h"
 #include "Component.h"
 #include "GameObject.h"
 #include "GamePad.h"
@@ -40,7 +39,7 @@
  *  std::shared_ptr<FirstPersonControllerComponent>
  *      setBody(GameObject* _body) { body = _body; }
  *  std::shared_ptr<FirstPersonControllerComponent>
- *      setCamera(Camera* _camera) { camera = _camera; }
+ *      setCamera(GameObject* _camera) { camera = _camera; }
  * 
  *****************************************************************************/
 class FirstPersonControllerComponent
@@ -138,7 +137,7 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
         setBody(GameObject* _body);
     std::shared_ptr<FirstPersonControllerComponent>
-        setCamera(Camera* _camera);
+        setCamera(GameObject* _camera);
     std::shared_ptr<FirstPersonControllerComponent>
       setCameraRotation(Vector3 rotation);
     std::shared_ptr<FirstPersonControllerComponent>
@@ -221,7 +220,7 @@ private:
 
     //GameObject Assembly
     GameObject* body;
-    Camera* camera;
+    GameObject* camera;
 
     //Action Key Mapping
     std::unordered_map<Action, Key> ActionKey;

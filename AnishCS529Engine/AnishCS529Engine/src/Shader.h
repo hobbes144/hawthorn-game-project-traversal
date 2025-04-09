@@ -33,6 +33,9 @@
 
 #include "Matrix4.h"
 #include "Vector3.h"
+#include "TextureManager.h"
+
+class Renderer;
 
 class Shader {
 public:
@@ -53,7 +56,17 @@ public:
   void setVec4(const std::string& name, float x, float y, float z, float w) const;
   void setMat4(const std::string& name, const Matrix4& value) const;
 
+  void bindTexture(
+    unsigned int textureUnit,
+    const std::string& name,
+    TextureManager::TextureID textureID) const;
+
   unsigned int getId() { return programID; };
+
+  void setDrawMode(GLenum _drawMode);
+  GLenum getDrawMode();
+
+  void initializeUBO(const std::string& name, unsigned int blockBinding);
   
 private:
   Shader(const std::string& shaderFilePaths);
@@ -61,8 +74,10 @@ private:
   std::unordered_map<GLenum, std::vector<GLuint>> shaderIDs;
   mutable std::unordered_map<std::string, GLint> uniformLocationCache; // Todo: Why is this mutable?
   GLuint programID;
+  GLenum drawMode = NULL;
 
   GLenum readShaderType(std::string path);
+  std::string shaderTypeToString(GLenum type);
   std::string readShaderFile(std::string path);
   GLuint loadShader(GLenum type, const GLchar* source);
   void deleteShader(GLuint id);

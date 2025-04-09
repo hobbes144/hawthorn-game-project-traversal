@@ -5,6 +5,7 @@ TextureManager::TextureID MainTestMaterial::addTexture(const std::string& textur
 {
   TextureManager::TextureID texture = TextureManager::getInstance().loadFile(textureFile);
   textures.push_back(texture);
+  this->setProperty("textureMode", 1);
   this->setProperty("numTextures", static_cast<int>(textures.size()));
   this->setProperty("texture" + std::to_string(textures.size() - 1), texture);
   this->setProperty("texScale" + std::to_string(textures.size() - 1),

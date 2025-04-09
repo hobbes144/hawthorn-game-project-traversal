@@ -12,38 +12,45 @@
 
 #include "Camera.h"
 
-/* Private functions */
+/* Protected functions */
 
- /*!****************************************************************************
-  * \brief Update the view matrix based on the location of the camera
-  *
-  * ## Explanation:
-  *
-  * The view matrix is always calculated as the same rotation of the camera, but
-  * with the negative of the position of the camera. This ensures that all
-  * objects in front of the camera are moved to the relative position from the
-  * world origin.
-  *
-  *****************************************************************************/
+/*!****************************************************************************
+ * \brief Update the view matrix based on the location of the camera
+ *
+ * ## Explanation:
+ *
+ * The view matrix is always calculated as the same rotation of the camera, but
+ * with the negative of the position of the camera. This ensures that all
+ * objects in front of the camera are moved to the relative position from the
+ * world origin.
+ *
+ *****************************************************************************/
 void Camera::updateViewMatrix() {
-  if (oldPosition != getWorldTransform().getPosition() || oldRotation != getWorldTransform().getRotation()) {
-    oldPosition = getWorldTransform().getPosition();
-    oldRotation = getWorldTransform().getRotation();
+  // Extract basis vectors (Right, Up, Forward)
+  forward = rotation.forward();
+  up = rotation.up();
+  right = rotation.right();
 
-    // Extract basis vectors (Right, Up, Forward)
-    Vector3 right = oldRotation * Vector3(1.0f, 0.0f, 0.0f);
-    Vector3 up = oldRotation * Vector3(0.0f, 1.0f, 0.0f);
-    Vector3 forward = oldRotation * Vector3(0.0f, 0.0f, -1.0f);  // Camera forward is -Z
-
-    // Compute view matrix using LookAt
-    viewMatrix = Matrix4::lookAt(oldPosition, oldPosition + forward, up);
-    inverseViewMatrix = Matrix4::inverse(viewMatrix);
-  }
+  // Compute view matrix using LookAt
+  viewMatrix = Matrix4::lookAt(position, position + forward, up);
+  inverseViewMatrix = Matrix4::inverse(viewMatrix);
 }
 
-
-
 /* Public functions */
+
+/*!****************************************************************************
+ * \brief Update the camera transforms
+ *
+ * ## Usage:
+ *
+ * This must be called after making changes to the camera's transforms to make
+ * sure that viewMatrix is correctly updated.
+ *
+ * \param deltaTime
+ *****************************************************************************/
+void Camera::update() {
+  updateViewMatrix();
+}
 
 /*!****************************************************************************
  * \brief Set the projection matrix to a perspective transformation
@@ -58,7 +65,7 @@ void Camera::updateViewMatrix() {
  * \param far Far plane of the camera
  * \return \b std::shared_ptr<Camera> Self shared pointer to allow chaining.
  *****************************************************************************/
-std::shared_ptr<Camera> Camera::setPerspectiveProjection(
+void Camera::setPerspectiveProjection(
   const float fov,
   const float aspectRatio,
   const float near,
@@ -66,7 +73,7 @@ std::shared_ptr<Camera> Camera::setPerspectiveProjection(
 {
   projectionMatrix = Matrix4::perspective(fov, aspectRatio, near, far);
 
-  return std::static_pointer_cast<Camera>(shared_from_this());
+  return;
 }
 
 /*!****************************************************************************
@@ -84,7 +91,7 @@ std::shared_ptr<Camera> Camera::setPerspectiveProjection(
  * \param far Far plane of the camera
  * \return \b std::shared_ptr<Camera> Self shared pointer to allow chaining.
  *****************************************************************************/
-std::shared_ptr<Camera> Camera::setOrthographicProjection(
+void Camera::setOrthographicProjection(
   const float left,
   const float right,
   const float bottom,
@@ -96,22 +103,7 @@ std::shared_ptr<Camera> Camera::setOrthographicProjection(
     left, right, bottom, top, near, far
   );
 
-  return std::static_pointer_cast<Camera>(shared_from_this());
-}
-
-std::shared_ptr<Camera> Camera::lookAt(const Vector3& target, const Vector3& upVector = Vector3(0,1,0)) {
-  viewMatrix = Matrix4::lookAt(getLocalPosition(), target, upVector);
-  return std::static_pointer_cast<Camera>( shared_from_this() );
-}
-
-std::shared_ptr<Camera> Camera::move(const Vector3 & direction, float amount) {
-  setLocalPosition(getLocalPosition() + (direction * amount));
-  return std::static_pointer_cast<Camera>( shared_from_this() );
-}
-
-std::shared_ptr<Camera> Camera::rotate(float roll, float pitch, float yaw) {
-  setLocalRotation(getLocalRotation() * Quaternion::fromEuler(roll, pitch, yaw));
-  return std::static_pointer_cast<Camera>( shared_from_this() );
+  return;
 }
 
 /*!****************************************************************************
@@ -124,12 +116,12 @@ std::shared_ptr<Camera> Camera::rotate(float roll, float pitch, float yaw) {
  * 
  * \return \b View matrix
  *****************************************************************************/
-const Matrix4 Camera::getViewMatrix()
+const Matrix4& Camera::getViewMatrix()
 {
   return viewMatrix;
 }
 
-const Matrix4 Camera::getInverseViewMatrix()
+const Matrix4& Camera::getInverseViewMatrix()
 {
   return inverseViewMatrix;
 }
@@ -148,33 +140,3 @@ const Matrix4& Camera::getProjectionMatrix()
 {
   return projectionMatrix;
 }
-
-/*!****************************************************************************
- * \brief Dummy initialize function
- * 
- *****************************************************************************/
-void Camera::initialize() {
-  updateViewMatrix();
-}
-
-/*!****************************************************************************
- * \brief Update the camera transforms
- * 
- * ## Usage:
- * 
- * This must be called after making changes to the camera's transforms to make
- * sure that viewMatrix is correctly updated.
- * 
- * \param deltaTime
- *****************************************************************************/
-void Camera::update(float deltaTime) {
-  GameObject::update(deltaTime);
-
-  updateViewMatrix();
-}
-
-/*!****************************************************************************
- * \brief Dummy shutdown function
- * 
- *****************************************************************************/
-void Camera::shutdown() {}

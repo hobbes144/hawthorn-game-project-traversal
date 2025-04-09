@@ -1131,7 +1131,7 @@ FirstPersonControllerComponent::setBody(GameObject* _body) {
 }
 
 std::shared_ptr<FirstPersonControllerComponent>
-FirstPersonControllerComponent::setCamera(Camera* _camera) {
+FirstPersonControllerComponent::setCamera(GameObject* _camera) {
 	camera = _camera;
 	return shared_from_this();
 }

@@ -5,8 +5,7 @@
 #include "InGameKey.h"
 
 void MapLoader::victory(float offsetX, float offsetY, float offsetZ,
-                            SceneGraph& sceneGraph,
-                            std::shared_ptr<Camera> camera) {
+                            SceneGraph& sceneGraph) {
 
     Vector3 center(offsetX, offsetY, offsetZ);
 
@@ -16,8 +15,8 @@ void MapLoader::victory(float offsetX, float offsetY, float offsetZ,
         wall->setLocalPosition(center + localPos);
         wall->setLocalScaling(localScale);
 
-        auto renderComp = wall->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(boxMesh)->setMaterial(BlueConcrete);
+        auto renderComp = wall->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
 
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wall->addComponent<RigidBody>();
@@ -53,8 +52,8 @@ void MapLoader::victory(float offsetX, float offsetY, float offsetZ,
         sceneGraph.addNode(letter);
         letter->setLocalPosition(Vector3(offsetX, 3.5f + offsetY, 7 + offsetZ));
         letter->setLocalScaling(Vector3(0.03f, 0.03f, 0.03f));
-        auto renderComp = letter->addComponent<Render2D>();
-        renderComp->setCamera(camera)->setMesh(youwin)->setMaterial(keyMaterial);
+        auto renderComp = letter->addComponent<Render3D>();
+        renderComp->setMesh(youwin)->setMaterial(keyMaterial);
 
     }
 }

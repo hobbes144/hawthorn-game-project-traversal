@@ -9,8 +9,8 @@
  * \brief  Render component for 2D objects
  * 
  *****************************************************************************/
-#ifndef RENDER_3D_H
-#define RENDER_3D_H
+#ifndef RENDER_2D_H
+#define RENDER_2D_H
 
 #pragma once
 
@@ -18,11 +18,10 @@
 #include "Component.h"
 
 /* Used classes */
-#include "Camera.h"
-#include "GameObject.h"
 #include "Material.h"
 #include "Mesh.h"
 #include "Renderer.h"
+#include "Renderable.h"
 
 /*!****************************************************************************
  * \brief Render2D object that performs rendering to the screen
@@ -31,8 +30,9 @@
  * 
  *****************************************************************************/
 class Render2D : 
-  public Component, public std::enable_shared_from_this<Render2D> {
+  public Renderable, public std::enable_shared_from_this<Render2D> {
 public:
+  using PropertyMap = RenderPass::PropertyMap;
   Render2D() = default;
   ~Render2D() = default;
 
@@ -41,15 +41,24 @@ public:
   void update(float deltaTime);
   void shutdown();
 
+  void draw(std::shared_ptr<Shader> shader);
+
   /* Pre-initialization functions */
-  std::shared_ptr<Render2D> setCamera(std::shared_ptr<Camera> _camera);
   std::shared_ptr<Render2D> setMesh(std::shared_ptr<Mesh> _mesh);
   std::shared_ptr<Render2D> setMaterial(std::shared_ptr<Material> _material);
+  std::shared_ptr<Render2D> setDrawMode(GLenum _drawMode);
+
+  template<typename T>
+  void setProperty(const std::string& name, const T& value) {
+    properties[name] = value;
+  }
 
 private:
-  std::shared_ptr<Camera> camera;
   std::shared_ptr<Mesh> mesh;
   std::shared_ptr<Material> material;
+  PropertyMap properties;
+
+  GLenum drawMode = GL_TRIANGLES;
 };
 
 #endif // !RENDER_3D_H

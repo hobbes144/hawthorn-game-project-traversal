@@ -93,13 +93,15 @@ public:
   static Matrix4 perspective(const float fov, const float aspectRatio,
                              const float near, const float far);
   static Matrix4 lookAt(const Vector3 &eye, const Vector3 &center,
-                        const Vector3 &up);
+                        const Vector3 &up = Vector3(0.0f,1.0f,0.0f));
   static Matrix4 inverse(const Matrix4& m);
   // I encourage to implement the Euler Angles formula: Removes the gimball lock problem
 
   Vector3 transformDirection(const Vector3& direction) const;
 
   static Matrix4 rotationAxis(const Vector3& axis, float radians);
+
+  Quaternion toQuaternion() const;
 
   Vector3 toEulerAngles() const {
       float R00 = data[0][0];

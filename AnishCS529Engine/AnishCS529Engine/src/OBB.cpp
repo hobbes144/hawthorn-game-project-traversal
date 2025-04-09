@@ -192,34 +192,39 @@ void OBB::initializeDebugDraw(
   debugMesh = Mesh::getShapeMesh(Mesh::Cube);
 
   // Get debug material
-  debugMaterial = Material::getMaterial<DebugMaterial>("Debug", renderGraph);
+  debugMaterial = Material::getMaterial<DebugMaterial>("Debug");
 
   renderGraph->addPass<DebugPass>("DebugPass");
 }
 
 void OBB::debugDaw() {
-  assert(("OBB::DEBUGDRAW::NOT_INITIALIZED") && renderGraph);
+  assert(("OBB::DEBUGDRAW::NOT_IMPLEMENTED") && false);
 
-  const Vector3 worldHalfExtents = this->getHalfExtents();
-  const Vector3 worldCenter = this->getCenter();
+  // Todo: Need to rework the entire debug draw system to work with the new
+  // render system.
 
-  // Create model matrix that will transform our normalized box to the OBB's position and orientation
-  Matrix4 scale = Matrix4::scale(worldHalfExtents.x * 2, worldHalfExtents.y * 2, worldHalfExtents.z * 2);
-  Matrix4 rotation = Matrix4(
-    worldAxes[0].x, worldAxes[0].y, worldAxes[0].z, 0.0f,
-    worldAxes[1].x, worldAxes[1].y, worldAxes[1].z, 0.0f,
-    worldAxes[2].x, worldAxes[2].y, worldAxes[2].z, 0.0f,
-    0.0f, 0.0f, 0.0f, 1.0f
-  );
-  Matrix4 translation = Matrix4::translation(
-    unscaledWorldCenter.x, unscaledWorldCenter.y, unscaledWorldCenter.z);
-  Matrix4 model = translation * rotation * scale;
+  //assert(("OBB::DEBUGDRAW::NOT_INITIALIZED") && renderGraph);
 
-  debugMaterial->setProperty("ViewMatrix", camera->getViewMatrix());
-  debugMaterial->setProperty("ProjectionMatrix", camera->getProjectionMatrix());
-  debugMaterial->setProperty("ModelMatrix", model);
+  //const Vector3 worldHalfExtents = this->getHalfExtents();
+  //const Vector3 worldCenter = this->getCenter();
 
-  debugMaterial->draw(debugMesh);
+  //// Create model matrix that will transform our normalized box to the OBB's position and orientation
+  //Matrix4 scale = Matrix4::scale(worldHalfExtents.x * 2, worldHalfExtents.y * 2, worldHalfExtents.z * 2);
+  //Matrix4 rotation = Matrix4(
+  //  worldAxes[0].x, worldAxes[0].y, worldAxes[0].z, 0.0f,
+  //  worldAxes[1].x, worldAxes[1].y, worldAxes[1].z, 0.0f,
+  //  worldAxes[2].x, worldAxes[2].y, worldAxes[2].z, 0.0f,
+  //  0.0f, 0.0f, 0.0f, 1.0f
+  //);
+  //Matrix4 translation = Matrix4::translation(
+  //  unscaledWorldCenter.x, unscaledWorldCenter.y, unscaledWorldCenter.z);
+  //Matrix4 model = translation * rotation * scale;
+
+  //debugMaterial->setProperty("ViewMatrix", camera->getViewMatrix());
+  //debugMaterial->setProperty("ProjectionMatrix", camera->getProjectionMatrix());
+  //debugMaterial->setProperty("ModelMatrix", model);
+
+  //debugMaterial->draw(debugMesh);
 }
 
 bool OBB::raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const {

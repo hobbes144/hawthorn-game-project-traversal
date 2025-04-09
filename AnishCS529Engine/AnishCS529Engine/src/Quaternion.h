@@ -38,16 +38,24 @@ public:
     eulerVector(Vector3()) {}//, rotationMatrix(Matrix4()) {}
 
   // Getter functions for w, x, y, z
-  float w() const { return data[0]; }
-  float x() const { return data[1]; }
-  float y() const { return data[2]; }
-  float z() const { return data[3]; }
+  inline float w() const { return data[0]; }
+  inline float x() const { return data[1]; }
+  inline float y() const { return data[2]; }
+  inline float z() const { return data[3]; }
 
   // Setter functions for w, x, y, z
-  void setW(float w) { setDirty(); data[0] = w; }
-  void setX(float x) { setDirty(); data[1] = x; }
-  void setY(float y) { setDirty(); data[2] = y; }
-  void setZ(float z) { data[3] = z; }
+  inline void setW(float w) { setDirty(); data[0] = w; }
+  inline void setX(float x) { setDirty(); data[1] = x; }
+  inline void setY(float y) { setDirty(); data[2] = y; }
+  inline void setZ(float z) { data[3] = z; }
+
+  Vector3 forward();
+
+  // Computes the right vector
+  Vector3 right();
+
+  // Computes the up vector
+  Vector3 up();
 
   //friend Quaternion operator*(const Matrix4&, const Quaternion&);
 
@@ -96,6 +104,8 @@ public:
   static Quaternion fromEuler(const float pitch, const float yaw, const float roll);
   static Quaternion axisAngleToQuaternion(const Vector3& axis, float angle);
 };
+
+std::ostream& operator<<(std::ostream& os, const Quaternion& q);
 
 //Quaternion operator*(const Matrix4& mat, const Quaternion& quat) {
 //  return Quaternion(mat * quat);

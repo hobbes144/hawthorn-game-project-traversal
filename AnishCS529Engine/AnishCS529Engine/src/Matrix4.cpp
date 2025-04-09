@@ -592,6 +592,46 @@ Matrix4 Matrix4::rotationAxis(const Vector3& axis, float radians)
     );
 }
 
+Quaternion Matrix4::toQuaternion() const {
+  float trace = data[0][0] + data[1][1] + data[2][2]; // Sum of diagonal elements
+  Quaternion q;
+
+  if ( trace > 0.0f ) {
+    float s = sqrt(trace + 1.0f) * 2.0f;
+    q.setW(0.25f * s);
+    q.setX(( data[2][1] - data[1][2] ) / s);
+    q.setY(( data[0][2] - data[2][0] ) / s);
+    q.setZ(( data[1][0] - data[0][1] ) / s);
+  }
+  else {
+    if ( data[0][0] > data[1][1] && data[0][0] > data[2][2] ) {
+      float s = sqrt(1.0f + data[0][0] - data[1][1] - data[2][2]) * 2.0f;
+      q.setW(( data[2][1] - data[1][2] ) / s);
+      q.setX(0.25f * s);
+      q.setY(( data[0][1] + data[1][0] ) / s);
+      q.setZ(( data[0][2] + data[2][0] ) / s);
+    }
+    else if ( data[1][1] > data[2][2] ) {
+      float s = sqrt(1.0f + data[1][1] - data[0][0] - data[2][2]) * 2.0f;
+      q.setW(( data[0][2] - data[2][0] ) / s);
+      q.setX(( data[0][1] + data[1][0] ) / s);
+      q.setY(0.25f * s);
+      q.setZ(( data[1][2] + data[2][1] ) / s);
+    }
+    else {
+      float s = sqrt(1.0f + data[2][2] - data[0][0] - data[1][1]) * 2.0f;
+      q.setW(( data[1][0] - data[0][1] ) / s);
+      q.setX(( data[0][2] + data[2][0] ) / s);
+      q.setY(( data[1][2] + data[2][1] ) / s);
+      q.setZ(0.25f * s);
+    }
+  }
+
+
+  return q.normalized();
+
+}
+
 
 std::ostream& operator<<(std::ostream& os, const Matrix4& m) {
   const float* data = m.getData();

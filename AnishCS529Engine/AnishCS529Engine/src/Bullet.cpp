@@ -62,7 +62,7 @@ void onBulletHit(std::shared_ptr<GameObject> obj1, std::shared_ptr<GameObject> o
 //{
 //  auto bullet = std::make_shared<Bullet>(name);
 //  bullet->addComponent<Render2D>()
-//    ->setRenderer(renderer)->setCamera(camera)
+//    ->setRenderer(renderer)
 //    ->setMaterial(createSolidColorMaterial(color))
 //    ->setMesh(createSquareMesh(name));
 //

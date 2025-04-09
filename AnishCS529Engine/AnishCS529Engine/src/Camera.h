@@ -17,60 +17,62 @@
 #include <cassert>
 
 /* Base class */
-#include "GameObject.h"
+#include "Matrix4.h"
 
-class Camera : public GameObject {
+class Camera {
 public:
-  Camera(std::string name) : GameObject(name, GameObject::Tag::SYSTEM) {};
+  Camera(std::string _name) :
+    name(_name), position(Vector3()),
+    rotation(Quaternion(0.0f, 0.0f, 1.0f, 0.0f)),
+    exposure(1.0f)
+  {
+    forward = rotation.forward();
+    up = rotation.up();
+    right = rotation.right();
+    viewMatrix = Matrix4::lookAt(position, position + forward, up);
+    inverseViewMatrix = Matrix4::inverse(viewMatrix);
+  };
+
   ~Camera() = default;
 
   /* Component functions */
-  virtual void initialize();
-  virtual void update(float deltaTime);
-  virtual void shutdown();
+  virtual void update();
 
   /* Utility functions */
-  std::shared_ptr<Camera> setPerspectiveProjection(
+  void setPerspectiveProjection(
     const float fov,
     const float aspectRatio,
     const float near,
     const float far);
-  std::shared_ptr<Camera> setOrthographicProjection(
+  void setOrthographicProjection(
     const float left,
     const float right,
     const float bottom,
     const float top,
     const float near,
     const float far);
+  void setExposure(float _exposure) { exposure = _exposure; }
 
-  std::shared_ptr<Camera> lookAt(
-    const Vector3& target,
-    const Vector3& upVector);
-  std::shared_ptr<Camera> move(
-    const Vector3& direction,
-    float amount);
-  std::shared_ptr<Camera> rotate(
-    float roll,
-    float pitch,
-    float yaw
-  );
-
-  const Matrix4 getViewMatrix();
-  const Matrix4 getInverseViewMatrix();
+  const Matrix4& getViewMatrix();
+  const Matrix4& getInverseViewMatrix();
   const Matrix4& getProjectionMatrix();
+  const float& getExposure() { return exposure; }
 
-private:
+protected:
+  std::string name;
   Matrix4 viewMatrix;
   Matrix4 projectionMatrix;
   Matrix4 inverseViewMatrix;
-  Vector3 oldPosition = Vector3();
-  Quaternion oldRotation = Quaternion();
+  Vector3 position = Vector3();
+  Quaternion rotation = Quaternion();
 
-  Vector3 up;
-  Vector3 front;
+  float exposure;
+
+  Vector3 forward;
   Vector3 right;
+  Vector3 up;
 
-  void updateViewMatrix();
+  virtual void updateViewMatrix();
 };
 
 #endif // !CAMERA_H

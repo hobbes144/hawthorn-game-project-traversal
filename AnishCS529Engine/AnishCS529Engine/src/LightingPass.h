@@ -17,7 +17,7 @@
 class LightingPass : public RenderPass {
 public:
   LightingPass() : RenderPass() {
-    this->addShader("shaders/lighing.vert.glsl\nshaders/lighting.frag.glsl");
+    this->addShader("shaders/lighting.vert\nshaders/lighting.frag");
   };
 };
 
