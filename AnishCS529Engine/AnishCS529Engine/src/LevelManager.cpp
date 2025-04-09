@@ -514,10 +514,10 @@ void LevelManager::createPlayerObject()
 
 #pragma endregion
 
-    Vector3 LightDirection = Vector3(0.0f, -1.0f, 0.0f).normalized();
+    Vector3 LightDirection = Vector3(0.75f, -1.0f, 0.75f).normalized();
 
     mainSceneGraph.addAmbientLight(
-      AmbientLight(Vector3(1, 1, 1), 0.2f));
+      AmbientLight(Vector3(1, 1, 1), 0.3f));
     mainSceneGraph.addDirectionalLight(
       DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
 

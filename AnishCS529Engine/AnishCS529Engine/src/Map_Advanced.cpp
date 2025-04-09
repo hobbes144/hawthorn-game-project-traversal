@@ -52,7 +52,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         sceneGraph.addNode(testDoor);
         testDoor->setLocalPosition(Vector3(72.0f + offsetX, 66.0f + offsetY, -72.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
-        auto renderComp = testDoor->addComponent<Render2D>();
+        auto renderComp = testDoor->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BrownConcrete);
         auto shape = std::make_shared<OBB>();
         auto doorComp = testDoor->addComponent<Door>();
