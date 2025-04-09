@@ -72,7 +72,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     //    sceneGraph.addNode(mainFloor);
     //    mainFloor->setLocalPosition(Vector3(0.0f + offsetX, -25.0f + offsetY, 0.0f + offsetZ));
     //    mainFloor->setLocalScaling(Vector3(300.0f, 50.0f, 300.0f));
-    //    auto renderComp = mainFloor->addComponent<Render2D>();
+    //    auto renderComp = mainFloor->addComponent<Render3D>();
     //    renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
     //    auto shape = std::make_shared<OBB>();
     //    auto rigidBody = mainFloor->addComponent<RigidBody>();
@@ -817,5 +817,56 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         rigidBody->initialize();
     }
 
+    {
+        auto createFerrisWheel = [&](const std::string& name, const Vector3& center, int platformCount, float radius, float speed) {
+            for (int i = 0; i < platformCount; ++i) {
+                float initialAngle = (2.0f * 3.14159265f / platformCount) * i;
+                std::string platformName = name + "_" + std::to_string(i);
+                auto platform = std::make_shared<GameObject>(platformName);
+                sceneGraph.addNode(platform);
+                float xOffset = radius * std::cos(initialAngle);
+                float yOffset = radius * std::sin(initialAngle);
+                platform->setLocalPosition(center + Vector3(xOffset, yOffset, 0.0f));
+                platform->setLocalScaling(Vector3(16.0f, 4.0f, 16.0f));
+                platform->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
+                platform->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(concreteMaterial);
+                auto rigidBody = platform->addComponent<RigidBody>();
+                auto shape = std::make_shared<OBB>();
+                rigidBody->setMass(0.0f)->setDrag(1.0f)->setShape(shape)->setStatic(true)->registerToPhysicsManager(PhysicsManager::Instance());
+                rigidBody->initialize();
+                platform->addComponent<Animate>()->setAnimateFunction(
+                    [angle = initialAngle, center, radius, speed](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                            angle += deltaTime * speed;
+                            float newX = center.x + radius * std::cos(angle);
+                            float newY = center.y + radius * std::sin(angle);
+                            self->setLocalPosition(Vector3(newX, newY, center.z));
+                    }
+                )->runAnimateFunction(true);
+            }
+        };
+
+        writeLetter(sceneGraph, "media/Map/words/arrow.fbx", Vector3(59.0f + offsetX, 74.5f + offsetY, -105.0f + offsetZ),
+                Vector3(0.1f, 0.3f, 0.01f), Vector3(0.0f, 0.0f, 2.5f), BrownConcrete);
+
+        createFerrisWheel("Wheel1", Vector3(57.0f + offsetX, 70.0f + offsetY, -86.0f + offsetZ), 3, 20.0f, 5.3f);
+    }
+
+    {
+        auto checkPoint8 = std::make_shared<GameObject>("checkPoint8", GameObject::CHECKPOINT);
+        sceneGraph.addNode(checkPoint8);
+        checkPoint8->setLocalPosition(Vector3(120.5f + offsetX, 140.0f + offsetY, -86.0f + offsetZ));
+        checkPoint8->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+        auto renderComp = checkPoint8->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = checkPoint8->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+
+    }
 
 }
