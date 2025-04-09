@@ -9,15 +9,24 @@ void LevelManager::SystemInitalization()
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
+
     int windowWidth = mode->width;
     int windowHeight = mode->height;
 
     mainWindow = new GameWindow;
-    mainWindow->setTitle("EngineDemo")
-        ->setWidth(windowWidth)
-        ->setHeight(windowHeight)
-        ->setBorderlessFullscreen(true);
-    mainWindow->initialize(monitor);
+
+    if (isFullscreen) {
+        int windowWidth = mode->width;
+        int windowHeight = mode->height;
+        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(true);
+        mainWindow->initialize(monitor);
+    }
+    else {
+        int windowWidth = 1280;
+        int windowHeight = 720;
+        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(false);
+        mainWindow->initialize(nullptr);
+    }
 
     /* Renderer setup */
     mainRenderer = new Renderer;
@@ -58,17 +67,15 @@ void LevelManager::SystemInitalization()
 
     /* Audio System Initalization */
     AudioManager::instance().initialize();
-    AudioManager::instance().loadSound("pew", "media/audio/pew.mp3", true);
-    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", true, true);
-    AudioManager::instance().loadSound("radio", "media/audio/radio.wav", true, true);
-    AudioManager::instance().loadSound("bang", "media/audio/bang.mp3", true);
+    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", false, true);
     AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
     AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
     AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
     AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
+    AudioManager::instance().loadSound("hurt", "media/audio/hurt.mp3", true);
     
-    AudioManager::instance().playSound2D("music", 0.15f);
+    AudioManager::instance().playSound("music", Vector3(0.0f, 0.0f, 0.0f), 0.15f);
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
     /* Scenegraph setup */
@@ -87,31 +94,11 @@ void LevelManager::MeshMatInitializations()
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
 
-    // Box Material
-    boxMaterial = Material::getMaterial<TextureMaterial>("box");
-    boxMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    boxMaterial->setProperty("shininess", 10.0f);
-    boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
-    boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
-
-    // Floor Material
-    floorMaterial = Material::getMaterial<TextureMaterial>("floor");
-    floorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    floorMaterial->setProperty("shininess", 10.0f);
-    floorMaterial->addTexture("media/textures/6670-diffuse.jpg");
-    floorMaterial->addTexture("media/textures/6670-normal.jpg");
-
     // Concrete Material
     concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
     concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     concreteMaterial->setProperty("shininess", 10.0f);
     concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
-
-    // Grass Material
-    grassMaterial = Material::getMaterial<TextureMaterial>("grass");
-    grassMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    grassMaterial->setProperty("shininess", 10.0f);
-    grassMaterial->addTexture("media/textures/grass.jpg");
 
     // Cracks Material
     cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
@@ -119,12 +106,11 @@ void LevelManager::MeshMatInitializations()
     cracksMaterial->setProperty("shininess", 10.0f);
     cracksMaterial->addTexture("media/textures/cracks.png");
 
-    // Brick Material
-    brickMaterial = Material::getMaterial<TextureMaterial>("brick");
-    brickMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    brickMaterial->setProperty("shininess", 10.0f);
-    brickMaterial->addTexture("media/textures/Standard_red_pxr128.png");
-    brickMaterial->addTexture("media/textures/Standard_red_pxr128_normal.png");
+    // Sky Box Material
+    sphereMesh = Mesh::createSphereMesh("sphere", 32);
+    skyBoxMaterial = Material::getMaterial<MainTestMaterial>("skyBox", mainRenderer->getRenderGraph());
+    skyBoxMaterial.get()->addTexture("media/beach.jpg");
+    skyBoxMaterial.get()->setProperty("objectId", 1);
 
     // Additional Materials
 
@@ -158,6 +144,11 @@ void LevelManager::MeshMatInitializations()
     keyMaterial->setProperty("shininess", 20.0f);
     keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
 
+    //doorMaterial = Material::getMaterial<MainTestMaterial>("door", mainRenderer->getRenderGraph());
+    //doorMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
+    //doorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    //doorMaterial->setProperty("shininess", 20.0f);
+    //doorMaterial->addTexture("media/textures/door.png", 1.0f, 1.0f);
 
 #pragma endregion
 
@@ -180,6 +171,7 @@ void LevelManager::RunLevels()
     {
     case -1:
         LoadLevelMenu();
+        break;
     case 0:
         LoadLevel0();
         break;
@@ -218,7 +210,6 @@ void LevelManager::ExecuteMainLoop()
     float speed = 10.0f;
     float deltaTime = 0.0f;
     int expectedFrameRate = 60; // 1000;
-    static bool isFullscreen = true;
     static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
     mainFramerateController->setTargetFramerate(expectedFrameRate);
@@ -618,6 +609,10 @@ void LevelManager::initalizePlayerInLevel()
         activeSpawnPoint = startingPos3;
         activeSpawnRotation = startingRot3;
         break;
+    case 4:
+        activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
+        break;
     default:
         activeSpawnPoint = Vector3();
         break;
@@ -625,6 +620,6 @@ void LevelManager::initalizePlayerInLevel()
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
-    pbFPCController->respawnPlayer();
+    pbFPCController->respawnPlayer(true);
 
 }

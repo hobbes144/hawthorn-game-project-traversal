@@ -793,7 +793,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	}
 	else {
 		playsMusic = music;
-		if (playsMusic)  AudioManager::instance().playSound2D("music", 0.5f);
+		if (playsMusic)  AudioManager::instance().playSound("music", 0.15f);
 	}
 
 	//Frozen Mode
@@ -1193,7 +1193,7 @@ std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface()
 
 #pragma region Respawn
 
-void FirstPersonControllerComponent::respawnPlayer()
+void FirstPersonControllerComponent::respawnPlayer(bool silence)
 {
 
 	//Set the player state to Free
@@ -1206,6 +1206,10 @@ void FirstPersonControllerComponent::respawnPlayer()
 
 	//Set Position
 	body->setLocalPosition(respawnCheckpoint);
+
+	if (!silence) {
+		AudioManager::instance().playSound("hurt", body->getWorldPosition());
+	}
 
 	hp = maxHP;
 
@@ -1238,12 +1242,14 @@ void FirstPersonControllerComponent::takeDamage() {
 	timeSinceDamage = 0.0f;
 
 
-	// TODO: Sound
-	//AudioManager::instance().playSound("hurt", body->getWorldPosition());
+
 
 	// Respawn if no hp
 	if (hp <= 0) {
 		respawnPlayer();
+	}
+	else {
+		AudioManager::instance().playSound("hurt", body->getWorldPosition());
 	}
 
 	std::cerr << "Current HP: " << hp << "\n";

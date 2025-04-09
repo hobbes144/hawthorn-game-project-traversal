@@ -75,9 +75,10 @@ private:
 	LevelManager() = default;
 
 	//Level Counter
-	int currentLevel = 0;
+	int currentLevel = -1;
 	int numLevels = 6;
 	bool levelSwapFlag = false;
+	bool isFullscreen = true;
 
 	//Systems
 	GameWindow* mainWindow;

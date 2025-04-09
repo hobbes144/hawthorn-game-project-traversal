@@ -110,6 +110,10 @@ private:
 
     void victory(float offsetX, float offsetY, float offsetZ,
       SceneGraph& sceneGraph);
+
+    void writeLetter(SceneGraph& sceneGraph, const std::string& meshPath, const Vector3& position,
+        const Vector3& scale, const Vector3& rotation, std::shared_ptr<Camera> camera,
+        std::shared_ptr<Material> keyMaterial);
 };
 
 #endif // MAPLOADER_H
