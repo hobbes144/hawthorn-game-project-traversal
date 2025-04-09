@@ -83,7 +83,7 @@ void LevelManager::SystemInitalization()
 
     /* Audio System Initalization */
     AudioManager::instance().initialize();
-    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", true, true);
+    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", false, true);
     AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
     AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
     AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
