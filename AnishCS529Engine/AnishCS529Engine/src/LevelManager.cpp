@@ -110,22 +110,6 @@ void LevelManager::MeshMatInitializations()
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
 
-    // Box Material
-    boxMaterial = Material::getMaterial<MainTestMaterial>("box", mainRenderer->getRenderGraph());
-    boxMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
-    boxMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    boxMaterial->setProperty("shininess", 10.0f);
-    boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128.png");
-    boxMaterial->addTexture("media/textures/Brazilian_rosewood_pxr128_normal.png");
-
-    // Floor Material
-    floorMaterial = Material::getMaterial<MainTestMaterial>("floor", mainRenderer->getRenderGraph());
-    floorMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
-    floorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    floorMaterial->setProperty("shininess", 10.0f);
-    floorMaterial->addTexture("media/textures/6670-diffuse.jpg");
-    floorMaterial->addTexture("media/textures/6670-normal.jpg");
-
     // Concrete Material
     concreteMaterial = Material::getMaterial<MainTestMaterial>("concrete", mainRenderer->getRenderGraph());
     concreteMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
@@ -133,27 +117,12 @@ void LevelManager::MeshMatInitializations()
     concreteMaterial->setProperty("shininess", 10.0f);
     concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
 
-    // Grass Material
-    grassMaterial = Material::getMaterial<MainTestMaterial>("grass", mainRenderer->getRenderGraph());
-    grassMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
-    grassMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    grassMaterial->setProperty("shininess", 10.0f);
-    grassMaterial->addTexture("media/textures/grass.jpg");
-
     // Cracks Material
     cracksMaterial = Material::getMaterial<MainTestMaterial>("cracks", mainRenderer->getRenderGraph());
     cracksMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
     cracksMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     cracksMaterial->setProperty("shininess", 10.0f);
     cracksMaterial->addTexture("media/textures/cracks.png");
-
-    // Brick Material
-    brickMaterial = Material::getMaterial<MainTestMaterial>("brick", mainRenderer->getRenderGraph());
-    brickMaterial->setProperty("diffuse", Vector3(87.0f / 255.0f, 51.0f / 255.0f, 35.0f / 255.0f));
-    brickMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    brickMaterial->setProperty("shininess", 10.0f);
-    brickMaterial->addTexture("media/textures/Standard_red_pxr128.png");
-    brickMaterial->addTexture("media/textures/Standard_red_pxr128_normal.png");
 
     // Sky Box Material
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
@@ -198,7 +167,6 @@ void LevelManager::MeshMatInitializations()
     keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     keyMaterial->setProperty("shininess", 20.0f);
     keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
-
 
     //doorMaterial = Material::getMaterial<MainTestMaterial>("door", mainRenderer->getRenderGraph());
     //doorMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
