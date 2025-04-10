@@ -69,6 +69,13 @@ public:
         Music
     };
 
+    enum Difficulty {
+        EASY,
+        NORMAL,
+        HARD,
+        CHEATING
+    };
+
     struct AnchorInfo {
       char direction = '0';
       std::shared_ptr<GameObject> object = nullptr;
@@ -121,7 +128,7 @@ public:
         slideForce(50), slideCoolDown(1.4f), slideEffectTime(0.5f),
         slideBufferTime(0.2f), hasSlidSinceAnchored(false),
         wallRunSpeed(30), wallJumpForce(17),
-        sceneRoot(nullptr), isCreative(false)
+        sceneRoot(nullptr), isCreative(false), hp(1), maxHP(1), difficulty(NORMAL)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -154,6 +161,9 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
         setGPActionKey(Action _action, WORD _key);
 
+    //Setter for difficulty
+    std::shared_ptr<FirstPersonControllerComponent> setDifficulty(Difficulty diff);
+
     //Accessors
     bool getIsGrounded();
     std::shared_ptr<GameObject> getAnchoredSurface();
@@ -168,6 +178,9 @@ public:
 
     void takeDamage();
     int getHP() const { return hp; }
+    int getMaxHP() const { return maxHP; }
+    FirstPersonControllerComponent::Difficulty getDifficulty() const { return difficulty; }
+
 
 private:
     //Utility Functions
@@ -198,17 +211,21 @@ private:
     void physicsToAir();
     void physicsToAnchor();
 
+
     //PlayerState
     PlayerState playerState;
+    Difficulty difficulty;
     AnchorInfo anchorInfo;
     std::shared_ptr<GameObject> anchorSurface;
 
-    int hp = 1;
-    const int maxHP = 1;
+    int hp;
+    int maxHP;
     float timeSinceDamage = 0.0f;
     const float recoveryDelay = 5.0f;
     float damageCooldown = 0.5f;
     float damageTimer = 0.0f;
+
+
 
     //Respawn
     Vector3 respawnCheckpoint = Vector3(0.0f, 2.0f, 0.0f);
