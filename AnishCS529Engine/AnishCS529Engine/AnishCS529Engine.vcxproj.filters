@@ -785,8 +785,8 @@
     <ClInclude Include="src\RenderFlags.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
-    <ClInclude Include="src\PauseMenu.h">
-      <Filter>Engine\Header Files</Filter>
+    <ClInclude Include="src\GBufferPrepass.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
