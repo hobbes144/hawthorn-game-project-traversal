@@ -19,9 +19,15 @@
 #include "Mesh.h"
 #include "SceneGraph.h"
 #include "RenderPass.h"
+#include "RenderGraphBuilder.h"
+
+class Renderer;
+class GameWindow;
 
 class RenderGraph {
 public:
+  RenderGraph() = default;
+  ~RenderGraph() { delete renderGraphBuilder; }
 
   void initialize();
 
@@ -32,9 +38,16 @@ public:
   template <typename T>
   std::shared_ptr<T> getPass();
 
+  void setRenderer(Renderer* _renderer) { renderer = _renderer; }
+
+  Renderer* getRenderer() { return renderer; }
+
   void draw(SceneGraph* scene);
 
 private:
+  Renderer* renderer;
+  RenderGraphBuilder* renderGraphBuilder;
+
   std::vector<std::shared_ptr<RenderPass>> renderStack;
   unsigned int uboLights;
   unsigned int uboCamera;

@@ -40,6 +40,13 @@ TextureManager::TextureID TextureManager::createTexture(
   return createOpenGLTexture(textureInfo, data, textureParameters);
 }
 
+TextureManager::TextureID TextureManager::createTexture(
+  const TextureInfo& textureInfo, const void * data,
+  TextureParameters textureParameters)
+{
+  return createOpenGLTexture(textureInfo, data, textureParameters);
+}
+
 void TextureManager::setTextureParameters(TextureID id, TextureParameters textureParameters)
 {
   glBindTexture(TEXTURE_2D, id.id);
