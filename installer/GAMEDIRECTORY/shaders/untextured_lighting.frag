@@ -8,7 +8,6 @@
 const float pi = 3.14159265358979323846;
 
 in vec3 normalVec, lightVec, eyeVec;
-in vec2 texCoord;
 in vec3 tanVec;
 
 layout (binding = 0) uniform camera
@@ -40,16 +39,6 @@ layout (binding = 1) uniform lights
 uniform vec3 diffuse;   // Kd
 uniform vec3 specular;  // Ks
 uniform float shininess; // alpha exponent
-
-uniform bool useTexture;
-uniform sampler2D mainTexture;
-uniform vec2 mainTextureScale;
-
-uniform bool useNormalMap;
-uniform sampler2D normalMap;
-uniform vec2 normalMapScale;
-
-uniform bool HDR;
 
 out vec3 FragColor;
 
@@ -94,32 +83,6 @@ void main()
     float alpha = shininess;
 
     vec3 Ia = ambientLight.color * ambientLight.intensity;
-
-
-    // Texture mapping ...
-    // This section only calculates the Kd and modified uv for some objects.
-    // The modified uv ignores scaling, this is just to modify how textures
-    // are handled in general, such as flipping.
-    uv = texCoord;
-
-    vec2 scaledTexCoord = uv * mainTextureScale;
-      
-    vec4 color = texture(mainTexture, scaledTexCoord);
-    Kd = color.rgb;
-
-    // The normal map calc ...
-    if (useNormalMap) {
-      vec2 scaledTexCoord = uv * normalMapScale;
-      vec3 delta = texture(normalMap, scaledTexCoord).xyz;
-      delta = delta*2.0 - vec3(1.0);
-      vec3 T = normalize(tanVec);
-      vec3 B = normalize(cross(T,N));
-      N = delta.x*T + delta.y*B + delta.z*N;
-    }
-
-    if (HDR) {
-      Kd = toLinear(Kd);
-    }
     
     // The lighting calculation ...
     vec3 H = normalize(L+V);
@@ -135,8 +98,4 @@ void main()
     float D = ((alpha+2.0)/(2*M_PI))*(pow(HN,alpha));
     vec3 BRDF = (Kd/M_PI) + ((F*D)/(4*pow(max(LH,0.0000000001),2.0)));
     FragColor = ambientDiffuse + (Ii*LN*BRDF);
-
-    if (HDR) {
-      FragColor = toSRGB(FragColor);
-    }
 }
