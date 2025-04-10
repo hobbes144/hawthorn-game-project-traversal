@@ -158,6 +158,7 @@
     <ClInclude Include="src\DebugPass.h" />
     <ClInclude Include="src\GamePad.h" />
     <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\GBufferPrepass.h" />
     <ClInclude Include="src\GlobalVariables.h" />
     <ClInclude Include="src\KeyList.h" />
     <ClInclude Include="src\Lights.h" />
