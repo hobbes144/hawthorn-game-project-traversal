@@ -15,7 +15,7 @@
 
 #include "RenderFlags.h"
 #include "TextureManager.h"
-//#include "FBO.h"
+#include "FBO.h"
 
 class Renderer;
 
@@ -23,16 +23,16 @@ class RenderGraphBuilder {
 public:
   RenderGraphBuilder(Renderer* _renderer) : renderer(_renderer) {}
 
-  // FBO* createFBO(const std::string& name, std::vector<std::string> attachments);
+  FBO* createFBO(const std::string& name, std::vector<std::string> attachments);
   TextureManager::TextureID createTexture(const std::string& name);
 
-  // FBO* getFBO(const std::string& name);
+  FBO* getFBO(const std::string& name);
   TextureManager::TextureID getTexture(const std::string& name);
 
 private:
   Renderer* renderer;
   std::unordered_map<std::string, TextureManager::TextureID> textures;
-  //std::unordered_map<std::string, FBO*> fbos;
+  std::unordered_map<std::string, FBO*> fbos;
 };
 
 #endif // !RENDER_GRAPH_BUILDER_H

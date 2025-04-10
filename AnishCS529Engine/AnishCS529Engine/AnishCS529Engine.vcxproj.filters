@@ -477,6 +477,9 @@
     <ClCompile Include="src\RenderGraphBuilder.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\FBO.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Matrix4.h">
@@ -789,6 +792,9 @@
       <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderGraphBuilder.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FBO.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
   </ItemGroup>

@@ -43,6 +43,7 @@
     <ClCompile Include="src\DeathPlane.cpp" />
     <ClCompile Include="src\AttachedCamera.cpp" />
     <ClCompile Include="src\Door.cpp" />
+    <ClCompile Include="src\FBO.cpp" />
     <ClCompile Include="src\FreeCamera.cpp" />
     <ClCompile Include="src\InGameKey.cpp" />
     <ClCompile Include="src\KeyList.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="src\AttachedCamera.h" />
     <ClInclude Include="src\DeathPlane.h" />
     <ClInclude Include="src\Door.h" />
+    <ClInclude Include="src\FBO.h" />
     <ClInclude Include="src\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\FramerateController.inl">
       <FileType>Document</FileType>
