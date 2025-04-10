@@ -102,8 +102,9 @@ void GameObject::updateComponents(float deltaTime)
   }
 }
 
-void GameObject::draw(std::shared_ptr<Shader> shader) {
-  if (enabled && renderableComponent)
+void GameObject::draw(std::shared_ptr<Shader> shader, uint32_t renderMask) {
+  if (enabled && renderableComponent && 
+    renderableComponent->getRenderMask() & renderMask )
     renderableComponent->draw(shader);
 }
 

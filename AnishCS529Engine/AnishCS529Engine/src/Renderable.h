@@ -16,8 +16,14 @@
 #include "Component.h"
 
 class Renderable : public Component {
+protected:
+  uint32_t renderMask;
 public:
   virtual void draw(std::shared_ptr<Shader> shader) = 0;
+
+  virtual void setRenderMask(uint32_t _renderMask) { renderMask = _renderMask; }
+  virtual uint32_t getRenderMask() { return renderMask; }
+
 };
 
 #endif // !RENDERABLE_H

@@ -60,12 +60,6 @@ std::shared_ptr<Render3D> Render3D::setDrawMode(GLenum _drawMode) {
   return shared_from_this();
 }
 
-std::shared_ptr<Render3D> Render3D::setRenderMask(uint32_t _renderMask)
-{
-  renderMask = _renderMask;
-  return shared_from_this();
-}
-
 /*!****************************************************************************
  * \brief Dummy initialize function
  *
