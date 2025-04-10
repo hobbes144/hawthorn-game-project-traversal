@@ -889,7 +889,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 	//Check if the player is Respawning
 	if (isRespawning) {
-		respawnPlayer();
+		respawnPlayer(true,false);
 	}
 
 	//------------------------------STATES------------------------------//
@@ -1220,9 +1220,8 @@ std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface()
 
 #pragma region Respawn
 
-void FirstPersonControllerComponent::respawnPlayer(bool silence)
+void FirstPersonControllerComponent::respawnPlayer(bool silence, bool resetRotation)
 {
-
 
 	//Set the player state to Free
 	if (playerState != Free) {
@@ -1242,7 +1241,12 @@ void FirstPersonControllerComponent::respawnPlayer(bool silence)
 	hp = maxHP;
 
 	//Set Rotation
-	//body->setLocalRotation(respawnRotation);
+	if (resetRotation) {
+		body->setLocalRotation(respawnRotation);
+	}
+
+	body->updateTransforms();
+	camera->updateTransforms();
 
 }
 

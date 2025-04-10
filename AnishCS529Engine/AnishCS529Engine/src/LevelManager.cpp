@@ -476,6 +476,8 @@ void LevelManager::ShutdownLevels()
 
 }
 
+#pragma region LevelLoaders
+
 void LevelManager::LoadLevelMenu()
 {
 	MapLoader::instance().loadMap(-1, 0, 0, 0, mainSceneGraph);
@@ -510,6 +512,8 @@ void LevelManager::LoadLevel5()
 {
 	MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph);
 }
+
+#pragma endregion
 
 bool LevelManager::GameComplete()
 {
@@ -660,9 +664,9 @@ void LevelManager::initalizePlayerInLevel()
 		break;
 	}
 
-	auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
-	pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
-	pbFPCController->respawnPlayer(true);
+    auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
+    pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
+    pbFPCController->respawnPlayer(true, true);
 
 }
 
