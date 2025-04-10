@@ -63,10 +63,8 @@ void onDoorCollide(std::shared_ptr<GameObject> obj1,
 					Vector3 startPos = obj1->getLocalPosition();
 					obj1->addComponent<Animate>()->setAnimateFunction(
 						[velocity, startPos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
-							time += dt;
-							if (time >= 2.0f) {
-								self->setLocalPosition(startPos + velocity * time);
-								time = 0.0f;
+							if (time >= 4.0f) {
+								self->setLocalPosition(startPos + velocity * 4.0f);
 							}
 							else {
 								self->setLocalPosition(self->getLocalPosition() + velocity * dt);
@@ -105,10 +103,8 @@ void onDoorCollide(std::shared_ptr<GameObject> obj1,
 					Vector3 startPos = obj2->getLocalPosition();
 					obj2->addComponent<Animate>()->setAnimateFunction(
 						[velocity, startPos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
-							time += dt;
-							if (time >= 2.0f) {
-								self->setLocalPosition(startPos + velocity * time);
-								time = 0.0f;
+							if (time >= 4.0f) {
+								self->setLocalPosition(startPos + velocity * 4.0f);
 							}
 							else {
 								self->setLocalPosition(self->getLocalPosition() + velocity * dt);
