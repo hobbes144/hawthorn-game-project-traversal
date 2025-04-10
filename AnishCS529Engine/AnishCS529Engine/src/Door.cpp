@@ -38,10 +38,10 @@ void onDoorCollide(std::shared_ptr<GameObject> obj1,
         return !door->getRequiresKey() || (keys && keys->hasKey(door->getID()));
         };
 
-    if (D1) {
+    if (D1 && fpc2) {
         bool canOpen = keyCheckPassed(D1, keyList2);
         if (D1->getType() == Door::SET_DIFFICULTY) {
-            if (canOpen && fpc2) {
+            if (canOpen) {
                 // Set the player's difficulty.
                 FirstPersonControllerComponent::Difficulty diffMode = D1->getDifficultyMode();
                 fpc2->setDifficulty(diffMode);
@@ -67,10 +67,10 @@ void onDoorCollide(std::shared_ptr<GameObject> obj1,
             }
         }
     }
-    else if (D2) {
+    else if (D2 && fpc1) {
         bool canOpen = keyCheckPassed(D2, keyList1);
         if (D2->getType() == Door::SET_DIFFICULTY) {
-            if (canOpen && fpc1) {
+            if (canOpen) {
                 FirstPersonControllerComponent::Difficulty diffMode = D2->getDifficultyMode();
                 fpc1->setDifficulty(diffMode);
                 LevelManager::Instance().SetPlayerDifficulty(diffMode);
