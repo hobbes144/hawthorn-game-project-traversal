@@ -7,16 +7,18 @@
 #include "KeyList.h"
 #include "LevelManager.h"
 #include "RigidBody.h"
+#include "FirstPersonControllerComponent.h"  
 
 class Door : public RigidBody {
 public:
 	enum DoorType {
 		SLIDEUP,
 		NEXTLEVEL,
-		DISAPPEAR
+		DISAPPEAR,
+		SET_DIFFICULTY
 	};
 
-	Door() : id(0), LevelSwitched(false), type(DISAPPEAR), requiresKey(true), RigidBody() {}
+	Door() : id(0), LevelSwitched(false), type(DISAPPEAR), requiresKey(true), difficultyMode(FirstPersonControllerComponent::NORMAL), RigidBody() {}
 	~Door() = default;
 
 	void initialize();
@@ -30,12 +32,16 @@ public:
 	bool getRequiresKey();
 	void setRequiresKey(bool reqKey);
 
+	FirstPersonControllerComponent::Difficulty getDifficultyMode() const;
+	void setDifficultyMode(FirstPersonControllerComponent::Difficulty diffMode);
+
 private:
 	int id;
 	bool LevelSwitched;
 	DoorType type;
 	CollisionListener* doorListener;
 	bool requiresKey;
+	FirstPersonControllerComponent::Difficulty difficultyMode;
 };
 
 #endif

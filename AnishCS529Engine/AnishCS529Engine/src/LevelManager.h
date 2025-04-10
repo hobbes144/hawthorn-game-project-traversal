@@ -70,6 +70,9 @@ public:
 
 	void createPlayerObject();
 	void initalizePlayerInLevel();
+	void SetPlayerDifficulty(FirstPersonControllerComponent::Difficulty diff);
+
+	void resetToMenu();
 
 private:
 	LevelManager() = default;
@@ -79,6 +82,7 @@ private:
 	int numLevels = 6;
 	bool levelSwapFlag = false;
 	bool isFullscreen = true;
+	FirstPersonControllerComponent::Difficulty playerDifficulty = FirstPersonControllerComponent::NORMAL;
 
 	//Systems
 	GameWindow* mainWindow;
