@@ -66,6 +66,7 @@
     <ClCompile Include="src\RaycastManager.cpp" />
     <ClCompile Include="src\Render3D.cpp" />
     <ClCompile Include="src\RenderFlags.cpp" />
+    <ClCompile Include="src\RenderGraphBuilder.cpp" />
     <ClCompile Include="src\ReparentingTest.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\RendererStateSaver.h" />
     <ClInclude Include="src\RenderFlags.h" />
     <ClInclude Include="src\RenderGraph.h" />
+    <ClInclude Include="src\RenderGraphBuilder.h" />
     <ClInclude Include="src\RenderPass.h" />
     <ClInclude Include="src\rply.h" />
     <ClInclude Include="src\ShaderManager.h" />

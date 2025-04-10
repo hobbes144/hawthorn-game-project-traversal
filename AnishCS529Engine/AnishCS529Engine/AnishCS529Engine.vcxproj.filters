@@ -474,6 +474,9 @@
     <ClCompile Include="src\RenderFlags.cpp">
       <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderGraphBuilder.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\PauseMenu.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
@@ -787,6 +790,9 @@
     </ClInclude>
     <ClInclude Include="src\GBufferPrepass.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderGraphBuilder.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
