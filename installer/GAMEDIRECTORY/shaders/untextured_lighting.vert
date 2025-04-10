@@ -39,7 +39,6 @@ layout (binding = 1) uniform lights
 uniform mat4 ModelMatrix, InvModelMatrix;
 
 out vec3 normalVec, lightVec, eyeVec;
-out vec2 texCoord;
 out vec3 tanVec;
 
 void main()
@@ -58,6 +57,4 @@ void main()
     eyeVec = eyePos-worldPos;
 
     tanVec = mat3(ModelMatrix)*vertexTangent;
-
-    texCoord = vertexTexture;
 }
