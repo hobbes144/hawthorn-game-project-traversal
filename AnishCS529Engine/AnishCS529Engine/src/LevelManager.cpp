@@ -659,6 +659,9 @@ void LevelManager::SetPlayerDifficulty(FirstPersonControllerComponent::Difficult
     playerDifficulty = diff;
 }
 
+FirstPersonControllerComponent::Difficulty LevelManager::getDifficulty() const {
+    return playerDifficulty;
+}
 
 
 void LevelManager::resetToMenu()

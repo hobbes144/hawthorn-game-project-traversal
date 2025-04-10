@@ -3,6 +3,7 @@
 #include "Door.h"
 #include "DeathPlane.h"
 #include "InGameKey.h"
+#include "LevelManager.h"
 
 void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
                             SceneGraph& sceneGraph) {
@@ -213,21 +214,47 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     }
 
     // Checkpoint3
+
+
     {
-        auto checkPoint3 = std::make_shared<GameObject>("checkPoint3", GameObject::CHECKPOINT);
-        sceneGraph.addNode(checkPoint3);
-        checkPoint3->setLocalPosition(Vector3(-115.0f + offsetX, 16.0f + offsetY, -55.0f + offsetZ));
-        checkPoint3->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
-        auto renderComp = checkPoint3->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = checkPoint3->addComponent<RigidBody>();
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
+        if (LevelManager::Instance().getDifficulty() != FirstPersonControllerComponent::HARD) {
+            if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::NORMAL) {
+                auto checkPoint3 = std::make_shared<GameObject>("checkPoint3", GameObject::CHECKPOINT);
+                sceneGraph.addNode(checkPoint3);
+                checkPoint3->setLocalPosition(Vector3(-115.0f + offsetX, 16.0f + offsetY, -55.0f + offsetZ));
+                checkPoint3->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+                auto renderComp = checkPoint3->addComponent<Render3D>();
+                renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+                auto shape = std::make_shared<OBB>();
+                auto rigidBody = checkPoint3->addComponent<RigidBody>();
+                rigidBody->setMass(0.0f)
+                    ->setDrag(1.0f)
+                    ->setShape(shape)
+                    ->setStatic(true)
+                    ->registerToPhysicsManager(PhysicsManager::Instance());
+                rigidBody->initialize();
+            }
+            else {
+                auto checkPoint3 = std::make_shared<GameObject>("checkPoint3", GameObject::CHECKPOINT);
+                sceneGraph.addNode(checkPoint3);
+                checkPoint3->setLocalPosition(Vector3(-125.0f + offsetX, 16.0f + offsetY, -55.0f + offsetZ));
+                checkPoint3->setLocalScaling(Vector3(25.0f, 1.0f, 8.0f));
+                auto renderComp = checkPoint3->addComponent<Render3D>();
+                renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+                auto shape = std::make_shared<OBB>();
+                auto rigidBody = checkPoint3->addComponent<RigidBody>();
+                rigidBody->setMass(0.0f)
+                    ->setDrag(1.0f)
+                    ->setShape(shape)
+                    ->setStatic(true)
+                    ->registerToPhysicsManager(PhysicsManager::Instance());
+                rigidBody->initialize();
+
+            }
+
+        }
+
+
     }
 
     {
@@ -252,7 +279,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         auto checkPoint4 = std::make_shared<GameObject>("checkPoint4", GameObject::CHECKPOINT);
         sceneGraph.addNode(checkPoint4);
         checkPoint4->setLocalPosition(Vector3(-100.5f + offsetX, 22.0f + offsetY, -40.0f + offsetZ));
-        checkPoint4->setLocalScaling(Vector3(8.0f, 1.0f, 8.0f));
+        checkPoint4->setLocalScaling(Vector3(16.0f, 1.0f, 16.0f));
         auto renderComp = checkPoint4->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
         auto shape = std::make_shared<OBB>();
@@ -265,7 +292,71 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         rigidBody->initialize();
     }
 
-    //Maybe Deathplane DP
+    // Extra Road
+    if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::EASY) {
+            {
+            auto extraRoad = std::make_shared<GameObject>("extraRoad");
+            sceneGraph.addNode(extraRoad);
+            extraRoad->setLocalPosition(Vector3(-124.5f + offsetX, 24.0f + offsetY, -40.0f + offsetZ));
+            extraRoad->setLocalScaling(Vector3(32.0f, 1.0f, 16.0f));
+            auto renderComp = extraRoad->addComponent<Render3D>();
+            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            auto shape = std::make_shared<OBB>();
+            auto rigidBody = extraRoad->addComponent<RigidBody>();
+            rigidBody->setMass(0.0f)
+                ->setDrag(1.0f)
+                ->setShape(shape)
+                ->setStatic(true)
+                ->registerToPhysicsManager(PhysicsManager::Instance());
+            rigidBody->initialize();
+            
+        auto platformAnimate = extraRoad->addComponent<Animate>();
+        platformAnimate->setAnimateFunction(
+                [currentTime = 0.0f, initialPos = extraRoad->getLocalPosition().y, phase = 1.0f](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+
+
+                    deltaTime *= timeScale;
+
+                    /* Affine Transformation Variables */
+                    float affineSpeed = 5.0f;
+                    float affinePosVarianceZ = 5.0f;
+
+                    currentTime += deltaTime;
+
+                    if ((phase == -1.0f) && (initialPos - affinePosVarianceZ) > self->getWorldPosition().y)
+                        phase = 1.0f;
+                    else if ((phase == 1.0f) && (initialPos + affinePosVarianceZ) < self->getWorldPosition().y)
+                        phase = -1.0f;
+
+                    Vector3 velocity = Vector3(0.0f, affineSpeed * phase, 0.0f);
+
+                    Vector3 newPos = self->getWorldPosition() + (velocity * deltaTime);
+                    self->setWorldPosition(newPos);
+                }
+        );
+
+        platformAnimate->runAnimateFunction(true);
+    
+            }
+            {
+            auto JumpPad = std::make_shared<GameObject>("JumpPad");
+            sceneGraph.addNode(JumpPad);
+            JumpPad->setLocalPosition(Vector3(-133.0f + offsetX, 37.5f + offsetY, 38.0f + offsetZ));
+            JumpPad->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+            auto renderComp = JumpPad->addComponent<Render3D>();
+            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            auto shape = std::make_shared<OBB>();
+            auto rigidBody = JumpPad->addComponent<RigidBody>();
+            rigidBody->setMass(0.0f)
+                ->setDrag(1.0f)
+                ->setShape(shape)
+                ->setStatic(true)
+                ->registerToPhysicsManager(PhysicsManager::Instance());
+            rigidBody->initialize();
+        }
+    }
+
+
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
@@ -561,15 +652,29 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             float radius = 20.0f;
             float angularSpeed = 0.5f;
 
+            // Angular speed based on difficulty
+            auto difficulty = LevelManager::Instance().getDifficulty();
+            if (difficulty == FirstPersonControllerComponent::EASY) {
+                angularSpeed = -0.5f;
+            }
+            else if (difficulty == FirstPersonControllerComponent::NORMAL) {
+                angularSpeed = 0.5f;
+            }
+            else if (difficulty == FirstPersonControllerComponent::HARD) {
+                angularSpeed = 1.5f;
+            }
+
             platform->addComponent<Animate>()->setAnimateFunction(
                 [angle = initialAngle, center, radius, angularSpeed, dirFactor](std::shared_ptr<GameObject> self, float deltaTime) mutable {
-                    angle += deltaTime * angularSpeed * dirFactor;
-                    float xOffset = radius * std::cos(angle);
-                    float zOffset = radius * std::sin(angle);
-                    self->setLocalPosition(center + Vector3(xOffset, 0.0f, zOffset));
+                        angle += deltaTime * angularSpeed * dirFactor;
+                        float xOffset = radius * std::cos(angle);
+                        float zOffset = radius * std::sin(angle);
+                        self->setLocalPosition(center + Vector3(xOffset, 0.0f, zOffset));
                 }
             )->runAnimateFunction(true);
             };
+
+        float baseY = (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::EASY) ? 62.0f : 65.0f;
 
         // First set
         float startX = -90.0f;
@@ -578,7 +683,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         Vector3 scale(20.0f, 3.0f, 20.0f);
         int count = 0;
         for (float x = startX; x <= endX; x += step) {
-            Vector3 center(x + offsetX, 65.0f + offsetY, 115.0f + offsetZ);
+            Vector3 center(x + offsetX, baseY + offsetY, 115.0f + offsetZ);
 
             // Left side
             for (int i = 0; i < 4; i++) {
@@ -596,7 +701,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         // Second set
         count = 0;
         for (float x = startX; x <= endX - 10; x += step) {
-            Vector3 center(x + offsetX + 45.0f, 65.0f + offsetY, (115.0f + offsetZ) + 50.0f);
+            Vector3 center(x + offsetX + 45.0f, baseY + offsetY, (115.0f + offsetZ) + 50.0f);
 
             // Left side
             for (int i = 0; i < 4; i++) {
@@ -611,6 +716,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             count++;
         }
     }
+
+
 
 
 
@@ -750,6 +857,26 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         )->runAnimateFunction(true);
     }
 
+    // Extra checkpoint
+    if (LevelManager::Instance().getDifficulty() != FirstPersonControllerComponent::HARD) {
+
+        auto extraCheckpoint = std::make_shared<GameObject>("extraCheckpoint", GameObject::CHECKPOINT);
+        sceneGraph.addNode(extraCheckpoint);
+        extraCheckpoint->setLocalPosition(Vector3(130 + offsetX, 63.0f + offsetY, -73.0f + offsetZ));
+        extraCheckpoint->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+        auto renderComp = extraCheckpoint->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = extraCheckpoint->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+
+    }
+
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
@@ -767,6 +894,24 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         rigidBody->initialize();
     }
 
+    // Taller wall,easier to land in easy mode 
+    if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::EASY) {
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+        sceneGraph.addNode(wallRunWall);
+        wallRunWall->setLocalPosition(Vector3(125.0f + offsetX, 68.0f + offsetY, -40.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 50.0f));
+        auto renderComp = wallRunWall->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+    else
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
@@ -800,6 +945,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
 
     // Checkpoint7
     {
@@ -851,6 +997,26 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
                 Vector3(0.1f, 0.3f, 0.01f), Vector3(0.0f, 0.0f, 2.5f), BrownConcrete);
 
         createFerrisWheel("Wheel1", Vector3(57.0f + offsetX, 70.0f + offsetY, -86.0f + offsetZ), 3, 20.0f, 5.3f);
+    }
+
+    if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::EASY) {
+        {
+            auto extraPillar = std::make_shared<GameObject>("extraPillar");
+            sceneGraph.addNode(extraPillar);
+            extraPillar->setLocalPosition(Vector3(96 + offsetX, 63.0f + offsetY, -85.0f + offsetZ));
+            extraPillar->setLocalScaling(Vector3(12.0f, 126.0f, 12.0f));
+            auto renderComp = extraPillar->addComponent<Render3D>();
+            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            auto shape = std::make_shared<OBB>();
+            auto rigidBody = extraPillar->addComponent<RigidBody>();
+            rigidBody->setMass(0.0f)
+                ->setDrag(1.0f)
+                ->setShape(shape)
+                ->setStatic(true)
+                ->registerToPhysicsManager(PhysicsManager::Instance());
+            rigidBody->initialize();
+
+        }
     }
 
     {
@@ -908,6 +1074,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     }
 
     {
+
         auto movingWallRun = [&](const std::string& name, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir) {
             auto wall = std::make_shared<GameObject>(name, GameObject::RUNNABLE_WALL);
             sceneGraph.addNode(wall);
@@ -927,22 +1094,61 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             )->runAnimateFunction(true);
 
             };
-        movingWallRun("wallRight1", Vector3(105.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-        movingWallRun("wallLeft1", Vector3(135.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-        movingWallRun("wallRight2", Vector3(105.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-        movingWallRun("wallLeft2", Vector3(135.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-        movingWallRun("wallRight3", Vector3(105.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-        movingWallRun("wallLeft3", Vector3(135.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
 
-        movingWallRun("wallRight1", Vector3(105.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-        movingWallRun("wallLeft1", Vector3(135.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-        movingWallRun("wallRight2", Vector3(105.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-        movingWallRun("wallLeft2", Vector3(135.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-        movingWallRun("wallRight3", Vector3(105.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-        movingWallRun("wallLeft3", Vector3(135.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+        if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::HARD) {
+            movingWallRun("wallRight1", Vector3(105.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft1", Vector3(135.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight2", Vector3(105.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallLeft2", Vector3(135.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallRight3", Vector3(105.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft3", Vector3(135.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
 
-        movingWallRun("wallLeft4", Vector3(135.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, 20.0f));
-        movingWallRun("wallReft4", Vector3(105.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, -20.0f));
+            movingWallRun("wallRight1", Vector3(105.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft1", Vector3(135.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight2", Vector3(105.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft2", Vector3(135.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight3", Vector3(105.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft3", Vector3(135.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+
+            movingWallRun("wallLeft4", Vector3(135.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, 20.0f));
+            movingWallRun("wallReft4", Vector3(105.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, -20.0f));
+        }
+        else {
+            movingWallRun("wallRight1", Vector3(113.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft1", Vector3(127.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight2", Vector3(113.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallLeft2", Vector3(127.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallRight3", Vector3(113.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft3", Vector3(127.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+
+            movingWallRun("wallRight1", Vector3(113.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallLeft1", Vector3(127.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallRight2", Vector3(113.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft2", Vector3(127.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight3", Vector3(113.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallLeft3", Vector3(127.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+
+            movingWallRun("wallLeft4", Vector3(127.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, 20.0f));
+            movingWallRun("wallReft4", Vector3(113.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, -20.0f));
+            {
+                auto extraCheckpoint = std::make_shared<GameObject>("extraCheckpoint", GameObject::CHECKPOINT);
+                sceneGraph.addNode(extraCheckpoint);
+                extraCheckpoint->setLocalPosition(Vector3(120.5f + offsetX, 140.0f + offsetY, 20.0f + offsetZ));
+                extraCheckpoint->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+                auto renderComp = extraCheckpoint->addComponent<Render3D>();
+                renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+                auto shape = std::make_shared<OBB>();
+                auto rigidBody = extraCheckpoint->addComponent<RigidBody>();
+                rigidBody->setMass(0.0f)
+                    ->setDrag(1.0f)
+                    ->setShape(shape)
+                    ->setStatic(true)
+                    ->registerToPhysicsManager(PhysicsManager::Instance());
+                rigidBody->initialize();
+
+            }
+        }
+        
 
     }
 
@@ -974,15 +1180,27 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             }
             };
 
+        if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::HARD) {
+            createFerrisWheelZ("FerrisPlatformZ", Vector3(120.0f + offsetX, 160.0f + offsetY, 151.0f + offsetZ), 8, 30.0f, 0.2f);
+            createFerrisWheelZ("FerrisPlatformZ", Vector3(150.0f + offsetX, 160.0f + offsetY, 151.0f + offsetZ), 8, 30.0f, 0.1f);
+        }
+        else {
+            createFerrisWheelZ("FerrisPlatformZ", Vector3(120.0f + offsetX, 160.0f + offsetY, 151.0f + offsetZ), 8, 30.0f, -0.7f);
+        }
 
-        createFerrisWheelZ("FerrisPlatformZ", Vector3(120.0f + offsetX, 160.0f + offsetY, 151.0f + offsetZ), 8, 30.0f, 0.2f);
-        createFerrisWheelZ("FerrisPlatformZ", Vector3(150.0f + offsetX, 160.0f + offsetY, 151.0f + offsetZ), 8, 30.0f, 0.1f);
+
     }
 
     {
         auto checkPoint9 = std::make_shared<GameObject>("checkPoint9", GameObject::CHECKPOINT);
         sceneGraph.addNode(checkPoint9);
-        checkPoint9->setLocalPosition(Vector3(120.5f + offsetX, 162.0f + offsetY, 151.0f + offsetZ));
+        if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::HARD) {
+            checkPoint9->setLocalPosition(Vector3(120.5f + offsetX, 162.0f + offsetY, 151.0f + offsetZ));
+        }
+        else {
+            checkPoint9->setLocalPosition(Vector3(120.5f + offsetX, 162.0f + offsetY, 90.0f + offsetZ));
+        }
+        
         checkPoint9->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
         auto renderComp = checkPoint9->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
@@ -1013,6 +1231,23 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
 
+    }
+
+    if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::EASY) {
+        auto extraCheckpoint = std::make_shared<GameObject>("extraCheckpoint", GameObject::CHECKPOINT);
+        sceneGraph.addNode(extraCheckpoint);
+        extraCheckpoint->setLocalPosition(Vector3(120.5f + offsetX, 162.0f + offsetY, -135.0f + offsetZ));
+        extraCheckpoint->setLocalScaling(Vector3(12.0f, 1.0f, 30.0f));
+        auto renderComp = extraCheckpoint->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = extraCheckpoint->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
     }
 
     {
@@ -1073,7 +1308,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         auto checkPoint11 = std::make_shared<GameObject>("checkPoint11", GameObject::CHECKPOINT);
         sceneGraph.addNode(checkPoint11);
         checkPoint11->setLocalPosition(Vector3(-165.0f + offsetX, 135.0f + offsetY, -148.0f + offsetZ));
-        checkPoint11->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+        checkPoint11->setLocalScaling(Vector3(20.0f, 1.0f, 20.0f));
         auto renderComp = checkPoint11->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
         auto shape = std::make_shared<OBB>();
