@@ -4,6 +4,7 @@
 #include "RaycastHit.h"
 #include "RaycastManager.h"
 #include "RigidBody.h"
+#include "LevelManager.h"
 
 void FirstPersonControllerComponent::initialize() {
 	//Checks to make sure the values have been initialized
@@ -709,6 +710,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool music = input->isKeyPressed(ActionKey[Music]);
 	bool freezePressed = input->isKeyPressed(ActionKey[Freeze]);
 	float upMotion = input->isKeyHeld(ActionKey[Jump]) - input->isKeyHeld(ActionKey[Slide]);
+
 	//Mouse
 	float mouseXDelta = 0.0f;
 	float mouseYDelta = 0.0f;
@@ -1196,6 +1198,7 @@ std::shared_ptr<GameObject> FirstPersonControllerComponent::getAnchoredSurface()
 void FirstPersonControllerComponent::respawnPlayer(bool silence)
 {
 
+
 	//Set the player state to Free
 	if (playerState != Free) {
 		setState(Free);
@@ -1237,6 +1240,7 @@ void FirstPersonControllerComponent::takeDamage() {
 		return;
 
 	hp--;
+
 	// reset the damage timer
 	damageTimer = 0;   
 	timeSinceDamage = 0.0f;
@@ -1246,12 +1250,19 @@ void FirstPersonControllerComponent::takeDamage() {
 
 	// Respawn if no hp
 	if (hp <= 0) {
-		respawnPlayer();
+		if (difficulty == HARD) {
+			AudioManager::instance().playSound("hurt", body->getWorldPosition());
+			LevelManager::Instance().resetToMenu();
+			return;
+		}
+		else {
+			respawnPlayer();
+			
+		}
 	}
 	else {
 		AudioManager::instance().playSound("hurt", body->getWorldPosition());
 	}
-
 	std::cerr << "Current HP: " << hp << "\n";
 }
 
@@ -1263,4 +1274,22 @@ void FirstPersonControllerComponent::debugCheck()
 	
 	}
 
+}
+
+std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setDifficulty(Difficulty diff) {
+    difficulty = diff;
+    switch(diff) {
+        case EASY:
+            maxHP = 3;
+            break;
+        case NORMAL:
+        case HARD:
+            maxHP = 1;
+            break;
+        case CHEATING:
+            maxHP = 10;
+            break;
+    }
+    hp = maxHP;
+    return shared_from_this();
 }

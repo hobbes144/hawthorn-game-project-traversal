@@ -290,6 +290,9 @@ void LevelManager::ExecuteMainLoop()
                 default: continue;
                 }
                 if (mainInput->isKeyPressed(levelKey)) {
+                    if (level == 9) {
+                        resetToMenu();
+                    }
                     if (level < numLevels) {
                         currentLevel = level;
                         levelSwapFlag = true;
@@ -344,7 +347,28 @@ void LevelManager::ExecuteMainLoop()
         ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
         ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
         Vector3 listenerPos = AudioManager::instance().getListenerPosition();
-        ImGui::Text("Listener: x: %.2f  y: %.2f  z: %.2f", listenerPos.x, listenerPos.y, listenerPos.z);
+        ImGui::Text("HP: %d", fpc->getHP());
+        if (auto fpc = playerBox->findComponent<FirstPersonControllerComponent>()) {
+            std::string diffStr;
+            switch (fpc->getDifficulty()) {
+            case FirstPersonControllerComponent::EASY:
+                diffStr = "EASY";
+                break;
+            case FirstPersonControllerComponent::NORMAL:
+                diffStr = "NORMAL";
+                break;
+            case FirstPersonControllerComponent::HARD:
+                diffStr = "HARD";
+                break;
+            case FirstPersonControllerComponent::CHEATING:
+                diffStr = "CHEATING";
+                break;
+            default:
+                diffStr = "UNKNOWN";
+                break;
+            }
+            ImGui::Text("Difficulty: %s", diffStr.c_str());
+        }
 
 
         ImGui::End();
@@ -369,7 +393,7 @@ void LevelManager::checkPlayerBoundaries() {
     switch (currentLevel) {
     case 0:
         maxX = 10.0f; minX = -400.0f;
-        maxY = 100.0f; minY = -60.0f;
+        maxY = 100.0f; minY = -49.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 1:
@@ -399,6 +423,7 @@ void LevelManager::checkPlayerBoundaries() {
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
         if (fpc && !fpc->isCreativeMode()) {
             fpc->respawnPlayer();
+            
         }
     }
 }
@@ -575,6 +600,7 @@ void LevelManager::createPlayerObject()
         ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
         ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
 
+    playerBoxInputComponent->setDifficulty(playerDifficulty);
 #pragma endregion
 
 }
@@ -621,5 +647,18 @@ void LevelManager::initalizePlayerInLevel()
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
     pbFPCController->respawnPlayer(true);
+
+}
+
+void LevelManager::SetPlayerDifficulty(FirstPersonControllerComponent::Difficulty diff) {
+    playerDifficulty = diff;
+}
+
+
+
+void LevelManager::resetToMenu()
+{
+    currentLevel = -1;
+    levelSwapFlag = true;
 
 }
