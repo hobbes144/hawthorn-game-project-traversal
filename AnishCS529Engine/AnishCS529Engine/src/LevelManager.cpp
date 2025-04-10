@@ -431,7 +431,12 @@ void LevelManager::checkPlayerBoundaries() {
 
 void LevelManager::NextLevel()
 {
-    currentLevel++;
+    if (currentLevel == 4) {
+        currentLevel = -1;
+    }
+    else {
+        currentLevel++;
+    }
     levelSwapFlag = true;
 }
 

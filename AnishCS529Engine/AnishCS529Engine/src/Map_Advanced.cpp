@@ -265,6 +265,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         rigidBody->initialize();
     }
 
+    //Maybe Deathplane DP
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
@@ -281,6 +282,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
 
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
@@ -888,6 +890,24 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     }
 
     {
+        auto deathPlane = std::make_shared<GameObject>("deathPlane");
+        sceneGraph.addNode(deathPlane);
+        deathPlane->setLocalPosition(Vector3(120.0f + offsetX, 135.0f + offsetY, 25.0f + offsetZ));
+        deathPlane->setLocalScaling(Vector3(30.0f, 1.0f, 190.0f));
+        auto renderComp = deathPlane->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(cracksMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = deathPlane->addComponent<DeathPlane>();
+        rigidBody->setPlayerName("PlayerBox");
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    {
         auto movingWallRun = [&](const std::string& name, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir) {
             auto wall = std::make_shared<GameObject>(name, GameObject::RUNNABLE_WALL);
             sceneGraph.addNode(wall);
@@ -1043,8 +1063,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             )->runAnimateFunction(true);
             };
 
-        movingWallRun2("Wall1", Vector3(250.0f, 170.0f, -155.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-20.0f, 0.0f, 0.0f), 8);
-        movingWallRun2("Wall2", Vector3(200.0f, 170.0f, -140.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-20.0f, 0.0f, 0.0f), 8);
+        movingWallRun2("Wall1", Vector3(250.0f, 170.0f, -155.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-20.0f, 0.0f, 0.0f), 5);
+        movingWallRun2("Wall2", Vector3(200.0f, 170.0f, -140.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-20.0f, 0.0f, 0.0f), 5);
 
         //movingWallRun2("Wall3", Vector3(-172.0f, 140.0f, -210.0f), Vector3(1.0f, 20.0f, 40.0f), Vector3(0.0f, 0.0f, 30.0f), 8);
     }
