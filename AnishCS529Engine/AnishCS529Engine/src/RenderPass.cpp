@@ -44,7 +44,7 @@ void RenderPass::draw(
   applyProperties();
 
   shader->setDrawMode(drawMode);
-  sceneGraph->draw(shader);
+  sceneGraph->draw(shader, renderMask);
   shader->setDrawMode(NULL);
 }
 

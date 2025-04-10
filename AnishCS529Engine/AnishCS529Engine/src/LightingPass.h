@@ -15,9 +15,13 @@
 #include "RenderPass.h"
 
 class LightingPass : public RenderPass {
+protected:
+
 public:
   LightingPass() : RenderPass() {
     this->addShader("shaders/lighting.vert\nshaders/lighting.frag");
+
+    renderMask = RenderMask::LightingPass;
   };
 };
 

@@ -16,7 +16,10 @@
 
 class TextureMaterial : public Material {
 public:
-  TextureMaterial() = default;
+  TextureMaterial() {
+    // 0b0001 is the renderMask for the default lighting pass
+    defaultRenderMask = RenderMask::DefaultLit;
+  };
 
   TextureMaterial(
     const std::string& textureFile,

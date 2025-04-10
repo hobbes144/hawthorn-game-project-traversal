@@ -51,6 +51,7 @@ std::shared_ptr<Render3D> Render3D::setMesh(std::shared_ptr<Mesh> _mesh)
 std::shared_ptr<Render3D> Render3D::setMaterial(std::shared_ptr<Material> _material)
 {
   material = _material;
+  renderMask = _material->getDefaultRenderMask();
   return shared_from_this();
 }
 

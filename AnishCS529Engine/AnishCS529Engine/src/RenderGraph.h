@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <typeindex>
+
 #include "Mesh.h"
 #include "SceneGraph.h"
 #include "RenderPass.h"
@@ -24,19 +26,21 @@ public:
   void initialize();
 
   template <typename T>
-  std::shared_ptr<T> addPass(const std::string& name);
+  std::shared_ptr<T> addPass();
   template <typename T>
-  std::shared_ptr<T> addPass(const std::string& name, std::shared_ptr<T> pass);
+  std::shared_ptr<T> addPass(std::shared_ptr<T> pass);
   template <typename T>
-  std::shared_ptr<T> getPass(const std::string& name);
+  std::shared_ptr<T> getPass();
 
   void draw(SceneGraph* scene);
 
 private:
   std::vector<std::shared_ptr<RenderPass>> renderStack;
-  std::unordered_map<std::string, std::shared_ptr<RenderPass>> registeredPasses;
   unsigned int uboLights;
   unsigned int uboCamera;
+
+  std::unordered_map<uint32_t, size_t> maskSortIndex;
+  std::unordered_set<std::type_index> addedPassTypes;
 
   void initializeLightUBOs();
   void initializeCameraUBO();

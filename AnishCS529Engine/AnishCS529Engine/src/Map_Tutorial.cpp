@@ -51,7 +51,7 @@ Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
         arrow->setLocalPosition(Vector3(-396.0f + offsetX, -1.0f + offsetY, 4.0f + offsetZ));
         arrow->setLocalScaling(Vector3(0.01f, 0.01f, 0.01f));
         arrow->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
-        auto renderComp = arrow->addComponent<Render2D>();
+        auto renderComp = arrow->addComponent<Render3D>();
         renderComp->setMesh(arrowMesh)->setMaterial(BrownConcrete);
 
         arrow->addComponent<Animate>()->setAnimateFunction(
@@ -73,7 +73,7 @@ Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
         sceneGraph.addNode(pad);
         pad->setLocalPosition(Vector3(-396.0f + offsetX, -5.0f + offsetY, 4.0f + offsetZ));
         pad->setLocalScaling(Vector3(0.03f, 0.03f, 0.03f));
-        auto renderComp = pad->addComponent<Render2D>();
+        auto renderComp = pad->addComponent<Render3D>();
         renderComp->setMesh(padMesh)->setMaterial(concreteMaterial);
 
     }

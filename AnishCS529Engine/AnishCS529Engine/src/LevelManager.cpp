@@ -42,9 +42,9 @@ void LevelManager::SystemInitalization()
     int textureMode = 1;
 
     auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
-    mainRenderer->getRenderGraph()->addPass<SkydomePass>("skydome", skydomePass);
+    mainRenderer->getRenderGraph()->addPass<SkydomePass>(skydomePass);
 
-    auto lightingPass = mainRenderer->getRenderGraph()->addPass<LightingPass>("LightingPass");
+    auto lightingPass = mainRenderer->getRenderGraph()->addPass<LightingPass>();
 
     //mainWindow->setVsync(true);
 
