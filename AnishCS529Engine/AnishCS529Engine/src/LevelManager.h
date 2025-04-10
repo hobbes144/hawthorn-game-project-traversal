@@ -71,6 +71,7 @@ public:
 	void createPlayerObject();
 	void initalizePlayerInLevel();
 	void SetPlayerDifficulty(FirstPersonControllerComponent::Difficulty diff);
+	FirstPersonControllerComponent::Difficulty getDifficulty() const;
 
 	void resetToMenu();
 
