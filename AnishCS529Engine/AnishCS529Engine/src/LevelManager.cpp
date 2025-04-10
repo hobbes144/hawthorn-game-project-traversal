@@ -422,7 +422,7 @@ void LevelManager::checkPlayerBoundaries() {
         //std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
         if (fpc && !fpc->isCreativeMode()) {
-            fpc->respawnPlayer();
+            fpc->respawnPlayer(true);
             
         }
     }
