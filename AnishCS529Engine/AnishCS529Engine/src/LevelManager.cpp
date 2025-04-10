@@ -393,7 +393,7 @@ void LevelManager::checkPlayerBoundaries() {
     switch (currentLevel) {
     case 0:
         maxX = 10.0f; minX = -400.0f;
-        maxY = 100.0f; minY = -49.0f;
+        maxY = 100.0f; minY = -45.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 1:
