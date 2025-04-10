@@ -85,6 +85,10 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
         doorComp->initialize();
     }
 
+
+    writeLetter(sceneGraph, "media/Map/words/EASY.fbx", Vector3(6.8f + offsetX, 5.5f + offsetY, 19.0f + offsetZ),
+        Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, 0.0f, 0.0f), BrownConcrete);
+
     //Easy Difficulty
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
@@ -108,6 +112,8 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
         doorComp->initialize();
     }
 
+    writeLetter(sceneGraph, "media/Map/words/NORMAL.fbx", Vector3(0.2f + offsetX, 5.5f + offsetY, 19.0f + offsetZ),
+    Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, 0.0f, 0.0f), BrownConcrete);
     //Normal Difficulty
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
@@ -131,6 +137,8 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
         doorComp->initialize();
     }
 
+    writeLetter(sceneGraph, "media/Map/words/HARD.fbx", Vector3(-7.3f + offsetX, 5.5f + offsetY, 19.0f + offsetZ),
+    Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, 0.0f, 0.0f), BrownConcrete);
     //Hard Difficulty
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);

@@ -1016,7 +1016,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
                             wall->setLocalPosition(basePos);
                             wall->setLocalScaling(scale);
                             wall->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
-                            wall->addComponent<Render2D>()->setMesh(boxMesh)->setMaterial(concreteMaterial);
+                            wall->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(concreteMaterial);
                             auto rigidBody = wall->addComponent<RigidBody>();
                             rigidBody->setMass(0.0f)
                                 ->setDrag(1.0f)
