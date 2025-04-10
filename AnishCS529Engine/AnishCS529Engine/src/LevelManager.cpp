@@ -305,8 +305,9 @@ void LevelManager::ExecuteMainLoop()
             }
         }
 
-        for (int i = 0; i < 2; i++) {
-            PhysicsManager::Instance().update(1.0f / 120.0f);
+        while(mainFramerateController->shouldUpdatePhysics()) {
+            PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
+            mainFramerateController->consumePhysicsTime();
         }
 
         //Audio Update
@@ -465,6 +466,8 @@ void LevelManager::ShutdownLevels()
 
 }
 
+#pragma region LevelLoaders
+
 void LevelManager::LoadLevelMenu()
 {
     MapLoader::instance().loadMap(-1, 0, 0, 0, mainSceneGraph);
@@ -499,6 +502,8 @@ void LevelManager::LoadLevel5()
 {
     MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph);
 }
+
+#pragma endregion
 
 bool LevelManager::GameComplete()
 {
@@ -641,17 +646,18 @@ void LevelManager::initalizePlayerInLevel()
         activeSpawnRotation = startingRot3;
         break;
     case 4:
-        activeSpawnPoint = startingPos0;
-        activeSpawnRotation = startingRot0;
+        activeSpawnPoint = startingPos4;
+        activeSpawnRotation = startingRot4;
         break;
     default:
         activeSpawnPoint = Vector3();
+        activeSpawnRotation = Quaternion();
         break;
     }
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
-    pbFPCController->respawnPlayer(true);
+    pbFPCController->respawnPlayer(true, true);
 
 }
 
