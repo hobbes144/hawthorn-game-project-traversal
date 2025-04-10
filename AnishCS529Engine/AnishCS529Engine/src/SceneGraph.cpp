@@ -60,7 +60,9 @@ void SceneGraph::updateNode(const std::shared_ptr<Node>& node, float deltaTime) 
   
 }
 
-void SceneGraph::drawNode(const std::shared_ptr<Node>& node, std::shared_ptr<Shader> shader) {
+void SceneGraph::drawNode(
+  const std::shared_ptr<Node>& node,
+  std::shared_ptr<Shader> shader, uint32_t renderMask) {
   std::stack<std::shared_ptr<Node>> nodeDrawStack;
   nodeDrawStack.push(node);
   std::shared_ptr<Node> currNode;
@@ -70,7 +72,7 @@ void SceneGraph::drawNode(const std::shared_ptr<Node>& node, std::shared_ptr<Sha
     
     auto gameObjectNode = std::dynamic_pointer_cast<GameObject>( currNode );
     if ( gameObjectNode )
-      gameObjectNode->draw(shader);
+      gameObjectNode->draw(shader, renderMask);
 
     for ( auto child : currNode->getChildren() ) {
       nodeDrawStack.push(child);
@@ -78,8 +80,8 @@ void SceneGraph::drawNode(const std::shared_ptr<Node>& node, std::shared_ptr<Sha
   }
 }
 
-void SceneGraph::draw(std::shared_ptr<Shader> shader) {
-  drawNode(root, shader);
+void SceneGraph::draw(std::shared_ptr<Shader> shader, uint32_t renderMask) {
+  drawNode(root, shader, renderMask);
 }
 
 void SceneGraph::printSceneTree() {

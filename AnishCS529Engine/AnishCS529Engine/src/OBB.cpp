@@ -194,7 +194,7 @@ void OBB::initializeDebugDraw(
   // Get debug material
   debugMaterial = Material::getMaterial<DebugMaterial>("Debug");
 
-  renderGraph->addPass<DebugPass>("DebugPass");
+  //renderGraph->addPass<DebugPass>("DebugPass");
 }
 
 void OBB::debugDaw() {

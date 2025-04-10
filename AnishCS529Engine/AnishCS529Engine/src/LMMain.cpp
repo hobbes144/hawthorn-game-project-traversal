@@ -10,7 +10,14 @@ extern "C"
     __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
 
-int main() {
+#ifndef _DEBUG
+
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
+#endif
+
+int main()
+{
 
     LevelManager::Instance().SystemInitalization();
     LevelManager::Instance().MeshMatInitializations();

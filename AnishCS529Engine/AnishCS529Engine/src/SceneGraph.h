@@ -56,7 +56,9 @@ private:
   std::shared_ptr<RootNode> root;
   std::stack<std::shared_ptr<Node>> nodeUpdateStack;
 
-  void drawNode(const std::shared_ptr<Node>& node, std::shared_ptr<Shader> shader);
+  void drawNode(
+    const std::shared_ptr<Node>& node,
+    std::shared_ptr<Shader> shader, uint32_t renderMask);
 
 
   Lights lights;
@@ -79,7 +81,7 @@ public:
 
   void update(float deltaTime);
   void updateNode(const std::shared_ptr<Node>& node, float deltaTime);
-  void draw(std::shared_ptr<Shader> shader);
+  void draw(std::shared_ptr<Shader> shader, uint32_t renderMask);
   void printSceneTree();
 
   Vector3 getRootPosition() const { return root->getLocalPosition(); }

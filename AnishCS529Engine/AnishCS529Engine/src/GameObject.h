@@ -19,7 +19,7 @@
 
 /* Used classes */
 #include "Component.h"
-#include "Render2D.h"
+#include "Renderable.h"
 
 /*!****************************************************************************
  * \brief GameObject class that implements a single object in the scene
@@ -74,7 +74,8 @@ public:
   virtual void shutdown();
   virtual void updateComponents(float deltaTime);
 
-  virtual void draw(std::shared_ptr<Shader> shader);
+  virtual void draw(
+    std::shared_ptr<Shader> shader, uint32_t renderMask);
 
   /* Utility functions */
   template<typename T>
