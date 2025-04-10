@@ -10,7 +10,8 @@ extern "C"
     __declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
 
-int main() {
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
 
     LevelManager::Instance().SystemInitalization();
     LevelManager::Instance().MeshMatInitializations();
