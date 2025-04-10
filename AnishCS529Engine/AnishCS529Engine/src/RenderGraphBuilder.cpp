@@ -2,9 +2,14 @@
 #include "RenderGraphBuilder.h"
 #include "Renderer.h"
 
-FBO * RenderGraphBuilder::createFBO(const std::string & name, std::vector<std::string> attachments) {
-  FBO * fbo = new FBO();
+FBO* RenderGraphBuilder::createFBO(const std::string& name, std::vector<std::string> attachments) {
+  FBO* fbo = new FBO();
+  Renderer::Viewport viewport = renderer->getCurrentState().viewport;
+  fbo->setViewport(viewport.width, viewport.height);
+  fbo->initialize();
+  fbos[name] = fbo;
 
+  return fbo;
 }
 
 TextureManager::TextureID RenderGraphBuilder::createTexture(
@@ -16,8 +21,20 @@ TextureManager::TextureID RenderGraphBuilder::createTexture(
   textureInfo.format = TEXTURE_RGBA32F;
   TextureManager::TextureID texture = TextureManager::getInstance().createTexture(textureInfo);
   textures[name] = texture;
+
+  return texture;
+}
+
+FBO* RenderGraphBuilder::getFBO(const std::string & name) {
+  return fbos[name];
 }
 
 TextureManager::TextureID RenderGraphBuilder::getTexture(const std::string & name) {
   return textures[name];
+}
+
+void RenderGraphBuilder::clearFBOs() {
+  for ( const auto & [name, fbo] : fbos ) {
+    delete fbo;
+  }
 }

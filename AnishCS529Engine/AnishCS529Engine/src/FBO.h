@@ -11,6 +11,10 @@
  * texture.
  * 
  *****************************************************************************/
+#ifndef FBO_H
+#define FBO_H
+
+#pragma once
 
 #include "TextureManager.h"
 
@@ -32,3 +36,5 @@ public:
   // Unbind this FBO from the graphics pipeline;  graphics goes to screen by default.
   void unbindFBO();
 };
+
+#endif // !FBO_H
