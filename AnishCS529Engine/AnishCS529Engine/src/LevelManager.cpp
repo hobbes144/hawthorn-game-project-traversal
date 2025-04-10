@@ -383,9 +383,9 @@ void LevelManager::checkPlayerBoundaries() {
         maxZ = 11.0f; minZ = -11.0f;
         break;
     case 3:
-        maxX = 160.0f; minX = -160.0f;
-        maxY = 200.0f; minY = 5.0f;
-        maxZ = 200.0f; minZ = -160.0f;
+        maxX = 1000.0; minX = -1000.0;
+        maxY = 1000.0; minY = 5.0f;
+        maxZ = 1000.0; minZ = -1000.0;
         break;
     default:
         maxX = 1000.0f; minX = -1000.0f;

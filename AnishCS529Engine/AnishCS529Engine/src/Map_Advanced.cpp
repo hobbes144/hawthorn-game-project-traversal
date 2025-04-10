@@ -10,7 +10,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     // Create box around the map
     Vector3 center(offsetX, offsetY, offsetZ);
     auto createWall = [&](const std::string& name, const Vector3& localPos, const Vector3& localScale) {
-        auto wall = std::make_shared<GameObject>(name, GameObject::RUNNABLE_WALL);
+        auto wall = std::make_shared<GameObject>(name, GameObject::WALL);
         sceneGraph.addNode(wall);
         wall->setLocalPosition(center + localPos);
         wall->setLocalScaling(localScale);
@@ -50,7 +50,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(72.0f + offsetX, 66.0f + offsetY, -72.0f + offsetZ));
+        testDoor->setLocalPosition(Vector3(-171.0f + offsetX, 138.0f + offsetY, -148.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         auto renderComp = testDoor->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BrownConcrete);
@@ -873,7 +873,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         auto deathPlane = std::make_shared<GameObject>("deathPlane");
         sceneGraph.addNode(deathPlane);
         deathPlane->setLocalPosition(Vector3(120.0f + offsetX, 160.0f + offsetY, 10.0f + offsetZ));
-        deathPlane->setLocalScaling(Vector3(30.0f, 1.0f, 300.0f));
+        deathPlane->setLocalScaling(Vector3(90.0f, 1.0f, 300.0f));
         auto renderComp = deathPlane->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(cracksMaterial);
         auto shape = std::make_shared<OBB>();
@@ -920,6 +920,9 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         movingWallRun("wallLeft2", Vector3(135.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
         movingWallRun("wallRight3", Vector3(105.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
         movingWallRun("wallLeft3", Vector3(135.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+
+        movingWallRun("wallLeft4", Vector3(135.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, 20.0f));
+        movingWallRun("wallReft4", Vector3(105.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, -20.0f));
 
     }
 
@@ -973,4 +976,97 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         rigidBody->initialize();
 
     }
+
+    {
+        auto checkPoint10 = std::make_shared<GameObject>("checkPoint10", GameObject::CHECKPOINT);
+        sceneGraph.addNode(checkPoint10);
+        checkPoint10->setLocalPosition(Vector3(120.5f + offsetX, 162.0f + offsetY, -86.0f + offsetZ));
+        checkPoint10->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+        auto renderComp = checkPoint10->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = checkPoint10->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+
+    }
+
+    {
+        auto movingWallRun2 = [&](const std::string& name, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir, int platformCount) {
+            std::vector<std::shared_ptr<GameObject>> movingWalls;
+            float spawnInterval = 5.0f;
+            auto spawnTimer = std::make_shared<float>(0.0f);
+            auto spawnedCount = std::make_shared<int>(0);
+
+            auto spawner = std::make_shared<GameObject>("Spawner_" + name);
+            sceneGraph.addNode(spawner);
+
+            spawner->addComponent<Animate>()->setAnimateFunction(
+                [=](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                        *spawnTimer += deltaTime;
+                        if (*spawnedCount < platformCount && *spawnTimer >= spawnInterval) {
+                            *spawnTimer = 0.0f;
+                            std::string wallName = name + "_" + std::to_string(*spawnedCount);
+                            auto wall = std::make_shared<GameObject>(wallName, GameObject::RUNNABLE_WALL);
+                            sceneGraph.addNode(wall);
+                            wall->setLocalPosition(basePos);
+                            wall->setLocalScaling(scale);
+                            wall->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
+                            wall->addComponent<Render2D>()->setMesh(boxMesh)->setMaterial(concreteMaterial);
+                            auto rigidBody = wall->addComponent<RigidBody>();
+                            rigidBody->setMass(0.0f)
+                                ->setDrag(1.0f)
+                                ->setShape(std::make_shared<OBB>())
+                                ->setStatic(true)
+                                ->registerToPhysicsManager(PhysicsManager::Instance());
+                            rigidBody->initialize();
+                            wall->addComponent<Animate>()->setAnimateFunction(
+                                [moveVec = moveDir, basePos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
+                                            time += dt;
+                                            if (time >= 25.0f) {
+                                                self->setLocalPosition(basePos);
+                                                time = 0.0f;
+                                            }
+                                            else {
+                                                self->setLocalPosition(self->getLocalPosition() + moveVec * dt);
+                                            }
+                                }
+                            )->runAnimateFunction(true);
+                            movingWalls.push_back(wall);
+                            (*spawnedCount)++;
+                        }
+                }
+            )->runAnimateFunction(true);
+            };
+
+        movingWallRun2("Wall1", Vector3(250.0f, 170.0f, -155.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-20.0f, 0.0f, 0.0f), 8);
+        movingWallRun2("Wall2", Vector3(200.0f, 170.0f, -140.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-20.0f, 0.0f, 0.0f), 8);
+
+        //movingWallRun2("Wall3", Vector3(-172.0f, 140.0f, -210.0f), Vector3(1.0f, 20.0f, 40.0f), Vector3(0.0f, 0.0f, 30.0f), 8);
+    }
+
+    {
+        auto checkPoint11 = std::make_shared<GameObject>("checkPoint11", GameObject::CHECKPOINT);
+        sceneGraph.addNode(checkPoint11);
+        checkPoint11->setLocalPosition(Vector3(-165.0f + offsetX, 135.0f + offsetY, -148.0f + offsetZ));
+        checkPoint11->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
+        auto renderComp = checkPoint11->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = checkPoint11->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+
+    }
+
+
+
 }
