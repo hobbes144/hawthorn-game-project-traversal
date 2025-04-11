@@ -98,13 +98,13 @@ void LevelManager::MeshMatInitializations()
     digiMaterial = Material::getMaterial<TextureMaterial>("digi");
     digiMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     digiMaterial->setProperty("shininess", 10.0f);
-    digiMaterial->addTexture("media/textures/DigiPen_RGB_Red.jpg", 1.0f, 1.0f);
+    digiMaterial->addTexture("media/textures/DigiPenLogo.jpg", 1.0f, 1.0f);
 
     // FMOD Material
     fmodMaterial = Material::getMaterial<TextureMaterial>("fmod");
     fmodMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     fmodMaterial->setProperty("shininess", 10.0f);
-    fmodMaterial->addTexture("media/textures/fmod-thumb.jpg", 1.0f, 1.0f);
+    fmodMaterial->addTexture("media/textures/FmodLogo.jpg", 1.0f, 1.0f);
 
     // Concrete Material
     concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
@@ -198,9 +198,9 @@ void LevelManager::DisplayLogos()
       5000.0f);
 
     //Light Direction
-    Vector3 LightDirection = Vector3(1.0f, 0.0f, 0.0f).normalized();
+    Vector3 LightDirection = Vector3(-1.0f, 0.0f, 0.0f).normalized();
     sceneGraph.addAmbientLight(
-      AmbientLight(Vector3(1, 1, 1), 0.3f));
+      AmbientLight(Vector3(1, 1, 1), 1.0f));
     sceneGraph.addDirectionalLight(
       DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
 
