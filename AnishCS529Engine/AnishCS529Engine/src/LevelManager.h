@@ -51,6 +51,8 @@ public:
 
 	void MeshMatInitializations();
 
+	void DisplayLogos();
+
 	void RunLevels();
 	void ExecuteMainLoop();
 	void checkPlayerBoundaries();

@@ -159,6 +159,26 @@ void LevelManager::MeshMatInitializations()
 
 }
 
+void LevelManager::DisplayLogos()
+{
+
+    //Create Object
+    //Create Camera
+
+    bool displayingLogos = true;
+
+    int expectedFrameRate = 60;
+    static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
+
+    mainFramerateController->setTargetFramerate(expectedFrameRate);
+    mainSceneGraph.printSceneTree();
+
+    while (displayingLogos) {
+
+    }
+
+}
+
 void LevelManager::RunLevels()
 {
 
@@ -429,7 +449,6 @@ void LevelManager::checkPlayerBoundaries() {
     }
 }
 
-
 void LevelManager::NextLevel()
 {
     if (currentLevel == 4) {
@@ -615,8 +634,6 @@ void LevelManager::createPlayerObject()
 
 }
 
-
-
 void LevelManager::initalizePlayerInLevel()
 {
 
@@ -668,7 +685,6 @@ void LevelManager::SetPlayerDifficulty(FirstPersonControllerComponent::Difficult
 FirstPersonControllerComponent::Difficulty LevelManager::getDifficulty() const {
     return playerDifficulty;
 }
-
 
 void LevelManager::resetToMenu()
 {
