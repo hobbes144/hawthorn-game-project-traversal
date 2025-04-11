@@ -39,8 +39,7 @@ void FBO::setViewport(const int w, const int h) {
 void FBO::attachTexture(TextureManager::TextureID textureID) {
 
   glBindFramebuffer(GL_FRAMEBUFFER, fboID);
-
-  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachedTextures,
     GL_TEXTURE_2D, textureID, 0);
 
   // Check for completeness/correctness
@@ -49,7 +48,9 @@ void FBO::attachTexture(TextureManager::TextureID textureID) {
     printf("FBO Error: %d\n", status);
 
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+  attachedTextures++;
 }
 
-void FBO::bindFBO() { glBindFramebuffer(GL_FRAMEBUFFER, fboID); }
-void FBO::unbindFBO() { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
+void FBO::bind() { glBindFramebuffer(GL_FRAMEBUFFER, fboID); }
+void FBO::unbind() { glBindFramebuffer(GL_FRAMEBUFFER, 0); }

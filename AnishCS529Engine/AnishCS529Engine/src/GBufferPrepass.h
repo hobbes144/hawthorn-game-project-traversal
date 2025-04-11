@@ -22,11 +22,36 @@ public:
     renderMask = RenderMask::GBufferPrepass;
   }
 
+  virtual void initialize() {
+    renderGraphBuilder->createTexture("GBuffer_position");
+    renderGraphBuilder->createTexture("GBuffer_normal");
+    renderGraphBuilder->createTexture("GBuffer_diffuse");
+    renderGraphBuilder->createTexture("GBuffer_specular");
+    gbuffer = renderGraphBuilder->createFBO(
+      "GBuffer",
+      {
+        "GBuffer_position",
+        "GBuffer_normal",
+        "GBuffer_diffuse",
+        "GBuffer_specular"
+      });
+  }
+
   virtual void draw(
     std::shared_ptr<Camera> camera,
-    SceneGraph * scene) {
+    SceneGraph * scene) const {
+
+    gbuffer->bind();
+
+    RenderPass::draw(camera, scene);
+
+    gbuffer->unbind();
 
   }
+
+private:
+  FBO* gbuffer;
+
 };
 
 #endif // !G_BUFFER_PREPASS_H

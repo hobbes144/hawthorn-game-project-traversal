@@ -23,6 +23,7 @@ public:
   unsigned int fboID;
   unsigned int textureID;
   int width, height;  // Size of the texture.
+  unsigned int attachedTextures = 0;
 
   void initialize();
 
@@ -31,10 +32,10 @@ public:
   void attachTexture(TextureManager::TextureID textureID);
 
   // Bind this FBO to receive the output of the graphics pipeline.
-  void bindFBO();
+  void bind();
 
   // Unbind this FBO from the graphics pipeline;  graphics goes to screen by default.
-  void unbindFBO();
+  void unbind();
 };
 
 #endif // !FBO_H

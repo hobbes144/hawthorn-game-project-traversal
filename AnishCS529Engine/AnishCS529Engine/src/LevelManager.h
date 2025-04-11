@@ -14,7 +14,7 @@
 #include "FramerateController.h"
 #include "GameObject.h"
 #include "GameWindow.h"
-#include "GlobalVariables.h"
+#include "GBufferPrepass.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"

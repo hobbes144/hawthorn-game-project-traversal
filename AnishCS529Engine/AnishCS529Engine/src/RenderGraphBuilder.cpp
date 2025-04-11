@@ -9,6 +9,10 @@ FBO* RenderGraphBuilder::createFBO(const std::string& name, std::vector<std::str
   fbo->initialize();
   fbos[name] = fbo;
 
+  for (const auto& attachment : attachments) {
+    fbo->attachTexture(textures[attachment]);
+  }
+
   return fbo;
 }
 
