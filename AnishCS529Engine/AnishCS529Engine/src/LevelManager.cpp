@@ -328,6 +328,10 @@ void LevelManager::ExecuteMainLoop()
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        if (PauseMenu::Instance().isPaused()) {
+            std::cout << "Game Paused\n";
+            PauseMenu::Instance().run();
+        }
         //ImGui::SetNextWindowPos(ImVec2(10, 10)); // Position at top-left
         //ImGui::SetNextWindowBgAlpha(0.35f); // Make it semi-transparent
 
@@ -369,7 +373,6 @@ void LevelManager::ExecuteMainLoop()
             }
             ImGui::Text("Difficulty: %s", diffStr.c_str());
         }
-
 
         ImGui::End();
 
@@ -597,6 +600,7 @@ void LevelManager::createPlayerObject()
         ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
         ->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
         ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
+        ->setActionKey(FirstPersonControllerComponent::Pause, KEY_P)
         ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)

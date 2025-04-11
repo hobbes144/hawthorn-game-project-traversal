@@ -58,6 +58,7 @@
     <ClCompile Include="src\Map_Tutorial.cpp" />
     <ClCompile Include="src\Map_Tutorial2.cpp" />
     <ClCompile Include="src\Map_Victory.cpp" />
+    <ClCompile Include="src\PauseMenu.cpp" />
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\GamePad.cpp" />
     <ClCompile Include="src\Ray.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Movement.h" />
     <ClInclude Include="src\Movement3D.h" />
+    <ClInclude Include="src\PauseMenu.h" />
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\Quaternion.h" />
     <ClInclude Include="src\Ray.h" />

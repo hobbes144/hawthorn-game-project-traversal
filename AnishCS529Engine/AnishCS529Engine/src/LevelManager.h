@@ -11,6 +11,7 @@
 #include "FramerateController.h"
 #include "GameObject.h"
 #include "GameWindow.h"
+#include "GlobalVariables.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -20,6 +21,7 @@
 #include "MapLoader.h"
 #include "Movement3D.h"
 #include "OBB.h"
+#include "PauseMenu.h"
 #include "PhysicsBody.h"
 #include "PhysicsManager.h"
 #include "Ray.h"
@@ -33,8 +35,6 @@
 #include "SkydomePass.h"
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
-
-#include "GlobalVariables.h"
 
 
 class LevelManager {

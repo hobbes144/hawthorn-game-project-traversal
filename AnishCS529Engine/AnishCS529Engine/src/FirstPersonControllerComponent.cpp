@@ -710,6 +710,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool music = input->isKeyPressed(ActionKey[Music]);
 	bool freezePressed = input->isKeyPressed(ActionKey[Freeze]);
 	float upMotion = input->isKeyHeld(ActionKey[Jump]) - input->isKeyHeld(ActionKey[Slide]);
+	bool pause = input->isKeyPressed(ActionKey[Pause]);
 
 	//Mouse
 	float mouseXDelta = 0.0f;
@@ -807,6 +808,14 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		return;
 	}
 
+	//Pause Menu
+	if (isPaused) {
+		isPaused = !pause;
+	}
+	else {
+		isPaused = pause;
+	}
+	PauseMenu::Instance().setState(isPaused);
 
 	//Player HP system
 
