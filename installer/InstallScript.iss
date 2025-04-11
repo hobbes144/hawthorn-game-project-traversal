@@ -104,7 +104,7 @@ Source: ".\INSTALLERFILES\panel_image_*.bmp"; Flags: dontcopy
 Source: .\GAMEDIRECTORY\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ;Chris Onorati: You need to place any redists you want to install here under files, and then install them under the RUN section
-Source: ".\REDIST\VC_redist.x64.exe"; DestDir: {tmp}; Flags: deleteafterinstall
+;Source: ".\REDIST\VC_redist.x64.exe"; DestDir: {tmp}; Flags: deleteafterinstall
 
 ;Nick Shaw: This is for the directX exe
 Source: ".\REDIST\*"; DestDir: {tmp}; Flags: ignoreversion recursesubdirs createallsubdirs deleteafterinstall
@@ -135,7 +135,7 @@ Name: {commondesktop}\{#ApplicationName}; Filename: {app}\{#ApplicationName}.exe
 ;Reference this site to see how to do so: https://silentinstallhq.com/visual-c-redistributable-silent-install-master-list/
 
 [Run]
-Filename: {tmp}\VC_redist.x64.exe; Parameters: /q /Q /quiet /passive /silent /norestart /NORESTART /noreboot /NOREBOOT; StatusMsg: Installing Visual C++ {#CPlusPlusYearVersion} Redistributable...
+;Filename: {tmp}\VC_redist.x64.exe; Parameters: /q /Q /quiet /passive /silent /norestart /NORESTART /noreboot /NOREBOOT; StatusMsg: Installing Visual C++ {#CPlusPlusYearVersion} Redistributable...
 Filename: "{tmp}\dxsetup.exe"; Parameters: /silent; StatusMsg: Installing DirectX...; Flags: waituntilterminated
 Filename: {app}\{#ApplicationName}.exe; Description: {cm:LaunchProgram,{#ApplicationName}}; Flags: nowait postinstall skipifsilent
 
