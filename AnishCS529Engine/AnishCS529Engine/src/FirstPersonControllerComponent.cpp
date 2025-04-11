@@ -799,6 +799,13 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (playsMusic)  AudioManager::instance().playSound("music", 0.15f);
 	}
 
+	//back to start lobby
+	if (PauseMenu::Instance().isStart()) {
+		LevelManager::Instance().resetToMenu();
+		PauseMenu::Instance().setStart(false);
+		PauseMenu::Instance().setState(false);
+	}
+
 	//Pause Menu
 	bool inConsistent = false;
 	if (isPaused != PauseMenu::Instance().gameIsPaused()) {

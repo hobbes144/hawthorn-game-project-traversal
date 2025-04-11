@@ -1,3 +1,6 @@
+#ifndef LEVELMANAGER_H
+#define LEVELMANAGER_H
+
 #pragma once
 
 #include <windows.h>
@@ -129,3 +132,5 @@ private:
 	const float rad = PI / 180.0f;
 
 };
+
+#endif

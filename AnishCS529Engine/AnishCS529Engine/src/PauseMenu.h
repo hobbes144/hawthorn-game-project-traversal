@@ -35,11 +35,16 @@ public:
 
 	void setState(bool state);
 	bool gameIsPaused();
+	bool isQuit();
+	bool isStart();
+	void setStart(bool val);
 	void run();
 
 private:
 	PauseMenu() = default;
 	bool isPaused = false;
+	bool quit = false;
+	bool toStart = false;
 };
 
 #endif

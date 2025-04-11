@@ -10,6 +10,19 @@ bool PauseMenu::gameIsPaused() {
 	return isPaused;
 }
 
+bool PauseMenu::isQuit() {
+	return quit;
+}
+
+bool PauseMenu::isStart() {
+	return toStart;
+}
+
+void PauseMenu::setStart(bool val) {
+	toStart = val;
+	return;
+}
+
 void PauseMenu::run() {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -49,6 +62,16 @@ void PauseMenu::run() {
 	
 	if (ImGui::Button("Resume", ImVec2(buttonWidth, 40))) {
 		isPaused = false;
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (ImGui::Button("Back to Start", ImVec2(buttonWidth, 40))) {
+		toStart = true;
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (ImGui::Button("Quit", ImVec2(buttonWidth, 40))) {
+		quit = true;
 	}
 
 	ImGui::End();
