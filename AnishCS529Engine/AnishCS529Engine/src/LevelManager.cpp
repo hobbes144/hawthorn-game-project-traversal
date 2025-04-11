@@ -305,80 +305,81 @@ void LevelManager::ExecuteMainLoop()
             }
         }
 
-        for (int i = 0; i < 2; i++) {
-            PhysicsManager::Instance().update(1.0f / 120.0f);
-        }
-
-        //Audio Update
-        AudioManager::instance().update();
-        AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
-        if (mainInput->isKeyPressed(KEY_V)) {
-            AudioManager::instance().togglePlaybackSpeed(0.7f);
-        }
-        AudioManager::instance().setListenerPosition(playerBox->getWorldPosition());
-
         mainFramerateController->endFrame();
         mainSceneGraph.update(1.0f / 60.0f);
 
-        checkPlayerBoundaries();
         mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
 
-#pragma region IMGUI
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
         if (PauseMenu::Instance().gameIsPaused()) {
-            std::cout << "Game Paused\n";
+            std::cout << "Game Paused\n"; 
             PauseMenu::Instance().run();
         }
-        //ImGui::SetNextWindowPos(ImVec2(10, 10)); // Position at top-left
-        //ImGui::SetNextWindowBgAlpha(0.35f); // Make it semi-transparent
-
-        ImGui::Begin("Overlay", nullptr,
-            ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_AlwaysAutoResize |
-            ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoScrollbar |
-            ImGuiWindowFlags_NoInputs);
-
-        ImGui::Text("FPS: %.1f", mainFramerateController->getFPS());
-        ImGui::Text("Frametime: %f", mainFramerateController->getFrameTime());
-        ImGui::Text("RenderTime: %f", mainFramerateController->getRenderTime());
-
-        Vector3 playerPos = playerBox->getWorldTransform().getPosition();
-        ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
-        ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
-        Vector3 listenerPos = AudioManager::instance().getListenerPosition();
-        ImGui::Text("HP: %d", fpc->getHP());
-        if (auto fpc = playerBox->findComponent<FirstPersonControllerComponent>()) {
-            std::string diffStr;
-            switch (fpc->getDifficulty()) {
-            case FirstPersonControllerComponent::EASY:
-                diffStr = "EASY";
-                break;
-            case FirstPersonControllerComponent::NORMAL:
-                diffStr = "NORMAL";
-                break;
-            case FirstPersonControllerComponent::HARD:
-                diffStr = "HARD";
-                break;
-            case FirstPersonControllerComponent::CHEATING:
-                diffStr = "CHEATING";
-                break;
-            default:
-                diffStr = "UNKNOWN";
-                break;
+        else {
+            for (int i = 0; i < 2; i++) {
+                PhysicsManager::Instance().update(1.0f / 120.0f);
             }
-            ImGui::Text("Difficulty: %s", diffStr.c_str());
+            //Audio Update
+            AudioManager::instance().update();
+            AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
+            if (mainInput->isKeyPressed(KEY_V)) {
+                AudioManager::instance().togglePlaybackSpeed(0.7f);
+            }
+            AudioManager::instance().setListenerPosition(playerBox->getWorldPosition());
+
+            checkPlayerBoundaries();
         }
-
-        ImGui::End();
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-#pragma endregion
+//
+//#pragma region IMGUI
+//        ImGui_ImplOpenGL3_NewFrame();
+//        ImGui_ImplGlfw_NewFrame();
+//        ImGui::NewFrame();
+//        //ImGui::SetNextWindowPos(ImVec2(10, 10)); // Position at top-left
+//        //ImGui::SetNextWindowBgAlpha(0.35f); // Make it semi-transparent
+//
+//        ImGui::Begin("Overlay", nullptr,
+//            ImGuiWindowFlags_NoTitleBar |
+//            ImGuiWindowFlags_NoResize |
+//            ImGuiWindowFlags_AlwaysAutoResize |
+//            ImGuiWindowFlags_NoMove |
+//            ImGuiWindowFlags_NoScrollbar |
+//            ImGuiWindowFlags_NoInputs);
+//
+//        ImGui::Text("FPS: %.1f", mainFramerateController->getFPS());
+//        ImGui::Text("Frametime: %f", mainFramerateController->getFrameTime());
+//        ImGui::Text("RenderTime: %f", mainFramerateController->getRenderTime());
+//
+//        Vector3 playerPos = playerBox->getWorldTransform().getPosition();
+//        ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
+//        ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
+//        Vector3 listenerPos = AudioManager::instance().getListenerPosition();
+//        ImGui::Text("HP: %d", fpc->getHP());
+//        if (auto fpc = playerBox->findComponent<FirstPersonControllerComponent>()) {
+//            std::string diffStr;
+//            switch (fpc->getDifficulty()) {
+//            case FirstPersonControllerComponent::EASY:
+//                diffStr = "EASY";
+//                break;
+//            case FirstPersonControllerComponent::NORMAL:
+//                diffStr = "NORMAL";
+//                break;
+//            case FirstPersonControllerComponent::HARD:
+//                diffStr = "HARD";
+//                break;
+//            case FirstPersonControllerComponent::CHEATING:
+//                diffStr = "CHEATING";
+//                break;
+//            default:
+//                diffStr = "UNKNOWN";
+//                break;
+//            }
+//            ImGui::Text("Difficulty: %s", diffStr.c_str());
+//        }
+//
+//        ImGui::End();
+//
+//        ImGui::Render();
+//        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+//#pragma endregion
 
 
         mainRenderer->swapBuffers();

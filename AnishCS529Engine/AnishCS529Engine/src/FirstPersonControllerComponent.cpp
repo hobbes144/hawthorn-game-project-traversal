@@ -716,7 +716,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	float mouseXDelta = 0.0f;
 	float mouseYDelta = 0.0f;
 #pragma endregion
-	
+
 	//GamePad Input
 #pragma region GamePad
 	if (gp != nullptr) {
@@ -767,7 +767,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				isSliding = gp->isPressed(GamePadActionKey[Slide]);
 			if (gp->isPressed(GamePadActionKey[Respawn]))
 				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
-			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide])) 
+			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide]))
 				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
 			if (gp->isPressed(GamePadActionKey[Creative]))
 				creative = gp->isPressed(GamePadActionKey[Creative]);
@@ -799,23 +799,40 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		if (playsMusic)  AudioManager::instance().playSound("music", 0.15f);
 	}
 
-	//Frozen Mode
-	if (freezePressed) {
-		isFrozen = !isFrozen;
-		input->controlMouse(!isFrozen);
-	}
-	if (isFrozen) {
-		return;
-	}
-
 	//Pause Menu
+	bool inConsistent = false;
+	if (isPaused != PauseMenu::Instance().gameIsPaused()) {
+		isPaused = PauseMenu::Instance().gameIsPaused();
+		inConsistent = true;
+	}
+	
 	if (isPaused) {
 		isPaused = !pause;
+		if (isPaused) {
+			isFrozen = true;
+			input->controlMouse(!isFrozen);
+		}
+		else {
+			isFrozen = false;
+			input->controlMouse(!isFrozen);
+		}
 	}
 	else {
 		isPaused = pause;
+		if (inConsistent) {
+			freezePressed = true;
+		}
+		//Frozen Mode
+		if (freezePressed) {
+			isFrozen = !isFrozen;
+			input->controlMouse(!isFrozen);
+		}
 	}
 	PauseMenu::Instance().setState(isPaused);
+
+	if (isFrozen) {
+		return;
+	}
 
 	//Player HP system
 
@@ -1251,7 +1268,7 @@ void FirstPersonControllerComponent::takeDamage() {
 	hp--;
 
 	// reset the damage timer
-	damageTimer = 0;   
+	damageTimer = 0;
 	timeSinceDamage = 0.0f;
 
 
@@ -1266,7 +1283,7 @@ void FirstPersonControllerComponent::takeDamage() {
 		}
 		else {
 			respawnPlayer();
-			
+
 		}
 	}
 	else {
@@ -1278,27 +1295,27 @@ void FirstPersonControllerComponent::takeDamage() {
 void FirstPersonControllerComponent::debugCheck()
 {
 	if (input->isKeyPressed(ActionKey[Debug])) {
-		
+
 		std::cout << "Here" << std::endl;
-	
+
 	}
 
 }
 
 std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setDifficulty(Difficulty diff) {
-    difficulty = diff;
-    switch(diff) {
-        case EASY:
-            maxHP = 3;
-            break;
-        case NORMAL:
-        case HARD:
-            maxHP = 1;
-            break;
-        case CHEATING:
-            maxHP = 10;
-            break;
-    }
-    hp = maxHP;
-    return shared_from_this();
+	difficulty = diff;
+	switch (diff) {
+	case EASY:
+		maxHP = 3;
+		break;
+	case NORMAL:
+	case HARD:
+		maxHP = 1;
+		break;
+	case CHEATING:
+		maxHP = 10;
+		break;
+	}
+	hp = maxHP;
+	return shared_from_this();
 }

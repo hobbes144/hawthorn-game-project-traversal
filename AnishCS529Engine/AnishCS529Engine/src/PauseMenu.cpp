@@ -1,5 +1,6 @@
 #include "precompiled.h"
 #include "PauseMenu.h"
+#include "imgui.h"
 
 void PauseMenu::setState(bool state) {
 	isPaused = state;
@@ -11,22 +12,41 @@ bool PauseMenu::gameIsPaused() {
 }
 
 void PauseMenu::run() {
-    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
 
-    // Set next window to cover the entire screen
-    ImGui::SetNextWindowPos(ImVec2(0, 0));
-    ImGui::SetNextWindowSize(displaySize);
+	// Get the display size
+	ImVec2 displaySize = ImGui::GetIO().DisplaySize;
 
-    // Optional: dim the background
-    ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-    drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 128));
+	// Set next window to cover the entire screen
+	ImGui::SetNextWindowPos(ImVec2(0, 0));
+	ImGui::SetNextWindowSize(displaySize);
 
-    // Center the menu
-    ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
+	// Make it fullscreen, without decorations or inputs leaking through
+	ImGui::Begin("Pause Menu", nullptr,
+		ImGuiWindowFlags_NoDecoration |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoSavedSettings |
+		ImGuiWindowFlags_NoFocusOnAppearing |
+		ImGuiWindowFlags_NoBringToFrontOnFocus);
 
-    ImGui::Text("Paused");
-    
-    if (ImGui::Button("Resume", ImVec2(200, 200))) {
-        isPaused = false;
-    }
+	// Optional: dim the background
+	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 128));
+
+	// Center the menu
+	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
+	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 50)); // Adjust as needed
+
+	ImGui::Text("Paused");
+	if (ImGui::Button("Resume", ImVec2(200, 40))) {
+		isPaused = false;
+	}
+
+	ImGui::End();
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

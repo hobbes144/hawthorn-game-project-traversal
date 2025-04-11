@@ -18,6 +18,8 @@
 #include "FirstPersonControllerComponent.h"
 #include "GamePad.h"
 #include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 #include "Input.h"
 
 class PauseMenu {
