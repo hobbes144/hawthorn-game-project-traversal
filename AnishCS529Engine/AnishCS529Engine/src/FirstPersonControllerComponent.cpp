@@ -830,10 +830,6 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	}
 	PauseMenu::Instance().setState(isPaused);
 
-	if (isFrozen) {
-		return;
-	}
-
 	//Player HP system
 
 	if (damageTimer < damageCooldown)
@@ -849,6 +845,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 	}
 
+	//Frozen Mode
+	if (isFrozen) {
+		return;
+	}
 
 	//-----Handling Camera Movement-----//
 #pragma region Camera

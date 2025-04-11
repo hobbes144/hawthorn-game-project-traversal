@@ -21,6 +21,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "Input.h"
+#include "stb/stb_image.h"
 
 class PauseMenu {
 public:
