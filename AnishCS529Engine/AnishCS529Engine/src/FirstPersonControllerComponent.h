@@ -172,7 +172,7 @@ public:
 
 
     //Respawn
-    void respawnPlayer(bool silence = false);
+    void respawnPlayer(bool silence = false, bool resetRotation = false);
     void setRespawnCheckpoint(Vector3 _checkpoint, Quaternion _rotation);
     Vector3 getRespawnCheckpoint();
 

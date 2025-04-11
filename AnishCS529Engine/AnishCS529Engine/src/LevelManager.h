@@ -71,6 +71,7 @@ public:
 	void createPlayerObject();
 	void initalizePlayerInLevel();
 	void SetPlayerDifficulty(FirstPersonControllerComponent::Difficulty diff);
+	FirstPersonControllerComponent::Difficulty getDifficulty() const;
 
 	void resetToMenu();
 
@@ -117,13 +118,15 @@ private:
 	//Player References
 	std::shared_ptr<GameObject> playerBox;
 	Vector3 startingPos0 = Vector3(0.0f, 7.0f, 0.0f);
-	Quaternion startingRot0 = Quaternion(0.0f, 0.0f, 0.0f);
+	Quaternion startingRot0 = Quaternion::fromEuler(Vector3(0.0f,0.5f*3.14159f,0.0f));
 	Vector3 startingPos1 = Vector3(0.0f, 7.0f, 0.0f);
-	Quaternion startingRot1 = Quaternion();
+	Quaternion startingRot1 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
 	Vector3 startingPos2 = Vector3(0.0f, 7.0f, 0.0f);
-	Quaternion startingRot2 = Quaternion();
+	Quaternion startingRot2 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
 	Vector3 startingPos3 = Vector3(-131.0f, 7.0f, -130.0f);
-	Quaternion startingRot3 = Quaternion();
+	Quaternion startingRot3 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
+	Vector3 startingPos4 = Vector3(0.0f, 7.0f, 0.0f);
+	Quaternion startingRot4 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
 
 	const float rad = PI / 180.0f;
 
