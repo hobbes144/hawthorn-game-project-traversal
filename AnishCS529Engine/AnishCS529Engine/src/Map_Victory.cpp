@@ -4,6 +4,7 @@
 #include "DeathPlane.h"
 #include "InGameKey.h"
 
+
 void MapLoader::victory(float offsetX, float offsetY, float offsetZ,
                             SceneGraph& sceneGraph) {
 
@@ -55,5 +56,26 @@ void MapLoader::victory(float offsetX, float offsetY, float offsetZ,
         auto renderComp = letter->addComponent<Render3D>();
         renderComp->setMesh(youwin)->setMaterial(keyMaterial);
 
+    }
+
+    {
+        auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
+        sceneGraph.addNode(testDoor);
+        testDoor->setLocalPosition(Vector3(0.0f + offsetX, 2.5f + offsetY, 9.0f + offsetZ));
+        testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
+        testDoor->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
+        auto renderComp = testDoor->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(BrownConcrete);
+        auto shape = std::make_shared<OBB>();
+        auto doorComp = testDoor->addComponent<Door>();
+        doorComp->setID(0);
+        doorComp->setType(Door::NEXTLEVEL);
+        doorComp->setRequiresKey(false);
+        doorComp->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        doorComp->initialize();
     }
 }
