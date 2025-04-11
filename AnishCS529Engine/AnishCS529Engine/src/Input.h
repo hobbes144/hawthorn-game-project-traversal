@@ -94,6 +94,10 @@ public:
   Input() = default;
   ~Input() = default;
 
+  /*Input Frame*/
+  void beginFrame();
+  void endFrame();
+
   /* Component functions */
   void initialize();
   void update();
@@ -116,6 +120,8 @@ public:
   void getMousePosition(double& x, double& y) const;
   void getMouseDelta(double& dx, double& dy) const;
   bool isMouseButtonDown(int button) const;
+  bool isMouseButtonPressed(int button) const;
+  bool isMouseButtonReleased(int button) const;
   void resetMouseDelta();
 
   void controlMouse(bool capture);
@@ -126,6 +132,7 @@ private:
   /** Map of key states for each registered key */
   std::unordered_map<Key, KeyState> keyStates;
   /** State of the Mouse */
+  MouseState prevMouseState;
   MouseState mouseState;
 
   void registerKey(Key k);

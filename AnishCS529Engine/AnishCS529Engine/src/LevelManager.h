@@ -84,7 +84,7 @@ private:
 	int currentLevel = -1;
 	int numLevels = 6;
 	bool levelSwapFlag = false;
-	bool isFullscreen = true;
+	bool isFullscreen = false;
 	FirstPersonControllerComponent::Difficulty playerDifficulty = FirstPersonControllerComponent::NORMAL;
 
 	//Systems
@@ -116,6 +116,8 @@ private:
 	std::shared_ptr<TextureMaterial> WhiteFloorTiles;
 	std::shared_ptr<TextureMaterial> skyBoxMaterial;
 	std::shared_ptr<TextureMaterial> keyMaterial;
+	std::shared_ptr<TextureMaterial> digiMaterial;
+	std::shared_ptr<TextureMaterial> fmodMaterial;
 
 	//Player References
 	std::shared_ptr<GameObject> playerBox;

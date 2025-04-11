@@ -94,6 +94,18 @@ void LevelManager::MeshMatInitializations()
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
 
+    // Digi Material
+    digiMaterial = Material::getMaterial<TextureMaterial>("digi");
+    digiMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    digiMaterial->setProperty("shininess", 10.0f);
+    digiMaterial->addTexture("media/textures/DigiPen_RGB_Red.jpg", 1.0f, 1.0f);
+
+    // FMOD Material
+    fmodMaterial = Material::getMaterial<TextureMaterial>("fmod");
+    fmodMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    fmodMaterial->setProperty("shininess", 10.0f);
+    fmodMaterial->addTexture("media/textures/fmod-thumb.jpg", 1.0f, 1.0f);
+
     // Concrete Material
     concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
     concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
@@ -161,18 +173,55 @@ void LevelManager::MeshMatInitializations()
 
 void LevelManager::DisplayLogos()
 {
+    SceneGraph sceneGraph;
 
     //Create Object
+    auto Logo = std::make_shared<GameObject>("Logo");
+    sceneGraph.addNode(Logo);
+    Logo->setLocalPosition(Vector3(0.0f, 0.0f, -10.0f));
+    Logo->setLocalScaling(Vector3(15.0f, 8.5f, 0.005f));
+    auto renderComp = Logo->addComponent<Render3D>();
+    renderComp->setMesh(boxMesh)->setMaterial(digiMaterial);
+    
     //Create Camera
+    auto cam = cameraGameObject = std::make_shared<GameObject>("logoCamera");
+    sceneGraph.addNode(cam);
+    auto cameraLogo = std::make_shared<AttachedCamera>("logoCamera");
+    cameraLogo->attachToNode(cameraGameObject);
+    sceneGraph.addCamera(cameraLogo);
+
+    //Perspective
+    cameraLogo->setPerspectiveProjection(
+      45.0f * 3.14159f / 180.0f,
+      mainWindow->getAspectRatio(),
+      0.1f,
+      5000.0f);
+
+    //Light Direction
+    Vector3 LightDirection = Vector3(1.0f, 0.0f, 0.0f).normalized();
+    sceneGraph.addAmbientLight(
+      AmbientLight(Vector3(1, 1, 1), 0.3f));
+    sceneGraph.addDirectionalLight(
+      DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
+
+    //Count the Logos
+    float logoTimer = 0.0f;
+    float logoDuration = 5.0f;
+    int currentLogo = 0;
+    int numLogos = 2;
 
     int expectedFrameRate = 60;
     static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
     mainFramerateController->setTargetFramerate(expectedFrameRate);
-    mainSceneGraph.printSceneTree();
+    sceneGraph.printSceneTree();
 
-    while (displayingLogos) {
+    bool mouseClicked = false;
+    bool prevMouseClicked = true;
 
+    while (currentLogo < numLogos) {
+
+        //Restart the Renderer
         mainRenderer->clear();
         mainFramerateController->startFrame();              // record the time from frame start
 
@@ -223,12 +272,40 @@ void LevelManager::DisplayLogos()
             mainFramerateController->consumePhysicsTime();
         }
 
+        //Update Logo Timer
+        float deltaTime = 1.0f / expectedFrameRate;
+        logoTimer += deltaTime;
+
+        bool mouseClicked = mainInput->isMouseButtonDown(0);
+
+        if ((!prevMouseClicked && mouseClicked) || logoTimer >= logoDuration) {
+            logoTimer = 0.0f;
+            currentLogo++;
+
+            if (currentLogo < numLogos) {
+                switch (currentLogo)
+                {
+                case 0:
+                    renderComp->setMaterial(digiMaterial);
+                    break;
+                case 1:
+                    renderComp->setMaterial(fmodMaterial);
+                    break;
+                default:
+                    if (currentLogo >= numLogos) break;
+                    break;
+                }
+            }
+        }
+
+        prevMouseClicked = mouseClicked;
+
         //Update Scenegraph
         mainFramerateController->endFrame();
-        mainSceneGraph.update(1.0f / 60.0f);
+        sceneGraph.update(1.0f / 60.0f);
 
         //Draw the Scene
-        mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
+        mainRenderer->getRenderGraph()->draw(&sceneGraph);
 
         //Swap Buffers and Update Window
         mainRenderer->swapBuffers();
