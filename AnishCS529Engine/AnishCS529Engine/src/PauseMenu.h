@@ -31,12 +31,12 @@ public:
 	PauseMenu& operator=(const PauseMenu&) = delete;
 
 	void setState(bool state);
-	bool isPaused();
+	bool gameIsPaused();
 	void run();
 
 private:
 	PauseMenu() = default;
-	bool activate = false;
+	bool isPaused = false;
 };
 
 #endif

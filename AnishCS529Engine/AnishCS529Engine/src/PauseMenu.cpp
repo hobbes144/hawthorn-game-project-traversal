@@ -2,23 +2,31 @@
 #include "PauseMenu.h"
 
 void PauseMenu::setState(bool state) {
-	activate = state;
+	isPaused = state;
 	return;
 }
 
-bool PauseMenu::isPaused() {
-	return activate;
+bool PauseMenu::gameIsPaused() {
+	return isPaused;
 }
 
 void PauseMenu::run() {
-    // Optionally center the pause menu.
-    ImVec2 windowSize(300, 300);
-    ImGuiIO& io = ImGui::GetIO();
-    ImVec2 windowPos((io.DisplaySize.x - windowSize.x) * 0.5f, (io.DisplaySize.y - windowSize.y) * 0.5f);
-    ImGui::SetNextWindowPos(windowPos);
-    ImGui::SetNextWindowSize(windowSize);
+    ImVec2 displaySize = ImGui::GetIO().DisplaySize;
 
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
+    // Set next window to cover the entire screen
+    ImGui::SetNextWindowPos(ImVec2(0, 0));
+    ImGui::SetNextWindowSize(displaySize);
 
-    ImGui::Text("Game Paused");
+    // Optional: dim the background
+    ImDrawList* drawList = ImGui::GetBackgroundDrawList();
+    drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 128));
+
+    // Center the menu
+    ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
+
+    ImGui::Text("Paused");
+    
+    if (ImGui::Button("Resume", ImVec2(200, 200))) {
+        isPaused = false;
+    }
 }

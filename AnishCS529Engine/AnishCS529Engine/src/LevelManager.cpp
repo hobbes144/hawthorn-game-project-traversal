@@ -328,7 +328,7 @@ void LevelManager::ExecuteMainLoop()
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        if (PauseMenu::Instance().isPaused()) {
+        if (PauseMenu::Instance().gameIsPaused()) {
             std::cout << "Game Paused\n";
             PauseMenu::Instance().run();
         }
