@@ -10,6 +10,8 @@
  *****************************************************************************/
 void RenderGraph::initialize()
 {
+  renderGraphBuilder = new RenderGraphBuilder(renderer);
+
   for (size_t i = 0; i < RenderMask::RenderPassOrder.size(); ++i) {
     maskSortIndex[RenderMask::RenderPassOrder[i]] = i;
   }
