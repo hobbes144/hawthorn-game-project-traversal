@@ -114,6 +114,7 @@ private:
 	std::shared_ptr<TextureMaterial> WhiteFloorTiles;
 	std::shared_ptr<TextureMaterial> skyBoxMaterial;
 	std::shared_ptr<TextureMaterial> keyMaterial;
+	std::shared_ptr<TextureMaterial> shadowMaterial;
 
 	//Player References
 	std::shared_ptr<GameObject> playerBox;

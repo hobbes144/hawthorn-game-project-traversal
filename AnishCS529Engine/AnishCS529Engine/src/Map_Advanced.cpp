@@ -1045,8 +1045,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             }
         };
 
-        writeLetter(sceneGraph, "media/Map/words/arrow.fbx", Vector3(59.0f + offsetX, 74.5f + offsetY, -105.0f + offsetZ),
-                Vector3(0.1f, 0.3f, 0.01f), Vector3(0.0f, 0.0f, 2.5f), BrownConcrete);
+        writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(75.0f + offsetX, 64.5f + offsetY, -77.0f + offsetZ),
+                Vector3(0.1f, 0.1f, 0.01f), Vector3(0.0f, 0.0f, 5.7f), BrownConcrete);
 
         createFerrisWheel("Wheel1", Vector3(57.0f + offsetX, 70.0f + offsetY, -86.0f + offsetZ), 3, 20.0f, 5.3f);
     }
@@ -1110,7 +1110,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto deathPlane = std::make_shared<GameObject>("deathPlane");
         sceneGraph.addNode(deathPlane);
-        deathPlane->setLocalPosition(Vector3(120.0f + offsetX, 135.0f + offsetY, 25.0f + offsetZ));
+        deathPlane->setLocalPosition(Vector3(120.0f + offsetX, 130.0f + offsetY, 25.0f + offsetZ));
         deathPlane->setLocalScaling(Vector3(30.0f, 1.0f, 190.0f));
         auto renderComp = deathPlane->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(cracksMaterial);
@@ -1127,7 +1127,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 
     {
 
-        auto movingWallRun = [&](const std::string& name, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir) {
+        auto movingWallRun = [&](const std::string& name, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir, float offset = 0.0f) {
             auto wall = std::make_shared<GameObject>(name, GameObject::RUNNABLE_WALL);
             sceneGraph.addNode(wall);
             wall->setLocalPosition(basePos);
@@ -1139,7 +1139,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             rigidBody->setMass(0.0f)->setDrag(1.0f)->setShape(shape)->setStatic(true)->registerToPhysicsManager(PhysicsManager::Instance());
             rigidBody->initialize();
             wall->addComponent<Animate>()->setAnimateFunction(
-                [elapsedTime = 0.0f, basePos, moveDir](std::shared_ptr<GameObject> self, float dt) mutable {
+                [elapsedTime = offset, basePos, moveDir](std::shared_ptr<GameObject> self, float dt) mutable {
                     elapsedTime += dt;
                     self->setLocalPosition(basePos + moveDir * std::sin(elapsedTime));
                 }
@@ -1168,10 +1168,10 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         else {
             movingWallRun("wallRight1", Vector3(113.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
             movingWallRun("wallLeft1", Vector3(127.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallRight2", Vector3(113.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallLeft2", Vector3(127.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallRight3", Vector3(113.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallLeft3", Vector3(127.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight2", Vector3(113.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f), -1.0f);
+            movingWallRun("wallLeft2", Vector3(127.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f), -1.0f);
+            movingWallRun("wallRight3", Vector3(113.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f), -2.0f);
+            movingWallRun("wallLeft3", Vector3(127.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f), -2.0f);
 
             movingWallRun("wallRight1", Vector3(113.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
             movingWallRun("wallLeft1", Vector3(127.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
