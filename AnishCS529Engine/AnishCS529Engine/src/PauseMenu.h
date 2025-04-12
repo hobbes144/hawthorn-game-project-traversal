@@ -40,10 +40,6 @@ public:
 	bool isStart();
 	void setStart(bool val);
 	void run();
-	void mainPauseMenu();
-	void howToPlay();
-	void settings();
-	void quitMenu();
 	float getMusicVolume();
 	float getSFXVolume();
 
@@ -52,10 +48,18 @@ private:
 		MainPauseMenu,
 		HowToPlay,
 		Settings,
-		Quit
+		Quit,
+		Test
 	};
 
 	PauseMenu() = default;
+
+	void mainPauseMenu();
+	void howToPlay();
+	void settings();
+	void quitMenu();
+	void testMenu();
+
 	bool isPaused = false;
 	bool quit = false;
 	bool toStart = false;

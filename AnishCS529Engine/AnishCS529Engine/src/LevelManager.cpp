@@ -309,7 +309,6 @@ void LevelManager::ExecuteMainLoop()
 		}
 
 		if (PauseMenu::Instance().gameIsPaused()) {
-			std::cout << "Game Paused\n";
 			mainInput->controlMouse(false);
 			PauseMenu::Instance().run();
 		}
