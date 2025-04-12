@@ -1045,12 +1045,23 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             }
         };
 
-        writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(75.0f + offsetX, 64.5f + offsetY, -77.0f + offsetZ),
-                Vector3(0.1f, 0.1f, 0.01f), Vector3(0.0f, 0.0f, 5.7f), BrownConcrete);
+        //writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(75.0f + offsetX, 64.5f + offsetY, -77.0f + offsetZ),
+        //        Vector3(0.1f, 0.1f, 0.01f), Vector3(0.0f, 0.0f, 5.7f), BrownConcrete);
 
         createFerrisWheel("Wheel1", Vector3(57.0f + offsetX, 70.0f + offsetY, -86.0f + offsetZ), 3, 20.0f, 5.3f);
     }
 
+    {
+        // Guide Image
+        {
+            auto image = std::make_shared<GameObject>("image");
+            sceneGraph.addNode(image);
+            image->setLocalPosition(Vector3(72.0f + offsetX, 68 + offsetY, -72.0f + offsetZ));
+            image->setLocalScaling(Vector3(0.1f, 8.0f, 8.0f));
+            auto renderComp = image->addComponent<Render3D>();
+            renderComp->setMesh(boxMesh)->setMaterial(jumpImage);
+        }
+    }
     if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::EASY) {
         {
             auto extraPillar = std::make_shared<GameObject>("extraPillar");

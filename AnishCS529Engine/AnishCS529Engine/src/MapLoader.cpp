@@ -32,6 +32,7 @@ void MapLoader::initializeResources() {
     WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
     keyMaterial = Material::getMaterial<TextureMaterial>("key");
     shadowMaterial = Material::getMaterial<TextureMaterial>("shadow");
+    jumpImage = Material::getMaterial<TextureMaterial>("jumpImage");
 }
 
 
