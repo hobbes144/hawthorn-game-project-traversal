@@ -228,7 +228,7 @@ void LevelManager::ExecuteMainLoop()
 		gamepad->update();
 
 		//If Escape is Pressed Exit Loop
-		if (mainInput->isKeyHeld(KEY_ESCAPE) || PauseMenu::Instance().isQuit()) {
+		if (PauseMenu::Instance().isQuit()) {
 			currentLevel = numLevels + 1;
 			break;
 		}
@@ -606,9 +606,8 @@ void LevelManager::createPlayerObject()
 		->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
 		->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
 		->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
-		->setActionKey(FirstPersonControllerComponent::Pause, KEY_P)
-		->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
-		->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
+		->setActionKey(FirstPersonControllerComponent::Pause, KEY_ESCAPE)
+		->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_A)
 		->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
 		->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
 		->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
