@@ -37,63 +37,53 @@ float PauseMenu::getSFXVolume() {
 }
 
 void PauseMenu::testMenu() {
-	static int selected = 0;
-	const char* items[] = { "Play", "Options", "Exit" };
-	int itemCount = IM_ARRAYSIZE(items);
+	// Static variable to hold current selection, defaulting to the first button.
+	static int selectedButton = 0;
+	const int buttonCount = 3;
+	const char* buttonLabels[buttonCount] = { "Button 1", "Button 2", "Button 3" };
 
-	ImGuiIO& io = ImGui::GetIO();
-
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-
-	// Get the display size
-	ImVec2 displaySize = ImGui::GetIO().DisplaySize;
-
-	// Set next window to cover the entire screen
-	ImGui::SetNextWindowPos(ImVec2(0, 0));
-	ImGui::SetNextWindowSize(displaySize);
-
-	// Make it fullscreen, without decorations or inputs leaking through
-	ImGui::Begin("Test Menu", nullptr,
-		ImGuiWindowFlags_NoDecoration |
-		ImGuiWindowFlags_NoMove |
-		ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoSavedSettings |
-		ImGuiWindowFlags_NoBringToFrontOnFocus);
-
-	// Optional: dim the background
-	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 128));
-
-	// Center the menu
-	float windowWidth = ImGui::GetWindowSize().x;
-	float buttonWidth = 200.0f;
-	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-
-	if (ImGui::IsWindowFocused()) {
-		if (ImGui::IsKeyPressed(ImGuiKey_UpArrow)) {
-			selected = (selected - 1 + itemCount) % itemCount;
+	// Update selection on key press:
+	if (ImGui::IsWindowFocused())
+	{
+		if (ImGui::IsKeyPressed(ImGuiKey_UpArrow))
+		{
+			selectedButton = (selectedButton - 1 + buttonCount) % buttonCount;
 		}
-		if (ImGui::IsKeyPressed(ImGuiKey_DownArrow)) {
-			selected = (selected + 1) % itemCount;
-		}
-		if (ImGui::IsKeyPressed(ImGuiKey_Enter)) {
-			ImGui::Text("You selected: %s", items[selected]);
+		if (ImGui::IsKeyPressed(ImGuiKey_DownArrow))
+		{
+			selectedButton = (selectedButton + 1) % buttonCount;
 		}
 	}
 
-	for (int i = 0; i < itemCount; ++i) {
-		ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-		if (i == selected) {
-			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.3f, 0.5f, 1.0f, 1.0f));
+	// Create a window with buttons:
+	ImGui::Begin("Custom Navigation Example");
+
+	for (int i = 0; i < buttonCount; ++i)
+	{
+		// Optionally highlight the selected button
+		if (i == selectedButton) {
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.3f, 0.5f, 1.0f, 1.0f)); // Highlight color
 		}
-		if (ImGui::Button(items[i], ImVec2(200, 40))) {
-			selected = i;
+
+		// Render the button; size can be adjusted as needed.
+		if (ImGui::Button(buttonLabels[i], ImVec2(200, 40))) {
+			// Update the selection on mouse click, if desired.
+			selectedButton = i;
 		}
-		if (i == selected) {
+
+		if (i == selectedButton) {
 			ImGui::PopStyleColor();
 		}
+
+		// Add some spacing between buttons (optional)
+		ImGui::Spacing();
+	}
+
+	// Optionally, trigger button action with Enter key for the focused selection.
+	if (ImGui::IsWindowFocused() && ImGui::IsKeyPressed(ImGuiKey_Enter))
+	{
+		// Activate the selected button. Here, for demonstration, we simply display text.
+		ImGui::Text("Activated: %s", buttonLabels[selectedButton]);
 	}
 
 	ImGui::End();
