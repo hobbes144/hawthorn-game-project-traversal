@@ -43,6 +43,7 @@
     <ClCompile Include="src\DeathPlane.cpp" />
     <ClCompile Include="src\AttachedCamera.cpp" />
     <ClCompile Include="src\Door.cpp" />
+    <ClCompile Include="src\FBO.cpp" />
     <ClCompile Include="src\FreeCamera.cpp" />
     <ClCompile Include="src\InGameKey.cpp" />
     <ClCompile Include="src\KeyList.cpp" />
@@ -65,6 +66,7 @@
     <ClCompile Include="src\RaycastManager.cpp" />
     <ClCompile Include="src\Render3D.cpp" />
     <ClCompile Include="src\RenderFlags.cpp" />
+    <ClCompile Include="src\RenderGraphBuilder.cpp" />
     <ClCompile Include="src\ReparentingTest.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
@@ -105,6 +107,7 @@
     <ClInclude Include="src\AttachedCamera.h" />
     <ClInclude Include="src\DeathPlane.h" />
     <ClInclude Include="src\Door.h" />
+    <ClInclude Include="src\FBO.h" />
     <ClInclude Include="src\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\FramerateController.inl">
       <FileType>Document</FileType>
@@ -158,6 +161,7 @@
     <ClInclude Include="src\DebugPass.h" />
     <ClInclude Include="src\GamePad.h" />
     <ClInclude Include="src\GameWindow.h" />
+    <ClInclude Include="src\GBufferPrepass.h" />
     <ClInclude Include="src\GlobalVariables.h" />
     <ClInclude Include="src\KeyList.h" />
     <ClInclude Include="src\Lights.h" />
@@ -184,6 +188,7 @@
     <ClInclude Include="src\RendererStateSaver.h" />
     <ClInclude Include="src\RenderFlags.h" />
     <ClInclude Include="src\RenderGraph.h" />
+    <ClInclude Include="src\RenderGraphBuilder.h" />
     <ClInclude Include="src\RenderPass.h" />
     <ClInclude Include="src\rply.h" />
     <ClInclude Include="src\ShaderManager.h" />
@@ -276,6 +281,8 @@
     <None Include="shaders\factory_vertex_shader.vert.glsl">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>
+    <None Include="shaders\gbuffer.frag" />
+    <None Include="shaders\gbuffer.vert" />
     <None Include="shaders\lighting.frag">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>

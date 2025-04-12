@@ -69,7 +69,7 @@ public:
 
   struct TextureInfo {
     int width, height;
-    Texture::Format format;
+    Texture::Format format = TEXTURE_RGBA;
   };
 
   static TextureManager& getInstance() {
@@ -80,7 +80,11 @@ public:
   TextureID loadFile(const std::string& filePath);
   TextureID createTexture(
     const unsigned int width, const unsigned int height,
-    Texture::Format internal_format, const void* data,
+    Texture::Format internal_format, const void* data = nullptr,
+    TextureParameters textureParameters = TextureParameters()
+    );
+  TextureID createTexture(
+    const TextureInfo& textureInfo, const void * data = nullptr,
     TextureParameters textureParameters = TextureParameters()
     );
 

@@ -25,6 +25,7 @@
 #include "Mesh.h"
 #include "SceneGraph.h"
 #include "RenderFlags.h"
+#include "RenderGraphBuilder.h"
 
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
@@ -63,6 +64,13 @@ public:
 
   RenderPass() = default;
   virtual ~RenderPass() = default;
+
+  virtual void initialize() {};
+
+  void setRenderGraphBuilder(
+    RenderGraphBuilder* _renderGraphBuilder) {
+    renderGraphBuilder = _renderGraphBuilder;
+  }
 
   std::shared_ptr<Shader> addShader(std::string shaderFile);
   std::shared_ptr<Shader> addShader(std::shared_ptr<Shader> _shader);
@@ -105,6 +113,8 @@ protected:
   GLenum drawMode = NULL;
 
   uint32_t renderMask = RenderMask::None;
+
+  RenderGraphBuilder* renderGraphBuilder;
 
   //std::optional<std::shared_ptr<FBO>> FBO;
 
