@@ -305,18 +305,14 @@ void LevelManager::ExecuteMainLoop()
 			}
 		}
 
-		mainFramerateController->endFrame();
-		mainSceneGraph.update(1.0f / 60.0f);
-
-		mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
-
 		if (PauseMenu::Instance().gameIsPaused()) {
 			std::cout << "Game Paused\n";
 			PauseMenu::Instance().run();
 		}
 		else {
-			for (int i = 0; i < 2; i++) {
-				PhysicsManager::Instance().update(1.0f / 120.0f);
+			while(mainFramerateController->shouldUpdatePhysics()) {
+			    PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
+			    mainFramerateController->consumePhysicsTime();
 			}
 			//Audio Update
 			AudioManager::instance().update();
@@ -327,7 +323,13 @@ void LevelManager::ExecuteMainLoop()
 			AudioManager::instance().setListenerPosition(playerBox->getWorldPosition());
 
 			checkPlayerBoundaries();
+		
+			mainSceneGraph.update(1.0f / 60.0f);
+	
+			mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
 		}
+
+		mainFramerateController->endFrame();
 
 		//
 		//#pragma region IMGUI
