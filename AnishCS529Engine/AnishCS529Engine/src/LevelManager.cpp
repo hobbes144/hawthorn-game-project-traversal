@@ -56,6 +56,7 @@ void LevelManager::SystemInitalization()
 	};
 	mainInput->setGameWindow(mainWindow);
 	mainInput->initialize();
+	PauseMenu::Instance().setInputSystem(mainInput);
 
 	/* XInput setup */
 	gamepad = new GamePad;
@@ -307,6 +308,7 @@ void LevelManager::ExecuteMainLoop()
 
 		if (PauseMenu::Instance().gameIsPaused()) {
 			std::cout << "Game Paused\n";
+			mainInput->controlMouse(false);
 			PauseMenu::Instance().run();
 		}
 		else {

@@ -33,18 +33,32 @@ public:
 		&) = delete;
 	PauseMenu& operator=(const PauseMenu&) = delete;
 
+	void setInputSystem(Input* ip);
 	void setState(bool state);
 	bool gameIsPaused();
 	bool isQuit();
 	bool isStart();
 	void setStart(bool val);
 	void run();
+	void mainPauseMenu();
+	void howToPlay();
+	void settings();
+	void quitMenu();
 
 private:
+	enum MenuType {
+		MainPauseMenu,
+		HowToPlay,
+		Settings,
+		Quit
+	};
+
 	PauseMenu() = default;
 	bool isPaused = false;
 	bool quit = false;
 	bool toStart = false;
+	Input* input;
+	MenuType menuType = MainPauseMenu;
 };
 
 #endif

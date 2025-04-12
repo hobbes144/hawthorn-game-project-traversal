@@ -803,32 +803,24 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	if (PauseMenu::Instance().isStart()) {
 		LevelManager::Instance().resetToMenu();
 		PauseMenu::Instance().setStart(false);
-		PauseMenu::Instance().setState(false);
 	}
 
 	//Pause Menu
 	bool inConsistent = false;
-	if (isPaused != PauseMenu::Instance().gameIsPaused()) {
+	if (isPaused != PauseMenu::Instance().gameIsPaused() && isPaused) {
 		isPaused = PauseMenu::Instance().gameIsPaused();
 		inConsistent = true;
 	}
 	
+	if (inConsistent) {
+		isFrozen = false;
+	}
+
 	if (isPaused) {
 		isPaused = !pause;
-		if (isPaused) {
-			isFrozen = true;
-			input->controlMouse(!isFrozen);
-		}
-		else {
-			isFrozen = false;
-			input->controlMouse(!isFrozen);
-		}
 	}
 	else {
 		isPaused = pause;
-		if (inConsistent) {
-			freezePressed = true;
-		}
 		//Frozen Mode
 		if (freezePressed) {
 			isFrozen = !isFrozen;
