@@ -110,6 +110,9 @@ public:
     void togglePlaybackSpeed(float speed = 1);
     void setVolume(const std::string& name, float volume);
     void setMasterVolume(float volume);
+    void pauseSound();
+    void resumeSound();
+
     Vector3 getListenerPosition() const { return listenerPosition; }
 
 private:
