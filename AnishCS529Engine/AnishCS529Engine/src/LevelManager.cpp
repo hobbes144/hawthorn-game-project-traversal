@@ -134,7 +134,7 @@ void LevelManager::MeshMatInitializations()
     BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
     BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     BlueConcrete->setProperty("shininess", 10.0f);
-    BlueConcrete->addTexture("media/textures/BlueConcrete.png", 20.0f, 20.0f);
+    BlueConcrete->addTexture("media/textures/BlueConcrete.png", 3.0f, 3.0f);
 
     WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
     WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));

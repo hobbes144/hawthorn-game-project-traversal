@@ -509,7 +509,7 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
         wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, -9.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -525,7 +525,7 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
         wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, 9.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)

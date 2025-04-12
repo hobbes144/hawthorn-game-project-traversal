@@ -17,7 +17,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wall->setLocalScaling(localScale);
 
         auto renderComp = wall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
+        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
 
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wall->addComponent<RigidBody>();
@@ -113,7 +113,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 20.0f + offsetY, -110.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 30.0f, 30.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -151,7 +151,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -168,7 +168,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -80.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -185,7 +185,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-110.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -202,7 +202,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -50.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(30.0f, 50.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -263,7 +263,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-110.0f + offsetX, 22.0f + offsetY, -100.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(30.0f, 10.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -379,7 +379,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-95.0f + offsetX, 22.0f + offsetY, -90.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 20.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -397,7 +397,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             wallRunWall->setLocalPosition(Vector3(-140.0f + offsetX, 30.0f + offsetY, -30.0f + offsetZ));
             wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 35.0f));
             auto renderComp = wallRunWall->addComponent<Render3D>();
-            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
             auto shape = std::make_shared<OBB>();
             auto rigidBody = wallRunWall->addComponent<RigidBody>();
             rigidBody->setMass(0.0f)
@@ -414,7 +414,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             wallRunWall->setLocalPosition(Vector3(-130.0f + offsetX, 32.0f + offsetY, 0.0f + offsetZ));
             wallRunWall->setLocalScaling(Vector3(1.0f, 20.0f, 40.0f));
             auto renderComp = wallRunWall->addComponent<Render3D>();
-            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
             auto shape = std::make_shared<OBB>();
             auto rigidBody = wallRunWall->addComponent<RigidBody>();
             rigidBody->setMass(0.0f)
@@ -432,7 +432,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             wallRunWall->setLocalPosition(Vector3(-140.0f + offsetX, 30.0f + offsetY, -30.0f + offsetZ));
             wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 30.0f));
             auto renderComp = wallRunWall->addComponent<Render3D>();
-            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
             auto shape = std::make_shared<OBB>();
             auto rigidBody = wallRunWall->addComponent<RigidBody>();
             rigidBody->setMass(0.0f)
@@ -449,7 +449,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             wallRunWall->setLocalPosition(Vector3(-130.0f + offsetX, 32.0f + offsetY, 0.0f + offsetZ));
             wallRunWall->setLocalScaling(Vector3(1.0f, 20.0f, 30.0f));
             auto renderComp = wallRunWall->addComponent<Render3D>();
-            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
             auto shape = std::make_shared<OBB>();
             auto rigidBody = wallRunWall->addComponent<RigidBody>();
             rigidBody->setMass(0.0f)
@@ -467,7 +467,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-140.0f + offsetX, 38.0f + offsetY, 30.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 20.0f, 32.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -501,7 +501,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 42.0f + offsetY, 45.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(30.0f, 10.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -935,7 +935,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(153.0f + offsetX, 90.0f + offsetY, 15.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 30.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -953,7 +953,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(125.0f + offsetX, 68.0f + offsetY, -40.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 50.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -970,7 +970,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(125.0f + offsetX, 68.0f + offsetY, -40.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 10.0f, 50.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -987,7 +987,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wallRunWall->setLocalPosition(Vector3(100.0f + offsetX, 68.0f + offsetY, -65.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(30.0f, 10.0f, 1.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -1144,7 +1144,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             wall->setLocalPosition(basePos);
             wall->setLocalScaling(scale);
             auto renderComp = wall->addComponent<Render3D>();
-            renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+            renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
             auto rigidBody = wall->addComponent<RigidBody>();
             auto shape = std::make_shared<OBB>();
             rigidBody->setMass(0.0f)->setDrag(1.0f)->setShape(shape)->setStatic(true)->registerToPhysicsManager(PhysicsManager::Instance());
@@ -1334,7 +1334,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
                             wall->setLocalPosition(basePos);
                             wall->setLocalScaling(scale);
                             wall->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
-                            wall->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(concreteMaterial);
+                            wall->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(BlueConcrete);
                             auto rigidBody = wall->addComponent<RigidBody>();
                             rigidBody->setMass(0.0f)
                                 ->setDrag(1.0f)
