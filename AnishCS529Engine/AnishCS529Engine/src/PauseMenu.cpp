@@ -37,67 +37,14 @@ float PauseMenu::getSFXVolume() {
 }
 
 void PauseMenu::testMenu() {
-	// Static variable to hold current selection, defaulting to the first button.
-	static int selectedButton = 0;
-	const int buttonCount = 3;
-	const char* buttonLabels[buttonCount] = { "Button 1", "Button 2", "Button 3" };
 
-	// Update selection on key press:
-	if (ImGui::IsWindowFocused())
-	{
-		if (ImGui::IsKeyPressed(ImGuiKey_UpArrow))
-		{
-			selectedButton = (selectedButton - 1 + buttonCount) % buttonCount;
-		}
-		if (ImGui::IsKeyPressed(ImGuiKey_DownArrow))
-		{
-			selectedButton = (selectedButton + 1) % buttonCount;
-		}
-	}
-
-	// Create a window with buttons:
-	ImGui::Begin("Custom Navigation Example");
-
-	for (int i = 0; i < buttonCount; ++i)
-	{
-		// Optionally highlight the selected button
-		if (i == selectedButton) {
-			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.3f, 0.5f, 1.0f, 1.0f)); // Highlight color
-		}
-
-		// Render the button; size can be adjusted as needed.
-		if (ImGui::Button(buttonLabels[i], ImVec2(200, 40))) {
-			// Update the selection on mouse click, if desired.
-			selectedButton = i;
-		}
-
-		if (i == selectedButton) {
-			ImGui::PopStyleColor();
-		}
-
-		// Add some spacing between buttons (optional)
-		ImGui::Spacing();
-	}
-
-	// Optionally, trigger button action with Enter key for the focused selection.
-	if (ImGui::IsWindowFocused() && ImGui::IsKeyPressed(ImGuiKey_Enter))
-	{
-		// Activate the selected button. Here, for demonstration, we simply display text.
-		ImGui::Text("Activated: %s", buttonLabels[selectedButton]);
-	}
-
-	ImGui::End();
-
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-	return;
 }
 
 void PauseMenu::mainPauseMenu() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
+	io.FontGlobalScale = 2.0f;
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -110,7 +57,6 @@ void PauseMenu::mainPauseMenu() {
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
 	ImGui::SetNextWindowSize(displaySize);
 
-	// Make it fullscreen, without decorations or inputs leaking through
 	ImGui::Begin("Pause Menu", nullptr,
 		ImGuiWindowFlags_NoDecoration |
 		ImGuiWindowFlags_NoMove |
@@ -124,7 +70,7 @@ void PauseMenu::mainPauseMenu() {
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 50)); // Adjust as needed
+	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 200)); // Adjust as needed
 
 	float windowWidth = ImGui::GetWindowSize().x;
 	float textWidth = ImGui::CalcTextSize("Game Paused").x;
@@ -177,6 +123,7 @@ void PauseMenu::howToPlay() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
+	io.FontGlobalScale = 2.0f;
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -189,7 +136,6 @@ void PauseMenu::howToPlay() {
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
 	ImGui::SetNextWindowSize(displaySize);
 
-	// Make it fullscreen, without decorations or inputs leaking through
 	ImGui::Begin("How To Play", nullptr,
 		ImGuiWindowFlags_NoDecoration |
 		ImGuiWindowFlags_NoMove |
@@ -203,11 +149,25 @@ void PauseMenu::howToPlay() {
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 50)); // Adjust as needed
+	ImGui::SetCursorPos(ImVec2(center.x - 250, center.y - 200)); // Adjust as needed
 
 	float windowWidth = ImGui::GetWindowSize().x;
-	float textWidth = ImGui::CalcTextSize("How To Play").x;
-	ImGui::Text("How To Play");
+
+	ImGui::Text("How To Play:");
+	ImGui::SetCursorPosX(center.x - 250);
+	ImGui::Text("Move: W-A-S-D/Left Joystick");
+	ImGui::SetCursorPosX(center.x - 250);
+	ImGui::Text("Jump: Space/A");
+	ImGui::SetCursorPosX(center.x - 250);
+	ImGui::Text("Sprint: LShift/Press Left joystick");
+	ImGui::SetCursorPosX(center.x - 250);
+	ImGui::Text("Slide: LCtrl/B");
+	ImGui::SetCursorPosX(center.x - 250);
+	ImGui::Text("Respawn: R/X");
+	ImGui::SetCursorPosX(center.x - 250);
+	ImGui::Text("Look around: Mouse/Right joystick");
+	ImGui::SetCursorPosX(center.x - 250);
+	ImGui::Text("Music on/off: M/Right shoulder");
 
 	float buttonWidth = 200.0f;
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
@@ -229,6 +189,7 @@ void PauseMenu::settings() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
+	io.FontGlobalScale = 2.0f;
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -241,7 +202,6 @@ void PauseMenu::settings() {
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
 	ImGui::SetNextWindowSize(displaySize);
 
-	// Make it fullscreen, without decorations or inputs leaking through
 	ImGui::Begin("Settings", nullptr,
 		ImGuiWindowFlags_NoDecoration |
 		ImGuiWindowFlags_NoMove |
@@ -255,43 +215,31 @@ void PauseMenu::settings() {
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 50)); // Adjust as needed
+	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 100));
 
 	float windowWidth = ImGui::GetWindowSize().x;
 	float textWidth = ImGui::CalcTextSize("Settings").x;
 	ImGui::Text("Settings");
 
+	ImGui::Text(" ");
+
 	float buttonWidth = 200.0f;
 
-	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("Music Volume-", ImVec2(buttonWidth, 40))) {
-		if (musicVolume > 0.01f) {
-			musicVolume -= 0.05f;
-			AudioManager::instance().setVolume("music", musicVolume);
-		}
-	}
+	ImGui::PushItemWidth(400.0f);
 
-	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("Music Volume+", ImVec2(buttonWidth, 40))) {
-		if (musicVolume < 1.0f) {
-			musicVolume += 0.05f;
-			AudioManager::instance().setVolume("music", musicVolume);
-		}
-	}
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
+	ImGui::SliderFloat("Music Volume", &musicVolume, 0.0f, 1.0f);
 
-	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("SFX Volume-", ImVec2(buttonWidth, 40))) {
-		if (SFXVolume > 0.01f) {
-			SFXVolume -= 0.05f;
-		}
-	}
+	ImGui::Text(" ");
 
-	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("SFX Volume+", ImVec2(buttonWidth, 40))) {
-		if (SFXVolume < 1.0f) {
-			SFXVolume += 0.05f;
-		}
-	}
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
+	ImGui::SliderFloat("SFX Volume", &SFXVolume, 0.0f, 1.0f);
+
+	ImGui::Text(" ");
+
+	ImGui::PopItemWidth();
+
+	AudioManager::instance().setVolume("music", musicVolume);
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40))) {
@@ -310,6 +258,7 @@ void PauseMenu::quitMenu() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
+	io.FontGlobalScale = 2.0f;
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -322,7 +271,6 @@ void PauseMenu::quitMenu() {
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
 	ImGui::SetNextWindowSize(displaySize);
 
-	// Make it fullscreen, without decorations or inputs leaking through
 	ImGui::Begin("Quit Menu", nullptr,
 		ImGuiWindowFlags_NoDecoration |
 		ImGuiWindowFlags_NoMove |
@@ -336,7 +284,7 @@ void PauseMenu::quitMenu() {
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 50)); // Adjust as needed
+	ImGui::SetCursorPos(ImVec2(center.x - 200, center.y - 100)); // Adjust as needed
 
 	float windowWidth = ImGui::GetWindowSize().x;
 	float textWidth = ImGui::CalcTextSize("Are you sure you want to quit?").x;
