@@ -32,7 +32,7 @@ void LevelManager::SystemInitalization()
     mainRenderer = new Renderer;
     mainRenderer->setGameWindow(mainWindow);
     mainRenderer->initialize();
-    mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
+    mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     /* IMGUI Init */
     ImGui::CreateContext();

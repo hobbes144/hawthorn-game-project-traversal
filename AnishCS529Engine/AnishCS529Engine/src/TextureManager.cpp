@@ -61,7 +61,7 @@ bool TextureManager::isHDR(TextureID id)
 
 TextureManager::TextureID TextureManager::loadHDRFile(const std::string& filepath)
 {
-  TextureParameters textureParameters = TextureParameters(
+  TextureParameters textureParameters = TextureParameters(10, 
     TEXTURE_NEAREST, TEXTURE_LINEAR_MIPMAP_LINEAR,
     TEXTURE_REPEAT, TEXTURE_REPEAT);
 
@@ -85,7 +85,7 @@ TextureManager::TextureID TextureManager::loadHDRFile(const std::string& filepat
 
 TextureManager::TextureID TextureManager::loadSDRFile(const std::string& filepath)
 {
-  TextureParameters textureParameters = TextureParameters(
+  TextureParameters textureParameters = TextureParameters( 10,
     TEXTURE_NEAREST, TEXTURE_LINEAR_MIPMAP_LINEAR,
     TEXTURE_REPEAT, TEXTURE_REPEAT);
 
@@ -117,6 +117,7 @@ void TextureManager::generateMipmaps()
 
 void TextureManager::setTextureParameters(TextureParameters textureParameters)
 {
+  glTexParameteri(TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, textureParameters.max_level);
   glTexParameteri(TEXTURE_2D, GL_TEXTURE_MAG_FILTER, textureParameters.mag_filter);
   glTexParameteri(TEXTURE_2D, GL_TEXTURE_MIN_FILTER, textureParameters.min_filter);
 

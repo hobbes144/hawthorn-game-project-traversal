@@ -144,7 +144,7 @@ void Mesh::draw(GLenum mode) {
 
 std::shared_ptr<Mesh> Mesh::createSquareMesh(const std::string& name, float scale)
 {
-  Transform I = Transform().setScaling(scale);
+  Transform I = Transform().setScaling(scale * 2);
 
   Attributes squareMeshData;
   std::vector<unsigned int> indices;

@@ -16,38 +16,13 @@
 
 class GBufferPrepass : public RenderPass {
 public:
-  GBufferPrepass() : RenderPass() {
-    this->addShader("shaders/gbuffer.vert\nshaders/gbuffer.frag");
+  GBufferPrepass();
 
-    renderMask = RenderMask::GBufferPrepass;
-  }
-
-  virtual void initialize() {
-    renderGraphBuilder->createTexture("GBuffer_position");
-    renderGraphBuilder->createTexture("GBuffer_normal");
-    renderGraphBuilder->createTexture("GBuffer_diffuse");
-    renderGraphBuilder->createTexture("GBuffer_specular");
-    gbuffer = renderGraphBuilder->createFBO(
-      "GBuffer",
-      {
-        "GBuffer_position",
-        "GBuffer_normal",
-        "GBuffer_diffuse",
-        "GBuffer_specular"
-      });
-  }
+  virtual void initialize() override;
 
   virtual void draw(
     std::shared_ptr<Camera> camera,
-    SceneGraph * scene) const override {
-
-    gbuffer->bind();
-
-    RenderPass::draw(camera, scene);
-
-    gbuffer->unbind();
-
-  }
+    SceneGraph* sceneGraph) const override;
 
 private:
   FBO* gbuffer;

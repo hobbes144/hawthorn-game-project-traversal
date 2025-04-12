@@ -27,6 +27,8 @@ void LightingPass::draw(
 
   shader->use();
 
+  applyProperties();
+
   const Renderer::Viewport viewport = 
     renderGraphBuilder->getRenderer()->getCurrentState().viewport;
 

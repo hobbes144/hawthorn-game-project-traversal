@@ -30,7 +30,7 @@ uniform bool useNormalMap;
 uniform sampler2D normalMap;
 uniform vec2 normalMapScale;
 
-out vec4 FragData[];
+layout (location = 0) out vec4 FragData[4];
 
 void main()
 {
@@ -69,8 +69,8 @@ void main()
       N = delta.x*T + delta.y*B + delta.z*N;
     }
 
-    FragData[0].xyz = worldPos;
-    FragData[1].xyz = N;
-    FragData[2].xyz = Kd;
-    FragData[3] = vec4(Ks, alpha); 
+    FragData[0] = vec4(worldPos, 1.0f);
+    FragData[1] = vec4(N, 1.0f);
+    FragData[2] = vec4(Kd, 1.0f);
+    FragData[3] = vec4(Ks, alpha);
 }

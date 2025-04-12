@@ -67,7 +67,12 @@ public:
 
     sphereMesh->draw(GL_TRIANGLES);
 
+    unbindTextures();
+
+    shader->unuse();
+
     glDepthMask(GL_TRUE);
+    glClear(GL_DEPTH_BUFFER_BIT);
   }
 };
 

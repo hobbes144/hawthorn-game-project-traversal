@@ -13,6 +13,8 @@ FBO* RenderGraphBuilder::createFBO(const std::string& name, std::vector<std::str
     fbo->attachTexture(textures[attachment]);
   }
 
+  fbo->finalize();
+
   return fbo;
 }
 
@@ -23,7 +25,13 @@ TextureManager::TextureID RenderGraphBuilder::createTexture(
   textureInfo.width = viewport.width;
   textureInfo.height = viewport.height;
   textureInfo.format = TEXTURE_RGBA32F;
-  TextureManager::TextureID texture = TextureManager::getInstance().createTexture(textureInfo);
+  TextureManager::TextureParameters textureParameters = TextureManager::TextureParameters();
+  textureParameters.max_level = 0;
+  textureParameters.wrap_s = TEXTURE_CLAMP_TO_EDGE;
+  textureParameters.wrap_t = TEXTURE_CLAMP_TO_EDGE;
+  textureParameters.mag_filter = TEXTURE_LINEAR;
+  textureParameters.min_filter = TEXTURE_LINEAR;
+  TextureManager::TextureID texture = TextureManager::getInstance().createTexture(textureInfo, nullptr, textureParameters);
   textures[name] = texture;
 
   return texture;
