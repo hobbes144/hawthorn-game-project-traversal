@@ -78,7 +78,7 @@ void LevelManager::SystemInitalization()
 	AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
 	AudioManager::instance().loadSound("hurt", "media/audio/hurt.mp3", true);
 
-	AudioManager::instance().playSound("music", Vector3(0.0f, 0.0f, 0.0f), 0.15f);
+	AudioManager::instance().playSound("music", Vector3(0.0f, 0.0f, 0.0f), PauseMenu::Instance().getMusicVolume());
 	//AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
 	/* Scenegraph setup */

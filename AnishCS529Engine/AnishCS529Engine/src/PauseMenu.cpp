@@ -28,6 +28,14 @@ void PauseMenu::setStart(bool val) {
 	return;
 }
 
+float PauseMenu::getMusicVolume() {
+	return musicVolume;
+}
+
+float PauseMenu::getSFXVolume() {
+	return SFXVolume;
+}
+
 void PauseMenu::mainPauseMenu() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
@@ -196,13 +204,33 @@ void PauseMenu::settings() {
 	float buttonWidth = 200.0f;
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("Volume-", ImVec2(buttonWidth / 2, 40))) {
-		
+	if (ImGui::Button("Music Volume-", ImVec2(buttonWidth, 40))) {
+		if (musicVolume > 0.01f) {
+			musicVolume -= 0.05f;
+			AudioManager::instance().setVolume("music", musicVolume);
+		}
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("Volume+", ImVec2(buttonWidth / 2, 40))) {
-		
+	if (ImGui::Button("Music Volume+", ImVec2(buttonWidth, 40))) {
+		if (musicVolume < 1.0f) {
+			musicVolume += 0.05f;
+			AudioManager::instance().setVolume("music", musicVolume);
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (ImGui::Button("SFX Volume-", ImVec2(buttonWidth, 40))) {
+		if (SFXVolume > 0.01f) {
+			SFXVolume -= 0.05f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (ImGui::Button("SFX Volume+", ImVec2(buttonWidth, 40))) {
+		if (SFXVolume < 1.0f) {
+			SFXVolume += 0.05f;
+		}
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);

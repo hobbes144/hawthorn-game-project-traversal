@@ -44,6 +44,8 @@ public:
 	void howToPlay();
 	void settings();
 	void quitMenu();
+	float getMusicVolume();
+	float getSFXVolume();
 
 private:
 	enum MenuType {
@@ -57,6 +59,8 @@ private:
 	bool isPaused = false;
 	bool quit = false;
 	bool toStart = false;
+	float musicVolume = 0.15f;
+	float SFXVolume = 1.0f;
 	Input* input;
 	MenuType menuType = MainPauseMenu;
 };
