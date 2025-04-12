@@ -184,6 +184,16 @@ void PauseMenu::settings() {
 	float buttonWidth = 200.0f;
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (ImGui::Button("Volume-", ImVec2(buttonWidth / 2, 40))) {
+		
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (ImGui::Button("Volume+", ImVec2(buttonWidth / 2, 40))) {
+		
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40))) {
 		menuType = MainPauseMenu;
 	}
