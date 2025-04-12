@@ -353,6 +353,52 @@ void AudioManager::togglePlaybackSpeed(float speed) {
     }
 }
 
+void AudioManager::setVolume(const std::string& name, float volume) {
+    auto it = sounds_.find(name);
+    assert(it != sounds_.end() && "Sound not found");
+    FMOD::Sound* targetSound = it->second;
+
+    FMOD::ChannelGroup* masterGroup = nullptr;
+    FMOD_RESULT result = fmodSystem_->getMasterChannelGroup(&masterGroup);
+    assert(result == FMOD_OK && masterGroup && "Failed to get master channel group");
+
+    int numChannels = 0;
+    result = masterGroup->getNumChannels(&numChannels);
+    assert(result == FMOD_OK && "Failed to get number of channels");
+
+    for (int i = 0; i < numChannels; ++i) {
+        FMOD::Channel* channel = nullptr;
+        result = masterGroup->getChannel(i, &channel);
+        if (result == FMOD_OK && channel) {
+            FMOD::Sound* playingSound = nullptr;
+            channel->getCurrentSound(&playingSound);
+            if (playingSound == targetSound) {
+                result = channel->setVolume(volume);
+                assert(result == FMOD_OK && "Failed to set volume on channel");
+            }
+        }
+    }
+    std::cout << "[AudioManager] Volume for sound \"" << name << "\" set to " << volume << ".\n";
+}
+
+void AudioManager::setMasterVolume(float volume) {
+    FMOD::ChannelGroup* masterGroup = nullptr;
+    FMOD_RESULT result = fmodSystem_->getMasterChannelGroup(&masterGroup);
+    assert(result == FMOD_OK && masterGroup && "Failed to get master channel group");
+
+    int numChannels = 0;
+    result = masterGroup->getNumChannels(&numChannels);
+    assert(result == FMOD_OK && "Failed to get number of channels");
+
+    for (int i = 0; i < numChannels; ++i) {
+        FMOD::Channel* channel = nullptr;
+        result = masterGroup->getChannel(i, &channel);
+        if (result == FMOD_OK && channel) {
+            result = channel->setVolume(volume);
+            assert(result == FMOD_OK && "Failed to set volume on channel");
+        }
+    }
+}
 /*!****************************************************************************
  * \brief Shut down the AudioManager and release all resources.
  *
