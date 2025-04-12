@@ -32,6 +32,8 @@ public:
 
   void clearFBOs();
 
+  Renderer* getRenderer() { return renderer; };
+
 private:
   Renderer* renderer;
   std::unordered_map<std::string, TextureManager::TextureID> textures;

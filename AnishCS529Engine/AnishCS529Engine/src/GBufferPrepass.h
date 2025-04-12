@@ -39,7 +39,7 @@ public:
 
   virtual void draw(
     std::shared_ptr<Camera> camera,
-    SceneGraph * scene) const {
+    SceneGraph * scene) const override {
 
     gbuffer->bind();
 

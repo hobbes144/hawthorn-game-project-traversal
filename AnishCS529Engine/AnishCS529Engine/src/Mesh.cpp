@@ -23,14 +23,14 @@ Mesh::Mesh(
     Attributes attrData,
     const GLsizei interleavedStride) {
 
-    GeometryBuffer::ModifiableAttributes geometryBufferAttr;
-    prepareAttributeData(geometryBufferAttr, attrData, interleavedStride);
+  GeometryBuffer::ModifiableAttributes geometryBufferAttr;
+  prepareAttributeData(geometryBufferAttr, attrData, interleavedStride);
 
-    this->name = name;
-    geometryBuffer = GeometryBuffer::create(
-      geometryBufferAttr,
-      name,
-      (interleavedStride != 0));
+  this->name = name;
+  geometryBuffer = GeometryBuffer::create(
+    geometryBufferAttr,
+    name,
+    (interleavedStride != 0));
 
 }
 
@@ -40,16 +40,16 @@ Mesh::Mesh(
     const std::vector<unsigned int>& indices,
     const GLsizei interleavedStride) {
 
-    GeometryBuffer::ModifiableAttributes geometryBufferAttr;
-    prepareAttributeData(geometryBufferAttr, attrData, interleavedStride);
+  GeometryBuffer::ModifiableAttributes geometryBufferAttr;
+  prepareAttributeData(geometryBufferAttr, attrData, interleavedStride);
 
-    this->name = name;
-    this->indices = indices;
-    geometryBuffer = GeometryBuffer::create(
-      geometryBufferAttr,
-      indices,
-      name,
-      (interleavedStride != 0));
+  this->name = name;
+  this->indices = indices;
+  geometryBuffer = GeometryBuffer::create(
+    geometryBufferAttr,
+    indices,
+    name,
+    (interleavedStride != 0));
 }
 
 void Mesh::prepareAttributeData(
@@ -57,15 +57,15 @@ void Mesh::prepareAttributeData(
     const Mesh::Attributes& attrData,
     const GLsizei stride) {
 
-    for (const auto& [attr, info] : attrData) {
-        triangleBufferData[attr] = {
-          info.first,
-          info.second,
-          GL_FLOAT,
-          GL_FALSE,
-          stride
-        };
-    }
+  for (const auto& [attr, info] : attrData) {
+    triangleBufferData[attr] = {
+      info.first,
+      info.second,
+      GL_FLOAT,
+      GL_FALSE,
+      stride
+    };
+  }
 }
 
 void Mesh::setAttributeData(
@@ -74,84 +74,84 @@ void Mesh::setAttributeData(
     int componentsPerVertex,
     const GLsizei interleavedStride = 0) {
 
-    if (geometryBuffer)
-        geometryBuffer->updateVertexAttribute(type, data);
+  if (geometryBuffer)
+    geometryBuffer->updateVertexAttribute(type, data);
 
-    else {
-        GeometryBuffer::ModifiableAttributes attributeMap;
-        Mesh::Attributes attrData;
-        attrData[type] = { data , componentsPerVertex };
-        prepareAttributeData(attributeMap, attrData, interleavedStride);
-        geometryBuffer = GeometryBuffer::create(attributeMap, name, false);
-    }
+  else {
+    GeometryBuffer::ModifiableAttributes attributeMap;
+    Mesh::Attributes attrData;
+    attrData[type] = { data , componentsPerVertex };
+    prepareAttributeData(attributeMap, attrData, interleavedStride);
+    geometryBuffer = GeometryBuffer::create(attributeMap, name, false);
+  }
 }
 
 void Mesh::setVertexData(
     const std::shared_ptr<GeometryBuffer>& geometryBuffer) {
-    this->geometryBuffer = geometryBuffer;
-    this->indices = geometryBuffer->getIndexData();
+  this->geometryBuffer = geometryBuffer;
+  this->indices = geometryBuffer->getIndexData();
 }
 
 void Mesh::setIndices(const std::vector<unsigned int>& newIndices) {
-    this->geometryBuffer->updateIndices(newIndices);
-    this->indices = newIndices;
+  this->geometryBuffer->updateIndices(newIndices);
+  this->indices = newIndices;
 }
 
 std::unique_ptr<Mesh> Mesh::clone() const {
-    return std::make_unique<Mesh>(*this);
+  return std::make_unique<Mesh>(*this);
 }
 
 size_t Mesh::getVertexCount() const {
-    return geometryBuffer ? geometryBuffer->getVertexCount() : 0;
+  return geometryBuffer ? geometryBuffer->getVertexCount() : 0;
 }
 
 size_t Mesh::getIndexCount() const {
-    return geometryBuffer ? geometryBuffer->getIndexCount() : 0;
+  return geometryBuffer ? geometryBuffer->getIndexCount() : 0;
 }
 
 bool Mesh::hasAttribute(GeometryBuffer::AttributeType attr) const {
-    return geometryBuffer && geometryBuffer->hasAttribute(attr);
+  return geometryBuffer && geometryBuffer->hasAttribute(attr);
 }
 
 const std::string& Mesh::getName() const {
-    return name;
+  return name;
 }
 
 void Mesh::draw(GLenum mode) {
-    if (!geometryBuffer) return;
-    geometryBuffer->bind();
+  if (!geometryBuffer) return;
+  geometryBuffer->bind();
 
-    /* Removed reference to renderer to avoid circular dependency issues.
-    * This really should have been in Renderer, or some other encapsulating class
-    * Todo: Move mesh draw OpenGL calls to different class.
-    */
-    if (this->hasAttribute(GeometryBuffer::AttributeType::Position)) {
-        if (this->getIndexCount() > 0) {
-            glDrawElements(mode, geometryBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
-        }
-        else {
-            glDrawArrays(mode, 0, geometryBuffer->getVertexCount());
-        }
+  /* Removed reference to renderer to avoid circular dependency issues.
+  * This really should have been in Renderer, or some other encapsulating class
+  * Todo: Move mesh draw OpenGL calls to different class.
+  */
+  if (this->hasAttribute(GeometryBuffer::AttributeType::Position)) {
+    if (this->getIndexCount() > 0) {
+      glDrawElements(mode, geometryBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
     }
+    else {
+      glDrawArrays(mode, 0, geometryBuffer->getVertexCount());
+    }
+  }
 
-    // For efficiency, removing unbind.
-    // We will be running draw calls multiple times per frame because we have
-    // multiple passes now. Doing an unbind every pass just to bind it again is
-    // very inefficient.
-    // 
-    //geometryBuffer->unbind();
+  // For efficiency, removing unbind.
+  // We will be running draw calls multiple times per frame because we have
+  // multiple passes now. Doing an unbind every pass just to bind it again is
+  // very inefficient.
+  // 
+  //geometryBuffer->unbind();
 }
 
-std::shared_ptr<Mesh> Mesh::createSquareMesh(const std::string& name)
+std::shared_ptr<Mesh> Mesh::createSquareMesh(const std::string& name, float scale)
 {
-  Matrix4 I = Matrix4();
+  Transform I = Transform().setScaling(scale);
 
   Attributes squareMeshData;
   std::vector<unsigned int> indices;
 
   std::pair<Mesh::Attributes, std::vector<unsigned int>> faceData;
 
-  faceData = createFace(I.translation(0.0f, 0.0f, -0.5f));
+  faceData = createFace(I);
   squareMeshData = faceData.first;
   indices = faceData.second;
 
@@ -235,115 +235,115 @@ std::unordered_map<std::string, std::shared_ptr<Mesh>> Mesh::loadedMeshes;
 
 std::shared_ptr<Mesh> Mesh::loadMesh(const std::string& filename)
 {
-    // if already have this file, return the cached mesh.
-    if (loadedMeshes.find(filename) != loadedMeshes.end())
-        return loadedMeshes[filename];
+  // if already have this file, return the cached mesh.
+  if (loadedMeshes.find(filename) != loadedMeshes.end())
+    return loadedMeshes[filename];
 
-    Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(filename,
-        aiProcess_Triangulate |
-        aiProcess_FlipUVs |
-        aiProcess_GenNormals |
-        aiProcess_CalcTangentSpace);
+  Assimp::Importer importer;
+  const aiScene* scene = importer.ReadFile(filename,
+      aiProcess_Triangulate |
+      aiProcess_FlipUVs |
+      aiProcess_GenNormals |
+      aiProcess_CalcTangentSpace);
 
-    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-    {
-        std::cerr << "Assimp error loading " << filename << ": "
-            << importer.GetErrorString() << std::endl;
-        return nullptr;
-    }
+  if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+  {
+    std::cerr << "Assimp error loading " << filename << ": "
+      << importer.GetErrorString() << std::endl;
+    return nullptr;
+  }
 
-    std::vector<Attributes> meshesAttributes;
-    std::vector<unsigned int> combinedIndices;
-    unsigned int vertexOffset = 0;
+  std::vector<Attributes> meshesAttributes;
+  std::vector<unsigned int> combinedIndices;
+  unsigned int vertexOffset = 0;
 
-    for (unsigned int i = 0; i < scene->mNumMeshes; i++)
-    {
-        aiMesh* aMesh = scene->mMeshes[i];
-        Attributes tempAttributes;
-        tempAttributes[GeometryBuffer::AttributeType::Position] = std::make_pair(std::vector<float>(), 3);
-        tempAttributes[GeometryBuffer::AttributeType::Normal] = std::make_pair(std::vector<float>(), 3);
-        tempAttributes[GeometryBuffer::AttributeType::TexCoord] = std::make_pair(std::vector<float>(), 2);
-        tempAttributes[GeometryBuffer::AttributeType::Tangent] = std::make_pair(std::vector<float>(), 3);
+  for (unsigned int i = 0; i < scene->mNumMeshes; i++)
+  {
+    aiMesh* aMesh = scene->mMeshes[i];
+    Attributes tempAttributes;
+    tempAttributes[GeometryBuffer::AttributeType::Position] = std::make_pair(std::vector<float>(), 3);
+    tempAttributes[GeometryBuffer::AttributeType::Normal] = std::make_pair(std::vector<float>(), 3);
+    tempAttributes[GeometryBuffer::AttributeType::TexCoord] = std::make_pair(std::vector<float>(), 2);
+    tempAttributes[GeometryBuffer::AttributeType::Tangent] = std::make_pair(std::vector<float>(), 3);
 
-        std::vector<unsigned int> meshIndices;
-        // process the individual mesh.
-        processMesh(aMesh, tempAttributes, meshIndices);
+    std::vector<unsigned int> meshIndices;
+    // process the individual mesh.
+    processMesh(aMesh, tempAttributes, meshIndices);
 
-        // adjust the indices from this mesh by the current vertex offset.
-        combineIndices(vertexOffset, combinedIndices, meshIndices);
+    // adjust the indices from this mesh by the current vertex offset.
+    combineIndices(vertexOffset, combinedIndices, meshIndices);
 
-        // Update vertexOffset
-        size_t numVertices = tempAttributes[GeometryBuffer::AttributeType::Position].first.size() / 3;
-        vertexOffset += static_cast<unsigned int>(numVertices);
+    // Update vertexOffset
+    size_t numVertices = tempAttributes[GeometryBuffer::AttributeType::Position].first.size() / 3;
+    vertexOffset += static_cast<unsigned int>(numVertices);
 
-        meshesAttributes.push_back(tempAttributes);
-    }
+    meshesAttributes.push_back(tempAttributes);
+  }
 
-    // combine the per‑mesh attribute data into one Attributes object.
-    Attributes combinedAttributes = combineAttributes(meshesAttributes);
+  // combine the per‑mesh attribute data into one Attributes object.
+  Attributes combinedAttributes = combineAttributes(meshesAttributes);
 
-    // create the new mesh instance using the combined attributes and indices.
-    std::shared_ptr<Mesh> newMesh = std::make_shared<Mesh>(filename + "_Mesh", combinedAttributes, combinedIndices, 0);
+  // create the new mesh instance using the combined attributes and indices.
+  std::shared_ptr<Mesh> newMesh = std::make_shared<Mesh>(filename + "_Mesh", combinedAttributes, combinedIndices, 0);
 
-    // cache the loaded mesh.
-    loadedMeshes[filename] = newMesh;
-    return newMesh;
+  // cache the loaded mesh.
+  loadedMeshes[filename] = newMesh;
+  return newMesh;
 }
 void Mesh::processMesh(aiMesh* mesh, Attributes& newMeshData, std::vector<unsigned int>& indices)
 {
-    // Reserve space based on the number of vertices.
-    newMeshData[GeometryBuffer::AttributeType::Position].first.reserve(mesh->mNumVertices * 3);
-    newMeshData[GeometryBuffer::AttributeType::Normal].first.reserve(mesh->mNumVertices * 3);
-    newMeshData[GeometryBuffer::AttributeType::TexCoord].first.reserve(mesh->mNumVertices * 2);
-    newMeshData[GeometryBuffer::AttributeType::Tangent].first.reserve(mesh->mNumVertices * 3);
+  // Reserve space based on the number of vertices.
+  newMeshData[GeometryBuffer::AttributeType::Position].first.reserve(mesh->mNumVertices * 3);
+  newMeshData[GeometryBuffer::AttributeType::Normal].first.reserve(mesh->mNumVertices * 3);
+  newMeshData[GeometryBuffer::AttributeType::TexCoord].first.reserve(mesh->mNumVertices * 2);
+  newMeshData[GeometryBuffer::AttributeType::Tangent].first.reserve(mesh->mNumVertices * 3);
 
-    // Process vertices.
-    for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+  // Process vertices.
+  for (unsigned int i = 0; i < mesh->mNumVertices; i++)
+  {
+    // Position.
+    newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].x);
+    newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].y);
+    newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].z);
+
+    // Normal.
+    if (mesh->HasNormals())
     {
-        // Position.
-        newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].x);
-        newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].y);
-        newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(mesh->mVertices[i].z);
-
-        // Normal.
-        if (mesh->HasNormals())
-        {
-            newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].x);
-            newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].y);
-            newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].z);
-        }
-
-        // Texture Coordinates (first set only).
-        if (mesh->HasTextureCoords(0))
-        {
-            newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(mesh->mTextureCoords[0][i].x);
-            newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(mesh->mTextureCoords[0][i].y);
-        }
-        else
-        {
-            newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(0.0f);
-            newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(0.0f);
-        }
-
-        // Tangent.
-        if (mesh->HasTangentsAndBitangents())
-        {
-            newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].x);
-            newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].y);
-            newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].z);
-        }
+      newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].x);
+      newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].y);
+      newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(mesh->mNormals[i].z);
     }
 
-    // Process indices.
-    for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+    // Texture Coordinates (first set only).
+    if (mesh->HasTextureCoords(0))
     {
-        aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++)
-        {
-            indices.push_back(face.mIndices[j]);
-        }
+      newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(mesh->mTextureCoords[0][i].x);
+      newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(mesh->mTextureCoords[0][i].y);
     }
+    else
+    {
+      newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(0.0f);
+      newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(0.0f);
+    }
+
+    // Tangent.
+    if (mesh->HasTangentsAndBitangents())
+    {
+      newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].x);
+      newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].y);
+      newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(mesh->mTangents[i].z);
+    }
+  }
+
+  // Process indices.
+  for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+  {
+    aiFace face = mesh->mFaces[i];
+    for (unsigned int j = 0; j < face.mNumIndices; j++)
+    {
+      indices.push_back(face.mIndices[j]);
+    }
+  }
 }
 //
 //Mesh::Attributes Mesh::createTri(std::vector<Vector3> points, std::vector<float> texCoords) {
@@ -370,7 +370,7 @@ void pushquad(std::vector<unsigned int>& Tri, int i, int j, int k, int l)
   Tri.push_back(k);
 }
 
-std::pair<Mesh::Attributes, std::vector<unsigned int>> Mesh::createFace(const Matrix4& tr)
+std::pair<Mesh::Attributes, std::vector<unsigned int>> Mesh::createFace(const Transform& tr)
 {
   Attributes newMeshData;
   std::vector<unsigned int> indices;
@@ -394,9 +394,9 @@ std::pair<Mesh::Attributes, std::vector<unsigned int>> Mesh::createFace(const Ma
   // Four vertices to make a single face, with its own normal and
   // texture coordinates.
   for (int i = 0; i < 8; i += 2) {
-    newPosition = tr * Vector3(verts[i], verts[i + 1], 0.5f);
-    newNormals = tr * Vector3(0.0f, 0.0f, 1.0f);
-    newTangents = tr * Vector3(1.0f, 0.0f, 0.0f);
+    newPosition = tr.getLocalMatrix() * Vector3(verts[i], verts[i + 1], 0.0f);
+    newNormals = (tr.getRotation() * Vector3(0.0f, 0.0f, 1.0f)).normalized();
+    newTangents = (tr.getRotation() * Vector3(1.0f, 0.0f, 0.0f)).normalized();
     newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(newPosition.x);
     newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(newPosition.y);
     newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(newPosition.z);
@@ -446,7 +446,7 @@ std::shared_ptr<Mesh> Mesh::createSphereMesh(const std::string& name, const int 
       newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(z);
       newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(z);
       newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(s / (2 * PI));
-      newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back((PI-t) / PI);
+      newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back((PI - t) / PI);
       newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(-sin(s));
       newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(cos(s));
       newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(0.0);
@@ -459,7 +459,7 @@ std::shared_ptr<Mesh> Mesh::createSphereMesh(const std::string& name, const int 
       }
     }
   }
-  
+
   std::shared_ptr<Mesh> newMesh = std::make_shared<Mesh>(
     name + "_Mesh",
     newMeshData,
@@ -469,7 +469,7 @@ std::shared_ptr<Mesh> Mesh::createSphereMesh(const std::string& name, const int 
 }
 
 std::shared_ptr<Mesh> Mesh::createCubeMesh(const std::string& name) {
-  Matrix4 I = Matrix4();
+  Transform I = Transform(Vector3(), Quaternion(), Vector3(1.0f));
 
   Attributes cubeMeshData;
   std::vector<unsigned int> indices;
@@ -478,29 +478,36 @@ std::shared_ptr<Mesh> Mesh::createCubeMesh(const std::string& name) {
   std::vector<Attributes> faceAttributes;
 
   // Six faces, each a rotation of a rectangle placed on the z axis.
-  faceData = createFace(I);
+
+  // Behind face
+  faceData = createFace(I.setPosition(Vector3(.0f, .0f, .5f)));
   faceAttributes.push_back(faceData.first);
   indices = faceData.second;
 
   float r90 = PI / 2;
 
-  faceData = createFace(I.rotationX(r90));
+  // Bottom face
+  faceData = createFace(I.setPosition(Vector3(.0f, -.5f, .0f)).setRotation(Quaternion::fromEuler(r90, 0.0f, 0.0f)));
   faceAttributes.push_back(faceData.first);
   combineIndices(4, indices, faceData.second);
 
-  faceData = createFace(I.rotationX(-r90));
+  // Top face
+  faceData = createFace(I.setPosition(Vector3(.0f, .5f, .0f)).setRotation(Quaternion::fromEuler(-r90, 0.0f, 0.0f)));
   faceAttributes.push_back(faceData.first);
   combineIndices(8, indices, faceData.second);
 
-  faceData = createFace(I.rotationY(r90));
+  // Right face
+  faceData = createFace(I.setPosition(Vector3(.5f, .0f, .0f)).setRotation(Quaternion::fromEuler(0.0f, r90, 0.0f)));
   faceAttributes.push_back(faceData.first);
   combineIndices(12, indices, faceData.second);
 
-  faceData = createFace(I.rotationY(-r90));
+  // Left face
+  faceData = createFace(I.setPosition(Vector3(-.5f, .0f, .0f)).setRotation(Quaternion::fromEuler(0.0f, -r90, 0.0f)));
   faceAttributes.push_back(faceData.first);
   combineIndices(16, indices, faceData.second);
 
-  faceData = createFace(I.rotationX(PI));
+  // Front face
+  faceData = createFace(I.setPosition(Vector3(.0f, .0f, -.5f)).setRotation(Quaternion::fromEuler(PI, 0.0f, 0.0f)));
   faceAttributes.push_back(faceData.first);
   combineIndices(20, indices, faceData.second);
 
@@ -581,38 +588,38 @@ std::shared_ptr<Mesh> Mesh::createCubeMesh(const std::string& name) {
 
 std::shared_ptr<Mesh> Mesh::createMesh(const std::string& name, Type type)
 {
-    switch (type) {
-    case Square:
-        return createSquareMesh(name);
-        break;
-    case Cube:
-        return createCubeMesh(name);
-        break;
-    default:
-        assert(("MESH::CREATEMESH::INVALIDTYPE") && false);
-    }
-    return nullptr;
+  switch (type) {
+  case Square:
+    return createSquareMesh(name);
+    break;
+  case Cube:
+    return createCubeMesh(name);
+    break;
+  default:
+    assert(("MESH::CREATEMESH::INVALIDTYPE") && false);
+  }
+  return nullptr;
 }
 
 std::shared_ptr<Mesh> Mesh::getShapeMesh(Type type)
 {
-    if (shapeMeshes.contains(type))
-        return shapeMeshes[type];
-
-    std::string name;
-    switch (type) {
-    case Square:
-        name = "SquareShape";
-        break;
-    case Cube:
-        name = "CubeShape";
-        break;
-    default:
-        assert(("MESH::GETSHAPEMESH::INVALIDTYPE") && false);
-        name = "InvalidShape";
-    }
-
-    shapeMeshes[type] = createMesh(name, type);
+  if (shapeMeshes.contains(type))
     return shapeMeshes[type];
+
+  std::string name;
+  switch (type) {
+  case Square:
+    name = "SquareShape";
+    break;
+  case Cube:
+    name = "CubeShape";
+    break;
+  default:
+    assert(("MESH::GETSHAPEMESH::INVALIDTYPE") && false);
+    name = "InvalidShape";
+  }
+
+  shapeMeshes[type] = createMesh(name, type);
+  return shapeMeshes[type];
 
 }
