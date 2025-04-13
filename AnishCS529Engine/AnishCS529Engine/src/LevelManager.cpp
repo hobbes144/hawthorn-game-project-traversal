@@ -309,6 +309,7 @@ void LevelManager::ExecuteMainLoop()
 		}
 
 		if (PauseMenu::Instance().gameIsPaused()) {
+			mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
 			mainInput->controlMouse(false);
 			PauseMenu::Instance().run();
 		}
