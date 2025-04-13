@@ -45,6 +45,7 @@ public:
   ~Shader();
 
   void use();
+  void unuse();
 
   /* Todo: figure out if we can make this generic using std::variant? */
   void setUInt(const std::string& name, unsigned int value) const;
@@ -60,6 +61,8 @@ public:
     unsigned int textureUnit,
     const std::string& name,
     TextureManager::TextureID textureID) const;
+  void unbindTexture(
+    unsigned int textureUnit) const;
 
   unsigned int getId() { return programID; };
 

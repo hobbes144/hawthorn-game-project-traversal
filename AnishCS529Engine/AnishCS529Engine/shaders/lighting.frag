@@ -37,19 +37,14 @@ layout (binding = 1) uniform lights
   AmbientLight ambientLight;
 };
 
-uniform vec3 diffuse;   // Kd
-uniform vec3 specular;  // Ks
-uniform float shininess; // alpha exponent
-
-uniform bool useTexture;
-uniform sampler2D mainTexture;
-uniform vec2 mainTextureScale;
-
-uniform bool useNormalMap;
-uniform sampler2D normalMap;
-uniform vec2 normalMapScale;
-
 uniform bool HDR;
+
+uniform uint height, width;
+
+uniform sampler2D GBuffer_position;
+uniform sampler2D GBuffer_normal;
+uniform sampler2D GBuffer_diffuse;
+uniform sampler2D GBuffer_specular;
 
 out vec3 FragColor;
 
@@ -77,45 +72,22 @@ vec3 toSRGB(vec3 color) {
 
 void main()
 {
-    vec2 uv;
+    vec2 gBufferPosition = gl_FragCoord.xy/vec2(width,height);
+    
+    vec3 worldPos = texture(GBuffer_position, gBufferPosition).xyz;
+    vec3 eyeVec = (inverseView*vec4(0,0,0,1)).xyz-worldPos;
 
-//    uv = gl_FragCoord.xy/vec2(750,750); // (or whatever screen size)
-//    FragColor = 10.0*vec3(texture(irrandianceMap, uv)); // or similar
-//    return FragColor; // which disables all further code in the shader.
-//
-
-    vec3 N = normalize(normalVec);
-    vec3 L = -normalize(lightVec);
+    vec3 N = texture(GBuffer_normal, gBufferPosition).xyz;
     vec3 V = normalize(eyeVec);
 
-    vec3 Kd = diffuse;
-    vec3 Ii = sunLight.color * sunLight.intensity;
-    vec3 Ks = specular;
-    float alpha = shininess;
+    vec3 Kd = texture(GBuffer_diffuse, gBufferPosition).xyz;
+    vec3 Ks = texture(GBuffer_specular, gBufferPosition).xyz;
+    float alpha = texture(GBuffer_specular, gBufferPosition).w;
 
     vec3 Ia = ambientLight.color * ambientLight.intensity;
-
-
-    // Texture mapping ...
-    // This section only calculates the Kd and modified uv for some objects.
-    // The modified uv ignores scaling, this is just to modify how textures
-    // are handled in general, such as flipping.
-    uv = texCoord;
-
-    vec2 scaledTexCoord = uv * mainTextureScale;
-      
-    vec4 color = texture(mainTexture, scaledTexCoord);
-    Kd = color.rgb;
-
-    // The normal map calc ...
-    if (useNormalMap) {
-      vec2 scaledTexCoord = uv * normalMapScale;
-      vec3 delta = texture(normalMap, scaledTexCoord).xyz;
-      delta = delta*2.0 - vec3(1.0);
-      vec3 T = normalize(tanVec);
-      vec3 B = normalize(cross(T,N));
-      N = delta.x*T + delta.y*B + delta.z*N;
-    }
+    
+    vec3 Ii = sunLight.color * sunLight.intensity;
+    vec3 L = -normalize(sunLight.direction);
 
     if (HDR) {
       Kd = toLinear(Kd);

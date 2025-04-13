@@ -31,6 +31,22 @@ void FBO::initialize() {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+void FBO::finalize() {
+  glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+
+  std::vector<GLenum> attachments;
+  for (int i = 0; i <= attachedTextures; i++) {
+    attachments.push_back(GL_COLOR_ATTACHMENT0 + i);
+  }
+  glDrawBuffers(attachments.size(), attachments.data());
+
+  if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+    std::cerr << "FBO not complete!" << std::endl;
+  }
+
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); // done
+}
+
 void FBO::setViewport(const int w, const int h) {
   width = w;
   height = h;
@@ -39,12 +55,17 @@ void FBO::setViewport(const int w, const int h) {
 void FBO::attachTexture(TextureManager::TextureID textureID) {
 
   glBindFramebuffer(GL_FRAMEBUFFER, fboID);
-  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachedTextures,
+  glFramebufferTexture2D(
+    GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachedTextures,
     GL_TEXTURE_2D, textureID, 0);
+
+  /*std::cout << "Bound texture to FBO: " << textureID << " at " << GL_COLOR_ATTACHMENT0 + attachedTextures << std::endl;
+  std::string label = "FBO_" + std::to_string(fboID) + "_" + std::to_string(attachedTextures);
+  glObjectLabel(GL_TEXTURE, textureID, -1, label.c_str());*/
 
   // Check for completeness/correctness
   int status = (int)glCheckFramebufferStatus(GL_FRAMEBUFFER);
-  if ( status != int(GL_FRAMEBUFFER_COMPLETE) )
+  if (status != int(GL_FRAMEBUFFER_COMPLETE))
     printf("FBO Error: %d\n", status);
 
   glBindFramebuffer(GL_FRAMEBUFFER, 0);

@@ -52,18 +52,20 @@ public:
   };
 
   struct TextureParameters {
+    int max_level;
     Texture::FilterMode mag_filter;
     Texture::FilterMode min_filter;
     Texture::WrapMode wrap_s;
     Texture::WrapMode wrap_t;
 
     TextureParameters(
+      int max_level = 10,
       Texture::FilterMode mag_filter = TEXTURE_NEAREST,
       Texture::FilterMode min_filter = TEXTURE_NEAREST_MIPMAP_LINEAR,
       Texture::WrapMode wrap_s = TEXTURE_CLAMP_TO_EDGE,
       Texture::WrapMode wrap_t = TEXTURE_CLAMP_TO_EDGE
       ) : 
-      mag_filter(mag_filter), min_filter(min_filter),
+      max_level(max_level), mag_filter(mag_filter), min_filter(min_filter),
       wrap_s(wrap_s), wrap_t(wrap_t) {}
   };
 

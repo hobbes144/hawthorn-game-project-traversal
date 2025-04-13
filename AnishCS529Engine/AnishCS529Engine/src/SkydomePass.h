@@ -46,6 +46,11 @@ public:
     skydomeTexture = TextureManager::getInstance().loadFile(textureName);
     HDR = TextureManager::getInstance().isHDR(skydomeTexture);
 
+    setProperty(
+      "skydomeTexture", skydomeTexture);
+    setProperty(
+      "HDR", HDR);
+
     renderMask = RenderMask::SkydomePass;
   }
 
@@ -58,12 +63,16 @@ public:
 
     shader->use();
 
-    shader->setInt("HDR", HDR);
-    shader->bindTexture(0, "skydomeTexture", skydomeTexture);
+    applyProperties();
 
     sphereMesh->draw(GL_TRIANGLES);
 
+    unbindTextures();
+
+    shader->unuse();
+
     glDepthMask(GL_TRUE);
+    glClear(GL_DEPTH_BUFFER_BIT);
   }
 };
 
