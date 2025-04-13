@@ -44,21 +44,24 @@ public:
 
   void draw(SceneGraph* scene);
 
+  bool lightsSet = false;
 private:
   Renderer* renderer;
   RenderGraphBuilder* renderGraphBuilder;
 
   std::vector<std::shared_ptr<RenderPass>> renderStack;
   unsigned int uboLights;
+  unsigned int ssboLights;
+  // Quick fix to stop repeated light updates, this SHOULD be removed.
   unsigned int uboCamera;
 
   std::unordered_map<uint32_t, size_t> maskSortIndex;
   std::unordered_set<std::type_index> addedPassTypes;
 
-  void initializeLightUBOs();
+  void initializeLightBuffers();
   void initializeCameraUBO();
 
-  void updateLightUBOs(Lights lights);
+  void updateLightBuffers(Lights lights);
   void updateCameraUBO(std::shared_ptr<Camera> camera);
 };
 

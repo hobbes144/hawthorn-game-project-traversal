@@ -34,6 +34,9 @@ void FBO::initialize() {
 void FBO::finalize() {
   glBindFramebuffer(GL_FRAMEBUFFER, fboID);
 
+  glViewport(0, 0, width, height);
+  glClearColor(0.0, 0.0, 0.0, 0.0);
+
   std::vector<GLenum> attachments;
   for (int i = 0; i <= attachedTextures; i++) {
     attachments.push_back(GL_COLOR_ATTACHMENT0 + i);
@@ -75,3 +78,5 @@ void FBO::attachTexture(TextureManager::TextureID textureID) {
 
 void FBO::bind() { glBindFramebuffer(GL_FRAMEBUFFER, fboID); }
 void FBO::unbind() { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
+
+void FBO::clear() { glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); }

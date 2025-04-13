@@ -1,7 +1,5 @@
 #include "precompiled.h"
 
-#include <windows.h>
-
 #include "LevelManager.h"
 
 extern "C"

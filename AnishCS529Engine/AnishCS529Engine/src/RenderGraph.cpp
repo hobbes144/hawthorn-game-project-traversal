@@ -16,7 +16,7 @@ void RenderGraph::initialize()
     maskSortIndex[RenderMask::RenderPassOrder[i]] = i;
   }
 
-  initializeLightUBOs();
+  initializeLightBuffers();
   initializeCameraUBO();
 }
 
@@ -25,7 +25,14 @@ void RenderGraph::draw(SceneGraph* scene)
   for (const auto& camera : scene->getCameras()) {
 
     updateCameraUBO(camera);
-    updateLightUBOs(*(scene->getLights()));
+
+    // Todo: temporarily using this quick fix so we don't need to always
+    // update lights. We should instead keep track of dirty lights and
+    // only update those.
+    if (!lightsSet) {
+      updateLightBuffers(*(scene->getLights()));
+      lightsSet = true;
+    }
 
     for (const auto& pass : renderStack) {
       pass->draw(camera, scene);
@@ -43,7 +50,7 @@ void RenderGraph::draw(SceneGraph* scene)
  * Any shader that has the UBO binding 1 set to "lights" will use these values.
  * 
  *****************************************************************************/
-void RenderGraph::initializeLightUBOs()
+void RenderGraph::initializeLightBuffers()
 {
   glGenBuffers(1, &uboLights);
   glBindBuffer(GL_UNIFORM_BUFFER, uboLights);
@@ -55,6 +62,12 @@ void RenderGraph::initializeLightUBOs()
   glBindBufferRange(
     GL_UNIFORM_BUFFER, 1, uboLights, 0,
     sizeof(LightingPassLights));
+
+  glGenBuffers(1, &ssboLights);
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssboLights);
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, ssboLights); // Binding point 2 matches GLSL
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
 }
 
 /*!****************************************************************************
@@ -76,7 +89,7 @@ void RenderGraph::initializeCameraUBO()
   glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboCamera, 0, sizeof(Matrix4) * 2);
 }
 
-void RenderGraph::updateLightUBOs(Lights lights)
+void RenderGraph::updateLightBuffers(Lights lights)
 {
   LightingPassLights lpLights = { lights.sunLight, lights.ambientLight };
   glBindBuffer(GL_UNIFORM_BUFFER, uboLights);
@@ -84,6 +97,10 @@ void RenderGraph::updateLightUBOs(Lights lights)
     0, sizeof(LightingPassLights),
     &lpLights);
   glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssboLights);
+  glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(PointLight) * lights.pointLights.size(), lights.pointLights.data(), GL_DYNAMIC_DRAW);
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 void RenderGraph::updateCameraUBO(std::shared_ptr<Camera> camera)

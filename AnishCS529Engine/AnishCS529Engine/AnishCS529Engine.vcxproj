@@ -51,6 +51,7 @@
     <ClCompile Include="src\LevelManager.cpp" />
     <ClCompile Include="src\LightingPass.cpp" />
     <ClCompile Include="src\LMMain.cpp" />
+    <ClCompile Include="src\LocalLightsPass.cpp" />
     <ClCompile Include="src\MapLoader.cpp" />
     <ClCompile Include="src\EngineDemo.cpp" />
     <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="src\ShaderManager.cpp" />
     <ClCompile Include="src\Shoot.cpp" />
     <ClCompile Include="src\simplexnoise.cpp" />
+    <ClCompile Include="src\SkydomePass.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
@@ -127,8 +129,6 @@
     <ClCompile Include="src\RectanglePrimitive.cpp" />
     <ClCompile Include="src\Tank.cpp" />
     <ClCompile Include="src\TankBattle.cpp" />
-    <ClCompile Include="src\TestShapes.cpp" />
-    <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TextureMaterial.cpp" />
     <ClCompile Include="src\TimeControlledRB.cpp" />
@@ -168,6 +168,7 @@
     <ClInclude Include="src\KeyList.h" />
     <ClInclude Include="src\Lights.h" />
     <ClInclude Include="src\LevelManager.h" />
+    <ClInclude Include="src\LocalLightsPass.h" />
     <ClInclude Include="src\MainTestMaterial.h" />
     <ClInclude Include="src\MapLoader.h" />
     <ClInclude Include="src\Material.inl" />
@@ -228,8 +229,6 @@
     <ClInclude Include="src\Shape.h" />
     <ClInclude Include="src\Tank.h" />
     <ClInclude Include="src\TestPass.h" />
-    <ClInclude Include="src\TestShapes.h" />
-    <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\TextureMaterial.h" />
     <ClInclude Include="src\TextureParametersOpenGL.h" />
@@ -291,12 +290,8 @@
     <None Include="shaders\lighting.vert">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>
-    <None Include="shaders\main.frag">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\main.vert">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
+    <None Include="shaders\local_lights.frag" />
+    <None Include="shaders\local_lights.vert" />
     <None Include="shaders\main_fragment_shader.glsl">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>

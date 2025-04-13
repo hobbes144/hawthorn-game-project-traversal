@@ -9,10 +9,11 @@
  *
  *****************************************************************************/
 #include "precompiled.h"
+
 #include "Mesh.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 
 std::unordered_map<Mesh::Type, std::shared_ptr<Mesh>> Mesh::shapeMeshes;
 

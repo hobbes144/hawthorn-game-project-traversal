@@ -15,6 +15,8 @@ void LevelManager::SystemInitalization()
 
     mainWindow = new GameWindow;
 
+    isFullscreen = false;
+
     if (isFullscreen) {
         int windowWidth = mode->width;
         int windowHeight = mode->height;
@@ -34,6 +36,8 @@ void LevelManager::SystemInitalization()
     mainRenderer->initialize();
     mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+    //glfwSwapInterval(0);
+
     /* IMGUI Init */
     ImGui::CreateContext();
     ImGui_ImplGlfw_InitForOpenGL(mainWindow->getNativeWindow(), true);
@@ -41,12 +45,14 @@ void LevelManager::SystemInitalization()
 
     int textureMode = 1;
 
-    auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
-    mainRenderer->getRenderGraph()->addPass<SkydomePass>(skydomePass);
+    //auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
+    //mainRenderer->getRenderGraph()->addPass<SkydomePass>(skydomePass);
 
     mainRenderer->getRenderGraph()->addPass<GBufferPrepass>();
 
     mainRenderer->getRenderGraph()->addPass<LightingPass>();
+    
+    mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
 
     //mainWindow->setVsync(true);
 
@@ -721,7 +727,7 @@ void LevelManager::createPlayerObject()
     mainSceneGraph.addAmbientLight(
       AmbientLight(Vector3(1, 1, 1), 0.3f));
     mainSceneGraph.addDirectionalLight(
-      DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
+      DirectionalLight(LightDirection, 0.0f, Vector3(1.0f, 1.0f, 1.0f)));
 
 #pragma region PlayerBox
 

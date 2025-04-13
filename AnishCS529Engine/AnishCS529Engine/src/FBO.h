@@ -37,6 +37,8 @@ public:
 
   // Unbind this FBO from the graphics pipeline;  graphics goes to screen by default.
   void unbind();
+
+  void clear();
 };
 
 #endif // !FBO_H

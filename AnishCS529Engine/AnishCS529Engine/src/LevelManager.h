@@ -17,6 +17,7 @@
 #include "imgui_impl_opengl3.h"
 #include "Input.h"
 #include "KeyList.h"
+#include "LocalLightsPass.h"
 #include "LightingPass.h"
 #include "MapLoader.h"
 #include "Movement3D.h"

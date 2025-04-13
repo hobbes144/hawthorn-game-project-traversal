@@ -26,7 +26,7 @@ void GBufferPrepass::initialize() {
 void GBufferPrepass::draw(std::shared_ptr<Camera> camera, SceneGraph* sceneGraph) const {
   gbuffer->bind();
 
-  renderGraphBuilder->getRenderer()->clear();
+  gbuffer->clear();
 
   RenderPass::draw(camera, sceneGraph);
 

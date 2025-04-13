@@ -294,16 +294,18 @@ Renderer* Renderer::setDepthState(const DepthState& depthState, bool force)
   if (depthState.testEnabled) {
     glEnable(GL_DEPTH_TEST);
     clearMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
-    /*if (depthState.writeEnabled)
+    if (depthState.writeEnabled)
       glDepthMask(GL_TRUE);
     else
-      glDepthMask(GL_FALSE);*/
+      glDepthMask(GL_FALSE);
     glDepthFunc(depthState.func);
   }
   else {
     glDisable(GL_DEPTH_TEST);
     clearMask = GL_COLOR_BUFFER_BIT;
   }
+
+  state.depthState = depthState;
   return this;
 }
 
@@ -330,6 +332,8 @@ Renderer* Renderer::setBlendState(const BlendState& blendState, bool force)
   }
   else
     glDisable(GL_BLEND);
+
+  state.blendState = blendState;
   return this;
 }
 
