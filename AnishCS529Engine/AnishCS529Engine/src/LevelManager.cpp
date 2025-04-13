@@ -179,7 +179,7 @@ void LevelManager::DisplayLogos()
     auto Logo = std::make_shared<GameObject>("Logo");
     sceneGraph.addNode(Logo);
     Logo->setLocalPosition(Vector3(0.0f, 0.0f, -10.0f));
-    Logo->setLocalScaling(Vector3(15.0f, 8.5f, 0.005f));
+    Logo->setLocalScaling(Vector3(15.0f, 15.0f, 0.005f));
     auto renderComp = Logo->addComponent<Render3D>();
     renderComp->setMesh(boxMesh)->setMaterial(digiMaterial);
     
@@ -276,9 +276,24 @@ void LevelManager::DisplayLogos()
         float deltaTime = 1.0f / expectedFrameRate;
         logoTimer += deltaTime;
 
-        bool mouseClicked = mainInput->isMouseButtonDown(0);
+        //Ambient Light
+        float ambientIntensity = 1.0f;
+        float fadeInTime = 0.5f;
+        float fadeOutTime = 1.0f;
+        if (logoTimer < fadeInTime) {
+            ambientIntensity = logoTimer / fadeInTime;
+        }
+        else if (logoTimer > logoDuration - fadeOutTime) {
+            ambientIntensity = std::max(0.0f, (logoDuration - logoTimer) / fadeOutTime);
+        }
+        sceneGraph.addAmbientLight(
+            AmbientLight(Vector3(1, 1, 1), ambientIntensity));
 
-        if ((!prevMouseClicked && mouseClicked) || logoTimer >= logoDuration) {
+        bool mouseClicked = mainInput->isMouseButtonDown(0);
+        bool skipped = (!prevMouseClicked && mouseClicked) ||
+                       (mainInput->isKeyPressed(KEY_SPACE));
+
+        if ( skipped || logoTimer >= logoDuration) {
             logoTimer = 0.0f;
             currentLogo++;
 
