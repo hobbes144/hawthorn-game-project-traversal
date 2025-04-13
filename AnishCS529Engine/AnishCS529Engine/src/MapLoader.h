@@ -88,6 +88,7 @@ private:
     std::shared_ptr<TextureMaterial> keyMaterial;
     std::shared_ptr<TextureMaterial> shadowMaterial;
     std::shared_ptr<TextureMaterial> jumpImage;
+    std::shared_ptr<TextureMaterial> wordMaterial;
 
 
     //void loadWallrun(float offsetX, float offsetY, float offsetZ,

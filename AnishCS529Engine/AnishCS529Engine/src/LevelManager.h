@@ -117,6 +117,7 @@ private:
 	std::shared_ptr<TextureMaterial> keyMaterial;
 	std::shared_ptr<TextureMaterial> shadowMaterial;
 	std::shared_ptr<TextureMaterial> jumpImage;
+	std::shared_ptr<TextureMaterial> wordMaterial;
 
 	//Player References
 	std::shared_ptr<GameObject> playerBox;

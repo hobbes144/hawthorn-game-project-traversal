@@ -33,6 +33,7 @@ void MapLoader::initializeResources() {
     keyMaterial = Material::getMaterial<TextureMaterial>("key");
     shadowMaterial = Material::getMaterial<TextureMaterial>("shadow");
     jumpImage = Material::getMaterial<TextureMaterial>("jumpImage");
+    wordMaterial = Material::getMaterial<TextureMaterial>("words");
 }
 
 

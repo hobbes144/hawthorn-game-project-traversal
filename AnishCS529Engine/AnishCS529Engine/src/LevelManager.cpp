@@ -156,6 +156,11 @@ void LevelManager::MeshMatInitializations()
     jumpImage->setProperty("shininess", 1.0f);
     jumpImage->addTexture("media/textures/jumpImage.png", 1.0f, 1.0f);
 
+    wordMaterial = Material::getMaterial<TextureMaterial>("words");
+    wordMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    wordMaterial->setProperty("shininess", 1.0f);
+    wordMaterial->addTexture("media/textures/words.png", 1.0f, 1.0f);
+
     //doorMaterial = Material::getMaterial<MainTestMaterial>("door", mainRenderer->getRenderGraph());
     //doorMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
     //doorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
