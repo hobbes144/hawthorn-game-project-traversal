@@ -16,13 +16,15 @@
 
 class LightingPass : public RenderPass {
 protected:
-
+  std::shared_ptr<Mesh> screenQuad;
 public:
-  LightingPass() : RenderPass() {
-    this->addShader("shaders/lighting.vert\nshaders/lighting.frag");
+  LightingPass();
 
-    renderMask = RenderMask::LightingPass;
-  };
+  void initialize();
+
+  void draw(
+    std::shared_ptr<Camera> camera,
+    SceneGraph* scene) const override;
 };
 
 #endif // !LIGHTING_PASS_H

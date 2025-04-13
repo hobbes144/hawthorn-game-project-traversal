@@ -223,12 +223,22 @@ void Shader::cacheUniforms()
 /*!****************************************************************************
  * \brief Function to use the Shader Program
  * 
- * This should be used every time a draw call needs to use this specific
+ * This should be used every time a render pass needs to use this specific
  * shader.
  * 
  *****************************************************************************/
 void Shader::use() {
   glUseProgram(programID);
+}
+
+/*!****************************************************************************
+ * \brief Function to unuse the Shader Program
+ *
+ * This should be used every time a render pass is completed.
+ *
+ *****************************************************************************/
+void Shader::unuse() {
+  glUseProgram(0);
 }
 
 /*!****************************************************************************
@@ -349,4 +359,10 @@ void Shader::bindTexture(
   glBindTexture(TEXTURE_2D, textureID.id);
 
   setInt(name, textureUnit);
+}
+
+void Shader::unbindTexture(unsigned int textureUnit) const
+{
+  glActiveTexture(GL_TEXTURE0 + textureUnit);
+  glBindTexture(TEXTURE_2D, 0);
 }

@@ -32,7 +32,7 @@ void LevelManager::SystemInitalization()
     mainRenderer = new Renderer;
     mainRenderer->setGameWindow(mainWindow);
     mainRenderer->initialize();
-    mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
+    mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     /* IMGUI Init */
     ImGui::CreateContext();
@@ -95,6 +95,18 @@ void LevelManager::MeshMatInitializations()
     // Create meshes
     boxMesh = Mesh::createMesh("box", Mesh::Cube);
     sphereMesh = Mesh::createSphereMesh("sphere", 32);
+
+    // Digi Material
+    digiMaterial = Material::getMaterial<TextureMaterial>("digi");
+    digiMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    digiMaterial->setProperty("shininess", 10.0f);
+    digiMaterial->addTexture("media/textures/DigiPenLogo.jpg", 1.0f, 1.0f);
+
+    // FMOD Material
+    fmodMaterial = Material::getMaterial<TextureMaterial>("fmod");
+    fmodMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    fmodMaterial->setProperty("shininess", 10.0f);
+    fmodMaterial->addTexture("media/textures/FmodLogo.jpg", 1.0f, 1.0f);
 
     // Concrete Material
     concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
@@ -176,6 +188,165 @@ void LevelManager::MeshMatInitializations()
 
 }
 
+void LevelManager::DisplayLogos()
+{
+    SceneGraph sceneGraph;
+
+    //Create Object
+    auto Logo = std::make_shared<GameObject>("Logo");
+    sceneGraph.addNode(Logo);
+    Logo->setLocalPosition(Vector3(0.0f, 0.0f, -10.0f));
+    Logo->setLocalScaling(Vector3(15.0f, 15.0f, 0.005f));
+    auto renderComp = Logo->addComponent<Render3D>();
+    renderComp->setMesh(boxMesh)->setMaterial(digiMaterial);
+    
+    //Create Camera
+    auto cam = cameraGameObject = std::make_shared<GameObject>("logoCamera");
+    sceneGraph.addNode(cam);
+    auto cameraLogo = std::make_shared<AttachedCamera>("logoCamera");
+    cameraLogo->attachToNode(cameraGameObject);
+    sceneGraph.addCamera(cameraLogo);
+
+    //Perspective
+    cameraLogo->setPerspectiveProjection(
+      45.0f * 3.14159f / 180.0f,
+      mainWindow->getAspectRatio(),
+      0.1f,
+      5000.0f);
+
+    //Light Direction
+    Vector3 LightDirection = Vector3(-1.0f, 0.0f, 0.0f).normalized();
+    sceneGraph.addAmbientLight(
+      AmbientLight(Vector3(1, 1, 1), 1.0f));
+    sceneGraph.addDirectionalLight(
+      DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
+
+    //Count the Logos
+    float logoTimer = 0.0f;
+    float logoDuration = 5.0f;
+    int currentLogo = 0;
+    int numLogos = 2;
+
+    int expectedFrameRate = 60;
+    static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
+
+    mainFramerateController->setTargetFramerate(expectedFrameRate);
+    sceneGraph.printSceneTree();
+
+    bool mouseClicked = false;
+    bool prevMouseClicked = true;
+
+    while (currentLogo < numLogos) {
+
+        //Restart the Renderer
+        mainRenderer->clear();
+        mainFramerateController->startFrame();              // record the time from frame start
+
+        //Update the Input Manager
+        mainInput->update();
+
+        //Update the GamePad
+        gamepad->update();
+
+        //Full Screen Toggle
+        if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
+            GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+            if (isFullscreen) {
+                // Windowed mode
+                int windowWidth = 1280;
+                int windowHeight = 720;
+                // Enable borders
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
+                // Reposition the window
+                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
+                isFullscreen = false;
+            }
+            else {
+                // Save current window attributes
+                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
+                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
+
+                // Borderless fullscreen
+                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
+                glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
+                isFullscreen = true;
+            }
+
+            // Adjust viewport and camera aspect ratio
+            int fbWidth, fbHeight;
+            glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
+            glViewport(0, 0, fbWidth, fbHeight);
+            float newAspect = static_cast<float>(fbWidth) / static_cast<float>(fbHeight);
+            camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
+        }
+
+        //Update Physics
+        while (mainFramerateController->shouldUpdatePhysics()) {
+            PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
+            mainFramerateController->consumePhysicsTime();
+        }
+
+        //Update Logo Timer
+        float deltaTime = 1.0f / expectedFrameRate;
+        logoTimer += deltaTime;
+
+        //Ambient Light
+        float ambientIntensity = 1.0f;
+        float fadeInTime = 0.5f;
+        float fadeOutTime = 1.0f;
+        if (logoTimer < fadeInTime) {
+            ambientIntensity = logoTimer / fadeInTime;
+        }
+        else if (logoTimer > logoDuration - fadeOutTime) {
+            ambientIntensity = std::max(0.0f, (logoDuration - logoTimer) / fadeOutTime);
+        }
+        sceneGraph.addAmbientLight(
+            AmbientLight(Vector3(1, 1, 1), ambientIntensity));
+
+        bool mouseClicked = mainInput->isMouseButtonDown(0);
+        bool skipped = (!prevMouseClicked && mouseClicked) ||
+                       (mainInput->isKeyPressed(KEY_SPACE));
+
+        if ( skipped || logoTimer >= logoDuration) {
+            logoTimer = 0.0f;
+            currentLogo++;
+
+            if (currentLogo < numLogos) {
+                switch (currentLogo)
+                {
+                case 0:
+                    renderComp->setMaterial(digiMaterial);
+                    break;
+                case 1:
+                    renderComp->setMaterial(fmodMaterial);
+                    break;
+                default:
+                    if (currentLogo >= numLogos) break;
+                    break;
+                }
+            }
+        }
+
+        prevMouseClicked = mouseClicked;
+
+        //Update Scenegraph
+        mainFramerateController->endFrame();
+        sceneGraph.update(1.0f / 60.0f);
+
+        //Draw the Scene
+        mainRenderer->getRenderGraph()->draw(&sceneGraph);
+
+        //Swap Buffers and Update Window
+        mainRenderer->swapBuffers();
+        mainWindow->update();
+
+    }
+
+}
+
 void LevelManager::RunLevels()
 {
 
@@ -249,6 +420,7 @@ void LevelManager::ExecuteMainLoop()
             break;
         }
 
+        //Full Screen Toggle
         if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
             GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
             GLFWmonitor* monitor = glfwGetPrimaryMonitor();
@@ -283,12 +455,7 @@ void LevelManager::ExecuteMainLoop()
             camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
         }
 
-        // Physics update loop fixedStepTime
-        /*while (mainFramerateController->shouldUpdatePhysics()) {
-            PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
-            mainFramerateController->consumePhysicsTime();
-        }*/
-
+        //Cheating Level Select
         auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
         if (fpc && fpc->isCreativeMode()) {
             for (int level = 0; level < 10; ++level) {
@@ -322,6 +489,7 @@ void LevelManager::ExecuteMainLoop()
             }
         }
 
+        //Update Physics
         while(mainFramerateController->shouldUpdatePhysics()) {
             PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
             mainFramerateController->consumePhysicsTime();
@@ -399,8 +567,6 @@ void LevelManager::ExecuteMainLoop()
         mainRenderer->swapBuffers();
         mainWindow->update();
 
-        //glfwSwapBuffers(window);
-
     }
 }
 
@@ -445,7 +611,6 @@ void LevelManager::checkPlayerBoundaries() {
         }
     }
 }
-
 
 void LevelManager::NextLevel()
 {
@@ -632,8 +797,6 @@ void LevelManager::createPlayerObject()
 
 }
 
-
-
 void LevelManager::initalizePlayerInLevel()
 {
 
@@ -685,7 +848,6 @@ void LevelManager::SetPlayerDifficulty(FirstPersonControllerComponent::Difficult
 FirstPersonControllerComponent::Difficulty LevelManager::getDifficulty() const {
     return playerDifficulty;
 }
-
 
 void LevelManager::resetToMenu()
 {

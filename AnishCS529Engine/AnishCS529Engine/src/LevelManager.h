@@ -52,6 +52,8 @@ public:
 
 	void MeshMatInitializations();
 
+	void DisplayLogos();
+
 	void RunLevels();
 	void ExecuteMainLoop();
 	void checkPlayerBoundaries();
@@ -118,6 +120,8 @@ private:
 	std::shared_ptr<TextureMaterial> shadowMaterial;
 	std::shared_ptr<TextureMaterial> jumpImage;
 	std::shared_ptr<TextureMaterial> wordMaterial;
+	std::shared_ptr<TextureMaterial> digiMaterial;
+	std::shared_ptr<TextureMaterial> fmodMaterial;
 
 	//Player References
 	std::shared_ptr<GameObject> playerBox;

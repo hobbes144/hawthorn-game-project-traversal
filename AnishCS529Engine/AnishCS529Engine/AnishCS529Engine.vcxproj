@@ -45,9 +45,11 @@
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\FBO.cpp" />
     <ClCompile Include="src\FreeCamera.cpp" />
+    <ClCompile Include="src\GBufferPrepass.cpp" />
     <ClCompile Include="src\InGameKey.cpp" />
     <ClCompile Include="src\KeyList.cpp" />
     <ClCompile Include="src\LevelManager.cpp" />
+    <ClCompile Include="src\LightingPass.cpp" />
     <ClCompile Include="src\LMMain.cpp" />
     <ClCompile Include="src\MapLoader.cpp" />
     <ClCompile Include="src\EngineDemo.cpp" />

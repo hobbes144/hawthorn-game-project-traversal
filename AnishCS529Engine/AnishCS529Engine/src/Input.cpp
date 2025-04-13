@@ -198,6 +198,15 @@ bool Input::isKeyHeld(Key k) {
   return false;
 }
 
+void Input::beginFrame()
+{
+}
+
+void Input::endFrame()
+{
+    prevMouseState = mouseState;
+}
+
 /*!****************************************************************************
  * \brief Input initialize is a dummy function
  * 
@@ -232,6 +241,9 @@ void Input::update() {
     state.prevState = state.currentState;
     state.currentState = newState;
   }
+
+  prevMouseState = mouseState;
+
 }
 
 /*!****************************************************************************
@@ -256,6 +268,42 @@ bool Input::isMouseButtonDown(int button) const {
     case GLFW_MOUSE_BUTTON_RIGHT: return mouseState.rightMouseDown;
     case GLFW_MOUSE_BUTTON_MIDDLE: return mouseState.middleMouseDown;
     default: return false;
+    }
+}
+
+bool Input::isMouseButtonPressed(int button) const
+{
+    bool result = false;
+    switch (button) {
+    case GLFW_MOUSE_BUTTON_LEFT:
+        result = mouseState.leftMouseDown && !prevMouseState.leftMouseDown;
+        break;
+    case GLFW_MOUSE_BUTTON_RIGHT:
+        result = mouseState.rightMouseDown && !prevMouseState.rightMouseDown;
+        break;
+    case GLFW_MOUSE_BUTTON_MIDDLE:
+        result = mouseState.middleMouseDown && !prevMouseState.middleMouseDown;
+        break;
+    default:
+        return false;
+    }
+    if (result) {
+        std::cout << "True";
+    }
+    return result;
+}
+
+bool Input::isMouseButtonReleased(int button) const
+{
+    switch (button) {
+    case GLFW_MOUSE_BUTTON_LEFT:
+        return !mouseState.leftMouseDown && prevMouseState.leftMouseDown;
+    case GLFW_MOUSE_BUTTON_RIGHT:
+        return !mouseState.rightMouseDown && prevMouseState.rightMouseDown;
+    case GLFW_MOUSE_BUTTON_MIDDLE:
+        return !mouseState.middleMouseDown && prevMouseState.middleMouseDown;
+    default:
+        return false;
     }
 }
 

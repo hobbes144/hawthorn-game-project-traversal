@@ -26,6 +26,7 @@ public:
   unsigned int attachedTextures = 0;
 
   void initialize();
+  void finalize();
 
   void setViewport(const int w, const int h);
 

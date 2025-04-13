@@ -27,6 +27,13 @@
 #include "RenderFlags.h"
 #include "RenderGraphBuilder.h"
 
+#define CHECKERROR(msg) { \
+    GLenum err; \
+    while ((err = glGetError()) != GL_NO_ERROR) { \
+        fprintf(stderr, "OpenGL error at %s:%d - %s (%d)\n", __FILE__, __LINE__, msg, err); \
+    } \
+}
+
 /*!****************************************************************************
  * \brief Render Pass class used to render using a shader
  * 
@@ -99,7 +106,7 @@ public:
 
   virtual void draw(
     std::shared_ptr<Camera> camera,
-    SceneGraph* scene) const;
+    SceneGraph* sceneGraph) const;
 
   /* Utility functions */
   void enable();
@@ -121,6 +128,7 @@ protected:
   std::optional<std::unordered_map<std::string, TextureManager::TextureID>> textureData;
 
   void applyProperties() const;
+  void unbindTextures() const;
 
   // Todo: turn this into per point light.
   //void applyLights(Lights lights) const;

@@ -75,6 +75,7 @@ public:
   void setPhysicsTimestep(T timestep);
   bool shouldUpdatePhysics() const;
   void consumePhysicsTime();
+  void clearPhysicsTime();
   T getAccumulatorAlpha() const;
 
 
