@@ -67,23 +67,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             ->registerToPhysicsManager(PhysicsManager::Instance());
         doorComp->initialize();
     }
-    // Floor pad
-    //{
-    //    auto mainFloor = std::make_shared<GameObject>("mainFloor");
-    //    sceneGraph.addNode(mainFloor);
-    //    mainFloor->setLocalPosition(Vector3(0.0f + offsetX, -25.0f + offsetY, 0.0f + offsetZ));
-    //    mainFloor->setLocalScaling(Vector3(300.0f, 50.0f, 300.0f));
-    //    auto renderComp = mainFloor->addComponent<Render3D>();
-    //    renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
-    //    auto shape = std::make_shared<OBB>();
-    //    auto rigidBody = mainFloor->addComponent<RigidBody>();
-    //    rigidBody->setMass(0.0f)
-    //        ->setDrag(1.0f)
-    //        ->setShape(shape)
-    //        ->setStatic(true)
-    //        ->registerToPhysicsManager(PhysicsManager::Instance());
-    //    rigidBody->initialize();
-    //}
+ 
     // ------------
     //   Wall run
     // ------------
@@ -213,9 +197,12 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         rigidBody->initialize();
     }
 
+    
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(-119.0f + offsetX, 22.0f + offsetY, -99.0f + offsetZ), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 0.0f, -1.57f), wordMaterial);
+    
+
     // Checkpoint3
-
-
+    
     {
         if (LevelManager::Instance().getDifficulty() != FirstPersonControllerComponent::HARD) {
             if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::NORMAL) {
