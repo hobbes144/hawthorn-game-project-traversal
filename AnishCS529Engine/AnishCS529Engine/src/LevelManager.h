@@ -84,7 +84,7 @@ private:
 	int currentLevel = -1;
 	int numLevels = 6;
 	bool levelSwapFlag = false;
-	bool isFullscreen = false;
+	bool isFullscreen = true;
 	FirstPersonControllerComponent::Difficulty playerDifficulty = FirstPersonControllerComponent::NORMAL;
 
 	//Systems
