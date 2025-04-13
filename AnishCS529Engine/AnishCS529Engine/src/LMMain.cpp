@@ -22,6 +22,8 @@ int main()
     LevelManager::Instance().SystemInitalization();
     LevelManager::Instance().MeshMatInitializations();
 
+    LevelManager::Instance().DisplayLogos();
+
     //Main Loop
     while (!LevelManager::Instance().GameComplete()) {
         LevelManager::Instance().RunLevels();
