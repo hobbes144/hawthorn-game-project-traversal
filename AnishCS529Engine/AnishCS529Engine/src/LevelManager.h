@@ -127,7 +127,9 @@ private:
 	Quaternion startingRot1 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
 	Vector3 startingPos2 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot2 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
-	Vector3 startingPos3 = Vector3(-131.0f, 7.0f, -130.0f);
+	//Vector3 startingPos3 = Vector3(-131.0f, 7.0f, -130.0f);
+	Vector3 startingPos3 = Vector3(120.5f, 142.0f, -86.0f);
+	
 	Quaternion startingRot3 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
 	Vector3 startingPos4 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot4 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));

@@ -1118,23 +1118,23 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         rigidBody->initialize();
     }
 
-    {
-        auto deathPlane = std::make_shared<GameObject>("deathPlane");
-        sceneGraph.addNode(deathPlane);
-        deathPlane->setLocalPosition(Vector3(120.0f + offsetX, 130.0f + offsetY, 25.0f + offsetZ));
-        deathPlane->setLocalScaling(Vector3(30.0f, 1.0f, 190.0f));
-        auto renderComp = deathPlane->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(cracksMaterial);
-        auto shape = std::make_shared<OBB>();
-        auto rigidBody = deathPlane->addComponent<DeathPlane>();
-        rigidBody->setPlayerName("PlayerBox");
-        rigidBody->setMass(0.0f)
-            ->setDrag(1.0f)
-            ->setShape(shape)
-            ->setStatic(true)
-            ->registerToPhysicsManager(PhysicsManager::Instance());
-        rigidBody->initialize();
-    }
+    //{
+    //    auto deathPlane = std::make_shared<GameObject>("deathPlane");
+    //    sceneGraph.addNode(deathPlane);
+    //    deathPlane->setLocalPosition(Vector3(120.0f + offsetX, 130.0f + offsetY, 25.0f + offsetZ));
+    //    deathPlane->setLocalScaling(Vector3(30.0f, 1.0f, 190.0f));
+    //    auto renderComp = deathPlane->addComponent<Render3D>();
+    //    renderComp->setMesh(boxMesh)->setMaterial(cracksMaterial);
+    //    auto shape = std::make_shared<OBB>();
+    //    auto rigidBody = deathPlane->addComponent<DeathPlane>();
+    //    rigidBody->setPlayerName("PlayerBox");
+    //    rigidBody->setMass(0.0f)
+    //        ->setDrag(1.0f)
+    //        ->setShape(shape)
+    //        ->setStatic(true)
+    //        ->registerToPhysicsManager(PhysicsManager::Instance());
+    //    rigidBody->initialize();
+    //}
 
     {
 
@@ -1159,44 +1159,46 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             };
 
         if (LevelManager::Instance().getDifficulty() == FirstPersonControllerComponent::HARD) {
-            movingWallRun("wallLeft1", Vector3(105.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallRight1", Vector3(135.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallLeft2", Vector3(105.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallRight2", Vector3(135.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallLeft3", Vector3(105.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallRight3", Vector3(135.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight1", Vector3(105.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft1", Vector3(135.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight2", Vector3(105.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallLeft2", Vector3(135.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallRight3", Vector3(105.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft3", Vector3(135.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
 
-            movingWallRun("wallLeft1", Vector3(105.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallRight1", Vector3(135.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallLeft2", Vector3(105.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallRight2", Vector3(135.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallLeft3", Vector3(105.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallRight3", Vector3(135.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight4", Vector3(105.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft4", Vector3(135.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight5", Vector3(105.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft5", Vector3(135.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
+            movingWallRun("wallRight6", Vector3(105.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
+            movingWallRun("wallLeft6", Vector3(135.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
 
-            movingWallRun("wallRight4", Vector3(135.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, 20.0f));
-            movingWallRun("wallLeft4", Vector3(105.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, -20.0f));
+            movingWallRun("wallLeft7", Vector3(135.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, 20.0f));
+            movingWallRun("wallRight7", Vector3(105.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, -20.0f));
         }
         else {
-            movingWallRun("wallLeft1", Vector3(113.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallRight1", Vector3(127.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallLeft2", Vector3(113.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f), -1.0f);
-            movingWallRun("wallRight2", Vector3(127.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f), -1.0f);
-            movingWallRun("wallLeft3", Vector3(113.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f), -2.0f);
-            movingWallRun("wallRight3", Vector3(127.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f), -2.0f);
+            
+            movingWallRun("wallRight1", Vector3(113.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, 15.0f, 0.0f), 0.0f);
+            movingWallRun("wallLeft2", Vector3(127.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, 15.0f, 0.0f), 5.0f);
+            movingWallRun("wallRight3", Vector3(113.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, 15.0f, 0.0f), 10.0f);
+            movingWallRun("wallLeft4", Vector3(127.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, 15.0f, 0.0f), 15.0f);
+            movingWallRun("wallRight5", Vector3(113.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, 15.0f, 0.0f), 20.0f);
+            movingWallRun("wallLeft6", Vector3(127.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, 15.0f, 0.0f), 25.0f);
+            
+            movingWallRun("wallLeft1", Vector3(127.0f + offsetX, 160.0f + offsetY, -50.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, -15.0f, 0.0f), 0.0f);
+            movingWallRun("wallRight2", Vector3(113.0f + offsetX, 160.0f + offsetY, -15.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, -15.0f, 0.0f), 5.0f);
+            movingWallRun("wallLeft3", Vector3(127.0f + offsetX, 160.0f + offsetY, 20.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, -15.0f, 0.0f), 10.0f);
+            movingWallRun("wallRight4", Vector3(113.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, -15.0f, 0.0f), 15.0f);
+            movingWallRun("wallLeft5", Vector3(127.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, -15.0f, 0.0f), 20.0f);
+            movingWallRun("wallRight6", Vector3(113.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 35.0f), Vector3(0.0f, -15.0f, 0.0f), 25.0f);
 
-            movingWallRun("wallLeft1", Vector3(113.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallRight1", Vector3(127.0f + offsetX, 160.0f + offsetY, 55.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallLeft2", Vector3(113.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
-            movingWallRun("wallRight2", Vector3(127.0f + offsetX, 160.0f + offsetY, 90.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallLeft3", Vector3(113.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, -15.0f, 0.0f));
-            movingWallRun("wallRight3", Vector3(127.0f + offsetX, 160.0f + offsetY, 125.0f + offsetZ), Vector3(1.0f, 35.0f, 25.0f), Vector3(0.0f, 15.0f, 0.0f));
 
             movingWallRun("wallLeft4", Vector3(127.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, 20.0f));
             movingWallRun("wallReft4", Vector3(113.0f + offsetX, 170.0f + offsetY, -100.0f + offsetZ), Vector3(1.0f, 20.0f, 25.0f), Vector3(0.0f, 0.0f, -20.0f));
             {
                 auto extraCheckpoint = std::make_shared<GameObject>("extraCheckpoint", GameObject::CHECKPOINT);
                 sceneGraph.addNode(extraCheckpoint);
-                extraCheckpoint->setLocalPosition(Vector3(120.5f + offsetX, 140.0f + offsetY, 20.0f + offsetZ));
+                extraCheckpoint->setLocalPosition(Vector3(120.5f + offsetX, 130.0f + offsetY, 20.0f + offsetZ));
                 extraCheckpoint->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));
                 auto renderComp = extraCheckpoint->addComponent<Render3D>();
                 renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
