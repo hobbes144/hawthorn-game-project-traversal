@@ -86,7 +86,7 @@ private:
 	int currentLevel = -1;
 	int numLevels = 8;
 	bool levelSwapFlag = false;
-	bool isFullscreen = true;
+	bool isFullscreen = false;
 	FirstPersonControllerComponent::Difficulty playerDifficulty = FirstPersonControllerComponent::NORMAL;
 
 	//Systems
@@ -132,7 +132,7 @@ private:
 	Quaternion startingRot1 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
 	Vector3 startingPos2 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot2 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
-	Vector3 startingPos3 = Vector3(0.0f, 21.0f, 0.0f);
+	Vector3 startingPos3 = Vector3(27.0f, 21.0f, 0.0f);
 	Quaternion startingRot3 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
 	Vector3 startingPos5 = Vector3(-131.0f, 7.0f, -130.0f);
 	Quaternion startingRot5 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));

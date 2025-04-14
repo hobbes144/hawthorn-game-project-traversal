@@ -145,5 +145,11 @@ void MapLoader::intermediate2(
         rigidBody->initialize();
     }
 
-    createBlock(sceneGraph, "wall", Vector3(0.0f, 34.0f, -19.0f), Vector3(70.0f, 30.0f, 1.0f), concreteMaterial);
+    createBlock(sceneGraph, "wall", Vector3(0.0f, 34.0f, -19.5f), Vector3(70.0f, 30.0f, 1.0f), concreteMaterial);
+    createBlock(sceneGraph, "wall", Vector3(-20.0f, 34.0f, 0.0f), Vector3(70.0f, 30.0f, 40.0f), concreteMaterial);
+    
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(23.0f, 27.0f, 34.0f), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 0.0f, 0.0f), wordMaterial);
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(-33.0f, 35.0f, 27.0f), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 1.57f, 0.0f), wordMaterial);
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(-33.0f, 60.0f, 29.0f), Vector3(0.03f, 0.03f, 0.01f), Vector3(-1.57f, 0.0f, 1.57f), wordMaterial);
+
 }
