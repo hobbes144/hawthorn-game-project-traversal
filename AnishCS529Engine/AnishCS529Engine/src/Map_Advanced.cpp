@@ -1250,7 +1250,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             checkPoint9->setLocalPosition(Vector3(120.5f + offsetX, 162.0f + offsetY, 151.0f + offsetZ));
         }
         else {
-            checkPoint9->setLocalPosition(Vector3(120.5f + offsetX, 162.0f + offsetY, 90.0f + offsetZ));
+            checkPoint9->setLocalPosition(Vector3(120.0f + offsetX, 162.0f + offsetY, 45.0f + offsetZ));
         }
         
         checkPoint9->setLocalScaling(Vector3(12.0f, 1.0f, 12.0f));

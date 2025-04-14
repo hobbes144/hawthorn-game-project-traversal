@@ -377,8 +377,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-160.0f + offsetX, 4.0f + offsetY, -9.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
+        wallRunWall->setLocalPosition(Vector3(-160.0f + offsetX, 4.0f + offsetY, -9.5f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -413,8 +413,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-230.0f + offsetX, 4.0f + offsetY, 9.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
+        wallRunWall->setLocalPosition(Vector3(-230.0f + offsetX, 4.0f + offsetY, 9.5f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -449,8 +449,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-295.0f + offsetX, 4.0f + offsetY, -9.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
+        wallRunWall->setLocalPosition(Vector3(-295.0f + offsetX, 4.0f + offsetY, -9.5f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -478,8 +478,8 @@ Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-350.0f + offsetX, 4.0f + offsetY, 9.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
+        wallRunWall->setLocalPosition(Vector3(-350.0f + offsetX, 4.0f + offsetY, 9.5f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
