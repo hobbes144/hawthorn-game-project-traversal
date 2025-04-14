@@ -17,7 +17,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wall->setLocalScaling(localScale);
 
         auto renderComp = wall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
 
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wall->addComponent<RigidBody>();

@@ -7,16 +7,17 @@
 void MapLoader::intermediate3(
     float offsetX, float offsetY, float offsetZ,
     SceneGraph& sceneGraph) {
-    Vector3 center(offsetX, offsetY, offsetZ);
+
+    Vector3 center(offsetX + 190, offsetY - 3, offsetZ);
 
     auto createWall = [&](const std::string& name, const Vector3& localPos, const Vector3& localScale) {
-        auto wall = std::make_shared<GameObject>(name, GameObject::RUNNABLE_WALL);
+        auto wall = std::make_shared<GameObject>(name);
         sceneGraph.addNode(wall);
         wall->setLocalPosition(center + localPos);
         wall->setLocalScaling(localScale);
 
         auto renderComp = wall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
 
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wall->addComponent<RigidBody>();
@@ -32,8 +33,8 @@ void MapLoader::intermediate3(
     float size = 20.0f;
     float wallThickness = 1.0f;
 
-    float width = size;
-    float height = 30.0f;
+    float width = 400.0f;
+    float height = 100.0f;
     float depth = size;
 
 

@@ -8,6 +8,29 @@ void MapLoader::intermediate2(
     float offsetX, float offsetY, float offsetZ,
     SceneGraph& sceneGraph) {
 
+
+    {
+        auto testDoor = std::make_shared<GameObject>("TestDoor", GameObject::WALL);
+        sceneGraph.addNode(testDoor);
+        testDoor->setLocalPosition(Vector3(0.0f + offsetX, 92.0f + offsetY, 34.0f + offsetZ));
+        testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
+        testDoor->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
+        auto renderComp = testDoor->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(BrownConcrete);
+        auto shape = std::make_shared<OBB>();
+        auto doorComp = testDoor->addComponent<Door>();
+        doorComp->setID(1);
+        doorComp->setType(Door::DoorType::NEXTLEVEL);
+        doorComp->setRequiresKey(false);
+        doorComp->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        doorComp->initialize();
+    }
+
+
     Vector3 center(offsetX, offsetY - 21, offsetZ);
 
     auto createWall = [&](const std::string& name, const Vector3& localPos, const Vector3& localScale) {
@@ -17,7 +40,7 @@ void MapLoader::intermediate2(
         wall->setLocalScaling(localScale);
 
         auto renderComp = wall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
 
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wall->addComponent<RigidBody>();
@@ -47,6 +70,7 @@ void MapLoader::intermediate2(
     createWall("BottomWall", Vector3(0.0f, 0.0f, 0.0f), Vector3(width, wallThickness, depth));
 
     createWall("TopWall", Vector3(0.0f, height - 130, 0.0f), Vector3(width, wallThickness, depth - 30));
+    createWall("TopWall", Vector3(0.0f, height - 90, 20.0f), Vector3(width, wallThickness, depth - 20));
 
     //{
     //    auto MovingPlatform = std::make_shared<GameObject>("MovingPlatform");

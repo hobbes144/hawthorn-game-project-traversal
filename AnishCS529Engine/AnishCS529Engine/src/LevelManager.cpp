@@ -112,7 +112,7 @@ void LevelManager::MeshMatInitializations()
     concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
     concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     concreteMaterial->setProperty("shininess", 10.0f);
-    concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
+    concreteMaterial->addTexture("media/textures/Concrete.png", 2.0f, 2.0f);
 
     // Cracks Material
     cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
@@ -131,7 +131,7 @@ void LevelManager::MeshMatInitializations()
     LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
     LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     LightBlueConcrete->setProperty("shininess", 10.0f);
-    LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 20.0f, 20.0f);
+    LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 1.0f, 1.0f);
 
     YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
     YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
@@ -141,7 +141,7 @@ void LevelManager::MeshMatInitializations()
     BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
     BrownConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     BrownConcrete->setProperty("shininess", 10.0f);
-    BrownConcrete->addTexture("media/textures/BrownConcrete.png", 20.0f, 20.0f);
+    BrownConcrete->addTexture("media/textures/BrownConcrete.png", 0.5f, 1.0f);
 
     BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
     BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));

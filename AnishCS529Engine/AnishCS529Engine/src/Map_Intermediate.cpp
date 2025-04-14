@@ -68,7 +68,7 @@ void MapLoader::intermediate(
         LeftWall->setLocalPosition(Vector3(-200.0f + offsetX, 4.0f + offsetY, 10.1f + offsetZ));
         LeftWall->setLocalScaling(Vector3(420.0f, 150.0f, 1.0f));
         auto renderComp = LeftWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = LeftWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -85,7 +85,7 @@ void MapLoader::intermediate(
         RightWall->setLocalPosition(Vector3(-200.0f + offsetX, 4.0f + offsetY, -10.1f + offsetZ));
         RightWall->setLocalScaling(Vector3(420.0f, 150.0f, 1.0f));
         auto renderComp = RightWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = RightWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -102,7 +102,7 @@ void MapLoader::intermediate(
         BackWall->setLocalPosition(Vector3(10.5f + offsetX, 4.0f + offsetY, 0.0f + offsetZ));
         BackWall->setLocalScaling(Vector3(1.0f, 150.0f, 20.0f));
         auto renderComp = BackWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = BackWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -119,7 +119,7 @@ void MapLoader::intermediate(
         FrontWall->setLocalPosition(Vector3(-190.5f + offsetX, 4.0f + offsetY, 0.0f + offsetZ));
         FrontWall->setLocalScaling(Vector3(1.0f, 150.0f, 20.0f));
         auto renderComp = FrontWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = FrontWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -136,7 +136,7 @@ void MapLoader::intermediate(
         TopWall->setLocalPosition(Vector3(-200.0f + offsetX, 50.0f + offsetY, 0.0f + offsetZ));
         TopWall->setLocalScaling(Vector3(420.0f, 10.0f, 20.0f));
         auto renderComp = TopWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = TopWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -302,7 +302,7 @@ void MapLoader::intermediate(
         upperFloor->setLocalPosition(Vector3(-125.0f + offsetX, 30.0f + offsetY, 0.0f + offsetZ));
         upperFloor->setLocalScaling(Vector3(50.0f, 40.0f, 20.0f));
         auto renderComp = upperFloor->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = upperFloor->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
