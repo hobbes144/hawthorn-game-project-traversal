@@ -143,6 +143,11 @@ void Mesh::draw(GLenum mode) {
   //geometryBuffer->unbind();
 }
 
+void Mesh::drawEBOTrisWithoutBind()
+{
+  glDrawElements(GL_TRIANGLES, geometryBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
+}
+
 std::shared_ptr<Mesh> Mesh::createSquareMesh(const std::string& name, float scale)
 {
   Transform I = Transform().setScaling(scale * 2.0f);

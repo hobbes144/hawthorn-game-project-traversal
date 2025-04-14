@@ -79,7 +79,7 @@ void FBO::updateViewport(
 
 void FBO::addScreenSizeBufferUpdateCallback(Renderer* renderer)
 {
-  renderer->addScreenSizeBufferUpdateCallback(
+    renderer->addScreenSizeBufferUpdateCallback(
     [this](int x, int y, int width, int height) {
       this->updateViewport(x, y, width, height);
     });

@@ -88,6 +88,7 @@ public:
 
 
   void draw(GLenum mode = GL_TRIANGLES);
+  void drawEBOTrisWithoutBind();
 
   /* Mesh factory */
   static std::shared_ptr<Mesh> loadMesh(const std::string& filename);

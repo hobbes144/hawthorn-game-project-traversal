@@ -56,7 +56,7 @@ void LocalLightsPass::draw(
   for ( unsigned int lightIndex = 0; lightIndex < lightCount; ++lightIndex) {
     shader->setUInt("lightIndex", lightIndex);
 
-    sphereMesh->draw(GL_TRIANGLES);
+    sphereMesh->drawEBOTrisWithoutBind();
   }
 
   unbindTextures();
