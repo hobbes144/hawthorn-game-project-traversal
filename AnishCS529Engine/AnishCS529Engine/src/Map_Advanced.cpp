@@ -37,12 +37,18 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     float height = 200.0f;
     float depth = size;
 
+    /*sceneGraph.addPointLight(
+      PointLight(
+        Vector3(-100.0f, 0.0f, 100.0f),
+        20.0f, 
+        Vector3(1.0f), 
+        10000.0f));*/
     sceneGraph.addPointLight(
       PointLight(
-        Vector3(0.0f, 50.0f, 0.0f), 
-        5.0f, 
-        Vector3(1.0f), 
-        10000.0f));
+        Vector3(-100.0f, 180.0f, 100.0f),
+        10000.0f,
+        Vector3(1.0f),
+        2000.0f));
 
     for (int i = 0; i < 1000; ++i) {
       auto lightPosition = Vector3(
