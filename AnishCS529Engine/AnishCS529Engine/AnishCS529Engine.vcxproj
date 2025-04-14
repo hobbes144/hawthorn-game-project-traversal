@@ -164,6 +164,7 @@
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\GBufferPrepass.h" />
     <ClInclude Include="src\GlobalVariables.h" />
+    <ClInclude Include="src\InGameKey.h" />
     <ClInclude Include="src\KeyList.h" />
     <ClInclude Include="src\Lights.h" />
     <ClInclude Include="src\LevelManager.h" />
