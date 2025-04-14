@@ -4,7 +4,7 @@
 #include "RendererStateSaver.h"
 
 LocalLightsPass::LocalLightsPass() :
-  RenderPass(), sphereMesh(Mesh::createSphereMesh("sphere", 32)) {
+  RenderPass(), sphereMesh(Mesh::createSphereMesh("lightSphere", 8)) {
 
   this->addShader("shaders/local_lights.vert\nshaders/local_lights.frag");
   //shader->initializeUBO("camera", 0);
