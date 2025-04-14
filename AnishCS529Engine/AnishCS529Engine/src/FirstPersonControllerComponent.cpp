@@ -425,62 +425,60 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	
 	//GamePad Input
 #pragma region GamePad
-	if (gp != nullptr) {
-		if (gp->update()) {
-			if (gp->leftStickY != 0) {
-				forwardMotion = gp->leftStickY;
-				if (forwardMotion > 0) {
-					isMovingForward = true;
-					isMovingBackward = false;
-				}
-				else if (forwardMotion < 0) {
-					isMovingForward = false;
-					isMovingBackward = true;
-				}
-			}
-			if (gp->leftStickX != 0) {
-				lateralMotion = gp->leftStickX;
-				if (lateralMotion < 0) {
-					isMovingLeft = true;
-					isMovingRight = false;
-				}
-				else if (lateralMotion > 0) {
-					isMovingLeft = false;
-					isMovingRight = true;
-				}
-			}
-			if (gp->rightStickX != 0) {
-				mouseXDelta = static_cast<float>(gp->rightStickX) * gp->gpRXSensitivity;
-				Quaternion currentBodyRotation = body->getLocalRotation();
-				Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
-				body->setLocalRotation(currentBodyRotation * mouseRotation);
-			}
-			if (gp->rightStickY != 0) {
-				mouseYDelta = -static_cast<float>(gp->rightStickY) * gp->gpRYSensitivity;
-				//Rotate Camera
-				Quaternion currentCameraRoation = camera->getLocalRotation();
-				Vector3 currentEuler = currentCameraRoation.toEuler();
-				float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
-				newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
-				Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
-				camera->setLocalRotation(newCameraRotation);
-			}
-			if (gp->isPressed(GamePadActionKey[Sprint]))
-				isSprinting = gp->isPressed(GamePadActionKey[Sprint]);
-			if (gp->isPressed(GamePadActionKey[Jump]))
-				isJumping = gp->isPressed(GamePadActionKey[Jump]);
-			if (gp->isPressed(GamePadActionKey[Slide]))
-				isSliding = gp->isPressed(GamePadActionKey[Slide]);
-			if (gp->isPressed(GamePadActionKey[Respawn]))
-				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
-			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide])) 
-				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
-			if (gp->isPressed(GamePadActionKey[Creative]))
-				creative = gp->isPressed(GamePadActionKey[Creative]);
-			if (gp->isPressed(GamePadActionKey[Music]))
-				music = gp->isPressed(GamePadActionKey[Music]);
+	GamePad* gamePad = input->getGamePad();
+	if (gamePad->leftStickY != 0) {
+		forwardMotion = gamePad->leftStickY;
+		if (forwardMotion > 0) {
+			isMovingForward = true;
+			isMovingBackward = false;
+		}
+		else if (forwardMotion < 0) {
+			isMovingForward = false;
+			isMovingBackward = true;
 		}
 	}
+	if (gamePad->leftStickX != 0) {
+		lateralMotion = gamePad->leftStickX;
+		if (lateralMotion < 0) {
+			isMovingLeft = true;
+			isMovingRight = false;
+		}
+		else if (lateralMotion > 0) {
+			isMovingLeft = false;
+			isMovingRight = true;
+		}
+	}
+	if (gamePad->rightStickX != 0) {
+		mouseXDelta = static_cast<float>(gamePad->rightStickX) * gamePad->RXSensitivity;
+		Quaternion currentBodyRotation = body->getLocalRotation();
+		Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
+		body->setLocalRotation(currentBodyRotation * mouseRotation);
+	}
+	if (gamePad->rightStickY != 0) {
+		mouseYDelta = -static_cast<float>(gamePad->rightStickY) * gamePad->RYSensitivity;
+		//Rotate Camera
+		Quaternion currentCameraRoation = camera->getLocalRotation();
+		Vector3 currentEuler = currentCameraRoation.toEuler();
+		float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
+		newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
+		Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
+		camera->setLocalRotation(newCameraRotation);
+	}
+	if (gamePad->isPressed(GamePadActionKey[Sprint]))
+		isSprinting = gamePad->isPressed(GamePadActionKey[Sprint]);
+	if (gamePad->isPressed(GamePadActionKey[Jump]))
+		isJumping = gamePad->isPressed(GamePadActionKey[Jump]);
+	if (gamePad->isPressed(GamePadActionKey[Slide]))
+		isSliding = gamePad->isPressed(GamePadActionKey[Slide]);
+	if (gamePad->isPressed(GamePadActionKey[Respawn]))
+		isRespawning = gamePad->isPressed(GamePadActionKey[Respawn]);
+	if (gamePad->isPressed(GamePadActionKey[Jump]) && gamePad->isPressed(GamePadActionKey[Slide]))
+		upMotion = gamePad->isPressed(GamePadActionKey[Jump]) - gamePad->isPressed(GamePadActionKey[Slide]);
+	if (gamePad->isPressed(GamePadActionKey[Creative]))
+		creative = gamePad->isPressed(GamePadActionKey[Creative]);
+	if (gamePad->isPressed(GamePadActionKey[Music]))
+		music = gamePad->isPressed(GamePadActionKey[Music]);
+
 #pragma endregion
 	//Creative mode
 	if (isCreative) {
@@ -813,12 +811,6 @@ void FirstPersonControllerComponent::shutdown() {
 std::shared_ptr<FirstPersonControllerComponent>
 FirstPersonControllerComponent::setInputSystem(Input* _inputSystem) {
 	input = _inputSystem;
-	return shared_from_this();
-}
-
-std::shared_ptr<FirstPersonControllerComponent>
-FirstPersonControllerComponent::setGamePad(GamePad* _gp) {
-	gp = _gp;
 	return shared_from_this();
 }
 

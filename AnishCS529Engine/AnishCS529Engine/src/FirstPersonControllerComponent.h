@@ -119,7 +119,7 @@ public:
 
     FirstPersonControllerComponent() : playerState(Free),
       anchorInfo(AnchorInfo()),
-        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
+        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
         walkForce(15), maxWalkSpeed(15.0f),
         runForceMultiplier(2.0f), maxRunSpeed(2 * maxWalkSpeed),
         jumpSpeed(40), airDrag(0.1f), anchoredDrag(0.6f),
@@ -280,9 +280,6 @@ private:
     bool hasSlidSinceAnchored = false;
 
     std::shared_ptr<Node> sceneRoot;
-
-    //GamePad
-    GamePad* gp;
 
     //Special States
     bool isCreative = false;

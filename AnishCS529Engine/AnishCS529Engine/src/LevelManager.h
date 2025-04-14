@@ -93,7 +93,6 @@ private:
 	GameWindow* mainWindow;
 	Renderer* mainRenderer;
 	Input* mainInput;
-	GamePad* gamepad;
 	FFramerateController* mainFramerateController;
 	SceneGraph mainSceneGraph;
 	std::shared_ptr<GameObject> cameraGameObject;
