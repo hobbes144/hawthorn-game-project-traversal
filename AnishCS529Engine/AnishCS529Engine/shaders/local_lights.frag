@@ -17,9 +17,9 @@ layout (binding = 0) uniform camera
 
 struct Light {
   vec3 position;
-  float radius;
-  vec3 color;
   float intensity;
+  vec3 color;
+  float radius;
 };
 
 layout(std430, binding = 2) buffer LightBuffer {
@@ -42,6 +42,17 @@ void main()
     vec2 gBufferPosition = gl_FragCoord.xy/vec2(width,height);
     
     vec3 worldPos = texture(GBuffer_position, gBufferPosition).xyz;
+
+    vec3 L = lights[lightIndex].position - worldPos;
+    float radius = lights[lightIndex].radius;
+    float lightDistance = length(L);
+
+    if ( lightDistance > radius ) {
+      FragColor = vec3(0);
+      discard;
+      return;
+    }
+
     vec3 eyeVec = (inverseView*vec4(0,0,0,1)).xyz-worldPos;
 
     vec3 N = texture(GBuffer_normal, gBufferPosition).xyz;
@@ -51,16 +62,9 @@ void main()
     vec3 Ks = texture(GBuffer_specular, gBufferPosition).xyz;
     float alpha = texture(GBuffer_specular, gBufferPosition).w;
 
-    vec3 L = lights[lightIndex].position - worldPos;
     vec3 Ii = lights[lightIndex].color * lights[lightIndex].intensity;
-    float radius = lights[lightIndex].radius;
-    float lightDistance = length(L);
 
-//    if ( lightDistance > radius ) {
-//      FragColor = vec3(0);
-//      discard;
-//      return;
-//    }
+    L = normalize(L);
 
     // The lighting calculation ...
     vec3 H = normalize(L+V);
@@ -70,16 +74,10 @@ void main()
     float LH = max(dot(L,H),0.0);
 
     // BRDF
-    vec3 F = Ks + (((1,1,1) - Ks) * pow((1-LH),5.0));
+    vec3 F = Ks + (((1,1,1)-Ks)*pow((1-LH),5.0));
     float D = ((alpha+2.0)/(2*M_PI))*(pow(HN,alpha));
     vec3 BRDF = (Kd/M_PI) + ((F*D)/(4*pow(max(LH,0.0000000001),2.0)));
-    //FragColor = (Ii*Kd*LN) + (Ii*Ks*pow(HN,alpha));
-//    FragColor = vec3(0.5,0.5,0.5)*Kd + Kd*max(dot(L,N),0.0);
-//    FragColor *= (1/pow(lightDistance, 2) - 1/pow(radius, 2));
-//    if (BRDF.x > -1000.0f)
-//      FragColor = vec3(0.0f);
-//    else
-    FragColor = vec3(1.0f);
+    FragColor = (Ii*LN*BRDF);
 
-    //FragColor *= (1/pow(lightDistance, 2) - 1/pow(radius, 2));
+    FragColor *= (1/pow(lightDistance, 2) - 1/pow(radius, 2));
 }

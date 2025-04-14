@@ -38,10 +38,10 @@
   * \param width Width of the window.
   * \param height Height of the window.
   *****************************************************************************/
-void GameWindow::resizeCallbackWrapper(GLFWwindow* pWindow, int width,
-                                       int height)
+void GameWindow::resizeCallbackWrapper(
+  GLFWwindow* pWindow, int width, int height)
 {
-  auto* gameWindow =
+  GameWindow* gameWindow =
     static_cast<GameWindow*>(glfwGetWindowUserPointer(pWindow));
 
   if (gameWindow && gameWindow->resizeCallback)
@@ -49,6 +49,30 @@ void GameWindow::resizeCallbackWrapper(GLFWwindow* pWindow, int width,
     gameWindow->resizeCallback(pWindow, width, height);
     gameWindow->width = width;
     gameWindow->height = height;
+  }
+}
+
+void GameWindow::cursorPosCallbackWrapper(
+  GLFWwindow* pWindow, double xpos, double ypos)
+{
+  GameWindow* gameWindow =
+    static_cast<GameWindow*>(glfwGetWindowUserPointer(pWindow));
+
+  if (gameWindow && gameWindow->cursorPosCallback)
+  {
+    gameWindow->cursorPosCallback(pWindow, xpos, ypos);
+  }
+}
+
+void GameWindow::mouseButtonCallbackWrapper(
+  GLFWwindow* pWindow, int button, int action, int mods)
+{
+  GameWindow* gameWindow =
+    static_cast<GameWindow*>(glfwGetWindowUserPointer(pWindow));
+
+  if (gameWindow && gameWindow->mouseButtonCallback)
+  {
+    gameWindow->mouseButtonCallback(pWindow, button, action, mods);
   }
 }
 
@@ -86,6 +110,20 @@ void GameWindow::setResizeCallback(
   resizeCallback = std::move(callback);
   glfwSetFramebufferSizeCallback(pWindow, resizeCallbackWrapper);
   glfwSetWindowUserPointer(pWindow, this);
+}
+
+void GameWindow::setCursorPosCallback(
+  std::function<void(GLFWwindow*, double, double)> callback)
+{
+  cursorPosCallback = std::move(callback);
+  glfwSetCursorPosCallback(pWindow, cursorPosCallbackWrapper);
+}
+
+void GameWindow::setMouseButtonCallback(
+  std::function<void(GLFWwindow*, int, int, int)> callback)
+{
+  mouseButtonCallback = std::move(callback);
+  glfwSetMouseButtonCallback(pWindow, mouseButtonCallbackWrapper);
 }
 
 /* Public functions */
@@ -239,20 +277,26 @@ float GameWindow::getAspectRatio() {
  * This must be called at the start of the program to create the game window.
  *
  *****************************************************************************/
-void GameWindow::initialize(GLFWmonitor* monitor)
+void GameWindow::initialize()
 {
-  if (!width || !height || title == "") {
-    throw std::runtime_error("ERROR::GAMEWINDOW::INITIALIZE::PREINITFAILED");
-  }
-  if (!glfwInit())
-  {
+  if (!glfwInit()) {
     throw std::runtime_error("Failed to initialize GLFW");
   }
-  
-  if (borderlessFullscreen)
-      glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-  else
-      glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+
+  GLFWmonitor* monitor = nullptr;
+
+  if (isFullscreen) {
+    monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    width = mode->width;
+    height = mode->height;
+    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+  }
+  else {
+    width = windowedWidth;
+    height = windowedHeight;
+    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+  }
 
   pWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 
@@ -263,17 +307,40 @@ void GameWindow::initialize(GLFWmonitor* monitor)
     throw std::runtime_error("Failed to create GLFW window");
   }
 
-  if (borderlessFullscreen && monitor) {
-      const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-      glfwSetWindowPos(pWindow, 0, 0);
-      glfwSetWindowSize(pWindow, mode->width, mode->height);
+  if (!isFullscreen) {
+    glfwSetWindowPos(pWindow, windowedX, windowedY);
   }
 }
 
-GameWindow* GameWindow::setBorderlessFullscreen(bool flag)
+GameWindow* GameWindow::setInitialFullscreen(bool flag)
 {
-    borderlessFullscreen = flag;
-    return this;
+  isFullscreen = flag;
+  return this;
+}
+
+GameWindow* GameWindow::setFullscreen(bool flag)
+{
+  isFullscreen = flag;
+
+  GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+  const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+  if (flag) {
+    // Save current window attributes
+    glfwGetWindowPos(pWindow, &windowedX, &windowedY);
+    glfwGetWindowSize(pWindow, &windowedWidth, &windowedHeight);
+
+    // Borderless fullscreen
+    glfwSetWindowAttrib(pWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
+    glfwSetWindowMonitor(pWindow, nullptr, 0, 0, mode->width, mode->height, 0);
+  }
+  else {
+    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+    // Reposition the window
+    glfwSetWindowMonitor(pWindow, nullptr, 100, 100, windowedWidth, windowedHeight, 0);
+  }
+
+  return this;
 }
 
 
@@ -288,6 +355,7 @@ GameWindow* GameWindow::setBorderlessFullscreen(bool flag)
  *
  *****************************************************************************/
 void GameWindow::update() {
+  //glfwGetFramebufferSize(pWindow, &width, &height);
   glfwPollEvents();
 }
 

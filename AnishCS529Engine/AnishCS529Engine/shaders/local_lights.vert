@@ -20,9 +20,9 @@ layout (binding = 0) uniform camera
 
 struct Light {
   vec3 position;
-  float radius;
-  vec3 color;
   float intensity;
+  vec3 color;
+  float radius;
 };
 
 layout(std430, binding = 2) buffer LightBuffer {
@@ -31,13 +31,11 @@ layout(std430, binding = 2) buffer LightBuffer {
 
 uniform uint lightIndex;
 
-out vec3 worldPos;
-
 void main()
 {
     // Computes world position at a pixel used for
     // light and eye vector calculations
-    worldPos=vertex.xyz * lights[lightIndex].radius + lights[lightIndex].position;
+    vec3 worldPos=(vertex.xyz * lights[lightIndex].radius) + lights[lightIndex].position;
 
     // Computes the point’s projection on the screen
     gl_Position = projection*view*vec4(worldPos,1.0f);

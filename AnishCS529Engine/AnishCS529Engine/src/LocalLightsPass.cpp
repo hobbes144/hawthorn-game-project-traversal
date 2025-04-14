@@ -41,8 +41,13 @@ void LocalLightsPass::draw(
   renderGraphBuilder->getRenderer()->setDepthState(Renderer::DepthState(false));
   renderGraphBuilder->getRenderer()->setBlendState(Renderer::BlendState(true));
 
+  Lights* lights = sceneGraph->getLights();
+
   //glDisable(GL_DEPTH_TEST);
   //glEnable(GL_BLEND);
+
+  glEnable(GL_CULL_FACE);
+  glCullFace(GL_FRONT);
 
   shader->use();
 
@@ -61,6 +66,7 @@ void LocalLightsPass::draw(
 
   shader->unuse();
 
+  glDisable(GL_CULL_FACE);
   //glEnable(GL_DEPTH_TEST);
   //glDisable(GL_BLEND);
   //renderGraphBuilder->getRenderer()->setState(renderGraphBuilder->getRenderer()->getCurrentState());

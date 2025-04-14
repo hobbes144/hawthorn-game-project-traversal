@@ -37,21 +37,21 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     float height = 200.0f;
     float depth = size;
 
-    sceneGraph.addPointLight(PointLight(Vector3(0.0f, 50.0f, 0.0f), 200.0f, Vector3(1.0f), 1.0f));
+    //sceneGraph.addPointLight(PointLight(Vector3(0.0f, 50.0f, 0.0f), 1.0f, Vector3(1.0f), 1000.0f));
 
-    //for (int i = 0; i < 1000; ++i) {
-    //  auto lightPosition = Vector3(
-    //    EngineMath::Random::boundedFloat(-width, width),
-    //    EngineMath::Random::boundedFloat(-height, height),
-    //    EngineMath::Random::boundedFloat(-depth, depth));
-    //  auto lightRange = EngineMath::Random::boundedFloat(20.0f, 1000.0f);
-    //  auto lightColor = Vector3(
-    //    EngineMath::Random::boundedFloat(0.0f,1.0f),
-    //    EngineMath::Random::boundedFloat(0.0f, 1.0f),
-    //    EngineMath::Random::boundedFloat(0.0f, 1.0f));
-    //  auto lightIntensity = EngineMath::Random::boundedFloat(0.5f, 1.0f);
-    //  sceneGraph.addPointLight(PointLight(lightPosition , lightRange , lightColor , lightIntensity));
-    //}
+    /*for (int i = 0; i < 1000; ++i) {
+      auto lightPosition = Vector3(
+        EngineMath::Random::boundedFloat(-145, -100),
+        EngineMath::Random::boundedFloat(0, 50),
+        EngineMath::Random::boundedFloat(-125, 40));
+      auto lightIntensity = EngineMath::Random::boundedFloat(1.0f, 10.0f);
+      auto lightColor = Vector3(
+        EngineMath::Random::boundedFloat(0.5f, 1.0f),
+        EngineMath::Random::boundedFloat(0.5f, 1.0f),
+        EngineMath::Random::boundedFloat(0.5f, 1.0f));
+      auto lightRange = EngineMath::Random::boundedFloat(50.0f, 10000.0f);
+      sceneGraph.addPointLight(PointLight(lightPosition , lightIntensity , lightColor , lightRange));
+    }*/
 
     // Walls
     createWall("LeftWall", Vector3(-width / 2.0f, height / 2.0f, 0.0f), Vector3(wallThickness, height, depth));

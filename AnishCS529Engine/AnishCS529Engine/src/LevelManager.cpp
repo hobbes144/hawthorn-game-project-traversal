@@ -3,32 +3,11 @@
 
 void LevelManager::SystemInitalization()
 {
-
-    /* Game Window setup */
-    glfwInit();
-    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
-
-    int windowWidth = mode->width;
-    int windowHeight = mode->height;
-
     mainWindow = new GameWindow;
 
-    isFullscreen = false;
-
-    if (isFullscreen) {
-        int windowWidth = mode->width;
-        int windowHeight = mode->height;
-        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(true);
-        mainWindow->initialize(monitor);
-    }
-    else {
-        int windowWidth = 1280;
-        int windowHeight = 720;
-        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(false);
-        mainWindow->initialize(nullptr);
-    }
+    //isFullscreen = false;
+    mainWindow->setTitle("Traversal")->setInitialFullscreen(isFullscreen);
+    mainWindow->initialize();
 
     /* Renderer setup */
     mainRenderer = new Renderer;
@@ -394,6 +373,8 @@ void LevelManager::ExecuteMainLoop()
     mainFramerateController->setTargetFramerate(expectedFrameRate);
     mainSceneGraph.printSceneTree();
 
+    mainRenderer->getRenderGraph()->lightsSet = false;
+
     while (!levelSwapFlag) {
 
         mainRenderer->clear();
@@ -411,39 +392,11 @@ void LevelManager::ExecuteMainLoop()
             break;
         }
 
-        //Full Screen Toggle
-        if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
-            GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
-            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+        if (mainInput->isKeyPressed(KEY_F11)) {
 
-            if (isFullscreen) {
-                // Windowed mode
-                int windowWidth = 1280;
-                int windowHeight = 720;
-                // Enable borders
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
-                // Reposition the window
-                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
-                isFullscreen = false;
-            }
-            else {
-                // Save current window attributes
-                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
-                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
+          isFullscreen = !isFullscreen;
+          mainWindow->setFullscreen(isFullscreen);
 
-                // Borderless fullscreen
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
-                glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
-                isFullscreen = true;
-            }
-
-            // Adjust viewport and camera aspect ratio
-            int fbWidth, fbHeight;
-            glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
-            glViewport(0, 0, fbWidth, fbHeight);
-            float newAspect = static_cast<float>(fbWidth) / static_cast<float>(fbHeight);
-            camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
         }
 
         //Cheating Level Select
@@ -727,7 +680,7 @@ void LevelManager::createPlayerObject()
     mainSceneGraph.addAmbientLight(
       AmbientLight(Vector3(1, 1, 1), 0.3f));
     mainSceneGraph.addDirectionalLight(
-      DirectionalLight(LightDirection, 0.0f, Vector3(1.0f, 1.0f, 1.0f)));
+      DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
 
 #pragma region PlayerBox
 
