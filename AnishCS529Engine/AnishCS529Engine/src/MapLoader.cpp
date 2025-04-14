@@ -55,9 +55,15 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
         intermediate(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 3:
-        advanced(offsetX, offsetY, offsetZ, sceneGraph);
+        intermediate2(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 4:
+        intermediate3(offsetX, offsetY, offsetZ, sceneGraph);
+        break;
+    case 5:
+        advanced(offsetX, offsetY, offsetZ, sceneGraph);
+        break;
+    case 6:
         victory(offsetX, offsetY, offsetZ, sceneGraph);
         break;
 
@@ -83,6 +89,48 @@ void MapLoader::writeLetter(SceneGraph& sceneGraph,
     auto renderComp = letter->addComponent<Render3D>();
     renderComp->setMesh(mesh)->setMaterial(keyMaterial);
 }
+
+void MapLoader::createBlock(SceneGraph& sceneGraph,
+                            const std::string& name,
+                            const Vector3& pos,
+                            const Vector3& scale,
+                            const Vector3& rotation,
+                            const std::shared_ptr<Material>& material)
+{
+    // Name of the block
+    auto block = std::make_shared<GameObject>(name);
+    sceneGraph.addNode(block);
+
+    // Block's properties 
+    block->setLocalPosition(pos);
+    block->setLocalScaling(scale);
+    block->setLocalRotation(rotation);
+
+    // Render3D component
+    auto renderComp = block->addComponent<Render3D>();
+    renderComp->setMesh(boxMesh)->setMaterial(material);
+
+    // OBB
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = block->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Overload without rotation 
+void MapLoader::createBlock(SceneGraph& sceneGraph,
+                            const std::string& name,
+                            const Vector3& pos,
+                            const Vector3& scale,
+                            const std::shared_ptr<Material>& material)
+{
+    createBlock(sceneGraph, name, pos, scale, Vector3(0.0f, 0.0f, 0.0f), material);
+}
+
 
 
 

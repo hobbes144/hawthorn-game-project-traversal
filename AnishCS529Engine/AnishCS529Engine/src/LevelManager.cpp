@@ -378,6 +378,9 @@ void LevelManager::RunLevels()
     case 5:
         LoadLevel5();
         break;
+    case 6:
+        LoadLevel6();
+        break;
     default:        
         break;
     }
@@ -590,7 +593,7 @@ void LevelManager::checkPlayerBoundaries() {
         maxY = 150.0f; minY = -45.0f;
         maxZ = 11.0f; minZ = -11.0f;
         break;
-    case 3:
+    case 5:
         maxX = 1000.0; minX = -1000.0;
         maxY = 1000.0; minY = 5.0f;
         maxZ = 1000.0; minZ = -1000.0;
@@ -614,7 +617,7 @@ void LevelManager::checkPlayerBoundaries() {
 
 void LevelManager::NextLevel()
 {
-    if (currentLevel == 4) {
+    if (currentLevel == 6) {
         currentLevel = -1;
     }
     else {
@@ -684,6 +687,12 @@ void LevelManager::LoadLevel5()
 {
     MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph);
 }
+
+void LevelManager::LoadLevel6()
+{
+    MapLoader::instance().loadMap(6, 0, 0, 0, mainSceneGraph);
+}
+
 
 #pragma endregion
 
@@ -825,9 +834,13 @@ void LevelManager::initalizePlayerInLevel()
         activeSpawnPoint = startingPos3;
         activeSpawnRotation = startingRot3;
         break;
-    case 4:
-        activeSpawnPoint = startingPos4;
-        activeSpawnRotation = startingRot4;
+    case 5:
+        activeSpawnPoint = startingPos5;
+        activeSpawnRotation = startingRot5;
+        break;
+    case 6:
+        activeSpawnPoint = startingPos6;
+        activeSpawnRotation = startingRot6;
         break;
     default:
         activeSpawnPoint = Vector3();

@@ -107,6 +107,12 @@ private:
     void intermediate(float offsetX, float offsetY, float offsetZ,
          SceneGraph& sceneGraph);
 
+    void intermediate2(float offsetX, float offsetY, float offsetZ,
+  SceneGraph& sceneGraph);
+
+    void intermediate3(float offsetX, float offsetY, float offsetZ,
+SceneGraph& sceneGraph);
+
     void advanced(float offsetX, float offsetY, float offsetZ,
              SceneGraph& sceneGraph);
 
@@ -116,6 +122,18 @@ private:
     void writeLetter(SceneGraph& sceneGraph, const std::string& meshPath, const Vector3& position,
         const Vector3& scale, const Vector3& rotation,
         std::shared_ptr<Material> keyMaterial);
+
+    void createBlock(SceneGraph& sceneGraph,
+                     const std::string& name,
+                     const Vector3& pos,
+                     const Vector3& scale,
+                     const Vector3& rotation,
+                     const std::shared_ptr<Material>& material);
+    void createBlock(SceneGraph& sceneGraph,
+                 const std::string& name,
+                 const Vector3& pos,
+                 const Vector3& scale,
+                 const std::shared_ptr<Material>& material);
 };
 
 #endif // MAPLOADER_H
