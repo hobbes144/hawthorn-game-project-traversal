@@ -41,7 +41,7 @@ void LocalLightsPass::draw(
   renderGraphBuilder->getRenderer()->setDepthState(Renderer::DepthState(false));
   renderGraphBuilder->getRenderer()->setBlendState(Renderer::BlendState(true));
 
-  Lights* lights = sceneGraph->getLights();
+  //Lights* lights = sceneGraph->getLights();
 
   glEnable(GL_CULL_FACE);
   glCullFace(GL_FRONT);
@@ -53,8 +53,15 @@ void LocalLightsPass::draw(
   shader->setUInt("height", viewport.height);
   shader->setUInt("width", viewport.width);
 
-  for ( unsigned int lightIndex = 0; lightIndex < lightCount; ++lightIndex) {
+  shader->setUInt("lightIndex", 0);
+  //shader->setMat4("ModelMatrix", Transform(currentLight.position, Quaternion(), currentLight.range).getLocalMatrix());
+
+  sphereMesh->draw();
+
+  for ( unsigned int lightIndex = 1; lightIndex < lightCount; ++lightIndex) {
+    //auto currentLight = lights->pointLights[lightIndex];
     shader->setUInt("lightIndex", lightIndex);
+    //shader->setMat4("ModelMatrix", Transform(currentLight.position, Quaternion(), currentLight.range).getLocalMatrix());
 
     sphereMesh->drawEBOTrisWithoutBind();
   }

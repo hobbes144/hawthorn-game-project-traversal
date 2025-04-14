@@ -80,4 +80,6 @@ void main()
     FragColor = (Ii*LN*BRDF);
 
     FragColor *= (1/pow(lightDistance, 2) - 1/pow(radius, 2));
+
+    //FragColor = vec3(0.1,0.1,0.1);
 }

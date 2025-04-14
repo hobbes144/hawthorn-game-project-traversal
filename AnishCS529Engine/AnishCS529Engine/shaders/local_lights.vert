@@ -38,5 +38,6 @@ void main()
     vec3 worldPos=(vertex.xyz * lights[lightIndex].radius) + lights[lightIndex].position;
 
     // Computes the point’s projection on the screen
-    gl_Position = projection*view*vec4(worldPos,1.0f);
+    gl_Position = projection * view * vec4(worldPos,1.0f);
+    //gl_Position = projection*view*vec4( ((vertex.xyz * lights[lightIndex].radius) + lights[lightIndex].position), 1.0 );
 }
