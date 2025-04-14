@@ -290,15 +290,13 @@ void GameWindow::initialize()
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
     width = mode->width;
     height = mode->height;
-    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
   }
   else {
     width = windowedWidth;
     height = windowedHeight;
-    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
   }
 
-  pWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+  pWindow = glfwCreateWindow(width, height, title.c_str(), monitor, nullptr);
 
   if (!pWindow)
   {
@@ -322,22 +320,26 @@ GameWindow* GameWindow::setFullscreen(bool flag)
 {
   isFullscreen = flag;
 
-  GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-  const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
   if (flag) {
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
     // Save current window attributes
     glfwGetWindowPos(pWindow, &windowedX, &windowedY);
     glfwGetWindowSize(pWindow, &windowedWidth, &windowedHeight);
 
+    width = mode->width;
+    height = mode->height;
+
     // Borderless fullscreen
-    glfwSetWindowAttrib(pWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
-    glfwSetWindowMonitor(pWindow, nullptr, 0, 0, mode->width, mode->height, 0);
+    glfwSetWindowMonitor(pWindow, monitor, 0, 0, mode->width, mode->height, 0);
   }
   else {
-    glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+    width = windowedWidth;
+    height = windowedHeight;
+
     // Reposition the window
-    glfwSetWindowMonitor(pWindow, nullptr, 100, 100, windowedWidth, windowedHeight, 0);
+    glfwSetWindowMonitor(pWindow, nullptr, windowedX, windowedY, windowedWidth, windowedHeight, 0);
   }
 
   return this;

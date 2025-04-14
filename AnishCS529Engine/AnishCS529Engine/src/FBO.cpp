@@ -8,6 +8,7 @@
  *****************************************************************************/
 #include "precompiled.h"
 #include "FBO.h"
+#include "Renderer.h"
 
 void FBO::initialize() {
   glGenFramebuffers(1, &fboID);
@@ -34,7 +35,7 @@ void FBO::initialize() {
 void FBO::finalize() {
   glBindFramebuffer(GL_FRAMEBUFFER, fboID);
 
-  glViewport(0, 0, width, height);
+  glViewport(x, y, width, height);
   glClearColor(0.0, 0.0, 0.0, 0.0);
 
   std::vector<GLenum> attachments;
@@ -47,16 +48,45 @@ void FBO::finalize() {
     std::cerr << "FBO not complete!" << std::endl;
   }
 
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); // done
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FBO::setViewport(const int w, const int h) {
-  width = w;
-  height = h;
+void FBO::setViewport(
+  const int _x, const int _y,
+  const int _width, const int _height) {
+  x = _x;
+  y = _y;
+  width = _width;
+  height = _height;
+}
+
+void FBO::updateViewport() {
+  glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+  glViewport(x, y, width, height);
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+  for (const auto& textureID : textureIDs)
+    TextureManager::getInstance().resizeTexture(textureID, width, height);
+}
+
+void FBO::updateViewport(
+  const int _x, const int _y,
+  const int _width, const int _height)
+{
+  setViewport(_x, _y, _width, _height);
+  updateViewport();
+}
+
+void FBO::addScreenSizeBufferUpdateCallback(Renderer* renderer)
+{
+  renderer->addScreenSizeBufferUpdateCallback(
+    [this](int x, int y, int width, int height) {
+      this->updateViewport(x, y, width, height);
+    });
 }
 
 void FBO::attachTexture(TextureManager::TextureID textureID) {
-
+  textureIDs.push_back(textureID);
   glBindFramebuffer(GL_FRAMEBUFFER, fboID);
   glFramebufferTexture2D(
     GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachedTextures,

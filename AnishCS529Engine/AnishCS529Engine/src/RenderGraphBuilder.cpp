@@ -2,10 +2,11 @@
 #include "RenderGraphBuilder.h"
 #include "Renderer.h"
 
-FBO* RenderGraphBuilder::createFBO(const std::string& name, std::vector<std::string> attachments) {
+FBO* RenderGraphBuilder::createScreenSizeFBO(
+  const std::string& name, std::vector<std::string> attachments) {
   FBO* fbo = new FBO();
   Renderer::Viewport viewport = renderer->getCurrentState().viewport;
-  fbo->setViewport(viewport.width, viewport.height);
+  fbo->setViewport(viewport.x, viewport.y, viewport.width, viewport.height);
   fbo->initialize();
   fbos[name] = fbo;
 
@@ -14,11 +15,12 @@ FBO* RenderGraphBuilder::createFBO(const std::string& name, std::vector<std::str
   }
 
   fbo->finalize();
+  fbo->addScreenSizeBufferUpdateCallback(renderer);
 
   return fbo;
 }
 
-TextureManager::TextureID RenderGraphBuilder::createTexture(
+TextureManager::TextureID RenderGraphBuilder::createScreenSizeTexture(
   const std::string& name) {
   TextureManager::TextureInfo textureInfo = TextureManager::TextureInfo();
   Renderer::Viewport viewport = renderer->getCurrentState().viewport;

@@ -219,38 +219,11 @@ void LevelManager::DisplayLogos()
         gamepad->update();
 
         //Full Screen Toggle
-        if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
-            GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
-            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+        if (mainInput->isKeyPressed(KEY_F11)) {
 
-            if (isFullscreen) {
-                // Windowed mode
-                int windowWidth = 1280;
-                int windowHeight = 720;
-                // Enable borders
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
-                // Reposition the window
-                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
-                isFullscreen = false;
-            }
-            else {
-                // Save current window attributes
-                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
-                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
+          isFullscreen = !isFullscreen;
+          mainWindow->setFullscreen(isFullscreen);
 
-                // Borderless fullscreen
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
-                glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
-                isFullscreen = true;
-            }
-
-            // Adjust viewport and camera aspect ratio
-            int fbWidth, fbHeight;
-            glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
-            glViewport(0, 0, fbWidth, fbHeight);
-            float newAspect = static_cast<float>(fbWidth) / static_cast<float>(fbHeight);
-            camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
         }
 
         //Update Physics

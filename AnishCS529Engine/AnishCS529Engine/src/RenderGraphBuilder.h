@@ -24,8 +24,8 @@ public:
   RenderGraphBuilder(Renderer* _renderer) : renderer(_renderer) {}
   ~RenderGraphBuilder() { clearFBOs(); }
   
-  FBO* createFBO(const std::string& name, std::vector<std::string> attachments);
-  TextureManager::TextureID createTexture(const std::string& name);
+  FBO* createScreenSizeFBO(const std::string& name, std::vector<std::string> attachments);
+  TextureManager::TextureID createScreenSizeTexture(const std::string& name);
 
   FBO* getFBO(const std::string& name);
   TextureManager::TextureID getTexture(const std::string& name);

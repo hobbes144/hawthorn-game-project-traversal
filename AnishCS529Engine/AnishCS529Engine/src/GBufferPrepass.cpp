@@ -9,11 +9,11 @@ GBufferPrepass::GBufferPrepass() : RenderPass() {
 }
 
 void GBufferPrepass::initialize() {
-  renderGraphBuilder->createTexture("GBuffer_position");
-  renderGraphBuilder->createTexture("GBuffer_normal");
-  renderGraphBuilder->createTexture("GBuffer_diffuse");
-  renderGraphBuilder->createTexture("GBuffer_specular");
-  gbuffer = renderGraphBuilder->createFBO(
+  renderGraphBuilder->createScreenSizeTexture("GBuffer_position");
+  renderGraphBuilder->createScreenSizeTexture("GBuffer_normal");
+  renderGraphBuilder->createScreenSizeTexture("GBuffer_diffuse");
+  renderGraphBuilder->createScreenSizeTexture("GBuffer_specular");
+  gbuffer = renderGraphBuilder->createScreenSizeFBO(
     "GBuffer",
     {
       "GBuffer_position",

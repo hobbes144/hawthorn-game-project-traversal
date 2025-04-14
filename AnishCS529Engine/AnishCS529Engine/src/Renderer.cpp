@@ -128,7 +128,18 @@ void Renderer::framebufferSizeCallback(
 
   glViewport(0, 0, width, height);
   state.viewport = Viewport{ 0, 0, width, height };
+
   // Additional rendering adjustments can be made here
+  updateScreenSizeBuffers();
+}
+
+void Renderer::updateScreenSizeBuffers()
+{
+  for (const auto& bufferCallback : screenSizeBufferUpdateCallbacks) {
+    bufferCallback(
+      state.viewport.x, state.viewport.y,
+      state.viewport.width, state.viewport.height);
+  }
 }
 
 
@@ -372,6 +383,12 @@ Renderer* Renderer::setState(const State& state, bool force)
   setDepthState(state.depthState, force);
 
   return this;
+}
+
+void Renderer::addScreenSizeBufferUpdateCallback(
+  std::function<void(int, int, int, int)> screenSizeBufferUpdateCallback)
+{
+  screenSizeBufferUpdateCallbacks.push_back(screenSizeBufferUpdateCallback);
 }
 
 /*!****************************************************************************
