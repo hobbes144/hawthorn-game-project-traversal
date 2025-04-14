@@ -145,6 +145,7 @@
     <ClCompile Include="src\SceneGraph.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\TrianglePrimitive.cpp" />
+    <ClCompile Include="src\UIPass.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="src\VectorTemplated.cpp" />
     <ClCompile Include="src\Wall.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="src\TimeControlledRB.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\TrianglePrimitive.h" />
+    <ClInclude Include="src\UIPass.h" />
     <ClInclude Include="src\Vector3.h" />
     <ClInclude Include="src\VectorTemplated.h" />
     <ClInclude Include="src\Wall.h" />
@@ -315,6 +317,8 @@
     </ClInclude>
     <None Include="shaders\skydome.frag" />
     <None Include="shaders\skydome.vert" />
+    <None Include="shaders\ui.frag" />
+    <None Include="shaders\ui.vert" />
     <None Include="shaders\untextured_lighting.frag" />
     <None Include="shaders\untextured_lighting.vert" />
   </ItemGroup>

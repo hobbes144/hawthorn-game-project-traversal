@@ -28,6 +28,8 @@ public:
   int x, y;  // Offset of the Buffer
   unsigned int attachedTextures = 0;
 
+  ~FBO() = default;
+
   void initialize();
   void finalize();
 

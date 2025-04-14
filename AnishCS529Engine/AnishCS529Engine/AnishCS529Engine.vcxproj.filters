@@ -474,17 +474,20 @@
     <ClCompile Include="src\FBO.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\LightingPass.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GBufferPrepass.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LocalLightsPass.cpp">
-      <Filter>Engine\Source Files</Filter>
+    <ClCompile Include="src\UIPass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClCompile>
     <ClCompile Include="src\SkydomePass.cpp">
-      <Filter>Engine\Source Files</Filter>
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LocalLightsPass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightingPass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GBufferPrepass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -800,6 +803,9 @@
     <ClInclude Include="src\LocalLightsPass.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClInclude>
+    <ClInclude Include="src\UIPass.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -890,6 +896,12 @@
       <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\local_lights.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\ui.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\ui.frag">
       <Filter>Engine\Shaders</Filter>
     </None>
   </ItemGroup>

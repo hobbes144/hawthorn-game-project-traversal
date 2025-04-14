@@ -37,6 +37,10 @@ public:
   std::shared_ptr<T> addPass(std::shared_ptr<T> pass);
   template <typename T>
   std::shared_ptr<T> getPass();
+  template <typename T>
+  void removePass();
+
+  void clear();
 
   void setRenderer(Renderer* _renderer) { renderer = _renderer; }
 

@@ -15,27 +15,6 @@
 
 /*!****************************************************************************
  * \brief Set the mesh to be rendered
- * 
- * ## Usage:
- * 
- * This sets the mesh to be rendered.
- * 
- * ## Explanation:
- * 
- * The update() call will draw the mesh to the screen using the material.
- * 
- * \param _mesh Mesh to be rendered
- * \return \b std::shared_ptr<Render2D> Self shared pointer to allow chaining.
- *****************************************************************************/
-std::shared_ptr<Render2D> Render2D::setMesh(std::shared_ptr<Mesh> _mesh)
-{
-  mesh = _mesh;
-  return shared_from_this();
-}
-
-
-/*!****************************************************************************
- * \brief Set the mesh to be rendered
  *
  * ## Usage:
  *
@@ -96,7 +75,6 @@ void Render2D::draw(std::shared_ptr<Shader> shader) {
   if ( !enabled ) return;
 
   material->setProperty("ModelMatrix", parent->getTransformMatrix());
-  material->setProperty("InvModelMatrix", parent->getTransform().getInverseLocalMatrix());
 
   for ( const auto & property : properties ) {
     material->setTempProperty(property.first, property.second);

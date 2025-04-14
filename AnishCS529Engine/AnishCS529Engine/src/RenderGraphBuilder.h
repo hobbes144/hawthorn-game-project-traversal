@@ -22,7 +22,7 @@ class Renderer;
 class RenderGraphBuilder {
 public:
   RenderGraphBuilder(Renderer* _renderer) : renderer(_renderer) {}
-  ~RenderGraphBuilder() { clearFBOs(); }
+  ~RenderGraphBuilder() { clear(); };
   
   FBO* createScreenSizeFBO(const std::string& name, std::vector<std::string> attachments);
   TextureManager::TextureID createScreenSizeTexture(const std::string& name);
@@ -31,6 +31,8 @@ public:
   TextureManager::TextureID getTexture(const std::string& name);
 
   void clearFBOs();
+  void clearTextures();
+  void clear();
 
   Renderer* getRenderer() { return renderer; };
 

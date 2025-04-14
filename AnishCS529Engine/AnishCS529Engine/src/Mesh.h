@@ -95,7 +95,7 @@ public:
 
   static std::shared_ptr<Mesh> createSphereMesh(const std::string& name, const int n = 32);
   static std::shared_ptr<Mesh> createMesh(const std::string& name, Type type);
-  static std::shared_ptr<Mesh> createSquareMesh(const std::string& name, float scale = 0.5f);
+  static std::shared_ptr<Mesh> createSquareMesh(const std::string& name, float scale = 1.0f);
   static std::shared_ptr<Mesh> createCubeMesh(const std::string& name);
   static std::shared_ptr<Mesh> getShapeMesh(Type type);
 

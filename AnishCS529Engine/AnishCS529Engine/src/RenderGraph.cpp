@@ -20,6 +20,12 @@ void RenderGraph::initialize()
   initializeCameraUBO();
 }
 
+void RenderGraph::clear()
+{
+  renderStack.clear();
+  //renderGraphBuilder->clear();
+}
+
 void RenderGraph::draw(SceneGraph* scene)
 {
   for (const auto& camera : scene->getCameras()) {

@@ -49,6 +49,19 @@ TextureManager::TextureID RenderGraphBuilder::getTexture(const std::string & nam
 
 void RenderGraphBuilder::clearFBOs() {
   for ( const auto & [name, fbo] : fbos ) {
-    delete fbo;
+    if (fbo) delete fbo;
   }
+
+  fbos.clear();
+}
+
+void RenderGraphBuilder::clearTextures()
+{
+  textures.clear();
+}
+
+void RenderGraphBuilder::clear()
+{
+  clearFBOs();
+  clearTextures();
 }
