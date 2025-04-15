@@ -46,10 +46,6 @@ public:
 
   Renderer* getRenderer() { return renderer; }
 
-  void setRenderer(Renderer* _renderer) { renderer = _renderer; }
-
-  Renderer* getRenderer() { return renderer; }
-
   void draw(SceneGraph* scene);
 
   bool lightsSet = false;
