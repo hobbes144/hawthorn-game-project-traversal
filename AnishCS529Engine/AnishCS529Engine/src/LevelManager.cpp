@@ -648,7 +648,7 @@ void LevelManager::createPlayerObject()
 	  5000.0f);
 
 	//Transform
-	cameraGameObject->setLocalPosition(Vector3(0.0f, 2.5f, 0.0f));
+	cameraGameObject->setLocalPosition(Vector3(0.0f, 34.0f, 0.0f));
 
 	//auto cameraShape = std::make_shared<OBB>(
 	//    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
