@@ -126,7 +126,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 13.0f + offsetY, -110.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 29.0f));
+        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 29.9f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -181,7 +181,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 26.0f));
+        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 29.9f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -214,8 +214,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-124.9f + offsetX, 22.0f + offsetY, -80.7f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 38.0f));
+        wallRunWall->setLocalPosition(Vector3(-124.9f + offsetX, 22.0f + offsetY, -80.1f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 39.9f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
