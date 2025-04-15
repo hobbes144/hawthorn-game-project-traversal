@@ -154,6 +154,10 @@ public:
     std::shared_ptr<FirstPersonControllerComponent>
         setGamePad(GamePad* _gp);
 
+    void setMouseXSensivity(float var);
+    void setMouseYSensivity(float var);
+    FirstPersonControllerComponent* getSelf();
+
     std::shared_ptr<FirstPersonControllerComponent>
       setState(PlayerState state);
 

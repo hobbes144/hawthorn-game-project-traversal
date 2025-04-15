@@ -69,6 +69,7 @@ void LevelManager::SystemInitalization()
 
 	PauseMenu::Instance().setInputSystem(mainInput);
 	PauseMenu::Instance().setFramerateController(mainFramerateController);
+	PauseMenu::Instance().setGamePad(gamepad);
 
 	/* Audio System Initalization */
 	AudioManager::instance().initialize();
@@ -625,6 +626,7 @@ void LevelManager::createPlayerObject()
 	playerBoxInputComponent->setDifficulty(playerDifficulty);
 #pragma endregion
 
+	PauseMenu::Instance().setPlayer(playerBox);
 }
 
 

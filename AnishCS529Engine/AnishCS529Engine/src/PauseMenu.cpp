@@ -16,6 +16,16 @@ void PauseMenu::setFramerateController(FFramerateController* _frc) {
 	return;
 }
 
+void PauseMenu::setPlayer(std::shared_ptr<GameObject> pl) {
+	player = pl;
+	return;
+}
+
+void PauseMenu::setGamePad(GamePad* _gp) {
+	gp = _gp;
+	return;
+}
+
 void PauseMenu::setState(bool state) {
 	isPaused = state;
 	return;
@@ -50,6 +60,10 @@ void PauseMenu::testMenu() {
 	//test stuffs
 }
 
+/*!****************************************************************************
+ * \brief Main Pause menu function, shows the main pause screen
+ * 
+ *****************************************************************************/
 void PauseMenu::mainPauseMenu() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
@@ -82,13 +96,12 @@ void PauseMenu::mainPauseMenu() {
 		ImGuiWindowFlags_NoSavedSettings |
 		ImGuiWindowFlags_NoBringToFrontOnFocus);
 
-	// Optional: dim the background
 	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 64));
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 96));
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 200)); // Adjust as needed
+	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 200));
 
 	float windowWidth = ImGui::GetWindowSize().x;
 	float textWidth = ImGui::CalcTextSize("Game Paused").x;
@@ -137,6 +150,10 @@ void PauseMenu::mainPauseMenu() {
 	return;
 }
 
+/*!****************************************************************************
+ * \brief How To Play function, shows how to play screen
+ * 
+ *****************************************************************************/
 void PauseMenu::howToPlay() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
@@ -169,13 +186,12 @@ void PauseMenu::howToPlay() {
 		ImGuiWindowFlags_NoSavedSettings |
 		ImGuiWindowFlags_NoBringToFrontOnFocus);
 
-	// Optional: dim the background
 	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 64));
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 96));
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-	ImGui::SetCursorPos(ImVec2(center.x - 250, center.y - 200)); // Adjust as needed
+	ImGui::SetCursorPos(ImVec2(center.x - 250, center.y - 200));
 
 	float windowWidth = ImGui::GetWindowSize().x;
 
@@ -212,6 +228,10 @@ void PauseMenu::howToPlay() {
 	return;
 }
 
+/*!****************************************************************************
+ * \brief settings function, player can set their preferences
+ * 
+ *****************************************************************************/
 void PauseMenu::settings() {
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
@@ -244,11 +264,9 @@ void PauseMenu::settings() {
 		ImGuiWindowFlags_NoSavedSettings |
 		ImGuiWindowFlags_NoBringToFrontOnFocus);
 
-	// Optional: dim the background
 	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 64));
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 96));
 
-	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
 	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 100));
 
@@ -276,8 +294,6 @@ void PauseMenu::settings() {
 		}
 	}
 
-	ImGui::Text(" ");
-
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
 	ImGui::SliderFloat("SFX Volume", &SFXVolume, 0.0f, 1.0f);
 
@@ -292,11 +308,39 @@ void PauseMenu::settings() {
 		}
 	}
 
-	ImGui::Text(" ");
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
+	ImGui::SliderFloat("MouseX Sensivity", &mouseXSensivity, 0.0f, 1.0f);
+
+	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
+		if (mouseXSensivity > 0.005f) {
+			mouseXSensivity -= 0.01f;
+		}
+	}
+	if (ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) {
+		if (mouseXSensivity < 0.195f) {
+			mouseXSensivity += 0.01f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
+	ImGui::SliderFloat("MouseY Sensivity", &mouseYSensivity, 0.0f, 1.0f);
+
+	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
+		if (mouseYSensivity > 0.005f) {
+			mouseYSensivity -= 0.01f;
+		}
+	}
+	if (ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) {
+		if (mouseYSensivity < 0.195f) {
+			mouseYSensivity += 0.01f;
+		}
+	}
 
 	ImGui::PopItemWidth();
 
 	AudioManager::instance().setVolume("music", musicVolume);
+	player->findComponent<FirstPersonControllerComponent>()->setMouseXSensivity(mouseXSensivity);
+	player->findComponent<FirstPersonControllerComponent>()->setMouseYSensivity(mouseYSensivity);
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
@@ -344,13 +388,12 @@ void PauseMenu::quitMenu() {
 		ImGuiWindowFlags_NoSavedSettings |
 		ImGuiWindowFlags_NoBringToFrontOnFocus);
 
-	// Optional: dim the background
 	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 64));
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 96));
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-	ImGui::SetCursorPos(ImVec2(center.x - 200, center.y - 100)); // Adjust as needed
+	ImGui::SetCursorPos(ImVec2(center.x - 200, center.y - 100));
 
 	float windowWidth = ImGui::GetWindowSize().x;
 	float textWidth = ImGui::CalcTextSize("Are you sure you want to quit?").x;

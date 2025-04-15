@@ -15,6 +15,7 @@
 
 #pragma once
 
+#include "GameObject.h"
 #include "FirstPersonControllerComponent.h"
 #include "GamePad.h"
 #include "imgui.h"
@@ -36,6 +37,8 @@ public:
 	void resetTimer();
 	void setInputSystem(Input* ip);
 	void setFramerateController(FFramerateController* _frc);
+	void setGamePad(GamePad* _gp);
+	void setPlayer(std::shared_ptr<GameObject> pl);
 	void setState(bool state);
 	bool gameIsPaused();
 	bool isQuit();
@@ -67,10 +70,14 @@ private:
 	bool toStart = false;
 	float musicVolume = 0.15f;
 	float SFXVolume = 1.0f;
+	float mouseXSensivity = 0.1f;
+	float mouseYSensivity = 0.1f;
 	float time = 0.0f;
 	Input* input;
 	MenuType menuType = MainPauseMenu;
 	FFramerateController* frc;
+	GamePad* gp;
+	std::shared_ptr<GameObject> player;
 };
 
 #endif

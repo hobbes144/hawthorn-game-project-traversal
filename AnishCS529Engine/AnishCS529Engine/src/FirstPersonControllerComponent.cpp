@@ -1140,6 +1140,20 @@ FirstPersonControllerComponent::setGamePad(GamePad* _gp) {
 	return shared_from_this();
 }
 
+void FirstPersonControllerComponent::setMouseXSensivity(float var) {
+	mouseXSensitivity = var;
+	return;
+}
+
+void FirstPersonControllerComponent::setMouseYSensivity(float var) {
+	mouseYSensitivity = var;
+	return;
+}
+
+FirstPersonControllerComponent* FirstPersonControllerComponent::getSelf() {
+	return this;
+}
+
 std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setState(PlayerState state) {
 	SwitchState(playerState, state);
 	return shared_from_this();
