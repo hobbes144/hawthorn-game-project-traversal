@@ -480,6 +480,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				creative = gp->isPressed(GamePadActionKey[Creative]);
 			if (gp->isPressed(GamePadActionKey[Music]))
 				music = gp->isPressed(GamePadActionKey[Music]);
+			if (gp->isPressed(GamePadActionKey[Pause]))
+				pause = gp->isPressed(GamePadActionKey[Pause]);
 		}
 	}
 #pragma endregion
