@@ -291,9 +291,11 @@ void LevelManager::DisplayLogos()
         sceneGraph.addAmbientLight(
             AmbientLight(Vector3(1, 1, 1), ambientIntensity));
 
-        bool mouseClicked = mainInput->isMouseButtonDown(0);
+        bool mouseClicked = mainInput->isMouseButtonDown(0) || mainInput->isMouseButtonDown(1);
         bool skipped = (!prevMouseClicked && mouseClicked) ||
-                       (mainInput->isKeyPressed(KEY_SPACE));
+                       (mainInput->isKeyPressed(KEY_SPACE))||
+                       (mainInput->isKeyPressed(KEY_ENTER))||
+                       (mainInput->isKeyPressed(KEY_ESCAPE));
 
         if ( skipped || logoTimer >= logoDuration) {
             logoTimer = 0.0f;
