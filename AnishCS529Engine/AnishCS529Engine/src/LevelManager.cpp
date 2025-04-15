@@ -738,6 +738,10 @@ void LevelManager::initalizePlayerInLevel()
         activeSpawnPoint = startingPos3;
         activeSpawnRotation = startingRot3;
         break;
+    case 4:
+        activeSpawnPoint = startingPos4;
+        activeSpawnRotation = startingRot4;
+        break;
     case 5:
         activeSpawnPoint = startingPos5;
         activeSpawnRotation = startingRot5;

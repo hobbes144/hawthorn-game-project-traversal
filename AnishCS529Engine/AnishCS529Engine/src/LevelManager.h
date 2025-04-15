@@ -137,9 +137,11 @@ private:
 	Quaternion startingRot2 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
 	Vector3 startingPos3 = Vector3(27.0f, 21.0f, 0.0f);
 	Quaternion startingRot3 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
+	Vector3 startingPos4 = Vector3(0.0f, 0.0f, 0.0f);
+	Quaternion startingRot4 = Quaternion::fromEuler(Vector3(0.0f, -0.5f * 3.14159f, 0.0f));
 	Vector3 startingPos5 = Vector3(-131.0f, 7.0f, -130.0f);
 	Quaternion startingRot5 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
-	Vector3 startingPos6 = Vector3(0.0f, 7.0f, 0.0f);
+	Vector3 startingPos6 = Vector3(0.0f, 2.0f, -5.0f);
 	Quaternion startingRot6 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
 
 	const float rad = PI / 180.0f;
