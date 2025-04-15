@@ -38,6 +38,10 @@ void LevelManager::SystemInitalization()
     mainInput->setGameWindow(mainWindow);
     mainInput->initialize();
 
+    /* XInput setup */
+    gamepad = new GamePad;
+    gamepad->initialize();
+
     /* Framerate controller setup */
     mainFramerateController =
         FFramerateController::getController();
@@ -213,6 +217,9 @@ void LevelManager::DisplayLogos()
         //Update the Input Manager
         mainInput->update();
 
+        //Update the GamePad
+        gamepad->update();
+
         //Full Screen Toggle
         if (mainInput->isKeyPressed(KEY_F11)) {
 
@@ -346,6 +353,9 @@ void LevelManager::ExecuteMainLoop()
 
         //Update the Input Manager
         mainInput->update();
+
+        //Update the GamePad
+        gamepad->update();
 
         //If Escape is Pressed Exit Loop
         if (mainInput->isKeyHeld(KEY_ESCAPE)) {
@@ -672,6 +682,7 @@ void LevelManager::createPlayerObject()
 
     auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
         ->setInputSystem(mainInput)
+        ->setGamePad(gamepad)
         ->setPhysicsBody(playerBoxPB.get())
         ->setBody(playerBox.get())
         ->setSceneRoot(mainSceneGraph.getRootNode())
