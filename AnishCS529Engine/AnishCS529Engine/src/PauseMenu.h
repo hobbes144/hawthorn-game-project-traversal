@@ -33,6 +33,7 @@ public:
 		&) = delete;
 	PauseMenu& operator=(const PauseMenu&) = delete;
 
+	void resetTimer();
 	void setInputSystem(Input* ip);
 	void setState(bool state);
 	bool gameIsPaused();
@@ -65,6 +66,7 @@ private:
 	bool toStart = false;
 	float musicVolume = 0.15f;
 	float SFXVolume = 1.0f;
+	float time = 0.0f;
 	Input* input;
 	MenuType menuType = MainPauseMenu;
 };

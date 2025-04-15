@@ -1,6 +1,11 @@
 #include "precompiled.h"
 #include "PauseMenu.h"
 
+void PauseMenu::resetTimer() {
+	time = 0.0f;
+	return;
+}
+
 void PauseMenu::setInputSystem(Input* ip) {
 	input = ip;
 	return;
@@ -37,7 +42,7 @@ float PauseMenu::getSFXVolume() {
 }
 
 void PauseMenu::testMenu() {
-
+	//test stuffs
 }
 
 void PauseMenu::mainPauseMenu() {
@@ -45,6 +50,14 @@ void PauseMenu::mainPauseMenu() {
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
 	io.FontGlobalScale = 2.0f;
+
+	if (ImGui::IsKeyDown(KEY_ENTER)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_ENTER;
+	}
+
+	if (ImGui::IsKeyDown(KEY_SPACE)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_SPACE;
+	}
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -79,7 +92,8 @@ void PauseMenu::mainPauseMenu() {
 	float buttonWidth = 200.0f;
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 
-	if (ImGui::Button("Resume", ImVec2(buttonWidth, 40))) {
+	if (ImGui::Button("Resume", ImVec2(buttonWidth, 40)) ||
+		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
 		isPaused = false;
 		input->controlMouse(true);
 	}
@@ -106,11 +120,6 @@ void PauseMenu::mainPauseMenu() {
 		menuType = Quit;
 	}
 
-	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("Test", ImVec2(buttonWidth, 40))) {
-		menuType = Test;
-	}
-
 	ImGui::End();
 
 	ImGui::Render();
@@ -124,6 +133,14 @@ void PauseMenu::howToPlay() {
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
 	io.FontGlobalScale = 2.0f;
+
+	if (ImGui::IsKeyDown(KEY_ENTER)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_ENTER;
+	}
+
+	if (ImGui::IsKeyDown(KEY_SPACE)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_SPACE;
+	}
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -173,7 +190,8 @@ void PauseMenu::howToPlay() {
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40))) {
+	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
+		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
 		menuType = MainPauseMenu;
 	}
 
@@ -190,6 +208,14 @@ void PauseMenu::settings() {
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
 	io.FontGlobalScale = 2.0f;
+
+	if (ImGui::IsKeyDown(KEY_ENTER)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_ENTER;
+	}
+
+	if (ImGui::IsKeyDown(KEY_SPACE)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_SPACE;
+	}
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -230,10 +256,32 @@ void PauseMenu::settings() {
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
 	ImGui::SliderFloat("Music Volume", &musicVolume, 0.0f, 1.0f);
 
+	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
+		if (musicVolume > 0.01f) {
+			musicVolume -= 0.05f;
+		}
+	}
+	if (ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) {
+		if (musicVolume < 0.99f) {
+			musicVolume += 0.05f;
+		}
+	}
+
 	ImGui::Text(" ");
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
 	ImGui::SliderFloat("SFX Volume", &SFXVolume, 0.0f, 1.0f);
+
+	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
+		if (SFXVolume > 0.01f) {
+			SFXVolume -= 0.05f;
+		}
+	}
+	if (ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) {
+		if (SFXVolume < 0.99f) {
+			SFXVolume += 0.05f;
+		}
+	}
 
 	ImGui::Text(" ");
 
@@ -242,7 +290,8 @@ void PauseMenu::settings() {
 	AudioManager::instance().setVolume("music", musicVolume);
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40))) {
+	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
+		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
 		menuType = MainPauseMenu;
 	}
 
@@ -259,6 +308,14 @@ void PauseMenu::quitMenu() {
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
 	io.FontGlobalScale = 2.0f;
+
+	if (ImGui::IsKeyDown(KEY_ENTER)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_ENTER;
+	}
+
+	if (ImGui::IsKeyDown(KEY_SPACE)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_SPACE;
+	}
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -293,7 +350,8 @@ void PauseMenu::quitMenu() {
 	float buttonWidth = 200.0f;
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40))) {
+	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
+		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
 		menuType = MainPauseMenu;
 	}
 
@@ -301,7 +359,7 @@ void PauseMenu::quitMenu() {
 	if (ImGui::Button("Quit", ImVec2(buttonWidth, 40))) {
 		quit = true;
 	}
-	
+
 	ImGui::End();
 
 	ImGui::Render();
@@ -311,6 +369,8 @@ void PauseMenu::quitMenu() {
 }
 
 void PauseMenu::run() {
+	time += (1.0f / 60.0f);
+
 	if (menuType == MainPauseMenu) {
 		mainPauseMenu();
 	}

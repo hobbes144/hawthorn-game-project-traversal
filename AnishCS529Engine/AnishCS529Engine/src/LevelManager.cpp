@@ -314,6 +314,7 @@ void LevelManager::ExecuteMainLoop()
 			PauseMenu::Instance().run();
 		}
 		else {
+			PauseMenu::Instance().resetTimer();
 			while(mainFramerateController->shouldUpdatePhysics()) {
 			    PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
 			    mainFramerateController->consumePhysicsTime();
