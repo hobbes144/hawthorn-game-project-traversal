@@ -111,7 +111,8 @@ void PauseMenu::mainPauseMenu() {
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 
 	if (ImGui::Button("Resume", ImVec2(buttonWidth, 40)) ||
-		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
+		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f) || 
+		(ImGui::IsKeyPressed(XINPUT_GAMEPAD_START) && time >= 0.4f)) {
 		resetTimer();
 		frc->clearPhysicsTime();
 		isPaused = false;
@@ -216,7 +217,8 @@ void PauseMenu::howToPlay() {
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
-		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
+		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f) || 
+		(ImGui::IsKeyPressed(XINPUT_GAMEPAD_START) && time >= 0.4f)) {
 		menuType = MainPauseMenu;
 	}
 
@@ -422,7 +424,8 @@ void PauseMenu::settings() {
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
-		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
+		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f) || 
+		(ImGui::IsKeyPressed(XINPUT_GAMEPAD_START) && time >= 0.4f)) {
 		menuType = MainPauseMenu;
 	}
 
@@ -481,7 +484,8 @@ void PauseMenu::quitMenu() {
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
-		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
+		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f) || 
+		(ImGui::IsKeyPressed(XINPUT_GAMEPAD_START) && time >= 0.4f)) {
 		menuType = MainPauseMenu;
 	}
 

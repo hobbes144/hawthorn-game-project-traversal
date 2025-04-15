@@ -715,13 +715,13 @@ void LevelManager::createPlayerObject()
         ->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
         ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
         ->setActionKey(FirstPersonControllerComponent::Pause, KEY_ESCAPE)
-        ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
         ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
         ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
         ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
-        ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
+        ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER)
+        ->setGPActionKey(FirstPersonControllerComponent::Pause, XINPUT_GAMEPAD_START);
 
     playerBoxInputComponent->setDifficulty(playerDifficulty);
 #pragma endregion
