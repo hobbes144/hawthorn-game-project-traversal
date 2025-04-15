@@ -14,6 +14,10 @@
 
 namespace EngineMath {
   float clamp(float value, float min, float max);
+
+  namespace Random {
+    float boundedFloat(float min, float max);
+  }
 }
 
 #endif // !ENGINE_MATH_H

@@ -9,6 +9,7 @@
 #include "EventManager.h"
 #include "FirstPersonControllerComponent.h"
 #include "FramerateController.h"
+#include "FreeCamera.h"
 #include "GameObject.h"
 #include "GameWindow.h"
 #include "GBufferPrepass.h"
@@ -18,6 +19,7 @@
 #include "Input.h"
 #include "KeyList.h"
 #include "LightingPass.h"
+#include "LocalLightsPass.h"
 #include "MapLoader.h"
 #include "Movement3D.h"
 #include "OBB.h"
@@ -27,6 +29,7 @@
 #include "RaycastHit.h"
 #include "RaycastManager.h"
 #include "RectanglePrimitive.h"
+#include "Render2D.h"
 #include "Render3D.h"
 #include "RenderableNode.h"
 #include "Renderer.h"
@@ -34,6 +37,7 @@
 #include "SkydomePass.h"
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
+#include "UIPass.h"
 
 #include "GlobalVariables.h"
 
@@ -92,7 +96,6 @@ private:
 	GameWindow* mainWindow;
 	Renderer* mainRenderer;
 	Input* mainInput;
-	GamePad* gamepad;
 	FFramerateController* mainFramerateController;
 	SceneGraph mainSceneGraph;
 	std::shared_ptr<GameObject> cameraGameObject;

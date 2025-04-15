@@ -90,6 +90,9 @@ public:
     TextureParameters textureParameters = TextureParameters()
     );
 
+  void resizeTexture(
+    TextureID id, int width, int height);
+
   void setTextureParameters(
     TextureID id, TextureParameters textureParameters);
 

@@ -36,7 +36,4 @@ void LightingPass::draw(
   shader->setUInt("width", viewport.width);
 
   screenQuad->draw(GL_TRIANGLES);
-
-  glDepthMask(GL_TRUE);
-
 }

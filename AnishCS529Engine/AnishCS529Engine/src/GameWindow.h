@@ -33,6 +33,7 @@
 
 /* Forward declaration of class Renderer for friend */
 class Renderer;
+class Input;
 
 /*!****************************************************************************
  * \brief Class that sets up the GLFW window and associated
@@ -61,6 +62,7 @@ class GameWindow : public Component
 {
   /* Friend classes */
   friend class Renderer;
+  friend class Input;
 
 public:
   /* Constructor */
@@ -68,7 +70,7 @@ public:
   ~GameWindow() = default;
 
   /* Component functions */
-  void initialize(GLFWmonitor* monitor = nullptr);
+  void initialize();
   void update();
   void shutdown();
 
@@ -84,31 +86,52 @@ public:
   int getWidth();
   int getHeight();
   float getAspectRatio();
-  bool borderlessFullscreen = false;
+  bool isFullscreen = false;
   bool getShouldClose() const;
   void setShouldClose() const;
   GLFWwindow* getNativeWindow() const;
-  GameWindow* setBorderlessFullscreen(bool flag);
+  GameWindow* setInitialFullscreen(bool flag);
+  GameWindow* setFullscreen(bool flag);
 
 private:
   /** Width of the window */
   int width;
   /** Height of the window */
   int height;
+  /** Windowed width */
+  int windowedWidth = 1280;
+  /** Windowed height */
+  int windowedHeight = 720;
+  /** Windowed X position */
+  int windowedX = 100;
+  /** Windowed Y position */
+  int windowedY = 100;
+
+
   /** Window title */
   std::string title;
   /** GLFW Window object */
   GLFWwindow* pWindow;
   /** Resize callback function pointer */
   std::function<void(GLFWwindow*, int, int)> resizeCallback;
+  std::function<void(GLFWwindow*, double, double)> cursorPosCallback;
+  std::function<void(GLFWwindow*, int, int, int)> mouseButtonCallback;
 
-  static void resizeCallbackWrapper(GLFWwindow* pWindow, int width,
-                                    int height);
+  static void resizeCallbackWrapper(
+    GLFWwindow* pWindow, int width, int height);
+  static void cursorPosCallbackWrapper(
+    GLFWwindow* pWindow, double xpos, double ypos);
+  static void mouseButtonCallbackWrapper(
+    GLFWwindow* pWindow, int button, int action, int mods);
 
   /* Renderer functions */
   void setWindowHints(const std::function<void()>& hintSetter) const;
   void setResizeCallback(
       std::function<void(GLFWwindow*, int, int)> callback);
+  void setCursorPosCallback(
+      std::function<void(GLFWwindow*, double, double)> callback);
+  void setMouseButtonCallback(
+      std::function<void(GLFWwindow*, int, int, int)> callback);
 
 };
 

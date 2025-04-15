@@ -1,6 +1,5 @@
 #include "precompiled.h"
 #include "AABB.h"
-#include <iostream>
 
 AABB::AABB(const Vector3& min,
             const Vector3& max)

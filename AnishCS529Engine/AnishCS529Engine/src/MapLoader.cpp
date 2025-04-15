@@ -6,8 +6,6 @@
 #include "MainTestMaterial.h"
 #include "MapLoader.h"
 #include "Matrix4.h"
-#include <random>
-#include <math.h>
 
 MapLoader& MapLoader::instance() {
     static MapLoader instance;
