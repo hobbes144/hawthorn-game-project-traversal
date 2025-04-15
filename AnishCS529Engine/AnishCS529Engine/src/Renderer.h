@@ -152,12 +152,16 @@ public:
   State getCurrentState() const;
   Renderer* setState(const State& state, bool force = false);
 
+  void addScreenSizeBufferUpdateCallback(
+    std::function<void(int, int, int, int)> screenSizeBufferUpdateCallback);
+
 private:
   /** Game Window object */
   GameWindow* gameWindow;
   /** Clear mask for glClear */
   GLbitfield clearMask;
   State state{ Viewport{ 0,0,0,0 }, BlendState{}, DepthState{} };
+  std::vector<std::function<void(int, int, int, int)>> screenSizeBufferUpdateCallbacks;
 
   std::shared_ptr<RenderGraph> renderGraph;
 
@@ -165,6 +169,8 @@ private:
   void setupCallbacks();
   void framebufferSizeCallback(
     GLFWwindow* pWindow, int width, int height);
+
+  void updateScreenSizeBuffers();
 
 };
 

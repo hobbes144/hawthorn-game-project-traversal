@@ -15,25 +15,18 @@ layout (binding = 0) uniform camera
     float exposure;
 };
 
-struct DirectionalLight {
-  vec3 direction;
+struct Light {
+  vec3 position;
   float intensity;
   vec3 color;
-  float padding0;
+  float radius;
 };
 
-struct AmbientLight {
-  vec3 color;
-  float intensity;
+layout(std430, binding = 2) buffer LightBuffer {
+    Light lights[];
 };
 
-layout (binding = 1) uniform lights
-{
-  DirectionalLight sunLight;
-  AmbientLight ambientLight;
-};
-
-uniform bool HDR;
+uniform uint lightIndex;
 
 uniform uint height, width;
 
@@ -44,33 +37,22 @@ uniform sampler2D GBuffer_specular;
 
 out vec3 FragColor;
 
-vec3 toLinear(vec3 color) {
-  return pow(
-      (
-        (exposure * color) / 
-        (
-          (exposure * color) + 
-          vec3(1.0)
-        )
-      ), vec3(2.2));
-}
-
-vec3 toSRGB(vec3 color) {
-  return pow(
-      (
-        (exposure * color) / 
-        (
-          (exposure * color) + 
-          vec3(1.0)
-        )
-      ), vec3(1/2.2));
-}
-
 void main()
 {
     vec2 gBufferPosition = gl_FragCoord.xy/vec2(width,height);
     
     vec3 worldPos = texture(GBuffer_position, gBufferPosition).xyz;
+
+    vec3 L = lights[lightIndex].position - worldPos;
+    float radius = lights[lightIndex].radius;
+    float lightDistance = length(L);
+
+    if ( lightDistance > radius ) {
+      FragColor = vec3(0);
+      discard;
+      return;
+    }
+
     vec3 eyeVec = (inverseView*vec4(0,0,0,1)).xyz-worldPos;
 
     vec3 N = texture(GBuffer_normal, gBufferPosition).xyz;
@@ -80,15 +62,10 @@ void main()
     vec3 Ks = texture(GBuffer_specular, gBufferPosition).xyz;
     float alpha = texture(GBuffer_specular, gBufferPosition).w;
 
-    vec3 Ia = ambientLight.color * ambientLight.intensity;
-    
-    vec3 Ii = sunLight.color * sunLight.intensity;
-    vec3 L = -normalize(sunLight.direction);
+    vec3 Ii = lights[lightIndex].color * lights[lightIndex].intensity;
 
-    if (HDR) {
-      Kd = toLinear(Kd);
-    }
-    
+    L = normalize(L);
+
     // The lighting calculation ...
     vec3 H = normalize(L+V);
     float LN = max(dot(L,N),0.0);
@@ -96,15 +73,11 @@ void main()
     float VN = max(dot(V,N),0.0);
     float LH = max(dot(L,H),0.0);
 
-    vec3 ambientDiffuse = Ia*Kd;
-
     // BRDF
     vec3 F = Ks + (((1,1,1)-Ks)*pow((1-LH),5.0));
     float D = ((alpha+2.0)/(2*M_PI))*(pow(HN,alpha));
     vec3 BRDF = (Kd/M_PI) + ((F*D)/(4*pow(max(LH,0.0000000001),2.0)));
-    FragColor = ambientDiffuse + (Ii*LN*BRDF);
+    FragColor = (Ii*LN*BRDF);
 
-    if (HDR) {
-      FragColor = toSRGB(FragColor);
-    }
+    FragColor *= (1/pow(lightDistance, 2) - 1/pow(radius, 2));
 }

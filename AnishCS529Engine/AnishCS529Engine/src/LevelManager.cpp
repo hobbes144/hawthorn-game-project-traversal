@@ -3,36 +3,19 @@
 
 void LevelManager::SystemInitalization()
 {
-
-    /* Game Window setup */
-    glfwInit();
-    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
-
-    int windowWidth = mode->width;
-    int windowHeight = mode->height;
-
     mainWindow = new GameWindow;
 
-    if (isFullscreen) {
-        int windowWidth = mode->width;
-        int windowHeight = mode->height;
-        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(true);
-        mainWindow->initialize(monitor);
-    }
-    else {
-        int windowWidth = 1280;
-        int windowHeight = 720;
-        mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(false);
-        mainWindow->initialize(nullptr);
-    }
+    //isFullscreen = false;
+    mainWindow->setTitle("Traversal")->setInitialFullscreen(isFullscreen);
+    mainWindow->initialize();
 
     /* Renderer setup */
     mainRenderer = new Renderer;
     mainRenderer->setGameWindow(mainWindow);
     mainRenderer->initialize();
     mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+    //glfwSwapInterval(0);
 
     /* IMGUI Init */
     ImGui::CreateContext();
@@ -41,12 +24,8 @@ void LevelManager::SystemInitalization()
 
     int textureMode = 1;
 
-    auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
-    mainRenderer->getRenderGraph()->addPass<SkydomePass>(skydomePass);
-
-    mainRenderer->getRenderGraph()->addPass<GBufferPrepass>();
-
-    mainRenderer->getRenderGraph()->addPass<LightingPass>();
+    //auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
+    //mainRenderer->getRenderGraph()->addPass<SkydomePass>(skydomePass);
 
     //mainWindow->setVsync(true);
 
@@ -58,10 +37,6 @@ void LevelManager::SystemInitalization()
     };
     mainInput->setGameWindow(mainWindow);
     mainInput->initialize();
-
-    /* XInput setup */
-    gamepad = new GamePad;
-    gamepad->initialize();
 
     /* Framerate controller setup */
     mainFramerateController =
@@ -196,30 +171,23 @@ void LevelManager::DisplayLogos()
     auto Logo = std::make_shared<GameObject>("Logo");
     sceneGraph.addNode(Logo);
     Logo->setLocalPosition(Vector3(0.0f, 0.0f, -10.0f));
-    Logo->setLocalScaling(Vector3(15.0f, 15.0f, 0.005f));
-    auto renderComp = Logo->addComponent<Render3D>();
-    renderComp->setMesh(boxMesh)->setMaterial(digiMaterial);
+    Logo->setLocalScaling(Vector3(8.0f, 8.0f, 1.0f));
+    auto renderComp = Logo->addComponent<Render2D>();
+    renderComp->setMaterial(digiMaterial)->setProperty("useTexture", 1);
     
-    //Create Camera
-    auto cam = cameraGameObject = std::make_shared<GameObject>("logoCamera");
-    sceneGraph.addNode(cam);
-    auto cameraLogo = std::make_shared<AttachedCamera>("logoCamera");
-    cameraLogo->attachToNode(cameraGameObject);
-    sceneGraph.addCamera(cameraLogo);
+    const Renderer::Viewport& viewPort = mainRenderer->getCurrentState().viewport;
 
-    //Perspective
-    cameraLogo->setPerspectiveProjection(
+    //Create Camera
+    auto cam = std::make_shared<FreeCamera>("uicam");
+      cam->lookAt(Vector3(0.0f, 0.0f, -1.0f))->setPerspectiveProjection(
       45.0f * 3.14159f / 180.0f,
       mainWindow->getAspectRatio(),
       0.1f,
       5000.0f);
+    sceneGraph.addCamera(cam);
 
-    //Light Direction
-    Vector3 LightDirection = Vector3(-1.0f, 0.0f, 0.0f).normalized();
-    sceneGraph.addAmbientLight(
-      AmbientLight(Vector3(1, 1, 1), 1.0f));
-    sceneGraph.addDirectionalLight(
-      DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
+    mainRenderer->getRenderGraph()->addPass<UIPass>();
+    mainRenderer->setClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
     //Count the Logos
     float logoTimer = 0.0f;
@@ -231,7 +199,7 @@ void LevelManager::DisplayLogos()
     static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
     mainFramerateController->setTargetFramerate(expectedFrameRate);
-    sceneGraph.printSceneTree();
+    //sceneGraph.printSceneTree();
 
     bool mouseClicked = false;
     bool prevMouseClicked = true;
@@ -245,48 +213,12 @@ void LevelManager::DisplayLogos()
         //Update the Input Manager
         mainInput->update();
 
-        //Update the GamePad
-        gamepad->update();
-
         //Full Screen Toggle
-        if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
-            GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
-            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+        if (mainInput->isKeyPressed(KEY_F11)) {
 
-            if (isFullscreen) {
-                // Windowed mode
-                int windowWidth = 1280;
-                int windowHeight = 720;
-                // Enable borders
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
-                // Reposition the window
-                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
-                isFullscreen = false;
-            }
-            else {
-                // Save current window attributes
-                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
-                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
+          isFullscreen = !isFullscreen;
+          mainWindow->setFullscreen(isFullscreen);
 
-                // Borderless fullscreen
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
-                glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
-                isFullscreen = true;
-            }
-
-            // Adjust viewport and camera aspect ratio
-            int fbWidth, fbHeight;
-            glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
-            glViewport(0, 0, fbWidth, fbHeight);
-            float newAspect = static_cast<float>(fbWidth) / static_cast<float>(fbHeight);
-            camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
-        }
-
-        //Update Physics
-        while (mainFramerateController->shouldUpdatePhysics()) {
-            PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
-            mainFramerateController->consumePhysicsTime();
         }
 
         //Update Logo Timer
@@ -303,12 +235,13 @@ void LevelManager::DisplayLogos()
         else if (logoTimer > logoDuration - fadeOutTime) {
             ambientIntensity = std::max(0.0f, (logoDuration - logoTimer) / fadeOutTime);
         }
-        sceneGraph.addAmbientLight(
-            AmbientLight(Vector3(1, 1, 1), ambientIntensity));
+        renderComp->setProperty("transparency", ambientIntensity);
 
-        bool mouseClicked = mainInput->isMouseButtonDown(0);
+        bool mouseClicked = mainInput->isMouseButtonDown(0) || mainInput->isMouseButtonDown(1);
         bool skipped = (!prevMouseClicked && mouseClicked) ||
-                       (mainInput->isKeyPressed(KEY_SPACE));
+                       (mainInput->isKeyPressed(KEY_SPACE))||
+                       (mainInput->isKeyPressed(KEY_ENTER))||
+                       (mainInput->isKeyPressed(KEY_ESCAPE));
 
         if ( skipped || logoTimer >= logoDuration) {
             logoTimer = 0.0f;
@@ -324,7 +257,6 @@ void LevelManager::DisplayLogos()
                     renderComp->setMaterial(fmodMaterial);
                     break;
                 default:
-                    if (currentLogo >= numLogos) break;
                     break;
                 }
             }
@@ -332,18 +264,20 @@ void LevelManager::DisplayLogos()
 
         prevMouseClicked = mouseClicked;
 
-        //Update Scenegraph
-        mainFramerateController->endFrame();
-        sceneGraph.update(1.0f / 60.0f);
-
         //Draw the Scene
         mainRenderer->getRenderGraph()->draw(&sceneGraph);
+
+        //Update Scenegraph
+        mainFramerateController->endFrame();
 
         //Swap Buffers and Update Window
         mainRenderer->swapBuffers();
         mainWindow->update();
 
     }
+
+    mainRenderer->getRenderGraph()->removePass<UIPass>();
+    mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 }
 
@@ -406,6 +340,8 @@ void LevelManager::ExecuteMainLoop()
     mainFramerateController->setTargetFramerate(expectedFrameRate);
     mainSceneGraph.printSceneTree();
 
+    mainRenderer->getRenderGraph()->lightsSet = false;
+
     while (!levelSwapFlag) {
 
         mainRenderer->clear();
@@ -414,48 +350,17 @@ void LevelManager::ExecuteMainLoop()
         //Update the Input Manager
         mainInput->update();
 
-        //Update the GamePad
-        gamepad->update();
-
         //If Escape is Pressed Exit Loop
         if (mainInput->isKeyHeld(KEY_ESCAPE)) {
             currentLevel = numLevels + 1;
             break;
         }
 
-        //Full Screen Toggle
-        if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
-            GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
-            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+        if (mainInput->isKeyPressed(KEY_F11)) {
 
-            if (isFullscreen) {
-                // Windowed mode
-                int windowWidth = 1280;
-                int windowHeight = 720;
-                // Enable borders
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
-                // Reposition the window
-                glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
-                isFullscreen = false;
-            }
-            else {
-                // Save current window attributes
-                glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
-                glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
+          isFullscreen = !isFullscreen;
+          mainWindow->setFullscreen(isFullscreen);
 
-                // Borderless fullscreen
-                glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
-                glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
-                isFullscreen = true;
-            }
-
-            // Adjust viewport and camera aspect ratio
-            int fbWidth, fbHeight;
-            glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
-            glViewport(0, 0, fbWidth, fbHeight);
-            float newAspect = static_cast<float>(fbWidth) / static_cast<float>(fbHeight);
-            camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
         }
 
         //Cheating Level Select
@@ -776,7 +681,6 @@ void LevelManager::createPlayerObject()
 
     auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
         ->setInputSystem(mainInput)
-        ->setGamePad(gamepad)
         ->setPhysicsBody(playerBoxPB.get())
         ->setBody(playerBox.get())
         ->setSceneRoot(mainSceneGraph.getRootNode())
@@ -851,6 +755,12 @@ void LevelManager::initalizePlayerInLevel()
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
     pbFPCController->respawnPlayer(true, true);
+
+    mainRenderer->getRenderGraph()->addPass<GBufferPrepass>();
+
+    mainRenderer->getRenderGraph()->addPass<LightingPass>();
+
+    mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
 
 }
 

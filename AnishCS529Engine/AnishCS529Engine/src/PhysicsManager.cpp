@@ -1,6 +1,5 @@
 #include "precompiled.h"
 #include "PhysicsManager.h"
-#include <algorithm>
 
 PhysicsManager& PhysicsManager::Instance() {
   static PhysicsManager instance;

@@ -18,17 +18,31 @@
 
 #include "TextureManager.h"
 
+class Renderer;
+
 class FBO {
 public:
   unsigned int fboID;
-  unsigned int textureID;
-  int width, height;  // Size of the texture.
+  std::vector<unsigned int> textureIDs;
+  int width, height;  // Size of the Buffer
+  int x, y;  // Offset of the Buffer
   unsigned int attachedTextures = 0;
+
+  ~FBO() = default;
 
   void initialize();
   void finalize();
 
-  void setViewport(const int w, const int h);
+  void setViewport(
+    const int _x, const int _y,
+    const int _width, const int _height);
+
+  void updateViewport();
+  void updateViewport(
+    const int _x, const int _y,
+    const int _width, const int _height);
+
+  void addScreenSizeBufferUpdateCallback(Renderer* renderer);
 
   void attachTexture(TextureManager::TextureID textureID);
 
@@ -37,6 +51,8 @@ public:
 
   // Unbind this FBO from the graphics pipeline;  graphics goes to screen by default.
   void unbind();
+
+  void clear();
 };
 
 #endif // !FBO_H

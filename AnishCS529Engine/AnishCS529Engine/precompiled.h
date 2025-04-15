@@ -19,6 +19,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <random>
 #include <stdexcept>
 #include <stdlib.h>
 #include <string>

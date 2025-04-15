@@ -312,9 +312,6 @@
     <ClCompile Include="src\GraphicsTest.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="src\Texture.cpp">
-      <Filter>Engine\Source Files\Deprecated</Filter>
-    </ClCompile>
     <ClCompile Include="src\RendererStateSaver.cpp">
       <Filter>Engine\Source Files\Systems\RenderingSystem</Filter>
     </ClCompile>
@@ -367,9 +364,6 @@
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\simplexnoise.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TestShapes.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="precompiled.cpp">
@@ -480,11 +474,20 @@
     <ClCompile Include="src\FBO.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\UIPass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SkydomePass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LocalLightsPass.cpp">
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClCompile>
     <ClCompile Include="src\LightingPass.cpp">
-      <Filter>Engine\Source Files</Filter>
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClCompile>
     <ClCompile Include="src\GBufferPrepass.cpp">
-      <Filter>Engine\Source Files</Filter>
+      <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClCompile>
     <ClCompile Include="src\Map_Intermediate2.cpp">
       <Filter>Engine\Source Files</Filter>
@@ -641,9 +644,6 @@
     <ClInclude Include="src\MaterialDeprecated.h">
       <Filter>Engine\Header Files\Deprecated</Filter>
     </ClInclude>
-    <ClInclude Include="src\Texture.h">
-      <Filter>Engine\Header Files\Deprecated</Filter>
-    </ClInclude>
     <ClInclude Include="src\RendererStateSaver.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
@@ -685,9 +685,6 @@
     </ClInclude>
     <ClInclude Include="src\Movement3D.h">
       <Filter>Engine\Header Files\ObjectResources\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TestShapes.h">
-      <Filter>Tests\TestObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\rply.h">
       <Filter>Tests\TestLibraries</Filter>
@@ -809,6 +806,12 @@
     <ClInclude Include="src\FBO.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
     </ClInclude>
+    <ClInclude Include="src\LocalLightsPass.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UIPass.h">
+      <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\main_vertex_shader.glsl">
@@ -853,13 +856,7 @@
     <None Include="shaders\lighting.vert">
       <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="shaders\main.frag">
-      <Filter>Engine\Shaders</Filter>
-    </None>
     <None Include="shaders\lighting.vert">
-      <Filter>Engine\Shaders</Filter>
-    </None>
-    <None Include="shaders\main.vert">
       <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="media\Map\Big_Button.fbx">
@@ -899,6 +896,18 @@
       <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="shaders\gbuffer.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\local_lights.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\local_lights.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\ui.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="shaders\ui.frag">
       <Filter>Engine\Shaders</Filter>
     </None>
   </ItemGroup>
