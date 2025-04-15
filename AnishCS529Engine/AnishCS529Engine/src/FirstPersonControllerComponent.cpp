@@ -744,13 +744,13 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				}
 			}
 			if (gp->rightStickX != 0) {
-				mouseXDelta = static_cast<float>(gp->rightStickX) * gp->gpRXSensitivity;
+				mouseXDelta = static_cast<float>(gp->rightStickX) * gp->getRXSensitivity();
 				Quaternion currentBodyRotation = body->getLocalRotation();
 				Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
 				body->setLocalRotation(currentBodyRotation * mouseRotation);
 			}
 			if (gp->rightStickY != 0) {
-				mouseYDelta = -static_cast<float>(gp->rightStickY) * gp->gpRYSensitivity;
+				mouseYDelta = -static_cast<float>(gp->rightStickY) * gp->getRYSensitivity();
 				//Rotate Camera
 				Quaternion currentCameraRoation = camera->getLocalRotation();
 				Vector3 currentEuler = currentCameraRoation.toEuler();

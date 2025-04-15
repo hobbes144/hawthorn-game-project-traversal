@@ -115,3 +115,49 @@ void GamePad::initialize() {
 	registerKey(XINPUT_GAMEPAD_START);
 	registerKey(XINPUT_GAMEPAD_BACK);
 }
+
+void GamePad::setLXSensivity(float val) {
+	gpLXSensitivity = val;
+	return;
+}
+
+void GamePad::setLYSensivity(float val) {
+	gpLYSensitivity = val;
+	return;
+}
+
+void GamePad::setRXSensivity(float val) {
+	gpRXSensitivity = val;
+	return;
+}
+
+void GamePad::setRYSensivity(float val) {
+	gpRYSensitivity = val;
+	return;
+}
+
+void GamePad::setDeadzoneX(float val) {
+	deadzoneX = val;
+	return;
+}
+
+void GamePad::setDeadzoneY(float val) {
+	deadzoneY = val;
+	return;
+}
+
+float GamePad::getLXSensitivity() {
+	return gpLXSensitivity;
+}
+
+float GamePad::getRXSensitivity() {
+	return gpRXSensitivity;
+}
+
+float GamePad::getLYSensitivity() {
+	return gpLYSensitivity;
+}
+
+float GamePad::getRYSensitivity() {
+	return gpRYSensitivity;
+}

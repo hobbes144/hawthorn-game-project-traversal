@@ -17,12 +17,19 @@ class GamePad {
 private:
 	int cId;
 	XINPUT_STATE state;
+
 	float deadzoneX;
 	float deadzoneY;
+	
+	float gpLXSensitivity;
+	float gpLYSensitivity;
+	float gpRXSensitivity;
+	float gpRYSensitivity;
+
 	void registerKey(WORD);
 
 public:
-	GamePad() : deadzoneX(0.02f), deadzoneY(0.02f),
+	GamePad() : deadzoneX(0.05f), deadzoneY(0.05f),
 		gpLXSensitivity(2.0f), gpLYSensitivity(2.0f),
 		gpRXSensitivity(2.0f), gpRYSensitivity(2.0f) {
 	}
@@ -32,10 +39,7 @@ public:
 	float leftStickY;
 	float rightStickX;
 	float rightStickY;
-	float gpLXSensitivity;
-	float gpLYSensitivity;
-	float gpRXSensitivity;
-	float gpRYSensitivity;
+
 	float leftTrigger;
 	float rightTrigger;
 	std::unordered_map<WORD, GPKeyState> keyStates;
@@ -48,6 +52,18 @@ public:
 	bool isPressed(WORD);
 	bool isHeld(WORD);
 	bool isReleased(WORD);
+
+	void setLXSensivity(float val);
+	void setLYSensivity(float val);
+	void setRXSensivity(float val);
+	void setRYSensivity(float val);
+	void setDeadzoneX(float val);
+	void setDeadzoneY(float val);
+
+	float getLXSensitivity();
+	float getLYSensitivity();
+	float getRXSensitivity();
+	float getRYSensitivity();
 };
 
 #endif

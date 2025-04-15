@@ -268,7 +268,7 @@ void PauseMenu::settings() {
 	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 96));
 
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-	ImGui::SetCursorPos(ImVec2(center.x - 100, center.y - 100));
+	ImGui::SetCursorPos(ImVec2(center.x - 70, center.y - 300));
 
 	float windowWidth = ImGui::GetWindowSize().x;
 	float textWidth = ImGui::CalcTextSize("Settings").x;
@@ -279,6 +279,8 @@ void PauseMenu::settings() {
 	float buttonWidth = 200.0f;
 
 	ImGui::PushItemWidth(400.0f);
+
+#pragma region Volume
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
 	ImGui::SliderFloat("Music Volume", &musicVolume, 0.0f, 1.0f);
@@ -308,6 +310,12 @@ void PauseMenu::settings() {
 		}
 	}
 
+#pragma endregion
+
+	ImGui::Text(" ");
+
+#pragma region Mouse
+
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
 	ImGui::SliderFloat("MouseX Sensivity", &mouseXSensivity, 0.0f, 1.0f);
 
@@ -336,11 +344,81 @@ void PauseMenu::settings() {
 		}
 	}
 
+#pragma endregion
+
+	ImGui::Text(" ");
+
+#pragma region GamePad
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
+	ImGui::SliderFloat("Left Joystick X Sensivity", &gpLXSensitivity, 0.0f, 1.0f);
+
+	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
+		if (gpLXSensitivity > 0.05f) {
+			gpLXSensitivity -= 0.25f;
+		}
+	}
+	if (ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) {
+		if (gpLXSensitivity < 5.95f) {
+			gpLXSensitivity += 0.25f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
+	ImGui::SliderFloat("Left Joystick Y Sensivity", &gpLYSensitivity, 0.0f, 1.0f);
+
+	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
+		if (gpLYSensitivity > 0.05f) {
+			gpLYSensitivity -= 0.25f;
+		}
+	}
+	if (ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) {
+		if (gpLYSensitivity < 5.95f) {
+			gpLYSensitivity += 0.25f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
+	ImGui::SliderFloat("Right Joystick X Sensivity", &gpRXSensitivity, 0.0f, 1.0f);
+
+	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
+		if (gpRXSensitivity > 0.05f) {
+			gpRXSensitivity -= 0.25f;
+		}
+	}
+	if (ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) {
+		if (gpRXSensitivity < 5.95f) {
+			gpRXSensitivity += 0.25f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
+	ImGui::SliderFloat("Right Joystick Y Sensivity", &gpRYSensitivity, 0.0f, 1.0f);
+
+	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
+		if (gpRYSensitivity > 0.05f) {
+			gpRYSensitivity -= 0.25f;
+		}
+	}
+	if (ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) {
+		if (gpRYSensitivity < 5.95f) {
+			gpRYSensitivity += 0.25f;
+		}
+	}
+
+#pragma endregion
+
+	ImGui::Text(" ");
+
 	ImGui::PopItemWidth();
 
 	AudioManager::instance().setVolume("music", musicVolume);
 	player->findComponent<FirstPersonControllerComponent>()->setMouseXSensivity(mouseXSensivity);
 	player->findComponent<FirstPersonControllerComponent>()->setMouseYSensivity(mouseYSensivity);
+	gp->setLXSensivity(gpLXSensitivity);
+	gp->setLYSensivity(gpLYSensitivity);
+	gp->setRXSensivity(gpRXSensitivity);
+	gp->setRYSensivity(gpRYSensitivity);
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||

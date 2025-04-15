@@ -72,6 +72,12 @@ private:
 	float SFXVolume = 1.0f;
 	float mouseXSensivity = 0.1f;
 	float mouseYSensivity = 0.1f;
+
+	float gpLXSensitivity = 2.0f;
+	float gpLYSensitivity = 2.0f;
+	float gpRXSensitivity = 2.0f;
+	float gpRYSensitivity = 2.0f;
+
 	float time = 0.0f;
 	Input* input;
 	MenuType menuType = MainPauseMenu;
