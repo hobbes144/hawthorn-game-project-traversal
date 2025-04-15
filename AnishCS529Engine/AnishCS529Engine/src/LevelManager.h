@@ -120,6 +120,9 @@ private:
 	std::shared_ptr<TextureMaterial> WhiteFloorTiles;
 	std::shared_ptr<TextureMaterial> skyBoxMaterial;
 	std::shared_ptr<TextureMaterial> keyMaterial;
+	std::shared_ptr<TextureMaterial> shadowMaterial;
+	std::shared_ptr<TextureMaterial> jumpImage;
+	std::shared_ptr<TextureMaterial> wordMaterial;
 	std::shared_ptr<TextureMaterial> digiMaterial;
 	std::shared_ptr<TextureMaterial> fmodMaterial;
 
@@ -132,6 +135,7 @@ private:
 	Vector3 startingPos2 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot2 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
 	Vector3 startingPos3 = Vector3(-131.0f, 7.0f, -130.0f);
+
 	Quaternion startingRot3 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
 	Vector3 startingPos4 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot4 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));

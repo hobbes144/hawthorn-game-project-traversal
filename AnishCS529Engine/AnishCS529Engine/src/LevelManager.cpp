@@ -121,7 +121,7 @@ void LevelManager::MeshMatInitializations()
     BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
     BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     BlueConcrete->setProperty("shininess", 10.0f);
-    BlueConcrete->addTexture("media/textures/BlueConcrete.png", 20.0f, 20.0f);
+    BlueConcrete->addTexture("media/textures/BlueConcrete.png", 3.0f, 3.0f);
 
     WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
     WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
@@ -132,6 +132,21 @@ void LevelManager::MeshMatInitializations()
     keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     keyMaterial->setProperty("shininess", 20.0f);
     keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
+
+    shadowMaterial = Material::getMaterial<TextureMaterial>("shadow");
+    shadowMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    shadowMaterial->setProperty("shininess", 1.0f);
+    shadowMaterial->addTexture("media/textures/shadow5.png", 1.0f, 1.0f);
+
+    jumpImage = Material::getMaterial<TextureMaterial>("jumpImage");
+    jumpImage->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    jumpImage->setProperty("shininess", 1.0f);
+    jumpImage->addTexture("media/textures/jumpImage.png", 1.0f, 1.0f);
+
+    wordMaterial = Material::getMaterial<TextureMaterial>("words");
+    wordMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    wordMaterial->setProperty("shininess", 1.0f);
+    wordMaterial->addTexture("media/textures/words.png", 1.0f, 1.0f);
 
     //doorMaterial = Material::getMaterial<MainTestMaterial>("door", mainRenderer->getRenderGraph());
     //doorMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
@@ -608,7 +623,7 @@ void LevelManager::createPlayerObject()
       5000.0f);
 
     //Transform
-    cameraGameObject->setLocalPosition(Vector3(0.0f, 2.5f, 0.0f));
+    cameraGameObject->setLocalPosition(Vector3(0.0f, 34.0f, 0.0f));
 
     //auto cameraShape = std::make_shared<OBB>(
     //    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
@@ -621,7 +636,7 @@ void LevelManager::createPlayerObject()
 
 #pragma endregion
 
-    Vector3 LightDirection = Vector3(0.75f, -1.0f, 0.75f).normalized();
+    Vector3 LightDirection = Vector3(-0.75f, -1.0f, 0.75f).normalized();
 
     mainSceneGraph.addAmbientLight(
       AmbientLight(Vector3(1, 1, 1), 0.3f));
@@ -632,19 +647,19 @@ void LevelManager::createPlayerObject()
 
 //Transform Values
     playerBox->setLocalPosition(startingPos1)
-        ->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+        ->setLocalScaling(Vector3(1.0f, 0.1f, 1.0f));
 
     playerBox->addComponent<KeyList>();
     //Render Component
     auto box1RenderComponent = playerBox->addComponent<Render3D>();
     box1RenderComponent
-        ->setMesh(boxMesh)
-        ->setMaterial(cracksMaterial);
+        ->setMesh(sphereMesh)
+        ->setMaterial(shadowMaterial);
 
     //Create Shape
     auto shape1 = std::make_shared<OBB>(
     Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-    Vector3(0.5f, 0.5f, 0.5f));
+    Vector3(0.5f, 5.0f, 0.5f));
 
     // Create instances of bodies for boxes
     auto playerBoxPB = playerBox->addComponent<RigidBody>()
