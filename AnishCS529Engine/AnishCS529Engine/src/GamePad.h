@@ -8,6 +8,11 @@
 #include <Windows.h>
 #include <winerror.h>
 
+struct GPKeyState {
+	bool currentState = false;
+	bool prevState = false;
+};
+
 class GamePad {
 private:
 	int cId;
@@ -15,30 +20,25 @@ private:
 	float deadzoneX;
 	float deadzoneY;
 	void registerKey(WORD);
-	void registerKey();
 
 public:
-	struct KeyState {
-		bool currentState = false;
-		bool prevState = false;
-	};
-
 	GamePad() : deadzoneX(0.02f), deadzoneY(0.02f),
-		LXSensitivity(2.0f), LYSensitivity(2.0f),
-		RXSensitivity(2.0f), RYSensitivity(2.0f) {}
+		gpLXSensitivity(2.0f), gpLYSensitivity(2.0f),
+		gpRXSensitivity(2.0f), gpRYSensitivity(2.0f) {
+	}
 	GamePad(float dzX, float dzY) : deadzoneX(dzX), deadzoneY(dzY) {}
 
 	float leftStickX;
 	float leftStickY;
 	float rightStickX;
 	float rightStickY;
-	float LXSensitivity;
-	float LYSensitivity;
-	float RXSensitivity;
-	float RYSensitivity;
+	float gpLXSensitivity;
+	float gpLYSensitivity;
+	float gpRXSensitivity;
+	float gpRYSensitivity;
 	float leftTrigger;
 	float rightTrigger;
-	std::unordered_map<WORD, KeyState> keyStates;
+	std::unordered_map<WORD, GPKeyState> keyStates;
 
 	void initialize();
 	int  GetPort();

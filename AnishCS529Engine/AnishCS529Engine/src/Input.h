@@ -17,7 +17,6 @@
 /* Used classes */
 #include "GameWindow.h"
 #include "InputKeys.h"
-#include "GamePad.h"
 
 /*!****************************************************************************
  * \brief KeyState struct holds the state of each key.
@@ -126,10 +125,8 @@ public:
   bool isMouseButtonPressed(int button) const;
   bool isMouseButtonReleased(int button) const;
   void resetMouseDelta();
-  void controlMouse(bool capture);
 
-  // Gamepad functions
-  GamePad* getGamePad() { return gamePad; }
+  void controlMouse(bool capture);
 
 private:
   /** GameWindow object to read keys from */
@@ -139,8 +136,6 @@ private:
   /** State of the Mouse */
   MouseState prevMouseState;
   MouseState mouseState;
-
-  GamePad* gamePad;
 
   void registerKey(Key k);
 
