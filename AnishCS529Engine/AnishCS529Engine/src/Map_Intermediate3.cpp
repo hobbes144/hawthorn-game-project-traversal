@@ -105,68 +105,52 @@ void MapLoader::intermediate3(
     }
 
     {
-        auto movingWallRun2 = [&](const std::string& name, const Vector3& basePos, const Vector3& scale,
-                                    const Vector3& moveDir, int platformCount, float despawnTime = 25.0f) {
-        std::vector<std::shared_ptr<GameObject>> movingWalls;
-        float spawnInterval = 5.0f;
-        auto spawnTimer = std::make_shared<float>(0.0f);
-        auto spawnedCount = std::make_shared<int>(0);
+        auto movingWallRun2 = [&](const std::string& name, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir, int platformCount) {
+            std::vector<std::shared_ptr<GameObject>> movingWalls;
+            float spawnInterval = 5.0f;
+            auto spawnTimer = std::make_shared<float>(0.0f);
+            auto spawnedCount = std::make_shared<int>(0);
 
-        auto spawner = std::make_shared<GameObject>("Spawner_" + name);
-        sceneGraph.addNode(spawner);
+            auto spawner = std::make_shared<GameObject>("Spawner_" + name);
+            sceneGraph.addNode(spawner);
 
-        spawner->addComponent<Animate>()->setAnimateFunction(
-        [=](std::shared_ptr<GameObject> self, float deltaTime) mutable {
-            *spawnTimer += deltaTime;
-            if (*spawnTimer >= spawnInterval) {
-                *spawnTimer = 0.0f;
-
-            // If platform count didnt reach max, make a new one
-            if (*spawnedCount < platformCount) {
-                std::string wallName = name + "_" + std::to_string(*spawnedCount);
-                auto wall = std::make_shared<GameObject>(wallName, GameObject::RUNNABLE_WALL);
-                sceneGraph.addNode(wall);
-                wall->setLocalPosition(basePos);
-                wall->setLocalScaling(scale);
-                wall->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
-                wall->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(BlueConcrete);
-                auto rigidBody = wall->addComponent<RigidBody>();
-                rigidBody->setMass(0.0f)
-                    ->setDrag(1.0f)
-                    ->setShape(std::make_shared<OBB>())
-                    ->setStatic(true)
-                    ->registerToPhysicsManager(PhysicsManager::Instance());
-                rigidBody->initialize();
-
-                wall->addComponent<Animate>()->setAnimateFunction(
-                    [moveVec = moveDir, basePos, despawnTime, time = 0.0f]
-                    (std::shared_ptr<GameObject> self, float dt) mutable {
-                        time += dt;
-                        if (time >= despawnTime) {
-                            // reset when the platform has despawned or reached its limit
-                            self->setLocalPosition(basePos);
-                            time = 0.0f;
-                        }
-                        else {
-                            self->setLocalPosition(self->getLocalPosition() + moveVec * dt);
-                        }
+            spawner->addComponent<Animate>()->setAnimateFunction(
+                [=](std::shared_ptr<GameObject> self, float deltaTime) mutable {
+                    *spawnTimer += deltaTime;
+                    if (*spawnedCount < platformCount && *spawnTimer >= spawnInterval) {
+                        *spawnTimer = 0.0f;
+                        std::string wallName = name + "_" + std::to_string(*spawnedCount);
+                        auto wall = std::make_shared<GameObject>(wallName, GameObject::RUNNABLE_WALL);
+                        sceneGraph.addNode(wall);
+                        wall->setLocalPosition(basePos);
+                        wall->setLocalScaling(scale);
+                        wall->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
+                        wall->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(BlueConcrete);
+                        auto rigidBody = wall->addComponent<RigidBody>();
+                        rigidBody->setMass(0.0f)
+                            ->setDrag(1.0f)
+                            ->setShape(std::make_shared<OBB>())
+                            ->setStatic(true)
+                            ->registerToPhysicsManager(PhysicsManager::Instance());
+                        rigidBody->initialize();
+                        wall->addComponent<Animate>()->setAnimateFunction(
+                            [moveVec = moveDir, basePos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
+                            time += dt;
+                            if (time >= 25.0f) {
+                                self->setLocalPosition(basePos);
+                                time = 0.0f;
+                            }
+                            else {
+                                self->setLocalPosition(self->getLocalPosition() + moveVec * dt);
+                            }
+                            }
+                        )->runAnimateFunction(true);
+                        movingWalls.push_back(wall);
+                        (*spawnedCount)++;
                     }
-                )->runAnimateFunction(true);
-
-                movingWalls.push_back(wall);
-                (*spawnedCount)++;
-            }
-            else {
-                // When reached the platformCount limit, recycle the oldest platform.
-                auto wall = movingWalls.front();
-                movingWalls.erase(movingWalls.begin());
-                wall->setLocalPosition(basePos);
-                movingWalls.push_back(wall);
-            }
-        }
-    }
-    )->runAnimateFunction(true);
-    };
+                }
+            )->runAnimateFunction(true);
+            };
     
 
         movingWallRun2("Wall1", Vector3(200.0f, 10.0f, 8.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-10.0f, 0.0f, 0.0f), 5);
