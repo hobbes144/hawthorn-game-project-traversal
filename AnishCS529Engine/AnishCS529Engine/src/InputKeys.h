@@ -67,6 +67,7 @@ constexpr Key KEY_LEFT = GLFW_KEY_LEFT;
 constexpr Key KEY_DOWN = GLFW_KEY_DOWN;
 constexpr Key KEY_UP = GLFW_KEY_UP;
 constexpr Key KEY_F1 = GLFW_KEY_F1;
+constexpr Key KEY_F11 = GLFW_KEY_F11;
 constexpr Key KEY_F13 = GLFW_KEY_F13;
 constexpr Key KEY_LEFT_CONTROL = GLFW_KEY_LEFT_CONTROL;
 constexpr Key KEY_LEFT_ALT = GLFW_KEY_LEFT_ALT;

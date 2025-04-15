@@ -22,15 +22,17 @@ class Renderer;
 class RenderGraphBuilder {
 public:
   RenderGraphBuilder(Renderer* _renderer) : renderer(_renderer) {}
-  ~RenderGraphBuilder() { clearFBOs(); }
+  ~RenderGraphBuilder() { clear(); };
   
-  FBO* createFBO(const std::string& name, std::vector<std::string> attachments);
-  TextureManager::TextureID createTexture(const std::string& name);
+  FBO* createScreenSizeFBO(const std::string& name, std::vector<std::string> attachments);
+  TextureManager::TextureID createScreenSizeTexture(const std::string& name);
 
   FBO* getFBO(const std::string& name);
   TextureManager::TextureID getTexture(const std::string& name);
 
   void clearFBOs();
+  void clearTextures();
+  void clear();
 
   Renderer* getRenderer() { return renderer; };
 

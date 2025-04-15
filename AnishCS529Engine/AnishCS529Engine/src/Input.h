@@ -17,6 +17,7 @@
 /* Used classes */
 #include "GameWindow.h"
 #include "InputKeys.h"
+#include "GamePad.h"
 
 /*!****************************************************************************
  * \brief KeyState struct holds the state of each key.
@@ -104,9 +105,11 @@ public:
   void shutdown();
 
   /* Pre-initialization functions */
-  Input* setGameWindow(GameWindow* _window);
+  Input* setGameWindow(GameWindow* _gameWindow);
   Input* setKeysToMonitor();
   Input* setKeysToMonitor(std::vector<Key>& keysToMonitor);
+
+  void setupCallbacks();
 
   /* Utility functions */
   bool isKeyPressed(Key k);
@@ -123,23 +126,27 @@ public:
   bool isMouseButtonPressed(int button) const;
   bool isMouseButtonReleased(int button) const;
   void resetMouseDelta();
-
   void controlMouse(bool capture);
+
+  // Gamepad functions
+  GamePad* getGamePad() { return gamePad; }
 
 private:
   /** GameWindow object to read keys from */
-  GameWindow* window;
+  GameWindow* gameWindow;
   /** Map of key states for each registered key */
   std::unordered_map<Key, KeyState> keyStates;
   /** State of the Mouse */
   MouseState prevMouseState;
   MouseState mouseState;
 
+  GamePad* gamePad;
+
   void registerKey(Key k);
 
   // Mouse Functions
-  static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-  static void MouseMotionCallback(GLFWwindow* window, double xpos, double ypos);
+  void cursorPosCallback(GLFWwindow* window, double xpos, double ypos);
+  void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 };
 

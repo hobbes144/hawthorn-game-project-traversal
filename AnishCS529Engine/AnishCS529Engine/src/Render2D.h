@@ -33,7 +33,10 @@ class Render2D :
   public Renderable, public std::enable_shared_from_this<Render2D> {
 public:
   using PropertyMap = RenderPass::PropertyMap;
-  Render2D() = default;
+  Render2D() : mesh(Mesh::createMesh("2D", Mesh::Square)) {
+    renderMask = RenderMask::UIPass;
+  }
+
   ~Render2D() = default;
 
   /* Component functions */
@@ -44,7 +47,6 @@ public:
   void draw(std::shared_ptr<Shader> shader);
 
   /* Pre-initialization functions */
-  std::shared_ptr<Render2D> setMesh(std::shared_ptr<Mesh> _mesh);
   std::shared_ptr<Render2D> setMaterial(std::shared_ptr<Material> _material);
   std::shared_ptr<Render2D> setDrawMode(GLenum _drawMode);
 

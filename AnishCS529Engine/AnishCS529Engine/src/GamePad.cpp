@@ -96,10 +96,10 @@ bool GamePad::isHeld(WORD button) {
 
 void GamePad::registerKey(WORD button) {
 	if (keyStates.find(button) == keyStates.end())
-		keyStates[button] = GPKeyState();
+		keyStates[button] = KeyState();
 }
 
-void GamePad::initialize() {
+void GamePad::registerKey() {
 	registerKey(XINPUT_GAMEPAD_A);
 	registerKey(XINPUT_GAMEPAD_B);
 	registerKey(XINPUT_GAMEPAD_X);
@@ -114,4 +114,8 @@ void GamePad::initialize() {
 	registerKey(XINPUT_GAMEPAD_RIGHT_THUMB);
 	registerKey(XINPUT_GAMEPAD_START);
 	registerKey(XINPUT_GAMEPAD_BACK);
+}
+
+void GamePad::initialize() {
+	registerKey();
 }

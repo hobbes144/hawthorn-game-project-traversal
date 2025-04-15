@@ -47,6 +47,34 @@ TextureManager::TextureID TextureManager::createTexture(
   return createOpenGLTexture(textureInfo, data, textureParameters);
 }
 
+void TextureManager::resizeTexture(TextureID id, int width, int height)
+{
+  /*assert(
+    (std::find(textures.begin(), textures.end(), id) != textures.end()) &&
+    "ERROR::TEXTUREMANAGER::RESIZETEXTURE::INVALIDTEXTURE");*/
+
+  glBindTexture(TEXTURE_2D, id.id);
+  textures[id].width = width;
+  textures[id].height = height;
+
+  Texture::Format format;
+  if (textures[id].format == TEXTURE_RGB || textures[id].format == TEXTURE_RGB32F)
+    format = TEXTURE_RGB;
+  else if (textures[id].format == TEXTURE_RGBA || textures[id].format == TEXTURE_RGBA32F)
+    format = TEXTURE_RGBA;
+  else {
+    std::cout << "WARNING::TEXTUREMANAGER::CREATETEXTURE::INVALIDFORMAT"
+      << "::Defaulting to TEXTURE_RGBA" << std::endl;
+    format = TEXTURE_RGBA;
+  }
+
+  glTexImage2D(
+    TEXTURE_2D, 0, textures[id].format, textures[id].width, textures[id].height,
+    0, format, GL_UNSIGNED_BYTE, nullptr);
+
+  glBindTexture(TEXTURE_2D, 0);
+}
+
 void TextureManager::setTextureParameters(TextureID id, TextureParameters textureParameters)
 {
   glBindTexture(TEXTURE_2D, id.id);

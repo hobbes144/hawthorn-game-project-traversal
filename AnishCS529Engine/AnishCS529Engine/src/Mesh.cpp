@@ -9,10 +9,11 @@
  *
  *****************************************************************************/
 #include "precompiled.h"
+
 #include "Mesh.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 
 std::unordered_map<Mesh::Type, std::shared_ptr<Mesh>> Mesh::shapeMeshes;
 
@@ -142,9 +143,14 @@ void Mesh::draw(GLenum mode) {
   //geometryBuffer->unbind();
 }
 
+void Mesh::drawEBOTrisWithoutBind()
+{
+  glDrawElements(GL_TRIANGLES, geometryBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
+}
+
 std::shared_ptr<Mesh> Mesh::createSquareMesh(const std::string& name, float scale)
 {
-  Transform I = Transform().setScaling(scale * 2);
+  Transform I = Transform().setScaling(scale * 2.0f);
 
   Attributes squareMeshData;
   std::vector<unsigned int> indices;
@@ -366,8 +372,8 @@ void pushquad(std::vector<unsigned int>& Tri, int i, int j, int k, int l)
   Tri.push_back(j);
   Tri.push_back(k);
   Tri.push_back(i);
-  Tri.push_back(l);
   Tri.push_back(k);
+  Tri.push_back(l);
 }
 
 std::pair<Mesh::Attributes, std::vector<unsigned int>> Mesh::createFace(const Transform& tr)
@@ -436,17 +442,17 @@ std::shared_ptr<Mesh> Mesh::createSphereMesh(const std::string& name, const int 
     for (int j = 0; j <= n; j++) {
       float t = j * PI / float(n);
       float x = cos(s) * sin(t);
-      float z = sin(s) * sin(t);
-      float y = cos(t);
+      float y = sin(s) * sin(t);
+      float z = cos(t);
 
       newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(x);
       newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(y);
       newMeshData[GeometryBuffer::AttributeType::Position].first.push_back(z);
-      newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(z);
-      newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(z);
+      newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(x);
+      newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(y);
       newMeshData[GeometryBuffer::AttributeType::Normal].first.push_back(z);
       newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(s / (2 * PI));
-      newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back((PI - t) / PI);
+      newMeshData[GeometryBuffer::AttributeType::TexCoord].first.push_back(t / PI);
       newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(-sin(s));
       newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(cos(s));
       newMeshData[GeometryBuffer::AttributeType::Tangent].first.push_back(0.0);

@@ -13,12 +13,9 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
-#include <string>
-#include <unordered_map>
-#include <fmod/fmod.hpp>
+#include "fmod/fmod.hpp"
 #include "Vector3.h"
 #include "EventManager.h"
-#include "GameObject.h"
 
 
 class AudioEvent : public Event {
