@@ -106,10 +106,27 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 
     // Wall for wall running
     {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 20.0f + offsetY, -110.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 30.0f, 30.0f));
+        auto renderComp = wallRunWall->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    {
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+        sceneGraph.addNode(wallRunWall);
+        wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 13.0f + offsetY, -110.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 29.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -144,12 +161,12 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 
 
     {
-        auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 30.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
+        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -162,11 +179,28 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+        sceneGraph.addNode(wallRunWall);
+        wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 26.0f));
+        auto renderComp = wallRunWall->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    {
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -80.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
+        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -180,8 +214,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-110.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
+        wallRunWall->setLocalPosition(Vector3(-124.9f + offsetX, 22.0f + offsetY, -80.7f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 38.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -195,10 +229,60 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     }
 
     {
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
+        sceneGraph.addNode(wallRunWall);
+        wallRunWall->setLocalPosition(Vector3(-110.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.0f, 50.0f, 40.0f));
+        auto renderComp = wallRunWall->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+    {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+        sceneGraph.addNode(wallRunWall);
+        wallRunWall->setLocalPosition(Vector3(-109.9f + offsetX, 22.0f + offsetY, -70.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 39.0f));
+        auto renderComp = wallRunWall->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    {
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall");
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 15.0f + offsetY, -50.0f + offsetZ));
         wallRunWall->setLocalScaling(Vector3(30.0f, 50.0f, 1.0f));
+        auto renderComp = wallRunWall->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = wallRunWall->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    {
+        auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
+        sceneGraph.addNode(wallRunWall);
+        wallRunWall->setLocalPosition(Vector3(-125.0f + offsetX, 25.0f + offsetY, -50.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(28.0f, 25.0f, 1.1f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
