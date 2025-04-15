@@ -431,9 +431,9 @@ void LevelManager::ExecuteMainLoop()
 
 			checkPlayerBoundaries();
 		
-			mainSceneGraph.update(1.0f / 60.0f);
-	
 			mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
+	
+			mainSceneGraph.update(1.0f / 60.0f);
 		}
 
 		mainFramerateController->endFrame();
