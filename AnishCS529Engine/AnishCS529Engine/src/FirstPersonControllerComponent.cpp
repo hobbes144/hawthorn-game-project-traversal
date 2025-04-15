@@ -776,8 +776,8 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 		//Get the direction to move along the wall in
 		Vector3 wallRunDirection = Vector3(0, 1, 0).cross(anchorInfo.normal);
-		if (wallRunDirection.dot(physicsBody->getVelocity()) < 0.0f) {
-			wallRunDirection = -wallRunDirection; // Ensure correct movement direction
+		if (wallRunDirection.dot(forwardVector) < 0.0f) {
+			wallRunDirection = -wallRunDirection;
 		}
 
 		// Apply movement along the wall
