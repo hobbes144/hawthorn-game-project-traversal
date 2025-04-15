@@ -317,7 +317,7 @@ void PauseMenu::settings() {
 #pragma region Mouse
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
-	ImGui::SliderFloat("MouseX Sensivity", &mouseXSensivity, 0.0f, 1.0f);
+	ImGui::SliderFloat("MouseX Sensivity", &mouseXSensivity, 0.0f, 0.2f);
 
 	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
 		if (mouseXSensivity > 0.005f) {
@@ -331,7 +331,7 @@ void PauseMenu::settings() {
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
-	ImGui::SliderFloat("MouseY Sensivity", &mouseYSensivity, 0.0f, 1.0f);
+	ImGui::SliderFloat("MouseY Sensivity", &mouseYSensivity, 0.0f, 0.2f);
 
 	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
 		if (mouseYSensivity > 0.005f) {
@@ -351,7 +351,7 @@ void PauseMenu::settings() {
 #pragma region GamePad
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
-	ImGui::SliderFloat("Left Joystick X Sensivity", &gpLXSensitivity, 0.0f, 1.0f);
+	ImGui::SliderFloat("Left Joystick X Sensivity", &gpLXSensitivity, 0.0f, 6.0f);
 
 	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
 		if (gpLXSensitivity > 0.05f) {
@@ -365,7 +365,7 @@ void PauseMenu::settings() {
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
-	ImGui::SliderFloat("Left Joystick Y Sensivity", &gpLYSensitivity, 0.0f, 1.0f);
+	ImGui::SliderFloat("Left Joystick Y Sensivity", &gpLYSensitivity, 0.0f, 6.0f);
 
 	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
 		if (gpLYSensitivity > 0.05f) {
@@ -379,7 +379,7 @@ void PauseMenu::settings() {
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
-	ImGui::SliderFloat("Right Joystick X Sensivity", &gpRXSensitivity, 0.0f, 1.0f);
+	ImGui::SliderFloat("Right Joystick X Sensivity", &gpRXSensitivity, 0.0f, 6.0f);
 
 	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
 		if (gpRXSensitivity > 0.05f) {
@@ -393,7 +393,7 @@ void PauseMenu::settings() {
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f - 100.0f);
-	ImGui::SliderFloat("Right Joystick Y Sensivity", &gpRYSensitivity, 0.0f, 1.0f);
+	ImGui::SliderFloat("Right Joystick Y Sensivity", &gpRYSensitivity, 0.0f, 6.0f);
 
 	if (ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) {
 		if (gpRYSensitivity > 0.05f) {
