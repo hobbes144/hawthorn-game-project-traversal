@@ -141,6 +141,9 @@ inline void FirstPersonControllerComponent::WallRunningToFree() {
 	playerState = Free;
 	RigidBody* const rb = static_cast<RigidBody*>(physicsBody);
 	rb->usingGravity(true);
+
+	lastWallRunObject = anchorInfo.object;
+	wallRunLockoutTimer = wallRunLockoutDuration;
 }
 
 inline void FirstPersonControllerComponent::WallRunningToGrounded() {
@@ -206,6 +209,8 @@ void FirstPersonControllerComponent::SlidingJump() {
 void FirstPersonControllerComponent::WallrunningJump() {
 	sinceLastJumpTime = 0.0f;
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
+	lastWallRunObject = anchorInfo.object;
+	wallRunLockoutTimer = wallRunLockoutDuration; 
 
 	const float wallJumpMultiplier = 2.0f;
 
@@ -514,6 +519,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		return;
 	}
 
+	if (wallRunLockoutTimer > 0) {
+		wallRunLockoutTimer -= deltaTime;
+		if (wallRunLockoutTimer < 0) wallRunLockoutTimer = 0;
+	}
 
 	//Player HP system
 
@@ -598,18 +607,16 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			AudioManager::instance().playSound("slide", Vector3(body->getWorldPosition()));
 			SwitchState(Free, Sliding);
 		}
-		else if (anchorInfo.direction != '0' && isMovingForward) { //If anchor is not the ground and moving forward
-			if ((isMovingLeft && anchorInfo.direction == 'l')
-				|| (isMovingRight && anchorInfo.direction == 'r')) { // If anchor is a wall
-				if (anchorInfo.isLargestFace()) { //if wall face is the big side
-					const float maxAngle = 45.0f;
-					const float maxDotThreshold = std::cos(maxAngle * (3.14159265f / 180.0f));
-					float dotProduct = std::abs(forwardVector.dot(anchorInfo.normal));
-					if (dotProduct > -maxDotThreshold && dotProduct < maxDotThreshold) { // If angle is within limits (not too steep)
-						SwitchState(Free, WallRunning);
-					}
+		else if ((anchorInfo.direction == 'l' || anchorInfo.direction == 'r')
+		 && isMovingForward
+		 && (wallRunLockoutTimer <= 0 || anchorInfo.object != lastWallRunObject)) {
+			if (anchorInfo.isLargestFace()) {
+				const float maxAngle = 45.0f;
+				const float maxDotThreshold = std::cos(maxAngle * (3.14159265f / 180.0f));
+				float dotProduct = std::abs(forwardVector.dot(anchorInfo.normal));
+				if (dotProduct > -maxDotThreshold && dotProduct < maxDotThreshold) {
+					SwitchState(Free, WallRunning);
 				}
-
 			}
 		}
 	}
@@ -645,8 +652,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		else if (anchorInfo.direction != 'd' && anchorInfo.direction != '0')
 		{
 			SwitchState(Grounded, Free);
-			if ((isMovingLeft && anchorInfo.direction == 'l')
-				|| (isMovingRight && anchorInfo.direction == 'r'))
+			if ((anchorInfo.direction == 'l' || anchorInfo.direction == 'r') && isMovingForward)
 				SwitchState(Free, WallRunning);
 		}
 	}

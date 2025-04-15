@@ -218,6 +218,10 @@ private:
     AnchorInfo anchorInfo;
     std::shared_ptr<GameObject> anchorSurface;
 
+    std::shared_ptr<GameObject> lastWallRunObject = nullptr;
+    float wallRunLockoutTimer = 0;
+    const float wallRunLockoutDuration = 0.3f;
+
     int hp;
     int maxHP;
     float timeSinceDamage = 0.0f;
