@@ -62,6 +62,7 @@ private:
 
 
   Lights lights;
+  LightStatus lightStatus;
   std::vector<std::shared_ptr<Camera>> cameraStack;
 
 public:

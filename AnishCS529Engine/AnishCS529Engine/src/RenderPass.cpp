@@ -46,6 +46,10 @@ void RenderPass::draw(
   shader->setDrawMode(drawMode);
   sceneGraph->draw(shader, renderMask);
   shader->setDrawMode(NULL);
+
+  unbindTextures();
+  shader->unuse();
+
 }
 
 void RenderPass::applyProperties() const
@@ -81,6 +85,22 @@ void RenderPass::applyProperties() const
     }
     else if (auto item = std::get_if<TextureManager::TextureID>(&value)) {
       shader->bindTexture(textureUnit, name, *item);
+      ++textureUnit;
+    }
+  }
+}
+
+void RenderPass::unbindTextures() const
+{
+  /* Todo: this is also very unefficient, we shouldn't
+  * iterate every property just to unbind textures.
+  */
+
+  unsigned int textureUnit = 0;
+
+  for (const auto& [name, value] : properties) {
+    if (auto item = std::get_if<TextureManager::TextureID>(&value)) {
+      shader->unbindTexture(textureUnit);
       ++textureUnit;
     }
   }

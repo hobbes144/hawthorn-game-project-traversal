@@ -1,8 +1,5 @@
 #include "precompiled.h"
 #include "audio.h"
-#include <stdexcept>
-#include <iostream>
-#include <cassert>
 
 /*!****************************************************************************
  * \brief Audio Manager control sounds

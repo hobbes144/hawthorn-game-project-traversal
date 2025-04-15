@@ -30,31 +30,24 @@ void Input::registerKey(Key k) {
     keyStates[k] = KeyState();
 }
 
-void Input::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+void Input::cursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
 
-    Input* input = static_cast<Input*>(glfwGetWindowUserPointer(window));
-    if (!input) return;
+  mouseState.deltaX = xpos - mouseState.xPos;
+  mouseState.deltaY = ypos - mouseState.yPos;
 
-    bool pressed = (action == GLFW_PRESS);
-
-    switch (button) {
-    case GLFW_MOUSE_BUTTON_LEFT:   input->mouseState.leftMouseDown = pressed; break;
-    case GLFW_MOUSE_BUTTON_RIGHT:  input->mouseState.rightMouseDown = pressed; break;
-    case GLFW_MOUSE_BUTTON_MIDDLE: input->mouseState.middleMouseDown = pressed; break;
-    }
+  mouseState.xPos = xpos;
+  mouseState.yPos = ypos;
 
 }
 
-void Input::MouseMotionCallback(GLFWwindow* window, double xpos, double ypos) {
+void Input::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+  bool pressed = (action == GLFW_PRESS);
 
-    Input* input = static_cast<Input*>(glfwGetWindowUserPointer(window));
-    if (!input) return;
-
-    input->mouseState.deltaX = xpos - input->mouseState.xPos;
-    input->mouseState.deltaY = ypos - input->mouseState.yPos;
-
-    input->mouseState.xPos = xpos;
-    input->mouseState.yPos = ypos;
+  switch (button) {
+  case GLFW_MOUSE_BUTTON_LEFT:   mouseState.leftMouseDown = pressed; break;
+  case GLFW_MOUSE_BUTTON_RIGHT:  mouseState.rightMouseDown = pressed; break;
+  case GLFW_MOUSE_BUTTON_MIDDLE: mouseState.middleMouseDown = pressed; break;
+  }
 
 }
 
@@ -75,8 +68,8 @@ void Input::MouseMotionCallback(GLFWwindow* window, double xpos, double ypos) {
  * \param _window
  * \return \b Input* this
  *****************************************************************************/
-Input* Input::setGameWindow(GameWindow* _window) {
-  window = _window;
+Input* Input::setGameWindow(GameWindow* _gameWindow) {
+  gameWindow = _gameWindow;
 
   return this;
 }
@@ -133,6 +126,17 @@ Input* Input::setKeysToMonitor(std::vector<Key>& keysToMonitor) {
   }
 
   return this;
+}
+
+void Input::setupCallbacks(){
+  gameWindow->setCursorPosCallback(
+    [this](GLFWwindow* pWindow, double xpos, double ypos) {
+      this->cursorPosCallback(pWindow, xpos, ypos);
+    });
+  gameWindow->setMouseButtonCallback(
+    [this](GLFWwindow* pWindow, int button, int action, int mods) {
+      this->mouseButtonCallback(pWindow, button, action, mods);
+    });
 }
 
 /*!****************************************************************************
@@ -198,16 +202,22 @@ bool Input::isKeyHeld(Key k) {
   return false;
 }
 
+void Input::beginFrame()
+{
+}
+
+void Input::endFrame()
+{
+    prevMouseState = mouseState;
+}
+
 /*!****************************************************************************
  * \brief Input initialize is a dummy function
  * 
  *****************************************************************************/
 void Input::initialize() {
     controlMouse(true);
-
-    glfwSetWindowUserPointer(window->getNativeWindow(), this);
-    glfwSetMouseButtonCallback(window->getNativeWindow(), MouseButtonCallback);
-    glfwSetCursorPosCallback(window->getNativeWindow(), MouseMotionCallback);
+    setupCallbacks();
 }
 
 /*!****************************************************************************
@@ -228,10 +238,13 @@ void Input::update() {
   //  it != keyStates.end(); 
   //  it++)
   for (auto& [k, state] : keyStates) {
-    int newState = glfwGetKey(window->getNativeWindow(), k);
+    int newState = glfwGetKey(gameWindow->getNativeWindow(), k);
     state.prevState = state.currentState;
     state.currentState = newState;
   }
+
+  prevMouseState = mouseState;
+
 }
 
 /*!****************************************************************************
@@ -259,6 +272,42 @@ bool Input::isMouseButtonDown(int button) const {
     }
 }
 
+bool Input::isMouseButtonPressed(int button) const
+{
+    bool result = false;
+    switch (button) {
+    case GLFW_MOUSE_BUTTON_LEFT:
+        result = mouseState.leftMouseDown && !prevMouseState.leftMouseDown;
+        break;
+    case GLFW_MOUSE_BUTTON_RIGHT:
+        result = mouseState.rightMouseDown && !prevMouseState.rightMouseDown;
+        break;
+    case GLFW_MOUSE_BUTTON_MIDDLE:
+        result = mouseState.middleMouseDown && !prevMouseState.middleMouseDown;
+        break;
+    default:
+        return false;
+    }
+    if (result) {
+        std::cout << "True";
+    }
+    return result;
+}
+
+bool Input::isMouseButtonReleased(int button) const
+{
+    switch (button) {
+    case GLFW_MOUSE_BUTTON_LEFT:
+        return !mouseState.leftMouseDown && prevMouseState.leftMouseDown;
+    case GLFW_MOUSE_BUTTON_RIGHT:
+        return !mouseState.rightMouseDown && prevMouseState.rightMouseDown;
+    case GLFW_MOUSE_BUTTON_MIDDLE:
+        return !mouseState.middleMouseDown && prevMouseState.middleMouseDown;
+    default:
+        return false;
+    }
+}
+
 void Input::resetMouseDelta() {
     mouseState.deltaX = 0.0f;
     mouseState.deltaY = 0.0f;
@@ -267,9 +316,9 @@ void Input::resetMouseDelta() {
 void Input::controlMouse(bool capture)
 {
     if (capture) {
-        glfwSetInputMode(window->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetInputMode(gameWindow->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
     else {
-        glfwSetInputMode(window->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(gameWindow->getNativeWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 }

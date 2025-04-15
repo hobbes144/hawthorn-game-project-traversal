@@ -37,6 +37,14 @@ public:
   std::shared_ptr<T> addPass(std::shared_ptr<T> pass);
   template <typename T>
   std::shared_ptr<T> getPass();
+  template <typename T>
+  void removePass();
+
+  void clear();
+
+  void setRenderer(Renderer* _renderer) { renderer = _renderer; }
+
+  Renderer* getRenderer() { return renderer; }
 
   void setRenderer(Renderer* _renderer) { renderer = _renderer; }
 
@@ -44,21 +52,24 @@ public:
 
   void draw(SceneGraph* scene);
 
+  bool lightsSet = false;
 private:
   Renderer* renderer;
   RenderGraphBuilder* renderGraphBuilder;
 
   std::vector<std::shared_ptr<RenderPass>> renderStack;
   unsigned int uboLights;
+  unsigned int ssboLights;
+  // Quick fix to stop repeated light updates, this SHOULD be removed.
   unsigned int uboCamera;
 
   std::unordered_map<uint32_t, size_t> maskSortIndex;
   std::unordered_set<std::type_index> addedPassTypes;
 
-  void initializeLightUBOs();
+  void initializeLightBuffers();
   void initializeCameraUBO();
 
-  void updateLightUBOs(Lights lights);
+  void updateLightBuffers(Lights lights);
   void updateCameraUBO(std::shared_ptr<Camera> camera);
 };
 

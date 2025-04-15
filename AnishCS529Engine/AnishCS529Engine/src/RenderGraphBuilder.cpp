@@ -2,10 +2,11 @@
 #include "RenderGraphBuilder.h"
 #include "Renderer.h"
 
-FBO* RenderGraphBuilder::createFBO(const std::string& name, std::vector<std::string> attachments) {
+FBO* RenderGraphBuilder::createScreenSizeFBO(
+  const std::string& name, std::vector<std::string> attachments) {
   FBO* fbo = new FBO();
   Renderer::Viewport viewport = renderer->getCurrentState().viewport;
-  fbo->setViewport(viewport.width, viewport.height);
+  fbo->setViewport(viewport.x, viewport.y, viewport.width, viewport.height);
   fbo->initialize();
   fbos[name] = fbo;
 
@@ -13,17 +14,26 @@ FBO* RenderGraphBuilder::createFBO(const std::string& name, std::vector<std::str
     fbo->attachTexture(textures[attachment]);
   }
 
+  fbo->finalize();
+  fbo->addScreenSizeBufferUpdateCallback(renderer);
+
   return fbo;
 }
 
-TextureManager::TextureID RenderGraphBuilder::createTexture(
+TextureManager::TextureID RenderGraphBuilder::createScreenSizeTexture(
   const std::string& name) {
   TextureManager::TextureInfo textureInfo = TextureManager::TextureInfo();
   Renderer::Viewport viewport = renderer->getCurrentState().viewport;
   textureInfo.width = viewport.width;
   textureInfo.height = viewport.height;
   textureInfo.format = TEXTURE_RGBA32F;
-  TextureManager::TextureID texture = TextureManager::getInstance().createTexture(textureInfo);
+  TextureManager::TextureParameters textureParameters = TextureManager::TextureParameters();
+  textureParameters.max_level = 0;
+  textureParameters.wrap_s = TEXTURE_CLAMP_TO_EDGE;
+  textureParameters.wrap_t = TEXTURE_CLAMP_TO_EDGE;
+  textureParameters.mag_filter = TEXTURE_LINEAR;
+  textureParameters.min_filter = TEXTURE_LINEAR;
+  TextureManager::TextureID texture = TextureManager::getInstance().createTexture(textureInfo, nullptr, textureParameters);
   textures[name] = texture;
 
   return texture;
@@ -39,6 +49,19 @@ TextureManager::TextureID RenderGraphBuilder::getTexture(const std::string & nam
 
 void RenderGraphBuilder::clearFBOs() {
   for ( const auto & [name, fbo] : fbos ) {
-    delete fbo;
+    if (fbo) delete fbo;
   }
+
+  fbos.clear();
+}
+
+void RenderGraphBuilder::clearTextures()
+{
+  textures.clear();
+}
+
+void RenderGraphBuilder::clear()
+{
+  clearFBOs();
+  clearTextures();
 }

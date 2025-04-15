@@ -94,15 +94,21 @@ public:
   Input() = default;
   ~Input() = default;
 
+  /*Input Frame*/
+  void beginFrame();
+  void endFrame();
+
   /* Component functions */
   void initialize();
   void update();
   void shutdown();
 
   /* Pre-initialization functions */
-  Input* setGameWindow(GameWindow* _window);
+  Input* setGameWindow(GameWindow* _gameWindow);
   Input* setKeysToMonitor();
   Input* setKeysToMonitor(std::vector<Key>& keysToMonitor);
+
+  void setupCallbacks();
 
   /* Utility functions */
   bool isKeyPressed(Key k);
@@ -116,23 +122,26 @@ public:
   void getMousePosition(double& x, double& y) const;
   void getMouseDelta(double& dx, double& dy) const;
   bool isMouseButtonDown(int button) const;
+  bool isMouseButtonPressed(int button) const;
+  bool isMouseButtonReleased(int button) const;
   void resetMouseDelta();
 
   void controlMouse(bool capture);
 
 private:
   /** GameWindow object to read keys from */
-  GameWindow* window;
+  GameWindow* gameWindow;
   /** Map of key states for each registered key */
   std::unordered_map<Key, KeyState> keyStates;
   /** State of the Mouse */
+  MouseState prevMouseState;
   MouseState mouseState;
 
   void registerKey(Key k);
 
   // Mouse Functions
-  static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-  static void MouseMotionCallback(GLFWwindow* window, double xpos, double ypos);
+  void cursorPosCallback(GLFWwindow* window, double xpos, double ypos);
+  void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 };
 

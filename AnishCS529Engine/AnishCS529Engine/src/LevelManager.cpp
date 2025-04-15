@@ -3,92 +3,71 @@
 
 void LevelManager::SystemInitalization()
 {
+    mainWindow = new GameWindow;
 
-	/* Game Window setup */
-	glfwInit();
-	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    //isFullscreen = false;
+    mainWindow->setTitle("Traversal")->setInitialFullscreen(isFullscreen);
+    mainWindow->initialize();
 
+    /* Renderer setup */
+    mainRenderer = new Renderer;
+    mainRenderer->setGameWindow(mainWindow);
+    mainRenderer->initialize();
+    mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-	int windowWidth = mode->width;
-	int windowHeight = mode->height;
+    //glfwSwapInterval(0);
 
-	mainWindow = new GameWindow;
+    /* IMGUI Init */
+    ImGui::CreateContext();
+    ImGui_ImplGlfw_InitForOpenGL(mainWindow->getNativeWindow(), true);
+    ImGui_ImplOpenGL3_Init();
 
-	if (isFullscreen) {
-		int windowWidth = mode->width;
-		int windowHeight = mode->height;
-		mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(true);
-		mainWindow->initialize(monitor);
-	}
-	else {
-		int windowWidth = 1280;
-		int windowHeight = 720;
-		mainWindow->setTitle("Traversal")->setWidth(windowWidth)->setHeight(windowHeight)->setBorderlessFullscreen(false);
-		mainWindow->initialize(nullptr);
-	}
+    int textureMode = 1;
 
-	/* Renderer setup */
-	mainRenderer = new Renderer;
-	mainRenderer->setGameWindow(mainWindow);
-	mainRenderer->initialize();
-	mainRenderer->setClearColor(0.05f, 0.05f, 0.1f, 1.0f);
+    //auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
+    //mainRenderer->getRenderGraph()->addPass<SkydomePass>(skydomePass);
 
-	/* IMGUI Init */
-	ImGui::CreateContext();
-	ImGui_ImplGlfw_InitForOpenGL(mainWindow->getNativeWindow(), true);
-	ImGui_ImplOpenGL3_Init();
+    //mainWindow->setVsync(true);
 
-	int textureMode = 1;
+    /* Input setup */
+    mainInput = new Input;
+    std::vector<Key> keysToMonitor = {
+      KEY_W, KEY_A, KEY_S, KEY_D, KEY_R, KEY_F,
+      KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_ESCAPE
+    };
+    mainInput->setGameWindow(mainWindow);
+    mainInput->initialize();
 
-	auto skydomePass = std::make_shared<SkydomePass>("media/beach.jpg");
-	mainRenderer->getRenderGraph()->addPass<SkydomePass>(skydomePass);
+    /* XInput setup */
+    gamepad = new GamePad;
+    gamepad->initialize();
 
-    mainRenderer->getRenderGraph()->addPass<GBufferPrepass>();
+    /* Framerate controller setup */
+    mainFramerateController =
+        FFramerateController::getController();
 
-    mainRenderer->getRenderGraph()->addPass<LightingPass>();
+    PauseMenu::Instance().setInputSystem(mainInput);
+    PauseMenu::Instance().setFramerateController(mainFramerateController);
+    PauseMenu::Instance().setGamePad(gamepad);
 
-	//mainWindow->setVsync(true);
+    /* Audio System Initalization */
+    AudioManager::instance().initialize();
+    AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", false, true);
+    AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
+    AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
+    AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
+    AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
+    AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
+    AudioManager::instance().loadSound("hurt", "media/audio/hurt.mp3", true);
+    
+    AudioManager::instance().playSound("music", Vector3(0.0f, 0.0f, 0.0f), 0.15f);
+    //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
-	/* Input setup */
-	mainInput = new Input;
-	std::vector<Key> keysToMonitor = {
-	  KEY_W, KEY_A, KEY_S, KEY_D, KEY_R, KEY_F,
-	  KEY_UP, KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_ESCAPE
-	};
-	mainInput->setGameWindow(mainWindow);
-	mainInput->initialize();
+    /* Scenegraph setup */
+    //SceneGraph mainSceneGraph;
 
-	/* XInput setup */
-	gamepad = new GamePad;
-	gamepad->initialize();
-
-	/* Framerate controller setup */
-	mainFramerateController =
-		FFramerateController::getController();
-
-	PauseMenu::Instance().setInputSystem(mainInput);
-	PauseMenu::Instance().setFramerateController(mainFramerateController);
-	PauseMenu::Instance().setGamePad(gamepad);
-
-	/* Audio System Initalization */
-	AudioManager::instance().initialize();
-	AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", false, true);
-	AudioManager::instance().loadSound("walk", "media/audio/walk.mp3", true);
-	AudioManager::instance().loadSound("run", "media/audio/footstep.mp3", true);
-	AudioManager::instance().loadSound("slide", "media/audio/slide.mp3", true);
-	AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
-	AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
-	AudioManager::instance().loadSound("hurt", "media/audio/hurt.mp3", true);
-
-	AudioManager::instance().playSound("music", Vector3(0.0f, 0.0f, 0.0f), PauseMenu::Instance().getMusicVolume());
-	//AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
-
-	/* Scenegraph setup */
-	//SceneGraph mainSceneGraph;
-
-	/* Raycast Manager Setup */
-	RaycastManager::Instance().setSceneGraph(&mainSceneGraph);
+    /* Raycast Manager Setup */
+    RaycastManager::Instance().setSceneGraph(&mainSceneGraph);
 
 }
 
@@ -96,65 +75,92 @@ void LevelManager::MeshMatInitializations()
 {
 
 #pragma region Meshs/Materials
-	// Create meshes
-	boxMesh = Mesh::createMesh("box", Mesh::Cube);
-	sphereMesh = Mesh::createSphereMesh("sphere", 32);
+    // Create meshes
+    boxMesh = Mesh::createMesh("box", Mesh::Cube);
+    sphereMesh = Mesh::createSphereMesh("sphere", 32);
 
-	// Concrete Material
-	concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
-	concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	concreteMaterial->setProperty("shininess", 10.0f);
-	concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
+    // Digi Material
+    digiMaterial = Material::getMaterial<TextureMaterial>("digi");
+    digiMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    digiMaterial->setProperty("shininess", 10.0f);
+    digiMaterial->addTexture("media/textures/DigiPenLogo.jpg", 1.0f, 1.0f);
 
-	// Cracks Material
-	cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
-	cracksMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	cracksMaterial->setProperty("shininess", 10.0f);
-	cracksMaterial->addTexture("media/textures/cracks.png");
+    // FMOD Material
+    fmodMaterial = Material::getMaterial<TextureMaterial>("fmod");
+    fmodMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    fmodMaterial->setProperty("shininess", 10.0f);
+    fmodMaterial->addTexture("media/textures/FmodLogo.jpg", 1.0f, 1.0f);
 
-	// Sky Box Material
-	sphereMesh = Mesh::createSphereMesh("sphere", 32);
-	skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox");
-	skyBoxMaterial.get()->addTexture("media/beach.jpg");
-	skyBoxMaterial.get()->setProperty("objectId", 1);
+    // Concrete Material
+    concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
+    concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    concreteMaterial->setProperty("shininess", 10.0f);
+    concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
 
-	// Additional Materials
+    // Cracks Material
+    cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
+    cracksMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    cracksMaterial->setProperty("shininess", 10.0f);
+    cracksMaterial->addTexture("media/textures/cracks.png");
 
-	LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
-	LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	LightBlueConcrete->setProperty("shininess", 10.0f);
-	LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 20.0f, 20.0f);
+    // Sky Box Material
+    sphereMesh = Mesh::createSphereMesh("sphere", 32);
+    skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox");
+    skyBoxMaterial.get()->addTexture("media/beach.jpg");
+    skyBoxMaterial.get()->setProperty("objectId", 1);
 
-	YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
-	YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	YellowConcrete->setProperty("shininess", 10.0f);
-	YellowConcrete->addTexture("media/textures/YellowConcrete.png", 20.0f, 20.0f);
+    // Additional Materials
 
-	BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
-	BrownConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	BrownConcrete->setProperty("shininess", 10.0f);
-	BrownConcrete->addTexture("media/textures/BrownConcrete.png", 20.0f, 20.0f);
+    LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
+    LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    LightBlueConcrete->setProperty("shininess", 10.0f);
+    LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 20.0f, 20.0f);
 
-	BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
-	BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	BlueConcrete->setProperty("shininess", 10.0f);
-	BlueConcrete->addTexture("media/textures/BlueConcrete.png", 20.0f, 20.0f);
+    YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
+    YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    YellowConcrete->setProperty("shininess", 10.0f);
+    YellowConcrete->addTexture("media/textures/YellowConcrete.png", 20.0f, 20.0f);
 
-	WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
-	WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	WhiteFloorTiles->setProperty("shininess", 10.0f);
-	WhiteFloorTiles->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
+    BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
+    BrownConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    BrownConcrete->setProperty("shininess", 10.0f);
+    BrownConcrete->addTexture("media/textures/BrownConcrete.png", 20.0f, 20.0f);
 
-	keyMaterial = Material::getMaterial<TextureMaterial>("key");
-	keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	keyMaterial->setProperty("shininess", 20.0f);
-	keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
+    BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
+    BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    BlueConcrete->setProperty("shininess", 10.0f);
+    BlueConcrete->addTexture("media/textures/BlueConcrete.png", 3.0f, 3.0f);
 
-	//doorMaterial = Material::getMaterial<MainTestMaterial>("door", mainRenderer->getRenderGraph());
-	//doorMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
-	//doorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-	//doorMaterial->setProperty("shininess", 20.0f);
-	//doorMaterial->addTexture("media/textures/door.png", 1.0f, 1.0f);
+    WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
+    WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    WhiteFloorTiles->setProperty("shininess", 10.0f);
+    WhiteFloorTiles->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
+
+    keyMaterial = Material::getMaterial<TextureMaterial>("key");
+    keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    keyMaterial->setProperty("shininess", 20.0f);
+    keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
+
+    shadowMaterial = Material::getMaterial<TextureMaterial>("shadow");
+    shadowMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    shadowMaterial->setProperty("shininess", 1.0f);
+    shadowMaterial->addTexture("media/textures/shadow5.png", 1.0f, 1.0f);
+
+    jumpImage = Material::getMaterial<TextureMaterial>("jumpImage");
+    jumpImage->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    jumpImage->setProperty("shininess", 1.0f);
+    jumpImage->addTexture("media/textures/jumpImage.png", 1.0f, 1.0f);
+
+    wordMaterial = Material::getMaterial<TextureMaterial>("words");
+    wordMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    wordMaterial->setProperty("shininess", 1.0f);
+    wordMaterial->addTexture("media/textures/words.png", 1.0f, 1.0f);
+
+    //doorMaterial = Material::getMaterial<MainTestMaterial>("door", mainRenderer->getRenderGraph());
+    //doorMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
+    //doorMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+    //doorMaterial->setProperty("shininess", 20.0f);
+    //doorMaterial->addTexture("media/textures/door.png", 1.0f, 1.0f);
 
 #pragma endregion
 
@@ -162,6 +168,127 @@ void LevelManager::MeshMatInitializations()
 	std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
 
 	MapLoader::instance().initializeResources();
+
+}
+
+void LevelManager::DisplayLogos()
+{
+    SceneGraph sceneGraph;
+
+    //Create Object
+    auto Logo = std::make_shared<GameObject>("Logo");
+    sceneGraph.addNode(Logo);
+    Logo->setLocalPosition(Vector3(0.0f, 0.0f, -10.0f));
+    Logo->setLocalScaling(Vector3(8.0f, 8.0f, 1.0f));
+    auto renderComp = Logo->addComponent<Render2D>();
+    renderComp->setMaterial(digiMaterial)->setProperty("useTexture", 1);
+    
+    const Renderer::Viewport& viewPort = mainRenderer->getCurrentState().viewport;
+
+    //Create Camera
+    auto cam = std::make_shared<FreeCamera>("uicam");
+      cam->lookAt(Vector3(0.0f, 0.0f, -1.0f))->setPerspectiveProjection(
+      45.0f * 3.14159f / 180.0f,
+      mainWindow->getAspectRatio(),
+      0.1f,
+      5000.0f);
+    sceneGraph.addCamera(cam);
+
+    mainRenderer->getRenderGraph()->addPass<UIPass>();
+    mainRenderer->setClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+
+    //Count the Logos
+    float logoTimer = 0.0f;
+    float logoDuration = 5.0f;
+    int currentLogo = 0;
+    int numLogos = 2;
+
+    int expectedFrameRate = 60;
+    static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
+
+    mainFramerateController->setTargetFramerate(expectedFrameRate);
+    //sceneGraph.printSceneTree();
+
+    bool mouseClicked = false;
+    bool prevMouseClicked = true;
+
+    while (currentLogo < numLogos) {
+
+        //Restart the Renderer
+        mainRenderer->clear();
+        mainFramerateController->startFrame();              // record the time from frame start
+
+        //Update the Input Manager
+        mainInput->update();
+
+        //Update the GamePad
+        gamepad->update();
+
+        //Full Screen Toggle
+        if (mainInput->isKeyPressed(KEY_F11)) {
+
+          isFullscreen = !isFullscreen;
+          mainWindow->setFullscreen(isFullscreen);
+
+        }
+
+        //Update Logo Timer
+        float deltaTime = 1.0f / expectedFrameRate;
+        logoTimer += deltaTime;
+
+        //Ambient Light
+        float ambientIntensity = 1.0f;
+        float fadeInTime = 0.5f;
+        float fadeOutTime = 1.0f;
+        if (logoTimer < fadeInTime) {
+            ambientIntensity = logoTimer / fadeInTime;
+        }
+        else if (logoTimer > logoDuration - fadeOutTime) {
+            ambientIntensity = std::max(0.0f, (logoDuration - logoTimer) / fadeOutTime);
+        }
+        renderComp->setProperty("transparency", ambientIntensity);
+
+        bool mouseClicked = mainInput->isMouseButtonDown(0) || mainInput->isMouseButtonDown(1);
+        bool skipped = (!prevMouseClicked && mouseClicked) ||
+                       (mainInput->isKeyPressed(KEY_SPACE))||
+                       (mainInput->isKeyPressed(KEY_ENTER))||
+                       (mainInput->isKeyPressed(KEY_ESCAPE));
+
+        if ( skipped || logoTimer >= logoDuration) {
+            logoTimer = 0.0f;
+            currentLogo++;
+
+            if (currentLogo < numLogos) {
+                switch (currentLogo)
+                {
+                case 0:
+                    renderComp->setMaterial(digiMaterial);
+                    break;
+                case 1:
+                    renderComp->setMaterial(fmodMaterial);
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+
+        prevMouseClicked = mouseClicked;
+
+        //Draw the Scene
+        mainRenderer->getRenderGraph()->draw(&sceneGraph);
+
+        //Update Scenegraph
+        mainFramerateController->endFrame();
+
+        //Swap Buffers and Update Window
+        mainRenderer->swapBuffers();
+        mainWindow->update();
+
+    }
+
+    mainRenderer->getRenderGraph()->removePass<UIPass>();
+    mainRenderer->setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 }
 
@@ -220,6 +347,8 @@ void LevelManager::ExecuteMainLoop()
 
 	mainFramerateController->setTargetFramerate(expectedFrameRate);
 	mainSceneGraph.printSceneTree();
+  
+  mainRenderer->getRenderGraph()->lightsSet = false;
 
 	while (!levelSwapFlag) {
 
@@ -238,39 +367,10 @@ void LevelManager::ExecuteMainLoop()
 			break;
 		}
 
-		if (mainInput->isKeyPressed(GLFW_KEY_F11)) {
-			GLFWwindow* nativeWindow = mainWindow->getNativeWindow();
-			GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-			const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-
-			if (isFullscreen) {
-				// Windowed mode
-				int windowWidth = 1280;
-				int windowHeight = 720;
-				// Enable borders
-				glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_TRUE);
-				// Reposition the window
-				glfwSetWindowMonitor(nativeWindow, nullptr, 100, 100, windowWidth, windowHeight, 0);
-				isFullscreen = false;
-			}
-			else {
-				// Save current window attributes
-				glfwGetWindowPos(nativeWindow, &windowedPosX, &windowedPosY);
-				glfwGetWindowSize(nativeWindow, &windowedWidth, &windowedHeight);
-
-				// Borderless fullscreen
-				glfwSetWindowAttrib(nativeWindow, GLFW_DECORATED, GLFW_FALSE); // Hide borders
-				glfwSetWindowMonitor(nativeWindow, nullptr, 0, 0, mode->width, mode->height, 0);
-				isFullscreen = true;
-			}
-
-			// Adjust viewport and camera aspect ratio
-			int fbWidth, fbHeight;
-			glfwGetFramebufferSize(nativeWindow, &fbWidth, &fbHeight);
-			glViewport(0, 0, fbWidth, fbHeight);
-			float newAspect = static_cast<float>(fbWidth) / static_cast<float>(fbHeight);
-			camera->setPerspectiveProjection(45.0f * 3.14159f / 180.0f, newAspect, 0.1f, 5000.0f);
-		}
+		if (mainInput->isKeyPressed(KEY_F11)) {
+      isFullscreen = !isFullscreen;
+      mainWindow->setFullscreen(isFullscreen);
+    }
 
 		// Physics update loop fixedStepTime
 		/*while (mainFramerateController->shouldUpdatePhysics()) {
@@ -442,7 +542,6 @@ void LevelManager::checkPlayerBoundaries() {
 	}
 }
 
-
 void LevelManager::NextLevel()
 {
 	if (currentLevel == 4) {
@@ -571,106 +670,110 @@ void LevelManager::createPlayerObject()
 
 #pragma region PlayerBox
 
-	//Transform Values
-	playerBox->setLocalPosition(startingPos1)
-		->setLocalScaling(Vector3(1.0f, 1.0f, 1.0f));
+//Transform Values
+    playerBox->setLocalPosition(startingPos1)
+        ->setLocalScaling(Vector3(1.0f, 0.1f, 1.0f));
 
-	playerBox->addComponent<KeyList>();
-	//Render Component
-	auto box1RenderComponent = playerBox->addComponent<Render3D>();
-	box1RenderComponent
-		->setMesh(boxMesh)
-		->setMaterial(cracksMaterial);
+    playerBox->addComponent<KeyList>();
+    //Render Component
+    auto box1RenderComponent = playerBox->addComponent<Render3D>();
+    box1RenderComponent
+        ->setMesh(sphereMesh)
+        ->setMaterial(shadowMaterial);
 
-	//Create Shape
-	auto shape1 = std::make_shared<OBB>(
-	Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-	Vector3(0.5f, 0.5f, 0.5f));
+    //Create Shape
+    auto shape1 = std::make_shared<OBB>(
+    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+    Vector3(0.5f, 5.0f, 0.5f));
 
-	// Create instances of bodies for boxes
-	auto playerBoxPB = playerBox->addComponent<RigidBody>()
-		->usingGravity(true)
-		->setMass(10.0f)
-		->setDrag(1.5f)
-		->setShape(shape1)
-		->registerToPhysicsManager(PhysicsManager::Instance());
-	playerBoxPB->initialize();
+    // Create instances of bodies for boxes
+    auto playerBoxPB = playerBox->addComponent<RigidBody>()
+        ->usingGravity(true)
+        ->setMass(10.0f)
+        ->setDrag(1.5f)
+        ->setShape(shape1)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    playerBoxPB->initialize();
 
-	auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
-		->setInputSystem(mainInput)
-		->setGamePad(gamepad)
-		->setPhysicsBody(playerBoxPB.get())
-		->setBody(playerBox.get())
-		->setSceneRoot(mainSceneGraph.getRootNode())
-		->setCamera(cameraGameObject.get())
-		->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
-		->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
-		->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
-		->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
-		->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
-		->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
-		->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
-		->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
-		->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
-		->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
-		->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
-		->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
-		->setActionKey(FirstPersonControllerComponent::Pause, KEY_ESCAPE)
-		->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_A)
-		->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
-		->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
-		->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
-		->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
-		->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
+    auto playerBoxInputComponent = playerBox->addComponent<FirstPersonControllerComponent>()
+        ->setInputSystem(mainInput)
+        ->setGamePad(gamepad)
+        ->setPhysicsBody(playerBoxPB.get())
+        ->setBody(playerBox.get())
+        ->setSceneRoot(mainSceneGraph.getRootNode())
+        ->setCamera(cameraGameObject.get())
+        ->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
+        ->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
+        ->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
+        ->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
+        ->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
+        ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
+        ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
+        ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
+        ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
+        ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
+        ->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
+        ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
+        ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
+        ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
+        ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
+        ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
+        ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
+        ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
+        ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
 
-	playerBoxInputComponent->setDifficulty(playerDifficulty);
+    playerBoxInputComponent->setDifficulty(playerDifficulty);
 #pragma endregion
 
 	PauseMenu::Instance().setPlayer(playerBox);
 }
 
-
-
 void LevelManager::initalizePlayerInLevel()
 {
+    Vector3 activeSpawnPoint;
+    Quaternion activeSpawnRotation;
 
-	Vector3 activeSpawnPoint;
-	Quaternion activeSpawnRotation;
-
-	switch (currentLevel)
-	{
-	case -1:
-		activeSpawnPoint = startingPos0;
-		activeSpawnRotation = startingRot0;
-		break;
-	case 0:
-		activeSpawnPoint = startingPos0;
-		activeSpawnRotation = startingRot0;
-		break;
-	case 1:
-		activeSpawnPoint = startingPos1;
-		activeSpawnRotation = startingRot1;
-		break;
-	case 2:
-		activeSpawnPoint = startingPos2;
-		activeSpawnRotation = startingRot2;
-		break;
-	case 3:
-		activeSpawnPoint = startingPos3;
-		activeSpawnRotation = startingRot3;
-		break;
-	case 4:
-		activeSpawnPoint = startingPos0;
-		activeSpawnRotation = startingRot0;
-		break;
-	default:
-		activeSpawnPoint = Vector3();
-		break;
-	}
+    switch (currentLevel)
+    {
+    case -1:
+        activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
+        break;
+    case 0:
+        activeSpawnPoint = startingPos0;
+        activeSpawnRotation = startingRot0;
+        break;
+    case 1:
+        activeSpawnPoint = startingPos1;
+        activeSpawnRotation = startingRot1;
+        break;
+    case 2:
+        activeSpawnPoint = startingPos2;
+        activeSpawnRotation = startingRot2;
+        break;
+    case 3:
+        activeSpawnPoint = startingPos3;
+        activeSpawnRotation = startingRot3;
+        break;
+    case 4:
+        activeSpawnPoint = startingPos4;
+        activeSpawnRotation = startingRot4;
+        break;
+    default:
+        activeSpawnPoint = Vector3();
+        activeSpawnRotation = Quaternion();
+        break;
+    }
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
-    pbFPCController->respawnPlayer(true, true);
+    pbFPCController->respawnPlayer(true, true
+
+    mainRenderer->getRenderGraph()->addPass<GBufferPrepass>();
+
+    mainRenderer->getRenderGraph()->addPass<LightingPass>();
+
+    mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
 
 }
 
@@ -681,7 +784,6 @@ void LevelManager::SetPlayerDifficulty(FirstPersonControllerComponent::Difficult
 FirstPersonControllerComponent::Difficulty LevelManager::getDifficulty() const {
 	return playerDifficulty;
 }
-
 
 void LevelManager::resetToMenu()
 {

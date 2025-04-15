@@ -199,6 +199,12 @@ void FramerateController<T>::clearPhysicsTime()
 }
 
 template<typename T>
+inline void FramerateController<T>::clearPhysicsTime()
+{
+    physicsAccumulator = 0.0f;
+}
+
+template<typename T>
 T FramerateController<T>::getAccumulatorAlpha() const {
   return physicsAccumulator / physicsAccumulatorTimestep;
 }

@@ -128,7 +128,18 @@ void Renderer::framebufferSizeCallback(
 
   glViewport(0, 0, width, height);
   state.viewport = Viewport{ 0, 0, width, height };
+
   // Additional rendering adjustments can be made here
+  updateScreenSizeBuffers();
+}
+
+void Renderer::updateScreenSizeBuffers()
+{
+  for (const auto& bufferCallback : screenSizeBufferUpdateCallbacks) {
+    bufferCallback(
+      state.viewport.x, state.viewport.y,
+      state.viewport.width, state.viewport.height);
+  }
 }
 
 
@@ -294,16 +305,18 @@ Renderer* Renderer::setDepthState(const DepthState& depthState, bool force)
   if (depthState.testEnabled) {
     glEnable(GL_DEPTH_TEST);
     clearMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
-    /*if (depthState.writeEnabled)
+    if (depthState.writeEnabled)
       glDepthMask(GL_TRUE);
     else
-      glDepthMask(GL_FALSE);*/
+      glDepthMask(GL_FALSE);
     glDepthFunc(depthState.func);
   }
   else {
     glDisable(GL_DEPTH_TEST);
     clearMask = GL_COLOR_BUFFER_BIT;
   }
+
+  state.depthState = depthState;
   return this;
 }
 
@@ -330,6 +343,8 @@ Renderer* Renderer::setBlendState(const BlendState& blendState, bool force)
   }
   else
     glDisable(GL_BLEND);
+
+  state.blendState = blendState;
   return this;
 }
 
@@ -368,6 +383,12 @@ Renderer* Renderer::setState(const State& state, bool force)
   setDepthState(state.depthState, force);
 
   return this;
+}
+
+void Renderer::addScreenSizeBufferUpdateCallback(
+  std::function<void(int, int, int, int)> screenSizeBufferUpdateCallback)
+{
+  screenSizeBufferUpdateCallbacks.push_back(screenSizeBufferUpdateCallback);
 }
 
 /*!****************************************************************************

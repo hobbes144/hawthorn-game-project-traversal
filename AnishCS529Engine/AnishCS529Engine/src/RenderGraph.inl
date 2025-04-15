@@ -74,4 +74,20 @@ std::shared_ptr<T> RenderGraph::getPass()
   return nullptr;
 }
 
+template<typename T>
+void RenderGraph::removePass()
+{
+  static_assert(std::is_base_of<RenderPass, T>::value,
+     "Pass must be derived from RenderPass class");
+
+  auto it = std::find_if(renderStack.begin(), renderStack.end(),
+        [](const std::shared_ptr<RenderPass>& pass) {
+          return dynamic_cast<T*>(pass.get()) != nullptr;
+        });
+
+  if (it != renderStack.end()) {
+    renderStack.erase(it);
+  }
+}
+
 #endif // !RENDER_PASS_INL

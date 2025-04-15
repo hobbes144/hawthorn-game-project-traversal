@@ -23,48 +23,15 @@ private:
   Matrix4 scale;
 
 public:
-  SkydomePass(TextureManager::TextureID textureID) :
-    RenderPass(), sphereMesh(Mesh::createSphereMesh("sphere", 32)),
-    scale(Matrix4::scale(Vector3(2000.0f))) {
+  SkydomePass(TextureManager::TextureID textureID);
 
-    this->addShader("shaders/skydome.vert\nshaders/skydome.frag");
-    shader->initializeUBO("camera", 0);
-
-    skydomeTexture = textureID;
-    HDR = TextureManager::getInstance().isHDR(skydomeTexture);
-
-    renderMask = RenderMask::SkydomePass;
-  }
-
-  SkydomePass(const std::string& textureName) :
-    RenderPass(), sphereMesh(Mesh::createSphereMesh("sphere", 32)),
-    scale(Matrix4::scale(Vector3(2000.0f))) {
-
-    this->addShader("shaders/skydome.vert\nshaders/skydome.frag");
-    shader->initializeUBO("camera", 0);
-
-    skydomeTexture = TextureManager::getInstance().loadFile(textureName);
-    HDR = TextureManager::getInstance().isHDR(skydomeTexture);
-
-    renderMask = RenderMask::SkydomePass;
-  }
+  SkydomePass(const std::string& textureName);
 
   SkydomePass() = delete;
 
   void draw(
     std::shared_ptr<Camera> camera,
-    SceneGraph* scene) const override {
-    glDepthMask(GL_FALSE);
-
-    shader->use();
-
-    shader->setInt("HDR", HDR);
-    shader->bindTexture(0, "skydomeTexture", skydomeTexture);
-
-    sphereMesh->draw(GL_TRIANGLES);
-
-    glDepthMask(GL_TRUE);
-  }
+    SceneGraph* sceneGraph) const override;
 };
 
 #endif // !SKYDOME_PASS_H

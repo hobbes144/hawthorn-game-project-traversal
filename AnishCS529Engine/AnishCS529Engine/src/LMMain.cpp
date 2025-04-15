@@ -1,7 +1,5 @@
 #include "precompiled.h"
 
-#include <windows.h>
-
 #include "LevelManager.h"
 
 extern "C"
@@ -21,6 +19,8 @@ int main()
 
     LevelManager::Instance().SystemInitalization();
     LevelManager::Instance().MeshMatInitializations();
+
+    LevelManager::Instance().DisplayLogos();
 
     //Main Loop
     while (!LevelManager::Instance().GameComplete()) {
