@@ -67,7 +67,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(-19.0f + offsetX, 2.5f + offsetY, 0.0f + offsetZ));
+        testDoor->setLocalPosition(Vector3(-19.0f + offsetX, 3.0f + offsetY, 0.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         auto renderComp = testDoor->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BrownConcrete);
@@ -93,7 +93,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(7.0f + offsetX, 2.5f + offsetY, 19.0f + offsetZ));
+        testDoor->setLocalPosition(Vector3(7.0f + offsetX, 3.0f + offsetY, 19.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         testDoor->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
         auto renderComp = testDoor->addComponent<Render3D>();
@@ -118,7 +118,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(0.0f + offsetX, 2.5f + offsetY, 19.0f + offsetZ));
+        testDoor->setLocalPosition(Vector3(0.0f + offsetX, 3.0f + offsetY, 19.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         testDoor->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
         auto renderComp = testDoor->addComponent<Render3D>();
@@ -143,7 +143,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(-7.0f + offsetX, 2.5f + offsetY, 19.0f + offsetZ));
+        testDoor->setLocalPosition(Vector3(-7.0f + offsetX, 3.0f + offsetY, 19.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         testDoor->setLocalRotation(Vector3(0.0f, 1.57f, 0.0f));
         auto renderComp = testDoor->addComponent<Render3D>();
@@ -166,7 +166,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     {
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
         sceneGraph.addNode(testDoor);
-        testDoor->setLocalPosition(Vector3(19.0f + offsetX, 2.5f + offsetY, 0.0f + offsetZ));
+        testDoor->setLocalPosition(Vector3(19.0f + offsetX, 3.0f + offsetY, 0.0f + offsetZ));
         testDoor->setLocalScaling(Vector3(0.3f, 5.0f, 3.0f));
         auto renderComp = testDoor->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BrownConcrete);
