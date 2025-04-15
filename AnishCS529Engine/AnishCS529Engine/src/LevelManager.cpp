@@ -767,7 +767,7 @@ void LevelManager::initalizePlayerInLevel()
 
     auto pbFPCController = playerBox->findComponent<FirstPersonControllerComponent>();
     pbFPCController->setRespawnCheckpoint(activeSpawnPoint, activeSpawnRotation);
-    pbFPCController->respawnPlayer(true, true
+    pbFPCController->respawnPlayer(true, true);
 
     mainRenderer->getRenderGraph()->addPass<GBufferPrepass>();
 
