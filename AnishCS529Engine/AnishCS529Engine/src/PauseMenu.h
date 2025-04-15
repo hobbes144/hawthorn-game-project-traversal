@@ -35,6 +35,7 @@ public:
 
 	void resetTimer();
 	void setInputSystem(Input* ip);
+	void setFramerateController(FFramerateController* _frc);
 	void setState(bool state);
 	bool gameIsPaused();
 	bool isQuit();
@@ -69,6 +70,7 @@ private:
 	float time = 0.0f;
 	Input* input;
 	MenuType menuType = MainPauseMenu;
+	FFramerateController* frc;
 };
 
 #endif

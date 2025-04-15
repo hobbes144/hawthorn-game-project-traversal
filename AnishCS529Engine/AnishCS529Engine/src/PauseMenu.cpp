@@ -11,6 +11,11 @@ void PauseMenu::setInputSystem(Input* ip) {
 	return;
 }
 
+void PauseMenu::setFramerateController(FFramerateController* _frc) {
+	frc = _frc;
+	return;
+}
+
 void PauseMenu::setState(bool state) {
 	isPaused = state;
 	return;
@@ -79,7 +84,7 @@ void PauseMenu::mainPauseMenu() {
 
 	// Optional: dim the background
 	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 128));
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 64));
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
@@ -94,12 +99,16 @@ void PauseMenu::mainPauseMenu() {
 
 	if (ImGui::Button("Resume", ImVec2(buttonWidth, 40)) ||
 		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f)) {
+		resetTimer();
+		frc->clearPhysicsTime();
 		isPaused = false;
 		input->controlMouse(true);
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Back to Start", ImVec2(buttonWidth, 40))) {
+		resetTimer();
+		frc->clearPhysicsTime();
 		isPaused = false;
 		toStart = true;
 		input->controlMouse(true);
@@ -162,7 +171,7 @@ void PauseMenu::howToPlay() {
 
 	// Optional: dim the background
 	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 128));
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 64));
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
@@ -237,7 +246,7 @@ void PauseMenu::settings() {
 
 	// Optional: dim the background
 	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 128));
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 64));
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
@@ -337,7 +346,7 @@ void PauseMenu::quitMenu() {
 
 	// Optional: dim the background
 	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 128));
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 64));
 
 	// Center the menu
 	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
@@ -387,6 +396,8 @@ void PauseMenu::run() {
 		testMenu();
 	}
 	else {
+		resetTimer();
+		frc->clearPhysicsTime();
 		isPaused = false;
 		input->controlMouse(true);
 	}

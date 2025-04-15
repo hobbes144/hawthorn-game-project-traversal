@@ -188,6 +188,16 @@ void FramerateController<T>::consumePhysicsTime()
   physicsAccumulator -= physicsAccumulatorTimestep;
 }
 
+/*!****************************************************************************
+ * \brief Clear Physics timestep from accumulator
+ * 
+ *****************************************************************************/
+template<typename T>
+void FramerateController<T>::clearPhysicsTime()
+{
+  physicsAccumulator = 0.0f;
+}
+
 template<typename T>
 T FramerateController<T>::getAccumulatorAlpha() const {
   return physicsAccumulator / physicsAccumulatorTimestep;

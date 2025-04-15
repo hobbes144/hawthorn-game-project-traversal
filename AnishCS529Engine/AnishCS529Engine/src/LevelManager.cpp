@@ -58,7 +58,6 @@ void LevelManager::SystemInitalization()
 	};
 	mainInput->setGameWindow(mainWindow);
 	mainInput->initialize();
-	PauseMenu::Instance().setInputSystem(mainInput);
 
 	/* XInput setup */
 	gamepad = new GamePad;
@@ -67,6 +66,9 @@ void LevelManager::SystemInitalization()
 	/* Framerate controller setup */
 	mainFramerateController =
 		FFramerateController::getController();
+
+	PauseMenu::Instance().setInputSystem(mainInput);
+	PauseMenu::Instance().setFramerateController(mainFramerateController);
 
 	/* Audio System Initalization */
 	AudioManager::instance().initialize();
@@ -314,7 +316,6 @@ void LevelManager::ExecuteMainLoop()
 			PauseMenu::Instance().run();
 		}
 		else {
-			PauseMenu::Instance().resetTimer();
 			while(mainFramerateController->shouldUpdatePhysics()) {
 			    PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
 			    mainFramerateController->consumePhysicsTime();
