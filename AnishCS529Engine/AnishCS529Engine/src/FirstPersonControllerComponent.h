@@ -16,12 +16,13 @@
 #include <cassert>
 #include <functional>
 
+#include "Audio.h"
 #include "Component.h"
 #include "GameObject.h"
 #include "GamePad.h"
 #include "Input.h"
+#include "PauseMenu.h"
 #include "PhysicsBody.h"
-#include "Audio.h"
 
 /*!****************************************************************************
  * \brief This is the First Person Contorller responsible for player movement,
@@ -66,7 +67,8 @@ public:
         Debug,
         Creative,
         Freeze,
-        Music
+        Music,
+        Pause
     };
 
     enum Difficulty {
@@ -128,7 +130,7 @@ public:
         slideForce(50), slideCoolDown(1.4f), slideEffectTime(0.5f),
         slideBufferTime(0.2f), hasSlidSinceAnchored(false),
         wallRunSpeed(30), wallJumpForce(17),
-        sceneRoot(nullptr), isCreative(false), hp(1), maxHP(1), difficulty(NORMAL)
+        sceneRoot(nullptr), isCreative(false), isPaused(false), hp(1), maxHP(1), difficulty(NORMAL)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -151,6 +153,10 @@ public:
       setSceneRoot(std::shared_ptr<Node> root);
     std::shared_ptr<FirstPersonControllerComponent>
         setGamePad(GamePad* _gp);
+
+    void setMouseXSensivity(float var);
+    void setMouseYSensivity(float var);
+    FirstPersonControllerComponent* getSelf();
 
     std::shared_ptr<FirstPersonControllerComponent>
       setState(PlayerState state);
@@ -292,6 +298,7 @@ private:
     bool isCreative = false;
     bool playsMusic = true;
     bool isFrozen = false;
+    bool isPaused = false;
 
     //Debugging
     void debugCheck();

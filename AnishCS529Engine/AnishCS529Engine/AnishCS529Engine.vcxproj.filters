@@ -474,6 +474,9 @@
     <ClCompile Include="src\FBO.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\PauseMenu.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\UIPass.cpp">
       <Filter>Engine\Source Files\Systems\RenderingSystem\RenderPasses</Filter>
     </ClCompile>
@@ -799,6 +802,12 @@
     </ClInclude>
     <ClInclude Include="src\FBO.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PauseMenu.h">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InGameKey.h">
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\LocalLightsPass.h">
       <Filter>Engine\Header Files\Systems\RenderingSystem\RenderPasses</Filter>

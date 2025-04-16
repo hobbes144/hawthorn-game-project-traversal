@@ -1,3 +1,6 @@
+#ifndef LEVELMANAGER_H
+#define LEVELMANAGER_H
+
 #pragma once
 
 #include <windows.h>
@@ -23,6 +26,7 @@
 #include "MapLoader.h"
 #include "Movement3D.h"
 #include "OBB.h"
+#include "PauseMenu.h"
 #include "PhysicsBody.h"
 #include "PhysicsManager.h"
 #include "Ray.h"
@@ -38,8 +42,6 @@
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
 #include "UIPass.h"
-
-#include "GlobalVariables.h"
 
 
 class LevelManager {
@@ -136,7 +138,6 @@ private:
 	Vector3 startingPos2 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot2 = Quaternion::fromEuler(Vector3(0.0f, 0.5f * 3.14159f, 0.0f));
 	Vector3 startingPos3 = Vector3(-131.0f, 7.0f, -130.0f);
-
 	Quaternion startingRot3 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
 	Vector3 startingPos4 = Vector3(0.0f, 7.0f, 0.0f);
 	Quaternion startingRot4 = Quaternion::fromEuler(Vector3(0.0f, 1.0f * 3.14159f, 0.0f));
@@ -144,3 +145,5 @@ private:
 	const float rad = PI / 180.0f;
 
 };
+
+#endif

@@ -186,7 +186,7 @@ void FirstPersonControllerComponent::GroundedJump()
 	const Vector3 newVelocity = Vector3(currentVelocity.x, jumpSpeed, currentVelocity.z);
 	physicsBody->setVelocity(newVelocity);
 
-	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()));
+	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()), PauseMenu::Instance().getSFXVolume());
 
 	// Prevent multiple jumps until grounded again
 	sinceLastJumpPressedTime = jumpBufferTime + 1.0f;
@@ -203,7 +203,7 @@ void FirstPersonControllerComponent::SlidingJump() {
 	Vector3 newVelocity = Vector3(currentVelocity.x / 2, jumpSpeed * slideJumpMultiplier, currentVelocity.z / 2);
 	physicsBody->setVelocity(newVelocity);
 
-	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()));
+	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()), PauseMenu::Instance().getSFXVolume());
 }
 
 void FirstPersonControllerComponent::WallrunningJump() {
@@ -219,7 +219,7 @@ void FirstPersonControllerComponent::WallrunningJump() {
 	Vector3 combinedVelocity = (currentVelocity + wallJumpVelocity) / 2.0f;
 	physicsBody->setVelocity(combinedVelocity);
 
-	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()));
+	AudioManager::instance().playSound("jump", Vector3(body->getWorldPosition()), PauseMenu::Instance().getSFXVolume());
 }
 
 inline bool FirstPersonControllerComponent::passedCoyoteTime() {
@@ -422,12 +422,13 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	bool music = input->isKeyPressed(ActionKey[Music]);
 	bool freezePressed = input->isKeyPressed(ActionKey[Freeze]);
 	float upMotion = input->isKeyHeld(ActionKey[Jump]) - input->isKeyHeld(ActionKey[Slide]);
+	bool pause = input->isKeyPressed(ActionKey[Pause]);
 
 	//Mouse
 	float mouseXDelta = 0.0f;
 	float mouseYDelta = 0.0f;
 #pragma endregion
-	
+
 	//GamePad Input
 #pragma region GamePad
 	if (gp != nullptr) {
@@ -455,13 +456,13 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				}
 			}
 			if (gp->rightStickX != 0) {
-				mouseXDelta = static_cast<float>(gp->rightStickX) * gp->gpRXSensitivity;
+				mouseXDelta = static_cast<float>(gp->rightStickX) * gp->getRXSensitivity();
 				Quaternion currentBodyRotation = body->getLocalRotation();
 				Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
 				body->setLocalRotation(currentBodyRotation * mouseRotation);
 			}
 			if (gp->rightStickY != 0) {
-				mouseYDelta = -static_cast<float>(gp->rightStickY) * gp->gpRYSensitivity;
+				mouseYDelta = -static_cast<float>(gp->rightStickY) * gp->getRYSensitivity();
 				//Rotate Camera
 				Quaternion currentCameraRoation = camera->getLocalRotation();
 				Vector3 currentEuler = currentCameraRoation.toEuler();
@@ -478,12 +479,14 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				isSliding = gp->isPressed(GamePadActionKey[Slide]);
 			if (gp->isPressed(GamePadActionKey[Respawn]))
 				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
-			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide])) 
+			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide]))
 				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
 			if (gp->isPressed(GamePadActionKey[Creative]))
 				creative = gp->isPressed(GamePadActionKey[Creative]);
 			if (gp->isPressed(GamePadActionKey[Music]))
 				music = gp->isPressed(GamePadActionKey[Music]);
+			if (gp->isPressed(GamePadActionKey[Pause]))
+				pause = gp->isPressed(GamePadActionKey[Pause]);
 		}
 	}
 #pragma endregion
@@ -507,22 +510,45 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	}
 	else {
 		playsMusic = music;
-		if (playsMusic)  AudioManager::instance().playSound("music", 0.15f);
+		if (playsMusic)  AudioManager::instance().playSound("music", PauseMenu::Instance().getMusicVolume());
 	}
 
-	//Frozen Mode
-	if (freezePressed) {
-		isFrozen = !isFrozen;
-		input->controlMouse(!isFrozen);
+	//back to start lobby
+	if (PauseMenu::Instance().isStart()) {
+		LevelManager::Instance().resetToMenu();
+		PauseMenu::Instance().setStart(false);
 	}
-	if (isFrozen) {
-		return;
+
+	//Pause Menu
+	bool inConsistent = false;
+	if (isPaused != PauseMenu::Instance().gameIsPaused() && isPaused) {
+		isPaused = PauseMenu::Instance().gameIsPaused();
+		inConsistent = true;
 	}
+	
+	if (inConsistent) {
+		isFrozen = false;
+	}
+
+
+	if (isPaused) {
+		isPaused = !pause;
+	}
+	else {
+		isPaused = pause;
+		//Frozen Mode
+		if (freezePressed) {
+			isFrozen = !isFrozen;
+			input->controlMouse(!isFrozen);
+		}
+	}
+	PauseMenu::Instance().setState(isPaused);
 
 	if (wallRunLockoutTimer > 0) {
 		wallRunLockoutTimer -= deltaTime;
 		if (wallRunLockoutTimer < 0) wallRunLockoutTimer = 0;
 	}
+
 
 	//Player HP system
 
@@ -539,6 +565,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 		}
 	}
 
+	//Frozen Mode
+	if (isFrozen) {
+		return;
+	}
 
 	//-----Handling Camera Movement-----//
 #pragma region Camera
@@ -604,7 +634,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				slideVector = forwardVector * slideForce;
 			}
 			physicsBody->setVelocity(slideVector);
-			AudioManager::instance().playSound("slide", Vector3(body->getWorldPosition()));
+			AudioManager::instance().playSound("slide", Vector3(body->getWorldPosition()), PauseMenu::Instance().getSFXVolume());
 			SwitchState(Free, Sliding);
 		}
 		else if ((anchorInfo.direction == 'l' || anchorInfo.direction == 'r')
@@ -646,7 +676,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				slideVector = forwardVector * slideForce;
 			}
 			physicsBody->setVelocity(slideVector);
-			AudioManager::instance().playSound("slide", Vector3(body->getWorldPosition()));
+			AudioManager::instance().playSound("slide", Vector3(body->getWorldPosition()), PauseMenu::Instance().getSFXVolume());
 			SwitchState(Grounded, Sliding);
 		}
 		else if (anchorInfo.direction != 'd' && anchorInfo.direction != '0')
@@ -706,10 +736,10 @@ void FirstPersonControllerComponent::update(float deltaTime)
 			const Vector3 movementVector = combinedMotionVector.normalized() * movementForce;
 			physicsBody->applyForce(movementVector);
 			if (isSprinting) {
-				AudioManager::instance().playSound("run", Vector3(body->getWorldPosition()));
+				AudioManager::instance().playSound("run", Vector3(body->getWorldPosition()), PauseMenu::Instance().getSFXVolume());
 			}
 			else {
-				AudioManager::instance().playSound("walk", Vector3(body->getWorldPosition()));
+				AudioManager::instance().playSound("walk", Vector3(body->getWorldPosition()), PauseMenu::Instance().getSFXVolume());
 			}
 		}
 	}
@@ -782,7 +812,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 
 		// Apply movement along the wall
 		physicsBody->setVelocity(wallRunDirection * wallRunSpeed);
-		AudioManager::instance().playSound("run", Vector3(body->getWorldPosition()));
+		AudioManager::instance().playSound("run", Vector3(body->getWorldPosition()), PauseMenu::Instance().getSFXVolume());
 		const float wallWidth = (anchorInfo.normal * anchorInfo.object->getWorldScaling()).magnitude();
 		const float playerWidth = 1.415;
 		const float wallOffset = wallWidth / 2 + playerWidth / 2;
@@ -826,6 +856,20 @@ std::shared_ptr<FirstPersonControllerComponent>
 FirstPersonControllerComponent::setGamePad(GamePad* _gp) {
 	gp = _gp;
 	return shared_from_this();
+}
+
+void FirstPersonControllerComponent::setMouseXSensivity(float var) {
+	mouseXSensitivity = var;
+	return;
+}
+
+void FirstPersonControllerComponent::setMouseYSensivity(float var) {
+	mouseYSensitivity = var;
+	return;
+}
+
+FirstPersonControllerComponent* FirstPersonControllerComponent::getSelf() {
+	return this;
 }
 
 std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setState(PlayerState state) {
@@ -923,7 +967,7 @@ void FirstPersonControllerComponent::respawnPlayer(bool silence, bool resetRotat
 	body->setLocalPosition(respawnCheckpoint);
 
 	if (!silence) {
-		AudioManager::instance().playSound("hurt", body->getWorldPosition());
+		AudioManager::instance().playSound("hurt", body->getWorldPosition(), PauseMenu::Instance().getSFXVolume());
 	}
 
 	hp = maxHP;
@@ -959,7 +1003,7 @@ void FirstPersonControllerComponent::takeDamage() {
 	hp--;
 
 	// reset the damage timer
-	damageTimer = 0;   
+	damageTimer = 0;
 	timeSinceDamage = 0.0f;
 
 
@@ -968,17 +1012,17 @@ void FirstPersonControllerComponent::takeDamage() {
 	// Respawn if no hp
 	if (hp <= 0) {
 		if (difficulty == HARD) {
-			AudioManager::instance().playSound("hurt", body->getWorldPosition());
+			AudioManager::instance().playSound("hurt", body->getWorldPosition(), PauseMenu::Instance().getSFXVolume());
 			LevelManager::Instance().resetToMenu();
 			return;
 		}
 		else {
 			respawnPlayer();
-			
+
 		}
 	}
 	else {
-		AudioManager::instance().playSound("hurt", body->getWorldPosition());
+		AudioManager::instance().playSound("hurt", body->getWorldPosition(), PauseMenu::Instance().getSFXVolume());
 	}
 	std::cerr << "Current HP: " << hp << "\n";
 }
@@ -986,27 +1030,27 @@ void FirstPersonControllerComponent::takeDamage() {
 void FirstPersonControllerComponent::debugCheck()
 {
 	if (input->isKeyPressed(ActionKey[Debug])) {
-		
+
 		std::cout << "Here" << std::endl;
-	
+
 	}
 
 }
 
 std::shared_ptr<FirstPersonControllerComponent> FirstPersonControllerComponent::setDifficulty(Difficulty diff) {
-    difficulty = diff;
-    switch(diff) {
-        case EASY:
-            maxHP = 3;
-            break;
-        case NORMAL:
-        case HARD:
-            maxHP = 1;
-            break;
-        case CHEATING:
-            maxHP = 10;
-            break;
-    }
-    hp = maxHP;
-    return shared_from_this();
+	difficulty = diff;
+	switch (diff) {
+	case EASY:
+		maxHP = 3;
+		break;
+	case NORMAL:
+	case HARD:
+		maxHP = 1;
+		break;
+	case CHEATING:
+		maxHP = 10;
+		break;
+	}
+	hp = maxHP;
+	return shared_from_this();
 }

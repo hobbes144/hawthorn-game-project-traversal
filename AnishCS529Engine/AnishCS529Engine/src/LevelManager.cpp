@@ -46,6 +46,10 @@ void LevelManager::SystemInitalization()
     mainFramerateController =
         FFramerateController::getController();
 
+    PauseMenu::Instance().setInputSystem(mainInput);
+    PauseMenu::Instance().setFramerateController(mainFramerateController);
+    PauseMenu::Instance().setGamePad(gamepad);
+
     /* Audio System Initalization */
     AudioManager::instance().initialize();
     AudioManager::instance().loadSound("music", "media/audio/FG15-SpyVsSpy-Pfrommer.mp3", false, true);
@@ -160,10 +164,10 @@ void LevelManager::MeshMatInitializations()
 
 #pragma endregion
 
-    /*Map Loader*/
-    std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
+	/*Map Loader*/
+	std::shared_ptr<RenderGraph> rg = mainRenderer->getRenderGraph();
 
-    MapLoader::instance().initializeResources();
+	MapLoader::instance().initializeResources();
 
 }
 
@@ -291,275 +295,286 @@ void LevelManager::DisplayLogos()
 void LevelManager::RunLevels()
 {
 
-    levelSwapFlag = false;
+	levelSwapFlag = false;
 
-    createPlayerObject();
-    initalizePlayerInLevel();
+	createPlayerObject();
+	initalizePlayerInLevel();
 
-    switch (currentLevel)
-    {
-    case -1:
-        LoadLevelMenu();
-        break;
-    case 0:
-        LoadLevel0();
-        break;
-    case 1:
-        LoadLevel1();
-        break;
-    case 2:
-        LoadLevel2();
-        break;
-    case 3:
-        LoadLevel3();
-        break;
-    case 4:
-        LoadLevel4();
-        break;
-    case 5:
-        LoadLevel5();
-        break;
-    default:        
-        break;
-    }
+	switch (currentLevel)
+	{
+	case -1:
+		LoadLevelMenu();
+		break;
+	case 0:
+		LoadLevel0();
+		break;
+	case 1:
+		LoadLevel1();
+		break;
+	case 2:
+		LoadLevel2();
+		break;
+	case 3:
+		LoadLevel3();
+		break;
+	case 4:
+		LoadLevel4();
+		break;
+	case 5:
+		LoadLevel5();
+		break;
+	default:
+		break;
+	}
 
-    ExecuteMainLoop();
+	ExecuteMainLoop();
 
-    ClearLevel();
+	ClearLevel();
 
 }
 
 void LevelManager::ExecuteMainLoop()
 {
 
-    /* Main Loop Variables */
-    float angleX = 0.0f;
-    float angleY = 0.0f;
-    float angleZ = 0.0f;
-    float speed = 10.0f;
-    float deltaTime = 0.0f;
-    int expectedFrameRate = 60; // 1000;
-    static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
+	/* Main Loop Variables */
+	float angleX = 0.0f;
+	float angleY = 0.0f;
+	float angleZ = 0.0f;
+	float speed = 10.0f;
+	float deltaTime = 0.0f;
+	int expectedFrameRate = 60; // 1000;
+	static int windowedPosX, windowedPosY, windowedWidth, windowedHeight;
 
-    mainFramerateController->setTargetFramerate(expectedFrameRate);
-    mainSceneGraph.printSceneTree();
+	mainFramerateController->setTargetFramerate(expectedFrameRate);
+	mainSceneGraph.printSceneTree();
+  
+  mainRenderer->getRenderGraph()->lightsSet = false;
 
-    mainRenderer->getRenderGraph()->lightsSet = false;
+	while (!levelSwapFlag) {
 
-    while (!levelSwapFlag) {
+		mainRenderer->clear();
+		mainFramerateController->startFrame();              // record the time from frame start
 
-        mainRenderer->clear();
-        mainFramerateController->startFrame();              // record the time from frame start
+		//Update the Input Manager
+		mainInput->update();
 
-        //Update the Input Manager
-        mainInput->update();
+		//Update the GamePad
+		gamepad->update();
 
-        //Update the GamePad
-        gamepad->update();
+		//If Escape is Pressed Exit Loop
+		if (PauseMenu::Instance().isQuit()) {
+			currentLevel = numLevels + 1;
+			break;
+		}
 
-        //If Escape is Pressed Exit Loop
-        if (mainInput->isKeyHeld(KEY_ESCAPE)) {
-            currentLevel = numLevels + 1;
-            break;
-        }
-
-        if (mainInput->isKeyPressed(KEY_F11)) {
-
-          isFullscreen = !isFullscreen;
-          mainWindow->setFullscreen(isFullscreen);
-
-        }
-
-        //Cheating Level Select
-        auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
-        if (fpc && fpc->isCreativeMode()) {
-            for (int level = 0; level < 10; ++level) {
-                Key levelKey;
-                switch (level) {
-                case 0: levelKey = KEY_0; break;
-                case 1: levelKey = KEY_1; break;
-                case 2: levelKey = KEY_2; break;
-                case 3: levelKey = KEY_3; break;
-                case 4: levelKey = KEY_4; break;
-                case 5: levelKey = KEY_5; break;
-                case 6: levelKey = KEY_6; break;
-                case 7: levelKey = KEY_7; break;
-                case 8: levelKey = KEY_8; break;
-                case 9: levelKey = KEY_9; break;
-                default: continue;
-                }
-                if (mainInput->isKeyPressed(levelKey)) {
-                    if (level == 9) {
-                        resetToMenu();
-                    }
-                    if (level < numLevels) {
-                        currentLevel = level;
-                        levelSwapFlag = true;
-                    }
-                    else {
-                        std::cerr << "[MapLoader] Invalid level!\n";
-                    }
-                    break;
-                }
-            }
-        }
-
-        //Update Physics
-        while(mainFramerateController->shouldUpdatePhysics()) {
-            PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
-            mainFramerateController->consumePhysicsTime();
-        }
-
-        //Audio Update
-        AudioManager::instance().update();
-        AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
-        if (mainInput->isKeyPressed(KEY_V)) {
-            AudioManager::instance().togglePlaybackSpeed(0.7f);
-        }
-        AudioManager::instance().setListenerPosition(playerBox->getWorldPosition());
-
-        mainFramerateController->endFrame();
-        mainSceneGraph.update(1.0f / 60.0f);
-
-        checkPlayerBoundaries();
-        mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
-
-#pragma region IMGUI
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        //ImGui::SetNextWindowPos(ImVec2(10, 10)); // Position at top-left
-        //ImGui::SetNextWindowBgAlpha(0.35f); // Make it semi-transparent
-
-        ImGui::Begin("Overlay", nullptr,
-            ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_AlwaysAutoResize |
-            ImGuiWindowFlags_NoMove |
-            ImGuiWindowFlags_NoScrollbar |
-            ImGuiWindowFlags_NoInputs);
-
-        ImGui::Text("FPS: %.1f", mainFramerateController->getFPS());
-        ImGui::Text("Frametime: %f", mainFramerateController->getFrameTime());
-        ImGui::Text("RenderTime: %f", mainFramerateController->getRenderTime());
-
-        Vector3 playerPos = playerBox->getWorldTransform().getPosition();
-        ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
-        ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
-        Vector3 listenerPos = AudioManager::instance().getListenerPosition();
-        ImGui::Text("HP: %d", fpc->getHP());
-        if (auto fpc = playerBox->findComponent<FirstPersonControllerComponent>()) {
-            std::string diffStr;
-            switch (fpc->getDifficulty()) {
-            case FirstPersonControllerComponent::EASY:
-                diffStr = "EASY";
-                break;
-            case FirstPersonControllerComponent::NORMAL:
-                diffStr = "NORMAL";
-                break;
-            case FirstPersonControllerComponent::HARD:
-                diffStr = "HARD";
-                break;
-            case FirstPersonControllerComponent::CHEATING:
-                diffStr = "CHEATING";
-                break;
-            default:
-                diffStr = "UNKNOWN";
-                break;
-            }
-            ImGui::Text("Difficulty: %s", diffStr.c_str());
-        }
-
-
-        ImGui::End();
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-#pragma endregion
-
-
-        mainRenderer->swapBuffers();
-        mainWindow->update();
-
+		if (mainInput->isKeyPressed(KEY_F11)) {
+      isFullscreen = !isFullscreen;
+      mainWindow->setFullscreen(isFullscreen);
     }
+
+		// Physics update loop fixedStepTime
+		/*while (mainFramerateController->shouldUpdatePhysics()) {
+			PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
+			mainFramerateController->consumePhysicsTime();
+		}*/
+
+		auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
+		if (fpc && fpc->isCreativeMode()) {
+			for (int level = 0; level < 10; ++level) {
+				Key levelKey;
+				switch (level) {
+				case 0: levelKey = KEY_0; break;
+				case 1: levelKey = KEY_1; break;
+				case 2: levelKey = KEY_2; break;
+				case 3: levelKey = KEY_3; break;
+				case 4: levelKey = KEY_4; break;
+				case 5: levelKey = KEY_5; break;
+				case 6: levelKey = KEY_6; break;
+				case 7: levelKey = KEY_7; break;
+				case 8: levelKey = KEY_8; break;
+				case 9: levelKey = KEY_9; break;
+				default: continue;
+				}
+				if (mainInput->isKeyPressed(levelKey)) {
+					if (level == 9) {
+						resetToMenu();
+					}
+					if (level < numLevels) {
+						currentLevel = level;
+						levelSwapFlag = true;
+					}
+					else {
+						std::cerr << "[MapLoader] Invalid level!\n";
+					}
+					break;
+				}
+			}
+		}
+
+		if (PauseMenu::Instance().gameIsPaused()) {
+			mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
+			mainInput->controlMouse(false);
+			PauseMenu::Instance().run();
+		}
+		else {
+			while(mainFramerateController->shouldUpdatePhysics()) {
+			    PhysicsManager::Instance().update(mainFramerateController->getPhysicsTimestep());
+			    mainFramerateController->consumePhysicsTime();
+			}
+			//Audio Update
+			AudioManager::instance().update();
+			AudioManager::instance().setListenerPosition(playerBox.get()->getWorldTransform().getPosition());
+			if (mainInput->isKeyPressed(KEY_V)) {
+				AudioManager::instance().togglePlaybackSpeed(0.7f);
+			}
+			AudioManager::instance().setListenerPosition(playerBox->getWorldPosition());
+
+			checkPlayerBoundaries();
+		
+			mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
+	
+			mainSceneGraph.update(1.0f / 60.0f);
+		}
+
+		mainFramerateController->endFrame();
+
+		//
+		//#pragma region IMGUI
+		//        ImGui_ImplOpenGL3_NewFrame();
+		//        ImGui_ImplGlfw_NewFrame();
+		//        ImGui::NewFrame();
+		//        //ImGui::SetNextWindowPos(ImVec2(10, 10)); // Position at top-left
+		//        //ImGui::SetNextWindowBgAlpha(0.35f); // Make it semi-transparent
+		//
+		//        ImGui::Begin("Overlay", nullptr,
+		//            ImGuiWindowFlags_NoTitleBar |
+		//            ImGuiWindowFlags_NoResize |
+		//            ImGuiWindowFlags_AlwaysAutoResize |
+		//            ImGuiWindowFlags_NoMove |
+		//            ImGuiWindowFlags_NoScrollbar |
+		//            ImGuiWindowFlags_NoInputs);
+		//
+		//        ImGui::Text("FPS: %.1f", mainFramerateController->getFPS());
+		//        ImGui::Text("Frametime: %f", mainFramerateController->getFrameTime());
+		//        ImGui::Text("RenderTime: %f", mainFramerateController->getRenderTime());
+		//
+		//        Vector3 playerPos = playerBox->getWorldTransform().getPosition();
+		//        ImGui::Text("x: %.2f  y: %.2f  z: %.2f", playerPos.x, playerPos.y, playerPos.z);
+		//        ImGui::Text("Timer: %.2f seconds", mainFramerateController->getTime());
+		//        Vector3 listenerPos = AudioManager::instance().getListenerPosition();
+		//        ImGui::Text("HP: %d", fpc->getHP());
+		//        if (auto fpc = playerBox->findComponent<FirstPersonControllerComponent>()) {
+		//            std::string diffStr;
+		//            switch (fpc->getDifficulty()) {
+		//            case FirstPersonControllerComponent::EASY:
+		//                diffStr = "EASY";
+		//                break;
+		//            case FirstPersonControllerComponent::NORMAL:
+		//                diffStr = "NORMAL";
+		//                break;
+		//            case FirstPersonControllerComponent::HARD:
+		//                diffStr = "HARD";
+		//                break;
+		//            case FirstPersonControllerComponent::CHEATING:
+		//                diffStr = "CHEATING";
+		//                break;
+		//            default:
+		//                diffStr = "UNKNOWN";
+		//                break;
+		//            }
+		//            ImGui::Text("Difficulty: %s", diffStr.c_str());
+		//        }
+		//
+		//        ImGui::End();
+		//
+		//        ImGui::Render();
+		//        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		//#pragma endregion
+
+
+		mainRenderer->swapBuffers();
+		mainWindow->update();
+
+		//glfwSwapBuffers(window);
+
+	}
 }
 
 void LevelManager::checkPlayerBoundaries() {
-    Vector3 playerPos = playerBox->getWorldTransform().getPosition();
-    // Boundaries for each lvl
-    float maxX, minX, maxY, minY, minZ, maxZ;
-    switch (currentLevel) {
-    case 0:
-        maxX = 10.0f; minX = -400.0f;
-        maxY = 100.0f; minY = -45.0f;
-        maxZ = 11.0f; minZ = -11.0f;
-        break;
-    case 1:
-        maxX = 150.0f; minX = -400.0f;
-        maxY = 150.0f; minY = -45.0f;
-        maxZ = 11.0f; minZ = -11.0f;
-        break;
-    case 2:
-        maxX = 150.0f; minX = -400.0f;
-        maxY = 150.0f; minY = -45.0f;
-        maxZ = 11.0f; minZ = -11.0f;
-        break;
-    case 3:
-        maxX = 1000.0; minX = -1000.0;
-        maxY = 1000.0; minY = 5.0f;
-        maxZ = 1000.0; minZ = -1000.0;
-        break;
-    default:
-        maxX = 1000.0f; minX = -1000.0f;
-        maxY = 1000.0f; minY = -20.0f;
-        maxZ = 1000.0f; minZ = -1000.0f;
-        break;
-    }
+	Vector3 playerPos = playerBox->getWorldTransform().getPosition();
+	// Boundaries for each lvl
+	float maxX, minX, maxY, minY, minZ, maxZ;
+	switch (currentLevel) {
+	case 0:
+		maxX = 10.0f; minX = -400.0f;
+		maxY = 100.0f; minY = -45.0f;
+		maxZ = 11.0f; minZ = -11.0f;
+		break;
+	case 1:
+		maxX = 150.0f; minX = -400.0f;
+		maxY = 150.0f; minY = -45.0f;
+		maxZ = 11.0f; minZ = -11.0f;
+		break;
+	case 2:
+		maxX = 150.0f; minX = -400.0f;
+		maxY = 150.0f; minY = -45.0f;
+		maxZ = 11.0f; minZ = -11.0f;
+		break;
+	case 3:
+		maxX = 1000.0; minX = -1000.0;
+		maxY = 1000.0; minY = 5.0f;
+		maxZ = 1000.0; minZ = -1000.0;
+		break;
+	default:
+		maxX = 1000.0f; minX = -1000.0f;
+		maxY = 1000.0f; minY = -20.0f;
+		maxZ = 1000.0f; minZ = -1000.0f;
+		break;
+	}
 
-    if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
-        //std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
-        auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
-        if (fpc && !fpc->isCreativeMode()) {
-            fpc->respawnPlayer(true);
-            
-        }
-    }
+	if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
+		//std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
+		auto fpc = playerBox->findComponent<FirstPersonControllerComponent>();
+		if (fpc && !fpc->isCreativeMode()) {
+			fpc->respawnPlayer(true);
+
+		}
+	}
 }
 
 void LevelManager::NextLevel()
 {
-    if (currentLevel == 4) {
-        currentLevel = -1;
-    }
-    else {
-        currentLevel++;
-    }
-    levelSwapFlag = true;
+	if (currentLevel == 4) {
+		currentLevel = -1;
+	}
+	else {
+		currentLevel++;
+	}
+	levelSwapFlag = true;
 }
 
 void LevelManager::ClearLevel()
 {
 
-    //Clear Physics and Scenegraph
-    PhysicsManager::Instance().clearPhysicsManager();
-    mainSceneGraph.clear();
+	//Clear Physics and Scenegraph
+	PhysicsManager::Instance().clearPhysicsManager();
+	mainSceneGraph.clear();
 
 }
 
 void LevelManager::ShutdownLevels()
 {
 
-    ImGui::DestroyContext();
+	ImGui::DestroyContext();
 
-    mainInput->shutdown();
-    mainRenderer->shutdown();
-    mainWindow->shutdown();
-    AudioManager::instance().shutdown();
+	mainInput->shutdown();
+	mainRenderer->shutdown();
+	mainWindow->shutdown();
+	AudioManager::instance().shutdown();
 
-    delete mainInput;
-    delete mainRenderer;
-    delete mainWindow;
+	delete mainInput;
+	delete mainRenderer;
+	delete mainWindow;
 
 }
 
@@ -567,91 +582,91 @@ void LevelManager::ShutdownLevels()
 
 void LevelManager::LoadLevelMenu()
 {
-    MapLoader::instance().loadMap(-1, 0, 0, 0, mainSceneGraph);
+	MapLoader::instance().loadMap(-1, 0, 0, 0, mainSceneGraph);
 }
 
 void LevelManager::LoadLevel0()
 {
-    MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph);
+	MapLoader::instance().loadMap(0, 0, 0, 0, mainSceneGraph);
 }
 
 void LevelManager::LoadLevel1()
 {
-    MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph);
+	MapLoader::instance().loadMap(1, 0, 0, 0, mainSceneGraph);
 }
 
 void LevelManager::LoadLevel2()
 {
-    MapLoader::instance().loadMap(2, 0, 0, 0, mainSceneGraph);
+	MapLoader::instance().loadMap(2, 0, 0, 0, mainSceneGraph);
 }
 
 void LevelManager::LoadLevel3()
 {
-    MapLoader::instance().loadMap(3, 0, 0, 0, mainSceneGraph);
+	MapLoader::instance().loadMap(3, 0, 0, 0, mainSceneGraph);
 }
 
 void LevelManager::LoadLevel4()
 {
-    MapLoader::instance().loadMap(4, 0, 0, 0, mainSceneGraph);
+	MapLoader::instance().loadMap(4, 0, 0, 0, mainSceneGraph);
 }
 
 void LevelManager::LoadLevel5()
 {
-    MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph);
+	MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph);
 }
 
 #pragma endregion
 
 bool LevelManager::GameComplete()
 {
-    return currentLevel >= numLevels;
+	return currentLevel >= numLevels;
 }
 
 void LevelManager::createPlayerObject()
 {
 #pragma region Initalizations
 
-    playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
-    mainSceneGraph.addNode(playerBox);
+	playerBox = std::make_shared<GameObject>("PlayerBox", GameObject::Tag::PLAYER);
+	mainSceneGraph.addNode(playerBox);
 
-    cameraGameObject = std::make_shared<GameObject>("mainCamera");
-    playerBox->addChild(cameraGameObject);
+	cameraGameObject = std::make_shared<GameObject>("mainCamera");
+	playerBox->addChild(cameraGameObject);
 
-    camera = std::make_shared<AttachedCamera>("mainCamera");
-    camera->attachToNode(cameraGameObject);
-    mainSceneGraph.addCamera(camera);
+	camera = std::make_shared<AttachedCamera>("mainCamera");
+	camera->attachToNode(cameraGameObject);
+	mainSceneGraph.addCamera(camera);
 
 #pragma endregion
 
 #pragma region Camera
 
-    //Perspective
-    camera->setPerspectiveProjection(
-      45.0f * 3.14159f / 180.0f,
-      mainWindow->getAspectRatio(),
-      0.1f,
-      5000.0f);
+	//Perspective
+	camera->setPerspectiveProjection(
+	  45.0f * 3.14159f / 180.0f,
+	  mainWindow->getAspectRatio(),
+	  0.1f,
+	  5000.0f);
 
-    //Transform
-    cameraGameObject->setLocalPosition(Vector3(0.0f, 34.0f, 0.0f));
+	//Transform
+	cameraGameObject->setLocalPosition(Vector3(0.0f, 34.0f, 0.0f));
 
-    //auto cameraShape = std::make_shared<OBB>(
-    //    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
-    //    Vector3(0.5f, 0.5f, 0.5f));
-    //camera->addComponent<PhysicsBody>()
-    //    ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
-    //    ->setShape(cameraShape)
-    //    //->setDebug(true)
-    //    ->registerToPhysicsManager(PhysicsManager::Instance());
+	//auto cameraShape = std::make_shared<OBB>(
+	//    Vector3(0.0f, 0.0f, 0.0f),  // half width/height of 50 for 100x100 box
+	//    Vector3(0.5f, 0.5f, 0.5f));
+	//camera->addComponent<PhysicsBody>()
+	//    ->setMass(10.0f)->setDrag(1.0f)->setAngularDrag(1.0f)
+	//    ->setShape(cameraShape)
+	//    //->setDebug(true)
+	//    ->registerToPhysicsManager(PhysicsManager::Instance());
 
 #pragma endregion
 
-    Vector3 LightDirection = Vector3(-0.75f, -1.0f, 0.75f).normalized();
+	Vector3 LightDirection = Vector3(0.75f, -1.0f, 0.75f).normalized();
 
-    mainSceneGraph.addAmbientLight(
-      AmbientLight(Vector3(1, 1, 1), 0.3f));
-    mainSceneGraph.addDirectionalLight(
-      DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
+	mainSceneGraph.addAmbientLight(
+	  AmbientLight(Vector3(1, 1, 1), 0.3f));
+	mainSceneGraph.addDirectionalLight(
+	  DirectionalLight(LightDirection, 4.0f, Vector3(1.0f, 1.0f, 1.0f)));
 
 #pragma region PlayerBox
 
@@ -699,22 +714,22 @@ void LevelManager::createPlayerObject()
         ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
         ->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
         ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
-        ->setGPActionKey(FirstPersonControllerComponent::Debug, XINPUT_GAMEPAD_A)
-        ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_Y)
+        ->setActionKey(FirstPersonControllerComponent::Pause, KEY_ESCAPE)
+        ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_A)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
         ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
         ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
-        ->setGPActionKey(FirstPersonControllerComponent::Creative, XINPUT_GAMEPAD_LEFT_SHOULDER)
-        ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_RIGHT_SHOULDER);
+        ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_Y)
+        ->setGPActionKey(FirstPersonControllerComponent::Pause, XINPUT_GAMEPAD_START);
 
     playerBoxInputComponent->setDifficulty(playerDifficulty);
 #pragma endregion
 
+	PauseMenu::Instance().setPlayer(playerBox);
 }
 
 void LevelManager::initalizePlayerInLevel()
 {
-
     Vector3 activeSpawnPoint;
     Quaternion activeSpawnRotation;
 
@@ -763,16 +778,16 @@ void LevelManager::initalizePlayerInLevel()
 }
 
 void LevelManager::SetPlayerDifficulty(FirstPersonControllerComponent::Difficulty diff) {
-    playerDifficulty = diff;
+	playerDifficulty = diff;
 }
 
 FirstPersonControllerComponent::Difficulty LevelManager::getDifficulty() const {
-    return playerDifficulty;
+	return playerDifficulty;
 }
 
 void LevelManager::resetToMenu()
 {
-    currentLevel = -1;
-    levelSwapFlag = true;
+	currentLevel = -1;
+	levelSwapFlag = true;
 
 }
