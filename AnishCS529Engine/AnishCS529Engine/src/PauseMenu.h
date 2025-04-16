@@ -68,6 +68,7 @@ private:
 	bool isPaused = false;
 	bool quit = false;
 	bool toStart = false;
+
 	float musicVolume = 0.15f;
 	float SFXVolume = 1.0f;
 	float mouseXSensivity = 0.1f;

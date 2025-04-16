@@ -29,7 +29,7 @@ private:
 	void registerKey(WORD);
 
 public:
-	GamePad() : deadzoneX(0.05f), deadzoneY(0.05f),
+	GamePad() : deadzoneX(0.1f), deadzoneY(0.1f),
 		gpLXSensitivity(2.0f), gpLYSensitivity(2.0f),
 		gpRXSensitivity(2.0f), gpRYSensitivity(2.0f) {
 	}
