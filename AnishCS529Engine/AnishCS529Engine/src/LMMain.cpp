@@ -17,16 +17,14 @@ extern "C"
 int main()
 {
 
-    LevelManager::Instance().SystemInitalization();
-    LevelManager::Instance().MeshMatInitializations();
-
+    LevelManager::Instance().initialize();
     LevelManager::Instance().DisplayLogos();
 
     //Main Loop
     while (!LevelManager::Instance().GameComplete()) {
         LevelManager::Instance().RunLevels();
     }
-    LevelManager::Instance().ShutdownLevels();
+    LevelManager::Instance().shutdown();
 
     return 0;
 }

@@ -10,12 +10,13 @@
 #include "RigidBody.h"
 #include "FirstPersonControllerComponent.h"
 
-class DeathPlane : public RigidBody {
+class DeathPlane : public PhysicsBody {
 public:
-	DeathPlane() : RigidBody() {}
+	DeathPlane() : PhysicsBody() {}
 	~DeathPlane() = default;
 
-	void initialize();
+	void initialize() override;
+	void shutdown() override;
 
 	void setPlayerName(std::string name);
 	std::string getPlayerName();

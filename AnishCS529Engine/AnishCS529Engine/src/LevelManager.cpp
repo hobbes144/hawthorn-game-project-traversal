@@ -71,13 +71,35 @@ void LevelManager::SystemInitalization()
 
 }
 
+void LevelManager::SystemShutdown()
+{
+  ImGui::DestroyContext();
+
+  mainInput->shutdown();
+  mainRenderer->shutdown();
+  mainWindow->shutdown();
+  gamepad->shutdown();
+  AudioManager::instance().shutdown();
+
+  delete mainInput;
+  delete mainRenderer;
+  delete mainWindow;
+  delete gamepad;
+}
+
 void LevelManager::MeshMatInitializations()
 {
-
 #pragma region Meshs/Materials
-    // Create meshes
-    boxMesh = Mesh::createMesh("box", Mesh::Cube);
-    sphereMesh = Mesh::createSphereMesh("sphere", 32);
+
+#pragma region Player
+
+  boxMesh = Mesh::getShapeMesh(Mesh::Cube);
+  sphereMesh = Mesh::getShapeMesh(Mesh::Sphere);
+
+  shadowMaterial = Material::getMaterial<TextureMaterial>("shadow");
+  shadowMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  shadowMaterial->setProperty("shininess", 1.0f);
+  shadowMaterial->addTexture("media/textures/shadow5.png", 1.0f, 1.0f);
 
     // Digi Material
     digiMaterial = Material::getMaterial<TextureMaterial>("digi");
@@ -90,71 +112,6 @@ void LevelManager::MeshMatInitializations()
     fmodMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
     fmodMaterial->setProperty("shininess", 10.0f);
     fmodMaterial->addTexture("media/textures/FmodLogo.jpg", 1.0f, 1.0f);
-
-    // Concrete Material
-    concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
-    concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    concreteMaterial->setProperty("shininess", 10.0f);
-    concreteMaterial->addTexture("media/textures/Concrete.png", 2.0f, 2.0f);
-
-    // Cracks Material
-    cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
-    cracksMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    cracksMaterial->setProperty("shininess", 10.0f);
-    cracksMaterial->addTexture("media/textures/cracks.png");
-
-    // Sky Box Material
-    sphereMesh = Mesh::createSphereMesh("sphere", 32);
-    skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox");
-    skyBoxMaterial.get()->addTexture("media/beach.jpg");
-    skyBoxMaterial.get()->setProperty("objectId", 1);
-
-    // Additional Materials
-
-    LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
-    LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    LightBlueConcrete->setProperty("shininess", 10.0f);
-    LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 1.0f, 1.0f);
-
-    YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
-    YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    YellowConcrete->setProperty("shininess", 10.0f);
-    YellowConcrete->addTexture("media/textures/YellowConcrete.png", 20.0f, 20.0f);
-
-    BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
-    BrownConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    BrownConcrete->setProperty("shininess", 10.0f);
-    BrownConcrete->addTexture("media/textures/BrownConcrete.png", 0.5f, 1.0f);
-
-    BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
-    BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    BlueConcrete->setProperty("shininess", 10.0f);
-    BlueConcrete->addTexture("media/textures/BlueConcrete.png", 3.0f, 3.0f);
-
-    WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
-    WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    WhiteFloorTiles->setProperty("shininess", 10.0f);
-    WhiteFloorTiles->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
-
-    keyMaterial = Material::getMaterial<TextureMaterial>("key");
-    keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    keyMaterial->setProperty("shininess", 20.0f);
-    keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
-
-    shadowMaterial = Material::getMaterial<TextureMaterial>("shadow");
-    shadowMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    shadowMaterial->setProperty("shininess", 1.0f);
-    shadowMaterial->addTexture("media/textures/shadow5.png", 1.0f, 1.0f);
-
-    jumpImage = Material::getMaterial<TextureMaterial>("jumpImage");
-    jumpImage->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    jumpImage->setProperty("shininess", 1.0f);
-    jumpImage->addTexture("media/textures/jumpImage.png", 1.0f, 1.0f);
-
-    wordMaterial = Material::getMaterial<TextureMaterial>("words");
-    wordMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
-    wordMaterial->setProperty("shininess", 1.0f);
-    wordMaterial->addTexture("media/textures/words.png", 1.0f, 1.0f);
 
     //doorMaterial = Material::getMaterial<MainTestMaterial>("door", mainRenderer->getRenderGraph());
     //doorMaterial->setProperty("diffuse", Vector3(87 / 255.0f, 51 / 255.0f, 35 / 255.0f));
@@ -567,18 +524,18 @@ void LevelManager::ClearLevel()
 
 void LevelManager::ShutdownLevels()
 {
+  // Empty for now, but we can add stuff later.
+}
 
-	ImGui::DestroyContext();
+void LevelManager::initialize()
+{
+  SystemInitalization();
+  MeshMatInitializations();
+}
 
-	mainInput->shutdown();
-	mainRenderer->shutdown();
-	mainWindow->shutdown();
-	AudioManager::instance().shutdown();
-
-	delete mainInput;
-	delete mainRenderer;
-	delete mainWindow;
-
+void LevelManager::shutdown() {
+  SystemShutdown();
+  ShutdownLevels();
 }
 
 #pragma region LevelLoaders
@@ -801,7 +758,7 @@ void LevelManager::initalizePlayerInLevel()
 
     mainRenderer->getRenderGraph()->addPass<LightingPass>();
 
-    mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
+    //mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
 
 }
 

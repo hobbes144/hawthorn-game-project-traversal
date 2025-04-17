@@ -13,25 +13,63 @@ MapLoader& MapLoader::instance() {
 }
 
 void MapLoader::initializeResources() {
-    boxMesh = Mesh::createMesh("box", Mesh::Cube);
-    sphereMesh = Mesh::createSphereMesh("sphere", 32);
-    boxMaterial = Material::getMaterial<TextureMaterial>("box");
-    floorMaterial = Material::getMaterial<TextureMaterial>("floor");
-    concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
-    grassMaterial = Material::getMaterial<TextureMaterial>("grass");
-    cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
-    myhouseMaterial = Material::getMaterial<TextureMaterial>("myhouse");
-    brickMaterial = Material::getMaterial<TextureMaterial>("brick");
-    skyBoxMaterial = Material::getMaterial<TextureMaterial>("skyBox");
-    LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
-    YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
-    BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
-    BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
-    WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
-    keyMaterial = Material::getMaterial<TextureMaterial>("key");
-    shadowMaterial = Material::getMaterial<TextureMaterial>("shadow");
-    jumpImage = Material::getMaterial<TextureMaterial>("jumpImage");
-    wordMaterial = Material::getMaterial<TextureMaterial>("words");
+  // Get meshes
+  boxMesh = Mesh::getShapeMesh(Mesh::Cube);
+  sphereMesh = Mesh::getShapeMesh(Mesh::Sphere);
+
+  // Concrete Material
+  concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
+  concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  concreteMaterial->setProperty("shininess", 10.0f);
+  concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
+
+  // Cracks Material
+  cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
+  cracksMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  cracksMaterial->setProperty("shininess", 10.0f);
+  cracksMaterial->addTexture("media/textures/cracks.png");
+
+  // Additional Materials
+
+  LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
+  LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  LightBlueConcrete->setProperty("shininess", 10.0f);
+  LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 20.0f, 20.0f);
+
+  YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
+  YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  YellowConcrete->setProperty("shininess", 10.0f);
+  YellowConcrete->addTexture("media/textures/YellowConcrete.png", 20.0f, 20.0f);
+
+  BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
+  BrownConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  BrownConcrete->setProperty("shininess", 10.0f);
+  BrownConcrete->addTexture("media/textures/BrownConcrete.png", 20.0f, 20.0f);
+
+  BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
+  BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  BlueConcrete->setProperty("shininess", 10.0f);
+  BlueConcrete->addTexture("media/textures/BlueConcrete.png", 3.0f, 3.0f);
+
+  WhiteFloorTiles = Material::getMaterial<TextureMaterial>("WhiteFloorTiles");
+  WhiteFloorTiles->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  WhiteFloorTiles->setProperty("shininess", 10.0f);
+  WhiteFloorTiles->addTexture("media/textures/WhiteFloorTiles.png", 20.0f, 20.0f);
+
+  keyMaterial = Material::getMaterial<TextureMaterial>("key");
+  keyMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  keyMaterial->setProperty("shininess", 20.0f);
+  keyMaterial->addTexture("media/textures/key.png", 1.0f, 1.0f);
+
+  jumpImage = Material::getMaterial<TextureMaterial>("jumpImage");
+  jumpImage->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  jumpImage->setProperty("shininess", 1.0f);
+  jumpImage->addTexture("media/textures/jumpImage.png", 1.0f, 1.0f);
+
+  wordMaterial = Material::getMaterial<TextureMaterial>("words");
+  wordMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
+  wordMaterial->setProperty("shininess", 1.0f);
+  wordMaterial->addTexture("media/textures/words.png", 1.0f, 1.0f);
 }
 
 
