@@ -68,7 +68,7 @@ void main()
       vec3 B = normalize(cross(T,N));
       N = delta.x*T + delta.y*B + delta.z*N;
     }
-
+    
     FragData[0] = vec4(worldPos, 1.0f);
     FragData[1] = vec4(N, 1.0f);
     FragData[2] = vec4(Kd, 1.0f);

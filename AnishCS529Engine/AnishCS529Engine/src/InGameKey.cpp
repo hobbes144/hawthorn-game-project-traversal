@@ -11,13 +11,13 @@ void onKeyCollide(std::shared_ptr<GameObject> obj1,
 
 	if (K1 && S2) {
 		S2->addKey(K1->getID());
-		AudioManager::instance().playSound("key", obj1->getWorldPosition());
+		AudioManager::instance().playSound("key", obj1->getWorldPosition(), PauseMenu::Instance().getSFXVolume());
 		std::cout << "1";
 		obj1->disable();
 	}
 	else if (K2 && S1) {
 		S1->addKey(K2->getID());
-		AudioManager::instance().playSound("key", obj2->getWorldPosition());
+		AudioManager::instance().playSound("key", obj2->getWorldPosition(), PauseMenu::Instance().getSFXVolume());
 		std::cout << "2";
 		obj2->disable();
 	}

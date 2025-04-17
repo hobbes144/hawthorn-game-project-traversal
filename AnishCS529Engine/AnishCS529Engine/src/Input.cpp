@@ -9,7 +9,7 @@
  * 
  *****************************************************************************/
 #include "precompiled.h"
-#include"Input.h"
+#include "Input.h"
 
 /* Private functions */
 
@@ -218,8 +218,6 @@ void Input::endFrame()
 void Input::initialize() {
     controlMouse(true);
     setupCallbacks();
-    gamePad = new GamePad;
-    gamePad->initialize();
 }
 
 /*!****************************************************************************
@@ -247,7 +245,6 @@ void Input::update() {
 
   prevMouseState = mouseState;
 
-  gamePad->update();
 }
 
 /*!****************************************************************************

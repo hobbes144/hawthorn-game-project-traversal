@@ -16,12 +16,13 @@
 #include <cassert>
 #include <functional>
 
+#include "Audio.h"
 #include "Component.h"
 #include "GameObject.h"
 #include "GamePad.h"
 #include "Input.h"
+#include "PauseMenu.h"
 #include "PhysicsBody.h"
-#include "Audio.h"
 
 /*!****************************************************************************
  * \brief This is the First Person Contorller responsible for player movement,
@@ -66,7 +67,8 @@ public:
         Debug,
         Creative,
         Freeze,
-        Music
+        Music,
+        Pause
     };
 
     enum Difficulty {
@@ -119,7 +121,7 @@ public:
 
     FirstPersonControllerComponent() : playerState(Free),
       anchorInfo(AnchorInfo()),
-        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr),
+        input(nullptr), physicsBody(nullptr), body(nullptr), camera(nullptr), gp(nullptr),
         walkForce(15), maxWalkSpeed(15.0f),
         runForceMultiplier(2.0f), maxRunSpeed(2 * maxWalkSpeed),
         jumpSpeed(40), airDrag(0.1f), anchoredDrag(0.6f),
@@ -128,7 +130,7 @@ public:
         slideForce(50), slideCoolDown(1.4f), slideEffectTime(0.5f),
         slideBufferTime(0.2f), hasSlidSinceAnchored(false),
         wallRunSpeed(30), wallJumpForce(17),
-        sceneRoot(nullptr), isCreative(false), hp(1), maxHP(1), difficulty(NORMAL)
+        sceneRoot(nullptr), isCreative(false), isPaused(false), hp(1), maxHP(1), difficulty(NORMAL)
         {}
     ~FirstPersonControllerComponent() = default;
 
@@ -151,6 +153,10 @@ public:
       setSceneRoot(std::shared_ptr<Node> root);
     std::shared_ptr<FirstPersonControllerComponent>
         setGamePad(GamePad* _gp);
+
+    void setMouseXSensivity(float var);
+    void setMouseYSensivity(float var);
+    FirstPersonControllerComponent* getSelf();
 
     std::shared_ptr<FirstPersonControllerComponent>
       setState(PlayerState state);
@@ -218,6 +224,10 @@ private:
     AnchorInfo anchorInfo;
     std::shared_ptr<GameObject> anchorSurface;
 
+    std::shared_ptr<GameObject> lastWallRunObject = nullptr;
+    float wallRunLockoutTimer = 0;
+    const float wallRunLockoutDuration = 0.3f;
+
     int hp;
     int maxHP;
     float timeSinceDamage = 0.0f;
@@ -281,10 +291,14 @@ private:
 
     std::shared_ptr<Node> sceneRoot;
 
+    //GamePad
+    GamePad* gp;
+
     //Special States
     bool isCreative = false;
     bool playsMusic = true;
     bool isFrozen = false;
+    bool isPaused = false;
 
     //Debugging
     void debugCheck();
