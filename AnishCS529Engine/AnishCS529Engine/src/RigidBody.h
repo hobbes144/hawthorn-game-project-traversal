@@ -47,7 +47,8 @@ public:
 	~RigidBody() = default;
 
 	/* Component functions */
-	void initialize();
+	void initialize() override;
+	void shutdown() override;
 
 	/* Physics update function */
 	virtual void integrate(float deltaTime);

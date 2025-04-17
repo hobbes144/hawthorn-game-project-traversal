@@ -15,7 +15,8 @@ public:
 	DeathPlane() : PhysicsBody() {}
 	~DeathPlane() = default;
 
-	void initialize();
+	void initialize() override;
+	void shutdown() override;
 
 	void setPlayerName(std::string name);
 	std::string getPlayerName();

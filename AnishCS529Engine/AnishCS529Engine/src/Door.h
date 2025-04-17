@@ -9,7 +9,7 @@
 #include "RigidBody.h"
 #include "FirstPersonControllerComponent.h"  
 
-class Door : public RigidBody {
+class Door : public PhysicsBody {
 public:
 	enum DoorType {
 		SLIDEUP,
@@ -18,10 +18,13 @@ public:
 		SET_DIFFICULTY
 	};
 
-	Door() : id(0), LevelSwitched(false), type(DISAPPEAR), requiresKey(true), difficultyMode(FirstPersonControllerComponent::NORMAL), RigidBody() {}
+	Door() : 
+		PhysicsBody(), id(0), LevelSwitched(false), type(DISAPPEAR),
+		requiresKey(true), difficultyMode(FirstPersonControllerComponent::NORMAL) {}
 	~Door() = default;
 
-	void initialize();
+	void initialize() override;
+	void shutdown() override;
 
 	int getID();
 	void setID(int _id);

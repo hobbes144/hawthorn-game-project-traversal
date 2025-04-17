@@ -26,6 +26,11 @@ void DeathPlane::initialize() {
 	deathListener->setCallback(onDeathCollide);
 }
 
+void DeathPlane::shutdown()
+{
+	delete deathListener;
+}
+
 void DeathPlane::setPlayerName(std::string name){
 	playerName = name;
 }

@@ -130,6 +130,11 @@ void Door::initialize() {
 	doorListener->setCallback(onDoorCollide);
 }
 
+void Door::shutdown()
+{
+	delete doorListener;
+}
+
 int Door::getID() {
 	return id;
 }
