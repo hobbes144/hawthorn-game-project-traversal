@@ -49,6 +49,7 @@ void LevelManager::SystemInitalization()
     PauseMenu::Instance().setInputSystem(mainInput);
     PauseMenu::Instance().setFramerateController(mainFramerateController);
     PauseMenu::Instance().setGamePad(gamepad);
+    PauseMenu::Instance().registerPauseCallback(mainWindow);
 
     /* Audio System Initalization */
     AudioManager::instance().initialize();

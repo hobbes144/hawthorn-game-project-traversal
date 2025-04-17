@@ -93,6 +93,10 @@ public:
   GameWindow* setInitialFullscreen(bool flag);
   GameWindow* setFullscreen(bool flag);
 
+  // See note under resizeCallback2 variable. This needs to be removed.
+  void setResizeCallback2(
+      std::function<void(GLFWwindow*, int, int)> callback2);
+
 private:
   /** Width of the window */
   int width;
@@ -114,6 +118,22 @@ private:
   GLFWwindow* pWindow;
   /** Resize callback function pointer */
   std::function<void(GLFWwindow*, int, int)> resizeCallback;
+  /** TEMPORARY SECONDARY RESIZE CALLBACK FOR PAUSE MENU */
+  std::function<void(GLFWwindow*, int, int)> resizeCallback2;
+  /* This should be reworked in the future to use an Event
+  * Broadcast specifically for Engine Events.
+  * 
+  * Ideally we have an Engine State Manager that can handle Engine
+  * events like this. We can have the Engine handle the Event broadcast
+  * and all the related systems can register themselves to the Engine
+  * Event Broadcast List.
+  * 
+  * Note: We also need to split the Event Manager Broadcast listeners
+  * to have multiple lists per type. This will reduce processing times
+  * for physics too.
+  */
+
+
   std::function<void(GLFWwindow*, double, double)> cursorPosCallback;
   std::function<void(GLFWwindow*, int, int, int)> mouseButtonCallback;
 

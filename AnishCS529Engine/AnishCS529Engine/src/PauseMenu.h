@@ -48,6 +48,9 @@ public:
 	float getMusicVolume();
 	float getSFXVolume();
 
+	void pauseCallback(GLFWwindow* pWindow, int width, int height);
+	void registerPauseCallback(GameWindow* gameWIndow);
+
 private:
 	enum MenuType {
 		MainPauseMenu,

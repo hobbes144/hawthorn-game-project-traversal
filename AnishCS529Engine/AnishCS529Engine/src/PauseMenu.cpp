@@ -56,6 +56,23 @@ float PauseMenu::getSFXVolume() {
 	return SFXVolume;
 }
 
+void PauseMenu::pauseCallback(GLFWwindow * pWindow, int width, int height) {
+	isPaused = true;
+
+	if ( width == 0 || height == 0 ) {
+		AudioManager::instance().pauseSound();
+	}
+	else {
+		AudioManager::instance().resumeSound();
+	}
+}
+
+void PauseMenu::registerPauseCallback(GameWindow * gameWindow) {
+	gameWindow->setResizeCallback2([this](GLFWwindow * pWindow, int width, int height) {
+		this->pauseCallback(pWindow, width, height);
+		});
+}
+
 void PauseMenu::testMenu() {
 	//test stuffs
 }
