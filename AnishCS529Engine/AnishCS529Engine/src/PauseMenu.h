@@ -49,6 +49,40 @@ public:
 	float getMusicVolume();
 	float getSFXVolume();
 
+	enum Action {
+		MoveForward,
+		MoveBackward,
+		MoveLeft,
+		MoveRight,
+		Jump,
+		Sprint,
+		Slide,
+		NUM_ACTIONS
+	};
+
+	static constexpr const char* ActionNames[NUM_ACTIONS] = {
+		"Move Forward", "Move Backward", "Move Left", "Move Right", "Jump", "Sprint", "Slide"
+	};
+	Key actionKeys[NUM_ACTIONS] = {
+		KEY_W, KEY_S, KEY_A, KEY_D, KEY_SPACE, KEY_LEFT_SHIFT, KEY_LEFT_CONTROL
+	};
+
+	const Key* getActionKeys() const { return actionKeys; }
+
+	static std::string GetKeyName(Key key)
+	{
+		switch (key) {
+		case KEY_W: return "W";
+		case KEY_A: return "A";
+		case KEY_S: return "S";
+		case KEY_D: return "D";
+		case KEY_LEFT_SHIFT: return "Shift";
+		case KEY_LEFT_CONTROL: return "Ctrl";
+		case KEY_SPACE: return "Space";
+		default: return "Key " + std::to_string((int)key);
+		}
+	}
+
 private:
 	enum MenuType {
 		MainPauseMenu,
@@ -58,25 +92,7 @@ private:
 		Test
 	};
 
-	enum Action {
-		MoveForward,
-		MoveBackward,
-		MoveLeft,
-		MoveRight,
-		Sprint,
-		Slide,
-		NUM_ACTIONS
-	};
-	const char* ActionNames[NUM_ACTIONS] = {
-		"Move Forward", "Move Backward", "Move Left", "Move Right", "Sprint", "Slide"
-	};
-
-	using BindInput = std::variant<Key, int>; 
-
-	// For each action, store the bind
-	BindInput actionBinds[NUM_ACTIONS] = {
-		KEY_W, KEY_S, KEY_A, KEY_D, KEY_LEFT_SHIFT, KEY_LEFT_CONTROL
-	};
+	
 
 	// For remapping state
 	int remapActionIndex = -1; // -1:not remapping, [0,NUM_ACTIONS)
@@ -111,30 +127,7 @@ private:
 	GamePad* gp;
 	std::shared_ptr<GameObject> player;
 
-	static std::string GetBindName(const BindInput& bind)
-	{
-		if (std::holds_alternative<Key>(bind)) {
-			Key key = std::get<Key>(bind);
-			switch (key) {
-			case KEY_W: return "W";
-			case KEY_A: return "A";
-			case KEY_S: return "S";
-			case KEY_D: return "D";
-			case KEY_LEFT_SHIFT: return "Shift";
-			case KEY_LEFT_CONTROL: return "Ctrl";
-			case KEY_SPACE: return "Space";
-			default: return "Key " + std::to_string((int)key);
-			}
-		}
-		else {
-			int button = std::get<int>(bind);
-			switch (button) {
-			case GLFW_MOUSE_BUTTON_LEFT: return "Mouse Left";
-			case GLFW_MOUSE_BUTTON_RIGHT: return "Mouse Right";
-			default: return "Mouse " + std::to_string(button);
-			}
-		}
-	}
+	
 };
 
 #endif

@@ -711,18 +711,18 @@ void LevelManager::createPlayerObject()
         ->setBody(playerBox.get())
         ->setSceneRoot(mainSceneGraph.getRootNode())
         ->setCamera(cameraGameObject.get())
-        ->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
-        ->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
-        ->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
-        ->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
-        ->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
-        ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
-        ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
+        //->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
+        //->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
+        //->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
+        //->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
+        //->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
+        //->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
+        //->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
         ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
         ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
         ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
         ->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
-        ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
+        //->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
         ->setActionKey(FirstPersonControllerComponent::Pause, KEY_ESCAPE)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_A)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
@@ -731,7 +731,18 @@ void LevelManager::createPlayerObject()
         ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_Y)
         ->setGPActionKey(FirstPersonControllerComponent::Pause, XINPUT_GAMEPAD_START);
 
+    const Key* keys = PauseMenu::Instance().getActionKeys();
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::MoveForward, keys[PauseMenu::MoveForward]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::MoveBackward, keys[PauseMenu::MoveBackward]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::MoveLeft, keys[PauseMenu::MoveLeft]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::MoveRight, keys[PauseMenu::MoveRight]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::Jump, keys[PauseMenu::Jump]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::Sprint, keys[PauseMenu::Sprint]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::Slide, keys[PauseMenu::Slide]);
+
     playerBoxInputComponent->setDifficulty(playerDifficulty);
+
+
 #pragma endregion
 
 	PauseMenu::Instance().setPlayer(playerBox);

@@ -292,40 +292,23 @@ void PauseMenu::settings() {
     ImGui::Text(" ");
 
 
-    // ------------ KEY BINDINGS ----------------
-    enum BindAction {
-        MoveForward,
-        MoveBackward,
-        MoveLeft,
-        MoveRight,
-        Jump,
-        Sprint,
-        Slide,
-        ACTION_COUNT
-    };
-    static const char* actionLabels[ACTION_COUNT] = {
-        "Move Forward", "Move Backward", "Move Left", "Move Right", "Jump", "Sprint", "Slide"
-    };
-    static Key actionKeys[ACTION_COUNT] = {
-        KEY_W, KEY_S, KEY_A, KEY_D, KEY_SPACE, KEY_LEFT_SHIFT, KEY_LEFT_CONTROL
-    };
-    static int keyToChange = -1;
-    static bool awaitingKey = false;
+    Key* actionKeys = this->actionKeys;
+
 
     // Key assignment
-    if (awaitingKey && keyToChange >= 0 && keyToChange < ACTION_COUNT) {
+    if (waitingForKey && remapActionIndex >= 0 && remapActionIndex < NUM_ACTIONS) {
         for (int k = 32; k <= 348; ++k) // GLFW keys 32-348
         {
-            if (input->isKeyPressed((Key)k)) {
-                // ESCAPE used as cancel only
+            if (input->isKeyPressed(static_cast<Key>(k))) {
                 if (k == GLFW_KEY_ESCAPE) {
-                    keyToChange = -1;
-                    awaitingKey = false;
+                    // Cancel assign
+                    remapActionIndex = -1;
+                    waitingForKey = false;
                 }
                 else {
-                    actionKeys[keyToChange] = (Key)k;
-                    keyToChange = -1;
-                    awaitingKey = false;
+                    actionKeys[remapActionIndex] = static_cast<Key>(k);
+                    remapActionIndex = -1;
+                    waitingForKey = false;
                 }
                 break;
             }
@@ -477,21 +460,21 @@ void PauseMenu::settings() {
         float labelWidth = 200.f;
         float cellHeight = ImGui::GetTextLineHeightWithSpacing();
 
-        for (int i = 0; i < ACTION_COUNT; ++i)
+        for (int i = 0; i < NUM_ACTIONS; ++i)
         {
             float row_start_y = ImGui::GetCursorPosY();
             ImGui::SetCursorPosX(margin);
             ImGui::AlignTextToFramePadding();
-            ImGui::Text("%s", actionLabels[i]);
+            ImGui::Text("%s", ActionNames[i]);
             ImGui::SameLine(margin + labelWidth);
 
             std::string buttonId = std::string("##keybind") + std::to_string(i);
-            std::string btnLabel = (keyToChange == i && awaitingKey) ? "Press key..." : GetKeyLabel(actionKeys[i]);
+            std::string btnLabel = (remapActionIndex == i && waitingForKey) ? "Press key..." : GetKeyLabel(actionKeys[i]);
 
             if (ImGui::Button((btnLabel + buttonId).c_str(), ImVec2(buttonWidth, 0)))
             {
-                keyToChange = i;
-                awaitingKey = true;
+                remapActionIndex = i;
+                waitingForKey = true;
             }
             ImGui::SetCursorPosY(row_start_y + cellHeight);
         }
@@ -531,7 +514,7 @@ void PauseMenu::settings() {
 
     ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
     if ((ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
-        (ImGui::IsKeyPressed(KEY_ESCAPE) && !awaitingKey))) {
+        (ImGui::IsKeyPressed(KEY_ESCAPE) && !waitingForKey))) {
         menuType = MainPauseMenu;
     }
 
