@@ -13,7 +13,8 @@ public:
 	InGameKey() : id(0), listener(nullptr), PhysicsBody() {}
 	~InGameKey() = default;
 
-	void initialize();
+	void initialize() override;
+	void shutdown() override;
 
 	int getID();
 	void setID(int _id);

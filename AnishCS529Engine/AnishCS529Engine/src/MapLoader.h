@@ -72,19 +72,13 @@ private:
     std::shared_ptr<Mesh> boxMesh;
     std::shared_ptr<Mesh> sphereMesh;
 
-    std::shared_ptr<TextureMaterial> boxMaterial;
-    std::shared_ptr<TextureMaterial> floorMaterial;
     std::shared_ptr<TextureMaterial> concreteMaterial;
+    std::shared_ptr<TextureMaterial> cracksMaterial;
     std::shared_ptr<TextureMaterial> LightBlueConcrete;
     std::shared_ptr<TextureMaterial> YellowConcrete;
     std::shared_ptr<TextureMaterial> BrownConcrete;
     std::shared_ptr<TextureMaterial> BlueConcrete;
     std::shared_ptr<TextureMaterial> WhiteFloorTiles;
-    std::shared_ptr<TextureMaterial> grassMaterial;
-    std::shared_ptr<TextureMaterial> cracksMaterial;
-    std::shared_ptr<TextureMaterial> myhouseMaterial;
-    std::shared_ptr<TextureMaterial> brickMaterial;
-    std::shared_ptr<TextureMaterial> skyBoxMaterial;
     std::shared_ptr<TextureMaterial> keyMaterial;
     std::shared_ptr<TextureMaterial> shadowMaterial;
     std::shared_ptr<TextureMaterial> jumpImage;

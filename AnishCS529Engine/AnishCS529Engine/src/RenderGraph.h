@@ -30,6 +30,7 @@ public:
   ~RenderGraph() { delete renderGraphBuilder; }
 
   void initialize();
+  void shutdown();
 
   template <typename T>
   std::shared_ptr<T> addPass();

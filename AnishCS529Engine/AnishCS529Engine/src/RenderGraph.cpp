@@ -20,6 +20,11 @@ void RenderGraph::initialize()
   initializeCameraUBO();
 }
 
+void RenderGraph::shutdown()
+{
+  delete renderGraphBuilder;
+}
+
 void RenderGraph::clear()
 {
   renderStack.clear();

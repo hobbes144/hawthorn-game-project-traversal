@@ -45,10 +45,12 @@ public:
 	std::unordered_map<WORD, GPKeyState> keyStates;
 
 	void initialize();
+	bool update();
+	void shutdown();
+
 	int  GetPort();
 	XINPUT_GAMEPAD* GetState();
 	bool CheckConnection();
-	bool update();
 	bool isPressed(WORD);
 	bool isHeld(WORD);
 	bool isReleased(WORD);

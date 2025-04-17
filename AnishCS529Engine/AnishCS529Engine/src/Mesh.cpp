@@ -601,6 +601,9 @@ std::shared_ptr<Mesh> Mesh::createMesh(const std::string& name, Type type)
   case Cube:
     return createCubeMesh(name);
     break;
+  case Sphere:
+    return createSphereMesh(name);
+    break;
   default:
     assert(("MESH::CREATEMESH::INVALIDTYPE") && false);
   }
@@ -619,6 +622,9 @@ std::shared_ptr<Mesh> Mesh::getShapeMesh(Type type)
     break;
   case Cube:
     name = "CubeShape";
+    break;
+  case Sphere:
+    name = "SphereShape";
     break;
   default:
     assert(("MESH::GETSHAPEMESH::INVALIDTYPE") && false);
