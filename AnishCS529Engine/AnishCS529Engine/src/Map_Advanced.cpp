@@ -1138,6 +1138,13 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         createFerrisWheel("Wheel1", Vector3(57.0f + offsetX, 70.0f + offsetY, -86.0f + offsetZ), 3, 20.0f, 5.3f);
     }
 
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(57.0f + offsetX, 73.0f + offsetY, -100.0f + offsetZ), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 0.0f, -0.57f), wordMaterial);
+
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(90.0f + offsetX, 110.0f + offsetY, -86.0f + offsetZ), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 1.57f, 0.0f), wordMaterial);
+
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(107.0f + offsetX, 150.0f + offsetY, -86.0f + offsetZ), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 1.57f, -2.57f), wordMaterial);
+
+
     {
         // Guide Image
         {
