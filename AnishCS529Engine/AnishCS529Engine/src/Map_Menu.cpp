@@ -163,7 +163,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     }
 
     //Cheating Difficulty
-    {
+    /*{
         auto testDoor = std::make_shared<GameObject>("Door", GameObject::WALL);
         sceneGraph.addNode(testDoor);
         testDoor->setLocalPosition(Vector3(19.0f + offsetX, 3.0f + offsetY, 0.0f + offsetZ));
@@ -182,5 +182,5 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
             ->setStatic(true)
             ->registerToPhysicsManager(PhysicsManager::Instance());
         doorComp->initialize();
-    }
+    }*/
 }

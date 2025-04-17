@@ -264,7 +264,7 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
 Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-148.0f + offsetX, 6.7f + offsetY, 3.0f + offsetZ),
 Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
-    writeLetter(sceneGraph, "media/Map/words/ctrl.fbx", Vector3(-148.0f + offsetX, 6.0f + offsetY, -2.5f + offsetZ),
+    writeLetter(sceneGraph, "media/Map/words/DASH.fbx", Vector3(-148.0f + offsetX, 6.0f + offsetY - 0.3f, -2.5f + offsetZ + 0.7f),
 Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-148.0f + offsetX, 5.9f + offsetY, -7.5f + offsetZ),
 Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
