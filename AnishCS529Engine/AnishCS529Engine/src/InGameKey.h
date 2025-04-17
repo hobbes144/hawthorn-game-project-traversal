@@ -5,7 +5,8 @@
 
 #include "CollisionListener.h"
 #include "KeyList.h"
-#include "RigidBody.h"
+#include "PauseMenu.h"
+#include "PhysicsBody.h"
 
 class InGameKey : public PhysicsBody {
 public:

@@ -202,11 +202,11 @@ void MapLoader::tutorial2(
     //}
     
     writeLetter(sceneGraph, "media/Map/words/ctrl.fbx", Vector3(-43.0f + offsetX, 1.0f + offsetY, 1.5f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-43.0f + offsetX, 1.7f + offsetY, 0.0f + offsetZ),
-    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
+    Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-43.0f + offsetX, 0.9f + offsetY, -5.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
 
     // Pit wall
     /*{
@@ -261,13 +261,13 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
         rigidBody->initialize();
     }
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-148.0f + offsetX, 5.9f + offsetY, 5.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-148.0f + offsetX, 6.7f + offsetY, 3.0f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/ctrl.fbx", Vector3(-148.0f + offsetX, 6.0f + offsetY, -2.5f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-148.0f + offsetX, 5.9f + offsetY, -7.5f + offsetZ),
-Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
+Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
 
 
     // Pit box
@@ -506,10 +506,10 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, -9.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
+        wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, -9.5f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -522,10 +522,10 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, 9.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 1.0f));
+        wallRunWall->setLocalPosition(Vector3(-345.0f + offsetX, 4.0f + offsetY, 9.5f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(60.0f, 12.0f, 0.1f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wallRunWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
