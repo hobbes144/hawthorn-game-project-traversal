@@ -68,7 +68,7 @@ Vector3 OBB::getSurfacePoint(const Vector3& direction) {
   int maxIndex = projectedLengths.abs().getMaxIndex();
   float scaling = fabs(localHalfExtents[maxIndex] / (projectedLengths[maxIndex]));
 
-  surfacePoint = projectedLengths * scaling * (worldHalfExtents/localHalfExtents);
+  surfacePoint = rotation.inverse() * projectedLengths * scaling * (worldHalfExtents/localHalfExtents);
 
   return surfacePoint;
 }

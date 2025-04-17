@@ -269,7 +269,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 		Ray(currentPos, Vector3(0.0f, -1.0f, 0.0f)),
 		hitGround, (bodyWorldTransform.getScaling().z) * 2 + 0.25
 	);
-	if (isGrounded) {
+	const bool isGroundedRB = isGrounded && (hitGround.object->findComponent<RigidBody>() != nullptr);
+	if (isGroundedRB) {
 		anchorInfo.object = hitGround.object;
 		anchorInfo.direction = 'd';
 		anchorInfo.normal = hitGround.normal;
@@ -303,7 +304,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 		const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
 		const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
 			RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL });
-		if (isRightWall) {
+		const bool isRightWallRB = isRightWall && (rightWallHit.object->findComponent<RigidBody>() != nullptr);
+		if (isRightWallRB) {
 			anchorInfo.direction = 'r';
 			anchorInfo.object = rightWallHit.object;
 			anchorInfo.normal = rightWallHit.normal;
@@ -314,7 +316,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 			const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
 			const bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
 				RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist, { GameObject::RUNNABLE_WALL });
-			if (isLeftWall) {
+			const bool isLeftWallRB = isLeftWall && (leftWallHit.object->findComponent<RigidBody>() != nullptr);
+			if (isLeftWallRB) {
 				anchorInfo.direction = 'l';
 				anchorInfo.object = leftWallHit.object;
 				anchorInfo.normal = leftWallHit.normal;
@@ -333,7 +336,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 		const Ray left45Ray = Ray(currentPos, (-rightVector + forwardVector).normalized());
 		const bool isLeftWall = RaycastManager::Instance().Raycast(leftRay, leftWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
 			RaycastManager::Instance().Raycast(left45Ray, leftWallHit, rayDist, { GameObject::RUNNABLE_WALL });
-		if (isLeftWall) {
+		const bool isLeftWallRB = isLeftWall && (leftWallHit.object->findComponent<RigidBody>() != nullptr);
+		if (isLeftWallRB) {
 			anchorInfo.object = leftWallHit.object;
 			anchorInfo.normal = leftWallHit.normal;
 			return;
@@ -343,7 +347,8 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 			const Ray right45Ray = Ray(currentPos, (rightVector + forwardVector).normalized());
 			const bool isRightWall = RaycastManager::Instance().Raycast(rightRay, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL }) ||
 				RaycastManager::Instance().Raycast(right45Ray, rightWallHit, rayDist, { GameObject::RUNNABLE_WALL });
-			if (isRightWall) {
+			const bool isRightWallRB = isRightWall && (rightWallHit.object->findComponent<RigidBody>() != nullptr);
+			if (isRightWallRB) {
 				anchorInfo.direction = 'r';
 				anchorInfo.object = rightWallHit.object;
 				anchorInfo.normal = rightWallHit.normal;
@@ -355,6 +360,10 @@ void FirstPersonControllerComponent::UpdateAnchorInfo()
 			}
 		}
 	}
+
+
+	anchorInfo.Reset();
+	return;
 #pragma endregion
 
 }
