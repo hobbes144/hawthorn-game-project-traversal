@@ -29,6 +29,11 @@ void InGameKey::initialize() {
 	listener->setCallback(onKeyCollide);
 }
 
+void InGameKey::shutdown()
+{
+	delete listener;
+}
+
 int InGameKey::getID() {
 	return id;
 }

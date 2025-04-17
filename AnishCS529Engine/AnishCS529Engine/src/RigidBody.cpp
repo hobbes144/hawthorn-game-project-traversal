@@ -90,6 +90,11 @@ void RigidBody::initialize()
 	listener->setCallback(onRBCollide);
 }
 
+void RigidBody::shutdown()
+{
+	delete listener;
+}
+
 /*!****************************************************************************
  * \brief Update the GameObject and its related collision
  *

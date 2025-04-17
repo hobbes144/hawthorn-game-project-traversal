@@ -39,6 +39,8 @@ bool GamePad::update() {
 	return false;
 }
 
+void GamePad::shutdown() {}
+
 bool GamePad::isPressed(WORD button) {
 	return (state.Gamepad.wButtons & button) != 0;
 }
