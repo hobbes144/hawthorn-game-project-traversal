@@ -5,7 +5,7 @@ void LevelManager::SystemInitalization()
 {
     mainWindow = new GameWindow;
 
-    isFullscreen = false;
+    //isFullscreen = false;
     mainWindow->setTitle("Traversal")->setInitialFullscreen(isFullscreen);
     mainWindow->initialize();
 
@@ -773,7 +773,7 @@ void LevelManager::initalizePlayerInLevel()
 
     mainRenderer->getRenderGraph()->addPass<LightingPass>();
 
-    mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
+    //mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
 
 }
 

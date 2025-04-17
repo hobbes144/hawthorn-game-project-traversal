@@ -43,7 +43,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         20.0f, 
         Vector3(1.0f), 
         10000.0f));*/
-    sceneGraph.addPointLight(
+    /*sceneGraph.addPointLight(
       PointLight(
         Vector3(-100.0f, 180.0f, 100.0f),
         10000.0f,
@@ -62,7 +62,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         EngineMath::Random::boundedFloat(0.5f, 1.0f));
       auto lightRange = EngineMath::Random::boundedFloat(1.0f, 50.0f);
       sceneGraph.addPointLight(PointLight(lightPosition , lightIntensity , lightColor , lightRange));
-    }
+    }*/
 
     // Walls
     createWall("LeftWall", Vector3(-width / 2.0f, height / 2.0f, 0.0f), Vector3(wallThickness, height, depth));
