@@ -79,5 +79,16 @@ void main()
     vec3 BRDF = (Kd/M_PI) + ((F*D)/(4*pow(max(LH,0.0000000001),2.0)));
     FragColor = (Ii*LN*BRDF);
 
-    FragColor *= (1/pow(lightDistance, 2) - 1/pow(radius, 2));
+    float constant  = 1.0;
+    float linear    = 0.7;
+    float quadratic = 1.8;
+
+
+    float attenuation = 
+      1.0 / (constant + linear * lightDistance + quadratic * (lightDistance * lightDistance));
+
+
+    FragColor *= attenuation;//(1/pow(lightDistance, 2) - 1/pow(radius, 2));
+
+    //FragColor = vec3(0.1,0.1,0.1);
 }

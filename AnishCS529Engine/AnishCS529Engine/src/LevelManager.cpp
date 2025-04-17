@@ -773,7 +773,7 @@ void LevelManager::initalizePlayerInLevel()
 
     mainRenderer->getRenderGraph()->addPass<LightingPass>();
 
-    mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
+    //mainRenderer->getRenderGraph()->addPass<LocalLightsPass>();
 
 }
 
