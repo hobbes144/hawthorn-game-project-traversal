@@ -271,17 +271,26 @@ void PauseMenu::settings() {
     //---------------- VOLUME SLIDERS -----------------
     ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
 
-    ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+    static float prevMusicVolume = musicVolume;
+    static float prevSFXVolume = SFXVolume;
+
     ImGui::SliderFloat("Music Volume", &musicVolume, 0.0f, 1.0f);
     ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
-    ImGui::SliderFloat("SFX Volume", &SFXVolume, 0.0f, 1.0f);
-
+    if (ImGui::SliderFloat("SFX Volume", &SFXVolume, 0.0f, 1.0f))
+    {
+        if (fabs(prevSFXVolume - SFXVolume) > 0.001f)
+        {
+            AudioManager::instance().playSound("click", Vector3(0.0f, 0.0f, 0.0f), SFXVolume);
+            prevSFXVolume = SFXVolume;
+        }
+    }
     ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
     ImGui::SliderFloat("MouseX Sensivity", &mouseXSensivity, 0.0f, 0.2f);
     ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
     ImGui::SliderFloat("MouseY Sensivity", &mouseYSensivity, 0.0f, 0.2f);
 
     ImGui::Text(" ");
+
 
     // ------------ KEY BINDINGS ----------------
     enum BindAction {
