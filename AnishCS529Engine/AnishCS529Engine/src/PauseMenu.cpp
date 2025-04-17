@@ -298,15 +298,16 @@ void PauseMenu::settings() {
         MoveBackward,
         MoveLeft,
         MoveRight,
+        Jump,
         Sprint,
         Slide,
         ACTION_COUNT
     };
     static const char* actionLabels[ACTION_COUNT] = {
-        "Move Forward", "Move Backward", "Move Left", "Move Right", "Sprint", "Slide"
+        "Move Forward", "Move Backward", "Move Left", "Move Right", "Jump", "Sprint", "Slide"
     };
     static Key actionKeys[ACTION_COUNT] = {
-        KEY_W, KEY_S, KEY_A, KEY_D, KEY_LEFT_SHIFT, KEY_LEFT_CONTROL
+        KEY_W, KEY_S, KEY_A, KEY_D, KEY_SPACE, KEY_LEFT_SHIFT, KEY_LEFT_CONTROL
     };
     static int keyToChange = -1;
     static bool awaitingKey = false;
@@ -506,6 +507,7 @@ void PauseMenu::settings() {
             fpc->setActionKey(FirstPersonControllerComponent::MoveBackward, actionKeys[MoveBackward]);
             fpc->setActionKey(FirstPersonControllerComponent::MoveLeft, actionKeys[MoveLeft]);
             fpc->setActionKey(FirstPersonControllerComponent::MoveRight, actionKeys[MoveRight]);
+            fpc->setActionKey(FirstPersonControllerComponent::Jump, actionKeys[Jump]);
             fpc->setActionKey(FirstPersonControllerComponent::Sprint, actionKeys[Sprint]);
             fpc->setActionKey(FirstPersonControllerComponent::Slide, actionKeys[Slide]);
         }
