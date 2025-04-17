@@ -136,19 +136,19 @@ void LevelManager::DisplayLogos()
     auto Logo = std::make_shared<GameObject>("Logo");
     sceneGraph.addNode(Logo);
     Logo->setLocalPosition(Vector3(0.0f, 0.0f, -10.0f));
-    Logo->setLocalScaling(Vector3(8.0f, 8.0f, 1.0f));
     auto renderComp = Logo->addComponent<Render2D>();
     renderComp->setMaterial(digiMaterial)->setProperty("useTexture", 1);
     
     const Renderer::Viewport& viewPort = mainRenderer->getCurrentState().viewport;
+    Logo->setLocalScaling(Vector3((float) viewPort.width/2, (float) viewPort.width/2, 1.0f));
 
     //Create Camera
     auto cam = std::make_shared<FreeCamera>("uicam");
-      cam->lookAt(Vector3(0.0f, 0.0f, -1.0f))->setPerspectiveProjection(
-      45.0f * 3.14159f / 180.0f,
-      mainWindow->getAspectRatio(),
-      0.1f,
-      5000.0f);
+      cam->lookAt(Vector3(0.0f, 0.0f, -1.0f))->setOrthographicProjection(
+        -(viewPort.width / 2), (viewPort.width / 2),
+        -(viewPort.height / 2), (viewPort.height / 2),
+        1.0f,100.0f
+      );
     sceneGraph.addCamera(cam);
 
     mainRenderer->getRenderGraph()->addPass<UIPass>();
