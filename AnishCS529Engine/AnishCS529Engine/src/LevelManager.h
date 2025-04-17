@@ -1,3 +1,6 @@
+#ifndef LEVELMANAGER_H
+#define LEVELMANAGER_H
+
 #pragma once
 
 #include <windows.h>
@@ -23,6 +26,7 @@
 #include "MapLoader.h"
 #include "Movement3D.h"
 #include "OBB.h"
+#include "PauseMenu.h"
 #include "PhysicsBody.h"
 #include "PhysicsManager.h"
 #include "Ray.h"
@@ -38,8 +42,6 @@
 #include "TextureMaterial.h"
 #include "TrianglePrimitive.h"
 #include "UIPass.h"
-
-#include "GlobalVariables.h"
 
 
 class LevelManager {
@@ -96,6 +98,7 @@ private:
 	GameWindow* mainWindow;
 	Renderer* mainRenderer;
 	Input* mainInput;
+	GamePad* gamepad;
 	FFramerateController* mainFramerateController;
 	SceneGraph mainSceneGraph;
 	std::shared_ptr<GameObject> cameraGameObject;
@@ -120,6 +123,9 @@ private:
 	std::shared_ptr<TextureMaterial> WhiteFloorTiles;
 	std::shared_ptr<TextureMaterial> skyBoxMaterial;
 	std::shared_ptr<TextureMaterial> keyMaterial;
+	std::shared_ptr<TextureMaterial> shadowMaterial;
+	std::shared_ptr<TextureMaterial> jumpImage;
+	std::shared_ptr<TextureMaterial> wordMaterial;
 	std::shared_ptr<TextureMaterial> digiMaterial;
 	std::shared_ptr<TextureMaterial> fmodMaterial;
 
@@ -139,3 +145,5 @@ private:
 	const float rad = PI / 180.0f;
 
 };
+
+#endif
