@@ -105,62 +105,85 @@ void MapLoader::intermediate3(
     }
 
     {
-        auto movingWallRun2 = [&](const std::string& name, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir, int platformCount) {
-            std::vector<std::shared_ptr<GameObject>> movingWalls;
-            float spawnInterval = 5.0f;
-            auto spawnTimer = std::make_shared<float>(0.0f);
-            auto spawnedCount = std::make_shared<int>(0);
+        auto movingWallRun = [&](const std::string& name, const Vector3& resetPos, const Vector3& basePos, const Vector3& scale, const Vector3& moveDir, float offsetTime = 0.0f) {
+            std::string wallName = name;
+            auto wall = std::make_shared<GameObject>(wallName, GameObject::RUNNABLE_WALL);
+            sceneGraph.addNode(wall);
+            wall->setLocalPosition(basePos);
+            wall->setLocalScaling(scale);
+            wall->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
+            wall->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(BlueConcrete);
+            auto rigidBody = wall->addComponent<RigidBody>();
+            rigidBody->setMass(0.0f)
+                ->setDrag(1.0f)
+                ->setShape(std::make_shared<OBB>())
+                ->setStatic(true)
+                ->registerToPhysicsManager(PhysicsManager::Instance());
+            rigidBody->initialize();
+            wall->addComponent<Animate>()->setAnimateFunction(
+                [moveVec = moveDir, resetPos, offsetTime,
+                 firstCycle = true, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
 
-            auto spawner = std::make_shared<GameObject>("Spawner_" + name);
-            sceneGraph.addNode(spawner);
+                             time += dt;
+                             float cycleTime;
+                             if (firstCycle) {
+                                 cycleTime = offsetTime;
+                             }
+                             else {
+                                 cycleTime = 25.0f;
+                             }
 
-            spawner->addComponent<Animate>()->setAnimateFunction(
-                [=](std::shared_ptr<GameObject> self, float deltaTime) mutable {
-                    *spawnTimer += deltaTime;
-                    if (*spawnedCount < platformCount && *spawnTimer >= spawnInterval) {
-                        *spawnTimer = 0.0f;
-                        std::string wallName = name + "_" + std::to_string(*spawnedCount);
-                        auto wall = std::make_shared<GameObject>(wallName, GameObject::RUNNABLE_WALL);
-                        sceneGraph.addNode(wall);
-                        wall->setLocalPosition(basePos);
-                        wall->setLocalScaling(scale);
-                        wall->setLocalRotation(Vector3(0.0f, 0.0f, 0.0f));
-                        wall->addComponent<Render3D>()->setMesh(boxMesh)->setMaterial(BlueConcrete);
-                        auto rigidBody = wall->addComponent<RigidBody>();
-                        rigidBody->setMass(0.0f)
-                            ->setDrag(1.0f)
-                            ->setShape(std::make_shared<OBB>())
-                            ->setStatic(true)
-                            ->registerToPhysicsManager(PhysicsManager::Instance());
-                        rigidBody->initialize();
-                        wall->addComponent<Animate>()->setAnimateFunction(
-                            [moveVec = moveDir, basePos, time = 0.0f](std::shared_ptr<GameObject> self, float dt) mutable {
-                            time += dt;
-                            if (time >= 25.0f) {
-                                self->setLocalPosition(basePos);
-                                time = 0.0f;
-                            }
-                            else {
-                                self->setLocalPosition(self->getLocalPosition() + moveVec * dt);
-                            }
-                            }
-                        )->runAnimateFunction(true);
-                        movingWalls.push_back(wall);
-                        (*spawnedCount)++;
-                    }
+                             if (time >= cycleTime) {
+                                 self->setLocalPosition(resetPos);
+                                 time = 0.0f;
+                                 firstCycle = false;
+                             }
+                             else {
+                                 self->setLocalPosition(self->getLocalPosition() + moveVec * dt);
+                             }
                 }
             )->runAnimateFunction(true);
             };
     
+        int numLayers = 3;
+        int wallPairCount = 5;
+        float wallWidth = 40.0f, wallHeight = 20.0f, wallDepth = 1.0f;
+        float moveSpeed = -10.0f;
+        float offsetStep = 5.0f;
+        float maxOffsetTime = 25.0f;
+        float baseYs[3] = { 10.0f, 30.0f, 50.0f };
+        float baseZ1 = 8.0f, baseZ2 = -8.0f;
 
-        movingWallRun2("Wall1", Vector3(200.0f, 10.0f, 8.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-10.0f, 0.0f, 0.0f), 5);
-        movingWallRun2("Wall2", Vector3(220.0f, 10.0f, -8.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-10.0f, 0.0f, 0.0f), 5);
+        for (int layer = 0; layer < numLayers; ++layer)
+        {
+            float resetX1 = 200.0f + 50.0f * layer;
+            float resetX2 = resetX1 + 20.0f;
+            float baseY = baseYs[layer];
+            for (int i = 0; i < wallPairCount; ++i)
+            {
+                float offsetTime = maxOffsetTime - i * offsetStep;
+                float baseX1 = resetX1 - i * 50.0f;
+                float baseX2 = resetX2 - i * 50.0f;
 
-        movingWallRun2("Wall1", Vector3(250.0f, 30.0f, 8.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-10.0f, 0.0f, 0.0f), 5);
-        movingWallRun2("Wall2", Vector3(270.0f, 30.0f, -8.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-10.0f, 0.0f, 0.0f), 5);
+                movingWallRun(
+                    "Wall1",
+                    Vector3(resetX1, baseY, baseZ1),
+                    Vector3(baseX1, baseY, baseZ1),
+                    Vector3(wallWidth, wallHeight, wallDepth),
+                    Vector3(moveSpeed, 0.0f, 0.0f),
+                    offsetTime
+                );
+                movingWallRun(
+                    "Wall2",
+                    Vector3(resetX2, baseY, baseZ2),
+                    Vector3(baseX2, baseY, baseZ2),
+                    Vector3(wallWidth, wallHeight, wallDepth),
+                    Vector3(moveSpeed, 0.0f, 0.0f),
+                    offsetTime
+                );
+            }
+        }
 
-        movingWallRun2("Wall1", Vector3(300.0f, 50.0f, 8.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-10.0f, 0.0f, 0.0f), 5);
-        movingWallRun2("Wall2", Vector3(320.0f, 50.0f, -8.0f), Vector3(40.0f, 20.0f, 1.0f), Vector3(-10.0f, 0.0f, 0.0f), 5);
     }
 
     {
