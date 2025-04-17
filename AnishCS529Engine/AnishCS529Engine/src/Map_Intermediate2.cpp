@@ -68,9 +68,9 @@ void MapLoader::intermediate2(
     createWall("BackWall", Vector3(0.0f, height / 2.0f, depth / 2.0f), Vector3(width, height, wallThickness));
     createWall("FrontWall", Vector3(0.0f, height / 2.0f, -depth / 2.0f), Vector3(width, height, wallThickness));
     createWall("BottomWall", Vector3(0.0f, 0.0f, 0.0f), Vector3(width, wallThickness, depth));
+    createWall("TopWall", Vector3(0.0f, height, 0.0f), Vector3(width, wallThickness, depth));
 
-    createWall("TopWall", Vector3(0.0f, height - 130, 0.0f), Vector3(width, wallThickness, depth - 30));
-    createWall("TopWall", Vector3(0.0f, height - 90, 20.0f), Vector3(width, wallThickness, depth - 20));
+
 
     {
         auto createFerrisWheel = [&](const std::string& name, const Vector3& center, int platformCount, float radius, float speed) {
@@ -131,6 +131,42 @@ void MapLoader::intermediate2(
     writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(23.0f, 27.0f, 34.0f), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 0.0f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(-33.0f, 35.0f, 27.0f), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(-33.0f, 60.0f, 29.0f), Vector3(0.03f, 0.03f, 0.01f), Vector3(-1.57f, 0.0f, 1.57f), wordMaterial);
+
+
+    {
+        auto firstCheckpoint = std::make_shared<GameObject>("firstCheckpoint", GameObject::CHECKPOINT);
+        sceneGraph.addNode(firstCheckpoint);
+        firstCheckpoint->setLocalPosition(Vector3(0.0f, 49.5f, 0.0f));
+        firstCheckpoint->setLocalScaling(Vector3(70.0f, 1.0f, 40.0f));
+        auto renderComp = firstCheckpoint->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = firstCheckpoint->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
+    {
+        auto TopFloorCheckpoint = std::make_shared<GameObject>("TopFloorCheckpoint", GameObject::CHECKPOINT);
+        sceneGraph.addNode(TopFloorCheckpoint);
+        TopFloorCheckpoint->setLocalPosition(Vector3(0.0f, 89.5f, 20.0f));
+        TopFloorCheckpoint->setLocalScaling(Vector3(70.0f, 1.0f, 50.0f));
+        auto renderComp = TopFloorCheckpoint->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(WhiteFloorTiles);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = TopFloorCheckpoint->addComponent<RigidBody>();
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
+
 
     {
         auto exitCheckpoint = std::make_shared<GameObject>("exitCheckpoint", GameObject::CHECKPOINT);
