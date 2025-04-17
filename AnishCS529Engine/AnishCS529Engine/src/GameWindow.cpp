@@ -44,11 +44,18 @@ void GameWindow::resizeCallbackWrapper(
   GameWindow* gameWindow =
     static_cast<GameWindow*>(glfwGetWindowUserPointer(pWindow));
 
-  if (gameWindow && gameWindow->resizeCallback)
-  {
-    gameWindow->resizeCallback(pWindow, width, height);
+  if (gameWindow) {
     gameWindow->width = width;
     gameWindow->height = height;
+
+    if (gameWindow->resizeCallback)
+    {
+      gameWindow->resizeCallback(pWindow, width, height);
+    }
+    if (gameWindow->resizeCallback2)
+    {
+      gameWindow->resizeCallback2(pWindow, width, height);
+    }
   }
 }
 
@@ -110,6 +117,20 @@ void GameWindow::setResizeCallback(
   resizeCallback = std::move(callback);
   glfwSetFramebufferSizeCallback(pWindow, resizeCallbackWrapper);
   glfwSetWindowUserPointer(pWindow, this);
+}
+
+/*!****************************************************************************
+ * \brief TEMPORARY SECONDARY RESIZE CALLBACK FOR PAUSE MENU
+ * 
+ * Note: This has to be fixed later, because this is really messy and not good
+ * for the engine in the long run. Refer to the node for this in the .h file
+ * under resizeCallback2.
+ * 
+ * \param callback2
+ *****************************************************************************/
+void GameWindow::setResizeCallback2(std::function<void(GLFWwindow*, int, int)> callback2)
+{
+  resizeCallback2 = std::move(callback2);
 }
 
 void GameWindow::setCursorPosCallback(

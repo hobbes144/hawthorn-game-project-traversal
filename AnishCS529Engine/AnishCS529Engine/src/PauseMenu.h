@@ -82,6 +82,8 @@ public:
 		default: return "Key " + std::to_string((int)key);
 		}
 	}
+	void pauseCallback(GLFWwindow* pWindow, int width, int height);
+	void registerPauseCallback(GameWindow* gameWIndow);
 
 private:
 	enum MenuType {
