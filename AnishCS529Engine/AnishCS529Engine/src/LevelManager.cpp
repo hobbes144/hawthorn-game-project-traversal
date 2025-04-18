@@ -375,6 +375,7 @@ void LevelManager::ExecuteMainLoop()
         // GamePad Detection
         if (gamepad->CheckConnection() != gamepadState) {
             PauseMenu::Instance().setState(true);
+            gamepadState = gamepad->CheckConnection();
         }
 
 		if (PauseMenu::Instance().gameIsPaused()) {
