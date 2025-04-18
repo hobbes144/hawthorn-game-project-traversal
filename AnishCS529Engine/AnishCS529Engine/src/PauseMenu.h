@@ -23,6 +23,7 @@
 #include "imgui_impl_opengl3.h"
 #include "Input.h"
 #include "stb/stb_image.h"
+#include <variant>
 
 class PauseMenu {
 public:
@@ -48,6 +49,39 @@ public:
 	float getMusicVolume();
 	float getSFXVolume();
 
+	enum Action {
+		MoveForward,
+		MoveBackward,
+		MoveLeft,
+		MoveRight,
+		Jump,
+		Sprint,
+		Slide,
+		NUM_ACTIONS
+	};
+
+	static constexpr const char* ActionNames[NUM_ACTIONS] = {
+		"Move Forward", "Move Backward", "Move Left", "Move Right", "Jump", "Sprint", "Slide"
+	};
+	Key actionKeys[NUM_ACTIONS] = {
+		KEY_W, KEY_S, KEY_A, KEY_D, KEY_SPACE, KEY_LEFT_SHIFT, KEY_LEFT_CONTROL
+	};
+
+	const Key* getActionKeys() const { return actionKeys; }
+
+	static std::string GetKeyName(Key key)
+	{
+		switch (key) {
+		case KEY_W: return "W";
+		case KEY_A: return "A";
+		case KEY_S: return "S";
+		case KEY_D: return "D";
+		case KEY_LEFT_SHIFT: return "Shift";
+		case KEY_LEFT_CONTROL: return "Ctrl";
+		case KEY_SPACE: return "Space";
+		default: return "Key " + std::to_string((int)key);
+		}
+	}
 	void pauseCallback(GLFWwindow* pWindow, int width, int height);
 	void registerPauseCallback(GameWindow* gameWIndow);
 
@@ -59,6 +93,12 @@ private:
 		Quit,
 		Test
 	};
+
+	
+
+	// For remapping state
+	int remapActionIndex = -1; // -1:not remapping, [0,NUM_ACTIONS)
+	bool waitingForKey = false;
 
 	PauseMenu() = default;
 
@@ -89,6 +129,8 @@ private:
 	FFramerateController* frc;
 	GamePad* gp;
 	std::shared_ptr<GameObject> player;
+
+	
 };
 
 #endif

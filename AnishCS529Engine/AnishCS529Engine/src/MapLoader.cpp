@@ -21,7 +21,7 @@ void MapLoader::initializeResources() {
   concreteMaterial = Material::getMaterial<TextureMaterial>("concrete");
   concreteMaterial->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
   concreteMaterial->setProperty("shininess", 10.0f);
-  concreteMaterial->addTexture("media/textures/Concrete.png", 20.0f, 20.0f);
+  concreteMaterial->addTexture("media/textures/Concrete.png", 2.0f, 2.0f);
 
   // Cracks Material
   cracksMaterial = Material::getMaterial<TextureMaterial>("cracks");
@@ -34,7 +34,7 @@ void MapLoader::initializeResources() {
   LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
   LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
   LightBlueConcrete->setProperty("shininess", 10.0f);
-  LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 20.0f, 20.0f);
+  LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 2.0f, 2.0f);
 
   YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
   YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
@@ -44,7 +44,7 @@ void MapLoader::initializeResources() {
   BrownConcrete = Material::getMaterial<TextureMaterial>("BrownConcrete");
   BrownConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
   BrownConcrete->setProperty("shininess", 10.0f);
-  BrownConcrete->addTexture("media/textures/BrownConcrete.png", 20.0f, 20.0f);
+  BrownConcrete->addTexture("media/textures/BrownConcrete.png", 0.5f, 1.0f);
 
   BlueConcrete = Material::getMaterial<TextureMaterial>("BlueConcrete");
   BlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
@@ -91,9 +91,15 @@ void MapLoader::loadMap(int mapId, float offsetX, float offsetY, float offsetZ,
         intermediate(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 3:
-        advanced(offsetX, offsetY, offsetZ, sceneGraph);
+        intermediate2(offsetX, offsetY, offsetZ, sceneGraph);
         break;
     case 4:
+        intermediate3(offsetX, offsetY, offsetZ, sceneGraph);
+        break;
+    case 5:
+        advanced(offsetX, offsetY, offsetZ, sceneGraph);
+        break;
+    case 6:
         victory(offsetX, offsetY, offsetZ, sceneGraph);
         break;
 
@@ -119,6 +125,48 @@ void MapLoader::writeLetter(SceneGraph& sceneGraph,
     auto renderComp = letter->addComponent<Render3D>();
     renderComp->setMesh(mesh)->setMaterial(keyMaterial);
 }
+
+void MapLoader::createBlock(SceneGraph& sceneGraph,
+                            const std::string& name,
+                            const Vector3& pos,
+                            const Vector3& scale,
+                            const Vector3& rotation,
+                            const std::shared_ptr<Material>& material)
+{
+    // Name of the block
+    auto block = std::make_shared<GameObject>(name);
+    sceneGraph.addNode(block);
+
+    // Block's properties 
+    block->setLocalPosition(pos);
+    block->setLocalScaling(scale);
+    block->setLocalRotation(rotation);
+
+    // Render3D component
+    auto renderComp = block->addComponent<Render3D>();
+    renderComp->setMesh(boxMesh)->setMaterial(material);
+
+    // OBB
+    auto shape = std::make_shared<OBB>();
+    auto rigidBody = block->addComponent<RigidBody>();
+    rigidBody->setMass(0.0f)
+        ->setDrag(1.0f)
+        ->setShape(shape)
+        ->setStatic(true)
+        ->registerToPhysicsManager(PhysicsManager::Instance());
+    rigidBody->initialize();
+}
+
+// Overload without rotation 
+void MapLoader::createBlock(SceneGraph& sceneGraph,
+                            const std::string& name,
+                            const Vector3& pos,
+                            const Vector3& scale,
+                            const std::shared_ptr<Material>& material)
+{
+    createBlock(sceneGraph, name, pos, scale, Vector3(0.0f, 0.0f, 0.0f), material);
+}
+
 
 
 
