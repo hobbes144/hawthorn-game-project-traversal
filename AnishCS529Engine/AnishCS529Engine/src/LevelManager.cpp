@@ -41,6 +41,7 @@ void LevelManager::SystemInitalization()
     /* XInput setup */
     gamepad = new GamePad;
     gamepad->initialize();
+    gamepadState = gamepad->CheckConnection();
 
     /* Framerate controller setup */
     mainFramerateController =
