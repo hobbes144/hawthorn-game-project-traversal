@@ -5,7 +5,7 @@ void LevelManager::SystemInitalization()
 {
     mainWindow = new GameWindow;
 
-    isFullscreen = false;
+    //isFullscreen = false;
     mainWindow->setTitle("Traversal")->setInitialFullscreen(isFullscreen);
     mainWindow->initialize();
 
@@ -690,7 +690,7 @@ void LevelManager::createPlayerObject()
         //->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
         ->setActionKey(FirstPersonControllerComponent::Pause, KEY_ESCAPE)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_A)
-        ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
+        //->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_SHOULDER)
         ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
         ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)

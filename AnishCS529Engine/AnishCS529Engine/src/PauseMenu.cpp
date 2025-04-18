@@ -230,7 +230,7 @@ void PauseMenu::howToPlay() {
 	ImGui::SetCursorPosX(center.x - 250);
 	ImGui::Text("Jump: Space/Controller A");
 	ImGui::SetCursorPosX(center.x - 250);
-	ImGui::Text("Sprint: LShift/Controller Left shoulder/Controller Press Left joystick");
+	ImGui::Text("Sprint: LShift/Controller Left shoulder");
 	ImGui::SetCursorPosX(center.x - 250);
 	ImGui::Text("Slide: LCtrl/Controller B");
 	ImGui::SetCursorPosX(center.x - 250);
