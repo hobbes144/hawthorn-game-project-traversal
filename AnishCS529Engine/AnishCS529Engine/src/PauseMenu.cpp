@@ -274,7 +274,7 @@ void PauseMenu::settings() {
     drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 96));
 
     ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
-    ImGui::SetCursorPos(ImVec2(center.x - 70, center.y - 300));
+    ImGui::SetCursorPos(ImVec2(center.x - 60, center.y - 350));
 
     float windowWidth = ImGui::GetWindowSize().x;
     ImGui::Text("Settings");
@@ -285,29 +285,197 @@ void PauseMenu::settings() {
 
     ImGui::PushItemWidth(400.0f);
 
-    //---------------- VOLUME SLIDERS -----------------
-    ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+#pragma region Volume
 
-    static float prevMusicVolume = musicVolume;
-    static float prevSFXVolume = SFXVolume;
+	ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+	ImGui::SliderFloat("Music Volume", &musicVolume, 0.0f, 1.0f);
 
-    ImGui::SliderFloat("Music Volume", &musicVolume, 0.0f, 1.0f);
-    ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
-    if (ImGui::SliderFloat("SFX Volume", &SFXVolume, 0.0f, 1.0f))
-    {
-        if (fabs(prevSFXVolume - SFXVolume) > 0.001f)
-        {
-            AudioManager::instance().playSound("click", Vector3(0.0f, 0.0f, 0.0f), SFXVolume);
-            prevSFXVolume = SFXVolume;
-        }
-    }
-    ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
-    ImGui::SliderFloat("MouseX Sensivity", &mouseXSensivity, 0.0f, 0.2f);
-    ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
-    ImGui::SliderFloat("MouseY Sensivity", &mouseYSensivity, 0.0f, 0.2f);
+	if ((ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_LEFT) && ImGui::IsItemFocused())) {
+		if (musicVolume > 0.01f) {
+			musicVolume -= 0.05f;
+		}
+		else {
+			musicVolume = 0.0f;
+		}
+	}
+	if ((ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_RIGHT) && ImGui::IsItemFocused())) {
+		if (musicVolume < 0.99f) {
+			musicVolume += 0.05f;
+		}
+		else {
+			musicVolume = 1.0f;
+		}
+	}
 
-    ImGui::Text(" ");
+	ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+	ImGui::SliderFloat("SFX Volume", &SFXVolume, 0.0f, 1.0f);
 
+	if ((ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_LEFT) && ImGui::IsItemFocused())) {
+		if (SFXVolume > 0.01f) {
+			SFXVolume -= 0.05f;
+		}
+		else {
+			SFXVolume = 0.0f;
+		}
+	}
+	if ((ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_RIGHT) && ImGui::IsItemFocused())) {
+		if (SFXVolume < 0.99f) {
+			SFXVolume += 0.05f;
+		}
+		else {
+			SFXVolume = 1.0f;
+		}
+	}
+
+#pragma endregion
+
+	ImGui::Text(" ");
+
+#pragma region Mouse
+
+	ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+	ImGui::SliderFloat("MouseX Sensivity", &mouseXSensivity, 0.0f, 0.2f);
+
+	if ((ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_LEFT) && ImGui::IsItemFocused())) {
+		if (mouseXSensivity > 0.005f) {
+			mouseXSensivity -= 0.01f;
+		}
+		else {
+			mouseXSensivity = 0.0f;
+		}
+	}
+	if ((ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_RIGHT) && ImGui::IsItemFocused())) {
+		if (mouseXSensivity < 0.195f) {
+			mouseXSensivity += 0.01f;
+		}
+		else {
+			mouseXSensivity = 0.2f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+	ImGui::SliderFloat("MouseY Sensivity", &mouseYSensivity, 0.0f, 0.2f);
+
+	if ((ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_LEFT) && ImGui::IsItemFocused())) {
+		if (mouseYSensivity > 0.005f) {
+			mouseYSensivity -= 0.01f;
+		}
+		else {
+			mouseYSensivity = 0.0f;
+		}
+	}
+	if ((ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_RIGHT) && ImGui::IsItemFocused())) {
+		if (mouseYSensivity < 0.195f) {
+			mouseYSensivity += 0.01f;
+		}
+		else {
+			mouseYSensivity = 0.2f;
+		}
+	}
+
+#pragma endregion
+
+	ImGui::Text(" ");
+
+#pragma region GamePad
+
+	ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+	ImGui::SliderFloat("Left Joystick X Sensivity", &gpLXSensitivity, 0.0f, 6.0f);
+
+	if ((ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_LEFT) && ImGui::IsItemFocused())) {
+		if (gpLXSensitivity > 0.05f) {
+			gpLXSensitivity -= 0.25f;
+		}
+		else {
+			gpLXSensitivity = 0.0f;
+		}
+	}
+	if ((ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_RIGHT) && ImGui::IsItemFocused())) {
+		if (gpLXSensitivity < 5.95f) {
+			gpLXSensitivity += 0.25f;
+		}
+		else {
+			gpLXSensitivity = 6.0f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+	ImGui::SliderFloat("Left Joystick Y Sensivity", &gpLYSensitivity, 0.0f, 6.0f);
+
+	if ((ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_LEFT) && ImGui::IsItemFocused())) {
+		if (gpLYSensitivity > 0.05f) {
+			gpLYSensitivity -= 0.25f;
+		}
+		else {
+			gpLYSensitivity = 0.0f;
+		}
+	}
+	if ((ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_RIGHT) && ImGui::IsItemFocused())) {
+		if (gpLYSensitivity < 5.95f) {
+			gpLYSensitivity += 0.25f;
+		}
+		else {
+			gpLYSensitivity = 6.0f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+	ImGui::SliderFloat("Right Joystick X Sensivity", &gpRXSensitivity, 0.0f, 6.0f);
+
+	if ((ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_LEFT) && ImGui::IsItemFocused())) {
+		if (gpRXSensitivity > 0.05f) {
+			gpRXSensitivity -= 0.25f;
+		}
+		else {
+			gpRXSensitivity = 0.0f;
+		}
+	}
+	if ((ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_RIGHT) && ImGui::IsItemFocused())) {
+		if (gpRXSensitivity < 5.95f) {
+			gpRXSensitivity += 0.25f;
+		}
+		else {
+			gpRXSensitivity = 6.0f;
+		}
+	}
+
+	ImGui::SetCursorPosX((windowWidth - 400.f) * 0.5f);
+	ImGui::SliderFloat("Right Joystick Y Sensivity", &gpRYSensitivity, 0.0f, 6.0f);
+
+	if ((ImGui::IsKeyPressed(KEY_LEFT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_LEFT) && ImGui::IsItemFocused())) {
+		if (gpRYSensitivity > 0.05f) {
+			gpRYSensitivity -= 0.25f;
+		}
+		else {
+			gpRYSensitivity = 0.0f;
+		}
+	}
+	if ((ImGui::IsKeyPressed(KEY_RIGHT) && ImGui::IsItemFocused()) ||
+		(gp->isPressed(XINPUT_GAMEPAD_DPAD_RIGHT) && ImGui::IsItemFocused())) {
+		if (gpRYSensitivity < 5.95f) {
+			gpRYSensitivity += 0.25f;
+		}
+		else {
+			gpRYSensitivity = 6.0f;
+		}
+	}
+
+#pragma endregion
 
     Key* actionKeys = this->actionKeys;
 
