@@ -371,6 +371,12 @@ void LevelManager::ExecuteMainLoop()
 			}
 		}
 
+
+        // GamePad Detection
+        if (gamepad->CheckConnection() != gamepadState) {
+            PauseMenu::Instance().setState(true);
+        }
+
 		if (PauseMenu::Instance().gameIsPaused()) {
 			mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
 			mainInput->controlMouse(false);
