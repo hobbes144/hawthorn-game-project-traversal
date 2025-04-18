@@ -90,7 +90,6 @@ void LevelManager::SystemShutdown()
 
 void LevelManager::MeshMatInitializations()
 {
-#pragma region Meshs/Materials
 
 #pragma region Player
 

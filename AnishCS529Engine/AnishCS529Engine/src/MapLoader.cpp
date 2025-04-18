@@ -34,7 +34,7 @@ void MapLoader::initializeResources() {
   LightBlueConcrete = Material::getMaterial<TextureMaterial>("LightBlueConcrete");
   LightBlueConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
   LightBlueConcrete->setProperty("shininess", 10.0f);
-  LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 1.0f, 1.0f);
+  LightBlueConcrete->addTexture("media/textures/LightBlueConcrete.png", 2.0f, 2.0f);
 
   YellowConcrete = Material::getMaterial<TextureMaterial>("YellowConcrete");
   YellowConcrete->setProperty("specular", Vector3(0.009f, 0.009f, 0.009f));
