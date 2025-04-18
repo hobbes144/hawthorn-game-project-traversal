@@ -41,6 +41,7 @@ void LevelManager::SystemInitalization()
     /* XInput setup */
     gamepad = new GamePad;
     gamepad->initialize();
+    gamepadState = gamepad->CheckConnection();
 
     /* Framerate controller setup */
     mainFramerateController =
@@ -370,6 +371,13 @@ void LevelManager::ExecuteMainLoop()
 				}
 			}
 		}
+
+
+        // GamePad Detection
+        if (gamepad->CheckConnection() != gamepadState) {
+            PauseMenu::Instance().setState(true);
+            gamepadState = gamepad->CheckConnection();
+        }
 
 		if (PauseMenu::Instance().gameIsPaused()) {
 			mainRenderer->getRenderGraph()->draw(&mainSceneGraph);

@@ -159,6 +159,14 @@ void PauseMenu::mainPauseMenu() {
 		menuType = Quit;
 	}
 
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (gp->CheckConnection()) {
+		ImGui::Text("Gamepad Connected");
+	}
+	else {
+		ImGui::Text("Gamepad Not Connected");
+	}
+
 	ImGui::End();
 
 	ImGui::Render();
