@@ -30,10 +30,12 @@ private:
 
 public:
 	GamePad() : deadzoneX(0.1f), deadzoneY(0.1f),
-		gpLXSensitivity(2.0f), gpLYSensitivity(2.0f),
-		gpRXSensitivity(2.0f), gpRYSensitivity(2.0f) {
+		gpLXSensitivity(3.0f), gpLYSensitivity(3.0f),
+		gpRXSensitivity(3.0f), gpRYSensitivity(3.0f) {
 	}
-	GamePad(float dzX, float dzY) : deadzoneX(dzX), deadzoneY(dzY) {}
+	GamePad(float dzX, float dzY) : deadzoneX(dzX), deadzoneY(dzY),
+		gpLXSensitivity(3.0f), gpLYSensitivity(3.0f),
+		gpRXSensitivity(3.0f), gpRYSensitivity(3.0f) {}
 
 	float leftStickX;
 	float leftStickY;

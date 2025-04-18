@@ -401,7 +401,7 @@ void LevelManager::ExecuteMainLoop()
 		
 			mainRenderer->getRenderGraph()->draw(&mainSceneGraph);
 	
-			mainSceneGraph.update(1.0f / 60.0f);
+			mainSceneGraph.update(mainFramerateController->getFrameTime());
 		}
 
 		mainFramerateController->endFrame();
@@ -690,7 +690,8 @@ void LevelManager::createPlayerObject()
         //->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
         ->setActionKey(FirstPersonControllerComponent::Pause, KEY_ESCAPE)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_A)
-        ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
+        //->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
+        ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_SHOULDER)
         ->setGPActionKey(FirstPersonControllerComponent::Slide, XINPUT_GAMEPAD_B)
         ->setGPActionKey(FirstPersonControllerComponent::Respawn, XINPUT_GAMEPAD_X)
         ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_Y)
