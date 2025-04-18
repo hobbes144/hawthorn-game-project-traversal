@@ -71,7 +71,7 @@ private:
 	bool isPaused = false;
 	bool quit = false;
 	bool toStart = false;
-	bool disableStart = false;
+	bool enteredState = false;
 
 	float musicVolume = 0.15f;
 	float SFXVolume = 1.0f;

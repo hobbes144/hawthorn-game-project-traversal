@@ -441,62 +441,60 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	//GamePad Input
 #pragma region GamePad
 	if (gp != nullptr) {
-		if (gp->update()) {
-			if (gp->leftStickY != 0) {
-				forwardMotion = gp->leftStickY;
-				if (forwardMotion > 0) {
-					isMovingForward = true;
-					isMovingBackward = false;
-				}
-				else if (forwardMotion < 0) {
-					isMovingForward = false;
-					isMovingBackward = true;
-				}
+		if (gp->leftStickY != 0) {
+			forwardMotion = gp->leftStickY;
+			if (forwardMotion > 0) {
+				isMovingForward = true;
+				isMovingBackward = false;
 			}
-			if (gp->leftStickX != 0) {
-				lateralMotion = gp->leftStickX;
-				if (lateralMotion < 0) {
-					isMovingLeft = true;
-					isMovingRight = false;
-				}
-				else if (lateralMotion > 0) {
-					isMovingLeft = false;
-					isMovingRight = true;
-				}
+			else if (forwardMotion < 0) {
+				isMovingForward = false;
+				isMovingBackward = true;
 			}
-			if (gp->rightStickX != 0) {
-				mouseXDelta = static_cast<float>(gp->rightStickX) * gp->getRXSensitivity();
-				Quaternion currentBodyRotation = body->getLocalRotation();
-				Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
-				body->setLocalRotation(currentBodyRotation * mouseRotation);
-			}
-			if (gp->rightStickY != 0) {
-				mouseYDelta = -static_cast<float>(gp->rightStickY) * gp->getRYSensitivity();
-				//Rotate Camera
-				Quaternion currentCameraRoation = camera->getLocalRotation();
-				Vector3 currentEuler = currentCameraRoation.toEuler();
-				float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
-				newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
-				Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
-				camera->setLocalRotation(newCameraRotation);
-			}
-			if (gp->isPressed(GamePadActionKey[Sprint]))
-				isSprinting = gp->isPressed(GamePadActionKey[Sprint]);
-			if (gp->isPressed(GamePadActionKey[Jump]))
-				isJumping = gp->isPressed(GamePadActionKey[Jump]);
-			if (gp->isPressed(GamePadActionKey[Slide]))
-				isSliding = gp->isPressed(GamePadActionKey[Slide]);
-			if (gp->isPressed(GamePadActionKey[Respawn]))
-				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
-			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide]))
-				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
-			if (gp->isReleased(GamePadActionKey[Creative]))
-				creative = gp->isReleased(GamePadActionKey[Creative]);
-			if (gp->isPressed(GamePadActionKey[Music]))
-				music = gp->isPressed(GamePadActionKey[Music]);
-			if (gp->isReleased(GamePadActionKey[Pause]))
-				pause = gp->isReleased(GamePadActionKey[Pause]);
 		}
+		if (gp->leftStickX != 0) {
+			lateralMotion = gp->leftStickX;
+			if (lateralMotion < 0) {
+				isMovingLeft = true;
+				isMovingRight = false;
+			}
+			else if (lateralMotion > 0) {
+				isMovingLeft = false;
+				isMovingRight = true;
+			}
+		}
+		if (gp->rightStickX != 0) {
+			mouseXDelta = static_cast<float>(gp->rightStickX) * gp->getRXSensitivity();
+			Quaternion currentBodyRotation = body->getLocalRotation();
+			Quaternion mouseRotation = Quaternion::axisAngleToQuaternion(Vector3(0.0f, 1.0f, 0.0f), (-mouseXDelta * 3.14159265f / 180.0f));
+			body->setLocalRotation(currentBodyRotation * mouseRotation);
+		}
+		if (gp->rightStickY != 0) {
+			mouseYDelta = -static_cast<float>(gp->rightStickY) * gp->getRYSensitivity();
+			//Rotate Camera
+			Quaternion currentCameraRoation = camera->getLocalRotation();
+			Vector3 currentEuler = currentCameraRoation.toEuler();
+			float newPitch = currentEuler.x + (-mouseYDelta * 3.14159265f / 180.0f);
+			newPitch = std::clamp(newPitch, -pitchLimit * (3.14159265f / 180.0f), pitchLimit * (3.14159265f / 180.0f)); // Convert degrees to radians
+			Quaternion newCameraRotation = Quaternion::fromEuler(Vector3(newPitch, currentEuler.y, currentEuler.z));
+			camera->setLocalRotation(newCameraRotation);
+		}
+		if (gp->isPressed(GamePadActionKey[Sprint]))
+			isSprinting = gp->isPressed(GamePadActionKey[Sprint]);
+		if (gp->isPressed(GamePadActionKey[Jump]))
+			isJumping = gp->isPressed(GamePadActionKey[Jump]);
+		if (gp->isPressed(GamePadActionKey[Slide]))
+			isSliding = gp->isPressed(GamePadActionKey[Slide]);
+		if (gp->isPressed(GamePadActionKey[Respawn]))
+			isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
+		if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide]))
+			upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
+		if (gp->isReleased(GamePadActionKey[Creative]))
+			creative = gp->isReleased(GamePadActionKey[Creative]);
+		if (gp->isPressed(GamePadActionKey[Music]))
+			music = gp->isPressed(GamePadActionKey[Music]);
+		if (gp->isReleased(GamePadActionKey[Pause]))
+			pause = gp->isReleased(GamePadActionKey[Pause]);
 	}
 #pragma endregion
 	//Creative mode

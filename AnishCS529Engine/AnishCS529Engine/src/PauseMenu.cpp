@@ -1,11 +1,6 @@
 #include "precompiled.h"
 #include "PauseMenu.h"
 
-void PauseMenu::resetTimer() {
-	time = 0.0f;
-	return;
-}
-
 void PauseMenu::setInputSystem(Input* ip) {
 	input = ip;
 	return;
@@ -28,7 +23,7 @@ void PauseMenu::setGamePad(GamePad* _gp) {
 
 void PauseMenu::setState(bool state) {
 	if (!isPaused && state)
-		disableStart = true;
+		enteredState = true;
 	isPaused = state;
 	return;
 }
@@ -129,19 +124,22 @@ void PauseMenu::mainPauseMenu() {
 	float buttonWidth = 200.0f;
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 
-	if (ImGui::Button("Resume", ImVec2(buttonWidth, 40)) ||
-		(ImGui::IsKeyPressed(KEY_ESCAPE) && time >= 0.4f) ||
+	if (
+		ImGui::Button("Resume", ImVec2(buttonWidth, 40)) ||
+		(!enteredState && (
+			ImGui::IsKeyPressed(KEY_ESCAPE) ||
 			gp->isReleased(XINPUT_GAMEPAD_START) ||
-			gp->isReleased(XINPUT_GAMEPAD_B)) {
-		resetTimer();
+			gp->isReleased(XINPUT_GAMEPAD_B)
+			))
+	){
 		frc->clearPhysicsTime();
 		isPaused = false;
+		enteredState = true;
 		input->controlMouse(true);
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Back to Start", ImVec2(buttonWidth, 40))) {
-		resetTimer();
 		frc->clearPhysicsTime();
 		isPaused = false;
 		toStart = true;
@@ -237,10 +235,14 @@ void PauseMenu::howToPlay() {
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
-		(ImGui::IsKeyPressed(KEY_ESCAPE)) ||
+		(!enteredState && (
+			ImGui::IsKeyPressed(KEY_ESCAPE) ||
 			gp->isReleased(XINPUT_GAMEPAD_START) ||
-			gp->isReleased(XINPUT_GAMEPAD_B)) {
+			gp->isReleased(XINPUT_GAMEPAD_B)
+			))
+		) {
 		menuType = MainPauseMenu;
+		enteredState = true;
 	}
 
 	ImGui::End();
@@ -509,10 +511,14 @@ void PauseMenu::settings() {
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
-		(ImGui::IsKeyPressed(KEY_ESCAPE)) ||
+		(!enteredState && (
+			ImGui::IsKeyPressed(KEY_ESCAPE) ||
 			gp->isReleased(XINPUT_GAMEPAD_START) ||
-			gp->isReleased(XINPUT_GAMEPAD_B)) {
+			gp->isReleased(XINPUT_GAMEPAD_B)
+			))
+		) {
 		menuType = MainPauseMenu;
+		enteredState = true;
 	}
 
 	ImGui::End();
@@ -570,10 +576,14 @@ void PauseMenu::quitMenu() {
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
-		ImGui::IsKeyPressed(KEY_ESCAPE) ||
+		(!enteredState && (
+			ImGui::IsKeyPressed(KEY_ESCAPE) ||
 			gp->isReleased(XINPUT_GAMEPAD_START) ||
-			gp->isReleased(XINPUT_GAMEPAD_B)) {
+			gp->isReleased(XINPUT_GAMEPAD_B)
+			))
+	){
 		menuType = MainPauseMenu;
+		enteredState = true;
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
@@ -590,10 +600,9 @@ void PauseMenu::quitMenu() {
 }
 
 void PauseMenu::run() {
-	time += (1.0f / 60.0f);
 
-	if (disableStart && !gp->isReleased(XINPUT_GAMEPAD_START))
-		disableStart = false;
+	if (enteredState && !gp->isPressed(XINPUT_GAMEPAD_START) && !input->isKeyDown(KEY_ESCAPE) && !gp->isPressed(XINPUT_GAMEPAD_B))
+		enteredState = false;
 
 	if (menuType == MainPauseMenu) {
 		mainPauseMenu();
@@ -611,7 +620,6 @@ void PauseMenu::run() {
 		testMenu();
 	}
 	else {
-		resetTimer();
 		frc->clearPhysicsTime();
 		isPaused = false;
 		input->controlMouse(true);
