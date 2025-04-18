@@ -60,7 +60,7 @@ void LevelManager::SystemInitalization()
     AudioManager::instance().loadSound("jump", "media/audio/jump.mp3", true);
     AudioManager::instance().loadSound("key", "media/audio/key.ogg", true);
     AudioManager::instance().loadSound("hurt", "media/audio/hurt.mp3", true);
-    
+    AudioManager::instance().loadSound("click", "media/audio/click.ogg", false);
     AudioManager::instance().playSound("music", Vector3(0.0f, 0.0f, 0.0f), 0.15f);
     //AudioManager::instance().playSound("radio", Vector3(2.0f, 0.5f, 0.0f), 0.3f);
 
@@ -90,7 +90,6 @@ void LevelManager::SystemShutdown()
 
 void LevelManager::MeshMatInitializations()
 {
-#pragma region Meshs/Materials
 
 #pragma region Player
 
@@ -258,32 +257,35 @@ void LevelManager::RunLevels()
 	createPlayerObject();
 	initalizePlayerInLevel();
 
-	switch (currentLevel)
-	{
-	case -1:
-		LoadLevelMenu();
-		break;
-	case 0:
-		LoadLevel0();
-		break;
-	case 1:
-		LoadLevel1();
-		break;
-	case 2:
-		LoadLevel2();
-		break;
-	case 3:
-		LoadLevel3();
-		break;
-	case 4:
-		LoadLevel4();
-		break;
-	case 5:
-		LoadLevel5();
-		break;
-	default:
-		break;
-	}
+    switch (currentLevel)
+    {
+    case -1:
+        LoadLevelMenu();
+        break;
+    case 0:
+        LoadLevel0();
+        break;
+    case 1:
+        LoadLevel1();
+        break;
+    case 2:
+        LoadLevel2();
+        break;
+    case 3:
+        LoadLevel3();
+        break;
+    case 4:
+        LoadLevel4();
+        break;
+    case 5:
+        LoadLevel5();
+        break;
+    case 6:
+        LoadLevel6();
+        break;
+    default:        
+        break;
+    }
 
 	ExecuteMainLoop();
 
@@ -459,36 +461,36 @@ void LevelManager::ExecuteMainLoop()
 }
 
 void LevelManager::checkPlayerBoundaries() {
-	Vector3 playerPos = playerBox->getWorldTransform().getPosition();
-	// Boundaries for each lvl
-	float maxX, minX, maxY, minY, minZ, maxZ;
-	switch (currentLevel) {
-	case 0:
-		maxX = 10.0f; minX = -400.0f;
-		maxY = 100.0f; minY = -45.0f;
-		maxZ = 11.0f; minZ = -11.0f;
-		break;
-	case 1:
-		maxX = 150.0f; minX = -400.0f;
-		maxY = 150.0f; minY = -45.0f;
-		maxZ = 11.0f; minZ = -11.0f;
-		break;
-	case 2:
-		maxX = 150.0f; minX = -400.0f;
-		maxY = 150.0f; minY = -45.0f;
-		maxZ = 11.0f; minZ = -11.0f;
-		break;
-	case 3:
-		maxX = 1000.0; minX = -1000.0;
-		maxY = 1000.0; minY = 5.0f;
-		maxZ = 1000.0; minZ = -1000.0;
-		break;
-	default:
-		maxX = 1000.0f; minX = -1000.0f;
-		maxY = 1000.0f; minY = -20.0f;
-		maxZ = 1000.0f; minZ = -1000.0f;
-		break;
-	}
+    Vector3 playerPos = playerBox->getWorldTransform().getPosition();
+    // Boundaries for each lvl
+    float maxX, minX, maxY, minY, minZ, maxZ;
+    switch (currentLevel) {
+    case 0:
+        maxX = 10.0f; minX = -400.0f;
+        maxY = 100.0f; minY = -45.0f;
+        maxZ = 11.0f; minZ = -11.0f;
+        break;
+    case 1:
+        maxX = 150.0f; minX = -400.0f;
+        maxY = 150.0f; minY = -45.0f;
+        maxZ = 11.0f; minZ = -11.0f;
+        break;
+    case 2:
+        maxX = 150.0f; minX = -400.0f;
+        maxY = 150.0f; minY = -45.0f;
+        maxZ = 11.0f; minZ = -11.0f;
+        break;
+    case 5:
+        maxX = 1000.0; minX = -1000.0;
+        maxY = 1000.0; minY = 5.0f;
+        maxZ = 1000.0; minZ = -1000.0;
+        break;
+    default:
+        maxX = 1000.0f; minX = -1000.0f;
+        maxY = 1000.0f; minY = -20.0f;
+        maxZ = 1000.0f; minZ = -1000.0f;
+        break;
+    }
 
 	if (playerPos.x > maxX || playerPos.x < minX || playerPos.y > maxY || playerPos.y < minY || playerPos.z > maxZ || playerPos.z < minZ) {
 		//std::cout << playerPos.x << " " << playerPos.y << " " << playerPos.z;
@@ -502,13 +504,13 @@ void LevelManager::checkPlayerBoundaries() {
 
 void LevelManager::NextLevel()
 {
-	if (currentLevel == 4) {
-		currentLevel = -1;
-	}
-	else {
-		currentLevel++;
-	}
-	levelSwapFlag = true;
+    if (currentLevel == 6) {
+        currentLevel = -1;
+    }
+    else {
+        currentLevel++;
+    }
+    levelSwapFlag = true;
 }
 
 void LevelManager::ClearLevel()
@@ -572,6 +574,12 @@ void LevelManager::LoadLevel5()
 {
 	MapLoader::instance().loadMap(5, 0, 0, 0, mainSceneGraph);
 }
+
+void LevelManager::LoadLevel6()
+{
+    MapLoader::instance().loadMap(6, 0, 0, 0, mainSceneGraph);
+}
+
 
 #pragma endregion
 
@@ -660,18 +668,18 @@ void LevelManager::createPlayerObject()
         ->setBody(playerBox.get())
         ->setSceneRoot(mainSceneGraph.getRootNode())
         ->setCamera(cameraGameObject.get())
-        ->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
-        ->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
-        ->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
-        ->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
-        ->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
-        ->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
-        ->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
+        //->setActionKey(FirstPersonControllerComponent::MoveForward, KEY_W)
+        //->setActionKey(FirstPersonControllerComponent::MoveBackward, KEY_S)
+        //->setActionKey(FirstPersonControllerComponent::MoveLeft, KEY_A)
+        //->setActionKey(FirstPersonControllerComponent::MoveRight, KEY_D)
+        //->setActionKey(FirstPersonControllerComponent::Jump, KEY_SPACE)
+        //->setActionKey(FirstPersonControllerComponent::Sprint, KEY_LEFT_SHIFT)
+        //->setActionKey(FirstPersonControllerComponent::Slide, KEY_LEFT_CONTROL)
         ->setActionKey(FirstPersonControllerComponent::Respawn, KEY_R)
         ->setActionKey(FirstPersonControllerComponent::Debug, KEY_9)
         ->setActionKey(FirstPersonControllerComponent::Creative, KEY_C)
         ->setActionKey(FirstPersonControllerComponent::Music, KEY_M)
-        ->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
+        //->setActionKey(FirstPersonControllerComponent::Freeze, KEY_F)
         ->setActionKey(FirstPersonControllerComponent::Pause, KEY_ESCAPE)
         ->setGPActionKey(FirstPersonControllerComponent::Jump, XINPUT_GAMEPAD_A)
         ->setGPActionKey(FirstPersonControllerComponent::Sprint, XINPUT_GAMEPAD_LEFT_THUMB)
@@ -680,7 +688,18 @@ void LevelManager::createPlayerObject()
         ->setGPActionKey(FirstPersonControllerComponent::Music, XINPUT_GAMEPAD_Y)
         ->setGPActionKey(FirstPersonControllerComponent::Pause, XINPUT_GAMEPAD_START);
 
+    const Key* keys = PauseMenu::Instance().getActionKeys();
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::MoveForward, keys[PauseMenu::MoveForward]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::MoveBackward, keys[PauseMenu::MoveBackward]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::MoveLeft, keys[PauseMenu::MoveLeft]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::MoveRight, keys[PauseMenu::MoveRight]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::Jump, keys[PauseMenu::Jump]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::Sprint, keys[PauseMenu::Sprint]);
+    playerBoxInputComponent->setActionKey(FirstPersonControllerComponent::Slide, keys[PauseMenu::Slide]);
+
     playerBoxInputComponent->setDifficulty(playerDifficulty);
+
+
 #pragma endregion
 
 	PauseMenu::Instance().setPlayer(playerBox);
@@ -716,6 +735,14 @@ void LevelManager::initalizePlayerInLevel()
     case 4:
         activeSpawnPoint = startingPos4;
         activeSpawnRotation = startingRot4;
+        break;
+    case 5:
+        activeSpawnPoint = startingPos5;
+        activeSpawnRotation = startingRot5;
+        break;
+    case 6:
+        activeSpawnPoint = startingPos6;
+        activeSpawnRotation = startingRot6;
         break;
     default:
         activeSpawnPoint = Vector3();

@@ -17,7 +17,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         wall->setLocalScaling(localScale);
 
         auto renderComp = wall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
 
         auto shape = std::make_shared<OBB>();
         auto rigidBody = wall->addComponent<RigidBody>();
@@ -137,7 +137,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 13.0f + offsetY, -110.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 29.0f));
+        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 29.9f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -192,7 +192,7 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-135.0f + offsetX, 15.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 26.0f));
+        wallRunWall->setLocalScaling(Vector3(1.1f, 10.0f, 29.9f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -225,8 +225,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-124.9f + offsetX, 22.0f + offsetY, -80.7f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 38.0f));
+        wallRunWall->setLocalPosition(Vector3(-124.9f + offsetX, 22.0f + offsetY, -80.1f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 39.9f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -255,11 +255,13 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
             ->registerToPhysicsManager(PhysicsManager::Instance());
         rigidBody->initialize();
     }
+
+    // 3rd wall wallrun
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
         wallRunWall->setLocalPosition(Vector3(-109.9f + offsetX, 22.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 39.0f));
+        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 37.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
@@ -1146,6 +1148,13 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
 
         createFerrisWheel("Wheel1", Vector3(57.0f + offsetX, 70.0f + offsetY, -86.0f + offsetZ), 3, 20.0f, 5.3f);
     }
+
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(57.0f + offsetX, 73.0f + offsetY, -100.0f + offsetZ), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 0.0f, -0.57f), wordMaterial);
+
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(90.0f + offsetX, 110.0f + offsetY, -86.0f + offsetZ), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 1.57f, 0.0f), wordMaterial);
+
+    writeLetter(sceneGraph, "media/Map/words/arrow2.fbx", Vector3(107.0f + offsetX, 150.0f + offsetY, -86.0f + offsetZ), Vector3(0.03f, 0.03f, 0.01f), Vector3(0.0f, 1.57f, -2.57f), wordMaterial);
+
 
     {
         // Guide Image

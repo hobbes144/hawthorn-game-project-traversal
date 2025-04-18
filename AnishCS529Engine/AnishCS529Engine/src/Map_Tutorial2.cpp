@@ -66,7 +66,7 @@ void MapLoader::tutorial2(
         LeftWall->setLocalPosition(Vector3(-200.0f + offsetX, 4.0f + offsetY, 10.1f + offsetZ));
         LeftWall->setLocalScaling(Vector3(420.0f, 150.0f, 1.0f));
         auto renderComp = LeftWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = LeftWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -83,7 +83,7 @@ void MapLoader::tutorial2(
         RightWall->setLocalPosition(Vector3(-200.0f + offsetX, 4.0f + offsetY, -10.1f + offsetZ));
         RightWall->setLocalScaling(Vector3(420.0f, 150.0f, 1.0f));
         auto renderComp = RightWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = RightWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -100,7 +100,7 @@ void MapLoader::tutorial2(
         BackWall->setLocalPosition(Vector3(10.5f + offsetX, 4.0f + offsetY, 0.0f + offsetZ));
         BackWall->setLocalScaling(Vector3(1.0f, 150.0f, 20.0f));
         auto renderComp = BackWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = BackWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -117,7 +117,7 @@ void MapLoader::tutorial2(
         FrontWall->setLocalPosition(Vector3(-400.5f + offsetX, 4.0f + offsetY, 0.0f + offsetZ));
         FrontWall->setLocalScaling(Vector3(1.0f, 150.0f, 20.0f));
         auto renderComp = FrontWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = FrontWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -134,7 +134,7 @@ void MapLoader::tutorial2(
         TopWall->setLocalPosition(Vector3(-200.0f + offsetX, 44.0f + offsetY, 0.0f + offsetZ));
         TopWall->setLocalScaling(Vector3(420.0f, 10.0f, 20.0f));
         auto renderComp = TopWall->addComponent<Render3D>();
-        renderComp->setMesh(boxMesh)->setMaterial(concreteMaterial);
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
         auto shape = std::make_shared<OBB>();
         auto rigidBody = TopWall->addComponent<RigidBody>();
         rigidBody->setMass(0.0f)
@@ -264,7 +264,7 @@ Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
 Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/+.fbx", Vector3(-148.0f + offsetX, 6.7f + offsetY, 3.0f + offsetZ),
 Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
-    writeLetter(sceneGraph, "media/Map/words/ctrl.fbx", Vector3(-148.0f + offsetX, 6.0f + offsetY, -2.5f + offsetZ),
+    writeLetter(sceneGraph, "media/Map/words/DASH.fbx", Vector3(-148.0f + offsetX, 6.0f + offsetY - 0.3f, -2.5f + offsetZ + 0.7f),
 Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
     writeLetter(sceneGraph, "media/Map/words/space.fbx", Vector3(-148.0f + offsetX, 5.9f + offsetY, -7.5f + offsetZ),
 Vector3(0.02f, 0.02f, 0.02f), Vector3(0.0f, -1.57f, 0.0f), wordMaterial);
