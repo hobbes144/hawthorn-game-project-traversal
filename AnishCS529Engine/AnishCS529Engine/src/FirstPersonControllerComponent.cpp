@@ -490,12 +490,12 @@ void FirstPersonControllerComponent::update(float deltaTime)
 				isRespawning = gp->isPressed(GamePadActionKey[Respawn]);
 			if (gp->isPressed(GamePadActionKey[Jump]) && gp->isPressed(GamePadActionKey[Slide]))
 				upMotion = gp->isPressed(GamePadActionKey[Jump]) - gp->isPressed(GamePadActionKey[Slide]);
-			if (gp->isPressed(GamePadActionKey[Creative]))
-				creative = gp->isPressed(GamePadActionKey[Creative]);
+			if (gp->isReleased(GamePadActionKey[Creative]))
+				creative = gp->isReleased(GamePadActionKey[Creative]);
 			if (gp->isPressed(GamePadActionKey[Music]))
 				music = gp->isPressed(GamePadActionKey[Music]);
-			if (gp->isPressed(GamePadActionKey[Pause]))
-				pause = gp->isPressed(GamePadActionKey[Pause]);
+			if (gp->isReleased(GamePadActionKey[Pause]))
+				pause = gp->isReleased(GamePadActionKey[Pause]);
 		}
 	}
 #pragma endregion

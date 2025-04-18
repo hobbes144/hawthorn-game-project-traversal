@@ -34,6 +34,11 @@ bool GamePad::update() {
 		leftTrigger = (float)state.Gamepad.bLeftTrigger / 255;
 		rightTrigger = (float)state.Gamepad.bRightTrigger / 255;
 
+		for (auto& [key, keyState] : keyStates) {
+			keyState.prevState = keyState.currentState;
+			keyState.currentState = (state.Gamepad.wButtons & key);
+		}
+
 		return true;
 	}
 	return false;

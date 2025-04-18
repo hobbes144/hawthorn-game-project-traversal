@@ -10,7 +10,7 @@ void onKeyCollide(std::shared_ptr<GameObject> obj1,
 	const std::shared_ptr<KeyList>& S2 = obj2->findComponent<KeyList>();
 
 	if (K1 && S2) {
-		S2->addKey(K1->getID());
+		S2->addKey(K1->getID());	
 		AudioManager::instance().playSound("key", obj1->getWorldPosition(), PauseMenu::Instance().getSFXVolume());
 		std::cout << "1";
 		obj1->disable();

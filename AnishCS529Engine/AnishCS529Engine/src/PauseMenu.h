@@ -71,16 +71,17 @@ private:
 	bool isPaused = false;
 	bool quit = false;
 	bool toStart = false;
+	bool disableStart = false;
 
 	float musicVolume = 0.15f;
 	float SFXVolume = 1.0f;
 	float mouseXSensivity = 0.1f;
 	float mouseYSensivity = 0.1f;
 
-	float gpLXSensitivity = 2.0f;
-	float gpLYSensitivity = 2.0f;
-	float gpRXSensitivity = 2.0f;
-	float gpRYSensitivity = 2.0f;
+	float gpLXSensitivity = 3.0f;
+	float gpLYSensitivity = 3.0f;
+	float gpRXSensitivity = 3.0f;
+	float gpRYSensitivity = 3.0f;
 
 	float time = 0.0f;
 	Input* input;
