@@ -8,6 +8,8 @@
  * \date   10-15-2024
  * \brief  Scene Graph to control all nodes in the scene.
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef SCENE_GRAPH_H
 #define SCENE_GRAPH_H

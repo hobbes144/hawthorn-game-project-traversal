@@ -6,6 +6,8 @@
  * \date   02-08-2025
  * \brief  State Saver class for the Renderer
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef RENDERER_STATE_SAVER_H
 #define RENDERER_STATE_SAVER_H

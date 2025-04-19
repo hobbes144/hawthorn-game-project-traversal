@@ -1,3 +1,14 @@
+/*!****************************************************************************
+ * \file   LevelManager.h
+ * \author Nicholas Shaw (nick.shaw@digipen.edu) (Base class and manager code)
+ * \author Anish Murthy (anish.murthy@digipen.edu) (Graphics/Physics functions)
+ * \author Daoming Wang (daoming.wang@digipen.edu) (Controller and Pause menu)
+ * \author Li Kuang (li.kuang@digipen.edu) (Map Management/Raycasting)
+ * \brief  Level Manager that handles main game logic
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #ifndef LEVELMANAGER_H
 #define LEVELMANAGER_H
 

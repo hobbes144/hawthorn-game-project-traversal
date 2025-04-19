@@ -6,6 +6,8 @@
  * \date   03-24-2025
  * \brief  Animation component
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef ANIMATE_H
 #define ANIMATE_H

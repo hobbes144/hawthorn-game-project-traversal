@@ -1,3 +1,10 @@
+/*!****************************************************************************
+ * \file   RaycastManager.cpp
+ * \author Nicholas Shaw (nick.shaw@digipen.edu)
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #include "precompiled.h"
 #include "RaycastManager.h"
 #include "PhysicsBody.h"

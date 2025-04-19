@@ -6,6 +6,8 @@
  * \date   03-11-2025
  * \brief  Quaternion implementation for use with Transform
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef QUATERNION_H
 #define QUATERNION_H

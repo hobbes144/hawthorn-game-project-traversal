@@ -5,6 +5,8 @@
  *    anish.murthy@digipen.edu
  * \date   02-10-2025
  * \brief  Texture Material to draw basic textures
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  *
  *****************************************************************************/
 #ifndef TEXTURE_MATERIAL_H

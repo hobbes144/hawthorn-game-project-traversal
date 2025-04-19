@@ -9,6 +9,8 @@
  * \brief  File conatining the custom Vector3 implementation for use with
  * OpenGL functions and other game logic.
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef PAUSEMENU_H
 #define PAUSEMENU_H

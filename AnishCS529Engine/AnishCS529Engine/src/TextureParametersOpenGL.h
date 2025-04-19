@@ -6,6 +6,8 @@
  * \date   02-08-2025
  * \brief  Texture Parameters for OpenGL support
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef TEXTURE_PARAMETERS_H
 #define TEXTURE_PARAMETERS_H

@@ -1,3 +1,17 @@
+/*!****************************************************************************
+ * \file   CollisionEvent.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \author Mariojulio Osmin Zaldivar Alvarez (ex-Adjunct Professor)
+ *   (zaldivaralvarez@gmail.com) (Advising and Base Code)
+ * \par    **Course**
+ *    GAM541
+ * \brief  Collision Event used by the Collision Generator
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ *
+ *****************************************************************************/
 #pragma once
 
 #include "Event.h"

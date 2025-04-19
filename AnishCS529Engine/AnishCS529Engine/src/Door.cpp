@@ -1,3 +1,10 @@
+/*!****************************************************************************
+ * \file   Door.cpp
+ * \author Daoming Wang
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #include "precompiled.h"
 #include "Door.h"
 #include "LevelManager.h"

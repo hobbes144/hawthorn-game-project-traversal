@@ -1,3 +1,11 @@
+/*!****************************************************************************
+ * \file   InGameKey.h
+ * \author Daoming Wang (daoming.wang@digipen.edu) (Controller and Pause menu)
+ * \brief  Keys to open doors
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #ifndef INGAMEKEY_H
 #define INGAMEKEY_H
 

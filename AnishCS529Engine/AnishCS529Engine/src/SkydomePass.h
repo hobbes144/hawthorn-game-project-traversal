@@ -6,6 +6,8 @@
  * \date   04-06-2025
  * \brief  Skydome Pass for rendering
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef SKYDOME_PASS_H
 #define SKYDOME_PASS_H

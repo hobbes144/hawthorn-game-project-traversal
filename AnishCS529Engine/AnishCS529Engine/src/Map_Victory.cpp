@@ -1,3 +1,10 @@
+/*!****************************************************************************
+ * \file   Map_Victory.cpp
+ * \author Li Kuang (li.kuang@digipen.edu)
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #include "precompiled.h"
 #include "MapLoader.h"
 #include "Door.h"

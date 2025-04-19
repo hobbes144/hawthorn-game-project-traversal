@@ -1,12 +1,11 @@
 /*!****************************************************************************
  * \file   RigidBody.h
- * \author Daoming Wang (KeitherJinn@outlook.com)
- * \par    **DigiPen Email**
- *    daoming.wang@digipen.edu
- * \par    **Course**
- *    GAM541
+ * \author Daoming Wang (daoming.wang@digipen.edu) (Callback, Base Class)
+ * \author Anish Murthy (anish.murthy@digipen.edu) (Collision handling)
  * \date   01-14-2025
  * \brief  Rigidbody Component that gives a gameobject rigidbody attribute
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #ifndef RIGIDBODY_H

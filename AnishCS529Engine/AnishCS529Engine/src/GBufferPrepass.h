@@ -6,6 +6,8 @@
  * \date   04-09-2025
  * \brief  GBuffer Prepass
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef G_BUFFER_PREPASS_H
 #define G_BUFFER_PREPASS_H

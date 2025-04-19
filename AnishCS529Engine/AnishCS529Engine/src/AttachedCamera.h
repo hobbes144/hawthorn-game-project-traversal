@@ -6,6 +6,8 @@
  * \date   04-01-2025
  * \brief  Camera attached to a GameObject
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef ATTACHED_CAMERA_H
 #define ATTACHED_CAMERA_H

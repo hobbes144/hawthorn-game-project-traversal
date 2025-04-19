@@ -6,6 +6,8 @@
  * \date   04-13-2025
  * \brief  Render pass for UI specifically
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef UI_PASS_H
 #define UI_PASS_H

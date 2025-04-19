@@ -1,3 +1,11 @@
+/*!****************************************************************************
+ * \file   Door.h
+ * \author Daoming Wang (daoming.wang@digipen.edu)
+ * \brief  Doors
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #ifndef DOOR_H
 #define DOOR_H
 

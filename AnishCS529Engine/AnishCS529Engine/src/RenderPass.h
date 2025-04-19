@@ -8,6 +8,8 @@
  * \date   01-15-2025
  * \brief  Render Pass class
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef RENDER_PASS_H
 #define RENDER_PASS_H

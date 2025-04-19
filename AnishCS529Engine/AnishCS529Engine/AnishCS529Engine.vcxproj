@@ -60,8 +60,6 @@
     <ClCompile Include="src\PauseMenu.cpp" />
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\GamePad.cpp" />
-    <ClCompile Include="src\Ray.cpp" />
-    <ClCompile Include="src\RaycastHit.cpp" />
     <ClCompile Include="src\RaycastManager.cpp" />
     <ClCompile Include="src\Render3D.cpp" />
     <ClCompile Include="src\RenderFlags.cpp" />
@@ -83,7 +81,6 @@
     <ClCompile Include="src\RenderPass.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\ShaderManager.cpp" />
-    <ClCompile Include="src\SkydomePass.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
@@ -151,7 +148,6 @@
     <ClInclude Include="src\ShaderManager.h" />
     <ClInclude Include="src\RigidBody.h" />
     <ClInclude Include="src\SkydomePass.h" />
-    <ClInclude Include="src\SolidColorMaterial.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\CollisionEvent.h" />
     <ClInclude Include="src\CollisionGenerator.h" />

@@ -7,6 +7,8 @@
  *    CS529
  * \date   12-16-2024
  * \brief  Physics body class
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  *
  *****************************************************************************/
 #ifndef PHYSICS_BODY_H

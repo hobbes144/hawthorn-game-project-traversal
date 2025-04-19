@@ -8,6 +8,8 @@
  * \date   12-14-2024
  * \brief  Camera object
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef CAMERA_H
 #define CAMERA_H

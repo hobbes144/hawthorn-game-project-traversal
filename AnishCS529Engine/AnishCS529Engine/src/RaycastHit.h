@@ -12,6 +12,8 @@
  * occured (float), and a pointer to the object that was intersected with 
  * (GameObject*)
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef RAYCAST_HIT
 #define RAYCAST_HIT

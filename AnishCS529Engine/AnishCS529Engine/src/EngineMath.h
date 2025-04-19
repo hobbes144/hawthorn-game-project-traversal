@@ -4,7 +4,9 @@
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
  * \date   03-13-2025
- * \brief  Math functions for the engine
+ * \brief  Main Engine Math class to provide a central Maths library
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #ifndef ENGINE_MATH_H

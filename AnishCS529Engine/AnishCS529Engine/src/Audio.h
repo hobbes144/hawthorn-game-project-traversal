@@ -8,6 +8,8 @@
  * \date   01-26-2025
  * \brief  File to handle audio output
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #pragma once
 #ifndef AUDIO_H

@@ -7,6 +7,8 @@
  * \brief  Render Graph Builder that manager resources related to the render
  * graph
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef RENDER_GRAPH_BUILDER_H
 #define RENDER_GRAPH_BUILDER_H

@@ -6,6 +6,8 @@
  * \date   04-07-2025
  * \brief  Renderable base class for Render classes
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef RENDERABLE_H
 #define RENDERABLE_H

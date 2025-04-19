@@ -6,6 +6,8 @@
  * \date   04-01-2025
  * \brief  Free camera that can be controlled independently
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef FREE_CAMERA_H
 #define FREE_CAMERA_H

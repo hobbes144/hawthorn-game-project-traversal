@@ -1,13 +1,13 @@
 /*!****************************************************************************
  * \file   FirstPersonControllerComponent.h
- * \author Nicholas Shaw (nick_shaw@me.com)
- * \par    **DigiPen Email**
- *    nick.shaw@digipen.edu
- * \par    **Course**
- *    GAM541
- * \date   03-07-2025
+ * \author Nicholas Shaw (nick.shaw@digipen.edu) (Input handling, Parkour
+ *   mechanics, Raycasting)
+ * \author Anish Murthy (anish.murthy@digipen.edu) (Reparenting)
+ * \author Daoming Wang (daoming.wang@digipen.edu) (Pause Menu)
  * \brief  This is the first person controller componet
  * Responsible for all player actions
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 

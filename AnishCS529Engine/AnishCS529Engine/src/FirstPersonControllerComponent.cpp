@@ -1,3 +1,12 @@
+/*!****************************************************************************
+ * \file   FirstPersonControllerComponent.cpp
+ * \author Nicholas Shaw (nick.shaw@digipen.edu) (Level Management)
+ * \author Anish Murthy (anish.murthy@digipen.edu) (Reparenting functions)
+ * \author Daoming Wang (daoming.wang@digipen.edu) (Controller and Pause menu)
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #include "precompiled.h"
 #include "FirstPersonControllerComponent.h"
 #include "Ray.h"

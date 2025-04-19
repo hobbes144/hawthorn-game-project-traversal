@@ -1,3 +1,15 @@
+/*!****************************************************************************
+ * \file   Sphere.h
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    GAM541
+ * \brief  Sphere shape for Collision handling
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ *
+ *****************************************************************************/
 #pragma once
 
 #include "Shape.h"

@@ -1,10 +1,11 @@
-#include "Material.h"
 /*!****************************************************************************
  * \file   Material.inl
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
  * \date   02-10-2025
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #ifndef MATERIAL_INL

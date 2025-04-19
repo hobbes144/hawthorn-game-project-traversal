@@ -4,7 +4,9 @@
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
  * \date   04-12-2025
- * \brief  
+ * \brief  Pass to draw point lights in the scene
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #ifndef LOCAL_LIGHTS_PASS_H
