@@ -27,13 +27,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EngineMath.cpp" />
-    <ClCompile Include="include\imgui\backends\imgui_impl_glfw.cpp" />
-    <ClCompile Include="include\imgui\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="include\imgui\imgui.cpp" />
-    <ClCompile Include="include\imgui\imgui_demo.cpp" />
-    <ClCompile Include="include\imgui\imgui_draw.cpp" />
-    <ClCompile Include="include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -43,9 +36,11 @@
     <ClCompile Include="src\DeathPlane.cpp" />
     <ClCompile Include="src\AttachedCamera.cpp" />
     <ClCompile Include="src\Door.cpp" />
+    <ClCompile Include="src\EngineMath.cpp" />
     <ClCompile Include="src\FBO.cpp" />
     <ClCompile Include="src\FreeCamera.cpp" />
     <ClCompile Include="src\GBufferPrepass.cpp" />
+    <ClCompile Include="src\GeometryBuffer.cpp" />
     <ClCompile Include="src\InGameKey.cpp" />
     <ClCompile Include="src\KeyList.cpp" />
     <ClCompile Include="src\LevelManager.cpp" />
@@ -53,9 +48,7 @@
     <ClCompile Include="src\LMMain.cpp" />
     <ClCompile Include="src\LocalLightsPass.cpp" />
     <ClCompile Include="src\MapLoader.cpp" />
-    <ClCompile Include="src\EngineDemo.cpp" />
     <ClCompile Include="src\FirstPersonControllerComponent.cpp" />
-    <ClCompile Include="src\FPCDemo.cpp" />
     <ClCompile Include="src\Map_Advanced.cpp" />
     <ClCompile Include="src\Map_Intermediate.cpp" />
     <ClCompile Include="src\Map_Intermediate2.cpp" />
@@ -73,21 +66,14 @@
     <ClCompile Include="src\Render3D.cpp" />
     <ClCompile Include="src\RenderFlags.cpp" />
     <ClCompile Include="src\RenderGraphBuilder.cpp" />
-    <ClCompile Include="src\ReparentingTest.cpp" />
     <ClCompile Include="src\RigidBody.cpp" />
     <ClCompile Include="src\AABB.cpp" />
     <ClCompile Include="src\Audio.cpp" />
-    <ClCompile Include="src\Bullet.cpp" />
-    <ClCompile Include="src\BulletHitListener.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
-    <ClCompile Include="src\GraphicsTest.cpp" />
-    <ClCompile Include="src\InputOld.cpp" />
-    <ClCompile Include="src\MainTestMaterial.cpp" />
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
-    <ClCompile Include="src\Movement.cpp" />
     <ClCompile Include="src\Movement3D.cpp" />
     <ClCompile Include="src\PhysicsBody.cpp" />
     <ClCompile Include="src\Render2D.cpp" />
@@ -96,75 +82,42 @@
     <ClCompile Include="src\RendererStateSaver.cpp" />
     <ClCompile Include="src\RenderGraph.cpp" />
     <ClCompile Include="src\RenderPass.cpp" />
-    <ClCompile Include="src\rply.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\ShaderManager.cpp" />
-    <ClCompile Include="src\Shoot.cpp" />
-    <ClCompile Include="src\simplexnoise.cpp" />
     <ClCompile Include="src\SkydomePass.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\CollisionGenerator.cpp" />
     <ClCompile Include="src\CollisionListener.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
-    <ClInclude Include="EngineMath.h" />
     <ClInclude Include="src\Animate.h" />
     <ClInclude Include="src\AttachedCamera.h" />
     <ClInclude Include="src\DeathPlane.h" />
     <ClInclude Include="src\Door.h" />
+    <ClInclude Include="src\EngineMath.h" />
     <ClInclude Include="src\FBO.h" />
     <ClInclude Include="src\FirstPersonControllerComponent.h" />
     <ClInclude Include="src\FramerateController.inl">
       <FileType>Document</FileType>
     </ClInclude>
-    <ClCompile Include="src\GameObjectOld.cpp" />
-    <ClCompile Include="src\GameWindowOld.cpp" />
-    <ClCompile Include="src\GeometryBuffer.cpp" />
-    <ClCompile Include="src\glad.c">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\PhysicsTest.cpp" />
-    <ClCompile Include="src\RectanglePrimitive.cpp" />
-    <ClCompile Include="src\Tank.cpp" />
-    <ClCompile Include="src\TankBattle.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\TextureMaterial.cpp" />
     <ClCompile Include="src\TimeControlledRB.cpp" />
-    <ClCompile Include="src\TimeControlTest.cpp" />
-    <ClCompile Include="src\TriangleTest.cpp" />
-    <ClCompile Include="src\MaterialDeprecated.cpp" />
     <ClCompile Include="src\Matrix4.cpp" />
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\OBB.cpp" />
-    <ClCompile Include="src\PhysicsBodyOld.cpp" />
     <ClCompile Include="src\PhysicsManager.cpp" />
-    <ClCompile Include="src\RenderableNode.cpp" />
-    <ClCompile Include="src\RendererOld.cpp" />
     <ClCompile Include="src\SceneGraph.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
-    <ClCompile Include="src\TrianglePrimitive.cpp" />
     <ClCompile Include="src\UIPass.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
-    <ClCompile Include="src\VectorTemplated.cpp" />
-    <ClCompile Include="src\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="precompiled.h" />
     <ClInclude Include="src\AABB.h" />
-    <ClInclude Include="src\BasicRenderPass.h" />
     <ClInclude Include="src\Audio.h" />
-    <ClInclude Include="src\Bullet.h" />
-    <ClInclude Include="src\BulletHitListener.h" />
-    <ClInclude Include="src\BulletSpawnEvent.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Component.h" />
-    <ClInclude Include="src\DebugMaterial.h" />
-    <ClInclude Include="src\DebugPass.h" />
+    <ClInclude Include="src\FreeCamera.h" />
     <ClInclude Include="src\GamePad.h" />
     <ClInclude Include="src\GameWindow.h" />
     <ClInclude Include="src\GBufferPrepass.h" />
@@ -174,15 +127,12 @@
     <ClInclude Include="src\Lights.h" />
     <ClInclude Include="src\LevelManager.h" />
     <ClInclude Include="src\LocalLightsPass.h" />
-    <ClInclude Include="src\MainTestMaterial.h" />
     <ClInclude Include="src\MapLoader.h" />
     <ClInclude Include="src\Material.inl" />
-    <ClInclude Include="src\InputOld.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\LightingPass.h" />
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Mesh.h" />
-    <ClInclude Include="src\Movement.h" />
     <ClInclude Include="src\Movement3D.h" />
     <ClInclude Include="src\PauseMenu.h" />
     <ClInclude Include="src\PhysicsBody.h" />
@@ -199,11 +149,9 @@
     <ClInclude Include="src\RenderGraph.h" />
     <ClInclude Include="src\RenderGraphBuilder.h" />
     <ClInclude Include="src\RenderPass.h" />
-    <ClInclude Include="src\rply.h" />
+    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\ShaderManager.h" />
     <ClInclude Include="src\RigidBody.h" />
-    <ClInclude Include="src\Shoot.h" />
-    <ClInclude Include="src\simplexnoise.h" />
     <ClInclude Include="src\SkydomePass.h" />
     <ClInclude Include="src\SolidColorMaterial.h" />
     <ClInclude Include="src\Sphere.h" />
@@ -211,40 +159,27 @@
     <ClInclude Include="src\CollisionGenerator.h" />
     <ClInclude Include="src\CollisionListener.h" />
     <ClInclude Include="src\Contact.h" />
-    <ClInclude Include="src\EngineTests.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventListener.h" />
     <ClInclude Include="src\EventManager.h" />
     <ClInclude Include="src\FramerateController.h" />
-    <ClInclude Include="src\GameObjectOld.h" />
-    <ClInclude Include="src\GameWindowOld.h" />
     <ClInclude Include="src\GeometryBuffer.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\InputKeys.h" />
-    <ClInclude Include="src\MaterialDeprecated.h" />
     <ClInclude Include="src\Matrix4.h" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\OBB.h" />
-    <ClInclude Include="src\PhysicsBodyOld.h" />
     <ClInclude Include="src\PhysicsManager.h" />
-    <ClInclude Include="src\RectanglePrimitive.h" />
-    <ClInclude Include="src\RenderableNode.h" />
-    <ClInclude Include="src\RendererOld.h" />
     <ClInclude Include="src\SceneGraph.h" />
-    <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\Shape.h" />
-    <ClInclude Include="src\Tank.h" />
-    <ClInclude Include="src\TestPass.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\TextureMaterial.h" />
     <ClInclude Include="src\TextureParametersOpenGL.h" />
     <ClInclude Include="src\TimeControlledRB.h" />
     <ClInclude Include="src\Transform.h" />
-    <ClInclude Include="src\TrianglePrimitive.h" />
     <ClInclude Include="src\UIPass.h" />
     <ClInclude Include="src\Vector3.h" />
     <ClInclude Include="src\VectorTemplated.h" />
-    <ClInclude Include="src\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="media\Map\Big_Button.fbx">
@@ -271,24 +206,6 @@
     <None Include="media\Map\Turret.fbx">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>
-    <None Include="shaders\basic_render.frag.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\basic_render.vert.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\debug.frag.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\debug.vert.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\factory_frag_shader.frag.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\factory_vertex_shader.vert.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
     <None Include="shaders\gbuffer.frag" />
     <None Include="shaders\gbuffer.vert" />
     <None Include="shaders\lighting.frag">
@@ -299,18 +216,6 @@
     </None>
     <None Include="shaders\local_lights.frag" />
     <None Include="shaders\local_lights.vert" />
-    <None Include="shaders\main_fragment_shader.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\main_vertex_shader.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\physics_test_fragment_shader.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
-    <None Include="shaders\physics_test_vertex_shader.glsl">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
     <ClInclude Include="src\EventListener.inl">
       <FileType>Document</FileType>
     </ClInclude>
@@ -464,7 +369,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)include;$(ProjectDir);$(ProjectDir)include/imgui;$(ProjectDir)include/imgui/backends;$(ProjectDir)include/assimp;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)lib;$(ProjectDir)lib\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugAdditionalFeatures|x64'">
     <IncludePath>$(ProjectDir)include;$(ProjectDir);$(IncludePath)</IncludePath>
@@ -472,7 +377,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)include;$(ProjectDir);$(ProjectDir)include/imgui;$(ProjectDir)include/imgui/backends;$(ProjectDir)include/assimp;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)lib;$(ProjectDir)lib\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -530,7 +435,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>xinput.lib;glfw3.lib;opengl32.lib;fmod_vc.lib;fmodL_vc.lib;fmodstudio_vc.lib;fmodstudioL_vc.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput.lib;glfw3.lib;glad.lib;opengl32.lib;fmodL_vc.lib;fmodstudioL_vc.lib;imgui.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)\AnishCS529Engine\x64\Debug\*.dll" "$(OutDir)"</Command>
@@ -578,7 +483,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>xinput.lib;glfw3.lib;opengl32.lib;fmod_vc.lib;fmodL_vc.lib;fmodstudio_vc.lib;fmodstudioL_vc.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput.lib;glfw3.lib;glad.lib;opengl32.lib;fmod_vc.lib;fmodstudio_vc.lib;imgui.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(SolutionDir)\AnishCS529Engine\x64\Debug\*.dll" "$(OutDir)"</Command>
