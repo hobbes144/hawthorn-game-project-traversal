@@ -1,4 +1,4 @@
-#include "precompiled.h"
+﻿#include "precompiled.h"
 #include "PauseMenu.h"
 
 void PauseMenu::setInputSystem(Input* ip) {
@@ -157,6 +157,11 @@ void PauseMenu::mainPauseMenu() {
 	}
 
 	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (ImGui::Button("Credits", ImVec2(buttonWidth, 40))) {
+		menuType = Credits;
+	}
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
 	if (ImGui::Button("Quit", ImVec2(buttonWidth, 40))) {
 		menuType = Quit;
 	}
@@ -168,6 +173,115 @@ void PauseMenu::mainPauseMenu() {
 	else {
 		ImGui::Text("Gamepad Not Connected");
 	}
+
+	ImGui::End();
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	return;
+}
+
+/*!****************************************************************************
+ * \brief Credits screen
+ *
+ *****************************************************************************/
+void PauseMenu::credits() {
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable gamepad controls
+	io.FontGlobalScale = 2.0f;
+
+	if (ImGui::IsKeyDown(KEY_ENTER)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_ENTER;
+	}
+
+	if (ImGui::IsKeyDown(KEY_SPACE)) {
+		io.KeyMap[ImGuiKey_Space] = KEY_SPACE;
+	}
+
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
+	// Get the display size
+	ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+
+	// Set next window to cover the entire screen
+	ImGui::SetNextWindowPos(ImVec2(0, 0));
+	ImGui::SetNextWindowSize(displaySize);
+
+	ImGui::Begin("How To Play", nullptr,
+		ImGuiWindowFlags_NoDecoration |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoSavedSettings |
+		ImGuiWindowFlags_NoBringToFrontOnFocus);
+
+	ImDrawList* drawList = ImGui::GetBackgroundDrawList();
+	drawList->AddRectFilled(ImVec2(0, 0), displaySize, IM_COL32(0, 0, 0, 96));
+
+	// Center the menu
+	ImVec2 center = ImVec2(displaySize.x / 2, displaySize.y / 2);
+	ImGui::SetCursorPos(ImVec2(center.x - 350, center.y - 400));
+
+	float windowWidth = ImGui::GetWindowSize().x;
+
+	ImGui::Text("Credits");
+	ImGui::Text(" ");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Team Hawthorn");
+	ImGui::Text(" ");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Producer               Nicolas Shaw");
+	ImGui::Text(" ");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Gameplay Programmer    Nicolas Shaw, Daoming Wang");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Level Designer         Lixiao Kuang");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Audio Programmer       Lixiao Kuang");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Engine Programmer      Arnish Murthy");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Graphics Programmer    Arnish Murthy");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Physics Programmer     Arnish Murthy, Daoming Wang");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("UI Programmer          Daoming Wang");
+	ImGui::Text(" ");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Made using FMOD Studio by Firelight Technologies Pty Ltd.");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Made using GLFW3 by GLFW community");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Made using XInput by Microsoft");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Made using Dear ImGui by Github community");
+	ImGui::Text(" ");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("Created at Digipen");
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::Text("President              Claude Comair");
+
+	float buttonWidth = 200.0f;
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+
+	ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+	if (ImGui::Button("Go Back", ImVec2(buttonWidth, 40)) ||
+		(!enteredState && (
+			ImGui::IsKeyPressed(KEY_ESCAPE) ||
+			gp->isReleased(XINPUT_GAMEPAD_START) ||
+			gp->isReleased(XINPUT_GAMEPAD_B)
+			))
+		) {
+		menuType = MainPauseMenu;
+		enteredState = true;
+	}
+
+	ImGui::SetCursorPosX(center.x - 350);
+	ImGui::SetCursorPosY(displaySize.y - 40);
+	ImGui::Text("Copyright 2025 DigiPen, All Rights Reserved.");
 
 	ImGui::End();
 
@@ -817,8 +931,8 @@ void PauseMenu::run() {
 	else if (menuType == Quit) {
 		quitMenu();
 	}
-	else if (menuType == Test) {
-		testMenu();
+	else if (menuType == Credits) {
+		credits();
 	}
 	else {
 		frc->clearPhysicsTime();
