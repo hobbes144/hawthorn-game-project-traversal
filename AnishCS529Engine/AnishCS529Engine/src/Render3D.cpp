@@ -6,6 +6,8 @@
  * \par    **Course**
  *    CS529
  * \date   12-15-2024
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  *
  *****************************************************************************/
 #include "precompiled.h"

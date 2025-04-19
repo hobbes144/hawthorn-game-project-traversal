@@ -1,13 +1,15 @@
-#include "GameObject.h"
 /*!****************************************************************************
  * \file   GameObject.inl
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
+ * \author Mariojulio Osmin Zaldivar Alvarez (ex-Adjunct Professor)
+ *   (zaldivaralvarez@gmail.com) (Advising and Base Code)
  * \par    **Course**
  *    CS529
  * \date   12-14-2024
- * \brief
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  *
  *****************************************************************************/
 #ifndef GAME_OBJECT_INL

@@ -1,4 +1,11 @@
-﻿#include "precompiled.h"
+/*!****************************************************************************
+ * \file   PauseMenu.cpp
+ * \author Daoming Wang (daoming.wang@digipen.edu)
+ * 
+ * Copyright � 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
+#include "precompiled.h"
 #include "PauseMenu.h"
 
 void PauseMenu::setInputSystem(Input* ip) {

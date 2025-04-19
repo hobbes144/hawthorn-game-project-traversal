@@ -1,11 +1,10 @@
 /*!****************************************************************************
  * \file   RigidBody.cpp
- * \author Daoming Wang (KeitherJinn@outlook.com)
- * \par    **DigiPen Email**
- *    anish.murthy@digipen.edu
- * \par    **Course**
- *    CS529
- * \date   12-16-2024
+ * \author Daoming Wang (daoming.wang@digipen.edu) (Callback, Base Class)
+ * \author Anish Murthy (anish.murthy@digipen.edu) (Collision handling)
+ * \date   01-14-2025
+ *
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  *
  *****************************************************************************/
 #include "precompiled.h"

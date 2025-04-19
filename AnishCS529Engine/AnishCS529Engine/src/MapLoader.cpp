@@ -1,9 +1,15 @@
-﻿#include "precompiled.h"
+﻿/*!****************************************************************************
+ * \file   MapLoader.cpp
+ * \author Li Kuang (li.kuang@digipen.edu)
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
+#include "precompiled.h"
 #include "DeathPlane.h"
 #include "Door.h"
 #include "InGameKey.h"
 #include "KeyList.h"
-#include "MainTestMaterial.h"
 #include "MapLoader.h"
 #include "Matrix4.h"
 

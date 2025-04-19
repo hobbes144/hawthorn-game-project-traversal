@@ -3,7 +3,11 @@
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
+ * \author Gary Herron (Professor)
+ *   (gherron@digipen.edu) (Advising and Base Code)
  * \date   04-09-2025
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #include "precompiled.h"

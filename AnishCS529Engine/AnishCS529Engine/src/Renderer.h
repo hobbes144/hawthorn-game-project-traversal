@@ -3,11 +3,15 @@
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
+ * \author Mariojulio Osmin Zaldivar Alvarez (ex-Adjunct Professor)
+ *   (zaldivaralvarez@gmail.com) (Advising and Base Code)
  * \par    **Course**
  *    CS529
  * \date   10-14-2024
  * \brief  Renderer implementation to initialize the OpenGL libraries
  * and libraries.
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  *
  *****************************************************************************/
 #ifndef RENDERER_H

@@ -3,10 +3,14 @@
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
+ * \author Mariojulio Osmin Zaldivar Alvarez (ex-Adjunct Professor)
+ *   (zaldivaralvarez@gmail.com) (Advising and Base Code)
  * \par    **Course**
  *    CS529
  * \date   12-16-2024
  * \brief  Collision Generator class
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #ifndef COLLISION_GENERATOR_H

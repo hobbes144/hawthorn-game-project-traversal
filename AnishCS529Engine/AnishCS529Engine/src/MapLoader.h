@@ -14,6 +14,9 @@
  * Map IDs:
  *   1 = wallrun map
  *   2 = jump map
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #pragma once
 #ifndef MAPLOADER_H

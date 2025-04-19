@@ -1,3 +1,23 @@
+/*!****************************************************************************
+ * \file   DeathPlane.cpp
+ * \author Daoming Wang (daoming.wang@digipen.edu)
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
+/*!****************************************************************************
+ * \file   DeathPlane.cpp
+ * \author Anish Murthy (anish.murthy.dev@gmail.com)
+ * \par    **DigiPen Email**
+ *    anish.murthy@digipen.edu
+ * \par    **Course**
+ *    GAM541
+ * \date   04-18-2025
+ * \brief  
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ *
+ *****************************************************************************/
 #include "precompiled.h"
 #include "DeathPlane.h"
 

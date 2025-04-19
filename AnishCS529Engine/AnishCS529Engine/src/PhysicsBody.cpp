@@ -3,9 +3,13 @@
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
+ * \author Mariojulio Osmin Zaldivar Alvarez (ex-Adjunct Professor)
+ *   (zaldivaralvarez@gmail.com) (Advising and Base Code)
  * \par    **Course**
  *    CS529
  * \date   12-16-2024
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  *
  *****************************************************************************/
 #include "precompiled.h"
@@ -465,9 +469,9 @@ void PhysicsBody::initialize() {}
  *
  *****************************************************************************/
 void PhysicsBody::update(float deltaTime) {
-  if (debug) {
+  /*if (debug) {
     collisionShape->debugDaw();
-  }
+  }*/
 }
 
 /*!****************************************************************************

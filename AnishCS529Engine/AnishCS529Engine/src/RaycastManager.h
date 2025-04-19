@@ -10,6 +10,8 @@
  * before any calls can be made. 
  * The Raycast() function will perform a raycasting test
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef RAYCAST_MANAGER
 #define RAYCAST_MANAGER

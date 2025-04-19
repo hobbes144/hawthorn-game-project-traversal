@@ -8,6 +8,8 @@
  * \date   10-22-2024
  * \brief  Key references to set up supported key constexpr
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef INPUT_KEYS_H
 #define INPUT_KEYS_H

@@ -3,8 +3,12 @@
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
+ * \author Gary Herron (Professor)
+ *   (gherron@digipen.edu) (Advising and Base Code)
  * \date   02-08-2025
  * \brief  Texture Manager class
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #ifndef TEXTURE_MANAGER_H

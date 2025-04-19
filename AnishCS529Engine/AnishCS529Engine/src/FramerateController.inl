@@ -3,14 +3,17 @@
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
+ * \author Mariojulio Osmin Zaldivar Alvarez (ex-Adjunct Professor)
+ *   (zaldivaralvarez@gmail.com) (Advising and Base Code)
  * \par    **Course**
  *    CS529
  * \date   10-25-2024
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef FRAMERATECONTROLLER_INL
 #define FRAMERATECONTROLLER_INL
-#include "FramerateController.h"
 
 /*!****************************************************************************
  * \brief Singleton class object getter function

@@ -1,12 +1,13 @@
 /*!****************************************************************************
  * \file   GameObject.h
- * \author Anish Murthy (anish.murthy.dev@gmail.com)
- * \par    **DigiPen Email**
- *    anish.murthy@digipen.edu
- * \par    **Course**
- *    CS529
+ * \author Anish Murthy (anish.murthy@digipen.edu) (Graphics/Physics functions)
+ * \author Nicholas Shaw (nick.shaw@digipen.edu) (Tag Management)
+ * \author Mariojulio Osmin Zaldivar Alvarez (ex-Adjunct Professor)
+ *   (zaldivaralvarez@gmail.com) (Advising and Base Code)
  * \date   12-13-2024
  * \brief  Scene Object that represents a renderable object component
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #ifndef SCENE_OBJECT_H

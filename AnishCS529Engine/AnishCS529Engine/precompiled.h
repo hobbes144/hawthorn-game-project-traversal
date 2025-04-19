@@ -1,3 +1,12 @@
+/*!****************************************************************************
+ * \file   precompiled.h
+ * \author Erik Fleegal (Adjunct Senior Lecturer)
+ *   (eric.fleegal@digipen.edu)
+ * \brief  Precompiled headers
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #pragma once
 
 // windows headers

@@ -10,6 +10,8 @@
  * before the call of RaycastManager::Raycast.
  * It contains an Origin(Vector3) and a direciton (Vector3)
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 
 #ifndef RAY

@@ -1,3 +1,13 @@
+/*!****************************************************************************
+ * \file   LevelManager.cpp
+ * \author Nicholas Shaw (nick.shaw@digipen.edu) (Base class and manager code)
+ * \author Anish Murthy (anish.murthy@digipen.edu) (Graphics/Physics functions)
+ * \author Daoming Wang (daoming.wang@digipen.edu) (Controller and Pause menu)
+ * \author Li Kuang (li.kuang@digipen.edu) (Map Management/Raycasting)
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #include "precompiled.h"
 #include "LevelManager.h"
 

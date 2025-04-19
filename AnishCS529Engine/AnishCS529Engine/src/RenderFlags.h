@@ -6,6 +6,8 @@
  * \date   04-09-2025
  * \brief  Render specific flags and names for easier referencing
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef RENDER_FLAGS_H
 #define RENDER_FLAGS_H

@@ -6,6 +6,8 @@
  * \date   02-10-2025
  * \brief  Lighting RenderPass class for 3D rendering
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef LIGHTING_PASS_H
 #define LIGHTING_PASS_H

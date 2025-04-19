@@ -1,3 +1,11 @@
+/*!****************************************************************************
+ * \file   GamePad.h
+ * \author Daoming Wang (daoming.wang@digipen.edu)
+ * \brief  GamePad class to handle GamePad related inputs
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #ifndef GAMEPAD_H
 #define GAMEPAD_H
 

@@ -6,6 +6,8 @@
  * \date   04-04-2025
  * \brief  Lights supported by the engine
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef LIGHTS_H
 #define LIGHTS_H

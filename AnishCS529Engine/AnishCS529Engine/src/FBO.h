@@ -10,6 +10,8 @@
  * it is "Unbound", the texture is available for use as any normal
  * texture.
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef FBO_H
 #define FBO_H

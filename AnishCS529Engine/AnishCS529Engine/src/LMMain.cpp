@@ -1,3 +1,10 @@
+/*!****************************************************************************
+ * \file   LMMain.cpp
+ * \author Nicholas Shaw (nick.shaw@digipen.edu) (Level Management)
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #include "precompiled.h"
 
 #include "LevelManager.h"

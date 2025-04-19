@@ -3,8 +3,11 @@
  * \author Anish Murthy (anish.murthy.dev@gmail.com)
  * \par    **DigiPen Email**
  *    anish.murthy@digipen.edu
- * \date   02-10-2025
- * \brief  
+ * \author Mariojulio Osmin Zaldivar Alvarez (ex-Adjunct Professor)
+ *   (zaldivaralvarez@gmail.com) (Advising and Base Code)
+ * \brief  OBB shape for Collision handling
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
  * 
  *****************************************************************************/
 #ifndef OBB_H
@@ -13,8 +16,6 @@
 #pragma once
 
 #include "Camera.h"
-#include "DebugMaterial.h"
-#include "DebugPass.h"
 #include "EngineMath.h"
 #include "Mesh.h"
 #include "RenderGraph.h"
@@ -32,7 +33,7 @@ public:
   Vector3 getSurfacePoint(const Vector3& direction) override;
   Vector3 getNormalAtVector(const Vector3& direction) override;
   Vector3 getNormalClosestToPoint(const Vector3& point) override;
-  void debugDaw();
+  //void debugDaw();
 
   void getCorners(Vector3 corners[4]) const;
 
@@ -45,9 +46,9 @@ public:
   Vector3 getFront() const;
   const Vector3* getAxes() const;
 
-  // debug functions
-  void initializeDebugDraw(
-    std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera); // Call this once when creating OBB
+  //// debug functions
+  //void initializeDebugDraw(
+  //  std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera); // Call this once when creating OBB
 
   bool raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const override;
 
@@ -72,11 +73,11 @@ private:
 
   Quaternion rotation;
 
-  // debug properties
-  std::shared_ptr<Mesh> debugMesh;
-  std::shared_ptr<DebugMaterial> debugMaterial;
-  std::shared_ptr<RenderGraph> renderGraph;
-  std::shared_ptr<Camera> camera;
+  //// debug properties
+  //std::shared_ptr<Mesh> debugMesh;
+  //std::shared_ptr<DebugMaterial> debugMaterial;
+  //std::shared_ptr<RenderGraph> renderGraph;
+  //std::shared_ptr<Camera> camera;
 
 };
 

@@ -1,3 +1,11 @@
+/*!****************************************************************************
+ * \file   KeyList.h
+ * \author Daoming Wang (daoming.wang@digipen.edu)
+ * \brief  Manager for Keys
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #ifndef KEYLIST_H
 #define KEYLIST_H
 

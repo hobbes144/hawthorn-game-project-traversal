@@ -5,6 +5,8 @@
  *    anish.murthy@digipen.edu
  * \date   02-08-2025
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #include "precompiled.h"
 

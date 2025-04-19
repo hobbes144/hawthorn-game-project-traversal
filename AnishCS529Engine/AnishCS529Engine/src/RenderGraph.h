@@ -8,6 +8,8 @@
  * \date   01-16-2025
  * \brief  RenderGraph class
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef RENDER_GRAPH_H
 #define RENDER_GRAPH_H

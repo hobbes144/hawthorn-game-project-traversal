@@ -6,6 +6,8 @@
  * \date   02-10-2025
  * \brief  Shader Manager class
  * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
  *****************************************************************************/
 #ifndef SHADER_MANAGER_H
 #define SHADER_MANAGER_H

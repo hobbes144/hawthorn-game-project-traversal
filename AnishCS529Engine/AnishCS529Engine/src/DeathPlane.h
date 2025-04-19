@@ -1,3 +1,11 @@
+/*!****************************************************************************
+ * \file   DeathPlane.h
+ * \author Daoming Wang (daoming.wang@digipen.edu)
+ * \brief  Deathplane to kill player
+ * 
+ * Copyright © 2025 DIGIPEN Institute of Technology. All rights reserved.
+ * 
+ *****************************************************************************/
 #ifndef DEATHPLANE_H
 #define DEATHPLANE_H
 
