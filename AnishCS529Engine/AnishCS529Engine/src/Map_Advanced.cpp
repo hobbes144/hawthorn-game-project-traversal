@@ -70,7 +70,25 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     createWall("BackWall", Vector3(0.0f, height / 2.0f, depth / 2.0f), Vector3(width, height, wallThickness));
     createWall("FrontWall", Vector3(0.0f, height / 2.0f, -depth / 2.0f), Vector3(width, height, wallThickness));
     createWall("TopWall", Vector3(0.0f, height, 0.0f), Vector3(width, wallThickness, depth));
-    createWall("BottomWall", Vector3(0.0f, 0.0f, 0.0f), Vector3(width, wallThickness, depth));
+    //createWall("BottomWall", Vector3(0.0f, 0.0f, 0.0f), Vector3(width, wallThickness, depth));
+
+    {
+        auto DP1 = std::make_shared<GameObject>("DP1");
+        sceneGraph.addNode(DP1);
+        DP1->setLocalPosition(Vector3(0.0f, 0.0f, 0.0f));
+        DP1->setLocalScaling(Vector3(width, wallThickness, depth));
+        auto renderComp = DP1->addComponent<Render3D>();
+        renderComp->setMesh(boxMesh)->setMaterial(LightBlueConcrete);
+        auto shape = std::make_shared<OBB>();
+        auto rigidBody = DP1->addComponent<DeathPlane>();
+        rigidBody->setPlayerName("PlayerBox");
+        rigidBody->setMass(0.0f)
+            ->setDrag(1.0f)
+            ->setShape(shape)
+            ->setStatic(true)
+            ->registerToPhysicsManager(PhysicsManager::Instance());
+        rigidBody->initialize();
+    }
 
     // Door to next level
     {
@@ -260,8 +278,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-109.9f + offsetX, 22.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 37.0f));
+        wallRunWall->setLocalPosition(Vector3(-109.9f + offsetX, 22.0f + offsetY, -72.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 35.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
