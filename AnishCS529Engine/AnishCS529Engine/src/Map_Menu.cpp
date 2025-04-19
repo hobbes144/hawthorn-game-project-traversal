@@ -47,7 +47,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     createWall("TopWall", Vector3(0.0f, height, 0.0f), Vector3(width, wallThickness, depth));
     createWall("BottomWall", Vector3(0.0f, 0.0f, 0.0f), Vector3(width, wallThickness, depth));
 
-    writeLetter(sceneGraph, "media/Map/words/start.fbx", Vector3(-19.0f + offsetX, 6.5f + offsetY, -3.5f + offsetZ),
+    writeLetter(sceneGraph, "media/Map/words/TRAVERSAL.fbx", Vector3(-19.0f + offsetX, 7.5f + offsetY, -1.0f + offsetZ),
             Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), keyMaterial);
 
     writeLetter(sceneGraph, "media/Map/words/W.fbx", Vector3(-18.0f + offsetX, 3.2f + offsetY, -3.5f + offsetZ),
