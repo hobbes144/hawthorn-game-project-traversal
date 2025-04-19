@@ -625,7 +625,7 @@ void FirstPersonControllerComponent::update(float deltaTime)
 	UpdateAnchorInfo();
 
 	//Check if the player is Respawning
-	if (isRespawning) {
+	if (isRespawning && difficulty != HARD) {
 		respawnPlayer(true,false);
 	}
 
