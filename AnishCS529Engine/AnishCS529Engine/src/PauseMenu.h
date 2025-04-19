@@ -91,6 +91,7 @@ private:
 		HowToPlay,
 		Settings,
 		Quit,
+		Credits,
 		Test
 	};
 
@@ -104,6 +105,7 @@ private:
 
 	void mainPauseMenu();
 	void howToPlay();
+	void credits();
 	void settings();
 	void quitMenu();
 	void testMenu();
