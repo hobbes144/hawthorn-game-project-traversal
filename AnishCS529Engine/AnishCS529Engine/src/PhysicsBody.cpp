@@ -465,9 +465,9 @@ void PhysicsBody::initialize() {}
  *
  *****************************************************************************/
 void PhysicsBody::update(float deltaTime) {
-  if (debug) {
+  /*if (debug) {
     collisionShape->debugDaw();
-  }
+  }*/
 }
 
 /*!****************************************************************************

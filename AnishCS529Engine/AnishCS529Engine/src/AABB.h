@@ -14,8 +14,6 @@
 
 #include "EngineMath.h"
 #include "Camera.h"
-#include "DebugMaterial.h"
-#include "DebugPass.h"
 #include "Mesh.h"
 #include "RenderGraph.h"
 #include "Shape.h"
@@ -33,7 +31,7 @@ public:
   Vector3 getSurfacePoint(const Vector3& direction) override;
   Vector3 getNormalAtVector(const Vector3& direction) override;
   Vector3 getNormalClosestToPoint(const Vector3& point) override;
-  void debugDaw();
+  //void debugDaw();
 
   Vector3  getMin()        const;
   Vector3  getMax()        const;
@@ -44,8 +42,8 @@ public:
   float   getHeight()      const;
   float   getDepth()       const;
 
-  // debug functions
-  void initializeDebugDraw(std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera); // Call this once when creating OBB
+  //// debug functions
+  //void initializeDebugDraw(std::shared_ptr<RenderGraph> renderGraph, std::shared_ptr<Camera> camera); // Call this once when creating OBB
 
   bool raycastIntersect(const Ray& ray, RaycastHit& hit, float maxDistance) const override;
 
@@ -53,11 +51,11 @@ private:
   Vector3 localMin, localMax;   // Original bounds in local space
   Vector3 worldMin, worldMax;   // Transformed bounds in world space
 
-  // debug properties
-  std::shared_ptr<Mesh> debugMesh;
-  std::shared_ptr<DebugMaterial> debugMaterial;
-  std::shared_ptr<RenderGraph> renderGraph;
-  std::shared_ptr<Camera> camera;
+  //// debug properties
+  //std::shared_ptr<Mesh> debugMesh;
+  //std::shared_ptr<DebugMaterial> debugMaterial;
+  //std::shared_ptr<RenderGraph> renderGraph;
+  //std::shared_ptr<Camera> camera;
 };
 
 #endif // !AABB_H

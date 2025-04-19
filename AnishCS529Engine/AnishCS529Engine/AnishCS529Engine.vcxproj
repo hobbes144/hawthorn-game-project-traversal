@@ -74,7 +74,6 @@
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
-    <ClCompile Include="src\Movement3D.cpp" />
     <ClCompile Include="src\PhysicsBody.cpp" />
     <ClCompile Include="src\Render2D.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -133,7 +132,6 @@
     <ClInclude Include="src\LightingPass.h" />
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Mesh.h" />
-    <ClInclude Include="src\Movement3D.h" />
     <ClInclude Include="src\PauseMenu.h" />
     <ClInclude Include="src\PhysicsBody.h" />
     <ClInclude Include="src\Quaternion.h" />
