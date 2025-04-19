@@ -278,8 +278,8 @@ void MapLoader::advanced(float offsetX, float offsetY, float offsetZ,
     {
         auto wallRunWall = std::make_shared<GameObject>("WallRunWall", GameObject::RUNNABLE_WALL);
         sceneGraph.addNode(wallRunWall);
-        wallRunWall->setLocalPosition(Vector3(-109.9f + offsetX, 22.0f + offsetY, -70.0f + offsetZ));
-        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 37.0f));
+        wallRunWall->setLocalPosition(Vector3(-109.9f + offsetX, 22.0f + offsetY, -72.0f + offsetZ));
+        wallRunWall->setLocalScaling(Vector3(1.05f, 10.0f, 35.0f));
         auto renderComp = wallRunWall->addComponent<Render3D>();
         renderComp->setMesh(boxMesh)->setMaterial(BlueConcrete);
         auto shape = std::make_shared<OBB>();
