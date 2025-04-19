@@ -49,6 +49,8 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
 
     writeLetter(sceneGraph, "media/Map/words/TRAVERSAL.fbx", Vector3(-19.0f + offsetX, 7.5f + offsetY, -1.0f + offsetZ),
             Vector3(0.03f, 0.03f, 0.03f), Vector3(0.0f, -1.57f, 0.0f), keyMaterial);
+    writeLetter(sceneGraph, "media/Map/words/DIFFICULTY.fbx", Vector3(-19.0f + offsetX, 3.5f + offsetY, 5.0f + offsetZ),
+        Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
 
     writeLetter(sceneGraph, "media/Map/words/W.fbx", Vector3(-18.0f + offsetX, 3.2f + offsetY, -3.5f + offsetZ),
                 Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, -1.57f, 0.0f), BrownConcrete);
@@ -86,7 +88,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
     }
 
 
-    writeLetter(sceneGraph, "media/Map/words/EASY.fbx", Vector3(6.8f + offsetX, 5.5f + offsetY, 19.0f + offsetZ),
+    writeLetter(sceneGraph, "media/Map/words/EASY.fbx", Vector3(6.8f + offsetX, 6.0f + offsetY, 19.0f + offsetZ),
         Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, 0.0f, 0.0f), BrownConcrete);
 
     //Easy Difficulty
@@ -112,7 +114,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
         doorComp->initialize();
     }
 
-    writeLetter(sceneGraph, "media/Map/words/NORMAL.fbx", Vector3(0.2f + offsetX, 5.5f + offsetY, 19.0f + offsetZ),
+    writeLetter(sceneGraph, "media/Map/words/NORMAL.fbx", Vector3(0.2f + offsetX, 6.0f + offsetY, 19.0f + offsetZ),
     Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, 0.0f, 0.0f), BrownConcrete);
     //Normal Difficulty
     {
@@ -137,7 +139,7 @@ void MapLoader::menu(float offsetX, float offsetY, float offsetZ,
         doorComp->initialize();
     }
 
-    writeLetter(sceneGraph, "media/Map/words/HARD.fbx", Vector3(-7.3f + offsetX, 5.5f + offsetY, 19.0f + offsetZ),
+    writeLetter(sceneGraph, "media/Map/words/HARD.fbx", Vector3(-7.3f + offsetX, 6.0f + offsetY, 19.0f + offsetZ),
     Vector3(0.01f, 0.01f, 0.01f), Vector3(0.0f, 0.0f, 0.0f), BrownConcrete);
     //Hard Difficulty
     {
