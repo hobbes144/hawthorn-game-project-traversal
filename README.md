@@ -1,3 +1,15 @@
+# Traversal
+
+Traversal is a first-person parkour game featuring advanced movement mechanics, dynamic environments, and creative paths. This game was made largely as an exercise in physics based simulation and an implementation of the AnishCS529Engine. 
+
+### Nicholas Shaw Contributions
+First Person Controller implementation
+- Basic Movement
+- Advanced Movement
+- Parkout Mechanics
+- Level Manager
+- Physics-based Raycasting
+
 # AnishCS529Engine
 
 AnishCS529Engine is an OpenGL based game engine that is written by Anish Murthy
