@@ -7,8 +7,12 @@ First Person Controller implementation
 - Basic Movement
 - Advanced Movement
 - Parkout Mechanics
-- Level Manager
-- Physics-based Raycasting
+Level Manager
+- Scene Swapping
+- Scene Configuration
+Physics-based Raycasting
+- Implementaiton
+- Performance Optimization
 
 # AnishCS529Engine
 
